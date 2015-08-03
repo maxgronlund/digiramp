@@ -1,55 +1,78 @@
+.row
+  .col-sm-6
+    h3 Requests
+  .col-sm-6
+    .pull-right
+      .pull-down-10
+        - if @opportunity.music_requests.count == 0
+          = link_to 'Add request', new_account_account_opportunity_music_request_path(@account, @opportunity),
+          class: 'btn btn-warning'
+        - else
+          = link_to 'Add request', new_account_account_opportunity_music_request_path(@account, @opportunity),
+          class: 'btn btn-default'
+
 - @opportunity.music_requests.order('created_at asc').each_with_index do |music_request, index|
   == render 'account/music_requests/info', music_request: music_request
     
     
-  - music_request.music_submissions.order('selected desc').each do |music_submission|
+  - music_request.music_submissions.each do |music_submission|
   
-    - recording =  music_submission.recording
-    div id="delete_music_submission_#{music_submission.id.to_s}"
-      #digiWhams  class="/recordings/#{recording.id.to_s}"
-        == render 'account/music_requests/recording_for_request', recording: recording
-        .player-bottom
-          .music_submission_selection
-            div id="music_submission_selected_#{music_submission.id.to_s}"
-              / also contain buttons for remove an message
-              == render 'music_submissions/selected', music_submission: music_submission
-            
+    - if recording =  music_submission.recording
+      div id="delete_music_submission_#{music_submission.id.to_s}"
+        #digiWhams  class="/recordings/#{recording.id.to_s}"
+          == render 'account/music_requests/recording_for_request', recording: recording
+          .player-bottom
+            .music_submission_selection
+              => link_to music_submission_path( music_submission, 
+                                                user_id: current_user.id, 
+                                                opportunity_id: music_request.opportunity_id), 
+                                                method: :delete, 
+                                                data: {confirm: "Are you sure" }, 
+                                                remote: true do
+                              .btn.btn-danger.btn-xs
+                                i.fa.fa-times
+
+              
+              => link_to music_submission.recording.download_url2 do
+                .btn.btn-default.btn-xs
+                  i class="fa fa-download"
+                    
+            .music_submission_selection
+              div id="music_submission_selected_#{music_submission.id.to_s}"
+                / also contain buttons for remove an message
+                == render 'music_submissions/selected', music_request: music_request, music_submission: music_submission
+              
+      
+            /.music_submission_selection 
+              
+      
+      
+            .pull-right
+              
+              b &nbsp;Submitted by:&nbsp;
+              = music_submission.user.user_name if music_submission.user
+              
+              =< link_to new_message_digalog_path(sender: current_user, 
+                                                 receiver: music_submission.user, 
+                                                 title: "Regarding: #{music_submission.recording.title}", 
+                                                 subjectable_id: music_submission.id, 
+                                                 subjectable_type: 'MusicSubmission'), remote: true do
+                    .btn.btn-default.btn-xs
+                      i.fa.fa-envelope
+                        '&nbsp;Send message  
               
               
-            
-          .music_submission_selection  
-             =< link_to music_submission.recording.download_url2 do
-               .btn.btn-default.btn-xs
-                 i class="fa fa-download"
-            
-
-
-          .pull-right
-            
-            b &nbsp;Submitted by:&nbsp;
-            = music_submission.user.user_name if music_submission.user
-            
-            =< link_to new_message_digalog_path(sender: current_user, 
-                                               receiver: music_submission.user, 
-                                               title: "Regarding: #{music_submission.recording.title}", 
-                                               subjectable_id: music_submission.id, 
-                                               subjectable_type: 'MusicSubmission'), remote: true do
-                  .btn.btn-default.btn-xs
-                    i.fa.fa-envelope
-                      '&nbsp;Send message  
+              /== render 'messages/modal', modal_id: "pmModal_#{music_submission.id.to_s}",  recipient: music_submission.user, subjectable: music_submission
+              /'&nbsp;
+              /= link_to "#", 'data-toggle'.to_sym => "modal", 'data-target'.to_sym => "#pmModal_#{music_submission.id.to_s}" do
+              /  .btn.btn-default.btn-xs
+              /    i.fa.fa-envelope
+              /    '&nbsp;Send message
+     
             
             
-            /== render 'messages/modal', modal_id: "pmModal_#{music_submission.id.to_s}",  recipient: music_submission.user, subjectable: music_submission
-            /'&nbsp;
-            /= link_to "#", 'data-toggle'.to_sym => "modal", 'data-target'.to_sym => "#pmModal_#{music_submission.id.to_s}" do
-            /  .btn.btn-default.btn-xs
-            /    i.fa.fa-envelope
-            /    '&nbsp;Send message
-   
-          
-          
-          
-          
+            
+            
     
     
    

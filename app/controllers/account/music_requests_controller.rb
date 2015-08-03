@@ -39,16 +39,52 @@ class Account::MusicRequestsController < ApplicationController
 
   def create
     forbidden unless current_account_user.update_opportunity
-    @opportunity    = Opportunity.cached_find(params[:opportunity_id])
+    @opportunity         = Opportunity.cached_find(params[:opportunity_id])
+    initialize_recording  TransloaditRecordingsParser.parse( params[:transloadit], 
+                                                              current_account_user.account.id, 
+                                                              true, 
+                                                              current_account_user.user_id)
     
     
+    if @music_request = MusicRequest.create(music_request_params)
+      redirect_to account_account_opportunity_path(@account, @opportunity)
+    else
+      render :new
+    end
+
+  end
+
+  def update
+    ap '============================= update =================================='
+    forbidden unless current_account_user.update_opportunity
+    @opportunity         = Opportunity.cached_find(params[:opportunity_id])
+    initialize_recording  TransloaditRecordingsParser.parse( params[:transloadit], 
+                                                              current_account_user.account.id, 
+                                                              true, 
+                                                              current_account_user.user_id)
+    
+    #ap params
+    #ap music_request_params
+    if @music_request.update(music_request_params)
+      redirect_to account_account_opportunity_path(@account, @opportunity)
+    else
+      render :edit
+    end
+
+  end
+  
+  def initialize_recording result
+    ap '==============================================================='
+    ap result[:recordings][0]
     begin
-     result = TransloaditRecordingsParser.parse params[:transloadit],  current_account_user.account.id, true, current_account_user.user_id
+      
      # success mesage
      unless result[:recordings].size == 0
        flash[:info]      = "#{pluralize(result[:recordings].size, "File")} uploaded" 
        # fetch recording id
        recording_id = result[:recordings][0].id
+       # make sure recording is not shown public
+       hide_recording recording_id
        # assign the recording id to the request
        params[:music_request][:recording_id] = recording_id
      end
@@ -63,39 +99,31 @@ class Account::MusicRequestsController < ApplicationController
        flash[:danger]    = errors 
      end
     rescue
-      flash[:danger]      = "Unable to create Recording! Please check if you selected a valid file" 
+      #flash[:danger]      = "Unable to create Recording! Please check if you selected a valid file" 
       #redirect_to new_account_account_audio_file_path(@account, @common_work )
     end
-    
-    if @music_request = MusicRequest.create(music_request_params)
-      redirect_to account_account_opportunity_path(@account, @opportunity)
-    else
-      
-    end
-
   end
-
-  def update
-    forbidden unless current_account_user.update_opportunity
-    @opportunity    = Opportunity.cached_find(params[:opportunity_id])
+  
+  def hide_recording recording_id
+    if recording = Recording.cached_find(recording_id)
+      recording.mount_common_work
+      recording.account_id          = User.system_user.account.id
+      recording.user_id             = User.system_user.id
+      recording.clearance           = false
+      recording.orphan              = true
+      recording.all_ipis_confirmed  = false
+      recording.pre_cleared         = false
+      recording.in_shop             = false
+      recording.valid_for_sale      = false
+      recording.privacy             = 'Only me'
+      recording.save!
+      ap recording
+    else
+      ap '=========================================================='
+      ap "============= #{recording_id} ============================"
+      ap '=========================================================='
+    end
     
-    #begin
-     result = TransloaditRecordingsParser.parse params[:transloadit],  current_account_user.account.id , true, current_account_user.user_id
-     # success mesage
-     unless result[:recordings].size == 0
-       flash[:info]      = "#{pluralize(result[:recordings].size, "File")} uploaded" 
-       # fetch recording id
-       recording_id = result[:recordings][0].id
-       # assign the recording id to the request
-       params[:music_request][:recording_id] = recording_id
-     end
-
-
-
-    @music_request.update(music_request_params)
-    redirect_to account_account_opportunity_path(@account, @opportunity)
-
-
   end
 
 

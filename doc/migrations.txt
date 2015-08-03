@@ -47,6 +47,19 @@ rails g controller -no-helper --no-assets --no-controller-specs --no-view-specs
 
 
 
+rails g model MusicSubmissionSelection account:belongs_to  music_submission:belongs_to
+
+
+rails g model CollectionUser user:belongs_to collection:belongs_to
+
+rails g model ItemSelection item_collection:belongs_to item:references{polymorphic} 
+
+
+
+rails g model RecordingCollectionUser recording_collection:belongs_to user:belongs_to remove_selections:boolean share_collection:boolean show_shared_with:boolean
+rails g model RecordingSellection message:text recording_collection:belongs_to recording_collection_user:belongs_to recording:belongs_to
+
+
 
 
 

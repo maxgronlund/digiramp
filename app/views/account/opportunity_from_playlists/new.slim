@@ -1,0 +1,66 @@
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'account' 
+  
+
+  .pro-account
+    #sidebar-wrapper
+      ul class="sidebar-nav"
+        == render 'account/shared/sidebar', selected: 'opportunity'
+  
+  #page-content-wrapper
+    .container-fluid
+  
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { account: account_account_path(@account ),
+                                                               opportunities: account_account_opportunities_path(@account)}, current:'' }
+      .row
+        .col-sm-12
+          .help
+            .help-text
+              h2 Create opportunity from playlist 
+        
+            .help-button
+              == render 'admin/helps/help', identifier: 'account create opportunity from playlist'
+
+        
+      .sexy_line
+      .digi-box
+        = simple_form_for [ :account, @account, @opportunity], :url => url_for(:action => 'create', 
+                                                                                :controller => 'opportunity_from_playlists'), 
+                                                                                turboboost: true, :method => 'post' do |f|
+          = f.hidden_field :account_id, value: @account.id
+          = f.hidden_field :public_opportunity, value: false
+          .row
+            .col-sm-6
+              = f.input :title, autofocus:  true
+              b 
+                '*Select playlist
+              == render 'shared/popover', id: 'recording', body: 'Please select a recording from your collection.'
+              .chosen-label
+                = f.input :playlist_id, 
+                          collection: @playlists,
+                          include_blank: false,
+                          label: false,
+                          input_html: { class: 'chosen-select', 'data-placeholder'.to_sym => "Select playlist..." }
+            .col-sm-6
+              = f.input :email, placeholder: 'Optional', hint: 'Send to reviewers'
+              = f.input :body, label: 'Message', :input_html => {  style: "height: 150px;", placeholder: "Description"}
+              
+
+      
+        
+          .row
+            .col-sm-12
+              .pull-right
+                /= link_to_add_association 'Add request', f, :music_requests, class: 'btn btn-default'
+                /'&nbsp;
+                - unless @opportunity.new_record?
+                  => link_to 'Cancel',account_account_opportunity_path(@account, @opportunity), class: 'btn btn-default'
+                = f.submit 'Create', class: 'btn btn-primary'
+
+        
+          
+          
+  == render 'shared/site_footer'  
+ 
+

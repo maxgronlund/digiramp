@@ -212,6 +212,7 @@ class AccountUser < ActiveRecord::Base
       self.read_client         = permission
     self.update_client         = permission
     self.delete_client         = permission
+    self.access_account        = permission
     
   end
   

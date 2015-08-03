@@ -18,7 +18,7 @@
 /= debug @documents
 
 - recordings = @user.recordings.where(in_shop: false)
-- unless recordings.empty?
+- unless recordings.empty? && false
   .digi-box  
     - if @recording
       h3 = @recording.title

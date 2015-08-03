@@ -37,8 +37,8 @@ class User::RevenueStreamsController < ApplicationController
                                     :email,
                                     :unassigned,
                                     :ipiable_id,
-                                    :ipiable_type,
-                                    :channel_uuid,
+                                    #:ipiable_type,
+                                    #:channel_uuid,
                                     :asset_id,
                                     :asset_type,
                                     :original_source

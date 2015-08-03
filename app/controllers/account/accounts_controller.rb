@@ -8,7 +8,6 @@ class Account::AccountsController < ApplicationController
     forbidden unless current_account_user && current_account_user.access_account 
     session[:account_id] = params[:id]
     @user = @account.user
-    
   end
   
   def edit

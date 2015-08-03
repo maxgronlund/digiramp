@@ -19,7 +19,7 @@
             .col-sm-12
               .help
                 .help-text
-                 h2 #{@account.title} <funky>Pro</funky>
+                 h2 Reviewers
                 .help-button
                   == render 'admin/helps/help', identifier: 'opportunity project group'
                   
@@ -37,16 +37,14 @@
                 .btn.btn-primary
                   i.fa.fa-user
                   '&nbsp;Invite reviewers
-            
-                  
-      = @opportunity.title
+
       .sexy_line
         .digi-box
           h4 Opportunity reviewers
-          == render 'account/opportunities/reviewers'
+          == render 'index'
       /= debug @opportunity.opportunity_evaluations
-            
-                 
-              
-  == render 'shared/site_footer'    
+/            
+/                 
+/              
+/  == render 'shared/site_footer'    
  

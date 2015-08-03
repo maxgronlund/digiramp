@@ -82,6 +82,7 @@ class User < ActiveRecord::Base
   has_many :subscriptions
   has_many :recording_ipis
   
+  
   #has_many :stripe_transfers, class_name: "Shop::StripeTransfer", dependent: :destroy
 
   
@@ -106,6 +107,7 @@ class User < ActiveRecord::Base
   has_many :catalogs, through: :catalog_users
   has_many :opportunity_users,          dependent: :destroy
   has_many :opportunities, through: :opportunity_users
+  has_many :music_submission_selections
   
   #################################
   # not sure if in use
@@ -359,12 +361,6 @@ class User < ActiveRecord::Base
     self.wall_posts.where(user_id: self.id)
   end
   
-  def short_email
-    short_email = self.email.slice(0...24)
-    short_email << '...' if self.email.size > 24
-    short_email
-  end
-  
   def sanitize_relations
     # messages
     if send_messages       = Message.where(sender_id: self.id)
@@ -399,7 +395,7 @@ class User < ActiveRecord::Base
     end
     
     if self.stripe_transfers
-      self.stripe_transfers.update_all(user_id: nil, order_id: nil, order_item_id: nil )
+      self.stripe_transfers.update_all(user_id: nil, shop_order_id: nil, shop_order_item_id: nil )
     end
     
     unless self.mandrill_account_id.blank?
@@ -776,20 +772,20 @@ class User < ActiveRecord::Base
   
 
   
-  def self.find_or_invite_from_email( email)
+  def self.find_or_create_from_email email
 
-    unless user   = User.where(email: email).first
-      user        = invite_user( email )
+    if user = User.get_by_email( email )
+      return user
     end
-    user
+    create_from email 
   end
   
   def self.create_user_with_account email
-    invite_user email
+    create_from email
   end
   
   # invite a user based on an email 
-  def self.invite_user email
+  def self.create_from email
     
     if email = EmailSanitizer.saintize( email )
       user_name = create_uniq_user_name_from_email email
@@ -815,7 +811,6 @@ class User < ActiveRecord::Base
       return user
     end
     false
-    
   end
   
   def self.create_uniq_user_name_from_email email

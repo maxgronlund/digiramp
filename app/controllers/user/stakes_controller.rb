@@ -11,7 +11,6 @@ class User::StakesController < ApplicationController
   end
 
   def create
-    ap params
     Stake.create!(stake_params)
     redirect_to user_user_product_stakes_path(@user, @shop_product)
   end
@@ -31,30 +30,27 @@ class User::StakesController < ApplicationController
   
   private
   
-    def set_shop_product
-      @shop_product = Shop::Product.cached_find(params[:product_id])
-    end
+  def set_shop_product
+    @shop_product = Shop::Product.cached_find(params[:product_id])
+  end
   
-    def set_stake
-      @stake = Stake.cached_find(params[:id])
-    end
-    
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def stake_params
-      params.require(:stake).permit(:account_id,
-                                    :split,
-                                    :flat_rate_in_cent,
-                                    :currency,
-                                    :email,
-                                    :unassigned,
-                                    :ipiable_id,
-                                    :ipiable_type,
-                                    :channel_uuid,
-                                    :asset_id,
-                                    :asset_type,
-                                    :original_source
-                                    )
-    end
+  def set_stake
+    @stake = Stake.cached_find(params[:id])
+  end
+  
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def stake_params
+    params.require(:stake).permit(:account_id,
+                                  :split,
+                                  :flat_rate_in_cent,
+                                  :currency,
+                                  :email,
+                                  :unassigned,
+                                  :channel_uuid,
+                                  :asset_id,
+                                  :asset_type
+                                  )
+  end
 end
 
 

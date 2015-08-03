@@ -1,23 +1,22 @@
-- music_request = music_submission.music_request
-
-div id="old_music_submission_selected_#{music_submission.id.to_s}"
-  = simple_form_for [music_submission]  , remote: true do |f|
-  
-  
-    => link_to music_submission_path(music_submission, user_id: current_user.id, opportunity_id: music_request.opportunity_id), \
-                method: :delete, \
-                data: {confirm: "Are you sure" }, \
-                remote: true, \
-                class: "btn btn-danger btn-xs"  do
-        i class="fa fa-times"
-        
-        
-    - unless music_submission.selected
-      = f.hidden_field :selected, value: true
+div id="old_music_submission_selected_#{music_submission.id.to_s}"  
+  - if selection = music_submission.music_submission_selections.where(user_id: @account.user_id).first
+    = link_to 'Selected', account_account_opportunity_music_request_music_submission_music_submission_selection_path( \
+                @account, @opportunity, music_request,music_submission ,selection),
+                method: :delete, 
+                remote: true,
+                class: 'btn btn-success btn-xs'
+  - else
+    = simple_form_for [:account, 
+                        @account, 
+                        @opportunity, 
+                        music_request, 
+                        music_submission, 
+                        MusicSubmissionSelection.new], remote: true do |f|
+                          
+      = f.hidden_field :account_id,          value: @account.id
+      = f.hidden_field :music_submission_id, value: music_submission.id
+      = f.hidden_field :user_id,             value: @account.user_id
+    
       = f.submit 'Select', class: 'btn btn-default btn-xs'
-    - else
-      = f.hidden_field :selected, value: false
-      = f.submit 'Selected', class: 'btn btn-success btn-xs'
-      
-    
-    
+
+

@@ -37,7 +37,7 @@
                 
                 tr
                   td = l stripe_transfer.created_at, format: :date
-                  td = stripe_transfer.stake.original_source
+                  td = stripe_transfer.stake.title
                   td = number_to_currency( stripe_transfer.amount * 0.01, precision: 4, locale: 'en')
                   td 
                     - case stripe_transfer.state

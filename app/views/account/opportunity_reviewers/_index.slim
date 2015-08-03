@@ -1,0 +1,33 @@
+.alert.alert-warning
+  'Beta feature
+- if @opportunity.opportunity_users.count == 0
+  .alert.alert-info
+    button type="button" class="close" data-dismiss="alert" ×
+    'No reviewers invited
+- else
+  table class="table"
+    /- @opportunity.opportunity_reviewers.each do |opportunity_reviewer|
+    /  = debug opportunity_reviewer
+    /- @opportunity.opportunity_evaluations.each do |opportunity_evaluation|
+    / 
+    /  div id="delete_opportunity_evaluation_#{opportunity_evaluation.id.to_s}"
+    /    .pull-left
+    /      /- if opportunity_evaluation.user.super?
+    /      /  
+    /      /    .btn.btn-danger.btn-xs.disabled
+    /      /      i class="fa fa-times"
+    /      /- else
+    /      /
+    /      = link_to account_account_opportunity_opportunity_evaluation_path(@account, @opportunity, opportunity_evaluation), \
+    /                                                                    data: { confirm: 'Are you sure?' } ,\
+    /                                                                   :method => :delete, remote: true do
+    /         .pull-left
+    /           .btn.btn-danger.btn-xs
+    /             i class="fa fa-times"
+    /    '&nbsp;
+    /    = debug opportunity_evaluation
+    /    
+    /    .pull-right
+    /      'Link:&nbsp;
+    /      = link_to opportunity_evaluation.uuid, selected_opportunity_path(opportunity_evaluation.uuid) 
+    /    .sexy_line

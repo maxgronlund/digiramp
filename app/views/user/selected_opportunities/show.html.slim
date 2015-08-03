@@ -10,7 +10,7 @@
   #page-content-wrapper
     .container-fluid 
       .row
-        .col-sm-12
+        .col-sm-8
           .help
             .help-text
               h2 Opportunity
@@ -24,7 +24,13 @@
                     .btn.btn-default
                       i.fa.fa-eye
                       '&nbsp;Manage
-
+        .col-sm-4
+          .pull-right.pull-down-10
+            - if opportunity_user = OpportunityUser.find_by(opportunity_id: @opportunity.id, user_id: @user)
+              - if opportunity_user.reviewer
+                => link_to opportunity_opportunity_reviewer_path(@opportunity, opportunity_user.uuid) do
+                  .btn.btn-default
+                    'Review
          
 
                 

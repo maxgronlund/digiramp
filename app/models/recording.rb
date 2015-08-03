@@ -219,8 +219,7 @@ class Recording < ActiveRecord::Base
   end
   
   def mount_common_work
-    
-    if self.common_work_id.nil?
+    unless self.common_work_id
       common_work = CommonWork.create( account_id: self.account_id, 
                                        title:      self.title, 
                                        lyrics:     self.lyrics)
@@ -275,7 +274,8 @@ class Recording < ActiveRecord::Base
                                                        show_credit_on_recordings: true, 
                                                        confirmation: "Accepted")
     rescue
-      ap 'outch'
+      
+      ErrorNotification.post "Recording#user_credits: recording_id: #{self.id} "
     end
   end
   
@@ -572,29 +572,29 @@ class Recording < ActiveRecord::Base
   end
   
   def zip
-    begin
-      folder = UUIDTools::UUID.timestamp_create().to_s
-      new_dir = FileUtils.mkdir_p( Rails.root.join("public", "uploads", "recordings", "zip", folder ).to_s )
-
-      temp_file = Tempfile.new("recording-zip-#{UUIDTools::UUID.timestamp_create().to_s}")
-        Zip::OutputStream.open(temp_file.path) do |z|
-          title = self.original_file_name
-          z.put_next_entry("#{self.title}/#{title}")
-          url1_data = open(self.mp3)
-          z.print IO.read(url1_data)
-        end
-      
-        
-        file = File.open(Rails.root.join("public", "uploads", "recordings", "zip", folder ,"#{self.title}.zip"), "w+b")
-        file.write(temp_file.read)
-        
-        self.zipp =  "uploads/recordings/zip/" + folder + '/' +  self.title + ".zip"
-        self.save
-      temp_file.close
-    
-    rescue Exception => e  
-      ap e.inspect
-    end
+    #begin
+    #  folder = UUIDTools::UUID.timestamp_create().to_s
+    #  new_dir = FileUtils.mkdir_p( Rails.root.join("public", "uploads", "recordings", "zip", folder ).to_s )
+    #
+    #  temp_file = Tempfile.new("recording-zip-#{UUIDTools::UUID.timestamp_create().to_s}")
+    #    Zip::OutputStream.open(temp_file.path) do |z|
+    #      title = self.original_file_name
+    #      z.put_next_entry("#{self.title}/#{title}")
+    #      url1_data = open(self.mp3)
+    #      z.print IO.read(url1_data)
+    #    end
+    #  
+    #    
+    #    file = File.open(Rails.root.join("public", "uploads", "recordings", "zip", folder ,"#{self.title}.zip"), "w+b")
+    #    file.write(temp_file.read)
+    #    
+    #    self.zipp =  "uploads/recordings/zip/" + folder + '/' +  self.title + ".zip"
+    #    self.save
+    #  temp_file.close
+    #
+    #rescue Exception => e  
+    #  ap e.inspect
+    #end
 
   end
   

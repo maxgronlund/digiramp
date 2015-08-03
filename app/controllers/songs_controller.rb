@@ -1,7 +1,6 @@
 class SongsController < ApplicationController
   
   def index
-    ap params
     # statistic
     PageView.create(url: '/recordings' ) if request.format.to_s == 'text/html'
     

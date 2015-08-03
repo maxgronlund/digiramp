@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150726160619) do
+ActiveRecord::Schema.define(version: 20150802150320) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -2110,6 +2110,20 @@ ActiveRecord::Schema.define(version: 20150726160619) do
 
   add_index "music_requests", ["opportunity_id"], name: "index_music_requests_on_opportunity_id", using: :btree
 
+  create_table "music_submission_selections", force: :cascade do |t|
+    t.integer  "account_id"
+    t.integer  "music_submission_id"
+    t.integer  "music_request_id"
+    t.integer  "user_id"
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
+  end
+
+  add_index "music_submission_selections", ["account_id"], name: "index_music_submission_selections_on_account_id", using: :btree
+  add_index "music_submission_selections", ["music_request_id"], name: "index_music_submission_selections_on_music_request_id", using: :btree
+  add_index "music_submission_selections", ["music_submission_id"], name: "index_music_submission_selections_on_music_submission_id", using: :btree
+  add_index "music_submission_selections", ["user_id"], name: "index_music_submission_selections_on_user_id", using: :btree
+
   create_table "music_submissions", force: :cascade do |t|
     t.integer  "recording_id"
     t.integer  "music_request_id"
@@ -2119,13 +2133,13 @@ ActiveRecord::Schema.define(version: 20150726160619) do
     t.integer  "supervisors_order"
     t.boolean  "supervisor_like"
     t.decimal  "relevance"
-    t.datetime "created_at",                                      null: false
-    t.datetime "updated_at",                                      null: false
+    t.datetime "created_at",                                  null: false
+    t.datetime "updated_at",                                  null: false
     t.integer  "stars",                           default: 0
     t.integer  "like",                            default: 0
     t.integer  "opportunity_user_id"
     t.integer  "account_id"
-    t.boolean  "selected",                        default: false
+    t.boolean  "selected"
   end
 
   add_index "music_submissions", ["account_id"], name: "index_music_submissions_on_account_id", using: :btree
@@ -2196,6 +2210,9 @@ ActiveRecord::Schema.define(version: 20150726160619) do
     t.text     "invitees"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "provider",                   default: true
+    t.boolean  "reviewer",                   default: false
+    t.boolean  "can_download",               default: true
   end
 
   add_index "opportunity_invitations", ["opportunity_id"], name: "index_opportunity_invitations_on_opportunity_id", using: :btree
@@ -2205,6 +2222,10 @@ ActiveRecord::Schema.define(version: 20150726160619) do
     t.integer  "opportunity_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "provider",       default: true
+    t.boolean  "reviewer",       default: false
+    t.string   "uuid",           default: ""
+    t.boolean  "can_download",   default: true
   end
 
   add_index "opportunity_users", ["opportunity_id"], name: "index_opportunity_users_on_opportunity_id", using: :btree
@@ -2982,6 +3003,7 @@ ActiveRecord::Schema.define(version: 20150726160619) do
     t.string   "state",              default: "pending"
     t.string   "stripe_errors"
     t.string   "description"
+    t.integer  "application_fee"
   end
 
   add_index "shop_stripe_transfers", ["account_id"], name: "index_shop_stripe_transfers_on_account_id", using: :btree
@@ -3007,12 +3029,9 @@ ActiveRecord::Schema.define(version: 20150726160619) do
     t.datetime "updated_at",                        null: false
     t.string   "email"
     t.boolean  "unassigned",        default: false
-    t.integer  "ipiable_id"
-    t.string   "ipiable_type"
     t.uuid     "channel_uuid"
     t.uuid     "asset_id"
     t.string   "asset_type"
-    t.string   "original_source"
   end
 
   add_index "stakes", ["asset_type", "asset_id"], name: "index_stakes_on_asset_type_and_asset_id", using: :btree
@@ -3475,6 +3494,8 @@ ActiveRecord::Schema.define(version: 20150726160619) do
   add_foreign_key "item_likes", "users", on_delete: :cascade
   add_foreign_key "likes", "accounts", on_delete: :cascade
   add_foreign_key "mail_campaigns", "accounts", on_delete: :cascade
+  add_foreign_key "music_submission_selections", "music_requests", on_delete: :cascade
+  add_foreign_key "music_submission_selections", "music_submissions", on_delete: :cascade
   add_foreign_key "opportunities", "accounts", on_delete: :cascade
   add_foreign_key "playbacks", "accounts", on_delete: :cascade
   add_foreign_key "playlist_emails", "accounts", on_delete: :cascade

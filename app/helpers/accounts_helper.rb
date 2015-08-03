@@ -2,7 +2,9 @@ module AccountsHelper
 
 
   def access_account
-    return forbidden if current_user.nil?
+    
+    #return forbidden unless current_user
+    return forbidden unless current_account_user
     
     if params[:account_id]
       @account = Account.cached_find(params[:account_id])
@@ -20,7 +22,7 @@ module AccountsHelper
   # v2 used in the account name space to find the account
   # !!! broken
   def get_account_account
-    return forbidden if current_user.nil?
+    return forbidden unless current_user
     @user = current_user
     if params[:account_id]
       @account    = Account.cached_find(params[:account_id])

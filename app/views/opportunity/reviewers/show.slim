@@ -1,0 +1,81 @@
+/= debug @opportunity
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'home' 
+  
+
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'users/shared/sidebar', selected: 'opportunities'
+  
+  #page-content-wrapper
+    .container-fluid 
+      .row
+        .col-sm-12
+          .help
+            .help-text
+              h2 = @opportunity.title
+        
+            .help-button
+              == render 'admin/helps/help', identifier: 'show account opportunity'
+      .sexy_line
+      /.opportunity.pull-down-4
+      /  == render 'opportunities/opportunity', opportunity: @opportunity
+      /
+      /== render 'opportunity/music_requests/index'
+      - @opportunity.music_requests.order('created_at asc').each do |music_request|
+        - music_request.music_submissions.each do |music_submission|
+          - if recording =  music_submission.recording
+            div id="delete_music_submission_#{music_submission.id.to_s}"
+              .row
+                .col-sm-12
+                  #digiWhams  class="/recordings/#{recording.id.to_s}"
+                    == render 'audio_player/show', recording: recording , description: true, target: ''
+                    .player-bottom
+                      - if @opportunity_user.can_download
+                        .music_submission_selection
+                          => link_to music_submission.recording.download_url2 do
+                            .btn.btn-default.btn-xs
+                              i class="fa fa-download"
+                          '&nbsp;
+                    
+                      .music_submission_selection
+                        div id="music_submission_selected_#{music_submission.id.to_s}"
+                          / also contain buttons for remove an message
+                          == render 'music_submissions/selected', music_request: music_request, music_submission: music_submission
+                          
+                          
+                      .pull-right
+                        =< link_to new_message_digalog_path(sender: current_user, 
+                                                           receiver: music_submission.user, 
+                                                           title: "Regarding: #{music_submission.recording.title}", 
+                                                           subjectable_id: music_submission.id, 
+                                                           subjectable_type: 'MusicSubmission'), remote: true do
+                              .btn.btn-default.btn-xs
+                                i.fa.fa-envelope
+                                  '&nbsp;Send message
+                        
+                      
+                      /- if music_submission.selected(current_user.account.id, current_user.id, @opportunity.id, music_submission.id)
+                      /- if selection = music_submission.music_submission_selections.where(user_id: current_user.id).first
+                      /  .btn.btn-danger.btn-xs disabled="disabled"
+                      /    i class="fa fa-times"
+                      /    '&nbsp;Remove submission
+                      /  '&nbsp;
+                      /  'Your submission is selected for review
+                      /- else
+                      /  => link_to music_submission_path(music_submission, user_id: current_user.id, opportunity_id: music_request.opportunity_id), \
+                      /              method: :delete, \
+                      /              data: {confirm: "Are you sure" }, \
+                      /              remote: true, \
+                      /              class: "btn btn-danger btn-xs"  do
+                      /      i class="fa fa-times"
+                      /      '&nbsp;Remove submission
+                      
+              
+        
+        /== render 'opportunity/music_requests/music_request', music_request: music_request
+      
+      
+      
+  == render 'shared/site_footer' 

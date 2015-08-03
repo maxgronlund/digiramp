@@ -1,0 +1,130 @@
+- session[:return_url]         = request.url
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'contacts' 
+  
+  
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'users/shared/sidebar', selected: 'control panel'
+  
+  #page-content-wrapper
+    .container-fluid
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { dashboard: user_user_control_panel_index_path(@user) }, current: ''}
+      .row
+        .col-sm-12
+          .help
+            .help-text
+              h2 = @opportunity.title
+            .help-button
+              == render 'admin/helps/help', identifier: 'user opportunity selection'
+              
+
+        /.col-sm-6
+        /  /.pull-right.pull-down-10
+        /  /  => link_to user_user_contact_groups_path(@user) do
+        /  /    .btn.btn-default
+        /  /      i.fa.fa-users
+        /  /      '&nbsp;Groups
+        /  /  = link_to 'Add contacts', new_user_user_contact_path( @user), class: 'btn btn-primary'
+        /  /  
+        /
+        
+        
+        
+      
+      .sexy_line
+      - @music_submission_selections.each do |music_submission_selection|
+        - if recording =  music_submission_selection.recording
+          - if music_submission = music_submission_selection.music_submission
+            div id="delete_music_submission_#{music_submission.id.to_s}"
+              #digiWhams  class="/recordings/#{recording.id.to_s}"
+                == render 'account/music_requests/recording_for_request', recording: recording
+                .player-bottom
+                  .music_submission_selection
+                    div id="music_submission_selected_#{music_submission.id.to_s}"
+                      /== render 'music_submissions/selected', music_submission: music_submission
+                
+            
+                  .music_submission_selection 
+                    '&nbsp;
+                    = link_to music_submission.recording.download_url2 do
+                      .btn.btn-default.btn-xs
+                        i class="fa fa-download"
+                  
+        
+                  
+        
+          
+          
+          
+      /  == render 'shared/site_footer'  
+  
+      
+
+/- session[:return_url]         = request.url
+/#wrapper
+/  .full-width-top
+/    == render 'shared/navigationbar', page: 'account' 
+/  
+/
+/  .pro-account
+/    #sidebar-wrapper
+/      ul class="sidebar-nav"
+/        == render 'account/shared/sidebar', selected: 'opportunity'
+/  
+/  #page-content-wrapper
+/
+/    .container-fluid
+/      == render 'shared/breadcrumbs', breadcrumbs: { \
+/                                      links: { account: account_account_path(@account), \
+/                                      opportunities: account_account_opportunities_path(@account) }, current: ''}
+/      
+/      == render 'admin/shared/messages'
+/      .row
+/        .col-sm-6
+/          .help
+/            .help-text
+/              h2 = "Selections for #{@opportunity.title}"
+/        
+/            .help-button
+/              == render 'admin/helps/help', identifier: 'account opportunity selections'
+/      
+/        .col-sm-6
+/          .pull-right
+/            .pull-down-10
+/              /=< link_to edit_account_account_opportunity_path(@account, @opportunity) do
+/              /  .btn.btn-default
+/              /    i.fa.fa-pencil
+/              /    '&nbsp;
+/              /    'Edit
+/      
+/      .sexy_line 
+/
+/      - @music_submission_selections.each do |music_submission_selection|
+/        - if recording =  music_submission_selection.recording
+/          - if music_submission = music_submission_selection.music_submission
+/            div id="delete_music_submission_#{music_submission.id.to_s}"
+/              #digiWhams  class="/recordings/#{recording.id.to_s}"
+/                == render 'account/music_requests/recording_for_request', recording: recording
+/                .player-bottom
+/                  .music_submission_selection
+/                    div id="music_submission_selected_#{music_submission.id.to_s}"
+/                      == render 'music_submissions/selected', music_submission: music_submission
+/                
+/            
+/                  .music_submission_selection 
+/                    '&nbsp;
+/                    = link_to music_submission.recording.download_url2 do
+/                      .btn.btn-default.btn-xs
+/                        i class="fa fa-download"
+/                
+/
+/                
+/      
+/        
+/        
+/        
+/  == render 'shared/site_footer'  
+  
+

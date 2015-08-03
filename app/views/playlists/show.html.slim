@@ -11,11 +11,20 @@
   #page-content-wrapper
     .container-fluid
       .row
-        .col-sm-8
+        .col-sm-6
           h2 = @playlist.title
         - if (current_user && current_user.id == @user.id) || super?
-          .col-sm-4
+          .col-sm-6
             .pull-right.pull-down-10
+
+
+              = link_to new_account_account_opportunity_from_playlist_path( @user.account, playlist_id: @playlist.id) do
+                .btn.btn-default
+                  i.fa.fa-envelope
+                  '&nbsp;
+                  'Create opportunity
+                  
+                  
               => link_to new_user_user_playlist_playlist_email_path(@user, @playlist) do
                 .btn.btn-default
                   i.fa.fa-envelope &nbsp; Email playlist

@@ -9,13 +9,12 @@ class MusicSubmission < ActiveRecord::Base
   after_commit        :flush_cache
   
   validates :recording_id, :music_request_id, :user_id, :account_id, presence: true
-
-  
+  has_many :music_submission_selections
   
   def self.cached_find(id)
     Rails.cache.fetch([name, id]) { find(id) }
   end
-  
+
 private
   
   def flush_cache

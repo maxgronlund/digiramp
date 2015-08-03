@@ -63,7 +63,8 @@ gem 'whenever', require: false
 gem 'watir', '~> 5.0.0'
 gem 'watir-webdriver', '~> 0.6.10'
 #gem 'selenium-webdriver', '~> 2.42.0'
-gem 'nokogiri', '~> 1.6.3.1'
+#gem 'nokogiri', '~> 1.6.3.1'
+gem 'nokogiri', '~> 1.6.6.2'
 gem 'headless'
 #gem 'linguistics'
 gem 'levenshtein'
@@ -299,4 +300,5 @@ group :development do
   gem 'binding_of_caller'
   
   gem 'deadweight'
+  gem 'mechanize'
 end

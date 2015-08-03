@@ -356,6 +356,7 @@ class Account < ActiveRecord::Base
     
     unless self.account_type == 'Social'
       administrators_account_user.grand_pro_permissions
+      
     end
 
   end

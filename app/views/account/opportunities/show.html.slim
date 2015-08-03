@@ -1,3 +1,4 @@
+- session[:return_url]         = request.url
 #wrapper
   .full-width-top
     == render 'shared/navigationbar', page: 'account' 
@@ -9,144 +10,74 @@
         == render 'account/shared/sidebar', selected: 'opportunity'
   
   #page-content-wrapper
+
     .container-fluid
-  
-      == render 'shared/breadcrumbs', breadcrumbs: { links: { account: account_account_path(@account), \
-                                                              opportunities: account_account_opportunities_path(@account) }, current: ''}
+      == render 'shared/breadcrumbs', breadcrumbs: { \
+                                      links: { account: account_account_path(@account), \
+                                      opportunities: account_account_opportunities_path(@account) }, current: ''}
+      
+      == render 'admin/shared/messages'
       .row
-        .col-sm-6
+        .col-sm-8
           .help
             .help-text
               h2 = @opportunity.title
         
             .help-button
               == render 'admin/helps/help', identifier: 'show account opportunity'
-
-        .col-sm-6
+      
+        .col-sm-4
           .pull-right
             .pull-down-10
-              =< link_to edit_account_account_opportunity_path(@account, @opportunity) do
-                .btn.btn-primary
-                  i.fa.fa-pencil
-                  '&nbsp;
-                  'Edit
-
+              => link_to account_account_opportunity_opportunity_users_path(@account, @opportunity) do          
+                .btn.btn-default
+                  i.fa.fa-group&nbsp;Users
+                  
+              = link_to edit_account_account_opportunity_path(@account, @opportunity) do
+                .btn.btn-default
+                  i.fa.fa-pencil&nbsp;Edit
+      
       .sexy_line 
       .row
         .col-sm-12
+          /= link_to 'Selections', account_account_opportunity_selection_path(@account, @opportunity), class: 'btn btn-default'
           .pull-right
-            - unless @opportunity.opportunity_email_send 
-              -if  @opportunity.public_opportunity 
-                => link_to account_account_send_opportunity_email_path(@account, @opportunity), \
-                                                      id: 'send-opportunity-emails', \
-                                                      data: {confirm: 'You can only notify subscribers one time. Are you sure?'}, \
-                                                      remote: true do          
-                  .btn.btn-default
-                    i.fa.fa-envelope
-                    '&nbsp;
-                    'Send to subscribers
-                  
-            => link_to account_account_opportunity_opportunity_reviewers_path(@account, @opportunity) do          
-              .btn.btn-default
-                i.fa.fa-group
-                '&nbsp;
-                'Share selections
-            
-            => link_to account_account_opportunity_opportunity_providers_path(@account, @opportunity) do          
-              .btn.btn-default
-                i.fa.fa-group
-                '&nbsp;
-                'Providers
+            - if @opportunity.music_requests.count == 0
+              .alert.alert-danger
+                'Please add a music request from the botton below                
+            - else
+              - unless @opportunity.opportunity_email_send 
+                -if  @opportunity.public_opportunity 
+                  => link_to account_account_send_opportunity_email_path(@account, @opportunity), \
+                                                        id: 'send-opportunity-emails', \
+                                                        data: {confirm: 'You can only notify subscribers one time. Are you sure?'}, \
+                                                        remote: true do          
+                    .btn.btn-default
+                      i.fa.fa-envelope
+                      '&nbsp;
+                      'Send to subscribers
+                    
+              /=> link_to account_account_opportunity_opportunity_reviewers_path(@account, @opportunity) do          
+              /  .btn.btn-default
+              /    i.fa.fa-group
+              /    '&nbsp;
+              /    'Reviewers
+              /
+              /= link_to account_account_opportunity_opportunity_providers_path(@account, @opportunity) do          
+              /  .btn.btn-default
+              /    i.fa.fa-group
+              /    '&nbsp;
+              /    'Users
       .opportunity.pull-down-4
         == render 'opportunities/opportunity', opportunity: @opportunity
-        /== render 'account/shared/opportunity', opportunity: @opportunity
-      
-      h3 Requests
+
       == render 'account/opportunities/requests'
       
                 
-
+      
         
-          
-          
+        
+        
   == render 'shared/site_footer'  
   
-
-/#wrapper
-/  .full-width-top
-/    == render 'shared/navigationbar', page: 'account' 
-/     
-/  
-/
-/  #sidebar-wrapper
-/    ul class="sidebar-nav"
-/      == render 'users/shared/sidebar', selected: 'account'
-/  
-/  #page-content-wrapper
-/    .container-fluid
-/      == render 'admin/shared/messages'
-/      == render 'shared/breadcrumbs', breadcrumbs: { links: { account: account_account_path(@account), \
-/                                                              opportunities: account_account_opportunities_path(@account) }, current: ''}
-/      .row
-/        .col-sm-6
-/          .help
-/            .help-text
-/              h2 #{@account.title} <funky>Pro</funky>
-/            .help-button
-/              == render 'admin/helps/help', identifier: 'show account opportunity'
-/
-/
-/        .col-sm-6
-/          .pull-right
-/            .pull-down-10
-/              =< link_to edit_account_account_opportunity_path(@account, @opportunity) do
-/                .btn.btn-primary
-/                  i.fa.fa-pencil
-/                  '&nbsp;
-/                  'Edit
-/              
-/        
-/        
-/      .sexy_line 
-/      .row
-/        .col-sm-12
-/          .pull-right
-/            - unless @opportunity.opportunity_email_send 
-/              -if  @opportunity.public_opportunity 
-/                => link_to account_account_send_opportunity_email_path(@account, @opportunity), \
-/                                                      id: 'send-opportunity-emails', \
-/                                                      data: {confirm: 'You can only notify subscribers one time. Are you sure?'}, \
-/                                                      remote: true do          
-/                  .btn.btn-default
-/                    i.fa.fa-envelope
-/                    '&nbsp;
-/                    'Send to subscribers
-/                  
-/            => link_to account_account_opportunity_opportunity_reviewers_path(@account, @opportunity) do          
-/              .btn.btn-default
-/                i.fa.fa-group
-/                '&nbsp;
-/                'Share selections
-/            
-/            => link_to account_account_opportunity_opportunity_providers_path(@account, @opportunity) do          
-/              .btn.btn-default
-/                i.fa.fa-group
-/                '&nbsp;
-/                'Providers
-/      .opportunity.pull-down-4
-/        == render 'opportunities/opportunity', opportunity: @opportunity
-/            
-/        
-/ 
-/      
-/      h3 Requests
-/      == render 'account/opportunities/requests'
-/      
-/            
-/                                            
-/      
-/  == render 'shared/site_footer'  
-/ 
-
-
 

@@ -5,10 +5,17 @@ class Account::OpportunityUsersController < ApplicationController
 
   # GET /opportunities
   # GET /opportunities.json
-  #def index
-  #  forbidden unless current_account_user.read_opportunity
-  #  @opportunities = @account.opportunities
-  #end
+  def index
+    #forbidden unless current_account_user.read_opportunity
+    #@opportunities = @account.opportunities
+    forbidden unless current_account_user.update_opportunity
+    @opportunity = Opportunity.cached_find(params[:opportunity_id])
+    @user        = current_user
+    @opportunity_invitation = OpportunityInvitation.new(reviewer: true)
+
+  end
+  
+  
   #
   ## GET /opportunities/1
   ## GET /opportunities/1.json

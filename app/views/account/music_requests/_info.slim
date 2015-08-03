@@ -8,11 +8,15 @@
                                                                     data: { confirm: 'Are you sure?' },
                                                                     turboboost: true , 
                                                                     :method => :delete  do
-            .btn.btn-xs.btn-danger
+            .btn.btn-danger.btn-xs
               i class="fa fa-times"
           
           =< link_to edit_account_account_opportunity_music_request_path(@account, @opportunity, music_request) do
-            .btn.btn-xs.btn-default
+            .btn.btn-default.btn-xs
               i class="fa fa-pencil"
               '&nbsp;Edit
+        
+        =< link_to opportunity_opportunity_music_request_request_recordings_path( @opportunity, music_request.id ) do
+          .btn.btn-default.btn-xs
+            i.fa.fa-plus&nbsp;Submit recordings
   

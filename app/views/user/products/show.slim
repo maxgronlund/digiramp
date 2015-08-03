@@ -19,7 +19,13 @@
                                                               'shop admin'.to_sym => user_user_shop_admin_index_path(@user)}, current: ''}
       .row
         .col-sm-8
-          h3 = @shop_product.title
+          .help
+            .help-text
+              h2 = @shop_product.title
+            .help-button
+              == render 'admin/helps/help', identifier: 'user shop product'
+              
+           
           
         .col-sm-4
           .pull-right.pull-down-10

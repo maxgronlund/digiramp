@@ -1,7 +1,5 @@
 Digiramp::Application.routes.draw do
 
-
-
   resources :accepting_signatures
 
   # user namespace arount line 730
@@ -491,6 +489,7 @@ Digiramp::Application.routes.draw do
     end
 
     resources :accounts do
+      resources :opportunity_from_playlists, only: [:create, :new]
       resources :subscriptions, only: [:new, :edit, :update, :create, :destroy]
       resources :recording_departures
       resources :attachments, only: [:destroy]
@@ -520,6 +519,7 @@ Digiramp::Application.routes.draw do
           post 'recordings_create'
         end
         
+        
         resources :recordings do
          
           member do
@@ -538,13 +538,13 @@ Digiramp::Application.routes.draw do
       resources :admin_clients
       resources :documents, only: [:index] do
       end
-      
+      resources :opportunity_selections
 
       resources :opportunities do
-        resources :opportunity_evaluations
-        resources :opportunity_reviewers
-        resources :opportunity_users, only: [:destroy, :show]
-        resources :opportunity_providers, only: [:index]
+        #resources :opportunity_reviewers
+        #resources :opportunity_evaluations # !!!
+        resources :opportunity_users #, only: [:destroy, :show]
+        #resources :opportunity_providers, only: [:index]
         member do
           get 'music_submissions'
         end
@@ -558,6 +558,7 @@ Digiramp::Application.routes.draw do
           #end
           get 'max_submissions_reached'
           resources :music_submissions do
+            resources :music_submission_selections, only: [:create, :destroy]
             member do
               get 'submit_recording'
               
@@ -714,6 +715,9 @@ Digiramp::Application.routes.draw do
   #=================== OPPORTUNITY =========================
   namespace :opportunity do
     resources :opportunities, only: [:index, :show] do
+      
+      resources :reviewers
+      
       resources :recordings
       resources :music_requests do
         resources :request_recordings, only: [:index]
@@ -868,12 +872,15 @@ Digiramp::Application.routes.draw do
       get "legal"        => "legal#index",      :as => :legal_index
       resources :mail_subscribtions, only: [:index, :show, :destroy, :create]
       resources :new_opportunities, only: [:index, :show, :destroy]
+      resources :opportunities_for_reviews, only: [:index, :show]
       resources :opportunities, only: [:index, :show, :destroy] do
+      
         resources :music_requests do
           resources :request_recordings
         end
         
       end
+      resources :opportunity_selections
       resources :order_items
       #resources :plans
       resources :payouts, only: [:index]
@@ -885,6 +892,7 @@ Digiramp::Application.routes.draw do
       resources :products do
         resources :stakes
       end
+      resources :private_opportunities, only: [:index]
       resources :stakes, only: [:update]
       resources :recording_transfers
       resources :recording_credits

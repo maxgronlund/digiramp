@@ -1,3 +1,4 @@
+# this is a batch of invitations to evaluate a opportunity
 class OpportunityEvaluation < ActiveRecord::Base
   belongs_to :opportunity
   belongs_to :user
@@ -15,20 +16,28 @@ class OpportunityEvaluation < ActiveRecord::Base
   def init_users
     self.emails.split(/, ?/).each do |email|
       
-      sanitized_email =  EmailSanitizer.saintize email
+      if sanitized_email =  EmailSanitizer.saintize(email)
 
-      if user  = User.find_or_invite_from_email( sanitized_email )
-        if user.account_activated
-          OpportunityEvaluationMailer.delay.invite(user.id, self.id)
-        else
-          user.add_token
-          OpportunityEvaluationMailer.delay.invite_to_account(user.id, self.id )
-        end                  
-      end  
-    end                
+        if user  = User.find_or_create_from_email( sanitized_email )
+          if user.account_activated
+            OpportunityEvaluationMailer.delay.invite(user.id, self.id)
+          else
+            user.add_token
+            OpportunityEvaluationMailer.delay.invite_to_account(user.id, self.id )
+          end                  
+        end 
+        
+        OpportunityUser.where(
+                           opportunity_id: self.opportunity_id,
+                           user_id: user.id) 
+                    .first_or_create(
+                           opportunity_id: self.opportunity_id,
+                           user_id: user.id) 
+      end
+    end              
   end
   
-  def create_opportunity_users
+  def create_opportunity_users 
     
   end
   

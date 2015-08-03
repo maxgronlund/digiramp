@@ -18,7 +18,13 @@
       
       .row
         .col-sm-8
-          h2 Shop administration
+          .help
+            .help-text
+              h2 Shop administration
+            .help-button
+              == render 'admin/helps/help', identifier: 'user shop admin'
+              
+
         .col-sm-4
           .pull-down-10.pull-right
             => link_to 'Payouts', user_user_payouts_path(@user), class: 'btn btn-default'

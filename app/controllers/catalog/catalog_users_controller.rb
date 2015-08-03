@@ -67,7 +67,7 @@ class Catalog::CatalogUsersController < ApplicationController
                                                 )
       else
         # invite a new user
-        if user = User.invite_user( email )
+        if user = User.find_or_create_from_email( email )
           # send email
           UserMailer.delay.invite_user_to_catalog( email,
                                                    title, 

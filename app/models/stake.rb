@@ -1,3 +1,4 @@
+# is attached to an shop item
 class Stake < ActiveRecord::Base
   belongs_to :account
   belongs_to :asset, polymorphic: true
@@ -16,9 +17,8 @@ class Stake < ActiveRecord::Base
 
   after_commit :flush_cache
   
-  #def asset
-  #  
-  #end
+ 
+  
   def generated_income
     unit_price * units_sold
   end
@@ -27,17 +27,8 @@ class Stake < ActiveRecord::Base
     @units_sold ||= stripe_transfers.count
   end
   
-  def income_source
-    title = 'na'
-    case self.asset_type
-    when 'Shop::Product'
-      shop_product = Shop::Product.cached_find(self.asset_id)
-      return shop_product.title
-    when 'Stake'
-      stake = Stake.cached_find(self.asset_id)
-      return stake.income_source
-    end
-    title
+  def title
+    self.asset ? self.asset.title : 'na'
   end
   
   def unit_price
@@ -96,7 +87,9 @@ class Stake < ActiveRecord::Base
   def take_a_cut order_item_id, amount, stripe_charge_id
     
     begin
-      order_item = Shop::OrderItem.cached_find( order_item_id )
+      order_item      = Shop::OrderItem.cached_find( order_item_id )
+      amount          = (amount.to_f * self.split * 0.01)
+      application_fee = (amount * 0.019) + 0.5
 
       # tripy way to prevent the same transfer to run two times
       stripe_transfer = Shop::StripeTransfer
@@ -113,44 +106,51 @@ class Stake < ActiveRecord::Base
                             user_id:              self.account.user_id,
                             source_transaction:   stripe_charge_id,
                             split:                self.split,
-                            amount:               (amount.to_f * self.split * 0.01).to_i,
-                            source_transaction:   stripe_charge_id,
+                            amount:               amount.to_i,
                             currency:             'usd',
-                            stake_id:             self.id
+                            stake_id:             self.id,
+                            application_fee:      application_fee.to_i
                            )
-      stripe_transfer.finis! if self.account_id == order_item.account_id
+      
+      ap stripe_transfer
+      ap '=============================================='
+      ap order_item
+      ap '=============================================='
+      # mark as paid if the money already is on the right account
+      stripe_transfer.finis! if stripe_transfer.seller_account_id == order_item.seller_account_id
+
     rescue => e
       errored('Stake#transfer_to_stripe', e )
     end         
   end
-    
+  private
     
     
 
-    def flush_cache
-      Rails.cache.delete([self.class.name, id])
-    end 
-    
-    def remove_streams
-      self.stakeholders.destroy_all if self.stakeholders
-    end
+  def flush_cache
+    Rails.cache.delete([self.class.name, id])
+  end 
   
-    def attach_to_user
-      self.channel_uuid = UUIDTools::UUID.timestamp_create().to_s
+  def remove_streams
+    self.stakeholders.destroy_all if self.stakeholders
+  end
+  
+  def attach_to_user
+    self.channel_uuid = UUIDTools::UUID.timestamp_create().to_s
 
-      if user = User.find_by(email: self.email)
-      elsif user_email = UserEmail.find_by(email: self.email)
-        user = user_email.user
-      end
-
-      if user
-        self.account_id   = user.account.id
-      else
-        self.unassigned   = false
-      end 
-      self.save!
-      ap self
+    if user = User.find_by(email: self.email)
+    elsif user_email = UserEmail.find_by(email: self.email)
+      user = user_email.user
     end
+
+    if user
+      self.account_id   = user.account.id
+    else
+      self.unassigned   = false
+    end 
+    self.save!
+    ap self
+  end
   
   
   

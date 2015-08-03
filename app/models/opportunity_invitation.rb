@@ -4,6 +4,7 @@ class OpportunityInvitation < ActiveRecord::Base
   after_commit    :flush_cache
   
   
+  
   def self.cached_find(id)
     Rails.cache.fetch([name, id]) { find(id) }
   end

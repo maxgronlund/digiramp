@@ -3,11 +3,10 @@
     == render 'shared/navigationbar', page: 'account' 
   
 
-  #sidebar-wrapper
-    .pro-account
-      #sidebar-wrapper
-        ul class="sidebar-nav"
-          == render 'account/shared/sidebar', selected: 'common_work'
+  .pro-account
+    #sidebar-wrapper
+      ul class="sidebar-nav"
+        == render 'account/shared/sidebar', selected: 'opportunity'
   
   #page-content-wrapper
     .container-fluid      
@@ -17,10 +16,9 @@
         .col-sm-12
           .help
             .help-text
-              h2 #{@account.title} <funky>Pro</funky>
+              h2 New opportunity
             .help-button
               == render 'admin/helps/help', identifier: 'new account opportunity'
-      'New opportunity
       .sexy_line  
       .opportunity 
         == render 'form'

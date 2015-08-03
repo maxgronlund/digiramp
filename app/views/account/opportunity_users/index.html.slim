@@ -1,0 +1,123 @@
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'account' 
+  
+
+  .pro-account
+    #sidebar-wrapper
+      ul class="sidebar-nav"
+        == render 'account/shared/sidebar', selected: 'opportunity'
+  
+  #page-content-wrapper
+    .container-fluid
+      == render 'admin/shared/messages'
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { opportunities: account_account_opportunities_path(@account), \
+                                                                @opportunity.title.to_sym => account_account_opportunity_path(@account, @opportunity) \
+                                                            }, current: ''}
+      .row
+        .col-sm-8
+
+          .row
+            .col-sm-12
+              .help
+                .help-text
+                 h2 = @opportunity.title
+                 b Users
+                .help-button
+                  == render 'admin/helps/help', identifier: 'shared opportunity'
+                  
+          
+          
+
+        .col-sm-4
+          .pull-right
+            .pull-down-10
+              
+      .sexy_line
+      .digi-box
+        = simple_form_for [ :account, @account, @opportunity, @opportunity_invitation] do |f|
+          /= f.hidden_field :account_id, value: @account.id
+          = f.hidden_field :opportunity_id, value: @opportunity.id
+          .row
+            .col-sm-6
+              = f.input :invitees, placeholder: 'e.g. john@doe.com, elvis@presley.com', label: 'Invite',
+                        hint: 'Only valid emails will be accepted', 
+                        :input_html => {  style: "height: 200px;"}, autofocus:  true
+              .row
+                .col-sm-6
+                  = f.input :provider,  :input_html => { class: 'icheck-me', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue"     },
+                             hint: 'Can submit recordings'
+                  = f.input :can_download,  :input_html => { class: 'icheck-me', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue"     },
+                             hint: 'Can download recordings'
+                .col-sm-6
+                  = f.input :reviewer,  :input_html => { class: 'icheck-me', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue"     }  ,
+                             hint: 'Can se and select all submittede recordings'
+      
+      
+      
+  
+            .col-sm-6
+              - @opportunity_invitation.title = "You have been invited to an opportunity on DigiRAMP"
+              - @opportunity_invitation.body = @opportunity.body
+              = f.input :title , label: 'Subject'
+              = f.input :body, label: 'Message', :input_html => {  style: "height: 172px;"}
+
+
+
+          .row
+            .col-sm-12
+              .pull-right
+                = link_to 'Cancel', account_account_opportunity_path(@account, @opportunity), class: 'btn btn-default'
+                '&nbsp;
+                = f.submit 'Send', class: 'btn btn-primary'
+
+      .digi-box
+        h4 Users
+        - if @opportunity.opportunity_users.count == 0
+          .alert.alert-info
+            button type="button" class="close" data-dismiss="alert" ×
+            'No music providers invited
+        - else
+          .table-responsive
+            table class="table table-hover"
+              tbody
+                - @opportunity.opportunity_users.each do |opportunity_user|
+                  
+                  tr id="delete_opportunity_user_#{opportunity_user.id.to_s}"
+                    .row
+                      td
+                        .pull-left
+                          => link_to image_tag(opportunity_user.user.image_url(:avatar_32x32)), user_path(opportunity_user.user)
+                          '&nbsp;
+                        b = opportunity_user.user.user_name
+                        br= opportunity_user.user.email
+                        
+                        
+                      td
+                        
+                        - if opportunity_user.provider
+                          = link_to account_account_opportunity_opportunity_user_path(@account, @opportunity, opportunity_user) do
+                            .btn.btn-xs.btn-default
+                              'Submissions
+                              '&nbsp;
+                              = opportunity_user.music_submissions.size
+                        - if opportunity_user.reviewer
+                          = link_to opportunity_opportunity_reviewer_path(@opportunity, opportunity_user.uuid) do
+                            .btn.btn-default.btn-xs
+                              'Reviews
+                      
+                      td = opportunity_user.uuid
+                      td
+                        .pull-right
+                           = link_to account_account_opportunity_opportunity_user_path(@account, @opportunity, opportunity_user), \
+                                                                                         data: { confirm: 'Are you sure?' } ,\
+                                                                                        :method => :delete, remote: true do
+                                .btn.btn-danger.btn-xs
+                                  i class="fa fa-times"
+              
+        /
+        /== render 'account/opportunities/providers'
+        
+      
+  == render 'shared/site_footer'  
+ 

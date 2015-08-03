@@ -3,18 +3,53 @@
     h4 = music_request.title
     = simple_format music_request.body
   .col-sm-6
+    .oppoptunity-info
+      /'From:
+      /.pull-right
+      /  = opportunity.account.title
+      /.sexy_line
+      'Fee:
+      .pull-right
+        = music_request.fee
+      - unless  music_request.duration_text.blank?
+        .sexy_line
+        'Duration:
+        .pull-right
+          = music_request.duration_text
+      - if  music_request.up_to_full_use
+        .sexy_line
+        'Full use:
+        .pull-right
+          'Yes
+      - unless  music_request.recording_id.blank?
+        - if recording = Recording.cached_find(music_request.recording_id)
+          .sexy_line
+          b Sounds like:
+          br
+          #digiWhams  class="/recordings/#{recording.id.to_s}"
+            == render 'audio_player/simple_show', recording: recording , description: false, target: '' 
+
+      - unless  music_request.audio_file.blank?    
+        = music_request.audio_file
+      
+          
     
-    .no-borders.table-responsive
-      table class="table table-condensed"
-        tr
-          th.description Value:
-          td = music_request.fee
     
-        - unless  music_request.link.to_s == ''
-          tr
-            th.description Duration:
-            td = music_request.duration_text
-        - unless  music_request.link.to_s == ''
-          tr
-            th.description Sound like:
-            td = link_to 'click here', music_request.link
+    
+    
+    
+/.table.no-borders.table-responsive
+/  table class="table table-condensed"
+/    tr
+/      th.description Fee:
+/      td = music_request.fee
+/
+/    - unless  music_request.duration_text.blank?
+/      tr
+/        th.description Duration:
+/        td = music_request.duration_text
+/    - unless  music_request.link.blank?
+/      tr
+/        th.description Sound like:
+/        td = link_to 'click here', music_request.link
+/

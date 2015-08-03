@@ -1,17 +1,22 @@
 class Opportunity < ActiveRecord::Base
   has_paper_trail
+  
+
   include PublicActivity::Common
   has_many  :opportunity_invitations
   has_many  :music_requests, dependent: :destroy
   
-  accepts_nested_attributes_for :music_requests, :reject_if => :all_blank, :allow_destroy => true
+  accepts_nested_attributes_for :music_requests, :reject_if => :all_blank
   
   
   has_many :opportunity_users, dependent: :destroy
   has_many :selected_opportunities,   dependent: :destroy
   has_many :opportunity_evaluations, dependent: :destroy
+  #has_many :opportunity_reviewers, dependent: :destroy
   has_many :opportunity_views, dependent: :destroy
   has_many :digiramp_emails
+  #has_many :opportunity_reviewers
+  has_many :music_submission_selection
 
   
   
@@ -28,7 +33,7 @@ class Opportunity < ActiveRecord::Base
   pg_search_scope :search_opportunity, against: [:title, :body, :kind, :territory], :using => [:tsearch]
   
   
-  
+  attr_accessor :playlist_id, :email
   #create_table "opportunities", force: true do |t|
   #  t.string   "title"
   #  t.text     "body"
@@ -125,7 +130,7 @@ class Opportunity < ActiveRecord::Base
                                                            budget:         self.budget,
                                                            territory:      self.territory,    
                                                            uuid:           UUIDTools::UUID.timestamp_create().to_s,
-                                                           deadline:       self.deadline        
+                                                           deadline:       self.deadline
                                                          )
 
       #DigirampEmailMailer.delay.opportunity_created( digiramp_email.id )

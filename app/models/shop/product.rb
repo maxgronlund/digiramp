@@ -25,6 +25,10 @@ class Shop::Product < ActiveRecord::Base
   
 
   scope :on_sale,  ->  { where( connected_to_stripe: true).order("title asc")  }
+  
+  def title
+    self.productable ? self.productable.title : 'na'
+  end
 
   def seller_info
     account.user.seller_info

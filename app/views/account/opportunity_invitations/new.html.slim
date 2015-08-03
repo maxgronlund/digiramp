@@ -1,25 +1,25 @@
 #wrapper
   .full-width-top
     == render 'shared/navigationbar', page: 'account' 
-     
   
 
-  #sidebar-wrapper
-    ul class="sidebar-nav"
-      == render 'users/shared/sidebar', selected: 'account'
+  .pro-account
+    #sidebar-wrapper
+      ul class="sidebar-nav"
+        == render 'account/shared/sidebar', selected: 'opportunity'
   
   #page-content-wrapper
     .container-fluid
       == render 'shared/breadcrumbs', breadcrumbs: { links: { @opportunity.title.to_sym => account_account_opportunity_path(@account, @opportunity) }, current: '' }
       .row
-        .col-sm-6
+        .col-sm-8
           .help
             .help-text
-              h2 #{@account.title} <funky>Pro</funky>
+              h2 Invite people to evaluate this opportunity
               = @opportunity.title
             .help-button
               == render 'admin/helps/help', identifier: 'new account opportunity invitations'
-        .col-sm-6
+        .col-sm-4
           .pull-right
             .pull-down-12
         

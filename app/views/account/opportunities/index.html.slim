@@ -13,23 +13,29 @@
   
       == render 'shared/breadcrumbs', breadcrumbs: { links: { account: account_account_path(@account ) }, current:'' }
       .row
-        .col-sm-7
+        .col-sm-6
           .help
             .help-text
-              h2 #{@account.title} <funky>Pro</funky>
+              h2 Opportunities 
         
             .help-button
               == render 'admin/helps/help', identifier: 'account opportunities'
 
-        .col-sm-5
+        .col-sm-6
           .pull-right
-            .recording-navigation
-              = link_to new_account_account_opportunity_path( @user.account ) do
-                .btn.btn-primary
-                  i.fa.fa-plus-circle
-                  '&nbsp;
-                  'Create opportunity
-      'Opportunities
+            .pull-down-10
+              - if current_account_user.create_opportunity    
+
+                = link_to new_account_account_opportunity_from_playlist_path( @account ) do
+                  .btn.btn-default
+                    i.fa.fa-envelope
+                    '&nbsp;
+                    'New from playlist 
+                = link_to new_account_account_opportunity_path( @account ) do
+                  .btn.btn-default
+                    i.fa.fa-plus-circle
+                    '&nbsp;
+                    'New
       .sexy_line
       .digi-box
         .table-responsive
@@ -48,17 +54,25 @@
               - @opportunities.each do |opportunity|
                 tr id="delete_opportunity_#{opportunity.id.to_s}"
                   td
-                    = link_to account_account_opportunity_path(@account, opportunity), method: :delete, \
-                                                                                        remote: true, \
-                                                                                        data: {confirm: 'Are you sure?'} do
-                      .btn.btn-danger.btn-xs
+                    -if current_account_user.delete_opportunity
+                      = link_to account_account_opportunity_path(@account, opportunity), method: :delete, \
+                                                                                          turboboost: true, \
+                                                                                          data: {confirm: 'Are you sure?'} do
+                        .btn.btn-danger.btn-xs
+                          i.fa.fa-times
+                    -else
+                      .btn.btn-danger.btn-xs.disabled
                         i.fa.fa-times
                 
-                    '&nbsp;
-                    = link_to edit_account_account_opportunity_path(@account, opportunity) do
-                      .btn.btn-default.btn-xs
+                    
+                    -if current_account_user.delete_opportunity
+                      = link_to edit_account_account_opportunity_path(@account, opportunity) do
+                        .btn.btn-default.btn-xs
+                          i.fa.fa-pencil
+                    -else
+                      .btn.btn-default.btn-xs.disabled
                         i.fa.fa-pencil
-                    '&nbsp;
+                    
                     = link_to account_account_opportunity_path(@account, opportunity) do
                        .btn.btn-default.btn-xs
                          i.fa.fa-eye

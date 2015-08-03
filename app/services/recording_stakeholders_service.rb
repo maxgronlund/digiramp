@@ -85,15 +85,11 @@ class RecordingStakeholdersService
     
     stake = Stake.where(   account_id:         user.account.id,
                            asset_id:           asset.id,
-                           asset_type:         asset.class.name,
-                           ipiable_id:         ipi_id,
-                           ipiable_type:       ipi_type
+                           asset_type:         asset.class.name
                          )
-          .first_or_create(   account_id:         user.account.id,
-                              asset_id:           asset.id,
-                              asset_type:         asset.class.name,
-                              ipiable_id:         ipi_id,
-                              ipiable_type:       ipi_type
+          .first_or_create(   account_id:      user.account.id,
+                              asset_id:        asset.id,
+                              asset_type:      asset.class.name
                            )
     
     # update informations of importance
@@ -113,9 +109,9 @@ class RecordingStakeholdersService
     if stake = Stake.where( asset_id:       asset.id,
                             asset_type:     asset.class.name,
                             user_id:        User.system_user.id,
-                            account_id:     User.system_user.account.id,
-                            ipiable_id:     ipi.id,
-                            ipiable_type:   ipi.class.name
+                            account_id:     User.system_user.account.id
+                            #ipiable_id:     ipi.id,
+                            #ipiable_type:   ipi.class.name
                            )
        ap stake
      end

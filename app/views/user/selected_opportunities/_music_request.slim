@@ -1,24 +1,5 @@
 .digi-box
-  .row
-    .col-sm-6
-      h4 = music_request.title
-      = simple_format music_request.body
-    .col-sm-6
-  
-      .no-borders.table-responsive
-        table class="table table-condensed"
-          tr
-            th.description Value:
-            td = music_request.fee
-  
-          - unless  music_request.link.to_s == ''
-            tr
-              th.description Duration:
-              td = music_request.duration_text
-          - unless  music_request.link.to_s == ''
-            tr
-              th.description Sound like:
-              td = link_to 'click here', music_request.link
+  == render 'music_requests/info', music_request: music_request          
   .row
     .col-sm-12
       .pull-right
@@ -40,15 +21,13 @@
         #digiWhams  class="/recordings/#{recording.id.to_s}"
           == render 'audio_player/show', recording: recording , description: true, target: ''
           .player-bottom
-
-            - if music_submission.selected
-              .btn.btn-danger.btn-xs disabled="disabled"
-                i class="fa fa-times"
-                '&nbsp;Remove submission
-              '&nbsp;
-              'Your submission is selected for review
+            - if selection = music_submission.music_submission_selections.where(user_id: @user.id).first
+              .btn.btn-danger.btn-xs.disabled
+                i.fa.fa-times&nbsp;Remove submission
+              '&nbsp;Your submission is selected for review
+            
             - else
-              => link_to music_submission_path(music_submission, user_id: current_user.id, opportunity_id: music_request.opportunity_id), \
+              => link_to music_submission_path(music_submission, user_id: @user.id, opportunity_id: music_request.opportunity_id), \
                           method: :delete, \
                           data: {confirm: "Are you sure" }, \
                           remote: true, \

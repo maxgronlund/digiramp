@@ -12,12 +12,37 @@ class MusicSubmissionsController < ApplicationController
       music_submission.destroy
     end
     @user = current_user
+    #redirect_to_return_url root_path
   end
   
   def update
-    @music_submission           =  MusicSubmission.find(params[:id])
-    @music_submission.selected  =  params[:music_submission][:selected]
-    @music_submission.save!
+    #@music_submission           = MusicSubmission.cached_find(params[:id])
+    #@account                    = @music_submission.account
+    #@music_request              = @music_submission.music_request
+    #@opportunity                = @music_request.opportunity
+    #ap params
+    #if params[:commit] == "Select"
+    #  ap 'bam'
+    #  MusicSubmissionSelection.where(
+    #                                account_id:           @account.id,
+    #                                music_submission_id:  @music_submission.id,
+    #                                user_id:              @account.user_id
+    #                                )
+    #                          .first_or_create(
+    #                                account_id:           @account.id,
+    #                                music_submission_id:  @music_submission.id,
+    #                                user_id:              @account.user_id
+    #                                )
+    #else
+    #  if music_submission_selection = MusicSubmissionSelection.find_by(
+    #                                account_id:           @account.id,
+    #                                music_submission_id:  @music_submission.id,
+    #                                user_id:              @account.user_id
+    #                                )
+    #    music_submission_selection.destroy
+    #  end
+    #end
+    #redirect_to_return_url root_path                               
   end
 
   # Use callbacks to share common setup or constraints between actions.
@@ -26,5 +51,7 @@ class MusicSubmissionsController < ApplicationController
     @opportunity      = Opportunity.cached_find(params[:opportunity_id])
   end
   
+  private
+ 
   
 end

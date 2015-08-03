@@ -19,7 +19,11 @@
                                                               'shop admin'.to_sym => user_user_shop_admin_index_path(@user)}, current: ''}
       .row
         .col-sm-8
-          h3 = @shop_product.title
+          .help
+            .help-text
+              h2 = @shop_product.title
+            .help-button
+              == render 'admin/helps/help', identifier: 'user shop stakeholders'
         .col-sm-4
           .pull-right.pull-down-10
             => link_to  user_user_shop_admin_index_path(@user) do
@@ -46,13 +50,11 @@
                                                                                       controller: 'user/stakes'), 
                                                                         turboboost: true, 
                                                                         :method => 'post' do |f|
-                = f.hidden_field :account_id, value: @user.account.id
-                = f.hidden_field :asset_id, value:   @shop_product.id
+                
                 = f.hidden_field :asset_type, value: @shop_product.class.name
                 = f.hidden_field :flat_rate_in_cent, value: 0
                 = f.hidden_field :currency, value: 'usd'
                 = f.hidden_field :unassigned, value: true
-                = f.hidden_field :original_source, value: @shop_product.title
                 = f.input :email
                 = f.input :split, input_html: {min: "1", max: "100"}
                 .row

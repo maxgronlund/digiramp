@@ -42,11 +42,11 @@
             thead
               tr
                 th 
-                th Featured
+                /th Featured
                 th Plan
-                th Joined
-                th Role
-                th Admin
+                /th Joined
+                /th Role
+                /th Admin
                 th Id
             tbody
               - @users.each do |user|
@@ -70,8 +70,6 @@
                         .btn.btn-default.btn-xs
                           i class="fa fa-gear"
                       
-
-
                       => link_to account_account_path(account) do 
                          div class="btn btn-default btn-xs #{ disabled ='disabled' if account.account_type == 'Social'}"
                           i.fa.fa-tachometer
@@ -86,21 +84,21 @@
                         
                     '&nbsp;
                     = link_to user_path(user) do 
-                      .btn.btn-default.btn-xs style="width: 180px; text-align: left;"
+                      .btn.btn-default.btn-xs style="width: 180px; text-align: left; text-overflow: ellipsis;"
                         i class="fa fa-user" 
                         '&nbsp;
-                        = user.short_email
-                  td
-                    - if user.featured
-                      i.fa.fa-star
+                        = user.email
+                  /td
+                  /  - if user.featured
+                  /    i.fa.fa-star
                   td 
                     -if user.account
                       = user.account_type
-                  td = user.created_at.strftime("%Y-%m-%d")
-                  td = user.role
-                  td 
-                    - if user.administrator
-                      'Administrator
+                  /td = user.created_at.strftime("%Y-%m-%d")
+                  /td = user.role
+                  /td 
+                  /  - if user.administrator
+                  /    'Administrator
                   td
                     = user.id
 

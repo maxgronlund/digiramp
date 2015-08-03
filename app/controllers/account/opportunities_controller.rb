@@ -46,10 +46,9 @@ class Account::OpportunitiesController < ApplicationController
     
     forbidden unless current_account_user && current_account_user.create_opportunity
     @opportunity = Opportunity.create(opportunity_params)
-    redirect_to account_account_opportunity_path(@account, @opportunity)
-    @opportunity.check_default_image
-    
-    
+    @opportunity.check_default_image unless( Rails.env.development? || Rails.env.test? )
+    flash[:info]      = "Opportunity created. Please add the first music request" 
+    redirect_to new_account_account_opportunity_music_request_path(@account, @opportunity)
   end
 
   # PATCH/PUT /opportunities/1
@@ -60,7 +59,6 @@ class Account::OpportunitiesController < ApplicationController
     forbidden unless current_account_user && current_account_user.update_opportunity
     if @opportunity.update(opportunity_params)
       @opportunity.check_default_image
-      
       redirect_to account_account_opportunity_path(@account, @opportunity)
     else
       flash[:danger]      = "Unable to update opportunity" 
@@ -84,7 +82,7 @@ class Account::OpportunitiesController < ApplicationController
     forbidden unless current_account_user && current_account_user.delete_opportunity
     @opportunity_id = @opportunity.id
     @opportunity.destroy
-    #redirect_to account_account_opportunities_path(@account)
+    redirect_to account_account_opportunities_path(@account)
   end
 
   private
@@ -105,20 +103,8 @@ class Account::OpportunitiesController < ApplicationController
                                           :territory,
                                           :public_opportunity,
                                           :image,
-                                          :max_submisions_pr_user,
-                                          music_requests_attributes: [:id, 
-                                                                      :title, 
-                                                                      :body,
-                                                                      :duration,
-                                                                      :created_at,
-                                                                      :scene_number,
-                                                                      :link,
-                                                                      :up_to_full_use,
-                                                                      :opportunity_id,
-                                                                      :link_title,
-                                                                      :recording_id,
-                                                                      :fee,
-                                                                      :_destroy])
+                                          :max_submisions_pr_user
+                                          )
     end
     
 

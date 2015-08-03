@@ -18,6 +18,14 @@
                 = pluralize(submissions_count, 'Submission')  
 
           .pull-right
+
+            - if opportunity_user = OpportunityUser.find_by(opportunity_id: opportunity.id, user_id: @user)
+              - if opportunity_user.reviewer
+                => link_to opportunity_opportunity_reviewer_path(opportunity, opportunity_user.uuid) do
+                  .btn.btn-default
+                    'Review
+                  
+                
             => link_to user_user_selected_opportunity_path(@user, opportunity) do
               .btn.btn-default
                 'View
@@ -31,30 +39,8 @@
                   i.fa.fa-times
       
       
-      /.row
-      /  .col-sm-12
-      /    .pull-right 
-      /    
-      /    
-      /    
-      /    
-      /      - if viewed 
-      /        /- else
-      /        => link_to user_user_selected_opportunity_path(@user, opportunity) do
-      /          .btn.btn-default
-      /            i.fa.fa-eye
-      /            '&nbsp;View
-      /        
-      /      - else
-      /            
-      /        = link_to user_user_opportunity_path(@user, opportunity) do
-      /          .btn.btn-default
-      /            i.fa.fa-eye
-      /            '&nbsp;View
-      /
-      /      =< link_to user_user_opportunity_path(@user, opportunity, remove: true), method: :delete, remote: true do
-      /        .btn.btn-danger
-      /          i.fa.fa-times
+
+
 
       .clearfix
      

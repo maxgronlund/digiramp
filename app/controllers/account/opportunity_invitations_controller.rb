@@ -5,12 +5,12 @@ class Account::OpportunityInvitationsController < ApplicationController
 
   # GET /opportunity_invitations
   # GET /opportunity_invitations.json
-  def index
-    @opportunity            = Opportunity.cached_find(params[:opportunity_id])
-    @opportunity_invitations = @opportunity.opportunity_invitations
-    @user = current_user
-    @authorized = true
-  end
+  #def index
+  #  @opportunity            = Opportunity.cached_find(params[:opportunity_id])
+  #  @opportunity_invitations = @opportunity.opportunity_invitations
+  #  @user = current_user
+  #  @authorized = true
+  #end
   #
   ## GET /opportunity_invitations/1
   ## GET /opportunity_invitations/1.json
@@ -18,75 +18,75 @@ class Account::OpportunityInvitationsController < ApplicationController
   #end
 
   # GET /opportunity_invitations/new
-  def new
-    @user                   = current_user
-    @authorized             = true
-    @opportunity            = Opportunity.cached_find(params[:opportunity_id])
-    @opportunity_invitation = OpportunityInvitation.new
-  end
+  #def new
+  #  @user                   = current_user
+  #  @authorized             = true
+  #  @opportunity            = Opportunity.cached_find(params[:opportunity_id])
+  #  @opportunity_invitation = OpportunityInvitation.new
+  #end
 
   # GET /opportunity_invitations/1/edit
-  def edit
-    @opportunity            = Opportunity.cached_find(params[:opportunity_id])
-  end
+  #def edit
+  #  @opportunity            = Opportunity.cached_find(params[:opportunity_id])
+  #end
 
 
 
   def create
+    ap params
     @opportunity            = Opportunity.cached_find(params[:opportunity_id])
     @opportunity_invitation = OpportunityInvitation.create(opportunity_invitation_params)
-    
-    
-    @opportunity_invitation.create_activity(   :created, 
-                                   owner: current_user,
-                               recipient: @opportunity_invitation,
-                          recipient_type: @opportunity_invitation.class.name,
-                                account_id: @account.id,
-                                  params: { opportunity_id: @opportunity.id
-                                          }
-                                      ) 
-
+    ap @opportunity_invitation
 
     params[:opportunity_invitation][:invitees].split(/, ?/).each do |email|
       
-      sanitized_email =  EmailSanitizer.saintize email
+      if sanitized_email =  EmailSanitizer.saintize( email )
 
-      if user  = User.find_or_invite_from_email( sanitized_email )
-
-        @opportunity_user = OpportunityUser.where( opportunity_id:   @opportunity.id, 
-                                                  user_id:          user.id,
-                                                )
-                                                .first_or_create(  
-                                                  opportunity_id:   @opportunity.id, 
-                                                  user_id:          user.id,
-                                                )
+        if user  = User.find_or_create_from_email( sanitized_email )
         
-        if user.account_activated
-          OpportunityMailer.delay.invite(sanitized_email, @opportunity_invitation.id, user.id)
-        else
-          user.add_token
-          OpportunityMailer.delay.invite_to_account(sanitized_email, @opportunity_invitation.id, user.id)
-        end
-        
-        
-        begin
-          #send_message( user, @opportunity.account.user, @opportunity_invitation.title, @opportunity_invitation.body  ) 
-          send_message( user, current_user, @opportunity_invitation.title, @opportunity_invitation.body  ) 
-        rescue Exception => e 
-          Opbeat.capture_message(e.message)
-          ap e.message
-        end                
-        @opportunity_user.create_activity(   :created, 
-                                       owner: current_user,
-                                   recipient: @opportunity_user,
-                              recipient_type: @opportunity_user.class.name,
-                                  account_id: @account.id,
-                                      params: {         opportunity_id: @opportunity.id,
-                                                opportunity_user_email: sanitized_email
-                                              }
-                                          ) 
-                              
-      end                      
+          if @opportunity_user = OpportunityUser.find_by( opportunity_id:   @opportunity.id, 
+                                                          user_id:          user.id)
+             @opportunity_user.update(  provider:         @opportunity_invitation.provider,
+                                        reviewer:         @opportunity_invitation.reviewer,
+                                        can_download:     @opportunity_invitation.can_download,
+                                        uuid:             UUIDTools::UUID.timestamp_create().to_s
+                                      )
+             
+          else   @opportunity_user = OpportunityUser.create(  opportunity_id:   @opportunity.id, 
+                                                              user_id:          user.id,
+                                                              provider:         @opportunity_invitation.provider,
+                                                              reviewer:         @opportunity_invitation.reviewer,
+                                                              can_download:     @opportunity_invitation.can_download,
+                                                              uuid:             UUIDTools::UUID.timestamp_create().to_s
+                                                            )
+          end
+          # send emailOpportunityFromPlaylistsController
+          if user.account_activated
+            OpportunityMailer.delay.invite(sanitized_email, @opportunity_invitation.id, user.id)
+          else
+            user.add_token
+            OpportunityMailer.delay.invite_to_account(sanitized_email, @opportunity_invitation.id, user.id)
+          end
+          
+          
+          begin
+            #send_message( user, @opportunity.account.user, @opportunity_invitation.title, @opportunity_invitation.body  ) 
+            send_message( user, current_user, @opportunity_invitation.title, @opportunity_invitation.body  ) 
+          rescue Exception => e 
+            ErrorNotification.post_object 'OpportunityInvitationsController#create', e
+          end                
+          @opportunity_user.create_activity(   :created, 
+                                         owner: current_user,
+                                     recipient: @opportunity_user,
+                                recipient_type: @opportunity_user.class.name,
+                                    account_id: @account.id,
+                                        params: {         opportunity_id: @opportunity.id,
+                                                  opportunity_user_email: sanitized_email
+                                                }
+                                            ) 
+                                
+        end       
+      end               
     end
     
     
@@ -97,7 +97,7 @@ class Account::OpportunityInvitationsController < ApplicationController
     
     
 
-    redirect_to account_account_opportunity_path(@account, @opportunity)
+    redirect_to account_account_opportunity_opportunity_users_path(@account, @opportunity)
   end
   
   def send_message recipient, sender, title, body
@@ -135,7 +135,7 @@ class Account::OpportunityInvitationsController < ApplicationController
   def destroy
     @opportunity            = Opportunity.cached_find(params[:opportunity_id])
     @opportunity_invitation.destroy
-     redirect_to account_account_opportunity_path(@account, @opportunity)
+    redirect_to account_account_opportunity_path(@account, @opportunity)
   end
   
   
@@ -150,6 +150,15 @@ class Account::OpportunityInvitationsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def opportunity_invitation_params
-      params.require(:opportunity_invitation).permit!
+      params.require(:opportunity_invitation).permit( :opportunity_id,
+                                                      :title,
+                                                      :body,
+                                                      :invitees,
+                                                      :created_at,
+                                                      :updated_at,
+                                                      :provider,
+                                                      :reviewer,
+                                                      :can_download
+                                                    )
     end
 end

@@ -26,9 +26,7 @@ class Account::OpportunityReviewersController < ApplicationController
   end
   
   def create
-    if super? || current_account_user.update_opportunity
-      
-      ap 
+    if super? || current_account_user.update_opportunity 
       
       @opportunity_evaluation = OpportunityEvaluation.create(opportunity_evaluation_params)
       @opportunity            = Opportunity.cached_find(params[:opportunity_id])

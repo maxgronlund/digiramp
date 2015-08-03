@@ -24,35 +24,34 @@
       .pull-right
         = link_to opportunity_opportunity_music_request_request_recordings_path( @opportunity, music_request.id ) do
           .btn.btn-success
-            i.fa.fa-plus
-            '&nbsp;
-            'Submit recordings
-          
-  
-- music_request.music_submissions.where(user_id: @user.id).each do |music_submission|
-  - if recording =  music_submission.recording
-  div id="delete_music_submission_#{music_submission.id.to_s}"
-    .row
-      .col-sm-12
-        #digiWhams  class="/recordings/#{recording.id.to_s}"
-          == render 'audio_player/show', recording: recording , description: true, target: ''
-          .player-bottom
-
-            - if music_submission.selected
-              .btn.btn-danger.btn-xs disabled="disabled"
-                i class="fa fa-times"
-                '&nbsp;Remove submission
-              '&nbsp;
-              'Your submission is selected for review
-            - else
-              => link_to music_submission_path(music_submission, user_id: current_user.id, opportunity_id: music_request.opportunity_id), \
-                          method: :delete, \
-                          data: {confirm: "Are you sure" }, \
-                          remote: true, \
-                          class: "btn btn-danger btn-xs"  do
-                  i class="fa fa-times"
-                  '&nbsp;Remove submission
-                  
+            i.fa.fa-plus&nbsp;Submit recordings
+      
+- if @user  
+  - music_request.music_submissions.where(user_id: @user.id).each do |music_submission|
+    - if recording =  music_submission.recording
+      div id="delete_music_submission_#{music_submission.id.to_s}"
+        .row
+          .col-sm-12
+            #digiWhams  class="/recordings/#{recording.id.to_s}"
+              == render 'audio_player/show', recording: recording , description: true, target: ''
+              .player-bottom
+      
+                /- if music_submission.selected(current_user.account.id, current_user.id, @opportunity.id, music_submission.id)
+                - if selection = music_submission.music_submission_selections.where(user_id: current_user.id).first
+                  .btn.btn-danger.btn-xs disabled="disabled"
+                    i class="fa fa-times"
+                    '&nbsp;Remove submission
+                  '&nbsp;
+                  'Your submission is selected for review
+                - else
+                  => link_to music_submission_path(music_submission, user_id: current_user.id, opportunity_id: music_request.opportunity_id), \
+                              method: :delete, \
+                              data: {confirm: "Are you sure" }, \
+                              remote: true, \
+                              class: "btn btn-danger btn-xs"  do
+                      i class="fa fa-times"
+                      '&nbsp;Remove submission
+                      
               
     
     

@@ -3,11 +3,10 @@
     == render 'shared/navigationbar', page: 'account' 
   
 
-  #sidebar-wrapper
-    .pro-account
-      #sidebar-wrapper
-        ul class="sidebar-nav"
-          == render 'account/shared/sidebar', selected: 'opportunity'
+  .pro-account
+    #sidebar-wrapper
+      ul class="sidebar-nav"
+        == render 'account/shared/sidebar', selected: 'opportunity'
   
   #page-content-wrapper
     .container-fluid
@@ -17,18 +16,18 @@
         .col-sm-10
           .help
             .help-text
-              h2 #{@account.title} <funky>Pro</funky>
+              h2 = @account.title
             .help-button
               == render 'admin/helps/help', identifier: 'edit account opportunity'
-        .col-sm-2
-          .pull-right
-            .recording-navigation
-
-              = link_to account_account_opportunity_path(@account, @opportunity) do
-                .btn.btn-default
-                  i.fa.fa-chevron-left
-                  '&nbsp;Back
-
+        /.col-sm-2
+        /  .pull-right
+        /    .recording-navigation
+        /
+        /      = link_to account_account_opportunity_path(@account, @opportunity) do
+        /        .btn.btn-default
+        /          i.fa.fa-chevron-left
+        /          '&nbsp;Back
+        /
       .sexy_line
       .opportunity 
         == render 'form'

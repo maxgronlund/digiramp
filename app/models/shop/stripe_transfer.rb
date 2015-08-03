@@ -13,10 +13,9 @@ class Shop::StripeTransfer < ActiveRecord::Base
   include AASM
   
 
- #stakeholder = User.cached_find(user_id)
- #stakeholder = User.last
- #
- #stripe_account_id = stakeholder.stripe_id
+  def title
+    self.order_item ? order_item.title : 'na'
+  end
  
  
  #aasm column: 'state', whiny_transitions: false do
@@ -41,33 +40,40 @@ class Shop::StripeTransfer < ActiveRecord::Base
    event :reset do
      transitions from: [:errored, :processing], to: :pending
    end
-   
-   
-
+ end
+ 
+ def seller_account_id
+   begin
+     self.user.account.id
+   rescue
+     post_error "Shop::OrderItem id: #{self.id} account not found "
+     User.system_user.account.id
+   end
  end
  
  def pay
+   ap '===================================================================================='
+   ap '--- pay ---'
+   self.process!
    
-  
-  self.process!
-
-  begin
-   Stripe::Transfer.create(
-     amount:                 self.amount,
-     destination:            self.user.stripe_id,
-     source_transaction:     self.source_transaction,
-     currency:               self.currency,
-     description:            get_description,
-     #metadata:               {'fees' => get_fees.to_s},
-     statement_descriptor:   'DigiRAMP Payment'
-   )
-   self.finis!
-  rescue Stripe::StripeError => e
-    self.fail!
-    self.stripe_errors = e.message
-    errored('Shop::StripeTransfer#pay', e )
-  end
-  self.save
+   begin
+    Stripe::Transfer.create(
+      amount:                 self.amount,
+      destination:            self.user.stripe_id,
+      source_transaction:     self.source_transaction,
+      currency:               self.currency,
+      description:            get_description,
+      #metadata:               {'fees' => get_fees.to_s},
+      statement_descriptor:   'DigiRAMP Payment',
+      application_fee:        self.application_fee
+    )
+    self.finis!
+   rescue Stripe::StripeError => e
+     self.fail!
+     self.stripe_errors = e.message
+     errored('Shop::StripeTransfer#pay', e )
+   end
+   self.save
  end
  
  private 

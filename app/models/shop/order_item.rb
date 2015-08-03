@@ -20,7 +20,7 @@ class Shop::OrderItem < ActiveRecord::Base
         stakeholder.charge_succeeded self.id,  amount, stripe_charge_id 
       end
     else
-      post_error "OrderItem#charge_succeeded: product not found"
+      post_error "OrderItem#charge_succeeded: shop_product_id #{self.shop_product_id} not found"
     end
     self.sold = true
     self.save
@@ -34,6 +34,15 @@ class Shop::OrderItem < ActiveRecord::Base
     seller
   end
   
+  def seller_account_id
+    begin
+      self.shop_product.user.account.id
+    rescue
+      post_error "Shop::OrderItem id: #{self.id} account not found "
+      User.system_user.account.id
+    end
+  end
+  
   def last
     Shop::OrderItem.order(:created_at).last
   end
@@ -42,12 +51,12 @@ class Shop::OrderItem < ActiveRecord::Base
     Shop::OrderItem.order(:created_at).first
   end
   
-
+  def title
+    self.shop_product ? self.shop_product.title : 'na'
+  end
 
   private 
   
-
-
   def flush_cache
     Rails.cache.delete([self.class.name, id])
   end

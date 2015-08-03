@@ -1,0 +1,83 @@
+- session[:return_url]         = request.url
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'account' 
+  
+
+  .pro-account
+    #sidebar-wrapper
+      ul class="sidebar-nav"
+        == render 'account/shared/sidebar', selected: 'opportunity'
+  
+  #page-content-wrapper
+
+    .container-fluid
+      == render 'shared/breadcrumbs', breadcrumbs: { \
+                                      links: { account: account_account_path(@account), \
+                                      opportunities: account_account_opportunities_path(@account) }, current: ''}
+      
+      == render 'admin/shared/messages'
+      .row
+        .col-sm-6
+          .help
+            .help-text
+              h2 = "Selections for #{@opportunity.title}"
+        
+            .help-button
+              == render 'admin/helps/help', identifier: 'account opportunity selections'
+      
+        .col-sm-6
+          .pull-right
+            .pull-down-10
+              /=< link_to edit_account_account_opportunity_path(@account, @opportunity) do
+              /  .btn.btn-default
+              /    i.fa.fa-pencil
+              /    '&nbsp;
+              /    'Edit
+      
+      .sexy_line 
+
+      /- @music_submission_selections.each do |music_submission_selection|
+      /  - if recording =  music_submission_selection.recording
+      /    - if music_submission = music_submission_selection.music_submission
+      /      div id="delete_music_submission_#{music_submission.id.to_s}"
+      /        #digiWhams  class="/recordings/#{recording.id.to_s}"
+      /          == render 'account/music_requests/recording_for_request', recording: recording
+      /          .player-bottom
+      /            .music_submission_selection
+      /              div id="music_submission_selected_#{music_submission.id.to_s}"
+      /                == render 'music_submissions/selected', music_submission: music_submission
+      /          
+      /      
+      /            .music_submission_selection 
+      /              '&nbsp;
+      /              = link_to music_submission.recording.download_url2 do
+      /                .btn.btn-default.btn-xs
+      /                  i class="fa fa-download"
+      /          
+            
+            
+                  /.pull-right
+                  /
+                  /  b &nbsp;Submitted by:&nbsp;
+                  /  = music_submission.user.user_name if music_submission.user
+                  /
+                  /  =< link_to new_message_digalog_path(sender: current_user, 
+                  /                                     receiver: music_submission.user, 
+                  /                                     title: "Regarding: #{music_submission.recording.title}", 
+                  /                                     subjectable_id: music_submission.id, 
+                  /                                     subjectable_type: 'MusicSubmission'), remote: true do
+                  /        .btn.btn-default.btn-xs
+                  /          i.fa.fa-envelope
+                  /            '&nbsp;Send message
+                              
+      /  = music_submission_selection.recording.title
+      /= debug @music_submission_selections
+                
+      
+        
+        
+        
+  == render 'shared/site_footer'  
+  
+

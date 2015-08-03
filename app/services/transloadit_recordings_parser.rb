@@ -22,7 +22,6 @@ class TransloaditRecordingsParser
    
     # validate uploads
     if uploads.nil? || uploads[:results].nil? ||  uploads[:results][':original'].nil?
-      error_message uploads
       return nil 
     end
     transloadets  = []
