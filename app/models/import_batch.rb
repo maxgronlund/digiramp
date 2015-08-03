@@ -12,7 +12,7 @@ class ImportBatch < ActiveRecord::Base
   def works
     common_works = []
     self.recordings.each do |recording|
-      common_works << recording.common_work
+      common_works << recording.get_common_work
     end
     common_works
   end

@@ -9,7 +9,7 @@
                                                             'submission'.to_sym =>  account_account_opportunity_music_request_music_submission_path(@account, @opportunity, @music_request, @music_submission),
                                                                                                                                                      }, current: 'download'}
                                                            
-    -body = link_to 'COMMON WORK', account_work_path(@account, @recording.common_work)
+    -body = link_to 'COMMON WORK', account_work_path(@account, @recording.get_common_work)
     /- insert = 'account/recordings/edit'
     - blog      = Blog.cached_find('Download')
     == render 'shared/recording_title', locals: {recording: @recording, body: @recording.comment, insert: 'back_to_submission'} 

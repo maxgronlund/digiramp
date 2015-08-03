@@ -9,7 +9,7 @@
                                                            @music_request.title.to_sym => account_account_opportunity_music_request_path(@account, @opportunity, @music_request),
                                                            }, current: @recording.title }
                                                            
-    /-body = link_to 'COMMON WORK', account_work_path(@account, @recording.common_work)
+    /-body = link_to 'COMMON WORK', account_work_path(@account, @recording.get_common_work)
     /- insert = 'account/recordings/edit'
     == render 'shared/recording_title', locals: {recording: @recording, body: @recording.comment, insert: 'back'} 
     

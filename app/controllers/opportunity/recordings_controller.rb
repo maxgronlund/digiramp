@@ -165,7 +165,7 @@ class Opportunity::RecordingsController < ApplicationController
       end
       
       
-      @recording.common_work.update_completeness if @recording.common_work
+      @recording.get_common_work.update_completeness
       
       
       if opportunity_user = OpportunityUser.where(user_id: current_user.id, opportunity_id: @opportunity.id).first

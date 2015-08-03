@@ -33,7 +33,7 @@ class RecordingCsvImporter
         recording.extract_genres
         recording.extract_instruments
         recording.extract_moods
-        recording.common_work.update_completeness
+        recording.get_common_work.update_completeness
 
       rescue
         Opbeat.capture_message("RecordingCsvParser row: #{recording_row}")

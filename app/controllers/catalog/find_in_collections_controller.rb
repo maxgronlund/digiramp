@@ -62,7 +62,7 @@ class Catalog::FindInCollectionsController < ApplicationController
       #  @recording.save
       #end
       
-      @recording.common_work.update_completeness
+      @recording.get_common_work.update_completeness
       
       #if @genre_category
       #  redirect_to edit_account_common_work_recording_path(@account, @common_work, @recording, genre_category: @genre_category )

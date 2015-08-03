@@ -10,7 +10,7 @@
     == render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
                                                             assets: account_assets_path(@account), \
                                                             recordings: account_account_recordings_path(@account), \
-                                                            @recording.title.to_sym => account_common_work_recording_path(@account, @recording.common_work, @recording), \
+                                                            @recording.title.to_sym => account_common_work_recording_path(@account, @recording.get_common_work, @recording), \
                                                             }, current: 'update file'}
     == render 'shared/page_title', locals: {blog: Blog.cached_find('Add Content'), blog_post: 'Update Recording File'}
     .row

@@ -8,7 +8,7 @@ class ExportImportBatchWorksController < ApplicationController
     
     works = []
     @recordings.each do |recording|
-      works << recording.common_work
+      works << recording.get_common_work
     end
 
     

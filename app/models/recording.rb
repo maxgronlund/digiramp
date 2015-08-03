@@ -122,7 +122,10 @@ class Recording < ActiveRecord::Base
   has_many :catalogs, :through => :playlists_recordings
   
 
-  
+  def get_common_work
+    self.common_work ? self.common_work : self.mount_common_work 
+  end
+   
   def product
     Shop::Product.find_by(productable_id: self.id, productable_type: 'Recording')
   end
@@ -219,7 +222,7 @@ class Recording < ActiveRecord::Base
   end
   
   def mount_common_work
-    unless self.common_work_id
+    unless self.common_work
       common_work = CommonWork.create( account_id: self.account_id, 
                                        title:      self.title, 
                                        lyrics:     self.lyrics)
@@ -227,6 +230,7 @@ class Recording < ActiveRecord::Base
       self.common_work_id = common_work.id
       self.save(validate: false)
     end
+    common_work
   end
 
   
@@ -269,7 +273,7 @@ class Recording < ActiveRecord::Base
                                                        confirmation: "Accepted")
     rescue
       
-      ErrorNotification.post "Recording#user_credits: recording_id: #{self.id} "
+      ErrorNotification.post "Recording#user_credits: recording_id: #{self.id}"
     end
   end
   

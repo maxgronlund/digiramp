@@ -146,7 +146,7 @@
   
 
         
-        - if common_work = recording.common_work and ((recording.user_id == current_user.id ) || super?)
+        - if common_work = recording.get_common_work and ((recording.user_id == current_user.id ) || super?)
           = link_to user_user_common_work_path( recording.user, common_work), 
                     class: "btn btn-default"  do
             i class="fa fa-copyright"  

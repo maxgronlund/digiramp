@@ -41,7 +41,7 @@ class Account::MusicSubmissionUploadsController < ApplicationController
         recording.common_work_id = common_work.id
         recording.title = title unless title == 'no title'
         recording.save
-        recording.common_work.update_completeness
+        recording.get_common_work.update_completeness
         @recording = recording
         
         

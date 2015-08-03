@@ -59,7 +59,7 @@ class Account::UploadsController < ApplicationController
                              
         recording.common_work_id = common_work.id
         recording.save
-        recording.common_work.update_completeness
+        recording.get_common_work.update_completeness
         go_to = edit_account_account_common_work_recording_path(@account, common_work, recording)
 
       end

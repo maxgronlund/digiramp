@@ -1,8 +1,8 @@
--if @recording.common_work
+-if @recording.get_common_work
   .pull-right
-    - if current_account_user.read_common_work && @recording.common_work
+    - if current_account_user.read_common_work && @recording.get_common_work
       '&nbsp;  
-      = link_to account_account_common_work_path(@account, @recording.common_work) do
+      = link_to account_account_common_work_path(@account, @recording.get_common_work) do
         .btn.btn-primary.btn-lg
           i class="fa fa-eye"
           '&nbsp;

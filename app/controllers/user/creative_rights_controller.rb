@@ -12,7 +12,7 @@ class User::CreativeRightsController < ApplicationController
 
   def show
     @recording   = Recording.cached_find(params[:recording_id])
-    @common_work = @recording.common_work
+    @common_work = @recording.get_common_work
   end
 
   def edit

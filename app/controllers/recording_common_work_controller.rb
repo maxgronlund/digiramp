@@ -16,7 +16,7 @@ class RecordingCommonWorkController < ApplicationController
     @recording.save
     
     redirect_to edit_account_recording_meta_datum_path(@account,@recording)
-    #@recording.common_work_id 
+
     
   end
   

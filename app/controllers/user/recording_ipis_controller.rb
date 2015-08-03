@@ -3,7 +3,7 @@ class User::RecordingIpisController < ApplicationController
   
   def new
     @recording        = Recording.cached_find(params[:recording_id])
-    @common_work      = @recording.common_work
+    @common_work      = @recording.get_common_work
     @recording_ipi    = RecordingIpi.new( title:  "Please confirm your rights on #{@recording.title}",
                       message: "If you confirm this request you can receive creatits and/ or direct payment for usage for the master #{@recording.title}")
 
@@ -25,7 +25,7 @@ class User::RecordingIpisController < ApplicationController
     params[:recording_ipi][:uuid]                         =  UUIDTools::UUID.timestamp_create().to_s
 
     @recording        = Recording.cached_find(params[:recording_id])
-    @common_work      = @recording.common_work
+    @common_work      = @recording.get_common_work
     
     
     if @recording_ipi = RecordingIpi.create!(recording_ipi_params)
@@ -41,7 +41,7 @@ class User::RecordingIpisController < ApplicationController
   
   def edit
     @recording        = Recording.cached_find(params[:recording_id])
-    @common_work      = @recording.common_work
+    @common_work      = @recording.get_common_work
     @recording_ipi     = RecordingIpi.cached_find(params[:id])
   end
   
@@ -51,7 +51,7 @@ class User::RecordingIpisController < ApplicationController
 
     @recording        = Recording.cached_find(params[:recording_id])
     @recording_ipi    = RecordingIpi.cached_find(params[:id])
-    @common_work      = @recording.common_work
+    @common_work      = @recording.get_common_work
     if params[:commit] == 'Update'
       @recording_ipi.update(recording_ipi_params)
       redirect_to user_user_common_work_path(@user, @common_work)
@@ -89,7 +89,7 @@ class User::RecordingIpisController < ApplicationController
     @recording_ipi     = RecordingIpi.cached_find(params[:id])
     @recording_ipi.destroy
     @recording        = Recording.cached_find(params[:recording_id])
-    @common_work      = @recording.common_work
+    @common_work      = @recording.get_common_work
     redirect_to user_user_common_work_path(@user, @common_work)
   end
   

@@ -36,7 +36,7 @@ class SharedRecordingsController < ApplicationController
   end
   
   def update
-    @common_work    = @recording.common_work 
+    @common_work    = @recording.get_common_work 
     params[:recording][:cache_version] = @recording.cache_version + 1
     
     if @genre_category = params[:recording][:genre_category]
@@ -47,7 +47,7 @@ class SharedRecordingsController < ApplicationController
       @recording.extract_genres
       @recording.extract_instruments
       @recording.extract_moods
-      @recording.common_work.update_completeness
+      @recording.get_common_work.update_completeness
     end
     redirect_to user_shared_catalog_shared_recording_path(@user, params[:shared_catalog_id], @recording)
   end

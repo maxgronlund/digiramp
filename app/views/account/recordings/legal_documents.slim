@@ -69,7 +69,7 @@
 /      /
 /      / add a link to 
 /      / http://localhost:3000/accounts/6/common_works/6468/recordings/434/edit
-/      -body = link_to 'COMMON WORK', account_work_path(@account, @recording.common_work)
+/      -body = link_to 'COMMON WORK', account_work_path(@account, @recording.get_common_work)
 /      - insert = 'account/recordings/edit'
 /      == render 'shared/recording_title', locals: {recording: @recording, body: @recording.comment, insert: insert} 
 /      .row

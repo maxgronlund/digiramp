@@ -9,7 +9,7 @@ class RecordingStakeholdersService
     return 0 unless account         = Account.cached_find(options[:account_id])
     return 1 unless recording       = Recording.cached_find(options[:recording_id])
     return 2 unless representative  = account.user 
-    return 3 unless common_work     = recording.common_work
+    return 3 unless common_work     = recording.get_common_work
     digiramp_split                  = 0.2
     representative_split            = 0.2
     

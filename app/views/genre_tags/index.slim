@@ -10,8 +10,8 @@
     == render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
                                                             assets: account_assets_path(@account), \
                                                             recordings: account_account_recordings_path(@account), \
-                                                            @recording.title.to_sym => account_common_work_recording_path(@account, @recording.common_work, @recording), \
-                                                            edit: edit_account_common_work_recording_path(@account, @recording.common_work, @recording), \
+                                                            @recording.title.to_sym => account_common_work_recording_path(@account, @recording.get_common_work, @recording), \
+                                                            edit: edit_account_common_work_recording_path(@account, @recording.get_common_work, @recording), \
                                                             genre: account_common_work_recording_genre_tags_path(@account, @common_work, @recording), \ 
                                                             }, current: 'select'}
     -blog = Blog.cached_find('Edit Genre')

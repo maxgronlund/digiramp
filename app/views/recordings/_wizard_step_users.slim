@@ -58,9 +58,8 @@
               -else
                 i.fa.fa-share-alt
       		span.title 
-            - if @recording.common_work
-              = link_to user_user_common_work_path(@recording.user, @recording.common_work, recording_id: @recording.id) do
-                '&nbsp;© Copyright
+            = link_to user_user_common_work_path(@recording.user, @recording.get_common_work, recording_id: @recording.id) do
+              '&nbsp;© Copyright
         
             
             

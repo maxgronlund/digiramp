@@ -31,7 +31,7 @@
           .col-sm-6
              == render 'works/shared/badge_button', locals: { \
                                                         blog_post: 'COMMON WORK', \
-                                                        link: account_catalog_catalog_work_path(@account, @catalog, @recording.common_work), \
+                                                        link: account_catalog_catalog_work_path(@account, @catalog, @recording.get_common_work), \
                                                         css_class: 'btn btn-primary', \
                                                         icon: 'fa fa-music' \
                                                       }     

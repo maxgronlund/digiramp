@@ -28,7 +28,7 @@
         = link_to 'Export CSV', user_user_export_work_and_master_path(@user, @common_work, format: "csv"), class: 'btn btn-default'
             
         /= link_to edit_user_recording_social_path(@user, @recording) do
-        /= link_to user_user_common_work_path(@user, @recording.common_work) do
+        /= link_to user_user_common_work_path(@user, @recording.get_common_work) do
         /  .btn.btn-default
         /    'Skip
         /    '&nbsp;

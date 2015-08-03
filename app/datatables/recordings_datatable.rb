@@ -37,7 +37,7 @@ class RecordingsDatatable < Datatable
       explicit = recording.explicit ? '<i class="icon-exclamation-sign"></i>&nbsp;Explicit' : '' unless recording.explicit.nil?
       release_date = recording.release_date.strftime('%Y - %-m - %-d') if recording.release_date
       
-      path = @controller.account_common_work_recording_path(@account, recording.common_work, recording) if recording.common_work
+      path = @controller.account_common_work_recording_path(@account, recording.get_common_work, recording)
       title = path ? link_to(recording.title, path) : h(recording.title)
       
       mini_player = @controller.render_to_string partial: 'recordings/mini_player', locals: {recording: recording}

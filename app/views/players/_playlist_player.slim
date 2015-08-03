@@ -61,11 +61,11 @@
 /            div class="position" id="position_#{index}"
 /
 /
-/  -if recording.common_work
+/  -if recording.get_common_work
 /    .col-sm-4
 /      .pull-right
 /        -if @show_more
-/          =link_to account_common_work_recording_path(recording.account, recording.common_work, recording) do
+/          =link_to account_common_work_recording_path(recording.account, recording.get_common_work, recording) do
 /            .btn.btn-default.btn-lg
 /              i class="fa fa-eye"
 /        -elsif @add_to_playlist
@@ -76,13 +76,13 @@
 /        
 /        -if @can_edit
 /          '&nbsp;
-/          =link_to edit_account_common_work_recording_path(recording.account, recording.common_work, recording)
+/          =link_to edit_account_common_work_recording_path(recording.account, recording.get_common_work, recording)
 /            .btn.btn-primary.btn-lg
 /              i class="fa fa-pencil"
 /    
 /        -if @can_delete
 /          '&nbsp;
-/          =link_to account_common_work_recording_path(recording.account, recording.common_work, recording) , data: { confirm: 'Are you sure?' } , method: :delete do
+/          =link_to account_common_work_recording_path(recording.account, recording.get_common_work, recording) , data: { confirm: 'Are you sure?' } , method: :delete do
 /            .btn.btn-danger.btn-lg
 /              i class="fa fa-trash-o"
 /                

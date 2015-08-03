@@ -6,7 +6,7 @@ class RecordingTagsController < ApplicationController
   
   def edit
     forbidden unless (current_user && @recording.user_id == current_user.id) || super?
-    @common_work = @recording.common_work
+    @common_work = @recording.get_common_work
     
   end
 
@@ -22,7 +22,7 @@ class RecordingTagsController < ApplicationController
     
     #redirect_to edit_user_recording_social_path( @user, @recording )
     # redirect_to user_recording_path( @recording.user, @recording )
-    redirect_to user_user_common_work_path( @recording.user, @recording.common_work )
+    redirect_to user_user_common_work_path( @recording.user, @recording.get_common_work )
     
     
     

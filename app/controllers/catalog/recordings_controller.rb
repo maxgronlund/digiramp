@@ -132,7 +132,7 @@ class Catalog::RecordingsController < ApplicationController
       end
       
       
-      @recording.common_work.update_completeness
+      @recording.get_common_work.update_completeness
       
 
     else
@@ -171,7 +171,7 @@ class Catalog::RecordingsController < ApplicationController
       #@recording.category     = params[:recording][:category]   if params[:recording][:category]
       @recording.cache_version += 1
       @recording.save
-      @recording.common_work.update_completeness
+      @recording.get_common_work.update_completeness
     end
     
   end
@@ -183,7 +183,7 @@ class Catalog::RecordingsController < ApplicationController
       #@recording.category = params[:recording][:category]
       @recording.cache_version += 1
       @recording.save
-      @recording.common_work.update_completeness
+      @recording.get_common_work.update_completeness
     end
     @blog               = Blog.recordings
     
@@ -199,7 +199,7 @@ class Catalog::RecordingsController < ApplicationController
       #@recording.category = params[:recording][:category]
       @recording.cache_version += 1
       @recording.save
-      @recording.common_work.update_completeness
+      @recording.get_common_work.update_completeness
     end
     @blog               = Blog.recordings
   end

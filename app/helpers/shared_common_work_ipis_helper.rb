@@ -12,7 +12,7 @@ module SharedCommonWorkIpisHelper
   def read_common_work_ipis
     @catalog        = Catalog.cached_find(params[:shared_catalog_id])
     @recording      = Recording.cached_find(params[:shared_recording_id])
-    @common_work    = @recording.common_work
+    @common_work    = @recording.get_common_work
     forbidden unless @recording.read_common_works_ids.include? current_user.id || can_edit?
   end
   
@@ -22,7 +22,7 @@ module SharedCommonWorkIpisHelper
   def update_common_work_ipis
     @catalog        = Catalog.cached_find(params[:shared_catalog_id])
     @recording      = Recording.cached_find(params[:shared_recording_id])
-    @common_work    = @recording.common_work
+    @common_work    = @recording.get_common_work
     forbidden unless @recording.update_common_works_ids.include? current_user.id || can_edit?
   end
   
@@ -31,7 +31,7 @@ module SharedCommonWorkIpisHelper
   def delete_common_work_ipis
     @catalog        = Catalog.cached_find(params[:shared_catalog_id])
     @recording      = Recording.cached_find(params[:shared_recording_id])
-    @common_work    = @recording.common_work
+    @common_work    = @recording.get_common_work
     forbidden unless @recording.delete_common_work_ipis_ids.include? current_user.id || can_edit?
   end
   

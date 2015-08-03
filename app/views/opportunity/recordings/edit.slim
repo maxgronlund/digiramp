@@ -17,7 +17,6 @@
     = simple_form_for [:opportunity, @opportunity, @music_request, @common_work, @recording],  :html => { :id => 'recording_artwork' } do |f|
       = transloadit :image_files_to_s3 
       = f.hidden_field :account_id, value: @account.id
-      /= f.hidden_field :common_work_id, value: @recording.common_work_id
       == render 'form', f: f
     = transloadit_jquerify :recording_artwork, :wait => true
 

@@ -95,7 +95,7 @@ class Account::RecordingsController < ApplicationController
         end
         recording.save
         recording.check_default_image
-        recording.common_work.update_completeness
+        recording.get_common_work.update_completeness
         @recording = recording
       end
       redirect_to edit_account_account_recording_basic_path(@account, @recording )
@@ -167,7 +167,7 @@ class Account::RecordingsController < ApplicationController
         redirect_to account_account_recordings_bucket_path(@account, @recording )
       else
         #redirect_to :back
-        @recording.common_work.update_completeness if @recording.common_work
+        @recording.get_common_work.update_completeness 
         redirect_to account_account_recording_path(@account, @recording )
       end
       
@@ -187,7 +187,7 @@ class Account::RecordingsController < ApplicationController
   def destroy
     forbidden unless current_account_user && current_account_user.delete_recording?
     if @recording  = Recording.cached_find(params[:id])
-      common_work = @recording.common_work
+      common_work = @recording.get_common_work
       
       @recording.create_activity(  :deleted, 
                                 owner: current_user,
@@ -232,7 +232,7 @@ class Account::RecordingsController < ApplicationController
       @recording.common_work_id = common_work.id
       @recording.cache_version += 1
       @recording.save
-      @recording.common_work.update_completeness
+      @recording.get_common_work.update_completeness
     end                        
   end
   
@@ -251,7 +251,7 @@ class Account::RecordingsController < ApplicationController
       #@recording.category     = params[:recording][:category]   if params[:recording][:category]
       @recording.cache_version += 1
       @recording.save
-      @recording.common_work.update_completeness
+      @recording.get_common_work.update_completeness
     end
     
   end
@@ -263,7 +263,7 @@ class Account::RecordingsController < ApplicationController
       #@recording.category = params[:recording][:category]
       @recording.cache_version += 1
       @recording.save
-      @recording.common_work.update_completeness
+      @recording.get_common_work.update_completeness
     end
     @blog               = Blog.recordings
     
@@ -279,7 +279,7 @@ class Account::RecordingsController < ApplicationController
       #@recording.category = params[:recording][:category]
       @recording.cache_version += 1
       @recording.save
-      @recording.common_work.update_completeness
+      @recording.get_common_work.update_completeness
     end
     @blog               = Blog.recordings
   end

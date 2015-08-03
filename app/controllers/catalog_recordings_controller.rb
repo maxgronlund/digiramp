@@ -65,7 +65,7 @@ class CatalogRecordingsController < ApplicationController
     @recording = Recording.cached_find(params[:recording])
     
     @catalog.add_recording @recording
-    @catalog.add_common_work @recording.common_work
+    @catalog.add_common_work @recording.get_common_work
 
                  
     #catalog_item.create_activity(  :created, 
@@ -110,7 +110,7 @@ class CatalogRecordingsController < ApplicationController
         @recording.save
       end
       
-      @recording.common_work.update_completeness
+      @recording.get_common_work.update_completeness
       
       #if @genre_category
       #  redirect_to edit_account_common_work_recording_path(@account, @common_work, @recording, genre_category: @genre_category )

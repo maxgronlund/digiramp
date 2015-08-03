@@ -110,7 +110,7 @@ class User::ProductsController < ApplicationController
         #    #redirect_to user_user_product_path(@user, @shop_product)
         #  else
         #    session[:user_product_path] = user_user_product_path(@user, @shop_product)
-        #    redirect_to user_user_common_work_path(@user, @recording.common_work) 
+        #    redirect_to user_user_common_work_path(@user, @recording.get_common_work) 
         #  end
         #else
         #  after_update_path

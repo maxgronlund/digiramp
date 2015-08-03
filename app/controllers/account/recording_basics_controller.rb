@@ -64,7 +64,7 @@ class Account::RecordingBasicsController < ApplicationController
       end
       @recording.check_default_image
 
-      @recording.common_work.update_completeness if @recording.common_work
+      @recording.get_common_work.update_completeness
       
     end
     if go_to == 'next_step'

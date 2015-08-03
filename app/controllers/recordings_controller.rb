@@ -62,7 +62,7 @@ class RecordingsController < ApplicationController
 
         recording.save(validate: false)
         recording.check_default_image
-        recording.common_work.update_completeness
+        recording.get_common_work.update_completeness
         @recording = recording
       end
       
@@ -78,7 +78,7 @@ class RecordingsController < ApplicationController
 
     return not_found unless  @recording = Recording.cached_find(params[:id])
 
-    @common_work  = @recording.common_work
+    @common_work  = @recording.get_common_work
     @playlists    = current_user.playlists if current_user
     @user_credits = @recording.user_credits
     
@@ -115,7 +115,7 @@ class RecordingsController < ApplicationController
     @recording_id = params[:id]
     @recording    = Recording.find(@recording_id)
 
-    common_work = @recording.common_work
+    common_work = @recording.get_common_work
     
     
     #@recording.destroy
@@ -186,7 +186,7 @@ class RecordingsController < ApplicationController
       end
       @recording.check_default_image
 
-      @recording.common_work.update_completeness if @recording.common_work
+      @recording.get_common_work.update_completeness
       
     end
     redirect_to user_recording_path( @user, @recording )
