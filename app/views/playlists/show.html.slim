@@ -13,7 +13,7 @@
       .row
         .col-sm-6
           h2 = @playlist.title
-        - if current_user && current_user.manage? @user
+        - if current_user && (current_user.manage? @user)
           .col-sm-6
             .pull-right.pull-down-10
               = link_to edit_user_user_playlist_path(@user, @playlist) do
