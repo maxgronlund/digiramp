@@ -62,10 +62,20 @@ class Account::OpportunityInvitationsController < ApplicationController
           end
           # send emailOpportunityFromPlaylistsController
           if user.account_activated
-            OpportunityMailer.delay.invite(sanitized_email, @opportunity_invitation.id, user.id)
+            if @opportunity_user.reviewer
+              OpportunityReviewMailer.delay.invite(user.id, @opportunity_user.id, @opportunity_invitation.id)
+            end
+            if @opportunity_user.provider
+              OpportunityMailer.delay.invite(sanitized_email, @opportunity_invitation.id, user.id)
+            end
           else
             user.add_token
-            OpportunityMailer.delay.invite_to_account(sanitized_email, @opportunity_invitation.id, user.id)
+            if @opportunity_user.reviewer
+              OpportunityReviewMailer.delay.invite_to_account(user.id, @opportunity_user.id, @opportunity_invitation.id)
+            end
+            if @opportunity_user.provider
+              OpportunityMailer.delay.invite_to_account(sanitized_email, @opportunity_invitation.id, user.id)
+            end
           end
           
           

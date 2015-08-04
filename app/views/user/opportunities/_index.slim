@@ -21,9 +21,9 @@
 
             - if opportunity_user = OpportunityUser.find_by(opportunity_id: opportunity.id, user_id: @user)
               - if opportunity_user.reviewer
-                => link_to opportunity_opportunity_reviewer_path(opportunity, opportunity_user.uuid) do
-                  .btn.btn-default
-                    'Review
+                = link_to 'Review', 
+                          user_user_opportunities_for_review_path(@user, 
+                                                                opportunity_user.uuid), class: 'btn btn-default'
                   
                 
             => link_to user_user_selected_opportunity_path(@user, opportunity) do

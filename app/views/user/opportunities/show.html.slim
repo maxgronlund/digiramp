@@ -39,13 +39,7 @@
           - viewed = SelectedOpportunity.where(user_id: @user.id, opportunity_id: @opportunity.id).first ? true : false
             
           == render 'user/opportunities/show', opportunity: @opportunity, viewed: viewed
-          /.row
-          /  .col-sm-12
-          /    .pull-right
-          /      = link_to user_user_selected_opportunity_path(@user, @opportunity) do
-          /        .btn.btn-default
-          /          'Save
-          /        
+   
         
         
 

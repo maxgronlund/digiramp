@@ -7,8 +7,8 @@ class OpportunityMailer < ApplicationMailer
     if user                       = User.cached_find(user_id)
       if opportunity_invitation   = OpportunityInvitation.cached_find(opportunity_invitation_id)
         if opportunity            = opportunity_invitation.opportunity
-          blog                    = Blog.cached_find('Support')
-          blog_post               = BlogPost.cached_find( "INVITE TO OPPORTUNITY" , blog )
+          blog                    = Blog.cached_find('Opportunities')
+          blog_post               = BlogPost.cached_find( "Invite to opportunity email" , blog )
           opportunity_link        = url_for( controller: 'opportunity/opportunities', action: 'show', id: opportunity.id, opportunity_invitation: 'true', user_id: user_id)
           fotter_link             = url_for( controller: 'contacts', action: 'new')
         end
@@ -55,8 +55,8 @@ class OpportunityMailer < ApplicationMailer
     return unless user                    = User.cached_find(user_id)
     return unless opportunity_invitation  = OpportunityInvitation.cached_find(opportunity_invitation_id)
     return unless opportunity             = opportunity_invitation.opportunity
-    return unless blog                    = Blog.cached_find('Support')
-    return unless blog_post               = BlogPost.cached_find( "INVITE TO OPPORTUNITY" , blog )
+    return unless blog                    = Blog.cached_find('Opportunities')
+    return unless blog_post               = BlogPost.cached_find( "Invite new user to opportunity email" , blog )
     
     opportunity_link        = url_for( controller: 'activate_account', 
                                        action: 'edit', 

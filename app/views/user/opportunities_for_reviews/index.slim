@@ -36,15 +36,72 @@
                   = link_to 'Clear', user_user_opportunities_path(@user, clear: 'clear'), class: 'btn btn-default'
             
       .sexy_line
+      .digi-box
+        .table-responsive
+          table class="table table-hover"
+            thead
+              tr
+                th Title
+                th Songs
+                th Status
+                th 
+                
+            tbody
+              - @opportunities.each do |opportunity|
+                - viewed = SelectedOpportunity.where(user_id: @user.id, opportunity_id: opportunity.id).first ? true : false
+                tr id="opportunity_#{opportunity.id}"
+                  td 
+                    
+
+                    => link_to user_user_opportunity_path(@user, opportunity, remove: true), method: :delete, remote: true do
+                      .btn.btn-danger.btn-xs
+                        i.fa.fa-times
+                    
+                    - if opportunity_user = OpportunityUser.find_by(opportunity_id: opportunity.id, user_id: @user)
+                      = link_to opportunity.title, 
+                                user_user_opportunities_for_review_path(@user, 
+                                                                      opportunity_user.uuid), class: 'btn btn-default btn-xs'
+                  td = opportunity.submission_count
+                  td 
+                    - if SelectedOpportunity.find_by(user_id: @user.id, opportunity_id: opportunity.id)
+                      'Viewed
+                  td
+                      
+                
       /.row
       /  .col-sm-12
-      /    pull-right
-      /      == render 'user/opportunities/navigation', active: 'all'
-      .row
-        .col-sm-12
-          .opportunity
-            .new_opportunities 
-            == render 'user/opportunities/index'
+      /    .opportunity
+      /      .new_opportunities 
+      /      .old_opportunities
+      /        - @opportunities.each do |opportunity|
+      /
+      /          - viewed = SelectedOpportunity.where(user_id: @user.id, opportunity_id: opportunity.id).first ? true : false
+      /
+      /          .opportunity-box id="opportunity_#{opportunity.id}"
+      /            = render 'user/opportunities/show', opportunity: opportunity, viewed: viewed
+      /            .row
+      /              .col-sm-12
+      /                .pull-right
+      /
+      /                  - if opportunity_user = OpportunityUser.find_by(opportunity_id: opportunity.id, user_id: @user)
+      /                    - if opportunity_user.reviewer
+      /                      => link_to opportunity_opportunity_reviewer_path(opportunity, opportunity_user.uuid) do
+      /                        .btn.btn-default
+      /                          'Review
+      /            
+      /          
+      /
+      /
+      /                  - else
+      /                    =< link_to user_user_opportunity_path(@user, opportunity, remove: true), method: :delete, remote: true do
+      /                      .btn.btn-danger
+      /                        i.fa.fa-times
+      /
+      /
+      /
+      /
+      /
+      /            .clearfix
       
 
   == render 'shared/site_footer'  

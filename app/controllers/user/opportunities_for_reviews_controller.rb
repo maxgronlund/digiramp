@@ -13,4 +13,22 @@ class User::OpportunitiesForReviewsController < ApplicationController
     @opportunities     = Opportunity.order('created_at desc').where(id: opportunity_ids)
 
   end
+  
+  def show
+    
+    
+
+    if @opportunity_user = OpportunityUser.find_by( user_id: @user.id, uuid: params[:id] )
+      @account = @user.account
+      @opportunity = @opportunity_user.opportunity
+
+      SelectedOpportunity.where(user_id: @user.id, opportunity_id: @opportunity.id)
+                         .first_or_create(user_id: @user.id, opportunity_id: @opportunity.id)
+    else
+      not_found
+    end
+        
+  end
+  
+  
 end

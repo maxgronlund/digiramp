@@ -34,7 +34,12 @@
                   = link_to 'Clear', admin_opportunities_path, class: 'btn btn-default'        
             
       .sexy_line
-      .digi-box
+      - blog   = Blog.cached_find('Opportunities')
+      .row
+        .col-sm-12
+          .pull-right
+            = link_to 'Edit invitation mails', admin_blog_path(blog), class: 'btn btn-default'
+      .digi-box.pull-down-4
         .table-responsive
           table class="table table-hover"
             thead
@@ -49,39 +54,71 @@
         
             tbody
               - @opportunities.each do |opportunity|
-                
-                tr id="delete_opportunity_#{opportunity.id}"
-                  td
-                    = link_to admin_opportunity_path( opportunity), method: :delete, data: {confirm: 'Are you sure?'}, remote: true do
-                      .btn.btn-danger.btn-xs
-                        i.fa.fa-times
-        
-                    '&nbsp;
-                    = link_to edit_account_account_opportunity_path(opportunity.account, opportunity) do
-                      .btn.btn-default.btn-xs
-                        i.fa.fa-pencil
-                    '&nbsp;
-                    = link_to account_account_opportunity_path(opportunity.account, opportunity) do
-                       .btn.btn-default.btn-xs
-                         i.fa.fa-eye
-                         '&nbsp;
-                         = opportunity.title
+                - if opportunity.account
+                  tr id="delete_opportunity_#{opportunity.id}"
+                    td
+                      => link_to admin_opportunity_path( opportunity), method: :delete, data: {confirm: 'Are you sure?'}, remote: true do
+                        .btn.btn-danger.btn-xs
+                          i.fa.fa-times
                   
-                  td
-                    -unless opportunity.public_opportunity
-                      i.fa.fa-envelope
-                      '&nbsp;Private
-                  td 
-                    - if opportunity.deadline && opportunity.deadline < Date.current
-                      .expired
-                        i class="fa fa-exclamation-circle"
-                        '&nbsp;
+                      = link_to edit_account_account_opportunity_path(opportunity.account, opportunity) do
+                        .btn.btn-default.btn-xs
+                          i.fa.fa-pencil
+                      '&nbsp;
+                      = link_to account_account_opportunity_path(opportunity.account, opportunity) do
+                         .btn.btn-default.btn-xs
+                           i.fa.fa-eye
+                           '&nbsp;
+                           = opportunity.title
+                    
+                    td
+                      -unless opportunity.public_opportunity
+                        i.fa.fa-envelope
+                        '&nbsp;Private
+                    td 
+                      - if opportunity.deadline && opportunity.deadline < Date.current
+                        .expired
+                          i class="fa fa-exclamation-circle"
+                          '&nbsp;
+                          = opportunity.deadline
+                      - else
                         = opportunity.deadline
-                    - else
-                      = opportunity.deadline
-                  td = opportunity.music_requests.count
-                  td = opportunity.submissions.count
-                  /td = opportunity.budget
+                    td = opportunity.music_requests.count
+                    td = opportunity.submissions.count
+                    /td = opportunity.budget
+                - else
+                  tr
+                    td
+                      => link_to admin_opportunity_path( opportunity), method: :delete, data: {confirm: 'Are you sure?'}, remote: true do
+                        .btn.btn-danger.btn-xs
+                          i.fa.fa-times
+                      '! Account is missing
+                      /= link_to edit_account_account_opportunity_path(opportunity.account, opportunity) do
+                      /  .btn.btn-default.btn-xs
+                      /    i.fa.fa-pencil
+                      /'&nbsp;
+                      /= link_to account_account_opportunity_path(opportunity.account, opportunity) do
+                      /   .btn.btn-default.btn-xs
+                      /     i.fa.fa-eye
+                      /     '&nbsp;
+                      /     = opportunity.title
+                      /
+                    td
+                      -unless opportunity.public_opportunity
+                        i.fa.fa-envelope
+                        '&nbsp;Private
+                    td 
+                      - if opportunity.deadline && opportunity.deadline < Date.current
+                        .expired
+                          i class="fa fa-exclamation-circle"
+                          '&nbsp;
+                          = opportunity.deadline
+                      - else
+                        = opportunity.deadline
+                    td = opportunity.music_requests.count
+                    td = opportunity.submissions.count
+                    /td = opportunity.budget
+
                   
         
       .sexy_line

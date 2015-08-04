@@ -35,7 +35,7 @@
               
       .sexy_line
       .digi-box
-        = simple_form_for [ :account, @account, @opportunity, @opportunity_invitation] do |f|
+        = simple_form_for [ :account, @account, @opportunity, @opportunity_invitation], turboboost: true do |f|
           /= f.hidden_field :account_id, value: @account.id
           = f.hidden_field :opportunity_id, value: @opportunity.id
           .row
