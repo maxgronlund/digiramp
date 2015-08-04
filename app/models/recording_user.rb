@@ -1,7 +1,8 @@
 class RecordingUser < ActiveRecord::Base
   belongs_to :user
   belongs_to :recording
-  validates :email, uniqueness: true, presence: true
+  #validates :email, uniqueness: true, presence: true
+  validates_formatting_of :email, :using => :email
   after_create :attach_user
   after_commit :flush_cache
 

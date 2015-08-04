@@ -13,11 +13,13 @@ class User::RecordingUsersController < ApplicationController
   # POST /recording_users
   # POST /recording_users.json
   def create
+
     @recording      = Recording.cached_find(params[:recording_id])
     @user           = @recording.user
     @recording_user = RecordingUser.new(recording_user_params)
     
     if @recording_user.save
+      ap @recording_user
       redirect_to user_user_recording_recording_users_path(@user, @recording)
     else
       render :index 

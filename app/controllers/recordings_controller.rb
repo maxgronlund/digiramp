@@ -91,20 +91,24 @@ class RecordingsController < ApplicationController
     end
     respond_to do |format|
       format.html{ 
-        unless  (@recording.privacy == 'Anyone') 
-          # there has to ba a user
-          forbidden unless current_user 
-          
-          case @recording.privacy
-          when 'Only people I choose'
+        case @recording.privacy
+        when 'Only me'  
+          forbidden unless  (current_user && @recording.user_id == current_user.id) || super?
+        when 'Only people I choose'
+          if current_user
             forbidden unless RecordingUser.find_by(user_id: current_user.id, recording_id: @recording.id) ||
-                                                @recording.user_id == current_user.id ||
-                                                super?
+                                                  (@recording.user_id == current_user.id) ||
+                                                  super?
+              
+              
+            
           else
-            # handle other  cases here
-            forbidden unless  @recording.user_id == current_user.id || super?
+            forbidden
           end
+        when 'Anyone'
+          
         end
+
       }
       format.js
       format.json { render :json => @this.to_json }
