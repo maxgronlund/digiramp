@@ -15,8 +15,7 @@ class OpportunityReviewMailer < ApplicationMailer
     opportunity_link        = url_for( controller: 'user/opportunities_for_reviews', action: 'show', user_id: user.id, id: opportunity_user.uuid)
     fotter_link             = url_for( controller: 'contacts', action: 'new')
     email                   = user.email
-    
-    ap opportunity_link
+
     
     begin
       template_name = "opportunity-review-invitation"
