@@ -68,6 +68,13 @@
           i class="fa fa-tachometer"
           '&nbsp;
           'Dashboard
+          
+    - if (current_user && current_user.account_type == 'Pro' && @user.id == current_user.id) || super?    
+      li class="#{'sidebar-selected' if selected == 'pro'}"
+        = link_to account_account_path( @user.account) do
+          i class="fa fa-money"
+          '&nbsp;
+          'Pro account
 
           
  

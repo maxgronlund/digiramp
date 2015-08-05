@@ -547,7 +547,7 @@ Digiramp::Application.routes.draw do
       resources :opportunity_selections
 
       resources :opportunities do
-        #resources :opportunity_reviewers
+        resources :opportunity_reviewers, only: [:show]
         #resources :opportunity_evaluations # !!!
         resources :opportunity_users #, only: [:destroy, :show]
         #resources :opportunity_providers, only: [:index]
@@ -564,7 +564,7 @@ Digiramp::Application.routes.draw do
           #end
           get 'max_submissions_reached'
           resources :music_submissions do
-            resources :music_submission_selections, only: [:create, :destroy]
+            #resources :music_submission_selections, only: [:create, :destroy]
             member do
               get 'submit_recording'
               
@@ -742,14 +742,13 @@ Digiramp::Application.routes.draw do
   #=================== USER =========================
   namespace :user do
     
-    
     resources :shop, only: [:index, :show]
     resources :checking_accounts
     resources :social_links, only: [:edit, :update]
     
     #resources :common_work_lyrics
     resources :users do
-      
+
       resources :withdraw, only:[:index]
       resources :accounts, only: [:index]
       #resources :deleted_messages, only: [:index, :update, :destroy]
@@ -883,6 +882,9 @@ Digiramp::Application.routes.draw do
       
         resources :music_requests do
           resources :request_recordings
+          resources :music_submissions do
+            resources :music_submission_selections, only: [:create, :destroy]
+          end
         end
         
       end

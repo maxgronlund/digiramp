@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150802150320) do
+ActiveRecord::Schema.define(version: 20150805202833) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -2117,11 +2117,13 @@ ActiveRecord::Schema.define(version: 20150802150320) do
     t.integer  "user_id"
     t.datetime "created_at",          null: false
     t.datetime "updated_at",          null: false
+    t.integer  "opportunity_user_id"
   end
 
   add_index "music_submission_selections", ["account_id"], name: "index_music_submission_selections_on_account_id", using: :btree
   add_index "music_submission_selections", ["music_request_id"], name: "index_music_submission_selections_on_music_request_id", using: :btree
   add_index "music_submission_selections", ["music_submission_id"], name: "index_music_submission_selections_on_music_submission_id", using: :btree
+  add_index "music_submission_selections", ["opportunity_user_id"], name: "index_music_submission_selections_on_opportunity_user_id", using: :btree
   add_index "music_submission_selections", ["user_id"], name: "index_music_submission_selections_on_user_id", using: :btree
 
   create_table "music_submissions", force: :cascade do |t|
@@ -3496,6 +3498,7 @@ ActiveRecord::Schema.define(version: 20150802150320) do
   add_foreign_key "mail_campaigns", "accounts", on_delete: :cascade
   add_foreign_key "music_submission_selections", "music_requests", on_delete: :cascade
   add_foreign_key "music_submission_selections", "music_submissions", on_delete: :cascade
+  add_foreign_key "music_submission_selections", "opportunity_users", on_delete: :cascade
   add_foreign_key "opportunities", "accounts", on_delete: :cascade
   add_foreign_key "playbacks", "accounts", on_delete: :cascade
   add_foreign_key "playlist_emails", "accounts", on_delete: :cascade

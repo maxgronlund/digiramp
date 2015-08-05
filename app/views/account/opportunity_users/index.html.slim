@@ -102,7 +102,7 @@
                               '&nbsp;
                               = opportunity_user.music_submissions.size
                         - if opportunity_user.reviewer
-                          = link_to opportunity_opportunity_reviewer_path(@opportunity, opportunity_user.uuid) do
+                          = link_to account_account_opportunity_opportunity_reviewer_path(@account, @opportunity, opportunity_user.uuid) do
                             .btn.btn-default.btn-xs
                               'Reviews
                       

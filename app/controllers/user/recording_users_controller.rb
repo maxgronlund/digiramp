@@ -19,7 +19,6 @@ class User::RecordingUsersController < ApplicationController
     @recording_user = RecordingUser.new(recording_user_params)
     
     if @recording_user.save
-      ap @recording_user
       redirect_to user_user_recording_recording_users_path(@user, @recording)
     else
       render :index 
@@ -27,20 +26,6 @@ class User::RecordingUsersController < ApplicationController
     
   end
   
-  #def create
-  #  @recording_user = RecordingUser.new(recording_user_params)
-  #
-  #  respond_to do |format|
-  #    if @recording_user.save
-  #      format.html { redirect_to @recording_user, notice: 'Recording user was successfully created.' }
-  #      format.json { render :show, status: :created, location: @recording_user }
-  #    else
-  #      format.html { render :new }
-  #      format.json { render json: @recording_user.errors, status: :unprocessable_entity }
-  #    end
-  #  end
-  #end
-
 
   # DELETE /recording_users/1
   # DELETE /recording_users/1.json

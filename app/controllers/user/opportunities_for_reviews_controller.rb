@@ -19,11 +19,19 @@ class User::OpportunitiesForReviewsController < ApplicationController
     
 
     if @opportunity_user = OpportunityUser.find_by( user_id: @user.id, uuid: params[:id] )
-      @account = @user.account
-      @opportunity = @opportunity_user.opportunity
-
-      SelectedOpportunity.where(user_id: @user.id, opportunity_id: @opportunity.id)
-                         .first_or_create(user_id: @user.id, opportunity_id: @opportunity.id)
+      #@account = @user.account
+      if @opportunity = @opportunity_user.opportunity
+        SelectedOpportunity.where(user_id: @user.id, opportunity_id: @opportunity.id)
+                           .first_or_create(user_id: @user.id, opportunity_id: @opportunity.id)
+        if account = @opportunity.account
+          @mail_receiver = account.user
+        else
+          not_found
+        end
+        
+      else
+        not_found
+      end                 
     else
       not_found
     end

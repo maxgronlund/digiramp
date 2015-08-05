@@ -57,7 +57,8 @@
                         ul
                            li The inviter can only contact you again if you accept this invitaion
                            li If you accept this invitation you can dismiss it at any time, and the inviter will be unable to contact you again
-                        
+                
+              
           
           .pull-down-12
           .sexy_line
@@ -67,10 +68,7 @@
               = link_to image_tag( @message.sender.image_url(:avatar_48x48) ), user_path( @message.sender )
             .sender-info
               b = @message.sender.user_name
-         
 
-
-          
         .row
           .col-sm-12
             
@@ -112,17 +110,7 @@
               - else
                 .alert.alert-danger
                   '!Recording removed
-              /ruby:
-              /  begin
-              /    /- if MusicSubmission.exists?(@message.subjectable_id)
-              /    /  - music_submission =  MusicSubmission.find(@message.subjectable_id)
-              /    /  - recording = music_submission.recording
-              /    /  /= debug music_submission.recording
-              /    /  #digiWhams  class="/recordings/#{recording.id.to_s}"
-              /    /    == render 'recording', recording: recording
-              /  rescue
-              /  
-              /  end
+      
                 
             - when 'Connection'
               - if connection = Connection.where( id: @message.subjectable_id ).first
@@ -134,12 +122,18 @@
                   /  '&nbsp;
                     /  = f.submit 'Accept invitation', class: 'btn btn-primary'
               - else
-                
-                '! Connection deleted
+                .alert.alert-warning
+                  '! Connection deleted
         
             - when 'Opportunity'
               = link_to 'Show me the opportunity', opportunity_opportunity_path(@message.subjectable_id, opportunity_invitation: 'true', user_id: @user.id), class: 'btn btn-primary'
-        
+            
+            - when 'OpportunityUser'
+              - if opportunity_user = OpportunityUser.cached_find( @message.subjectable_id ) rescue nil
+                = link_to 'Show me', user_user_opportunities_for_review_path(opportunity_user.user, opportunity_user.uuid), class: 'btn btn-warning'
+              - else
+                .alert.alert-warning
+                  '! The review has been deleted by the inviter
         
         
         

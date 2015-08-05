@@ -3,6 +3,7 @@ class MusicSubmissionSelection < ActiveRecord::Base
   belongs_to :music_submission
   belongs_to :music_request
   belongs_to :user
+  belongs_to :opportunity_user
   
   after_commit :flush_cache
 

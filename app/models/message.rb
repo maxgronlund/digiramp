@@ -55,7 +55,7 @@ class Message < ActiveRecord::Base
   
   def user_can_reply user 
     
-    if Connection.exists?( self.connection_id)
+    if Connection.exists?(self.connection_id)
       return connection.is_active
     end
     false

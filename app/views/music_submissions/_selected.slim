@@ -1,21 +1,26 @@
 div id="old_music_submission_selected_#{music_submission.id.to_s}"  
-  - if selection = music_submission.music_submission_selections.where(user_id: @account.user_id).first
-    = link_to 'Selected', account_account_opportunity_music_request_music_submission_music_submission_selection_path( \
-                @account, @opportunity, music_request,music_submission ,selection),
+  
+  - if selection = music_submission.music_submission_selections.find_by(user_id: @user.id)
+    
+    = link_to 'Selected', user_user_opportunity_music_request_music_submission_music_submission_selection_path( \
+                @user, @opportunity, music_request,music_submission ,selection),
                 method: :delete, 
                 remote: true,
                 class: 'btn btn-success btn-xs'
   - else
-    = simple_form_for [:account, 
-                        @account, 
+    /user/users/:user_id/opportunities/:opportunity_id/music_requests/:music_request_id/music_submissions/:music_submission_id/music_submission_selections
+    = simple_form_for [:user, 
+                        @user, 
                         @opportunity, 
                         music_request, 
                         music_submission, 
                         MusicSubmissionSelection.new], remote: true do |f|
-                          
-      = f.hidden_field :account_id,          value: @account.id
+      = f.hidden_field :user_id,             value: @user.id                
+      = f.hidden_field :account_id,          value: @user.account.id
+      = f.hidden_field :music_request_id,    value: music_request.id
       = f.hidden_field :music_submission_id, value: music_submission.id
-      = f.hidden_field :user_id,             value: @account.user_id
+      = f.hidden_field :opportunity_user_id, value: @opportunity_user.id
+      
     
       = f.submit 'Select', class: 'btn btn-default btn-xs'
 

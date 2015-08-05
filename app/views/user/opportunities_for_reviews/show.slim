@@ -24,7 +24,7 @@
           - if recording =  music_submission.recording
             div id="delete_music_submission_#{music_submission.id.to_s}"
               .row
-                .col-sm-12
+                .col-sm-9
                   #digiWhams  class="/recordings/#{recording.id.to_s}"
                     == render 'audio_player/show', recording: recording , description: true, target: ''
                     .player-bottom
@@ -41,19 +41,20 @@
                           == render 'music_submissions/selected', music_request: music_request, music_submission: music_submission
                         
                         
-                      .pull-right
-                        =< link_to new_message_digalog_path(sender: current_user, 
-                                                           receiver: music_submission.user, 
-                                                           title: "Regarding: #{music_submission.recording.title}", 
-                                                           subjectable_id: music_submission.id, 
-                                                           subjectable_type: 'MusicSubmission'), remote: true do
-                              .btn.btn-default.btn-xs
-                                i.fa.fa-envelope
-                                  '&nbsp;Send message
-                        
+                      - if @mail_receiver
+                        .pull-right
+                          =< link_to new_message_digalog_path(sender: current_user, 
+                                                              receiver: @mail_receiver, 
+                                                              title: "Regarding: #{music_submission.recording.title}", 
+                                                              subjectable_id: music_submission.id, 
+                                                              subjectable_type: 'MusicSubmission'), remote: true do
+                                .btn.btn-default.btn-xs
+                                  i.fa.fa-envelope
+                                    '&nbsp;Send message
+                      / 
+              
         
-        
-                      
+                .col-sm-3      
                 
    
 
