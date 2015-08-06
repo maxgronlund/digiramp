@@ -237,6 +237,17 @@
                       li Plans
                       ll Paper trails
                       
+            .admin-badge-container
+              = link_to admin_blacklist_domains_path do
+                .admin-badge
+                  .title
+                    h4
+                      i.fa.fa-money
+                      '&nbsp;Blacklist
+                  .body
+                    ul
+                      li Blacklisted domains
+                      
             /.admin-badge-container
             /  = link_to admin_account_features_path do
             /    .admin-badge
