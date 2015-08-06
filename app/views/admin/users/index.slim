@@ -62,9 +62,9 @@
                         .btn.btn-danger.btn-xs
                           i class="fa fa-times"
                       
-                      => link_to admin_user_path( user, blacklist: true), data: { confirm: 'No users from the domain can sign up' } , :method => :delete, remote: true do 
+                      => link_to admin_user_path( user, blacklist: true), data: { confirm: '!WARNING if you blacklist this user no other users from the users domain will be able to signup' } , :method => :delete, remote: true do 
                         .btn.btn-default.btn-xs
-                          'Blacklist domain
+                          'Blacklist
 
                     => link_to edit_admin_user_path( user) do 
                       .btn.btn-default.btn-xs
@@ -89,9 +89,7 @@
                         
                     '&nbsp;
                     = link_to user_path(user) do 
-                      .btn.btn-default.btn-xs style="width: 180px; text-align: left; text-overflow: ellipsis;"
-                        i class="fa fa-user" 
-                        '&nbsp;
+                      .btn.btn-default.btn-xs style="width: 280px; text-align: left; text-overflow: ellipsis;"
                         = user.email
                   td = user.user_name
                   td
