@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150805202833) do
+ActiveRecord::Schema.define(version: 20150806084422) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -431,6 +431,12 @@ ActiveRecord::Schema.define(version: 20150805202833) do
   end
 
   add_index "authorization_providers", ["user_id"], name: "index_authorization_providers_on_user_id", using: :btree
+
+  create_table "blacklist_domains", force: :cascade do |t|
+    t.string   "domain"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "blog_posts", force: :cascade do |t|
     t.string   "title",       limit: 255

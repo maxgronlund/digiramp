@@ -1,0 +1,2 @@
+module BlacklistDomainsHelper
+end

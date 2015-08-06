@@ -62,44 +62,23 @@ class Admin::UsersController < ApplicationController
   
   def destroy
     user       = User.cached_find(params[:id])
+    if params[:blacklist]
+      domain =  user.email.split('@').last.split('.').last(2).join(".")
+      BlacklistDomain.where(domain: domain).first_or_create(domain: domain)
+    end
+    user       = User.cached_find(params[:id])
     @user_id   = user.id
     if @account    = user.account
       @account_id = @account.id
     end
 
     
-    unless current_user.id == @user_id
-      @account.destroy! if @account
-      user.destroy
-    end
-    
-    #begin
-    #  @user     = User.cached_find(params[:id])
-    #  @account  = @user.account
-    #  @user.create_activity(  :destroyed, 
-    #                     owner: current_user,
-    #                 recipient: @user,
-    #            recipient_type: @user.class.name,
-    #                account_id: @user.account.id)
-    #  
-    #  @user_id = @user.id
-    #  @user.destroy!
-    #  
-    #
-    #  #@account.create_activity(  :destroyed, 
-    #  #                   owner: current_user,
-    #  #               recipient: @account,
-    #  #          recipient_type: @account.class.name,
-    #  #              account_id: @account.account_id)
-    #  #              
-    #  #@account.destroy!
-    #
-    #  
-    #rescue
-    #  flash[:danger] = "Something went wrong" 
-    #  puts '===============================   ERROR ==================================='
+    #unless current_user.id == @user_id
+    #  @account.destroy! if @account
+    #  user.destroy
     #end
-    ##redirect_to admin_users_path
+    #
+    
   end
 
 

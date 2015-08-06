@@ -1,0 +1,54 @@
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'home' 
+  
+  
+  .admin-account
+    #sidebar-wrapper
+      ul class="sidebar-nav"
+        == render 'admin/shared/sidebar', selected: 'user'
+  
+  #page-content-wrapper
+    .container-fluid
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { admin: admin_index_path }, current: ''}
+      .row
+        .col-sm-12
+
+          h2 Blacklisted domains
+          'No users from the following domains can sign up
+         
+     
+            
+                 
+      .sexy_line
+      .row
+        .col-sm-6
+          .digi-box
+            .table-responsive
+              table class="table table-hover"
+                thead
+              
+                  tr
+                    th Domain
+                    
+                
+                tbody
+                  - @blacklist_domains.each do |blacklist_domain|
+                    tr
+                      td 
+                        => link_to  admin_blacklist_domain_path(blacklist_domain), data: {:confirm => 'Are you sure?'}, 
+                                                                                              turboboost: true, :method => :delete do
+                                    .btn.btn-danger.btn-xs
+                                      i.fa.fa-times
+                      
+                        = blacklist_domain.domain
+                     
+        
+
+        /= link_to 'New Blacklist domain', new_admin_blacklist_domain_path
+     
+  == render 'shared/site_footer'    
+ 
+
+
+

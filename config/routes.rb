@@ -1,5 +1,6 @@
 Digiramp::Application.routes.draw do
   
+  
   get 'landing_page/index'
   
   get "/pages/*id" => 'pages#show', as: :page, format: false
@@ -98,6 +99,7 @@ Digiramp::Application.routes.draw do
     resources :activity_counter
     get 'business/index'
     #resources :contracts
+    resources :blacklist_domains
     resources :coupons
     resources :client_events
     resources :client_groups
