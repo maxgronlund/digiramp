@@ -31,7 +31,10 @@
             .sexy_line
             
             = simple_form_for(  @user, :url => activate_account_path(params[:id]) ) do |f|
-              = f.hidden_field :opportunity_id, value: @opportunity.id
+              - if @opportunity
+                = f.hidden_field :opportunity_id, value: @opportunity.id
+              - if @opportunity_user
+                = f.hidden_field :opportunity_user_id, value: @opportunity_user.id
               .input-group
                 span class="input-group-addon"
                   i class= 'fa fa-key'

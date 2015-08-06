@@ -58,15 +58,17 @@ class OpportunityReviewMailer < ApplicationMailer
     return unless blog                    = Blog.cached_find('Opportunities')
     return unless blog_post               = BlogPost.cached_find( "Invite to new user review opportunity email" , blog )
     return unless email                   = user.email
+    
     opportunity_link        = url_for( controller: 'activate_account', 
                                        action: 'edit', 
                                        id: user.password_reset_token, 
-                                       opportunity_id: opportunity.id  )
+                                       opportunity_user_id: opportunity_user.uuid  )
+                                       
                                        
     fotter_link             = url_for( controller: 'contacts', action: 'new')
     
     begin
-      template_name = "opportunity-review-invitation"
+      template_name = "opportunity-review-invitation-for-new-user"
       template_content = []
       message = {
         to: [{email: email , name: user.user_name }],
