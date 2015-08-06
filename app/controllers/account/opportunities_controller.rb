@@ -18,11 +18,17 @@ class Account::OpportunitiesController < ApplicationController
   def show
     forbidden unless current_account_user && current_account_user.read_opportunity
     
-    @opportunity.create_activity(  :show, 
-                              owner: current_user,
-                          recipient: @opportunity,
-                     recipient_type: @opportunity.class.name,
-                         account_id: @opportunity.account_id)
+    #@opportunity.create_activity(  :show, 
+    #                          owner: current_user,
+    #                      recipient: @opportunity,
+    #                 recipient_type: @opportunity.class.name,
+    #                     account_id: @opportunity.account_id)
+    @opportunity_user = OpportunityUser.where(user_id: @account.user_id, 
+                                              opportunity_id: @opportunity.id)
+                                       .first_or_create(user_id: @account.user_id, 
+                                                        opportunity_id: @opportunity.id, 
+                                                        provider: true, 
+                                                        reviewer: true)
     @user = @account.user
   end
 
