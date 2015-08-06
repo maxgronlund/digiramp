@@ -73,11 +73,11 @@ class Admin::UsersController < ApplicationController
     end
 
     
-    #unless current_user.id == @user_id
-    #  @account.destroy! if @account
-    #  user.destroy
-    #end
-    #
+    unless current_user.id == @user_id
+      @account.destroy! if @account
+      user.destroy
+    end
+    
     
   end
 
