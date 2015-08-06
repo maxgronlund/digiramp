@@ -143,8 +143,6 @@ class UsersController < ApplicationController
     @user                = User.new(user_params)
       
     if @user.save
-      ap '==================== saved ======================'
-      #finished(:signup_title)
       finished(:landing_page)
       
       @account          = User.create_a_new_account_for_the @user
