@@ -3,7 +3,8 @@ class Admin::AccountsController < ApplicationController
   before_action :admins_only
   
   def index
-    @accounts   = Account.activated.search(params[:query]).order('lower(title) ASC').page(params[:page]).per(50)
+    #@accounts   = Account.activated.search(params[:query]).order('lower(title) ASC').page(params[:page]).per(50)
+    @accounts   = Account.search(params[:query]).order('id desc').page(params[:page]).per(50)
     #@user = current_user
   end
   

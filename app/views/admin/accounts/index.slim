@@ -43,10 +43,11 @@
                 th Account
                 th Owner
                 th Type
+                th Id
                  
                 
             tbody
-              - @accounts.order('lower(title) ASC').each do |account|
+              - @accounts.each do |account|
                 tr id="delete_account_#{account.id.to_s}"
                   /th = account.title
                     
@@ -107,6 +108,7 @@
                         .btn.btn-default.btn-xs
                           i class="fa fa-tachometer"
                           =< account.account_type
+                  td = account.id
                  
                       
                       
