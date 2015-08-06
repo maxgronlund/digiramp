@@ -71,9 +71,22 @@ class Admin::AccountsController < ApplicationController
   
   
   def destroy
-      @account    = Account.cached_find(params[:id])
-      @account_id = @account.id
-      @account.destroy!   
+    
+    @account    = Account.cached_find(params[:id])
+    @account_id = @account.id
+    user        = @account.user
+    
+    unless current_user.id == @account.user_id
+      @account.destroy!
+      if user
+        user.destroy
+      end
+    end
+
+    
+      #@account    = Account.cached_find(params[:id])
+      
+      #@account.destroy!   
   end
   
   def delete_common_works

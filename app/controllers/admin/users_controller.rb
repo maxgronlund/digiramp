@@ -11,7 +11,7 @@ class Admin::UsersController < ApplicationController
 
   def index
     #@users = User.search(params[:query]).order('lower(email) ASC').page(params[:page]).per(50)
-    @users = User.search(params[:query]).order('created_at DESC').page(params[:page]).per(50)
+    @users = User.search(params[:query]).order('created_at DESC').page(params[:page]).per(200)
   end
 
   def show
@@ -61,33 +61,45 @@ class Admin::UsersController < ApplicationController
   
   
   def destroy
-    begin
-      @user     = User.cached_find(params[:id])
-      @account  = @user.account
-      @user.create_activity(  :destroyed, 
-                         owner: current_user,
-                     recipient: @user,
-                recipient_type: @user.class.name,
-                    account_id: @user.account.id)
-      
-      @user_id = @user.id
-      @user.destroy!
-      
-
-      #@account.create_activity(  :destroyed, 
-      #                   owner: current_user,
-      #               recipient: @account,
-      #          recipient_type: @account.class.name,
-      #              account_id: @account.account_id)
-      #              
-      #@account.destroy!
-
-      
-    rescue
-      flash[:danger] = "Something went wrong" 
-      puts '===============================   ERROR ==================================='
+    user       = User.cached_find(params[:id])
+    @user_id   = user.id
+    if @account    = user.account
+      @account_id = @account.id
     end
-    #redirect_to admin_users_path
+
+    
+    unless current_user.id == @user_id
+      @account.destroy! if @account
+      user.destroy
+    end
+    
+    #begin
+    #  @user     = User.cached_find(params[:id])
+    #  @account  = @user.account
+    #  @user.create_activity(  :destroyed, 
+    #                     owner: current_user,
+    #                 recipient: @user,
+    #            recipient_type: @user.class.name,
+    #                account_id: @user.account.id)
+    #  
+    #  @user_id = @user.id
+    #  @user.destroy!
+    #  
+    #
+    #  #@account.create_activity(  :destroyed, 
+    #  #                   owner: current_user,
+    #  #               recipient: @account,
+    #  #          recipient_type: @account.class.name,
+    #  #              account_id: @account.account_id)
+    #  #              
+    #  #@account.destroy!
+    #
+    #  
+    #rescue
+    #  flash[:danger] = "Something went wrong" 
+    #  puts '===============================   ERROR ==================================='
+    #end
+    ##redirect_to admin_users_path
   end
 
 
