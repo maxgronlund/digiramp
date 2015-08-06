@@ -42,7 +42,8 @@
             thead
               tr
                 th 
-                /th Featured
+                th Name
+                th Featured
                 th Plan
                 /th Joined
                 /th Role
@@ -88,9 +89,11 @@
                         i class="fa fa-user" 
                         '&nbsp;
                         = user.email
-                  /td
-                  /  - if user.featured
-                  /    i.fa.fa-star
+                  td = user.user_name
+                  td
+                    - if user.featured
+                      i.fa.fa-star&nbsp;Featured
+                  
                   td 
                     -if user.account
                       = user.account_type
