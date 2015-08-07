@@ -45,15 +45,8 @@ class User < ActiveRecord::Base
   validates :email, presence: true, uniqueness: true
   validates_formatting_of :email
   validates_with UserValidator
-  
-  #validates_uniqueness_of :user_name
   validates_presence_of :user_name
   validates_presence_of :password, :on => :create
-  #validates_with PasswordValidator, fields: [:password, :password_confirmation]
-
-  
-  #validates_presence_of :link_to_facebook
-  
   validates_formatting_of :link_to_facebook        , :using => :url, :allow_blank => true      # URLs
   validates_formatting_of :link_to_twitter         , :using => :url, :allow_blank => true      # URLs
   validates_formatting_of :link_to_linkedin        , :using => :url, :allow_blank => true      # URLs
@@ -62,38 +55,29 @@ class User < ActiveRecord::Base
   validates_formatting_of :link_to_instagram       , :using => :url, :allow_blank => true      # URLs
   validates_formatting_of :link_to_youtube         , :using => :url, :allow_blank => true      # URLs
   validates_formatting_of :link_to_homepage        , :using => :url, :allow_blank => true      # URLs
-  #validates_uniqueness_of :link_to_facebook, :allow_blank => true      # URLs
-  
-  #validates_presence_of :name, :on => :update
-  #before_create :set_uuid
+
+
+
+
   has_one  :account
-  #has_one :account_users
-  #has_many :account_users
-  has_many :account_users#,    dependent: :destroy
+  has_many :account_users
   has_many :accounts,         :through => :account_users  
   
   has_many :comments,        as: :commentable,          dependent: :destroy
   has_many :digital_signatures 
   has_many :recording_downloads, dependent: :destroy
-  
-
   has_many :selected_opportunities
   has_many :client_invitation
   has_many :subscriptions
   has_many :recording_ipis
   
-  
-  #has_many :stripe_transfers, class_name: "Shop::StripeTransfer", dependent: :destroy
 
-  
   serialize :crop_params, Hash
   serialize :seller_info,  JSON
   mount_uploader :image, AvatarUploader
   #include ImageCrop
-  
-  
+
   belongs_to :page_style
-  
   has_many :recordings
   has_many :client_imports
   
@@ -102,15 +86,13 @@ class User < ActiveRecord::Base
   
   # omniauth
   has_many :authorization_providers,    dependent: :destroy
-  
   has_many :catalog_users,              dependent: :destroy
   has_many :catalogs, through: :catalog_users
   has_many :opportunity_users,          dependent: :destroy
   has_many :opportunities, through: :opportunity_users
   has_many :music_submission_selections
   
-  #################################
-  # not sure if in use
+
   has_one :dashboard
   has_many :work_users,               dependent: :destroy
   has_many :works,                    through: :work_users
@@ -119,30 +101,24 @@ class User < ActiveRecord::Base
   # account_catalog a user administrates
   has_many :administrations
   has_many :account_catalogs, through: :administrations
-  #################################
-  
-  
-  
+
   # for the crm
   has_many :project_tasks
   has_many :projects
-  
   
   has_many :ipis
   has_many :user_credits, dependent: :destroy
   has_many :issues,       dependent: :destroy
   
-  #has_many :permissions
-  #has_many :permitted_models, dependent: :destroy #!!! moving to account_user
+
   # Activities
   has_many :activity_events, as: :activity_eventable
-  
+
   has_many :share_on_facebooks, dependent: :destroy
   has_many :share_on_twitters,  dependent: :destroy
   
 
   after_commit    :set_propperties
-  
   before_save     :update_meta
   before_create   :update_meta
   #before_create :set_token

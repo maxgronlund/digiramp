@@ -3,26 +3,27 @@
   .full-width-top
     == render 'shared/navigationbar', page: 'home' 
   
-  
   #sidebar-wrapper
     ul class="sidebar-nav"
       == render 'shop/shared/sidebar', selected: 'products'
-
-    
-  
   
   #page-content-wrapper
     .container-fluid
+      .row
+        .col-sm-6
+          .digi-box
+            .products 
+              .seller-avatar
+                 = link_to image_tag( @shop_product.user.image_url :avatar_32x32), @shop_product.user
+              .seller-name
+                'Sold by:
+                br
+                b = @shop_product.user.user_name
+            .row
+              .col-sm-12
+        .col-sm-6
+        
       .digi-box
         == render 'shop/products/shared/show' , product: @shop_product, buy: true
       
-      /.row
-      /  .col-sm-12
-      /    .digi-box
-      /      h3 Other items sole by
-      /      .seller-avatar
-      /      
-      /      .seller-name
-      /      
-      /      .
-      /      = @shop_product.user.user_name
+  
