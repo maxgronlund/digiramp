@@ -214,12 +214,11 @@
             .inline-button
               / only the user and supers can edit and add pages
               - if current_user.id == @user.id || super?
-                / Edit profile
                 => link_to edit_user_path(@user) do
                   .btn.btn-default
                     i class="fa fa-pencil"
                     '&nbsp;
-                    'Edit profile
+                    'Profile settings
                     
                 = link_to user_user_cms_pages_path(@user) do
                   .btn.btn-default
@@ -244,23 +243,12 @@
                     == render 'users/connect',    user: @user, size: ''
                     
 
-              /.inline-button
-              /  / Follow / unfollow
-              /  div id="follow_user_#{@user.id.to_s}"
-              /    -if current_user.following?(@user)
-              /      == render 'users/unfollow', user: @user
-              /    - else 
-              /      == render 'users/follow', user: @user
-              /
           - else
             / connect when not logged in
             = link_to new_become_member_path(user: @user.id), remote: true do
                   .btn.btn-primary
                     i.fa.fa-refresh
                     '&nbsp;Connect
-        
-        
-        
         
         
     .row
@@ -306,59 +294,10 @@
             .btn.btn-default
               'Add/edit links to you socials media
               
-          /li
-          /  a href="#" 
-          /    i.fa.fa-adn
-          /li
-          /  a href="#" 
-          /    i.fa.fa-android
-          /li
-          /  a href="#" 
-          /    i.fa.fa-apple
-          /li
-          /  a href="#" 
-          /    i.fa.fa-bitbucket
-          /li
-          /  a href="#" 
-          /    i.fa.fa-bitcoin
-          /li
-          /  a href="#" 
-          /    i.fa.fa-css3
-          /li
-          /  a href="#" 
-          /    i.fa.fa-dribbble
-          /li
-          /  a href="#" 
-          /    i.fa.fa-dropbox
-          /li
-          /  a href="#" 
-          /    i.fa.fa-facebook
-          /li
-          /  a href="#" 
-          /    i.fa.fa-flickr
-          /li
-          /  a href="#" 
-          /    i.fa.fa-foursquare
+       
     .row
       .col-sm-12.pull-down-8
         .sexy_line
         = simple_format @user.profile
-    
-      
-      
-      /- if current_user.id == @user.id
-      /  / Edit profile
-      /  = link_to edit_user_path(current_user) do
-      /    .btn.btn-default.btn-xs
-      /      i class="fa fa-pencil"
-      /      '&nbsp;
-      /      'Edit profile
-      /- else
-      /  / Follow / unfollow
-      /  div id="follow_user_#{@user.id.to_s}"
-      /    -if current_user.following?(@user)
-      /      == render 'users/unfollow', user: @user
-      /    - else 
-      /      == render 'users/follow', user: @user
-      /
+
      

@@ -444,29 +444,11 @@ class User < ActiveRecord::Base
         
     end
     Client.where(email: self.email).update_all(member_id: self.id)
-    set_default_avatar
+    #set_default_avatar
     CreateUserMandrillAccountJob.perform_later(self.id) if Rails.env.production?
     Stake.where(  email: self.email ).update_all( unassigned: false)
   end
-  
-  def set_default_avatar
-    
-    DefaultAvararJob.perform_later self.id
 
-    #prng       = Random.new
-    #random_id =  prng.rand(85)
-    #
-    #if random_id < 10
-    #  random_id = '0' + random_id.to_s 
-    #end
-    #
-    #
-    #self.remote_image_url = "https://s3-us-west-1.amazonaws.com/digiramp/uploads/default-avatars/5GA3Zk1C_avatar_#{random_id.to_s}.jpg"
-    #self.save!
-
-
-  end
-  
   def stripe_customers
     StripeCustomer.where(stripe_id: self.stripe_customer_id )
   end
@@ -743,7 +725,7 @@ class User < ActiveRecord::Base
   
   
   def self.invite_to_catalog_by_email email, title, body, catalog_id
-
+    ap 'User.invite_to_catalog_by_email not implemented'
   end
   
 
@@ -766,7 +748,6 @@ class User < ActiveRecord::Base
     if email = EmailSanitizer.saintize( email )
       user_name = create_uniq_user_name_from_email email
       
-      
       secret_temp_password  = UUIDTools::UUID.timestamp_create().to_s
       user                  = User.create(    
                                           user_name:      user_name,
@@ -776,7 +757,7 @@ class User < ActiveRecord::Base
                               password_confirmation:      secret_temp_password,
                                   account_activated:      false
                                           )
-                              
+      DefaultAvararJob.perform_later user.id                   
       # apply a password reset token
       user.add_token
       

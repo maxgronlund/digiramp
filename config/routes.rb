@@ -444,7 +444,7 @@ Digiramp::Application.routes.draw do
   resources :supports, only: [:create]
   
   
-  get "sign_up/index"
+  #get "sign_up/index"
   get "login/new"
   #get "login/index"
   resources :sessions

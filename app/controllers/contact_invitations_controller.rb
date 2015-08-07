@@ -136,16 +136,6 @@ private
     User.where(email: client_invitation.client.email).first 
   end
 
-  #def process_client client
-  #  
-  #  if message = user_is_logged_in( client )
-  #    return message
-  #  if @inviter = User.where( client.user_id).first
-  #  else
-  #    return 'Error: Inviter is no longer a member'
-  #  end
-  #end
-  
   def user_is_logged_in client
     if current_user
       if current_user.email == client.email
@@ -223,7 +213,7 @@ private
     
 
     if @user.save
-
+      DefaultAvararJob.perform_later @user.id
       @account                        = User.create_a_new_account_for_the @user
       @account.title                  = client.company if client.company.to_s != ''
       @account.account_type           = 'Social'
@@ -271,16 +261,8 @@ private
                                         approved: true,
                                         dismissed: false,
                                         message: "" )
-                                        
-                                        
-                                      
-        
-        #sender    = User.cached_find(@user.id)
-        
         
         @message = Message.create(recipient_id: user_a.id, sender_id: user_b.id, title: 'Invitation accepted', body: "Your invitation send to #{user_b.email} has been accepted")
-        
-        
         
         inviter   = User.cached_find(user_a.id)
         invited   = User.cached_find(user_b.id)
@@ -292,8 +274,6 @@ private
                                               "image"   => 'notice'
                                               })
             
-        
-       
         @message.send_as_email 
       end
 

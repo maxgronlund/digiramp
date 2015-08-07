@@ -125,24 +125,22 @@ class UsersController < ApplicationController
 
   def new
     @user = User.new
-    
   end
 
   def edit
-    @authorized = true
+    #@authorized = true
   end
 
   def create
-    
+
     session[:show_profile_completeness] = true
-    #params[:user][:role]                = 'Customer'
     params[:user][:show_introduction]   = true
     params[:user][:email].downcase! if params[:user][:email]
-    
     
     @user                = User.new(user_params)
       
     if @user.save
+      DefaultAvararJob.perform_later @user.id
       finished(:landing_page)
       
       @account          = User.create_a_new_account_for_the @user
@@ -216,21 +214,14 @@ class UsersController < ApplicationController
   end
 
   def destroy
+    
     if super? || (current_user.id == @user.id)
-      @user.create_activity(  :destroyed, 
-                         owner: @user,
-                     recipient: @user,
-                recipient_type: @user.class.name,
-                    account_id: @user.account.id)
-      
-      @user.account.destroy!  
-      @user.flush_auth_token_cache(cookies[:auth_token])
-      @user.destroy
       
       session[:go_to_after_edit]          = nil
       cookies.delete(:user_id)
-      
       session[:show_profile_completeness] = nil
+      @user.flush_auth_token_cache(cookies[:auth_token])
+      DeleteUserJob.perform_later @user.id
       redirect_to root_path
     else
       forbidden

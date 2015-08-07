@@ -51,7 +51,7 @@ class Account::AccountUsersController < ApplicationController
                          password_confirmation: secret_temp_password,
                          activated: activated)
     
-    
+    DefaultAvararJob.perform_later @user.id
   end
   
   

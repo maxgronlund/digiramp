@@ -114,15 +114,15 @@ private
     end
     
     unless user
-      #'------------ info --------------'
-      #env["info"]
-      #'---------- update provider --------'
+
       user = User.create(  name:           env["info"]["nickname"], 
                            password:       UUIDTools::UUID.timestamp_create().to_s, 
                            social_avatar:  env[:info][:image],
                            email:          email,
                            email_missing:  email_missing,
                            user_name:      env[:info][:name])
+                           
+      DefaultAvararJob.perform_later user.id
     end                          
     return {user: user, message: "#{env["provider"].upcase} has created a DigiRAMP account for you"}
   end
