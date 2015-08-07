@@ -1,5 +1,5 @@
 class StakeValidator < ActiveModel::Validator
   def validate(record)
-    ap record
+    #ap record
   end
 end

@@ -26,7 +26,7 @@ class Shop::Product < ActiveRecord::Base
 
   scope :on_sale,  ->  { where( connected_to_stripe: true).order("title asc")  }
   
-  def title
+  def product_title
     self.productable ? self.productable.title : 'na'
   end
 
@@ -148,6 +148,14 @@ class Shop::Product < ActiveRecord::Base
       total += stakeholder.split
     end
     total
+  end
+  
+  def get_shop_art thumb_size
+    if self.productable
+     productable.get_shop_art
+    else
+      self.image_url  thumb_size
+    end
   end
   
 

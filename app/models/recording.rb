@@ -538,6 +538,7 @@ class Recording < ActiveRecord::Base
     s3 = Aws::S3::Resource.new
     secure_url = self.mp3
     
+    
     begin
       if self.mp3.include?("https://s3-us-west-1.amazonaws.com/digiramp/")
         secure_url = self.mp3.gsub('https://s3-us-west-1.amazonaws.com/digiramp/', '')

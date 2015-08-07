@@ -36,7 +36,6 @@ Given(/^I am logged in as administrator$/) do
 end
 
 Given(/^there is a user with the email "(.*?)" and the password "(.*?)"$/) do |email, password|
-  #user = FactoryGirl.create(:user, email: email, password: password, role: 'Customer')
   find_or_create_user(  Faker::Name.first_name , email, password, 'Customer')
 end
 

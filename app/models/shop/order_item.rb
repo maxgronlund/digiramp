@@ -52,7 +52,7 @@ class Shop::OrderItem < ActiveRecord::Base
   end
   
   def title
-    self.shop_product ? self.shop_product.title : 'na'
+    self.shop_product ? self.shop_product.product_title : 'na'
   end
 
   private 

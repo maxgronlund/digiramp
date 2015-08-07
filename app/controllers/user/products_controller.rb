@@ -41,6 +41,10 @@ class User::ProductsController < ApplicationController
         get_documents
         
       when 'physical-product'
+        @shop_product = Shop::Product.new(price: 98, 
+                                          additional_info: additional_info,
+                                          for_sale: true,
+                                          show_in_shop: true)
         get_documents
       else
         redirect_to user_user_select_product_type_index_path(@user)
@@ -94,8 +98,10 @@ class User::ProductsController < ApplicationController
     @category     = @shop_product.category
     set_productable params
     
+    ap shop_product_params
+    
     respond_to do |format|
-      if @shop_product.update!(shop_product_params)
+      if @shop_product.update(shop_product_params)
         
         #update_show_in_shop
         format.html { redirect_to user_user_product_path(@user, @shop_product) }

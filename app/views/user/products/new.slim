@@ -19,8 +19,11 @@
                                                               'shop admin'.to_sym => user_user_shop_admin_index_path(@user)}, current: ''}
       
       
-      
       == render  @category.gsub('-', '_').downcase, action: 'create'
+      /- begin
+      /  == render  @category.gsub('-', '_').downcase, action: 'create'
+      /- rescue
+      /  = debug @category
 
   == render 'shared/site_footer' 
 == render 'shared/init_wysiwyg5'

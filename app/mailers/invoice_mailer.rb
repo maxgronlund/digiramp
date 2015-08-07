@@ -43,7 +43,7 @@ class InvoiceMailer < ApplicationMailer
               merge_vars: [
                 {
                  rcpt: seller.email,
-                 vars: [ {name: "TITLE",          content: "You have sold #{product.title}"},
+                 vars: [ {name: "TITLE",          content: "You have sold #{product.product_title}"},
                          {name: "BODY",           content: "Please click on the link belove to se if you have additional action to take"},
                          {name: 'ORDER_ITEM_URL', content: order_item_url}
                       ]

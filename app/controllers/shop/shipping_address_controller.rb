@@ -33,7 +33,7 @@ class Shop::ShippingAddressController < ApplicationController
 
     respond_to do |format|
       if @address.save!
-        format.html { redirect_to edit_shop_order_path(current_order.uuid), notice: 'Address was successfully created.' }
+        format.html { redirect_to edit_shop_order_path(current_order), notice: 'Address was successfully created.' }
         format.json { render :show, status: :created, location: @address }
       else
         render :new

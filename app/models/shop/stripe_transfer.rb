@@ -83,7 +83,7 @@ class Shop::StripeTransfer < ActiveRecord::Base
    if order_item && product = order_item.shop_product
      self.description = order_item.quantity.to_s
      self.description << ' x '
-     self.description << product.title
+     self.description << product.product_title
    else
     self.description = 'DigiRAMP Payment'
    end
