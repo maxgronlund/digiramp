@@ -11,7 +11,14 @@
     .container-fluid
       == render 'shared/flash_message'
       == render 'shared/breadcrumbs', breadcrumbs: { links: { 'Dashboard'.to_sym =>user_user_control_panel_index_path(@user)}, current: ''}
-      h2 Revenue streams
+      .row
+        .col-sm-12
+          .help
+            .help-text
+              h2 Revenue streams
+            .help-button
+              == render 'admin/helps/help', identifier: 'user revenue streams'
+          
       .sexy_line
       .digi-box
         .table-responsive
@@ -36,8 +43,7 @@
                   /                              :method => :delete do
                   /        .btn.btn-danger.btn-xs
                   /          i.fa.fa-times
-                  /td = stake.asset_type
-                  td = stake.original_source
+                  td = stake.title
                   td = stake.units_sold
                   td = number_to_percentage(stake.split, precision: 0) 
                   td = number_to_currency( stake.unit_price, precision: 4, locale: 'en')

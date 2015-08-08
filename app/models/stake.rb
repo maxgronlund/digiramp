@@ -69,10 +69,10 @@ class Stake < ActiveRecord::Base
   end
   
   def set_relations
-    if new_record?
-      self.original_source = self.income_source
-      save
-    end
+    #if new_record?
+    #  self.original_source = self.income_source
+    #  save
+    #end
     attach_to_user
   end
   

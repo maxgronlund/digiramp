@@ -4,41 +4,28 @@ module OpportunitiesHelper
 
     unless current_user.nil?
       if params[:opportunity_invitation] && params[:user_id] && params[:id]
-        
         if @opportunity  = Opportunity.cached_find(params[:id])
           if @user        = User.cached_find(params[:user_id])
-              ap 'ok'
-            if @opportunity_user = OpportunityUser.find_by( opportunity_id: @opportunity.id, 
-                                                                          user_id: @user.id)
-                                                                    
-              if current_user.id == @user.id
-                ap 'valid invitation and right user'
-              else
-                 ap 'valid invitation but wrong user'
+            if @opportunity_user = OpportunityUser.find_by( opportunity_id: @opportunity.id, user_id: @user.id)                                  
+              unless current_user.id == @user.id
+                'valid invitation but wrong user'
               end
             else
-              ap  'opportunity user not found'
+              'opportunity user not found'
             end
-             
           else
-             ap 'user not found'
+             'user not found'
           end
         else
-          ap 'opportunity not found'
+          'opportunity not found'
         end
       else
-         ap 'bad parameters'
+         'bad parameters'
       end
     else
       redirect_to login_new_path
     end
-      
-
   end
-  
-
-  
-  
 end
 
 
