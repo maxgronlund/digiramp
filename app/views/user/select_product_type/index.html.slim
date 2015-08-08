@@ -17,7 +17,11 @@
                                                               'Shop admin'.to_sym => user_user_shop_admin_index_path(@user)}, current: ''}
       .row
         .col-sm-8
-          h2 Select product type
+          .help
+            .help-text
+              h2 Select product type
+            .help-button
+              == render 'admin/helps/help', identifier: 'user select product type to create'
         .col-sm-4
           .pull-down-10.pull-right
             = link_to 'Edit language', admin_blog_path(@blog), class: 'btn btn-default', id: 'edit-language'

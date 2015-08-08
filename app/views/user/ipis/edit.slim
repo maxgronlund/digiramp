@@ -1,5 +1,6 @@
 / this view is rendered when the user and current_user and ipi is valid
 /= debug @user_credits
+
 #wrapper
   .full-width-top
     == render 'shared/navigationbar', page: 'settings' 
@@ -11,8 +12,8 @@
   
   #page-content-wrapper
     .container-fluid
-      == render 'shared/breadcrumbs', breadcrumbs: { links: { 'Dashboard'.to_sym => user_user_control_panel_index_path(@user),
-                                                              'ipis'.to_sym => user_user_ipis_path(@user) }, current: ''}
+      /== render 'shared/breadcrumbs', breadcrumbs: { links: { 'Dashboard'.to_sym => user_user_control_panel_index_path(@user),
+      /                                                        'ipis'.to_sym => user_user_ipis_path(@user) }, current: ''}
       .row
         .col-sm-6
           .help
@@ -22,10 +23,10 @@
               == render 'admin/helps/help', identifier: 'edit user ipi'
         .col-sm-6
           .pull-right.pull-down-10
-            => link_to user_user_ipi_path(@user, @ipi ) do
-              .btn.btn-default
-                i.fa.fa-chevron-left
-                '&nbsp;Back
+            /=> link_to user_user_ipi_path(@user, @ipi ) do
+            /  .btn.btn-default
+            /    i.fa.fa-chevron-left
+            /    '&nbsp;Back
             => link_to 'Advanced', "#ipi", 'data-toggle'.to_sym => 'collapse', 'data-parent'.to_sym => '#accordion', class: 'btn btn-default'
 
       .sexy_line

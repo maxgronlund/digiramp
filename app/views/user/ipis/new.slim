@@ -1,6 +1,6 @@
 / this view is rendered when the user and current_user and ipi is valid
 /= debug @user_credits
-- session
+- session[:go_to_after_update_ipi] = request.url
 #wrapper
   .full-width-top
     == render 'shared/navigationbar', page: 'settings' 
@@ -12,13 +12,13 @@
   
   #page-content-wrapper
     .container-fluid
-      == render 'shared/breadcrumbs', breadcrumbs: { links: { 'Dashboard'.to_sym => user_user_control_panel_index_path(@user),
-                                                              'ipis'.to_sym => user_user_ipis_path(@user) }, current: ''}
+      /== render 'shared/breadcrumbs', breadcrumbs: { links: { 'Dashboard'.to_sym => user_user_control_panel_index_path(@user),
+      /                                                        'ipis'.to_sym => user_user_ipis_path(@user) }, current: ''}
       .row
         .col-sm-6
           .help
             .help-text
-              h2 New IPI / Credit 
+              h2 IPI's / Credit's 
             .help-button
               == render 'admin/helps/help', identifier: 'edit user ipi'
         .col-sm-6
