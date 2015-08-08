@@ -39,26 +39,16 @@
           a data-wysihtml5-command="italic" Italic
           .pull-right
             a data-wysihtml5-action="change_view"  Html 
-        =f.input :body, label: false, :input_html => {  style: "height: 280px;", placeholder: "Description", id: 'wysihtml5_editor'}
+        = f.input :body, label: false, :input_html => {  style: "height: 280px;", placeholder: "Description", id: 'wysihtml5_editor'}
         
-        /= f.input :body
-        /= f.association :recordings, collection: @recordings
-        /= f.association :recordings, collection: @recordings, include_blank: true, label: 'Select from your Recordings', input_html: { class: 'chosen-select' }
-        
-        
-        /= f.association :recordings, collection: @recordings,  include_blank: false, input_html: { class: 'tokenize' }
-        /
-        /= f.association :recordings, collection: @recordings,  include_blank: false, input_html: { class: 'tokenize' }, as: :text
-        /<%= f.label :author_ids, "Authors" %><br />
-        /= f.collection_select :playlist_recording_ids, @recordings, :id, :title, {}, {multiple: true} 
-        
+
      
-      .row
-        .col-sm-12
-          .pull-right
-            /- if  @playlist.new_record?
-            /  = link_to 'Cancel', user_playlists_path(@user), class: 'btn btn-default'
-            /-else
-            /  = link_to 'Cancel', user_playlist_path(@user, @playlist), class: 'btn btn-default'
-            =< f.submit 'Save', class: 'btn btn-primary'
-        
+    .row
+      .col-sm-12
+        .pull-right
+          = f.submit 'Save', class: 'btn btn-primary'
+          coffee:
+            $("form#new_playlist").submit ->
+              $(this).find('input[type=submit]').attr('disabled', 'disabled')
+              $(this).find('input[type=submit]').val "Updating, please wait ..."
+      

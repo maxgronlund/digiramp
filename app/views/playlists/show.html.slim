@@ -34,20 +34,24 @@
             .row
               .col-sm-12  
                 .pull-right
-                  - if current_user && \
-                       current_user.manage?( @user ) && \
-                       (@user.account_type == 'Pro')
+                  - if @playlist.playlists_recordings.count > 0
+                    - if current_user && \
+                         current_user.manage?( @user ) && \
+                         (@user.account_type == 'Pro')
                        
-                    => link_to new_account_account_opportunity_from_playlist_path( @user.account, playlist_id: @playlist.id) do
+                      => link_to new_account_account_opportunity_from_playlist_path( @user.account, playlist_id: @playlist.id) do
+                        .btn.btn-default.btn-xs
+                          i.fa.fa-envelope
+                          '&nbsp;
+                          'Create review
+                        
+                        
+                    = link_to new_user_user_playlist_playlist_email_path(@user, @playlist) do
                       .btn.btn-default.btn-xs
-                        i.fa.fa-envelope
-                        '&nbsp;
-                        'Create review
-                        
-                        
-                  = link_to new_user_user_playlist_playlist_email_path(@user, @playlist) do
-                    .btn.btn-default.btn-xs
-                      i.fa.fa-envelope &nbsp; Email playlist
+                        i.fa.fa-envelope &nbsp; Email playlist
+                  - else
+                    .alert.alert-info
+                      'Your playlist is ready to populate. Go ahead and surf DigiRAMP to find recordings you like
                  
 
           

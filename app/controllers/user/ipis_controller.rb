@@ -55,7 +55,6 @@ class User::IpisController < ApplicationController
   end
   
   def update
-    ap params[:commit]
     @ipi          = Ipi.cached_find(params[:id])
     @common_work = CommonWork.cached_find(@ipi.common_work_id)
     
