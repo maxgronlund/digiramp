@@ -34,7 +34,7 @@ class IpiMailer < ApplicationMailer
                    {name: "TITLE",       content: ipi.title},
                    {name: "BODY",        content: ipi.message },
                    {name: "LINK",        content: link }
-                   ]
+                  ]
           }
         ]
       }
