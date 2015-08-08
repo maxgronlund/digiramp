@@ -32,9 +32,11 @@ class Account::OpportunityUsersController < ApplicationController
   #end
   #
   ## GET /opportunities/1/edit
-  #def edit
-  #  forbidden unless current_account_user.update_opportunity
-  #end
+  def edit
+    forbidden unless current_account_user.update_opportunity
+    @opportunity          = Opportunity.cached_find(params[:opportunity_id])
+    @opportunity_user     = OpportunityUser.cached_find(params[:id])
+  end
   #
   ## POST /opportunities
   ## POST /opportunities.json
@@ -46,6 +48,25 @@ class Account::OpportunityUsersController < ApplicationController
   # PATCH/PUT /opportunities/1.json
   def update
     forbidden unless current_account_user.update_opportunity
+    
+    @opportunity          = Opportunity.cached_find(params[:opportunity_id])
+    @opportunity_user     = OpportunityUser.cached_find(params[:id])
+    
+    @opportunity_user.update(opportunity_user_params)
+    
+    @opportunity_user.create_activity(   :updated, 
+                                   owner: current_user,
+                               recipient: @opportunity_user.user,
+                          recipient_type: @opportunity_user.user.class.name,
+                              account_id: @opportunity_user.user.account.id,
+                                  params: {    
+                                            opportunity_id: @opportunity.id,
+                                    opportunity_user_email: @opportunity_user.user.email
+                                            
+                                          }
+                                      ) 
+                                      
+    redirect_to account_account_opportunity_opportunity_users_path(@account, @opportunity)                             
   end
   
  

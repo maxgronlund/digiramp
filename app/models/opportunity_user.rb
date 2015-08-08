@@ -5,6 +5,7 @@ class OpportunityUser < ActiveRecord::Base
   belongs_to    :opportunity
   has_many      :music_submissions, dependent: :destroy
   has_many      :music_submission_selections
+  has_many      :comments,        as: :commentable,          dependent: :destroy
   after_commit  :flush_cache
   #before_destroy :destroy_music_submissions
   

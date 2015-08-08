@@ -15,9 +15,6 @@ class User::OpportunitiesForReviewsController < ApplicationController
   end
   
   def show
-    
-    
-
     if @opportunity_user = OpportunityUser.find_by( user_id: @user.id, uuid: params[:id] )
       #@account = @user.account
       if @opportunity = @opportunity_user.opportunity

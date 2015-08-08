@@ -12,6 +12,10 @@
   
   #page-content-wrapper
     .container-fluid 
+      == render 'admin/shared/messages'
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { opportunities: account_account_opportunities_path(@account), \
+                                                                @opportunity.title.to_sym => account_account_opportunity_path(@account, @opportunity) \
+                                                            }, current: ''}
       .row
         .col-sm-12
           .help
@@ -26,7 +30,7 @@
           'User has not signed up for DigiRAMP yet
       .sexy_line
       .row
-        .col-sm-9
+        .col-sm-8
           - @opportunity.music_requests.order('created_at asc').each do |music_request|
             h4 =music_request.title
             - music_request.music_submissions.each do |music_submission|
@@ -62,3 +66,9 @@
                                     .btn.btn-default.btn-xs
                                       i.fa.fa-envelope
                                         '&nbsp;Send message
+                                        
+        .col-sm-4   
+          .digi-box
+            == render 'shared/comments', commentable: @opportunity_user
+            
+  == render 'shared/site_footer'  

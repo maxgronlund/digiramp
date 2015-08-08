@@ -19,12 +19,13 @@
           
         
       .sexy_line
-      - @opportunity.music_requests.order('created_at asc').each do |music_request|
-        - music_request.music_submissions.each do |music_submission|
-          - if recording =  music_submission.recording
-            div id="delete_music_submission_#{music_submission.id.to_s}"
-              .row
-                .col-sm-9
+      .row
+        .col-sm-8
+          - @opportunity.music_requests.order('created_at asc').each do |music_request|
+            - music_request.music_submissions.each do |music_submission|
+              - if recording =  music_submission.recording
+                div id="delete_music_submission_#{music_submission.id.to_s}"
+              
                   #digiWhams  class="/recordings/#{recording.id.to_s}"
                     == render 'audio_player/show', recording: recording , description: true, target: ''
                     .player-bottom
@@ -51,10 +52,13 @@
                                 .btn.btn-default.btn-xs
                                   i.fa.fa-envelope
                                     '&nbsp;Send message
-                      / 
+                      
               
         
-                .col-sm-3      
+        .col-sm-4   
+          .digi-box
+            == render 'shared/comments', commentable: @opportunity_user
+
                 
    
 
