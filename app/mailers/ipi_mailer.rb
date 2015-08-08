@@ -10,8 +10,9 @@ class IpiMailer < ApplicationMailer
     account      = common_work.account
     user         = account.user
     subject      = "#{user.user_name} has mentioned you as an IP on DigiRAMP"
-    title        = "Confirm IPI"
-    body         = "You have been mentioned by #{user.user_name} as an IP on DigiRAMP Please confirm"
+    #title        = "Confirm IPI"
+    #body         = "You have been mentioned by #{user.user_name} as an IP on DigiRAMP Please confirm"
+    
     
 
     begin
@@ -30,8 +31,8 @@ class IpiMailer < ApplicationMailer
           {
            rcpt: email,
            vars: [
-                   {name: "TITLE",       content: title},
-                   {name: "BODY",        content: body },
+                   {name: "TITLE",       content: ipi.title},
+                   {name: "BODY",        content: ipi.message },
                    {name: "LINK",        content: link }
                    ]
           }
