@@ -5,12 +5,13 @@ class IpiMailer < ApplicationMailer
     ipi          = Ipi.cached_find(ipi_id)
     email        = ipi.email
     link         = url_for( controller: 'confirmation/ipi_confirmations', action: 'show', id: ipi.uuid )
-    subject      = "You are mentioned as an IPI on DigiRAMP"
-    title        = "Confirm IPI"
-    body         = "You have been mentioned as an IP on DigiRAMP Please confirm"
+    
     common_work  = ipi.common_work
     account      = common_work.account
     user         = account.user
+    subject      = "#{user.user_name} has mentioned you as an IP on DigiRAMP"
+    title        = "Confirm IPI"
+    body         = "You have been mentioned by #{user.user_name} as an IP on DigiRAMP Please confirm"
     
 
     begin
