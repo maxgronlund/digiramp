@@ -1,24 +1,6 @@
 class IpiMailer < ApplicationMailer
 
 
-  # Subject can be set in your I18n file at config/locales/en.yml
-  # with the following lookup:
-  #
-  #   en.ipi.confirm_recording.subject
-  #
-  #def confirm_recording recording_ipi_id
-  #  
-  #  #recording_ipi = RecordingIpi.find(recording_ipi_id)
-  #  #@greeting = "Hi"
-  #  #
-  #  #mail to: recording_ipi.email, subject: 'please confirm'
-  #end
-
-  # Subject can be set in your I18n file at config/locales/en.yml
-  # with the following lookup:
-  #
-  #   en.ipi.confirm_common_work.subject
-  #
   def common_work_ipi_confirmation_email ipi_id
     ipi          = Ipi.cached_find(ipi_id)
     email        = ipi.email
@@ -54,9 +36,14 @@ class IpiMailer < ApplicationMailer
           }
         ]
       }
+    rescue => e
+      ErrorNotification.post "IpiMailer #{e.inspect}"
+    end  
+    
+    begin
       mandril_client.messages.send_template template_name, template_content, message
     rescue Mandrill::Error => e
-      ErrorNotification.post "IpiMailer #{e.class} - #{e.message}"
+      ErrorNotification.post "IpiMailer#Mandrill - #{e.message}"
     end
   end
   
