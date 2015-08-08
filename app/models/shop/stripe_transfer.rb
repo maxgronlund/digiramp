@@ -2,7 +2,7 @@ class Shop::StripeTransfer < ActiveRecord::Base
   include ErrorNotification
   has_paper_trail
   
-  belongs_to :order_item,    class_name: "Shop::OrderItem"
+  belongs_to :order_item,    class_name: "Shop::OrderItem", foreign_key: "shop_order_item_id"
   belongs_to :order,         class_name: "Shop::Order"
   belongs_to :user
   belongs_to :account
@@ -16,8 +16,8 @@ class Shop::StripeTransfer < ActiveRecord::Base
   def title
     self.order_item ? order_item.title : 'na'
   end
- 
- 
+  
+
  #aasm column: 'state', whiny_transitions: false do
  aasm column: 'state' do
    state :pending, initial: true
@@ -38,13 +38,14 @@ class Shop::StripeTransfer < ActiveRecord::Base
    end
    
    event :reset do
-     transitions from: [:errored, :processing], to: :pending
+     transitions from: [:errored, :processing, :finished], to: :pending
    end
  end
  
  def seller_account_id
    begin
-     self.user.account.id
+     self.order_item.seller_account_id
+     #self.user.account.id
    rescue
      post_error "Shop::OrderItem id: #{self.id} account not found "
      User.system_user.account.id

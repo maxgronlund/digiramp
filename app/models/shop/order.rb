@@ -94,6 +94,12 @@ class Shop::Order < ActiveRecord::Base
     old_shop_order.destroy!
   end
   
+  def buyer_account_id
+    return nil unless self.user
+    return nil unless self.user.account
+    self.user.account.id
+  end
+  
   def units_of_product product_id
     cnt = 0
     if items = self.order_items.where(shop_product_id: product_id)

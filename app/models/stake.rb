@@ -41,7 +41,7 @@ class Stake < ActiveRecord::Base
   
 
   def charge_succeeded order_item_id, amount, stripe_charge_id
-    
+    ap 'Stake#charge_succeeded'
     # take the cut
     take_a_cut order_item_id, amount, stripe_charge_id
     
@@ -85,7 +85,7 @@ class Stake < ActiveRecord::Base
   
   # create a stripe transfer 
   def take_a_cut order_item_id, amount, stripe_charge_id
-    
+    ap 'Stake#take_a_cut'
     begin
       order_item      = Shop::OrderItem.cached_find( order_item_id )
       amount          = (amount.to_f * self.split * 0.01)
@@ -113,11 +113,13 @@ class Stake < ActiveRecord::Base
                            )
       
       # stripe_transfer
-      # '=============================================='
-      # order_item
-      # '=============================================='
+      
       # mark as paid if the money already is on the right account
-      stripe_transfer.finis! if stripe_transfer.seller_account_id == order_item.seller_account_id
+      if order_item.seller_account_id == order_item.buyer_account_id
+        stripe_transfer.finis! 
+      else
+        stripe_transfer.pay
+      end
 
     rescue => e
       errored('Stake#transfer_to_stripe', e )
@@ -132,6 +134,7 @@ class Stake < ActiveRecord::Base
   end 
   
   def remove_streams
+    self.stripe_transfers.destroy_all
     self.stakeholders.destroy_all if self.stakeholders
   end
   

@@ -170,21 +170,23 @@ class Account < ActiveRecord::Base
     subscription = subscriptions.last
   end
 
+  # related to transfer of recordings
   def transfer_codes=(uuids)
-    
   end
-  
   def transfer_codes
   end
+  
+  #def current_stripe_transfer
+  #  Shop::StripeTransfer.where(account_id: self.id, state: 'pending', stripe_errors: nil)
+  #                      .first_or_create(account_id: self.id )
+  #end
   
   def set_uuid
     self.title = self.title.strip
     self.uuid = UUIDTools::UUID.timestamp_create().to_s
     
   end
-  
 
-  
 
   # !!! might be obsolete
   def has_no_name?

@@ -30,34 +30,35 @@
           - @opportunity.music_requests.order('created_at asc').each do |music_request|
             h4 =music_request.title
             - music_request.music_submissions.each do |music_submission|
-              - if recording =  music_submission.recording
-                div id="delete_music_submission_#{music_submission.id.to_s}"
-                  .row
-                    .col-sm-12
-                      #digiWhams  class="/recordings/#{recording.id.to_s}"
-                        == render 'audio_player/show', recording: recording , description: true, target: ''
-                        .player-bottom
-                          - if @opportunity_user.can_download
-                            .music_submission_selection
-                              => link_to music_submission.recording.download_url2 do
-                                .btn.btn-default.btn-xs
-                                  i class="fa fa-download"
-                              '&nbsp;
-                        
-                          .music_submission_selection
-                            - if selection = music_submission.music_submission_selections.find_by(user_id: @user.id)
-                              'Selected
-                            div id="music_submission_selected_#{music_submission.id.to_s}"
-                              / also contain buttons for remove an message
-                              
-                              /== render 'music_submissions/selected', music_request: music_request, music_submission: music_submission
-                              
-                          .pull-right
-                            =< link_to new_message_digalog_path(sender: current_user, 
-                                                                receiver: @user, 
-                                                                title: "Regarding: #{music_submission.recording.title}", 
-                                                                subjectable_id: music_submission.id, 
-                                                                subjectable_type: 'MusicSubmission'), remote: true do
+              - if selection = music_submission.music_submission_selections.find_by(user_id: @user.id)
+                - if recording =  music_submission.recording
+                  div id="delete_music_submission_#{music_submission.id.to_s}"
+                    .row
+                      .col-sm-12
+                        #digiWhams  class="/recordings/#{recording.id.to_s}"
+                          == render 'audio_player/show', recording: recording , description: true, target: ''
+                          .player-bottom
+                            - if @opportunity_user.can_download
+                              .music_submission_selection
+                                => link_to music_submission.recording.download_url2 do
                                   .btn.btn-default.btn-xs
-                                    i.fa.fa-envelope
-                                      '&nbsp;Send message
+                                    i class="fa fa-download"
+                                '&nbsp;
+                          
+                            .music_submission_selection
+                              /- if selection = music_submission.music_submission_selections.find_by(user_id: @user.id)
+                              /  'Selected
+                              /div id="music_submission_selected_#{music_submission.id.to_s}"
+                              /  / also contain buttons for remove an message
+                              /  
+                              /  /== render 'music_submissions/selected', music_request: music_request, music_submission: music_submission
+                              /  
+                            .pull-right
+                              =< link_to new_message_digalog_path(sender: current_user, 
+                                                                  receiver: @user, 
+                                                                  title: "Regarding: #{music_submission.recording.title}", 
+                                                                  subjectable_id: music_submission.id, 
+                                                                  subjectable_type: 'MusicSubmission'), remote: true do
+                                    .btn.btn-default.btn-xs
+                                      i.fa.fa-envelope
+                                        '&nbsp;Send message

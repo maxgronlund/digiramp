@@ -36,9 +36,18 @@ class Shop::OrderItem < ActiveRecord::Base
   
   def seller_account_id
     begin
-      self.shop_product.user.account.id
+      self.shop_product.account_id
     rescue
-      post_error "Shop::OrderItem id: #{self.id} account not found "
+      post_error "Shop::OrderItem id: #{self.id} seller_account_id not found "
+      User.system_user.account.id
+    end
+  end
+  
+  def buyer_account_id
+    begin
+      self.shop_order.buyer_account_id
+    rescue
+      post_error "Shop::OrderItem id: #{self.id} buyer_account_id not found "
       User.system_user.account.id
     end
   end
