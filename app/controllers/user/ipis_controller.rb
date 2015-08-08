@@ -61,13 +61,11 @@ class User::IpisController < ApplicationController
     if @ipi.update(ipi_params)
       if params[:commit] == 'Save and send message'
         @ipi.send_confirmation_request 
-        redirect_to session[:go_to_after_update_ipi]
-        #redirect_to user_user_common_work_path(@user, @common_work)
+        redirect_to new_user_user_common_work_ipi_path(@user, @common_work)
       elsif params[:commit] == "Update"
         redirect_to session[:go_to_after_update_ipi]
-        #redirect_to user_user_common_work_path(@user, @common_work)
       elsif params[:commit] == "Save"
-        redirect_to user_user_common_work_path(@user, @common_work)
+        redirect_to new_user_user_common_work_ipi_path(@user, @common_work)
       end
       
         #if params[:commit] == 'Update'
