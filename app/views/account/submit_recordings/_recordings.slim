@@ -1,0 +1,14 @@
+
+
+.old-recordings
+  - @recordings.each do |recording|
+    - link =  submit_recording_account_account_opportunity_music_request_music_submission_path(@account, @opportunity, @music_request, recording.id)
+    div id="delete_recording_#{recording.id.to_s}"
+      #digiWhams  class="/recordings/#{recording.id.to_s}"
+        == render 'audio_player/show', recording: recording , description: true, target: ''
+        .player-bottom
+          = link_to link, \
+                    remote: true, \
+                    class: "btn btn-xs btn-success"  do
+            i class="fa fa-plus-circle"
+            '&nbsp;Submit recording

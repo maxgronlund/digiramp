@@ -53,38 +53,38 @@
      
 
       .sexy_line
-          .row
-            .col-sm-6
+      .row
+        .col-sm-6
+      
+          h4 Select recording
+          'Recordings already submitted is not shown
+        .col-sm-6.pull-down-12
+          = simple_form_for  [ :user, @user, @opportunity, @music_request], :url => url_for(:action => 'index', \
+                                                        :controller => 'request_recordings'), \
+                                                        :method => 'get', \
+                                                        turboboost: true do |f|
+
+            .input-group
+              span class="input-group-addon"
+                i class= 'fa fa-search'
+              = text_field_tag "query", "", :class => 'search-query form-control', \
+                                            :placeholder => 'Search', \
+                                            value: params[:query], autofocus: true
+              .input-group-btn
+                = f.submit 'Go', class: "btn btn-primary"
+                '&nbsp;
+                = link_to 'Clear', user_user_opportunity_music_request_request_recordings_path(@user, @opportunity, @music_request), class: 'btn btn-default'
+      .row.pull-down-12
+        .col-sm-12
+          .endless-pages
+          .add_recordings
+        
           
-              h4 Select recording
-              'Recordings already submitted is not shown
-            .col-sm-6.pull-down-12
-              = simple_form_for  [ :user, @user, @opportunity, @music_request], :url => url_for(:action => 'index', \
-                                                            :controller => 'request_recordings'), \
-                                                            :method => 'get', \
-                                                            turboboost: true do |f|
-
-                .input-group
-                  span class="input-group-addon"
-                    i class= 'fa fa-search'
-                  = text_field_tag "query", "", :class => 'search-query form-control', \
-                                                :placeholder => 'Search', \
-                                                value: params[:query], autofocus: true
-                  .input-group-btn
-                    = f.submit 'Go', class: "btn btn-primary"
-                    '&nbsp;
-                    = link_to 'Clear', user_user_opportunity_music_request_request_recordings_path(@user, @opportunity, @music_request), class: 'btn btn-default'
-          .row.pull-down-12
-            .col-sm-12
-              .endless-pages
-              .add_recordings
-            
-              
 
 
-              == render 'recordings/index', recordings: @recordings
-           
-              == paginate(@recordings)
+          == render 'recordings/index', recordings: @recordings
+       
+          == paginate(@recordings)
       
       
           

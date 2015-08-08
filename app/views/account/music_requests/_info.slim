@@ -16,7 +16,7 @@
               i class="fa fa-pencil"
               '&nbsp;Edit
         
-        =< link_to opportunity_opportunity_music_request_request_recordings_path( @opportunity, music_request.id ) do
+        =< link_to account_account_opportunity_music_request_submit_recordings_path( @account, @opportunity, music_request ) do
           .btn.btn-default.btn-xs
             i.fa.fa-plus&nbsp;Submit recordings
   

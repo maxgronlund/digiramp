@@ -27,6 +27,12 @@ class MusicRequest < ActiveRecord::Base
     Recording.where(id: self.recording_id).first
   end
   
+  def recordings
+    if recording_ids = self.music_submissions.pluck(:recording_id)
+      Recording.where(id: recording_ids)
+    end
+  end
+  
   def mp3
     recording.mp3 if recording
   end

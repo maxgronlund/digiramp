@@ -34,18 +34,7 @@ class Opportunity < ActiveRecord::Base
   
   
   attr_accessor :playlist_id, :email
-  #create_table "opportunities", force: true do |t|
-  #  t.string   "title"
-  #  t.text     "body"
-  #  t.string   "kind"
-  #  t.string   "budget",     default: ""
-  #  t.date     "deadline"
-  #  t.integer  "account_id"
-  #  t.datetime "created_at"
-  #  t.datetime "updated_at"
-  #  t.string   "territory",  default: ""
-  #end
-  #
+ 
   
   before_create :init_fields
 

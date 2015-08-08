@@ -1,14 +1,17 @@
 class Opportunity::RequestRecordingsController < ApplicationController
   
-  include OpportunitiesHelper
-  before_action :access_opportunity
+  #include OpportunitiesHelper
+  #before_action :access_opportunity
   
   def index
 
-
-    @opportunity          = Opportunity.cached_find(params[:opportunity_id])
-    @music_request        = MusicRequest.cached_find(params[:music_request_id])
-    @user                 = @opportunity_user.user
+    ap params
+    @opportunity                           = Opportunity.cached_find(params[:opportunity_id])
+    @music_request                         = MusicRequest.cached_find(params[:music_request_id])
+    @user                                  = current_user
+    #not_found unless @opportunity         = Opportunity.cached_find(params[:id])
+    #not_found unless @user                = User.cached_find(params[:user_id])
+    #not_found unless @opportunity_user    = current_opportunity_user
     
     user_recording_ids    = @user.recording_ids
     music_submission_ids  = MusicSubmission.where(id: @music_request.music_submission_ids).pluck(:recording_id)

@@ -32,14 +32,15 @@ class OpportunityEvaluation < ActiveRecord::Base
                            user_id: user.id) 
                     .first_or_create(
                            opportunity_id: self.opportunity_id,
-                           user_id: user.id) 
+                           user_id: user.id,
+                           uuid: UUIDTools::UUID.timestamp_create().to_s) 
       end
     end              
   end
   
-  def create_opportunity_users 
-    
-  end
+  #def create_opportunity_users 
+  #  
+  #end
   
   def self.cached_find(id)
     Rails.cache.fetch([name, id]) { find(id) }

@@ -38,10 +38,10 @@ class ActivateAccountController < ApplicationController
 
     # get the right record
     if opportunity_id = params[:user][:opportunity_id] 
-      ap @opportunity = Opportunity.cached_find(opportunity_id)
+      @opportunity = Opportunity.cached_find(opportunity_id)
       params[:user].delete :opportunity_id
     elsif opportunity_user_uuid = params[:user][:opportunity_user_id] 
-      ap @opportunity_user      = OpportunityUser.find_by_uuid(opportunity_user_uuid)
+      @opportunity_user      = OpportunityUser.find_by_uuid(opportunity_user_uuid)
       params[:user].delete :opportunity_user_id
     end
     

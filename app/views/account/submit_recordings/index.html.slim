@@ -1,0 +1,71 @@
+- session[:return_url]         = request.url
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'account' 
+  
+
+  .pro-account
+    #sidebar-wrapper
+      ul class="sidebar-nav"
+        == render 'account/shared/sidebar', selected: 'opportunity'
+  
+  #page-content-wrapper
+
+    .container-fluid
+      == render 'shared/breadcrumbs', breadcrumbs: { \
+                                      links: { account: account_account_path(@account), \
+                                      opportunities: account_account_opportunities_path(@account) }, current: ''}
+      
+      == render 'admin/shared/messages'
+      .row
+        .col-sm-8
+          .help
+            .help-text
+              h2 Submit Recordings
+              = "#{@opportunity.title} / #{@music_request.title}"
+        
+            .help-button
+              == render 'admin/helps/help', identifier: 'account submit recordings to opportunity'
+      
+        .col-sm-4
+          .pull-right
+            .pull-down-10
+              = link_to  account_account_opportunity_path(@account,@opportunity) do
+                  .btn.btn-default
+                    i.fa.fa-chevron-left
+                    '&nbsp;Back
+      .sexy_line 
+      .row
+        .col-sm-6
+      
+          h4 Select recording
+          'Recordings already submitted is not shown
+        .col-sm-6.pull-down-12
+          = simple_form_for  [ :account, @account, @opportunity, @music_request], turboboost: true do |f|
+
+            .input-group
+              span class="input-group-addon"
+                i class= 'fa fa-search'
+              = text_field_tag "query", "", :class => 'search-query form-control', \
+                                            :placeholder => 'Search', \
+                                            value: params[:query], autofocus: true
+              .input-group-btn
+                = f.submit 'Go', class: "btn btn-primary"
+                '&nbsp;
+                = link_to 'Clear', account_account_opportunity_music_request_submit_recordings_path(@account, @opportunity, @music_request), class: 'btn btn-default'
+       
+      
+      .row.pull-down-12
+        .col-sm-12
+          .endless-pages
+          .add_recordings
+          == render 'recordings'
+       
+          /== paginate(@recordings)          
+      
+        
+        
+        
+  == render 'shared/site_footer'  
+  
+

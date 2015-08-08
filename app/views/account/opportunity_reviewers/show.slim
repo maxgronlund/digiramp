@@ -28,6 +28,7 @@
       .row
         .col-sm-9
           - @opportunity.music_requests.order('created_at asc').each do |music_request|
+            h4 =music_request.title
             - music_request.music_submissions.each do |music_submission|
               - if recording =  music_submission.recording
                 div id="delete_music_submission_#{music_submission.id.to_s}"

@@ -28,7 +28,8 @@ class Account::OpportunitiesController < ApplicationController
                                        .first_or_create(user_id: @account.user_id, 
                                                         opportunity_id: @opportunity.id, 
                                                         provider: true, 
-                                                        reviewer: true)
+                                                        reviewer: true,
+                                                        uuid: UUIDTools::UUID.timestamp_create().to_s)
     @user = @account.user
   end
 

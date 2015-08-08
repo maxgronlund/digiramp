@@ -1,6 +1,6 @@
 Digiramp::Application.routes.draw do
-  
-  
+
+
   get 'landing_page/index'
   
   get "/pages/*id" => 'pages#show', as: :page, format: false
@@ -11,6 +11,7 @@ Digiramp::Application.routes.draw do
 
   # user namespace arount line 730
   # admin namespace line 89
+  # account namespace 
 
 
   get 'recording_rights/edit'
@@ -499,6 +500,7 @@ Digiramp::Application.routes.draw do
     resources :accounts do
       resources :opportunity_from_playlists, only: [:create, :new]
       resources :subscriptions, only: [:new, :edit, :update, :create, :destroy]
+      
       resources :recording_departures
       resources :attachments, only: [:destroy]
       member do
@@ -560,6 +562,7 @@ Digiramp::Application.routes.draw do
         post :invite_provider_by_email
         resources :invite_providers, only: [:index]
         resources :music_requests do
+          resources :submit_recordings, only: [:index, :create]
           #member do
           #  get :find_recording
           #  get :upload_recording
