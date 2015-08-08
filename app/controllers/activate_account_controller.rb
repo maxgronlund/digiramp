@@ -33,9 +33,7 @@ class ActivateAccountController < ApplicationController
 
   end
   
-  def update
-    ap params
-    
+  def update    
     @user = User.find_by_password_reset_token!(params[:id])
 
     # get the right record

@@ -10,9 +10,8 @@ class OpportunityMailer < ApplicationMailer
           blog                    = Blog.cached_find('Opportunities')
           blog_post               = BlogPost.cached_find( "Invite to opportunity email" , blog )
           opportunity_link        = url_for( controller: 'opportunity/opportunities', action: 'show', id: opportunity.id, opportunity_invitation: 'true', user_id: user_id)
-          #opportunity_link        = url_for( controller: 'user/selected_opportunities', action: 'show', id: opportunity.id, opportunity_invitation: 'true', user_id: user_id)
           fotter_link             = url_for( controller: 'contacts', action: 'new')
-          ap opportunity_link
+          
         end
       end
     end
@@ -64,6 +63,7 @@ class OpportunityMailer < ApplicationMailer
                                        action: 'edit', 
                                        id: user.password_reset_token, 
                                        opportunity_id: opportunity.id  )
+    
                                        
     fotter_link             = url_for( controller: 'contacts', action: 'new')
     
