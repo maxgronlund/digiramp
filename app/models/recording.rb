@@ -130,6 +130,13 @@ class Recording < ActiveRecord::Base
     Shop::Product.find_by(productable_id: self.id, productable_type: 'Recording')
   end
   
+  def for_sale_in_shop?
+    if product_in_shop = product
+      return product_in_shop if product_in_shop.for_sale
+    end
+    nil
+  end
+  
   def stakes
     stks =  Stake.where( asset_id: self.id,             asset_type: 'Recording' )
     stks += Stake.where( asset_id: self.common_work_id, asset_type: 'CommonWork')
@@ -144,6 +151,8 @@ class Recording < ActiveRecord::Base
       post_error "Recording#update_stakes #{e.message}"
     end
   end
+  
+  
   
   def validate_splits
     #total = 0.0
@@ -283,9 +292,7 @@ class Recording < ActiveRecord::Base
 
   def playlist 
   end
-  
 
-  
   def docs
     Document.where(documentable_id: self.id, documentable_type: 'Recording')
   end
@@ -295,12 +302,8 @@ class Recording < ActiveRecord::Base
                                       itemable_type: 'Artwork').pluck(:itemable_id)
                                       
     Artwork.where(id: artwork_ids )
-    
   end
-  
-  #def artwork
-  #  self.cover_art || 'default-cover.jpg'
-  #end
+
   
   def has_meta_data?
     return true unless self.genre       == ''
@@ -431,7 +434,6 @@ class Recording < ActiveRecord::Base
   end
   
   
-  
   def get_comment
     return self.comment unless self.comment.to_s == ''
     return 'Provided by DigiRAMP'
@@ -552,43 +554,13 @@ class Recording < ActiveRecord::Base
     secure_url
   end
   
-  #def self.purchased_rec_url recording_download_uuid
-  #  if recording_download = RecordingDownload.find_by(uuid: recording_download_uuid)
-  #    recording = Recording.find(recording_download.recording_id)
-  #    return recording.download_url2
-  #  end
-  #  
-  #end
   
   def widget_snippet widget_url
     "<iframe width='100%' height='166' src='#{widget_url}' frameborder='0' allowfullscreen></iframe>"
   end
   
   def zip
-    #begin
-    #  folder = UUIDTools::UUID.timestamp_create().to_s
-    #  new_dir = FileUtils.mkdir_p( Rails.root.join("public", "uploads", "recordings", "zip", folder ).to_s )
-    #
-    #  temp_file = Tempfile.new("recording-zip-#{UUIDTools::UUID.timestamp_create().to_s}")
-    #    Zip::OutputStream.open(temp_file.path) do |z|
-    #      title = self.original_file_name
-    #      z.put_next_entry("#{self.title}/#{title}")
-    #      url1_data = open(self.mp3)
-    #      z.print IO.read(url1_data)
-    #    end
-    #  
-    #    
-    #    file = File.open(Rails.root.join("public", "uploads", "recordings", "zip", folder ,"#{self.title}.zip"), "w+b")
-    #    file.write(temp_file.read)
-    #    
-    #    self.zipp =  "uploads/recordings/zip/" + folder + '/' +  self.title + ".zip"
-    #    self.save
-    #  temp_file.close
-    #
-    #rescue Exception => e  
-    #  ap e.inspect
-    #end
-
+   
   end
   
   def transfer_commonwork
@@ -673,10 +645,7 @@ private
   
   def count_stats_down
   end
-  
-  
-  
-  
+
   
   
   def remove_share_on_facebooks
@@ -684,7 +653,6 @@ private
       self.share_on_facebooks.destroy_all
     rescue
     end
-    
   end
   
   def remove_from_catalogs
