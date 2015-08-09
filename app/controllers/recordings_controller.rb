@@ -83,11 +83,14 @@ class RecordingsController < ApplicationController
     @user_credits = @recording.user_credits
     
     unless request.xhr?
-      user_id = current_user ? current_user.id : nil
-      RecordingView.create( recording_id: @recording.id, 
-                             user_id: user_id, 
-                             account_id: @recording.account_id 
-                           )
+      begin
+        user_id = current_user ? current_user.id : nil
+        RecordingView.create( recording_id: @recording.id, 
+                               user_id: user_id, 
+                               account_id: @recording.account_id 
+                             )
+      rescue
+      end
     end
     respond_to do |format|
       format.html{ 

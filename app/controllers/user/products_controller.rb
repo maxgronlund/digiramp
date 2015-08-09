@@ -27,11 +27,13 @@ class User::ProductsController < ApplicationController
       when 'recording'
         additional_info = nil
         @recording      = nil
-        begin
-          @recording  = Recording.cached_find(params[:recording_id]) if params[:recording_id] 
-          additional_info        = @recording.comment
-        rescue
-          ErrorNotification.post("User::ProductsController#new recording_id: #{params[:recording_id]} not found")
+        if params[:recording_id] 
+          begin
+            @recording          = Recording.cached_find(params[:recording_id]) if params[:recording_id] 
+            additional_info     = @recording.comment
+          rescue
+            ErrorNotification.post("User::ProductsController#new recording_id: #{params[:recording_id]} not found")
+          end
         end
         @shop_product = Shop::Product.new(price: 98, 
                                           additional_info: additional_info,
