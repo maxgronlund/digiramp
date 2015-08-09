@@ -4,28 +4,28 @@ class Omniauth
   end
   # atttaching an provider to an existing user'
   def self.attach_provider env, user
-    
-    if new_provider = AuthorizationProvider.where(user_id: user.id, provider: env['omniauth.auth']["provider"]).present?
+    return nil unless omniauth_auth = env['omniauth.auth']
+    if new_provider = AuthorizationProvider.where(user_id: user.id, provider: omniauth_auth["provider"]).present?
       return nil
     else  
 
-      credentials =  env['omniauth.auth']["credentials"]
+      credentials =  omniauth_auth["credentials"]
 
 
       new_provider = AuthorizationProvider.create! do |provider|
-                        provider.provider           = env['omniauth.auth']["provider"]
-                        provider.uid                = env['omniauth.auth']["uid"]
+                        provider.provider           = omniauth_auth["provider"]
+                        provider.uid                = omniauth_auth["uid"]
                         provider.oauth_token        = credentials['token']
                         provider.oauth_secret       = credentials['secret']
                         provider.oauth_expires_at   = credentials["expires_at"]
                         provider.oauth_expires      = credentials["expires"]
                         provider.user_id            = user.id
-                        provider.info               = env['omniauth.auth']["info"]
+                        provider.info               = omniauth_auth["info"]
                         #provider.profile_name       
                         
       end
       # attach stripe to user
-      if env['omniauth.auth']["provider"] == 'stripe_connect'
+      if omniauth_auth["provider"] == 'stripe_connect'
         auth_hash = env['omniauth.auth']
         user.stripe_id              = auth_hash['uid']
         user.stripe_access_key      = auth_hash['credentials']['token']
