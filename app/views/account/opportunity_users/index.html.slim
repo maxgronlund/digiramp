@@ -83,6 +83,7 @@
               thead
                 tr
                   th User
+                  th Member
                   th Provider
                   th Reviewer
                   th
@@ -99,6 +100,13 @@
                         br= opportunity_user.user.email
                         
                         
+                      td
+                        - if opportunity_user.user.account_activated
+                          .label.label-success
+                            '√&nbsp;Yes
+                        - else
+                          .label.label-info
+                            'Pending
                       td
                         
                         - if opportunity_user.provider
