@@ -20,6 +20,14 @@ class SessionsController < ApplicationController
     end
   end
   
+  def index
+    if current_user
+      redirect_to current_user
+    else
+      redirect_to root_path
+    end
+  end
+  
   
   
   
