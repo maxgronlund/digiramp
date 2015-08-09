@@ -10,7 +10,7 @@ class ActivateAccountController < ApplicationController
       if params[:opportunity_id]
         @opportunity        = Opportunity.cached_find(params[:opportunity_id])
       elsif params[:opportunity_user_id]
-        @opportunity_user  = OpportunityUser.find_by_uuid(params[:opportunity_user_id])
+        @opportunity_user   = OpportunityUser.find_by_uuid(params[:opportunity_user_id])
       end
       
       if current_user

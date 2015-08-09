@@ -95,7 +95,8 @@ class OpportunityReviewMailer < ApplicationMailer
       }
       mandril_client.messages.send_template template_name, template_content, message
     rescue Mandrill::Error => e
-      Opbeat.capture_message("#{e.class} - #{e.message}")
+      #Opbeat.capture_message("#{e.class} - #{e.message}")
+      ErrorNotification.post "OpportunityReviewMailer#invite_to_account: #{e.class} - #{e.message}"
     end
   end
 

@@ -35,7 +35,6 @@ class User::RecordingIpisController < ApplicationController
       ErrorNotification.post_object( "RecordingIpisController#create", @recording_ipi )
       render :new
     end
-    
   end
   
   
@@ -44,7 +43,6 @@ class User::RecordingIpisController < ApplicationController
     @common_work      = @recording.get_common_work
     @recording_ipi     = RecordingIpi.cached_find(params[:id])
   end
-  
   
   
   def update    
@@ -76,12 +74,10 @@ class User::RecordingIpisController < ApplicationController
         else
           redirect_to user_user_common_work_path(@user, @common_work)
         end
-        
       else
         render :edit
       end
     end
-
   end
   
   def show

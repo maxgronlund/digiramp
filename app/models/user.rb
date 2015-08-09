@@ -310,7 +310,7 @@ class User < ActiveRecord::Base
   end
   
   def self.get_by_email email
-    if user =  User.where(email: email).first
+    if user =  User.find_by(email: email)
       return user
     elsif user_email = UserEmail.where(email: email).first
       return user_email.user if user_email.user
@@ -400,6 +400,7 @@ class User < ActiveRecord::Base
                           private_profile: true)
                                               
       create_account_for user
+      user.update_meta
     end
     user
   end
@@ -755,7 +756,8 @@ class User < ActiveRecord::Base
                                             invited:      true, 
                                            password:      secret_temp_password, 
                               password_confirmation:      secret_temp_password,
-                                  account_activated:      false
+                                  account_activated:      false,
+                                    private_profile:      true
                                           )
       DefaultAvararJob.perform_later user.id                   
       # apply a password reset token
@@ -763,6 +765,8 @@ class User < ActiveRecord::Base
       
       # create an account
       create_a_new_account_for_the user
+      
+      
       
       # return the new user
       return user
