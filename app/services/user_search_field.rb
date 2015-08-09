@@ -3,6 +3,7 @@
 # optimization: only search on one field
 class UserSearchField
   def self.process user
+
     search_field_content = ''
     search_field_content <<   user.profession  if user.profession
     search_field_content <<  ' '
@@ -10,8 +11,10 @@ class UserSearchField
     search_field_content <<  ' '
     search_field_content <<   user.name        if user.name
     search_field_content <<  ' '
+    search_field_content <<   user.slug
+    search_field_content <<  ' '
     
-    search_field_content <<   user.email       if user.email
+    search_field_content <<   user.email
     search_field_content <<  ' '
     
     search_field_content <<   user.user_name  if user.user_name

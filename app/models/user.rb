@@ -400,14 +400,13 @@ class User < ActiveRecord::Base
                           private_profile: true)
                                               
       create_account_for user
-      user.update_meta
     end
     user
   end
   
-  def update_search_field
-    UserSearchField.process self
-  end
+  #def update_search_field
+  #  UserSearchField.process self
+  #end
   
   
   
@@ -425,7 +424,8 @@ class User < ActiveRecord::Base
   
   
   def update_meta
-    update_completeness
+    UserSearchField.process self
+    UserCompleteness.process self
     SetUserTopTag.process self
   end
 
@@ -454,9 +454,9 @@ class User < ActiveRecord::Base
     StripeCustomer.where(stripe_id: self.stripe_customer_id )
   end
   
-  def update_completeness
-    UserCompleteness.process self
-  end
+  #def update_completeness
+  #  UserCompleteness.process self
+  #end
   
 
   
