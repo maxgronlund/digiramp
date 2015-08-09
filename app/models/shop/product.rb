@@ -127,9 +127,7 @@ class Shop::Product < ActiveRecord::Base
     Stake.where(asset_type: self.class.name, asset_id: self.id)
   end
   
-  def update_title_on_stakes
-    stakeholders.update_all(original_source: self.title)
-  end
+
   
   def update_stock
     if self.units_on_stock 

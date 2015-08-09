@@ -96,17 +96,17 @@ class RecordingsController < ApplicationController
       format.html{ 
         case @recording.privacy
         when 'Only me'  
-          forbidden unless  (current_user && @recording.user_id == current_user.id) || super?
+          return forbidden unless  (current_user && @recording.user_id == current_user.id) || super?
         when 'Only people I choose'
           if current_user
-            forbidden unless RecordingUser.find_by(user_id: current_user.id, recording_id: @recording.id) ||
+            return forbidden unless RecordingUser.find_by(user_id: current_user.id, recording_id: @recording.id) ||
                                                   (@recording.user_id == current_user.id) ||
                                                   super?
               
               
             
           else
-            forbidden
+            return forbidden
           end
         when 'Anyone'
           

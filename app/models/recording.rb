@@ -137,12 +137,8 @@ class Recording < ActiveRecord::Base
   
   def update_stakes
     begin
-      
       if shop_products = Shop::Product.where(productable_id: self.id,  productable_type: self.class.name)
          shop_products.update_all(title: self.title)
-         shop_products.each do |shop_product|
-           shop_product.update_title_on_stakes
-         end
       end
     rescue => e
       post_error "Recording#update_stakes #{e.message}"

@@ -17,33 +17,36 @@
          i.fa.fa-cloud-upload
          '&nbsp;Reaplace
          
-    .sexy_line
-    .fileinput.fileinput-new data-provides="fileinput"
-      .fileinput-new.thumbnail style="width: 184px; height: 184px;"
-        - if recording.cover_art
-          = image_tag recording.cover_art, size: '184x184'
-        - else
-          = image_tag 'default-cover.jpg'
-
-      div.fileinput-preview.fileinput-exists.thumbnail style="max-width: 184px; max-height: 184px;"
-      div
-        span.btn.btn-default.btn-file
-          span class="fileinput-new"
-            'Change image
-          '&nbsp;
-          span class="fileinput-exists"
-            'Change
-          = f.file_field :cover_art, multiple: false
-
-        '&nbsp;
-        a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput"
-          'Remove
+    .row.pull-down-8
+      .col-sm-6
+        .fileinput.fileinput-new data-provides="fileinput"
+          .fileinput-new.thumbnail style="width: 100px; height: 100px;"
+            - if recording.cover_art
+              = image_tag recording.cover_art, size: '184x184'
+            - else
+              = image_tag 'default-cover.jpg'
+        
+          div.fileinput-preview.fileinput-exists.thumbnail style="max-width: 100px; max-height: 100px;"
+          div
+            span.btn.btn-default.btn-file
+              span class="fileinput-new"
+                'Change image
+              '&nbsp;
+              span class="fileinput-exists"
+                'Change
+              = f.file_field :cover_art, multiple: false
+        
+            '&nbsp;
+            a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput"
+              'Remove
+      .col-sm-6.pull-down-8
+        = f.input :position
     br
     br
-
+    = f.input :sounds_like, :input_html => {  style: "height: 80px;", placeholder: "Beethoven, Elvis, Louis Armstrong"}
    
   .col-sm-6
-    = f.input :position
+
     = f.input :privacy, collection: Recording::PRIVACY, include_blank: false,  label: 'Privacy', hint: 'Select who has access to this recording'
 
     = f.input :comment, :input_html => {  style: "height: 80px;", 
@@ -74,9 +77,9 @@
 
     
     
-    /= f.input :sounds_like, label: 'Description', :input_html => {  style: "height: 180px;"}
-    = f.input :sounds_like, :input_html => {  style: "height: 80px;", placeholder: "Beethoven, Elvis, Louis Armstrong"}
-    /= f.input :sounds_like, label: 'Sounds like', placeholder: 'Beethoven, Elvis, Louis Armstrong'
+
+    
+
     = f.input :downlodable, label: 'Downloadable', \
                             hint: 'Enabling this will allow the recording to be downloaded for free',  \
                             :input_html => { class: 'icheck-me', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue"     }
