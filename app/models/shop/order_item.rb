@@ -52,6 +52,14 @@ class Shop::OrderItem < ActiveRecord::Base
     end
   end
   
+  def download_url
+    self.shop_product.download_url
+  end
+  
+  def additional_download_url
+    self.shop_product.additional_download_url
+  end
+  
   def last
     Shop::OrderItem.order(:created_at).last
   end

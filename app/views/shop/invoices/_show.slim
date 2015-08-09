@@ -60,7 +60,7 @@
   table.table.table-bordered
     thead
       tr
-        th Service
+        th Product
         th Details
         th Qty
         th Price
@@ -116,6 +116,8 @@
         /br/
         = number_to_currency(@shop_order.price_total.to_i * 0.01 , locale: :en, precision: 2)
         br
+
+  
   /.row
   /  .col-xs-5
   /    .panel.panel-info

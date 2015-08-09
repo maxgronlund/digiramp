@@ -13,3 +13,22 @@
 
       .digi-box
         == render 'show'
+        
+      .digi-box
+        .row
+          .col-sm-12
+              b Downloads
+              table.table.table-bordered
+                thead
+                  tr
+                    th Product
+                    th 
+                tbody
+                  - @shop_order.order_items.each do |order_item|
+                    - if order_item.download_url
+                      tr
+                        td
+                          = link_to order_item.title, order_item.download_url
+                        td
+                          - if additional_download_url = order_item.additional_download_url
+                            = link_to 'Additional files', additional_download_url

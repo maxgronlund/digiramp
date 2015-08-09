@@ -102,10 +102,20 @@ class Shop::Product < ActiveRecord::Base
     
   end
   
+  def download_url
+    case self.productable_type
+    when 'Recording'
+      if recording = Recording.cached_find(self.productable_id)
+        return recording.download_url2
+      end
+    end
+  end
   def additional_download_url
+
+    return nil if self.zip_file_url.nil?
     s3 = Aws::S3::Resource.new
-    secure_url = ''
-    return '' if self.zip_file.nil?
+    
+    return nil if self.zip_file.nil?
     begin
       secure_url = self.zip_file_url.gsub("https://digiramp.s3.amazonaws.com/", '')
       
@@ -115,12 +125,11 @@ class Shop::Product < ActiveRecord::Base
       bucket      = s3.bucket(Rails.application.secrets.aws_s3_bucket)
       s3_obj      = bucket.object(secure_url)
       filename    = file_name.downcase.gsub(' ', '-')
-      secure_url  = s3_obj.presigned_url(:get, expires_in: 600,response_content_disposition: "attachment; filename='#{filename}'")
+      return        s3_obj.presigned_url(:get, expires_in: 600,response_content_disposition: "attachment; filename='#{filename}'")
     rescue => e
-      post_error "Product::additional_download_url id: #{e.inspect}  "
-      secure_url = ''
+      ErrorNotification.post "Product::additional_download_url id: #{e.inspect}"
     end
-    secure_url
+    nil
   end
   
   def stakeholders

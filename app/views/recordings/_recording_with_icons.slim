@@ -81,7 +81,10 @@
             i class="fa fa-plus-circle"
   
   
-          
+        - if shop_product = recording.for_sale_in_shop?
+          = link_to shop_product_path( shop_product.id ),class: "btn btn-default" do
+            i.fa.fa-shopping-cart
+            
     .hidden-xs.btn-group-xs
       / -------------------------------------------------------------------
       / normal size

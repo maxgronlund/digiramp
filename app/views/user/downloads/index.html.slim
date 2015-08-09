@@ -32,11 +32,11 @@
                 i.fa.fa-download&nbsp;
                 'Download
               .pull-right
-                - if product = recording_download.product
-                  - unless product.additional_download_url.blank?
-                    = link_to product.additional_download_url do
-                      i.fa.fa-download&nbsp;
-                      'Additional content
+  
+                - if additional_download_url = recording_download.additional_download_url
+                  = link_to additional_download_url do
+                    i.fa.fa-download&nbsp;
+                    'Additional content
               /- if 
               
               

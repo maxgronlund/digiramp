@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150806084422) do
+ActiveRecord::Schema.define(version: 20150809155902) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -2553,9 +2553,9 @@ ActiveRecord::Schema.define(version: 20150806084422) do
     t.integer  "downloads"
     t.string   "uuid"
     t.integer  "shop_order_item_id"
-    t.integer  "shop_product_id"
     t.datetime "created_at",         null: false
     t.datetime "updated_at",         null: false
+    t.uuid     "shop_product_id"
   end
 
   add_index "recording_downloads", ["recording_id"], name: "index_recording_downloads_on_recording_id", using: :btree
@@ -3513,6 +3513,7 @@ ActiveRecord::Schema.define(version: 20150806084422) do
   add_foreign_key "playlist_key_users", "accounts", on_delete: :cascade
   add_foreign_key "playlists", "accounts", on_delete: :cascade
   add_foreign_key "projects", "accounts", on_delete: :cascade
+  add_foreign_key "recording_downloads", "shop_products"
   add_foreign_key "recording_downloads", "users", on_delete: :cascade
   add_foreign_key "recording_ipis", "accounts", on_delete: :cascade
   add_foreign_key "recording_users", "recordings", on_delete: :cascade
