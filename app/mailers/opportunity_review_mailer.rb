@@ -23,7 +23,7 @@ class OpportunityReviewMailer < ApplicationMailer
       message = {
         to: [{email: email , name: user.user_name }],
         from: {email: "noreply@digiramp.com"},
-        subject: opportunity_invitation.title,
+        subject: "#{user.user_name} offers you to select recordings on DigiRAMP",
         tags: ["opportunity", "invitation"],
         track_clicks: true,
         track_opens: true,
@@ -73,7 +73,7 @@ class OpportunityReviewMailer < ApplicationMailer
       message = {
         to: [{email: email , name: user.user_name }],
         from: {email: "noreply@digiramp.com"},
-        subject: opportunity_invitation.title,
+        subject: "#{user.user_name} offers you to select recordings on DigiRAMP",
         tags: ["opportunity", "invitation"],
         track_clicks: true,
         track_opens: true,
