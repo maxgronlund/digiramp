@@ -7,6 +7,8 @@ class UserParams
                     :password,
                     :password_confirmation,      
                     :profile,
+                    :account_activated,
+                    :activated,
                     :first_name,                 
                     :last_name,                  
                     :social_avatar,                
