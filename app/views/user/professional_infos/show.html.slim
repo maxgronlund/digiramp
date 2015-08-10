@@ -1,0 +1,9 @@
+p#notice = notice
+
+p
+  strong Ipi code:
+  = @professional_info.ipi_code
+
+= link_to 'Edit', edit_professional_info_path(@professional_info)
+'|
+= link_to 'Back', professional_infos_path

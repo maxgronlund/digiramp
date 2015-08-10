@@ -1,6 +1,7 @@
 Digiramp::Application.routes.draw do
 
 
+  
   get 'landing_page/index'
   
   get "/pages/*id" => 'pages#show', as: :page, format: false
@@ -782,6 +783,7 @@ Digiramp::Application.routes.draw do
       resources :special_offer, only: [:index] 
       resources :product_admin, only: [:edit, :new, :create, :new]   
       resources :invoices, only: [:index, :show]
+      resources :professional_infos
       resources :purchases, only: [:index, :show]
       resources :coupon_batches, only: [:show]
       

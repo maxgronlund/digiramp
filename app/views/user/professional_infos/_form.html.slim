@@ -1,0 +1,23 @@
+= simple_form_for [:user, @user, @professional_info], turboboost: true do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :ipi_code
+    = f.input :alias
+    = f.simple_fields_for :address do |address_form|
+      = address_form.input :first_name
+      = address_form.input :middle_name
+      = address_form.input :last_name
+      = address_form.input :address_line_1
+      = address_form.input :address_line_2
+      = address_form.input :city
+      = address_form.input :state
+      = address_form.input :country
+      = address_form.input :zip_code
+
+  
+  .row
+    .col-sm-12
+      .pull-right
+        .form-actions
+          = f.submit 'Save', class: 'btn btn-default'

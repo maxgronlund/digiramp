@@ -10,10 +10,6 @@
   
   #page-content-wrapper
     .container-fluid
-
-      .digi-box
-        == render 'show'
-        
       .digi-box
         .row
           .col-sm-12
@@ -28,7 +24,12 @@
                     - if order_item.download_url
                       tr
                         td
-                          = link_to order_item.title, order_item.download_url
+                          = link_to order_item.title, order_item.download_url, class: 'btn btn-default'
                         td
                           - if additional_download_url = order_item.additional_download_url
-                            = link_to 'Additional files', additional_download_url
+                            = link_to 'Additional content', additional_download_url, class: 'btn btn-default'
+
+      .digi-box
+        == render 'show'
+        
+      

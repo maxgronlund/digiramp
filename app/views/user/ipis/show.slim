@@ -17,9 +17,10 @@
         .col-sm-6
           .help
             .help-text
-              h2 IPI / Credits on work 
+              h2 Creative role in Commonwork
+              b = @common_work.title
             .help-button
-              == render 'admin/helps/help', identifier: 'user ipi'
+              == render 'admin/helps/help', identifier: 'user Creative role in Commonwork'
         .col-sm-6
           .pull-right.pull-down-10
             = link_to user_user_ipis_path(@user ) do
@@ -27,180 +28,180 @@
                 i.fa.fa-chevron-left
                 '&nbsp;Back
       .sexy_line
-      .digi-box.ipi-confirmations
-        .row
-          .col-sm-6
-            .panel.panel-warning
-              .panel-heading
-                'Status
-              .panel-body
-                b = @ipi.confirmation
-                
-            .panel.panel-default
-              .panel-heading
-                'Work title
-              .panel-body
-                b = @common_work.title
-                
-            .panel.panel-default
-              .panel-heading
-                'Role
-              .panel-body
-                b = @ipi.roles_as_string
-                
-            - if @ipi.full_name.to_s != ''        
-              .panel.panel-default
-                .panel-heading
-                  'Full name:
-                .panel-body
-                  b = @ipi.full_name
-
-                  
-            - if @ipi.email.to_s != ''        
-              .panel.panel-default
-                .panel-heading
-                  'Email:
-                .panel-body
-
-                  b = @ipi.email
-            
-            - unless @ipi.share.to_i == 0
-              .panel.panel-default
-                .panel-heading
-                  'Share:
-                .panel-body
-                  b
-                    = number_to_percentage(@ipi.share, precision: 1) 
-                      
-            .row
-              .col-sm-6
-                - if @ipi.mech_owned.to_i != 0
-                  .panel.panel-default
-                    .panel-heading
-                      'Mech owned:
-                    .panel-body
-                      b 
-                        = number_to_percentage(@ipi.mech_owned, precision: 1) 
-
-                          
-                - if @ipi.mech_collected.to_i != 0
-                  .panel.panel-default
-                    .panel-heading
-                      'Mech collected:
-                    .panel-body
-                      b 
-                        = number_to_percentage(@ipi.mech_collected, precision: 1) 
-
-              .col-sm-6            
-                - if @ipi.perf_owned.to_i != 0
-                  .panel.panel-default
-                    .panel-heading
-                      'Perf owned:
-                    .panel-body
-                      b 
-                        = number_to_percentage(@ipi.perf_owned, precision: 1) 
-
-                          
-                - if @ipi.perf_collected.to_i != 0
-                  .panel.panel-default
-                    .panel-heading
-                      'Perf collected:
-                    .panel-body
-                      b
-                        = number_to_percentage(@ipi.perf_collected, precision: 1) 
- 
-                
-              
-              
-              
-              
-          .col-sm-6
-                        
-            - if @ipi.address.to_s != ''
-              .panel.panel-default
-                .panel-heading
-                  'Address:
-                .panel-body
-                  b = @ipi.address
-                        
-            - if @ipi.phone_number.to_s != ''
-              .panel.panel-default
-                .panel-heading
-                  'Phone number:
-                .panel-body
-                  b = @ipi.phone_number
-            
-            - unless  @ipi.ipi_code.to_s == ''        
-              .panel.panel-default
-                .panel-heading
-                  'IPI Code:
-                .panel-body
-                  b = @ipi.ipi_code
-                
-            - unless  @ipi.pro_affiliation.to_s == ''      
-              .panel.panel-default
-                .panel-heading
-                  'Performance Rights Organization:
-                .panel-body
-                  b = @ipi.pro_affiliation.title
-                
-            - unless  @ipi.territory.to_s == ''      
-              .panel.panel-default
-                .panel-heading
-                  'Territory:
-                .panel-body
-                  b = @ipi.territory
-                
-            - unless  @ipi.notes.to_s == ''      
-              .panel.panel-default
-                .panel-heading
-                  'Notes:
-                .panel-body
-                  = simple_format @ipi.notes  
-                     
-            - if @requester
-              .panel.panel-default
-                .panel-heading
-                  'Confirmation requested by:
-                .panel-body
-                  = link_to @requester.user_name, @requester
-                  .row
-                    .col-sm-12
-                      .pull-right
-                        =< link_to new_message_digalog_path(sender: @ipi.user, 
-                                                           receiver: @requester, 
-                                                           title: "Regarding: #{@ipi.common_work.title}", 
-                                                           subjectable_id: @ipi.id, 
-                                                           subjectable_type: 'Ipi'), remote: true do
-                              .btn.btn-default
-                                i.fa.fa-envelope
-                                  '&nbsp;Send message
-            
-
-
-
-        .row.pull-down-12
-          .col-sm-12
-            .sexy_line
-            .pull-down-12
-            - if @ipi.confirmation == 'Pending'
-              /- if true
-              .row
-                .col-sm-8
-                  'Click the 'Confirm' button to confirm that you are #{@ipi.full_name}. You can update the address informations, claim another share and contact the DigiRAMP IP administrator later
-                .col-sm-4
-                  .pull-right
-                    = link_to 'Confirm', confirmation_ipi_confirmation_path(@ipi.uuid), turboboost: true, :method => 'put', class: 'btn btn-success'
-            - elsif @ipi.confirmation == 'Confirmed'
-              
-              .pull-right
-                => link_to 'Accept share', user_user_common_work_accept_ipi_path(@user, @ipi.common_work, @ipi), method: 'put', class: 'btn btn-success'
-                = link_to 'Edit info', edit_user_user_ipi_path(@user, @ipi), class: 'btn btn-default'
-            - else
-              .pull-right
-                = link_to 'Edit info', edit_user_user_ipi_path(@user, @ipi), class: 'btn btn-default'
-                
-                
+      /.digi-box.ipi-confirmations
+      /  .row
+      /    .col-sm-6
+      /      .panel.panel-warning
+      /        .panel-heading
+      /          'Status
+      /        .panel-body
+      /          b = @ipi.confirmation
+      /          
+      /      .panel.panel-default
+      /        .panel-heading
+      /          'Work title
+      /        .panel-body
+      /          b = @common_work.title
+      /          
+      /      .panel.panel-default
+      /        .panel-heading
+      /          'Role
+      /        .panel-body
+      /          b = @ipi.roles_as_string
+      /          
+      /      - if @ipi.full_name.to_s != ''        
+      /        .panel.panel-default
+      /          .panel-heading
+      /            'Full name:
+      /          .panel-body
+      /            b = @ipi.full_name
+      /
+      /            
+      /      - if @ipi.email.to_s != ''        
+      /        .panel.panel-default
+      /          .panel-heading
+      /            'Email:
+      /          .panel-body
+      /
+      /            b = @ipi.email
+      /      
+      /      - unless @ipi.share.to_i == 0
+      /        .panel.panel-default
+      /          .panel-heading
+      /            'Share:
+      /          .panel-body
+      /            b
+      /              = number_to_percentage(@ipi.share, precision: 1) 
+      /                
+      /      .row
+      /        .col-sm-6
+      /          - if @ipi.mech_owned.to_i != 0
+      /            .panel.panel-default
+      /              .panel-heading
+      /                'Mech owned:
+      /              .panel-body
+      /                b 
+      /                  = number_to_percentage(@ipi.mech_owned, precision: 1) 
+      /
+      /                    
+      /          - if @ipi.mech_collected.to_i != 0
+      /            .panel.panel-default
+      /              .panel-heading
+      /                'Mech collected:
+      /              .panel-body
+      /                b 
+      /                  = number_to_percentage(@ipi.mech_collected, precision: 1) 
+      /
+      /        .col-sm-6            
+      /          - if @ipi.perf_owned.to_i != 0
+      /            .panel.panel-default
+      /              .panel-heading
+      /                'Perf owned:
+      /              .panel-body
+      /                b 
+      /                  = number_to_percentage(@ipi.perf_owned, precision: 1) 
+      /
+      /                    
+      /          - if @ipi.perf_collected.to_i != 0
+      /            .panel.panel-default
+      /              .panel-heading
+      /                'Perf collected:
+      /              .panel-body
+      /                b
+      /                  = number_to_percentage(@ipi.perf_collected, precision: 1) 
+      /
+      /          
+      /        
+      /        
+      /        
+      /        
+      /    .col-sm-6
+      /                  
+      /      - if @ipi.address.to_s != ''
+      /        .panel.panel-default
+      /          .panel-heading
+      /            'Address:
+      /          .panel-body
+      /            b = @ipi.address
+      /                  
+      /      - if @ipi.phone_number.to_s != ''
+      /        .panel.panel-default
+      /          .panel-heading
+      /            'Phone number:
+      /          .panel-body
+      /            b = @ipi.phone_number
+      /      
+      /      - unless  @ipi.ipi_code.to_s == ''        
+      /        .panel.panel-default
+      /          .panel-heading
+      /            'IPI Code:
+      /          .panel-body
+      /            b = @ipi.ipi_code
+      /          
+      /      - unless  @ipi.pro_affiliation.to_s == ''      
+      /        .panel.panel-default
+      /          .panel-heading
+      /            'Performance Rights Organization:
+      /          .panel-body
+      /            b = @ipi.pro_affiliation.title
+      /          
+      /      - unless  @ipi.territory.to_s == ''      
+      /        .panel.panel-default
+      /          .panel-heading
+      /            'Territory:
+      /          .panel-body
+      /            b = @ipi.territory
+      /          
+      /      - unless  @ipi.notes.to_s == ''      
+      /        .panel.panel-default
+      /          .panel-heading
+      /            'Notes:
+      /          .panel-body
+      /            = simple_format @ipi.notes  
+      /               
+      /      - if @requester
+      /        .panel.panel-default
+      /          .panel-heading
+      /            'Confirmation requested by:
+      /          .panel-body
+      /            = link_to @requester.user_name, @requester
+      /            .row
+      /              .col-sm-12
+      /                .pull-right
+      /                  =< link_to new_message_digalog_path(sender: @ipi.user, 
+      /                                                     receiver: @requester, 
+      /                                                     title: "Regarding: #{@ipi.common_work.title}", 
+      /                                                     subjectable_id: @ipi.id, 
+      /                                                     subjectable_type: 'Ipi'), remote: true do
+      /                        .btn.btn-default
+      /                          i.fa.fa-envelope
+      /                            '&nbsp;Send message
+      /      
+      /
+      /
+      / 
+      /  .row.pull-down-12
+      /    .col-sm-12
+      /      .sexy_line
+      /      .pull-down-12
+      /      - if @ipi.confirmation == 'Pending'
+      /        /- if true
+      /        .row
+      /          .col-sm-8
+      /            'Click the 'Confirm' button to confirm that you are #{@ipi.full_name}. You can update the address informations, claim another share and contact the DigiRAMP IP administrator later
+      /          .col-sm-4
+      /            .pull-right
+      /              = link_to 'Confirm', confirmation_ipi_confirmation_path(@ipi.uuid), turboboost: true, :method => 'put', class: 'btn btn-success'
+      /      - elsif @ipi.confirmation == 'Confirmed'
+      /        
+      /        .pull-right
+      /          => link_to 'Accept share', user_user_common_work_accept_ipi_path(@user, @ipi.common_work, @ipi), method: 'put', class: 'btn btn-success'
+      /          = link_to 'Edit info', edit_user_user_ipi_path(@user, @ipi), class: 'btn btn-default'
+      /      - else
+      /        .pull-right
+      /          = link_to 'Edit info', edit_user_user_ipi_path(@user, @ipi), class: 'btn btn-default'
+      /          
+      /          
       /.sexy_line
       /= debug @ipi
 

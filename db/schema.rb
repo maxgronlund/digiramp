@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150809155902) do
+ActiveRecord::Schema.define(version: 20150809204628) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -233,6 +233,7 @@ ActiveRecord::Schema.define(version: 20150809155902) do
     t.datetime "created_at",                   null: false
     t.datetime "updated_at",                   null: false
     t.string   "zip_code"
+    t.string   "middle_name"
   end
 
   add_index "addresses", ["addressable_type", "addressable_id"], name: "index_addresses_on_addressable_type_and_addressable_id", using: :btree
@@ -2505,6 +2506,16 @@ ActiveRecord::Schema.define(version: 20150809155902) do
     t.datetime "updated_at"
   end
 
+  create_table "professional_infos", force: :cascade do |t|
+    t.string   "ipi_code"
+    t.integer  "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string   "alias"
+  end
+
+  add_index "professional_infos", ["user_id"], name: "index_professional_infos_on_user_id", using: :btree
+
   create_table "project_tasks", force: :cascade do |t|
     t.integer  "project_id"
     t.integer  "user_id"
@@ -3512,6 +3523,7 @@ ActiveRecord::Schema.define(version: 20150809155902) do
   add_foreign_key "playlist_emails", "users"
   add_foreign_key "playlist_key_users", "accounts", on_delete: :cascade
   add_foreign_key "playlists", "accounts", on_delete: :cascade
+  add_foreign_key "professional_infos", "users", on_delete: :cascade
   add_foreign_key "projects", "accounts", on_delete: :cascade
   add_foreign_key "recording_downloads", "shop_products"
   add_foreign_key "recording_downloads", "users", on_delete: :cascade

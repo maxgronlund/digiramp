@@ -9,7 +9,13 @@ class Opportunity::OpportunitiesController < ApplicationController
     if params[:opportunity_invitation]  && params[:user_id]
       if @user   = User.cached_find(params[:user_id])
         if (@opportunity_user = OpportunityUser.find_by( opportunity_id: @opportunity.id, user_id: @user.id)) || super?
-          redirect_to user_user_selected_opportunity_path(@user, @opportunity)
+          
+          if current_user
+            redirect_to user_user_selected_opportunity_path(@user, @opportunity)
+          else
+            session[:request_url] = user_user_selected_opportunity_path(@user, @opportunity)
+            redirect_to login_new_path
+          end
         else
           forbidden
         end

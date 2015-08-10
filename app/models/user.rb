@@ -58,7 +58,7 @@ class User < ActiveRecord::Base
 
 
 
-
+  has_one  :professional_info
   has_one  :account
   has_many :account_users
   has_many :accounts,         :through => :account_users  
@@ -120,7 +120,7 @@ class User < ActiveRecord::Base
 
   after_commit    :set_propperties
   before_save     :update_meta
-  before_create   :update_meta
+  #before_create   :update_meta
   #before_create :set_token
   
   before_create   :setup_basics
@@ -216,6 +216,8 @@ class User < ActiveRecord::Base
     self.update(has_enabled_shop: conneted_to_stripe)
     self.products.update_all(connected_to_stripe: conneted_to_stripe)
   end
+  
+  
 
   def self.say_hello
     #TestMailer.delay.send_message() 
@@ -420,6 +422,7 @@ class User < ActiveRecord::Base
     self.uuid                  = UUIDTools::UUID.timestamp_create().to_s
     self.uniq_followers_count  = "0".to_uniq
     self.page_style_id         = PageStyle.deep_blue.id
+    update_meta
   end
   
   
@@ -448,6 +451,7 @@ class User < ActiveRecord::Base
     #set_default_avatar
     CreateUserMandrillAccountJob.perform_later(self.id) if Rails.env.production?
     Stake.where(  email: self.email ).update_all( unassigned: false)
+    ProfessionalInfo.create(user_id: self.id)
   end
 
   def stripe_customers
