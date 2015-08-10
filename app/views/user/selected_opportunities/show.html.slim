@@ -28,7 +28,7 @@
           .pull-right.pull-down-10
             - if opportunity_user = OpportunityUser.find_by(opportunity_id: @opportunity.id, user_id: @user)
               - if opportunity_user.reviewer
-                => link_to opportunity_opportunity_reviewer_path(@opportunity, opportunity_user.uuid) do
+                => link_to user_user_opportunities_for_review_path(@user, opportunity_user.uuid) do
                   .btn.btn-default
                     'Review
          

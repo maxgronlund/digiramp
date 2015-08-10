@@ -22,6 +22,10 @@ class ProfessionalInfo < ActiveRecord::Base
     @address ||=  get_address
   end
   
+  def first_name
+    address.first_name
+  end
+  
   private
   
   def get_address
