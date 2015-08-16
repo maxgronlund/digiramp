@@ -9,15 +9,16 @@
   
   #page-content-wrapper
     .container-fluid
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { 'Dashboard'.to_sym => user_user_control_panel_index_path(@user) } }
       == render 'shared/flash_message'
       .row
         .col-sm-6
           .help
             .help-text
-              h2 Legal
+              h2 Legal information
               
             .help-button
-              == render 'admin/helps/help', identifier: 'common work credits'
+              == render 'admin/helps/help', identifier: 'user legal information'
 
       = render 'user/shared/legal_navigation'
       .digi-box
@@ -29,13 +30,17 @@
           .form-inputs
             .row
               .col-sm-6
-                = f.input :first_name, autofocus: true
-                = f.input :last_name
-                = f.input :address_line_1
-                = f.input :address_line_2
-                = f.input :city
-                = f.input :zip_code
-                = f.input :country
+                = f.simple_fields_for :address do |address_form|
+                  = address_form.input :first_name
+                  = address_form.input :middle_name
+                  = address_form.input :last_name
+                  = address_form.input :address_line_1
+                  = address_form.input :address_line_2
+                  = address_form.input :city
+                  = address_form.input :state
+                  = address_form.input :country
+                  = address_form.input :zip_code
+
               .col-sm-6
                 = f.input :phone_number 
             

@@ -23,7 +23,8 @@ class UserMailer < ApplicationMailer
                         merge_vars,
                         false,
                         false,
-                        "02-digiramp-password-reset" )
+                        "02-digiramp-password-reset",
+                        "mailchimp" )
   end
 
   def invite_new_user_to_account user_id, title, body
@@ -44,7 +45,8 @@ class UserMailer < ApplicationMailer
                          merge_vars,
                          true,
                          true,
-                         user.mandrill_account_id 
+                         user.mandrill_account_id,
+                         "mailchimp" 
                         )
   end
   
@@ -65,7 +67,8 @@ class UserMailer < ApplicationMailer
                         merge_vars,
                         true,
                         true,
-                        user.mandrill_account_id
+                        user.mandrill_account_id,
+                        "mailchimp"
                       )
   end
   
@@ -115,7 +118,8 @@ class UserMailer < ApplicationMailer
                         merge_vars,
                         true,
                         true,
-                        inviter.mandrill_account_id 
+                        inviter.mandrill_account_id,
+                        "mailchimp" 
                       )
   end
 end

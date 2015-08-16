@@ -1,0 +1,29 @@
+.alert.alert-info
+  = "#{@publisher.user.user_name} has registered #{@publisher.legal_name} as a publisher and send this confirmation request to the email #{@publisher.email}"
+  br If you confirm this you will be able to receive payment for your publishing deals directly thrue the DigiRAMP payment gateway
+.digi-box
+  .row
+    .col-sm-12
+      'Yes this is correct
+      .pull-right.pull-down-10
+        = link_to 'Confirm', edit_confirmation_publisher_path(@publisher.transfer_uuid), class: 'btn btn-default'
+
+.digi-box  
+  .row
+    .col-sm-12
+      'Sorry this must be a mistake
+      .pull-right.pull-down-10    
+        = link_to  confirmation_publisher_path( @publisher.transfer_uuid), 
+                              data: {:confirm => 'Are you sure?'}, 
+                              :method => :delete  do
+              .btn.btn-default
+                i.fa.fa-times&nbsp;Decline
+      
+
+
+.row
+  .col-sm-12
+    
+
+
+

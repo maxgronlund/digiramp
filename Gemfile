@@ -270,6 +270,8 @@ gem 'docverter'
 
 gem "recaptcha", :require => "recaptcha/rails"
 
+#gem 'actionpack-action_caching'
+
 
 
 group :development do

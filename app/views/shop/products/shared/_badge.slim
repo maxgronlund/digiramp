@@ -1,36 +1,36 @@
+- cache [product]
 
-
-.product
-
-  = link_to link_to_product, id: "#{product.title.gsub(' ','_').downcase}" do
-    .product-image
-      /= image_tag( product.image_url :thumb_300x300)
-      = image_tag product.get_shop_art(:thumb_300x300)
-      .product-category
-        = product.category.gsub('-', ' ').capitalize
-
-      - if product.category == 'physical-product' && product.units_on_stock.to_i < 99
-        .units-on-stock
-          'Units on stock:&nbsp#{product.units_on_stock}
-
-
-    
-    /.product-category
-    /  = product.category
-    .product-title
-      = truncate(product.title, length: 76)
-      /= word_wrap(product.title, line_width: 8)
-    .product-info
-      = word_wrap(product.additional_info.to_s)
-    .product-price
-      'PRICE&nbsp;
-      => number_to_currency(product.price * 0.01, locale: :en, procision: 2)
-
-    = link_to link_to_product do
-      i class="fa fa-users"
-      '&nbsp;
-      '5
-    - if true
-      .pull-right
-        i class="fa fa-star"
+  .product
+  
+    = link_to link_to_product, id: "#{product.title.gsub(' ','_').downcase}" do
+      .product-image
+        /= image_tag( product.image_url :thumb_300x300)
+        = image_tag product.get_shop_art(:thumb_300x300)
+        .product-category
+          = product.category.gsub('-', ' ').capitalize
+  
+        - if product.category == 'physical-product' && product.units_on_stock.to_i < 99
+          .units-on-stock
+            'Units on stock:&nbsp#{product.units_on_stock}
+  
+  
+      
+      /.product-category
+      /  = product.category
+      .product-title
+        = truncate(product.title, length: 76)
+        /= word_wrap(product.title, line_width: 8)
+      .product-info
+        = word_wrap(product.additional_info.to_s)
+      .product-price
+        'PRICE&nbsp;
+        => number_to_currency(product.price * 0.01, locale: :en, procision: 2)
+  
+      = link_to link_to_product do
+        i class="fa fa-users"
         '&nbsp;
+        '5
+      - if true
+        .pull-right
+          i class="fa fa-star"
+          '&nbsp;

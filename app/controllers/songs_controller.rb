@@ -39,7 +39,7 @@ class SongsController < ApplicationController
     end
     
 
-    @songs      =  Recording.recordings_search(recordings, params[:query]).page(params[:page]).per(4)
+    @songs      =  Recording.recordings_search(recordings, params[:query]).page(params[:page]).per(6)
     @playlists  =  current_user.playlists if current_user
     @user       =  current_user
     

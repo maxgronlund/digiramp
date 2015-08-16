@@ -49,7 +49,8 @@ class FollowerMailer < ApplicationMailer
                           merge_vars,
                           true, 
                           true, 
-                          @user.mandrill_account_id
+                          @user.mandrill_account_id,
+                          "mailchimp"
                         )
     end
 

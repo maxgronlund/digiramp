@@ -1,0 +1,34 @@
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'settings' 
+  
+  
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'users/shared/sidebar', selected: 'control panel'
+  
+  #page-content-wrapper
+    .container-fluid
+      == render 'shared/flash_message'
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { 'Dashboard'.to_sym => user_user_control_panel_index_path(@user),
+                                                               publisher: user_user_publisher_path(@user, @publisher)}}
+      .row
+        .col-sm-6
+          .help
+            .help-text
+              h2 Edit publishing deal
+            .help-button
+              == render 'admin/helps/help', identifier: 'user new publishing deal'
+
+      .sexy_line
+      .row
+        .col-sm-6
+          .digi-box
+            == render 'form'
+      
+                  
+
+         
+              
+  == render 'shared/site_footer'    
+

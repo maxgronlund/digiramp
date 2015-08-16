@@ -1,0 +1,2 @@
+module PublishingDealsHelper
+end

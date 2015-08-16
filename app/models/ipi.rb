@@ -27,7 +27,7 @@ class Ipi < ActiveRecord::Base
   end
   
   def attach_user_credits
-   
+    ap self
     if self.user
       user_credit = UserCredit
       .where(ipiable_type: self.class.name, ipiable_id: self.id, user_id: self.user_id)
@@ -56,8 +56,8 @@ class Ipi < ActiveRecord::Base
   end
   
   def attach_to_user
-    if attach_to_user = User.where(email: self.email).first
-      self.user_id    = attach_to_user.id
+    if attach_to = User.get_by_email(self.email)
+      self.user_id    = attach_to.id
       self.save!(validate: false)
     end
   end

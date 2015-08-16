@@ -1,0 +1,86 @@
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'account' 
+  
+
+  .pro-account
+    #sidebar-wrapper
+      ul class="sidebar-nav"
+        == render 'account/shared/sidebar', selected: 'account'
+    
+  #page-content-wrapper
+    .container-fluid
+      == render 'shared/breadcrumbs', breadcrumbs: { links: {  account: account_account_path(@account) } }
+      .row
+        .col-sm-8
+          .help
+            .help-text
+              h2 Publishing
+            .help-button
+              == render 'admin/helps/help', identifier: 'account publishers'
+        .col-sm-4.pull-down-10
+          .pull-right
+
+      
+      .sexy_line
+      .digi-box
+        .table-responsive
+          table class="table table-hover"
+        
+            thead
+              tr
+                th Legal name
+                th Email,
+                th Phone number
+                th Ipi code
+                th Pro affiliation
+                th Status
+                th
+            
+            
+            tbody
+              - @publishers.each do |publisher|
+                tr
+                  th 
+                    = link_to publisher.legal_name, user_user_publisher_path(publisher.user, publisher), class: 'btn btn-default btn-xs'
+                  td = publisher.email
+                  td = publisher.phone_number
+                  td = publisher.ipi_code
+                  td 
+                    - if pro_affiliation = publisher.pro_affiliation
+                      = pro_affiliation.title
+                  td 
+                    - if publisher.pending?
+                      .label.label-info
+                        'Pending
+                    - if publisher.confirmed?
+                      .label.label-success
+                        'Confirmed
+                  td
+                    /-if (publisher.account_id == @account.id) || publisher.pending?
+                    /  - if publisher.i_am_my_own_publisher
+                    /    = link_to 'Edit', edit_user_user_publisher_legal_info_path(publisher.user, publisher), class: 'btn btn-default btn-xs'
+                    /  - else
+                    /    = link_to 'Edit', edit_user_user_publisher_path(publisher.user, publisher), class: 'btn btn-default btn-xs'
+                    /    
+                    /  /=> link_to edit_user_user_publisher_path(@user, publisher) do
+                    /  /  .btn.btn-default.btn-xs
+                    /  /    i.fa.fa-pencil&nbsp;Edit
+                    /  /    
+                    /  = link_to  user_user_publisher_path(publisher.user, publisher), 
+                    /                        data: {:confirm => 'Are you sure?'}, 
+                    /                        :method => :delete,
+                    /                        turboboost: true do
+                    /        .btn.btn-danger.btn-xs
+                    /          i.fa.fa-times
+                  /td = link_to 'Show', publisher
+                  /td = link_to 'Edit', edit_publisher_path(publisher)
+                  /td = link_to 'Destroy', publisher, data: {:confirm => 'Are you sure?'}, :method => :delete
+            
+      
+                                            
+        
+    
+  == render 'shared/site_footer'    
+ 
+

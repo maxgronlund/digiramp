@@ -1,0 +1,19 @@
+= simple_form_for [:user, @user, @publisher, @publishing_deal], turboboost: true do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.hidden_field :publisher_id, value: @publisher.id
+    = f.input :title
+   
+    .chosen-label
+      = f.input :document_id, 
+                collection: @documents,
+                include_blank: true,
+                label: false,
+                input_html: { class: 'chosen-select', 'data-placeholder'.to_sym => "Select from legal documents..." }
+
+  .row
+    .col-sm-12
+      .pull-right
+        .form-actions
+          = f.submit 'Save', class: 'btn btn-default'

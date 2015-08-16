@@ -1,0 +1,36 @@
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'dashboard' 
+
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'users/shared/sidebar', selected: 'dashboard'
+  
+  #page-content-wrapper
+    .container-fluid
+      == render 'shared/flash_message'
+      .container-fluid
+        .row
+          .col-sm-12
+            .help
+              .help-text
+                h2 Publishing confirmation request
+              .help-button
+                == render 'admin/helps/help', identifier: 'confirm publishing'
+      
+      
+      .sexy_line
+      -if @user.has_email( @publisher.email )
+        == render 'right_user'
+      - else
+        'Not right user/email
+      
+                  
+
+         
+              
+  == render 'shared/site_footer'    
+ 
+
+
+

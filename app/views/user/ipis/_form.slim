@@ -1,0 +1,45 @@
+= simple_form_for [:user, @user, @common_work, @ipi], turboboost: false do |f|
+  = f.hidden_field :common_work_id, value: @common_work.id
+
+  - if  f.error_notification
+    .alert.alert-danger
+      = f.error_notification
+      
+      
+  .row
+    .col-sm-4
+      = f.input :email
+
+
+    .col-sm-4
+      = f.input :share, label: 'Share %'
+    
+    .col-sm-4
+      /= f.input :ipi_code
+      /= f.input :phone_number
+  .row
+    .col-sm-3
+      = f.input :writer,     :as => :boolean,  :input_html => { class: 'icheck-me', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue"     }  , label: 'Music'
+
+    .col-sm-3
+      = f.input :composer,   :as => :boolean,  :input_html => { class: 'icheck-me', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue"     }   , label: 'Melody'
+    
+    .col-sm-3
+      = f.input :writer,     :as => :boolean,  :input_html => { class: 'icheck-me', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue"     }   , label: 'Lyric'
+    
+    .col-sm-3
+      = f.input :composer,   :as => :boolean,  :input_html => { class: 'icheck-me', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue"     }   , label: 'Arangement'
+
+  .row
+    .col-sm-12.pull-down-10
+      h3
+        .label.label-success
+          'Confirmed
+      /.btn.btn-default
+      /  'Add publisher
+      '&nbsp;
+      .pull-right
+        /=> link_to 'Auto fill address', user_user_auto_fill_ipi_path(@user, @ipi), method: 'put', class: 'btn btn-default'
+        
+        => f.submit 'Save', class: 'btn btn-default'
+        = f.submit 'Save and get confirmation', class: 'btn btn-default'

@@ -15,7 +15,7 @@
         .col-sm-8
           .help
             .help-text
-              h2 #{@account.title} <funky>Pro</funky>
+              h2 = @account.title
         
             .help-button
               == render 'admin/helps/help', identifier: 'pro account'

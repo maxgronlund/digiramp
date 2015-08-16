@@ -245,6 +245,18 @@
                       h4 Legal
                     .body
                       'Legal informations, Rights, Splits, Licences, and more
+                      
+              .control-panel-badge
+                = link_to  user_user_publishers_path(@user) do
+                  .content
+                    .icon.icon-green
+                      i.fa.fa-truck
+                      
+                    .title
+                      h4 Publishing
+                    .body
+                      'Publishers used for rights management
+                      
               - if super?
                 = link_to 'SIGNATURE', accepting_signatures_path
                       

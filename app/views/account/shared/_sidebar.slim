@@ -63,6 +63,13 @@
         i class="fa fa-folder"
         '&nbsp;
         'Documents
+        
+
+  li class="#{'sidebar-selected' if selected == 'publishing'}"
+    = link_to account_account_publishers_path(@account) do
+      i class="fa fa-truck"
+      '&nbsp;
+      'Publishing
 
   - if current_user 
     .sexy_line

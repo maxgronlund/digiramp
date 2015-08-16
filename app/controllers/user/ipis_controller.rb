@@ -19,8 +19,8 @@ class User::IpisController < ApplicationController
     @ipi          = Ipi.new
     @common_work  = CommonWork.cached_find(params[:common_work_id])
     
-    @ipi.title    = "Please confirm your rights on #{@common_work.title}"
-    @ipi.message  = "Hi \nI would like you to confirm you share and rights on #{@common_work.title} as:\n#{@ipi.roles_as_string} \n\n--#{@user.user_name}"
+    #@ipi.title    = "Please confirm your rights on #{@common_work.title}"
+    #@ipi.message  = "Hi \nI would like you to confirm you share and rights on #{@common_work.title} as:\n#{@ipi.roles_as_string} \n\n--#{@user.user_name}"
     #render nothing: true
   end
   
@@ -30,7 +30,7 @@ class User::IpisController < ApplicationController
     @ipi = Ipi.new(ipi_params)
     
     respond_to do |format|
-      if @ipi.save
+      if @ipi.save!
         
         format.html { 
           if params[:commit] == "Save and add next"

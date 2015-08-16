@@ -57,11 +57,16 @@ class User < ActiveRecord::Base
   validates_formatting_of :link_to_homepage        , :using => :url, :allow_blank => true      # URLs
 
 
-
-  has_one  :professional_info
+  has_one :address
+  accepts_nested_attributes_for :address
+  include AddressMix
+  
   has_one  :account
   has_many :account_users
   has_many :accounts,         :through => :account_users  
+  
+  has_many :user_publishers
+  has_many :publishers,       :through => :user_publishers 
   
   has_many :comments,        as: :commentable,          dependent: :destroy
   has_many :digital_signatures 

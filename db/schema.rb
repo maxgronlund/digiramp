@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150809204628) do
+ActiveRecord::Schema.define(version: 20150815073342) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -2142,13 +2142,13 @@ ActiveRecord::Schema.define(version: 20150809204628) do
     t.integer  "supervisors_order"
     t.boolean  "supervisor_like"
     t.decimal  "relevance"
-    t.datetime "created_at",                                  null: false
-    t.datetime "updated_at",                                  null: false
+    t.datetime "created_at",                                      null: false
+    t.datetime "updated_at",                                      null: false
     t.integer  "stars",                           default: 0
     t.integer  "like",                            default: 0
     t.integer  "opportunity_user_id"
     t.integer  "account_id"
-    t.boolean  "selected"
+    t.boolean  "selected",                        default: false
   end
 
   add_index "music_submissions", ["account_id"], name: "index_music_submissions_on_account_id", using: :btree
@@ -2506,16 +2506,6 @@ ActiveRecord::Schema.define(version: 20150809204628) do
     t.datetime "updated_at"
   end
 
-  create_table "professional_infos", force: :cascade do |t|
-    t.string   "ipi_code"
-    t.integer  "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string   "alias"
-  end
-
-  add_index "professional_infos", ["user_id"], name: "index_professional_infos_on_user_id", using: :btree
-
   create_table "project_tasks", force: :cascade do |t|
     t.integer  "project_id"
     t.integer  "user_id"
@@ -2549,6 +2539,24 @@ ActiveRecord::Schema.define(version: 20150809204628) do
 
   add_index "projects", ["account_id"], name: "index_projects_on_account_id", using: :btree
   add_index "projects", ["user_id"], name: "index_projects_on_user_id", using: :btree
+
+  create_table "publishers", force: :cascade do |t|
+    t.integer  "account_id"
+    t.integer  "user_id"
+    t.string   "legal_name"
+    t.string   "email"
+    t.string   "phone_number"
+    t.string   "ipi_code"
+    t.string   "cae_code"
+    t.integer  "pro_affiliation_id"
+    t.integer  "status",                default: 0
+    t.boolean  "i_am_my_own_publisher"
+    t.boolean  "show_on_public_page",   default: false
+    t.text     "description"
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
+    t.uuid     "transfer_uuid"
+  end
 
   create_table "raw_images", force: :cascade do |t|
     t.string   "identifier", limit: 255
@@ -2718,8 +2726,8 @@ ActiveRecord::Schema.define(version: 20150809204628) do
     t.string   "uniq_position"
     t.boolean  "all_ipis_confirmed",               default: false
     t.boolean  "pre_cleared",                      default: false
-    t.boolean  "in_shop",                          default: false
     t.boolean  "valid_for_sale",                   default: false
+    t.boolean  "in_shop",                          default: false
   end
 
   add_index "recordings", ["account_id"], name: "index_recordings_on_account_id", using: :btree
@@ -3199,6 +3207,18 @@ ActiveRecord::Schema.define(version: 20150809204628) do
 
   add_index "user_emails", ["user_id"], name: "index_user_emails_on_user_id", using: :btree
 
+  create_table "user_publishers", force: :cascade do |t|
+    t.integer  "publisher_id"
+    t.integer  "user_id"
+    t.integer  "legal_document_id"
+    t.text     "notes"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+  end
+
+  add_index "user_publishers", ["publisher_id"], name: "index_user_publishers_on_publisher_id", using: :btree
+  add_index "user_publishers", ["user_id"], name: "index_user_publishers_on_user_id", using: :btree
+
   create_table "users", force: :cascade do |t|
     t.string   "name",                       limit: 255
     t.string   "email",                      limit: 255
@@ -3214,8 +3234,6 @@ ActiveRecord::Schema.define(version: 20150809204628) do
     t.string   "password_reset_token",       limit: 255
     t.datetime "password_reset_sent_at"
     t.integer  "current_account_id"
-    t.string   "first_name",                 limit: 255
-    t.string   "last_name",                  limit: 255
     t.string   "avatar_url",                 limit: 255
     t.boolean  "show_welcome_message",                   default: true
     t.boolean  "activated",                              default: true
@@ -3243,8 +3261,6 @@ ActiveRecord::Schema.define(version: 20150809204628) do
     t.string   "user_name",                  limit: 255, default: ""
     t.integer  "views",                                  default: 0
     t.string   "profession",                 limit: 255
-    t.string   "country",                    limit: 255
-    t.string   "city",                       limit: 255
     t.integer  "followers_count",                        default: 0
     t.boolean  "private_profile",                        default: false
     t.boolean  "artist",                                 default: false
@@ -3274,8 +3290,6 @@ ActiveRecord::Schema.define(version: 20150809204628) do
     t.string   "link_to_tumblr",             limit: 255, default: ""
     t.string   "link_to_instagram",          limit: 255, default: ""
     t.string   "link_to_youtube",            limit: 255, default: ""
-    t.text     "address_line_1",                         default: ""
-    t.string   "zip_code",                   limit: 255, default: ""
     t.string   "phone_number",               limit: 255, default: ""
     t.string   "stripe_customer_id"
     t.boolean  "salesperson",                            default: false
@@ -3288,12 +3302,11 @@ ActiveRecord::Schema.define(version: 20150809204628) do
     t.string   "stripe_refresh_token"
     t.string   "account_type",                           default: "Social"
     t.string   "mandrill_account_id"
-    t.text     "address_line_2"
     t.integer  "super_catalog_user_id"
     t.integer  "super_account_user_id"
     t.integer  "user_likes",                             default: 0
     t.integer  "likings",                                default: 0
-    t.text     "seller_info",                            default: "{}"
+    t.text     "seller_info"
   end
 
   add_index "users", ["default_cms_page_id"], name: "index_users_on_default_cms_page_id", using: :btree
@@ -3523,8 +3536,9 @@ ActiveRecord::Schema.define(version: 20150809204628) do
   add_foreign_key "playlist_emails", "users"
   add_foreign_key "playlist_key_users", "accounts", on_delete: :cascade
   add_foreign_key "playlists", "accounts", on_delete: :cascade
-  add_foreign_key "professional_infos", "users", on_delete: :cascade
   add_foreign_key "projects", "accounts", on_delete: :cascade
+  add_foreign_key "publishers", "accounts", on_delete: :cascade
+  add_foreign_key "publishers", "pro_affiliations"
   add_foreign_key "recording_downloads", "shop_products"
   add_foreign_key "recording_downloads", "users", on_delete: :cascade
   add_foreign_key "recording_ipis", "accounts", on_delete: :cascade
@@ -3546,5 +3560,6 @@ ActiveRecord::Schema.define(version: 20150809204628) do
   add_foreign_key "shop_stripe_transfers", "users"
   add_foreign_key "subscriptions", "coupons"
   add_foreign_key "subscriptions", "plans"
+  add_foreign_key "user_publishers", "users", on_delete: :cascade
   add_foreign_key "widgets", "accounts", on_delete: :cascade
 end

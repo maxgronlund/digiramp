@@ -1,0 +1,70 @@
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'settings' 
+  
+  
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'users/shared/sidebar', selected: 'control panel'
+  
+  #page-content-wrapper
+    .container-fluid
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { 'Dashboard'.to_sym =>user_user_control_panel_index_path(@user),
+                                                              'publishers'.to_sym => user_user_publishers_path(@user)} }
+      == render 'shared/flash_message'
+      .row
+        .col-sm-6
+          .help
+            .help-text
+              h2 Edit publisher
+              
+            .help-button
+              == render 'admin/helps/help', identifier: 'user publisher address'
+        .col-sm-6
+          .pull-right.pull-down-10
+            = link_to  user_user_publisher_path(@user, @publisher) do
+                .btn.btn-default
+                  i.fa.fa-chevron-left
+                  '&nbsp;Back
+
+      .sexy_line
+      .digi-box
+        = simple_form_for [:user, @user, @publisher] do |f|
+          = f.error_notification
+
+          .form-inputs
+            .row
+              .col-sm-6
+                = f.input :legal_name
+                = f.input :email, hint: 'Use your own email if you are your own publisher'
+                = f.input :i_am_my_own_publisher, :input_html => { class: 'icheck-me acceptance', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue"     } 
+                span class="help-block" 
+                  'Check this if you have your own publishing company or want to create one
+
+                = f.input :show_on_public_page, input_html: { class: 'icheck-me acceptance', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue" }, hint: 'Your contact info will not be exposed'
+                = f.input :phone_number
+                = f.input :ipi_code
+                = f.input :cae_code
+                = f.input :pro_affiliation_id, collection: ProAffiliation.order(:title), value_method: :id, include_blank: true, label: 'Performance Rights Organization'
+              .col-sm-6
+      
+                = f.simple_fields_for :address do |address_form|
+                  = address_form.input :address_line_1
+                  = address_form.input :address_line_2
+                  = address_form.input :city
+                  = address_form.input :state
+                  = address_form.input :country
+                  = address_form.input :zip_code
+
+          .form-actions
+            .row
+              .col-sm-12
+                .pull-right
+                  = f.submit 'Save', class: 'btn btn-default'
+        
+                  
+
+         
+              
+  == render 'shared/site_footer'    
+ 

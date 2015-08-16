@@ -24,6 +24,8 @@ class Account < ActiveRecord::Base
   has_many :stakes
   has_many :recording_ipis
   has_many :shop_products
+  has_many :publishers
+  has_many :publisher_deals, :through => :publishers 
   
   
   # image files uploaded
@@ -262,12 +264,19 @@ class Account < ActiveRecord::Base
     end
   end
   
+  def email
+    if admin = self.administrator
+      return admin.email
+    elsif admin = self.user
+      return admin.email
+    end
+    nil
+  end
+  
 
   # get the administrators account user
   def administrators_account_user
-    
     if User.exists?(self.administrator_id)
-    
       if account_user = AccountUser.cached_where( self.id, self.administrator_id )
         return account_user
       else

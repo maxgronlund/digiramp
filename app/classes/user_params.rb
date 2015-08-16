@@ -42,7 +42,18 @@ class UserParams
                     :address_line_2,                     
                     :zip_code,                   
                     :phone_number,
-                    :default_cms_page_id
+                    :default_cms_page_id,
+                    address_attributes: [  :first_name,
+                                           :middle_name,
+                                           :last_name,
+                                           :address_line_1,
+                                           :address_line_2,
+                                           :city,
+                                           :state,
+                                           :country,
+                                           :id,
+                                           :zip_code
+                                         ]
                     
                   ]
     

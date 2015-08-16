@@ -1,7 +1,8 @@
 Digiramp::Application.routes.draw do
 
-
   
+  resources :publishers, only: [:index]
+
   get 'landing_page/index'
   
   get "/pages/*id" => 'pages#show', as: :page, format: false
@@ -10,7 +11,7 @@ Digiramp::Application.routes.draw do
 
   resources :accepting_signatures
 
-  # user namespace arount line 730
+  # user namespace arount line 750
   # admin namespace line 89
   # account namespace 
 
@@ -216,6 +217,7 @@ Digiramp::Application.routes.draw do
     resources :users, only: [:new]
     resources :add_emails, only: [:new]
     resources :recording_ipi_confirmations
+    resources :publishers, only: [:show, :edit, :update, :destroy]
   end
   
   
@@ -503,6 +505,7 @@ Digiramp::Application.routes.draw do
       resources :subscriptions, only: [:new, :edit, :update, :create, :destroy]
       
       resources :recording_departures
+      resources :publishers
       resources :attachments, only: [:destroy]
       member do
         #get 'find_recording_in_bucket'
@@ -781,10 +784,13 @@ Digiramp::Application.routes.draw do
       resources :shop_admin, only: [:index] 
       resources :select_product_type, only: [:index] 
       resources :special_offer, only: [:index] 
+      resources :publishers do
+        resources :publishing_deals
+      end
+      resources :publisher_legal_infos, only: [:edit] 
       resources :product_admin, only: [:edit, :new, :create, :new]   
       resources :invoices, only: [:index, :show]
-      resources :professional_infos
-      resources :purchases, only: [:index, :show]
+          resources :purchases, only: [:index, :show]
       resources :coupon_batches, only: [:show]
       
       resources :accept_recording_ipis

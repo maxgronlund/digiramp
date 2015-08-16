@@ -1,7 +1,13 @@
 class UserValidator < ActiveModel::Validator
   def validate(record)
-    if UserEmail.where(email: record.email).first
-      record.errors[:email] << 'Email has been added to another account!'
+    if user_email = UserEmail.where(email: record.email).first
+      ap 'user_email'
+      ap user_email.user_id
+      ap 'record'
+      ap record.id
+      if user_email.user_id != record.id
+        record.errors[:email] << 'Email has been added to another account!'
+      end
     end
     
     begin
@@ -11,8 +17,6 @@ class UserValidator < ActiveModel::Validator
       end
     rescue
     end
-    #unless record.name.starts_with? 'X'
-    #  record.errors[:name] << 'Need a name starting with X please!'
-    #end
+    
   end
 end

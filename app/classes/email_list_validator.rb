@@ -4,7 +4,6 @@ class EmailListValidator < ActiveModel::Validator
     record.email_list.split(',').each do |email|
       email.strip!
       unless match_email email
-        
         record.errors[:email_list] = 'Please check for invalid emails'
       end
     end

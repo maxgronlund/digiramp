@@ -37,16 +37,19 @@
                 th
             tbody
               tr
+                th Account email
                 td = @user.email
-                td 
                 - @user_emails.each do |user_email|
                   tr
-                    
-                    td
-                      => link_to user_user_user_email_path(@user, user_email), turboboost: true, data: {:confirm => 'Are you sure?'}, :method => :delete
-                        .btn.btn-danger.btn-xs
-                          i.fa.fa-times
-                      => link_to 'Edit', edit_user_user_user_email_path(@user, user_email), class: 'btn btn-default btn-xs'
+                    - if Publisher.where(email: user_email.email).first
+                      th Publisher email
+                      
+                    - else
+                      td
+                        => link_to user_user_user_email_path(@user, user_email), turboboost: true, data: {:confirm => 'Are you sure?'}, :method => :delete
+                          .btn.btn-danger.btn-xs
+                            i.fa.fa-times
+                        => link_to 'Edit', edit_user_user_user_email_path(@user, user_email), class: 'btn btn-default btn-xs'
                     td = user_email.email
                 
             

@@ -11,17 +11,20 @@ class ApplicationMailer < ActionMailer::Base
                          merge_vars, 
                          track_clicks, 
                          track_opens, 
-                         subaccount
+                         subaccount,
+                         merge_language
     begin
       template_name = template_name
       template_content = []
       message = { to: receipients_with_names ,
-                  from: {email: "noreply@digiramp.com"},
+                  from_email: "noreply@digiramp.com",
+                  from_name:  "NoReply@DigiRAMP.com",
                   subject: subject,
                   tags: tags,
                   track_clicks: track_clicks,
                   track_opens: track_opens,
                   subaccount: subaccount,
+                  merge_language: merge_language,
                   merge_vars: merge_vars
                 }
       mandril_client.messages.send_template template_name, template_content, message
@@ -31,6 +34,7 @@ class ApplicationMailer < ActionMailer::Base
       ErrorNotification.post message
     end
   end
+
   
   def error_msg msg
     Opbeat.capture_message( msg )

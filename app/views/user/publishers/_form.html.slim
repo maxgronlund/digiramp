@@ -1,0 +1,55 @@
+= simple_form_for [:user, @user, @publisher] do |f|
+  = f.error_notification
+
+  .form-inputs
+    /== render 'shared/flash_message'
+    .row
+      .col-sm-6
+        = f.hidden_field :account_id, value: @user.account.id
+        = f.hidden_field :user_id, value: @user.id
+        
+        = f.input :email, placeholder: 'Use your own email if you are your own publisher'
+        = f.input :i_am_my_own_publisher, :input_html => { class: 'icheck-me acceptance', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue"     } 
+        span class="help-block" 
+          'Check this if you have your own publishing company or want to create one
+      .col-sm-6
+        = f.input :legal_name, hint: "If you don't have a publishing company just make up a name here"
+        
+    /.row
+    /  .col-sm-6
+    /    - unless @publisher.new_record? 
+    /      - if @publisher.i_am_my_own_publisher
+    /        = f.input :show_on_public_page, input_html: { class: 'icheck-me acceptance', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue" }, hint: 'Your contact info will not be exposed'
+    /        = f.input :phone_number
+    /        = f.input :ipi_code
+    /        = f.input :cae_code
+    /        = f.input :pro_affiliation_id, collection: ProAffiliation.order(:title), value_method: :id, include_blank: true, label: 'Performance Rights Organization'
+    /        
+    /    /= f.input :status
+    /  /.col-sm-6
+    /  /
+    /  /  = f.simple_fields_for :address do |address_form|
+    /  /    /= address_form.hidden_field :first_name, value: '-'
+    /  /    /= address_form.hidden_field :last_name, value: '-'
+    /  /    /- if @publisher.new_record? 
+    /  /    /  = address_form.hidden_field :address_line_1, value: '-'
+    /  /    /  = address_form.hidden_field :city, value: '-'
+    /  /    /  = address_form.hidden_field :country, value: '-'
+    /  /    /
+    /  /    - unless @publisher.new_record?
+    /  /      - if @publisher.i_am_my_own_publisher  
+    /  /        = address_form.input :address_line_1
+    /  /        = address_form.input :address_line_2
+    /  /        = address_form.input :city
+    /  /        = address_form.input :state
+    /  /        = address_form.input :country
+    /  /        = address_form.input :zip_code
+    /  /      /- else
+    /  /      /  = address_form.hidden_field :address_line_1, value: '-'
+    /  /      /  = address_form.hidden_field :city, value: '-'
+    /  /      /  = address_form.hidden_field :country, value: '-'
+  .form-actions
+    .row
+      .col-sm-12
+        .pull-right
+          = f.submit 'Save', class: 'btn btn-default'

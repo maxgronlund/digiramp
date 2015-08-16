@@ -1,0 +1,70 @@
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'settings' 
+  
+  
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'users/shared/sidebar', selected: 'control panel'
+  
+  #page-content-wrapper
+    .container-fluid
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { 'Dashboard'.to_sym =>user_user_control_panel_index_path(@user),
+                                                              'publishers'.to_sym => user_user_publishers_path(@user),
+                                                               @publisher.legal_name.to_sym => user_user_publisher_path(@user, @publisher)}}
+      == render 'shared/flash_message'
+      .row
+        .col-sm-6
+          .help
+            .help-text
+              h2 = @publishing_deal.title 
+              
+            .help-button
+              == render 'admin/helps/help', identifier: 'user publishing deal'
+        .col-sm-6
+          .pull-right.pull-down-10
+            => link_to  user_user_publisher_path(@user, @publisher) do
+                .btn.btn-default
+                  i.fa.fa-chevron-left
+                  '&nbsp;Back
+            = link_to 'Edit', edit_user_user_publisher_publishing_deal_path(@user, @publisher, @publishing_deal), class: 'btn btn-default'
+            
+            
+
+      .sexy_line
+      .digi-box
+        .row
+          .col-sm-6
+            h4 Publishing agreement
+          .col-sm-6
+            .pull-right
+              
+        
+      
+        
+        
+
+        
+         
+              
+  == render 'shared/site_footer'    
+ 
+
+
+
+
+/p#notice = notice
+/
+/p
+/  strong Publisher:
+/  = @publishing_deal.publisher
+/p
+/  strong Title:
+/  = @publishing_deal.title
+/p
+/  strong Document:
+/  = @publishing_deal.document
+/
+/= link_to 'Edit', edit_publishing_deal_path(@publishing_deal)
+/'|
+/= link_to 'Back', publishing_deals_path

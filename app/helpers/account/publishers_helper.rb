@@ -1,0 +1,2 @@
+module Account::PublishersHelper
+end
