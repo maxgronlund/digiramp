@@ -1,14 +1,14 @@
 require 'rails_helper'
 
-RSpec.describe "publishing_deals/index", type: :view do
+RSpec.describe "publishing_agreements/index", type: :view do
   before(:each) do
-    assign(:publishing_deals, [
-      PublishingDeal.create!(
+    assign(:publishing_agreements, [
+      PublishingAgreement.create!(
         :publisher => nil,
         :title => "Title",
         :document => nil
       ),
-      PublishingDeal.create!(
+      PublishingAgreement.create!(
         :publisher => nil,
         :title => "Title",
         :document => nil
@@ -16,7 +16,7 @@ RSpec.describe "publishing_deals/index", type: :view do
     ])
   end
 
-  it "renders a list of publishing_deals" do
+  it "renders a list of publishing_agreements" do
     render
     assert_select "tr>td", :text => nil.to_s, :count => 2
     assert_select "tr>td", :text => "Title".to_s, :count => 2

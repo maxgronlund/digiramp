@@ -137,7 +137,7 @@
           h4 Publishing agreements 
         .col-sm-6
           .pull-right
-            = link_to 'New publishing agreement', new_user_user_publisher_publishing_deal_path(@user, @publisher), class: 'btn btn-default'
+            = link_to 'New publishing agreement', new_user_user_publisher_publishing_agreement_path(@user, @publisher), class: 'btn btn-default'
       .digi-box
         .table-responsive
           table class="table table-hover"
@@ -147,10 +147,10 @@
                 th Created
                 th
             tbody
-              - @publisher.publishing_deals.each do |publishing_deal|
+              - @publisher.publishing_agreements.each do |publishing_agreement|
                 tr
-                  td = link_to publishing_deal.title, user_user_publisher_publishing_deal_path(@user, @publisher, publishing_deal), class: 'btn btn-default btn-xs'
-                  td = l publishing_deal.created_at, format: :date
+                  td = link_to publishing_agreement.title, user_user_publisher_publishing_agreement_path(@user, @publisher, publishing_agreement), class: 'btn btn-default btn-xs'
+                  td = l publishing_agreement.created_at, format: :date
                   td
                   
         

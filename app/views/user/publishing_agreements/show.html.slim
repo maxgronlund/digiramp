@@ -17,7 +17,7 @@
         .col-sm-6
           .help
             .help-text
-              h2 = @publishing_deal.title 
+              h2 = @publishing_agreement.title 
               
             .help-button
               == render 'admin/helps/help', identifier: 'user publishing deal'
@@ -27,7 +27,7 @@
                 .btn.btn-default
                   i.fa.fa-chevron-left
                   '&nbsp;Back
-            = link_to 'Edit', edit_user_user_publisher_publishing_deal_path(@user, @publisher, @publishing_deal), class: 'btn btn-default'
+            = link_to 'Edit', edit_user_user_publisher_publishing_agreement_path(@user, @publisher, @publishing_agreement), class: 'btn btn-default'
             
             
 
@@ -57,14 +57,14 @@
 /
 /p
 /  strong Publisher:
-/  = @publishing_deal.publisher
+/  = @publishing_agreement.publisher
 /p
 /  strong Title:
-/  = @publishing_deal.title
+/  = @publishing_agreement.title
 /p
 /  strong Document:
-/  = @publishing_deal.document
+/  = @publishing_agreement.document
 /
-/= link_to 'Edit', edit_publishing_deal_path(@publishing_deal)
+/= link_to 'Edit', edit_publishing_agreement_path(@publishing_agreement)
 /'|
-/= link_to 'Back', publishing_deals_path
+/= link_to 'Back', publishing_agreements_path

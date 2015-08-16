@@ -1,8 +1,8 @@
 require 'rails_helper'
 
-RSpec.describe "publishing_deals/show", type: :view do
+RSpec.describe "publishing_agreements/show", type: :view do
   before(:each) do
-    @publishing_deal = assign(:publishing_deal, PublishingDeal.create!(
+    @publishing_agreement = assign(:publishing_agreement, PublishingAgreement.create!(
       :publisher => nil,
       :title => "Title",
       :document => nil

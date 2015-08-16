@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150815073342) do
+ActiveRecord::Schema.define(version: 20150815202036) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -2558,6 +2558,17 @@ ActiveRecord::Schema.define(version: 20150815073342) do
     t.uuid     "transfer_uuid"
   end
 
+  create_table "publishing_agreements", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
+    t.integer  "publisher_id"
+    t.integer  "document_id"
+    t.string   "title"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
+  add_index "publishing_agreements", ["document_id"], name: "index_publishing_agreements_on_document_id", using: :btree
+  add_index "publishing_agreements", ["publisher_id"], name: "index_publishing_agreements_on_publisher_id", using: :btree
+
   create_table "raw_images", force: :cascade do |t|
     t.string   "identifier", limit: 255
     t.string   "title",      limit: 255
@@ -3539,6 +3550,8 @@ ActiveRecord::Schema.define(version: 20150815073342) do
   add_foreign_key "projects", "accounts", on_delete: :cascade
   add_foreign_key "publishers", "accounts", on_delete: :cascade
   add_foreign_key "publishers", "pro_affiliations"
+  add_foreign_key "publishing_agreements", "documents"
+  add_foreign_key "publishing_agreements", "publishers", on_delete: :cascade
   add_foreign_key "recording_downloads", "shop_products"
   add_foreign_key "recording_downloads", "users", on_delete: :cascade
   add_foreign_key "recording_ipis", "accounts", on_delete: :cascade

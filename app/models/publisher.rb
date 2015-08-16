@@ -12,7 +12,7 @@ class Publisher < ActiveRecord::Base
   
   has_many :user_publishers, dependent: :destroy
   has_many :users,   :through => :user_publishers 
-  has_many :publishing_deals
+  has_many :publishing_agreements
   
   belongs_to :account
   belongs_to :user

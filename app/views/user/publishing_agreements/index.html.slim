@@ -1,0 +1,25 @@
+h1 Listing publishing_agreements
+
+table
+  thead
+    tr
+      th Publisher
+      th Title
+      th Document
+      th
+      th
+      th
+
+  tbody
+    - @publishing_agreements.each do |publishing_agreement|
+      tr
+        td = publishing_agreement.publisher
+        td = publishing_agreement.title
+        td = publishing_agreement.document
+        td = link_to 'Show', publishing_agreement
+        td = link_to 'Edit', edit_publishing_agreement_path(publishing_agreement)
+        td = link_to 'Destroy', publishing_agreement, data: {:confirm => 'Are you sure?'}, :method => :delete
+
+br
+
+= link_to 'New Publishing deal', new_publishing_agreement_path

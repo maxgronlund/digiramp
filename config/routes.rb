@@ -785,7 +785,7 @@ Digiramp::Application.routes.draw do
       resources :select_product_type, only: [:index] 
       resources :special_offer, only: [:index] 
       resources :publishers do
-        resources :publishing_deals
+        resources :publishing_agreements
       end
       resources :publisher_legal_infos, only: [:edit] 
       resources :product_admin, only: [:edit, :new, :create, :new]   
