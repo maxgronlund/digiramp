@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150818010517) do
+ActiveRecord::Schema.define(version: 20150818165105) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -122,6 +122,7 @@ ActiveRecord::Schema.define(version: 20150818010517) do
     t.boolean  "update_client",                         default: false
     t.boolean  "delete_client",                         default: false
     t.boolean  "access_account",                        default: false
+    t.boolean  "download_recording",                    default: false
   end
 
   add_index "account_users", ["account_id"], name: "index_account_users_on_account_id", using: :btree
@@ -650,6 +651,7 @@ ActiveRecord::Schema.define(version: 20150818010517) do
     t.boolean  "read_client",                           default: false
     t.boolean  "update_client",                         default: false
     t.boolean  "delete_client",                         default: false
+    t.boolean  "download_recording",                    default: false
   end
 
   add_index "catalog_users", ["account_id"], name: "index_catalog_users_on_account_id", using: :btree

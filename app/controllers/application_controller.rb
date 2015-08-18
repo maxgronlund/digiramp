@@ -63,8 +63,8 @@ class ApplicationController < ActionController::Base
   
   # update within a month 02/06/2015
   def current_catalog_user
-    #@catalog_users ||= get_catalog_user
-    get_catalog_user
+    @catalog_users ||= get_catalog_user
+    #get_catalog_user
   end
   helper_method :current_catalog_user 
   

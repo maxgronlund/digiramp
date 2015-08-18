@@ -2,6 +2,7 @@ class UserValidator < ActiveModel::Validator
   def validate(record)
     if user_email = UserEmail.where(email: record.email).first
       ap 'user_email'
+      ap user_email
       ap user_email.user_id
       ap 'record'
       ap record.id

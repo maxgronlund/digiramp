@@ -20,102 +20,100 @@
                 .panel-body
                   .table-responsive.table-permissions
                     table class="table table-hover"
-                      thead
-                        tr
-                          th  
-                          th Create
-                          th Read
-                          th Update
-                          th Delete
-                           
-                          
+                      
                       tbody
                         tr 
                           td Recordings &nbsp; &nbsp; &nbsp;
-                          td = catalog_user.create_recording ? '√': ''
-                          td = catalog_user.read_recording ? '√': ''
-                          td = catalog_user.update_recording ? '√': ''
-                          td = catalog_user.delete_recording ? '√': ''
+                          td = catalog_user.create_recording ? 'Create': ''
+                          td = catalog_user.read_recording ? 'Read': ''
+                          td = catalog_user.update_recording ? 'Update': ''
+                          td = catalog_user.delete_recording ? 'Delete': ''
+                        tr 
+                          td Download &nbsp; &nbsp; &nbsp;
+                          td = catalog_user.download_recording ? 'Download': ''
+                          td
+                          td
+                          td
                           
                         tr 
                           
                           td Recordings IPI's &nbsp; &nbsp; &nbsp;
-                          td = catalog_user.create_recording_ipi ? '√': ''
-                          td = catalog_user.read_recording_ipi ? '√': ''
-                          td = catalog_user.update_recording_ipi ? '√': ''
-                          td = catalog_user.delete_recording_ipi ? '√': ''
+                          td = catalog_user.create_recording_ipi ? 'Create': ''
+                          td = catalog_user.read_recording_ipi ? 'Read': ''
+                          td = catalog_user.update_recording_ipi ? 'Update': ''
+                          td = catalog_user.delete_recording_ipi ? 'Delete': ''
                           
                           
                         tr 
                           td Files &nbsp; &nbsp; &nbsp;
-                          td = catalog_user.create_file ? '√': ''
-                          td = catalog_user.read_file ? '√': ''
-                          td = catalog_user.update_file ? '√': ''
-                          td = catalog_user.delete_file ? '√': ''
+                          td = catalog_user.create_file ? 'Create': ''
+                          td = catalog_user.read_file ? 'Read': ''
+                          td = catalog_user.update_file ? 'Update': ''
+                          td = catalog_user.delete_file ? 'Delete': ''
                           
                           
                         tr 
                           td Artwork &nbsp; &nbsp; &nbsp;
-                          td = catalog_user.create_artwork ? '√': ''
-                          td =   catalog_user.read_artwork ? '√': ''
-                          td = catalog_user.update_artwork ? '√': ''
-                          td = catalog_user.delete_artwork ? '√': ''
+                          td = catalog_user.create_artwork ? 'Create': ''
+                          td =   catalog_user.read_artwork ? 'Read': ''
+                          td = catalog_user.update_artwork ? 'Update': ''
+                          td = catalog_user.delete_artwork ? 'Delete': ''
                           
                           
                         tr 
                           td Legal Documents &nbsp; &nbsp; &nbsp;
-                          td = catalog_user.create_legal_document ? '√': ''
-                          td = catalog_user.read_legal_document ? '√': ''
-                          td = catalog_user.update_legal_document ? '√': ''
-                          td = catalog_user.delete_legal_document ? '√': ''
+                          td = catalog_user.create_legal_document ? 'Create': ''
+                          td = catalog_user.read_legal_document ? 'Read': ''
+                          td = catalog_user.update_legal_document ? 'Update': ''
+                          td = catalog_user.delete_legal_document ? 'Delete': ''
                           
                           
                         tr 
                           td Financial Documents &nbsp; &nbsp; &nbsp;
-                          td = catalog_user.create_financial_document ? '√': ''
-                          td   = catalog_user.read_financial_document ? '√': ''
-                          td = catalog_user.update_financial_document ? '√': ''
-                          td = catalog_user.delete_financial_document ? '√': ''
+                          td = catalog_user.create_financial_document ? 'Create': ''
+                          td   = catalog_user.read_financial_document ? 'Read': ''
+                          td = catalog_user.update_financial_document ? 'Update': ''
+                          td = catalog_user.delete_financial_document ? 'Delete': ''
                           
                           
                         tr 
                           td Common Works &nbsp; &nbsp; &nbsp;
-                          td = catalog_user.create_common_work ? '√': ''
-                          td   = catalog_user.read_common_work ? '√': ''
-                          td = catalog_user.update_common_work ? '√': ''
-                          td = catalog_user.delete_common_work ? '√': ''
+                          td = catalog_user.create_common_work ? 'Create': ''
+                          td   = catalog_user.read_common_work ? 'Read': ''
+                          td = catalog_user.update_common_work ? 'Update': ''
+                          td = catalog_user.delete_common_work ? 'Delete': ''
                           
                           
                         tr 
                           td Common Work IPI's &nbsp; &nbsp; &nbsp;
-                          td = catalog_user.create_common_work_ipi ? '√': ''
-                          td   = catalog_user.read_common_work_ipi ? '√': ''
-                          td = catalog_user.update_common_work_ipi ? '√': ''
-                          td = catalog_user.delete_common_work_ipi ? '√': ''
+                          td = catalog_user.create_common_work_ipi ? 'Create': ''
+                          td   = catalog_user.read_common_work_ipi ? 'Read': ''
+                          td = catalog_user.update_common_work_ipi ? 'Update': ''
+                          td = catalog_user.delete_common_work_ipi ? 'Delete': ''
                           
                           
                         tr 
                           td Users &nbsp; &nbsp; &nbsp;
-                          td = catalog_user.createx_user ? '√': ''
-                          td   = catalog_user.read_user ? '√': ''
-                          td = catalog_user.update_user ? '√': ''
-                          td = catalog_user.delete_user ? '√': ''
+                          td = catalog_user.createx_user ? 'Create': ''
+                          td   = catalog_user.read_user ? 'Read': ''
+                          td = catalog_user.update_user ? 'Update': ''
+                          td = catalog_user.delete_user ? 'Delete': ''
                           
                           
                         tr 
                           td Playlists &nbsp; &nbsp; &nbsp;
-                          td = catalog_user.create_playlist ? '√': ''
-                          td   = catalog_user.read_playlist ? '√': ''
-                          td = catalog_user.update_playlist ? '√': ''
-                          td = catalog_user.delete_playlist ? '√': ''
+                          td = catalog_user.create_playlist ? 'Create': ''
+                          td   = catalog_user.read_playlist ? 'Read': ''
+                          td = catalog_user.update_playlist ? 'Update': ''
+                          td = catalog_user.delete_playlist ? 'Delete': ''
                           
                           
                         tr 
                           td Comments &nbsp; &nbsp; &nbsp;
-                          td = catalog_user.create_comment ? '√': ''
-                          td   = catalog_user.read_comment ? '√': ''
-                          td = catalog_user.update_comment ? '√': ''
-                          td = catalog_user.delete_comment ? '√': ''
+                          td = catalog_user.create_comment ? 'Create': ''
+                          td   = catalog_user.read_comment ? 'Read': ''
+                          td = catalog_user.update_comment ? 'Update': ''
+                          td = catalog_user.delete_comment ? 'Delete': ''
                           
                        
                   .pull-right

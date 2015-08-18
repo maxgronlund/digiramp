@@ -68,7 +68,9 @@ class Permissions
              "create_client",
                "read_client",
              "update_client",
-             "delete_client"
+             "delete_client",
+             
+             "download_recording"
             ]
   
   def initialize

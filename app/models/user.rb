@@ -456,7 +456,7 @@ class User < ActiveRecord::Base
     #set_default_avatar
     CreateUserMandrillAccountJob.perform_later(self.id) if Rails.env.production?
     Stake.where(  email: self.email ).update_all( unassigned: false)
-    ProfessionalInfo.create(user_id: self.id)
+    #ProfessionalInfo.create(user_id: self.id)
   end
 
   def stripe_customers
