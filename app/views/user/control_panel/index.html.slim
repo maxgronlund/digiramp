@@ -39,7 +39,7 @@
                       br
                       .pull-right
                         span class="label label-default"
-                          .i.fa.fa-users &nbsp;
+                          .i.fa.fa-book&nbsp;
                           = @user.clients.count
                   .body
                     'Email, address, phone..
@@ -64,7 +64,15 @@
             /        h4 Contact groups
             /      
             /
-            
+            .control-panel-badge
+              = link_to user_user_catalogs_path(@user) do
+                .content
+                  .icon.icon-dr-blue
+                    i.fa.fa-book
+                    
+                  .title
+                    h4 Catalogs
+                    
             .control-panel-badge
               = link_to user_user_campaigns_path(@user) do
                 .content

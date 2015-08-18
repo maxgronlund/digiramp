@@ -11,8 +11,14 @@
   #page-content-wrapper
     .container-fluid
       //==render 'admin/shared/messages'
-      h3 Catalogs
-      'Catalogs you have access to
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { 'Dashboard'.to_sym => user_user_control_panel_index_path(@user) }}
+      .row
+        .col-sm-12
+          .help
+            .help-text
+              h2 Catalogs
+            .help-button
+              == render 'admin/helps/help', identifier: 'user catalogs'
       .sexy_line
       .catalog
         .catalog-badges
