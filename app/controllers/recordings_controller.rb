@@ -64,6 +64,9 @@ class RecordingsController < ApplicationController
         recording.check_default_image
         recording.get_common_work.update_completeness
         @recording = recording
+        
+        ###
+        @recording.notify_followers
       end
       
       redirect_to edit_user_recording_basic_path(@user, @recording)

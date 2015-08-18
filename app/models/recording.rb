@@ -108,7 +108,7 @@ class Recording < ActiveRecord::Base
 
   before_save :uniqify_fields
   after_commit :flush_cache
-  after_create :notify_followers
+  #after_create :notify_followers
   before_destroy :remove_from_collections
   
   #before_create :check_default_image
@@ -178,10 +178,10 @@ class Recording < ActiveRecord::Base
     self.uniq_likes_count        = self.likes_count.to_uniq
   end
   
-  
-  
   def notify_followers
-    FollowerMailer.delay_for(10.minutes).recording_uploaded( self.id )
+    if self.privacy == 'Anyone' && Rails.env.production?
+      FollowerMailer.delay_for(10.minutes).recording_uploaded( self.id )
+    end
   end
   
   VOCAL = [ "Female", "Male", "Female & Male", "Urban", "Rap", "Choir", "Child", "Spoken", "Instrumental" ]

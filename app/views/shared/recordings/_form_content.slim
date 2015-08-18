@@ -28,6 +28,11 @@
       br
       
       /= f.input :comment, label: 'Description', :input_html => {  style: "height: 180px;"}
+      
+      .row
+        .col-sm-6
+          = f.input :privacy, collection: Recording::PRIVACY, include_blank: false,  label: 'Privacy', hint: 'Select who has access to this recording'
+      
       = f.input :acceptance_of_terms, 
                 id: 'acceptance_of_terms',
                 label: false, 
