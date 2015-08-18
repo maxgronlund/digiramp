@@ -32,9 +32,32 @@
       .sexy_line
       h4 = @ipi.common_work.title
       .digi-box
-        == render 'form'
+        = simple_form_for [:user, @user, @common_work, @ipi], turboboost: false do |f|
+          = f.error_notification
+          .row
+            .col-sm-6
+            
+            
+              = f.hidden_field :common_work_id, value: @common_work.id
+              
+ 
+              = f.input :email
+            .col-sm-6
+              b Roles
+              br
+              = f.input :music,       :as => :boolean,  :input_html => { class: 'icheck-me', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue"     }   , label: 'Music'
+              = f.input :lyric,       :as => :boolean,  :input_html => { class: 'icheck-me', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue"     }  , label: 'Lyric'
+              = f.input :melody,      :as => :boolean,  :input_html => { class: 'icheck-me', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue"     }   , label: 'Melody'
+              = f.input :arrangement, :as => :boolean,  :input_html => { class: 'icheck-me', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue"     }   , label: 'Arrangement'
+              
+              = debug @publishing_agreements
+              .row
+                .col-sm-12.pull-down-10
+                  .pull-right
+                    = f.submit 'Save', class: 'btn btn-default'
+                  
        
-    
+      /= debug @publishing_agreements
          
     
           

@@ -23,9 +23,9 @@ class User::LegalDocumentsController < ApplicationController
   end
   
   def new
-    if params[:id]
-      @template = Document.cached_find(params[:id])
+    if params[:uuid]
       
+      @template = Document.cached_find(params[:uuid])
       @document = Document.new( title: @template.title, 
                                 body: @template.body, 
                                 text_content: @template.text_content,
@@ -80,6 +80,8 @@ class User::LegalDocumentsController < ApplicationController
      #params[:document][:text_content] =  params[:document][:text_content].gsub('*| PURCHASERS_EMAIL |*', 'max@synthmax.dk')
      
      if @document.update(document_params)
+       ap '================================ updated ==========================================='
+       ap @document.text_content
        redirect_to user_user_legal_documents_path(@user)
      else
        render edit
@@ -107,7 +109,8 @@ class User::LegalDocumentsController < ApplicationController
                                       :account_id, 
                                       :text_content,
                                       :template_id,
-                                      :tag) 
+                                      :tag,
+                                      :uuid) 
     
   end
   

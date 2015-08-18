@@ -2,6 +2,17 @@ class Ipi < ActiveRecord::Base
   
   has_many :activity_events, as: :activity_eventable
   
+  #has_many :ipi_publishing_agreements
+  has_many :ipi_publishing_agreements
+  has_many :publishing_agreements, :through => :ipi_publishing_agreements
+  
+  
+  
+  
+  
+  
+  
+  
   belongs_to :common_work
   belongs_to :pro_affiliation
   
@@ -14,6 +25,7 @@ class Ipi < ActiveRecord::Base
   after_update :attach_user_credits
   before_destroy :remove_user_credits
   
+  
   after_commit :flush_cache
   
 
@@ -23,26 +35,26 @@ class Ipi < ActiveRecord::Base
   def update_relations
     add_uuid
     attach_to_user
-    attach_user_credits
+    #attach_user_credits
   end
   
   def attach_user_credits
-    ap self
-    if self.user
-      user_credit = UserCredit
-      .where(ipiable_type: self.class.name, ipiable_id: self.id, user_id: self.user_id)
-      .first_or_create(title: self.common_work.title, ipiable_type: self.class.name, ipiable_id: self.id, user_id: self.user_id)
-
-      user_credit.confirmation = self.confirmation
-      user_credit.show_credit_on_recordings = self.show_credit_on_recordings
-      user_credit.save!
-    end
+    
+    #if self.user
+    #  user_credit = UserCredit
+    #  .where(ipiable_type: self.class.name, ipiable_id: self.id, user_id: self.user_id)
+    #  .first_or_create(title: self.common_work.title, ipiable_type: self.class.name, ipiable_id: self.id, user_id: self.user_id)
+    #
+    #  user_credit.confirmation               = self.confirmation
+    #  user_credit.show_credit_on_recordings  = self.show_credit_on_recordings
+    #  user_credit.save!
+    #end
   end
   
   
   def remove_user_credits
     begin
-      UserCredit.wher(ipiable_type: self.common_work.class.name, ipiable_id: self.common_work_id, user_id: self.user_id)
+      #UserCredit.wher(ipiable_type: self.common_work.class.name, ipiable_id: self.common_work_id, user_id: self.user_id)
     rescue
     end
   end

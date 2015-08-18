@@ -20,7 +20,7 @@
               /== render 'admin/helps/help', identifier: 'legal documents'
         .col-sm-4
           .pull-right.pull-down-10
-
+            = link_to 'Add digital signature', new_user_user_legal_document_document_signature_path(@user, @document.uuid), class: 'btn btn-default'
             
 
       = render 'user/shared/legal_navigation'
@@ -28,7 +28,6 @@
         - @document.digital_signatures.order(:id).each do |digital_signature|
           .row
             .col-sm-12
-              
               = simple_form_for [ :user, @user, digital_signature ], remote: true do |f|
                 .row
                   .col-sm-4

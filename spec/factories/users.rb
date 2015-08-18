@@ -7,7 +7,7 @@ FactoryGirl.define do
   
   factory :user do |f|
     #sequence(:user_name) { |n| "foo#{n}" }
-    f.name        Faker::Name.first_name
+    #f.name        Faker::Name.first_name
     f.user_name   user_name
     f.email       Faker::Internet.email
     f.password    Faker::Internet.password
@@ -15,8 +15,8 @@ FactoryGirl.define do
     f.role       'Customer'
     f.profile     Faker::Lorem.sentence
     f.auth_token  SecureRandom.urlsafe_base64
-    f.first_name  Faker::Name.first_name
-    f.last_name   Faker::Name.last_name
+    #f.first_name  Faker::Name.first_name
+    #f.last_name   Faker::Name.last_name
     #f.avatar_url  Faker::Avatar.image
     f.show_welcome_message  false
     f.activated  true

@@ -10,7 +10,6 @@ class User::IpisController < ApplicationController
   end
   
   def show
-     
     @ipi          = Ipi.cached_find(params[:id])
     not_found( params )  unless ( @common_work = @ipi.common_work ) && ( account = @common_work.account ) && ( @requester = account.user )
   end
@@ -52,6 +51,7 @@ class User::IpisController < ApplicationController
   def edit
      @ipi         = Ipi.cached_find(params[:id])
      @common_work = CommonWork.cached_find(@ipi.common_work_id)
+     #@publishing_agreements = PublishingAgreement.where(email: @ipi.email)
   end
   
   def update
@@ -59,24 +59,21 @@ class User::IpisController < ApplicationController
     @common_work = CommonWork.cached_find(@ipi.common_work_id)
     
     if @ipi.update(ipi_params)
-      if params[:commit] == 'Save and send message'
-        @ipi.send_confirmation_request 
-        redirect_to new_user_user_common_work_ipi_path(@user, @common_work)
-      elsif params[:commit] == "Update"
-        redirect_to session[:go_to_after_update_ipi]
-      elsif params[:commit] == "Save"
-        redirect_to new_user_user_common_work_ipi_path(@user, @common_work)
-      elsif params[:commit] == "Send"
-        @ipi.send_confirmation_request 
-      end
+      redirect_to user_user_common_work_path(@user, @common_work)
       
-        #if params[:commit] == 'Update'
-        #  redirect_to session[:go_to_after_update_ipi]
-        #  #redirect_to user_user_common_work_path(@user, @common_work)
-        #else
-        #  redirect_to user_user_ipi_path(@user, @ipi)
-        #end
-        #end
+      
+      #if params[:commit] == 'Save and send message'
+      #  @ipi.send_confirmation_request 
+      #  redirect_to new_user_user_common_work_ipi_path(@user, @common_work)
+      #elsif params[:commit] == "Update"
+      #  redirect_to session[:go_to_after_update_ipi]
+      #elsif params[:commit] == "Save"
+      #  redirect_to new_user_user_common_work_ipi_path(@user, @common_work)
+      #elsif params[:commit] == "Send"
+      #  @ipi.send_confirmation_request 
+      #end
+      
+       
     else
       render :edit
     end

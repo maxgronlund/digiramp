@@ -41,7 +41,7 @@
               - @documents.each do |document|
                 tr
                   td
-                    => link_to user_user_select_template_path( @user, document) do
+                    => link_to user_user_select_template_path( @user, document.uuid) do
                       .btn.btn-default.btn-xs
                         'Select
                          

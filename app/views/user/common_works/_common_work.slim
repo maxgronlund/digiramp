@@ -9,9 +9,10 @@
           tr
             th
             th Capacity
-            th Name / Email
+            th Legal name
+          
             /th Email
-            th Share
+            /th Share
             th 
               .pull-right
                 'Confirmation
@@ -26,7 +27,11 @@
                                                             method: :delete do
                   .btn.btn-danger.btn-xs
                     i.fa.fa-times
-                    
+                
+                => link_to user_user_common_work_ipi_path(@user, @common_work, ipi) do
+                  .btn.btn-default.btn-xs
+                    i.fa.fa-eye
+                        
                 => link_to edit_user_user_common_work_ipi_path(@user, @common_work, ipi) do
                   .btn.btn-default.btn-xs
                     i.fa.fa-pencil
@@ -37,34 +42,34 @@
               
               td
                 /'&nbsp;
-                - if ipi.composer
-                  'Composer
+                - if ipi.music
+                  'Music
                   br
-                - if ipi.writer
-                  'Writer
-                  br
-                  
-                - if ipi.administrator
-                  'Administrator
+                - if ipi.lyric
+                  'Lyric
                   br
                   
-                - if ipi.original_publisher
-                  'Original publisher
-              td 
-                = ipi.full_name
-                br
-                = ipi.email
+                - if ipi.melody
+                  'Melody
+                  br
+                  
+                - if ipi.arrangement
+                  'Arrangement
+              
+              td = ipi.full_name
+                /br
+                /= ipi.email
 
-              td 
-
-                .small-input
-                  .width-150
-                    - session[:go_to_after_update_ipi] = request.url
-                    = simple_form_for [:user, @user, @common_work, ipi], turboboost: true do |f|
-                      .input-group
-                        = f.input :share, label: false, class: 'form-control'
-                        .input-group-btn
-                          = f.submit 'Update', class: 'btn btn-default'
+              /td 
+              /
+              /  .small-input
+              /    .width-150
+              /      - session[:go_to_after_update_ipi] = request.url
+              /      = simple_form_for [:user, @user, @common_work, ipi], turboboost: true do |f|
+              /        .input-group
+              /          = f.input :share, label: false, class: 'form-control'
+              /          .input-group-btn
+              /            = f.submit 'Update', class: 'btn btn-default'
               td 
                 .pull-right
                   div class="confirmation-button-#{ipi.id.to_s}"

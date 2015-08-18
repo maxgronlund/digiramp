@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150815202036) do
+ActiveRecord::Schema.define(version: 20150818010517) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1364,6 +1364,8 @@ ActiveRecord::Schema.define(version: 20150815202036) do
     t.string   "signable_type"
     t.string   "role",          default: ""
     t.string   "email"
+    t.string   "signature"
+    t.string   "font"
   end
 
   add_index "digital_signatures", ["signable_type", "signable_id"], name: "index_digital_signatures_on_signable_type_and_signable_id", using: :btree
@@ -1396,6 +1398,7 @@ ActiveRecord::Schema.define(version: 20150815202036) do
     t.integer  "file_size",                 default: 0
     t.integer  "template_id"
     t.string   "tag",                       default: ""
+    t.uuid     "uuid"
   end
 
   add_index "documents", ["account_id"], name: "index_documents_on_account_id", using: :btree
@@ -1885,6 +1888,16 @@ ActiveRecord::Schema.define(version: 20150815202036) do
   add_index "ipi_codes", ["account_id"], name: "index_ipi_codes_on_account_id", using: :btree
   add_index "ipi_codes", ["ipiable_id", "ipiable_type"], name: "index_ipi_codes_on_ipiable_id_and_ipiable_type", using: :btree
 
+  create_table "ipi_publishing_agreements", force: :cascade do |t|
+    t.integer  "ipi_id"
+    t.integer  "publishing_agreement_id"
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+  end
+
+  add_index "ipi_publishing_agreements", ["ipi_id"], name: "index_ipi_publishing_agreements_on_ipi_id", using: :btree
+  add_index "ipi_publishing_agreements", ["publishing_agreement_id"], name: "index_ipi_publishing_agreements_on_publishing_agreement_id", using: :btree
+
   create_table "ipis", force: :cascade do |t|
     t.string   "full_name",                 limit: 255
     t.text     "address"
@@ -1911,8 +1924,8 @@ ActiveRecord::Schema.define(version: 20150815202036) do
     t.boolean  "controlled_by_submitter"
     t.string   "ascap_work_id",             limit: 255
     t.string   "bmi_work_id",               limit: 255, default: ""
-    t.boolean  "writer",                                default: false
-    t.boolean  "composer",                              default: false
+    t.boolean  "lyric",                                 default: false
+    t.boolean  "music",                                 default: false
     t.boolean  "administrator",                         default: false
     t.boolean  "producer",                              default: false
     t.boolean  "original_publisher",                    default: false
@@ -1928,6 +1941,8 @@ ActiveRecord::Schema.define(version: 20150815202036) do
     t.string   "title",                     limit: 255, default: ""
     t.text     "message",                               default: ""
     t.integer  "ipi_id"
+    t.boolean  "melody",                                default: false
+    t.boolean  "arrangement",                           default: false
   end
 
   add_index "ipis", ["common_work_id"], name: "index_ipis_on_common_work_id", using: :btree
@@ -2558,12 +2573,13 @@ ActiveRecord::Schema.define(version: 20150815202036) do
     t.uuid     "transfer_uuid"
   end
 
-  create_table "publishing_agreements", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
+  create_table "publishing_agreements", force: :cascade do |t|
     t.integer  "publisher_id"
     t.integer  "document_id"
     t.string   "title"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
+    t.string   "email"
   end
 
   add_index "publishing_agreements", ["document_id"], name: "index_publishing_agreements_on_document_id", using: :btree
@@ -3220,11 +3236,11 @@ ActiveRecord::Schema.define(version: 20150815202036) do
 
   create_table "user_publishers", force: :cascade do |t|
     t.integer  "publisher_id"
-    t.integer  "user_id"
     t.integer  "legal_document_id"
     t.text     "notes"
     t.datetime "created_at",        null: false
     t.datetime "updated_at",        null: false
+    t.integer  "user_id"
   end
 
   add_index "user_publishers", ["publisher_id"], name: "index_user_publishers_on_publisher_id", using: :btree
@@ -3573,6 +3589,7 @@ ActiveRecord::Schema.define(version: 20150815202036) do
   add_foreign_key "shop_stripe_transfers", "users"
   add_foreign_key "subscriptions", "coupons"
   add_foreign_key "subscriptions", "plans"
+  add_foreign_key "user_publishers", "publishers", on_delete: :cascade
   add_foreign_key "user_publishers", "users", on_delete: :cascade
   add_foreign_key "widgets", "accounts", on_delete: :cascade
 end

@@ -49,7 +49,7 @@ class Document < ActiveRecord::Base
 
   
   def self.cached_find(id)
-    Rails.cache.fetch([name, id]) { find(id) }
+    Rails.cache.fetch([name, id]) { find_by(uuid: id) }
   end
   
   def digital_signatures
@@ -81,6 +81,6 @@ class Document < ActiveRecord::Base
 private
   
   def flush_cache
-    Rails.cache.delete([self.class.name, id])
+    Rails.cache.delete([self.class.name, uuid])
   end
 end

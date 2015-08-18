@@ -5,11 +5,7 @@ class User::PublishersController < ApplicationController
   # GET /publishers.json
   def index
     @publishers = @user.publishers
-    #if account = @user.account
-    #  @publishers = account.publishers
-    #else
-    #  @publishers = []
-    #end
+   
   end
 
   # GET /publishers/1

@@ -3,7 +3,8 @@
 
   .form-inputs
     = f.hidden_field :publisher_id, value: @publisher.id
-    = f.input :title
+    = f.input :title, hint: "Make a descriptive name so it's easy to reconize this agreement" 
+    = f.input :email, hint: "Receipients email" 
    
     .chosen-label
       = f.input :document_id, 

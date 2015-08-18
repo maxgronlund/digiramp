@@ -1,38 +1,39 @@
-.digiwham id="#{recording.id}"
-  .top-pane
-    .cover-art
-      /- art = recording.cover_art || 'default-cover.jpg'
-      /- art = recording.image_badge
-      = link_to image_tag( recording.get_artwork, alt: "#{recording.title}" ), user_recording_path(recording.user, recording), target: target
-    .top-right 
-      .play-button-pane
-        == render 'digiwham/recordings/playback_button', recording: recording
-      .info
-        .title
-          h3 class="recording_title_#{recording.id}"
-            = recording.title
-          p class="recording_artist_#{recording.id}"
-            = link_to recording.artist, recording.user
+- cache [recording, target ] do
+  .digiwham id="#{recording.id}"
+    .top-pane
+      .cover-art
+        /- art = recording.cover_art || 'default-cover.jpg'
+        /- art = recording.image_badge
+        = link_to image_tag( recording.get_artwork, alt: "#{recording.title}" ), user_recording_path(recording.user, recording), target: target
+      .top-right 
+        .play-button-pane
+          == render 'digiwham/recordings/playback_button', recording: recording
+        .info
+          .title
+            h3 class="recording_title_#{recording.id}"
+              = recording.title
+            p class="recording_artist_#{recording.id}"
+              = link_to recording.artist, recording.user
+            
+          .description
+            - if description
+              = simple_format recording.comment
+  
+        
+        .track-duration
+  
+          .start-time
+            '0
+          .end-time
+            = recording.duration_string
+        
+        .waveform
           
-        .description
-          - if description
-            = simple_format recording.comment
-
-      
-      .track-duration
-
-        .start-time
-          '0
-        .end-time
-          = recording.duration_string
-      
-      .waveform
-        
-        = image_tag recording.waveform, class: "audio-waveform", id: "#{recording.id}"
-        
+          = image_tag recording.waveform, class: "audio-waveform", id: "#{recording.id}"
           
-        
-      .playhead id="#{recording.id}"  
-      .loadbar  id="#{recording.id}"
-      .playhead-time  id="#{recording.id}"
-        '00:00:00
+            
+          
+        .playhead id="#{recording.id}"  
+        .loadbar  id="#{recording.id}"
+        .playhead-time  id="#{recording.id}"
+          '00:00:00

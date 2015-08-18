@@ -1,2 +1,2 @@
-module PublishingAgreementsHelper
+module PublishingAgreementHelper
 end

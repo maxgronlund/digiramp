@@ -40,7 +40,7 @@
               - @documents.each do |document|
                 tr
                   td style="min-width: 100px"
-                    => link_to admin_legal_template_path(document), 
+                    => link_to admin_legal_template_path(document.uuid), 
                           id: "delete-#{document.title.downcase.gsub(' ', '-')}" , 
                           data: {:confirm => 'Are you sure?'}, 
                           turboboost: true, 
@@ -48,11 +48,11 @@
                       .btn.btn-danger.btn-xs
                         i.fa.fa-times
                         
-                    => link_to admin_legal_template_path(document, :format => 'pdf') do 
+                    => link_to admin_legal_template_path(document.uuid, :format => 'pdf') do 
                       .btn.btn-default.btn-xs
                         i.fa.fa-file-pdf-o
                       
-                    = link_to edit_admin_legal_template_path( document), id: "edit-#{document.title.downcase.gsub(' ', '-')}" do
+                    = link_to edit_admin_legal_template_path( document.uuid), id: "edit-#{document.title.downcase.gsub(' ', '-')}" do
                       .btn.btn-default.btn-xs
                         i.fa.fa-pencil
                     
@@ -70,7 +70,7 @@
                       br
    
                     .pull-right
-                      => link_to admin_legal_template_path(document) do 
+                      => link_to admin_legal_template_path(document.uuid) do 
                         .btn.btn-default.btn-xs
                           i.fa.fa-pencil&nbsp;Signatures
 

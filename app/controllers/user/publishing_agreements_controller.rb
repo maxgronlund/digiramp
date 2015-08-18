@@ -1,4 +1,4 @@
-class User::PublishingAgreementController < ApplicationController
+class User::PublishingAgreementsController < ApplicationController
   before_action :set_publishing_agreement, only: [:show, :edit, :update, :destroy]
   before_action :access_user
   # GET /publishing_agreements
@@ -11,7 +11,7 @@ class User::PublishingAgreementController < ApplicationController
   # GET /publishing_agreements/1
   # GET /publishing_agreements/1.json
   def show
-    @publisher       = Publisher.cached_find(params[:publisher_id])
+    @publisher            = Publisher.cached_find(params[:publisher_id])
     @publishing_agreement = PublishingAgreement.cached_find(params[:id])
   end
 
@@ -78,6 +78,6 @@ class User::PublishingAgreementController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def publishing_agreement_params
-      params.require(:publishing_agreement).permit(:publisher_id, :title, :document_id)
+      params.require(:publishing_agreement).permit(:publisher_id, :title, :document_id, :email)
     end
 end
