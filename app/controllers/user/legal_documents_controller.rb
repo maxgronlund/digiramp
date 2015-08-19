@@ -42,8 +42,9 @@ class User::LegalDocumentsController < ApplicationController
   end
   
   def create
-    
+    param[:document]
     @document = Document.new(document_params)
+    @document.uuid = UUIDTools::UUID.timestamp_create().to_s
     @document.save!
 
     
