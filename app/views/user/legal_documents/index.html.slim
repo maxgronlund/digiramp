@@ -36,7 +36,7 @@
       = render 'user/shared/legal_navigation'
       .digi-box
         .table-responsive
-          table class="table table-hover"
+          table class="table"
             thead
               tr
                 th style="width: 124px;"
@@ -63,22 +63,23 @@
                         
                     = link_to user_user_legal_document_path( @user, document.uuid) do
                         .btn.btn-default.btn-xs
-                          i.fa.fa-eye
-                        
+                          i.fa.fa-eye  
                   td 
                     .div style="max-width: 400px;"
                       b = document.title
                       br = simple_format document.body
                   
                   td
-                    table class="table"
-                      - document.digital_signatures.each do |digital_signature|
-                        tr
-                          td
-                            .div style="text-transform: uppercase;" 
-                              = digital_signature.role
-                          td = digital_signature.email
-                          
+                    - document.digital_signatures.each do |digital_signature|
+                      .div style="text-transform: uppercase;" 
+                        = digital_signature.role
+                      = digital_signature.email
+                      .sexy_line
+
+
+                    = link_to user_user_legal_document_document_signatures_path(@user, document.uuid) do
+                       .btn.btn-default.btn-xs
+                         'Edit signatures 
                     /.pull-right
                     /  = link_to user_user_legal_document_document_signatures_path(@user, document.uuid) do
                     /    .btn.btn-default.btn-xs

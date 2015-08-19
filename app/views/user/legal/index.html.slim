@@ -19,6 +19,9 @@
               
             .help-button
               == render 'admin/helps/help', identifier: 'common work credits'
+        .col-sm-6
+          .pull-right.pull-down-10
+            = link_to 'Edit', user_user_legal_informations_path(@user), :class => "btn btn-default"
 
       = render 'user/shared/legal_navigation'
       .digi-box

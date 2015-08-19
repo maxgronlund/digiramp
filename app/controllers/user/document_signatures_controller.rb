@@ -15,19 +15,32 @@ class User::DocumentSignaturesController < ApplicationController
     if user = User.get_by_email(params[:digital_signature][:email])
       params[:digital_signature][:user_id] = user.id 
     end
-    ap params
-    if  @document
-      ap DigitalSignature.create(digital_signature_params)
+    if DigitalSignature.create(digital_signature_params)
+      redirect_to user_user_legal_document_document_signatures_path(@user, @document.uuid)
+    else
+      render :new
     end
-    redirect_to :back
-  end
-  
-  def update
-    
   end
   
   
   def edit
+    @digital_signature = DigitalSignature.cached_find(params[:id])
+  end
+  
+  def update
+    @digital_signature = DigitalSignature.cached_find(params[:id])
+    if @digital_signature.update(digital_signature_params)
+      redirect_to user_user_legal_document_document_signatures_path(@user, @document.uuid)
+    else
+      render :edit
+    end
+  end
+  
+  def destroy
+    digital_signature = DigitalSignature.cached_find(params[:id])
+    digital_signature.destroy
+    
+    redirect_to user_user_legal_document_document_signatures_path(@user, @document.uuid)
   end
   
   private

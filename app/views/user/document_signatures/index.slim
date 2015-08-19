@@ -9,15 +9,17 @@
   
   #page-content-wrapper
     .container-fluid
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { 'Dashboard'.to_sym => user_user_control_panel_index_path(@user),
+                                                               document: user_user_legal_document_path(@user, @document)} }
       == render 'shared/flash_message'
       .row
         .col-sm-8
           .help
             .help-text
               h2 Signatures
-              = @document.title
+              h4 = @document.title
             .help-button
-              /== render 'admin/helps/help', identifier: 'legal documents'
+              == render 'admin/helps/help', identifier: 'user legal document signatures'
         .col-sm-4
           .pull-right.pull-down-10
             = link_to 'Add digital signature', new_user_user_legal_document_document_signature_path(@user, @document.uuid), class: 'btn btn-default'
@@ -25,30 +27,51 @@
 
       = render 'user/shared/legal_navigation'
       .digi-box
-        - @document.digital_signatures.order(:id).each do |digital_signature|
-          .row
-            .col-sm-12
-              = simple_form_for [ :user, @user, digital_signature ], remote: true do |f|
-                .row
-                  .col-sm-4
-                    = f.input :role
-                  .col-sm-5
-                    - if digital_signature.user_id.blank?
-                      = f.input :email
-                    - else
-                      b Signed
-                      - if user = digital_signature.user and  signature = user.digital_signatures.first
-                        = image_tag signature.image_url(:image_300x50)
-                  .col-sm-3.pull-down-22
-                    .pull-right
-                      .div style="display: inline;"
-                        
-                        => f.submit 'Save', class: "btn btn-default"
-                        => link_to 'Delete', user_user_digital_signature_path(@user, digital_signature), class: "btn btn-danger"
-                      .div class="signature_#{digital_signature.id.to_s}" style="display: inline;"
-                        '&nbsp;
-                        
-
-             
-          .sexy_line    
+        .table-responsive
+          table class="table table-hover"
+            thead
+              tr
+                th CAPACITY
+                th Email
+                th Signed
+            tbody
+              - @document.digital_signatures.order(:id).each do |digital_signature|
+                tr
+                  td
+                     => link_to user_user_legal_document_document_signature_path(@user, @document.uuid, digital_signature), turboboost: true , data: { confirm: 'Are you sure?' } , :method => :delete do
+                                             .btn.btn-danger.btn-xs
+                                               i.fa.fa-times
+                     => link_to edit_user_user_legal_document_document_signature_path(@user, @document.uuid, digital_signature) do
+                                             .btn.btn-default.btn-xs
+                                               i.fa.fa-pencil
+                     = digital_signature.role
+                  td = digital_signature.email
+                  td
+                   
+                    
+                /.row
+                /  .col-sm-12
+                /    = simple_form_for [ :user, @user, digital_signature ], remote: true do |f|
+                /      .row
+                /        .col-sm-4
+                /          = f.input :role
+                /        .col-sm-5
+                /          - if digital_signature.user_id.blank?
+                /            = f.input :email
+                /          - else
+                /            b Signed
+                /            - if user = digital_signature.user and  signature = user.digital_signatures.first
+                /              = image_tag signature.image_url(:image_300x50)
+                /        .col-sm-3.pull-down-22
+                /          .pull-right
+                /            .div style="display: inline;"
+                /              
+                /              => f.submit 'Save', class: "btn btn-default"
+                /              => link_to 'Delete', user_user_digital_signature_path(@user, digital_signature), class: "btn btn-danger"
+                /            .div class="signature_#{digital_signature.id.to_s}" style="display: inline;"
+                /              '&nbsp;
+                /              
+                /
+                /   
+  
     == render 'shared/site_footer'

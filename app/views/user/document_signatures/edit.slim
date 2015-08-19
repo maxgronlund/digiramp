@@ -16,8 +16,8 @@
         .col-sm-8
           .help
             .help-text
-              h2 New signature
-              = @document.title
+              h2 Edit signature
+              h4 = @document.title
             .help-button
               == render 'admin/helps/help', identifier: 'user add signature to document'
         /.col-sm-4
@@ -27,7 +27,7 @@
 
       /= render 'user/shared/legal_navigation'
       .digi-box
-        = simple_form_for [ :user, @user, @document, @digital_signature ], :url => url_for(:action => 'create', :controller => 'document_signatures'), turboboost: true, :method => 'post' do |f|
+        = simple_form_for [ :user, @user, @document, @digital_signature ], :url => url_for(:action => 'update', :controller => 'document_signatures'), turboboost: true, :method => 'put' do |f|
           = f.hidden_field :signable_id, value: @document.id
           = f.hidden_field :signable_type, value: @document.class.name
           .row
