@@ -135,9 +135,10 @@
       .row
         .col-sm-6
           h4 Publishing agreements 
-        .col-sm-6
-          .pull-right
-            = link_to 'New publishing agreement', new_user_user_publisher_publishing_agreement_path(@user, @publisher), class: 'btn btn-default'
+        - if (@user.id == @publisher.user_id) && @publisher.i_am_my_own_publisher
+          .col-sm-6
+            .pull-right
+              = link_to 'New publishing agreement', new_user_user_publisher_publishing_agreement_path(@user, @publisher), class: 'btn btn-default'
       .digi-box
         .table-responsive
           table class="table table-hover"

@@ -27,20 +27,29 @@
           table.table.table-bordered
             tr
               td
-                .row
-                  .col-sm-6 
-                    b First name
-                    br = @user.first_name
-                  .col-sm-6
-                    b Last name
-                    br = @user.last_name
-                .row.pull-down-10
-                  .col-sm-6 
-                    b IP Number
-                    '123 456
-                
+                  b First name
+                  br = @user.first_name
+            
+              td
+                b Middle name
+                br = @user.middle_name
+            
+              td
+                b Last name
+                br = @user.last_name
+            tr
+              td
+                b IP Number
+                br
+              td
+                b Email
+                br = @user.email
+              
+              td
+                b Phone number
+                br = @user.phone_number
                     
-
+            tr
               td
                 b Address
                 - unless @user.address_line_1.blank?
@@ -62,34 +71,19 @@
                 - unless @user.country.blank?
                   br
                   = @user.country
-            tr
+            
               td
+                b Publishing
                 table
-                  tr
-                    td
-                      b Email
-                  tr
-                    td
-                      = @user.email
-              
+                  - @user.publishers.each do |publisher|
+                    tr
+                      
+                      td = publisher.legal_name
+                      td = publisher.ipi_code
+                      
+                      
               td
-                table
-                  tr
-                    td
-                      b Phone number
-                  tr
-                    td
-                      = @user.phone_number
-            tr
-              td
-                .row
-                  .col-sm-12
-                    b Publishing company
-                    br Universal
-                .row.pull-down-10
-                  .col-sm-12
-                    b IP Number
-                    br 123 456 789
+
                 
                 
               

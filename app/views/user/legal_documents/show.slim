@@ -23,40 +23,40 @@
             /    'New document
 
       = render 'user/shared/legal_navigation'
-      .digi-box.pull-down-6
+      .digi-box.pull-down-6 style="width:800px; padding:40px;"
+        /.row
+        /  .col-sm-6
+        /    .media
+        /      .pull-left
+        /        .thumbnail
+        /          = image_tag @document.image_thumb || 'digiramp-document.jpg'
+        /      .media-body
+        /        .media-heading
+        /          h3 = @document.title
+        /        i Document type: 
+        /        b = @document.file_type
+        /        br
+        /        i Size: 
+        /        = number_to_human_size @document.file_size
+        /        = simple_format @document.body
+        /
+        /  .col-sm-6
+        /    .pull-right
+        /      /- if current_catalog_user.update_file
+        /      /  = link_to edit_catalog_account_catalog_document_path(@account, @catalog, @document) do
+        /      /    .btn.btn-default.btn
+        /      /      i class="fa fa-pencil"
+        /      /  '&nbsp;
+        /      = link_to download_document_path(document: @document.id) do
+        /        .btn.btn-default.btn
+        /          i class='fa fa-cloud-download'
+        /          '&nbsp;Download
+        /      '&nbsp;
+        /      = link_to @document.file do
+        /        .btn.btn-default.btn
+        /          'Read File
         .row
-          .col-sm-6
-            .media
-              .pull-left
-                .thumbnail
-                  = image_tag @document.image_thumb || 'digiramp-document.jpg'
-              .media-body
-                .media-heading
-                  h3 = @document.title
-                i Document type: 
-                b = @document.file_type
-                br
-                i Size: 
-                = number_to_human_size @document.file_size
-                = simple_format @document.body
-      
-          .col-sm-6
-            .pull-right
-              /- if current_catalog_user.update_file
-              /  = link_to edit_catalog_account_catalog_document_path(@account, @catalog, @document) do
-              /    .btn.btn-default.btn
-              /      i class="fa fa-pencil"
-              /  '&nbsp;
-              = link_to download_document_path(document: @document.id) do
-                .btn.btn-default.btn
-                  i class='fa fa-cloud-download'
-                  '&nbsp;Download
-              '&nbsp;
-              = link_to @document.file do
-                .btn.btn-default.btn
-                  'Read File
-        .row
-          .col-sm-12
+          .col-sm-12 
             = simple_format @document.text_content
       .digi-box 
         h4 Used on

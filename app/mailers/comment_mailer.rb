@@ -1,9 +1,9 @@
 class CommentMailer < ApplicationMailer
   
   def notify_user comment_id
+    return unless Rails.env.production?
     
     @comment           = Comment.cached_find comment_id 
-    
     @commenter         = @comment.user
     @commenter_avatar  = ( URI.parse(root_url) + @commenter.image_url(:avatar_92x92) ).to_s
     @commenter_url     = url_for( controller: 'users', action: 'show', id: @commenter.slug)
@@ -19,7 +19,7 @@ class CommentMailer < ApplicationMailer
       @user             = User.cached_find( @comment.commentable_id )
       @title            = "#{@commenter.user_name} posted a comment on your profile"
       @recipient        = User.cached_find( @comment.commentable_id )
-      @comment_page_url = url_for( controller: 'users', action: 'show', id: @user.slug)
+      @comment_page_url = url_for( controller: 'users', action: 'show', id: @recipient.slug)
       @comment_page_url = ( URI.parse(root_url) + @commenter_url ).to_s
       
     when 'Recording'
