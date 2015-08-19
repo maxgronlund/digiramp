@@ -9,6 +9,7 @@
   
   #page-content-wrapper
     .container-fluid
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { 'Dashboard'.to_sym => user_user_control_panel_index_path(@user) } }
       == render 'shared/flash_message'
       .row
         .col-sm-6
@@ -70,14 +71,19 @@
                       br = simple_format document.body
                   
                   td
-                    - document.digital_signatures.each do |digital_signature|
-                      .div style="text-transform: uppercase;" 
-                        = digital_signature.role
-                        
-                    .pull-right
-                      = link_to user_user_legal_document_document_signatures_path(@user, document.uuid) do
-                        .btn.btn-default.btn-xs
-                          'Edit signatures
+                    table class="table"
+                      - document.digital_signatures.each do |digital_signature|
+                        tr
+                          td
+                            .div style="text-transform: uppercase;" 
+                              = digital_signature.role
+                          td = digital_signature.email
+                          
+                    /.pull-right
+                    /  = link_to user_user_legal_document_document_signatures_path(@user, document.uuid) do
+                    /    .btn.btn-default.btn-xs
+                    /      'Edit signatures
+                    /
                       
               
 
