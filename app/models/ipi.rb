@@ -83,10 +83,10 @@ class Ipi < ActiveRecord::Base
 
   def roles_as_string
     roles = ''
-    roles += 'Writer. '              if self.writer
-    roles += 'Composer. '            if self.composer
-    roles += 'Administrator. '       if self.administrator
-    roles += 'Original Publisher. '  if self.original_publisher
+    roles += 'Writer. '           if self.lyric
+    roles += 'Composer. '         if self.music
+    roles += 'Arrengement. '      if self.arrangement
+    roles += 'Melody. '           if self.melody
     roles                        
   end
 

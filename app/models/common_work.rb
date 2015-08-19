@@ -720,7 +720,7 @@ class CommonWork < ActiveRecord::Base
       
       self.ipis.where(uuid: ipi.uuid)
                .first_or_create(
-                      full_name:                ipi.full_name,                  
+                      legal_name:               ipi.full_name,                  
                       address:                  ipi.address,
                       email:                    ipi.email,
                       phone_number:             ipi.phone_number,

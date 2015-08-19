@@ -1,6 +1,3 @@
-- if @common_work.total_share.to_i != 100
-  .alert.alert-danger
-    'Total share should add up to 100%
 .row
   .col-sm-12
     .table-responsive
@@ -10,15 +7,12 @@
             th
             th Capacity
             th Legal name
-          
-            /th Email
-            /th Share
+            th Email
             th 
-              .pull-right
-                'Confirmation
+
         tbody
           - @common_work.ipis.each do |ipi|
-            div class="ipi-info-dialog-#{ipi.id.to_s}"
+            /div class="ipi-info-dialog-#{ipi.id.to_s}"
             tr
               td
                 => link_to user_user_common_work_ipi_path(@user, @common_work, ipi),
@@ -36,10 +30,11 @@
                   .btn.btn-default.btn-xs
                     i.fa.fa-pencil
                     
-                => link_to user_user_ipi_info_path(@user, ipi), remote: true do
-                  .btn.btn-default.btn-xs
-                    i.fa.fa-info-circle
+                /=> link_to user_user_ipi_info_path(@user, ipi), remote: true do
+                /  .btn.btn-default.btn-xs
+                /    i.fa.fa-info-circle
               
+              td ipi.full_name
               td
                 /'&nbsp;
                 - if ipi.music
@@ -48,44 +43,20 @@
                 - if ipi.lyric
                   'Lyric
                   br
-                  
                 - if ipi.melody
                   'Melody
                   br
-                  
                 - if ipi.arrangement
                   'Arrangement
               
-              td = ipi.full_name
-                /br
-                /= ipi.email
+              td = ipi.email
 
-              /td 
-              /
-              /  .small-input
-              /    .width-150
-              /      - session[:go_to_after_update_ipi] = request.url
-              /      = simple_form_for [:user, @user, @common_work, ipi], turboboost: true do |f|
-              /        .input-group
-              /          = f.input :share, label: false, class: 'form-control'
-              /          .input-group-btn
-              /            = f.submit 'Update', class: 'btn btn-default'
+
+              
               td 
                 .pull-right
                   div class="confirmation-button-#{ipi.id.to_s}"
                     == render 'user/ipis/confirmation_button', user: @user, common_work: @common_work, ipi: ipi
                     
                   
-          tr
-            td
-              b Total share
-            td
-            td
-            td 
-              - total_share = @common_work.total_share
-              span class="#{ total_share == 100.0 ? '' : 'alert alert-danger' }"
-                b = number_to_percentage(total_share, precision: 1) 
-                
-            td
-                  
-            
+       

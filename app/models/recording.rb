@@ -121,7 +121,20 @@ class Recording < ActiveRecord::Base
   has_many :playlists_recordings
   has_many :catalogs, :through => :playlists_recordings
   
-
+  VOCAL = [ "Female", "Male", "Female & Male", "Urban", "Rap", "Choir", "Child", "Spoken", "Instrumental" ]
+  TEMPO = [ "Fast", "Laid Back", "Steady Rock", "Medium", "Medium-Up", "Ballad", "Brisk", "Up", "Slowly", "Up Beat" ]
+  
+  #PRIVACY = [ "Anyone", "Only me", "Only people I choose", 'Only people I invite to my account']
+  PRIVACY = [ "Anyone", "Only me", "Only people I choose"]
+  #PRIVACY = [ "Anyone", "Only me"]
+  
+  VOCAL_HASH = []
+  
+  VOCAL.each do |k|
+    VOCAL_HASH << [k,k]
+  end
+  
+  
   def get_common_work
     self.common_work ? self.common_work : self.mount_common_work 
   end
@@ -151,8 +164,7 @@ class Recording < ActiveRecord::Base
       post_error "Recording#update_stakes #{e.message}"
     end
   end
-  
-  
+
   
   def validate_splits
     #total = 0.0
@@ -162,12 +174,6 @@ class Recording < ActiveRecord::Base
     #return total == 1.0
   end
 
-  def clear_rights
-    #RecordingStakeholdersService.assign_recording_stakes( recording_id: self.id,  account_id: self.account.id  )
-    #self.update(pre_cleared: validate_splits)
-    #self.save
-  end
-  
   def uniqify_fields
     self.uniq_title              = self.title.to_uniq
     begin
@@ -180,22 +186,10 @@ class Recording < ActiveRecord::Base
   
   def notify_followers
     if self.privacy == 'Anyone' && Rails.env.production?
-      FollowerMailer.delay_for(10.minutes).recording_uploaded( self.id )
+      FollowerMailer.delay_for(40.minutes).recording_uploaded( self.id )
     end
   end
-  
-  VOCAL = [ "Female", "Male", "Female & Male", "Urban", "Rap", "Choir", "Child", "Spoken", "Instrumental" ]
-  TEMPO = [ "Fast", "Laid Back", "Steady Rock", "Medium", "Medium-Up", "Ballad", "Brisk", "Up", "Slowly", "Up Beat" ]
-  
-  #PRIVACY = [ "Anyone", "Only me", "Only people I choose", 'Only people I invite to my account']
-  PRIVACY = [ "Anyone", "Only me", "Only people I choose"]
-  #PRIVACY = [ "Anyone", "Only me"]
-  
-  VOCAL_HASH = []
-  
-  VOCAL.each do |k|
-    VOCAL_HASH << [k,k]
-  end
+
   
   def check_default_image
     #unless File.exist?(Rails.root.join('public' +  self.default_cover_art.to_s))
@@ -250,12 +244,6 @@ class Recording < ActiveRecord::Base
   def get_cover_thumb
     self.cover_art.blank? ?  self.default_cover_art_url(:size_62x62 ) : self.cover_art 
   end
-  
-  
-  def send_notifications_on_create
-    Activity.notify_followers( 'Uploaded this recording', self.user_id, 'Recording', self.id )
-  end
-
   
   def confirm_ipis
 

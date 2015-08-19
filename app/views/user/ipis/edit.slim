@@ -18,16 +18,15 @@
         .col-sm-6
           .help
             .help-text
-              h2 Creative role in Commonwork
+              h2 Interested party
             .help-button
               == render 'admin/helps/help', identifier: 'edit user ipi'
         .col-sm-6
           .pull-right.pull-down-10
-            /=> link_to user_user_ipi_path(@user, @ipi ) do
-            /  .btn.btn-default
-            /    i.fa.fa-chevron-left
-            /    '&nbsp;Back
-            /=> link_to 'Advanced', "#ipi", 'data-toggle'.to_sym => 'collapse', 'data-parent'.to_sym => '#accordion', class: 'btn btn-default'
+            = link_to user_user_common_work_path(@user, @common_work ) do
+              .btn.btn-default
+                i.fa.fa-chevron-left
+                '&nbsp;Back
 
       .sexy_line
       h4 = @ipi.common_work.title
@@ -50,7 +49,7 @@
               = f.input :melody,      :as => :boolean,  :input_html => { class: 'icheck-me', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue"     }   , label: 'Melody'
               = f.input :arrangement, :as => :boolean,  :input_html => { class: 'icheck-me', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue"     }   , label: 'Arrangement'
               
-              = debug @publishing_agreements
+              
               .row
                 .col-sm-12.pull-down-10
                   .pull-right

@@ -118,7 +118,7 @@ class CommonWorksImport < ActiveRecord::Base
                           )
       end
       ap ipi
-      ipi.full_name                 = ipi_scrape[:full_name]
+      ipi.full_name                = ipi_scrape[:full_name]
       ipi.role                      = ipi_scrape[:role]
       
       pro_affiliation = ProAffiliation.where(title: ipi_scrape[:society]).first_or_create(title: ipi_scrape[:society])
@@ -157,7 +157,7 @@ class CommonWorksImport < ActiveRecord::Base
              .first_or_create( common_work_id: common_work_id, 
                                ipi_code: info[:ipi_number] )
     
-    ipi.full_name                 = info[:name]
+    ipi.full_name                = info[:name]
     ipi.role                      = role
     ipi.pro                       = info[:society]
     ipi.perf_collected            = info[:share]
