@@ -1,0 +1,47 @@
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'opportunities' 
+  
+  
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      - if @user
+        == render 'user/opportunities/sidebar', selected: 'publishers'
+      - else
+        == render 'public_opportunities/sidebar', selected: 'publishers'
+  #page-content-wrapper
+    .container-fluid
+      .row
+        .col-sm-5
+          .help
+            .help-text
+              h2 Publishers
+            .help-button
+              == render 'admin/helps/help', identifier: 'publishers index'
+          
+        .col-sm-7
+          .pull-down-10
+            
+            
+      .sexy_line
+      .digi-box
+        .table-responsive
+          table class="table table-hover"
+            thead
+              tr
+                th Legal name
+                th 
+                
+            tbody
+              - @publishers.each do |publisher|
+                tr
+                  td = link_to publisher.legal_name, publisher, class: 'btn btn-default btn-xs'
+                  td 
+                    .pull-right
+                      = link_to '#' do
+                        .btn.btn-default.btn-xs
+                          i.fa.fa-envelope&nbsp;Contact
+                        
+      
+
+  == render 'shared/site_footer'    

@@ -9,21 +9,23 @@
   
   #page-content-wrapper
     .container-fluid
-      .row
-        .col-sm-6
-          .digi-box
-            .products 
-              .seller-avatar
-                 = link_to image_tag( @shop_product.user.image_url :avatar_32x32), @shop_product.user
-              .seller-name
-                'Sold by:
-                br
-                b = @shop_product.user.user_name
-            .row
-              .col-sm-12
-        .col-sm-6
+      - if @shop_product
+        -if user = @shop_product.user
+          .row
+            .col-sm-6
+              .digi-box
+                .products 
+                  .seller-avatar
+                     = link_to image_tag( user.image_url :avatar_32x32), user
+                  .seller-name
+                    'Sold by:
+                    br
+                    b = user.user_name
+                .row
+                  .col-sm-12
+            .col-sm-6
+            
+        .digi-box
+          == render 'shop/products/shared/show' , product: @shop_product, buy: true
         
-      .digi-box
-        == render 'shop/products/shared/show' , product: @shop_product, buy: true
-      
   

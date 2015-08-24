@@ -1,0 +1,37 @@
+h1 Listing document_users
+
+table
+  thead
+    tr
+      th Document
+      th User
+      th Account
+      th Can edit
+      th Should sign
+      th Email
+      th Signature
+      th Signature image
+      th Status
+      th
+      th
+      th
+
+  tbody
+    - @document_users.each do |document_user|
+      tr
+        td = document_user.document
+        td = document_user.user
+        td = document_user.account
+        td = document_user.can_edit
+        td = document_user.should_sign
+        td = document_user.email
+        td = document_user.signature
+        td = document_user.signature_image
+        td = document_user.status
+        td = link_to 'Show', document_user
+        td = link_to 'Edit', edit_document_user_path(document_user)
+        td = link_to 'Destroy', document_user, data: {:confirm => 'Are you sure?'}, :method => :delete
+
+br
+
+= link_to 'New Document user', new_document_user_path

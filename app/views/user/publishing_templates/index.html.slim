@@ -1,0 +1,74 @@
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'settings' 
+  
+  
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'users/shared/sidebar', selected: 'control panel'
+  
+  #page-content-wrapper
+    .container-fluid
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { 'Dashboard'.to_sym =>user_user_control_panel_index_path(@user),
+                                                              'publishers'.to_sym => user_user_publishers_path(@user)} }
+      == render 'shared/flash_message'
+      .row
+        .col-sm-6
+          .help
+            .help-text
+              h2 = @publisher.legal_name
+              b Create a legal document for publishing
+            .help-button
+              == render 'admin/helps/help', identifier: 'user select publishing template'
+        .col-sm-6
+          .pull-right.pull-down-10
+            = link_to  user_user_publishers_path(@user) do
+                .btn.btn-default
+                  i.fa.fa-chevron-left
+                  '&nbsp;Back
+            
+            
+
+      .sexy_line
+      .row
+        .col-sm-8
+          h4 Select a publishing agreement template
+        .col-sm-4
+          .pull-right
+            = link_to 'New blank docuent', new_user_user_publisher_publishing_template_path( @user, @publisher), class: 'btn btn-default'
+      .digi-box
+        .table-responsive
+          table class="table table-hover"
+            thead
+              tr
+                th style="width: 76px;"
+                th 
+                  'Title/ Description
+                th Signatures
+            tbody
+              - @documents.each do |document|
+                tr
+                  td
+                    = link_to new_user_user_publisher_publishing_template_path( @user, @publisher, uuid: document.uuid) do
+                      .btn.btn-default.btn-xs style="width:56px;"
+                        'Select
+                    .pull-down-4
+                    = link_to user_user_publisher_publishing_template_path( @user, @publisher, document.uuid) do
+                      .btn.btn-default.btn-xs style="width:56px;"
+                        'Preview
+                         
+                  td  
+                    .div style="max-width: 480px;"
+                      b = document.title
+                      br = simple_format document.body
+                  td 
+                    - document.digital_signatures.each do |digital_signature|
+                      b style="text-transform: uppercase;" 
+                        = digital_signature.role
+                        br
+        
+         
+              
+  == render 'shared/site_footer'    
+ 
+

@@ -4,15 +4,13 @@
       table class="table table-hover"
         thead
           tr
-            th
-            th Capacity
             th Legal name
-            th Email
+            th Capacity
+            th Publisher('s)
             th 
 
         tbody
           - @common_work.ipis.each do |ipi|
-            /div class="ipi-info-dialog-#{ipi.id.to_s}"
             tr
               td
                 => link_to user_user_common_work_ipi_path(@user, @common_work, ipi),
@@ -29,12 +27,8 @@
                 => link_to edit_user_user_common_work_ipi_path(@user, @common_work, ipi) do
                   .btn.btn-default.btn-xs
                     i.fa.fa-pencil
-                    
-                /=> link_to user_user_ipi_info_path(@user, ipi), remote: true do
-                /  .btn.btn-default.btn-xs
-                /    i.fa.fa-info-circle
-              
-              td ipi.full_name
+
+                = ipi.full_name
               td
                 /'&nbsp;
                 - if ipi.music
@@ -49,7 +43,10 @@
                 - if ipi.arrangement
                   'Arrangement
               
-              td = ipi.email
+              td 
+                - ipi.publishing_agreements.each do |publishing_agreement|
+                  = publishing_agreement.publisher.legal_name
+                  br
 
 
               

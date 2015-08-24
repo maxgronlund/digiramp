@@ -1,3 +1,4 @@
+- document = @publishing_agreement.document
 #wrapper
   .full-width-top
     == render 'shared/navigationbar', page: 'settings' 
@@ -17,8 +18,8 @@
         .col-sm-6
           .help
             .help-text
-              h2 Publishing agreement
-              
+              h2 = @publishing_agreement.title 
+              b Publishing agreement
             .help-button
               == render 'admin/helps/help', identifier: 'user publishing deal'
         .col-sm-6
@@ -27,76 +28,99 @@
                 .btn.btn-default
                   i.fa.fa-chevron-left
                   '&nbsp;Back
-            = link_to 'Edit agreement', edit_user_user_publisher_publishing_agreement_path(@user, @publisher, @publishing_agreement), class: 'btn btn-default'
+            = link_to edit_user_user_publisher_publishing_agreement_path(@user, @publisher, @publishing_agreement, document_uuid: document.uuid) do
+              .btn.btn-default
+                i.fa.fa-pencil&nbsp;Edit agreement
+           
             
             
 
       .sexy_line
-      - document = @publishing_agreement.document
+      
       .row
         .col-sm-6
-          h4 = @publishing_agreement.title 
+          
 
         .col-sm-6
-          - if document
-            .pull-right
-              => link_to edit_user_user_legal_document_path(@user, document.uuid) do
-                    .btn.btn-default
-                      i.fa.fa-pencil&nbsp;Edit document
-              = link_to '#'  do
+          .pull-right
+
+            a data-toggle="collapse" data-parent="#accordion" href="#collapse"
                 .btn.btn-default
-                  i.fa.fa-pencil-square-o&nbsp;Sign document
-              /= link_to 'New signature', new user_user_legal_document_digital_signature_path(@user,)
+                  i.fa.fa-eye&nbsp;Read agreement
+              
+            /=> link_to edit_user_user_publisher_publishing_agreement_path(@user, @publisher, @publishing_agreement, document_uuid: document.uuid) do
+            /      .btn.btn-default
+            /        i.fa.fa-pencil&nbsp;Edit agreement
+            
+            /= link_to 'New signature', new user_user_legal_document_digital_signature_path(@user,)
       .row
-        .col-sm-12
-          - if document
-            .digi-box
-              h4 = document.title
+        .col-sm-12.pull-down-8
+          div id="collapse" class="panel-collapse collapse"  
+            .digi-box style="width:800px; padding:40px;"
               = simple_format document.text_content
-              br
-              - document.digital_signatures.each do |digital_signature|
-                .div style="text-transform: uppercase; width: 300px; height: 70px; display: inline-block; margin-right: 32px;" 
-                  = digital_signature.role
-                  br
+       
+
+      .row
+        .col-sm-6
+          h4 Parties
+        .col-sm-6
+          .pull-right
+            = link_to 'Add partie', new_user_user_publisher_publishing_agreement_publishing_agreement_user_path(\
+                                      @user, 
+                                      @publisher, 
+                                      @publishing_agreement), class: 'btn btn-default'
+      .digi-box
+        .table-responsive
+          table class="table table-hover"
+            thead
+              tr
+                th Partie
+                th Email
+                th Can edit
+                th Should sign
+                th Status
+            tbody
+              - document.document_users.each do |document_user|
+                tr
+                  td 
+                    => link_to '#' do
+                      .btn.btn-danger.btn-xs
+                        i.fa.fa-times
+                    = link_to 'Edit', edit_user_user_publisher_publishing_agreement_publishing_agreement_user_path(@user, 
+                                                @publisher, 
+                                                @publishing_agreement, 
+                                                document_user), class: 'btn btn-default btn-xs'
+                    - if user = document_user.user                          
+                      =< user.user_name
+                  td  = document_user.email
+                  td  = document_user.can_edit
+                  td  = document_user.should_sign
+                  td  = document_user.status?
+                /br
+        /br
+        /- document.digital_signatures.each do |digital_signature|
+        /  
+        /  .div style="text-transform: uppercase; width: 300px; height: 70px; display: inline-block; margin-right: 32px;" 
+        /    = digital_signature.role
+        /    br
+        /
+        /
+        /    - if user = digital_signature.user and signature = user.digital_signatures.first
+        /      = image_tag signature.image_url(:image_300x50)
+        /    - else
+        /      .div style="height: 50px"
+        /
+        /
+        /  hr
+        /  br
               
-              
-                  - if user = digital_signature.user and signature = user.digital_signatures.first
-                    = image_tag signature.image_url(:image_300x50)
-                  - else
-                    .div style="height: 50px"
-              
-              
-                hr
-                br
-                    
-          - else
-            .alert.alert-info
-              'No documents is attached to this publishing agreement
-            
-              
-            
-            
-            
-         
-              
+      
+          
+       
+       
+       
+       
+    == render 'shared/init_wysiwyg5'         
   == render 'shared/site_footer'    
  
 
-
-
-
-/p#notice = notice
-/
-/p
-/  strong Publisher:
-/  = @publishing_agreement.publisher
-/p
-/  strong Title:
-/  = @publishing_agreement.title
-/p
-/  strong Document:
-/  = @publishing_agreement.document
-/
-/= link_to 'Edit', edit_publishing_agreement_path(@publishing_agreement)
-/'|
-/= link_to 'Back', publishing_agreements_path

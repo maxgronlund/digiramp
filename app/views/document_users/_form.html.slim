@@ -1,0 +1,16 @@
+= simple_form_for(@document_user) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.association :document
+    = f.association :user
+    = f.association :account
+    = f.input :can_edit
+    = f.input :should_sign
+    = f.input :email
+    = f.input :signature
+    = f.input :signature_image
+    = f.input :status
+
+  .form-actions
+    = f.button :submit

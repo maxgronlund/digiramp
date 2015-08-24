@@ -75,14 +75,10 @@ class User::LegalDocumentsController < ApplicationController
   end
   
   def update
+    ap params
      @document = Document.cached_find(params[:id])
-     
 
-     #params[:document][:text_content] =  params[:document][:text_content].gsub('*| PURCHASERS_EMAIL |*', 'max@synthmax.dk')
-     
      if @document.update(document_params)
-       ap '================================ updated ==========================================='
-       ap @document.text_content
        redirect_to user_user_legal_documents_path(@user)
      else
        render edit
@@ -93,7 +89,8 @@ class User::LegalDocumentsController < ApplicationController
     begin
       document = Document.cached_find(params[:id])
       document.destroy!
-    rescue
+    rescue => e
+      ap e
       flash[:danger] = "You can't delete a document used" 
     end
     redirect_to user_user_legal_documents_path(@user)

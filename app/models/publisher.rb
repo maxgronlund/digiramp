@@ -32,8 +32,6 @@ class Publisher < ActiveRecord::Base
   after_create :create_publisher_user
   after_commit :flush_cache
   
-  
-  
   def check_ownership!
 
     if self.i_am_my_own_publisher

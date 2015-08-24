@@ -5,6 +5,11 @@
         i class="fa fa-money"
         '&nbsp;Opportunities
   
+  li class="#{'sidebar-selected' if selected == 'publishers'}"
+    = link_to publishers_path do
+        i class="fa fa-book"
+        '&nbsp;Publishers
+  
   /.sexy_line        
   /li class="#{'sidebar-selected' if selected == 'creative projects'}"
   /  = link_to creative_projects_path do

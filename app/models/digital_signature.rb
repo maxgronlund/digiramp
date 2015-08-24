@@ -1,7 +1,8 @@
 class DigitalSignature < ActiveRecord::Base
   belongs_to :user
   #validates_presence_of :image
-  
+  belongs_to :signable, polymorphic: true
+
   mount_uploader :image, SignatureUploader
   after_commit :flush_cache
 

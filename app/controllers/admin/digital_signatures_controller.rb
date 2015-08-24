@@ -8,10 +8,11 @@ class Admin::DigitalSignaturesController < ApplicationController
       
     when 'Save and exit'
       @digital_signature.save(validate: false)
+      
       redirect_to admin_legal_templates_path
     when 'Save and add next'
       @digital_signature.save(validate: false)
-      redirect_to admin_legal_template_path(params[:digital_signature][:signable_id])
+      redirect_to admin_legal_template_path(@digital_signature.signable.uuid)
     when 'Cancel'
       redirect_to admin_legal_templates_path
     end
@@ -21,8 +22,9 @@ class Admin::DigitalSignaturesController < ApplicationController
   def destroy
 
     @digital_signature = DigitalSignature.cached_find(params[:id])
+    uuid = @digital_signature.signable.uuid
     @digital_signature.destroy
-    redirect_to admin_legal_template_path(params[:document_id])
+    redirect_to admin_legal_template_path(uuid)
   end
   
   private

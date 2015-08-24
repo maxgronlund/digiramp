@@ -1,10 +1,10 @@
 .old-connect-buttons
-  - if connection = Connection.connected( @user, current_user )
+  - if connection = Connection.connected( user, current_user )
     
     - if connection.is_active
       / Send message
       = link_to new_message_digalog_path(sender: current_user, 
-                                         receiver: @user, 
+                                         receiver: user, 
                                          title: '', 
                                          subjectable_id: current_user.id, 
                                          subjectable_type: 'User'), remote: true do
@@ -22,7 +22,7 @@
         'Connection dismissed
     
   - else
-    = link_to new_connection_digalog_path(sender: current_user, receiver: @user), remote: true do
+    = link_to new_connection_digalog_path(sender: current_user, receiver: user), remote: true do
           .btn.btn-primary
             i.fa.fa-refresh
             '&nbsp;Connect

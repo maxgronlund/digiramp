@@ -26,9 +26,7 @@
     = link_to user_user_opportunities_for_reviews_path(current_user) do
       i.fa.fa-user
       '&nbsp;Reviews
-      
-      
-        
+
   /- else
   /  li class="#{'sidebar-selected' if selected == 'opportunities'}"
   /    = link_to public_opportunities_path do
@@ -36,7 +34,11 @@
   /        '&nbsp;Opportunities
   - if current_user.betatester
     .sexy_line 
-    li &nbsp;       
+    li &nbsp;  
+    li class="#{'sidebar-selected' if selected == 'publishers'}"
+      = link_to publishers_path do
+          i class="fa fa-book"
+          '&nbsp;Publishers     
     li class="#{'sidebar-selected' if selected == 'creative projects'}"
       = link_to creative_projects_path do
           i class="fa fa-rocket"

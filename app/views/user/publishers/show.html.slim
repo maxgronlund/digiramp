@@ -138,20 +138,37 @@
         - if (@user.id == @publisher.user_id) && @publisher.i_am_my_own_publisher
           .col-sm-6
             .pull-right
-              = link_to 'New publishing agreement', new_user_user_publisher_publishing_agreement_path(@user, @publisher), class: 'btn btn-default'
+              /= link_to 'New publishing agreement', new_user_user_publisher_publishing_agreement_path(@user, @publisher), class: 'btn btn-default'
+              = link_to 'Publish new artist', user_user_publisher_publishing_templates_path(@user, @publisher), class: 'btn btn-default'
       .digi-box
         .table-responsive
           table class="table table-hover"
             thead
               tr
                 th Title
-                th Created
+                th Expires
                 th
             tbody
               - @publisher.publishing_agreements.each do |publishing_agreement|
                 tr
-                  td = link_to publishing_agreement.title, user_user_publisher_publishing_agreement_path(@user, @publisher, publishing_agreement), class: 'btn btn-default btn-xs'
-                  td = l publishing_agreement.created_at, format: :date
+                  td
+                    - if publishing_agreement.deletable
+                      => link_to user_user_publisher_publishing_agreement_path(@user, @publisher, publishing_agreement), 
+                                        data: { confirm: 'Are you sure?' } , 
+                                        turboboost: true,
+                                        :method => :delete do
+                        .btn.btn-danger.btn-xs
+                          i.fa.fa-times
+                    - else
+                      .btn.btn-danger.btn-xs disabled="disabled"
+                        i.fa.fa-times
+                    = link_to publishing_agreement.title, user_user_publisher_publishing_agreement_path(@user, @publisher, publishing_agreement), class: 'btn btn-default btn-xs'
+                  
+                  td 
+                    - if publishing_agreement.expires
+                      = publishing_agreement.expiration_date
+                    - else
+                      'No
                   td
                   
         

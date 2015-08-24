@@ -36,10 +36,11 @@ class Admin::LegalTemplatesController < ApplicationController
   
   def create
 
-    params[:document][:title] = saintize_title params[:document][:title]
-    params[:document][:text_content] = sanitize_content params[:document][:text_content]
+    params[:document][:title]         = saintize_title params[:document][:title]
+    params[:document][:text_content]  = sanitize_content params[:document][:text_content]
+    params[:document][:uuid]          = UUIDTools::UUID.timestamp_create().to_s
     @document = Document.create(document_params)
-    redirect_to admin_legal_template_path @document
+    redirect_to admin_legal_template_path @document.uuid
   end
 
   def edit
@@ -74,7 +75,8 @@ class Admin::LegalTemplatesController < ApplicationController
                                        :usage,
                                        :tag, 
                                        :account_id, 
-                                       :text_content) 
+                                       :text_content,
+                                       :uuid) 
     end 
   end
   

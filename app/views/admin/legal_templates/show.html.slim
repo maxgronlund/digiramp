@@ -31,7 +31,7 @@
           .digi-box
             = simple_form_for [:admin, DigitalSignature.new], turboboost: true do |f|
               = f.hidden_field :signable_type, value: @document.class.name
-              = f.hidden_field :signable_id, value: @document.id
+              = f.hidden_field :signable_id,   value: @document.id
               = f.input :role, placeholder: 'i.e. Artist'
               .row
                 .col-sm-12

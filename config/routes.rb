@@ -1,8 +1,6 @@
 Digiramp::Application.routes.draw do
 
-  
-  resources :publishers, only: [:index]
-
+  #resources :document_users
   get 'landing_page/index'
   
   get "/pages/*id" => 'pages#show', as: :page, format: false
@@ -250,6 +248,7 @@ Digiramp::Application.routes.draw do
   resources :news, only: [:index]
   resources :pro_account_info, only: [:index]
   resources :public_opportunities, only: [:index, :show]
+  resources :publishers, only: [:index, :show]
   resources :playlists, only: [:index, :show] 
   resources :playlist_recordings, only: [:destroy]
   resources :recordings, only: [:index, :show] do
@@ -785,8 +784,16 @@ Digiramp::Application.routes.draw do
       resources :select_product_type, only: [:index] 
       resources :special_offer, only: [:index] 
       resources :publishers do
-        resources :publishing_agreements
+        resources :publishing_agreements do
+          resources :publishing_agreement_users
+        end
+        
+        resources :publishing_templates
+        
       end
+      
+      
+      
       resources :publisher_legal_infos, only: [:edit] 
       resources :product_admin, only: [:edit, :new, :create, :new]   
       resources :invoices, only: [:index, :show]

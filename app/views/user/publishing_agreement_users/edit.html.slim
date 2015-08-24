@@ -1,0 +1,43 @@
+- document = @publishing_agreement.document
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'settings' 
+  
+  
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'users/shared/sidebar', selected: 'control panel'
+  
+  #page-content-wrapper
+    .container-fluid
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { 'publishers'.to_sym => user_user_publishers_path(@user),
+                                                               @publisher.legal_name.to_sym => user_user_publisher_path(@user, @publisher),
+                                                               @publishing_agreement.title.to_sym => user_user_publisher_publishing_agreement_path(@user, @publisher, @publishing_agreement)}}
+      == render 'shared/flash_message'
+      .row
+        .col-sm-6
+          .help
+            .help-text
+              h2 = @publishing_agreement.title 
+              b Users with access to the document
+              
+            .help-button
+              == render 'admin/helps/help', identifier: 'user publishing  document users'
+        .col-sm-6
+          .pull-right.pull-down-10
+            => link_to  user_user_publisher_publishing_agreement_path(:user, @user, @publisher, @publishing_agreement) do
+                .btn.btn-default
+                  i.fa.fa-chevron-left
+                  '&nbsp;Back
+   
+      .sexy_line
+      .digi-box
+        = simple_form_for [ @user, @publisher, @publishing_agreement, @document_user], :url => url_for(:action => 'update', 
+                                                                                      :controller => 'publishing_agreement_users'), 
+                                                                                      turboboost: true, :method => 'PUT' do |f|
+          
+          == render 'form', f: f
+         
+         
+  == render 'shared/site_footer'    
+ 

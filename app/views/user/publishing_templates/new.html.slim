@@ -1,0 +1,86 @@
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'settings' 
+  
+  
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'users/shared/sidebar', selected: 'control panel'
+  
+  #page-content-wrapper
+    .container-fluid
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { 'Dashboard'.to_sym =>user_user_control_panel_index_path(@user),
+                                                              'publishers'.to_sym => user_user_publishers_path(@user)} }
+      == render 'shared/flash_message'
+      .row
+        .col-sm-6
+          .help
+            .help-text
+              h2 = @publisher.legal_name
+              b Sign new artist
+            .help-button
+              == render 'admin/helps/help', identifier: 'user publisher'
+        .col-sm-6
+          .pull-right.pull-down-10
+            = link_to  user_user_publishers_path(@user) do
+                .btn.btn-default
+                  i.fa.fa-chevron-left
+                  '&nbsp;Back
+            
+
+      .sexy_line
+      .digi-box
+        = simple_form_for [ @user, @publisher, @document ] , :url => url_for(:action => 'create', :controller => 'publishing_templates'), turboboost: true, :method => 'POST' do |f|
+          div style="max-width: 840px"
+            = f.hidden_field :template_id, value: @template.id
+            = f.hidden_field :account_id, value: @account.id
+            = f.hidden_field :document_type, value: 'Legal'
+            /= f.input :tag, collection: @legal_tags, include_blank: false, value_method: :title
+            = f.input :title, placeholder: "i.e. publishing agreement between Janis Joplin and #{@publisher.legal_name}", 
+                              hint: "Give this agremment a descriptive name so it's easy for everyone involved to find it again"
+            = f.input :body, label: 'Description',
+                             placeholder: "i.e. This agreement gives #{@publisher.legal_name} rights to Janis Joplin's Farewell Song on the Canary Islands last week of 1791 ",
+                             hint: "A short summary of the agreement"
+            
+            .row
+              .col-sm-6
+                = f.input :expires, 
+                          id: 'expires',
+                          label: false, 
+                          inline_label:  'Expires',
+                          :input_html => { class: 'icheck-me acceptance', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue"     }
+              .col-sm-6
+                = f.text_field :expiration_date, class: "form-control", 'data-date-format'.to_sym => "YYYY/MM/DD", id: 'datetimepicker5'
+
+            .sexy_line
+            br
+  
+            /= f.input :body, label: 'Description'
+
+
+
+            b
+              '*Content
+            br
+            div id="toolbar" class="wysihtml5-toolbar"
+              a data-wysihtml5-command="bold" Bold
+              '&nbsp; 
+              a data-wysihtml5-command="italic" Italic
+              .pull-right
+                a data-wysihtml5-action="change_view"  Html
+            =f.input :text_content, label: false, :input_html => {  style: "height: 800px;", placeholder: "Document content", id: 'wysihtml5_editor'}
+            .row
+              .col-sm-12
+                .pull-right
+                  = f.submit 'Continue', class: 'btn btn-default'
+
+
+
+          == render 'shared/init_wysiwyg5'
+
+
+          
+
+         
+              
+  == render 'shared/site_footer' 

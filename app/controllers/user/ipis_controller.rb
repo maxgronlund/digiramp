@@ -49,9 +49,9 @@ class User::IpisController < ApplicationController
   
   
   def edit
-     @ipi         = Ipi.cached_find(params[:id])
-     @common_work = CommonWork.cached_find(@ipi.common_work_id)
-     #@publishing_agreements = PublishingAgreement.where(email: @ipi.email)
+     @ipi                   = Ipi.cached_find(params[:id])
+     @common_work           = CommonWork.cached_find(@ipi.common_work_id)
+     @publishing_agreements = PublishingAgreement.where(email: @ipi.email)
   end
   
   def update

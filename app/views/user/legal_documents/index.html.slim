@@ -47,7 +47,7 @@
               - @documents.each do |document|
                 tr
                   td
-                    => link_to user_user_legal_document_path( @user, document), data: { confirm: 'Are you sure?' } , 
+                    => link_to user_user_legal_document_path( @user, document.uuid), data: { confirm: 'Are you sure?' } , 
                                                             :method => :delete, 
                                                             turboboost: true do
                       .btn.btn-danger.btn-xs

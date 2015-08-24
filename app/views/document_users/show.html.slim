@@ -1,0 +1,33 @@
+p#notice = notice
+
+p
+  strong Document:
+  = @document_user.document
+p
+  strong User:
+  = @document_user.user
+p
+  strong Account:
+  = @document_user.account
+p
+  strong Can edit:
+  = @document_user.can_edit
+p
+  strong Should sign:
+  = @document_user.should_sign
+p
+  strong Email:
+  = @document_user.email
+p
+  strong Signature:
+  = @document_user.signature
+p
+  strong Signature image:
+  = @document_user.signature_image
+p
+  strong Status:
+  = @document_user.status
+
+= link_to 'Edit', edit_document_user_path(@document_user)
+'|
+= link_to 'Back', document_users_path

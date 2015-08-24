@@ -1,0 +1,52 @@
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'settings' 
+  
+  
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'users/shared/sidebar', selected: 'control panel'
+  
+  #page-content-wrapper
+    .container-fluid
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { 'Dashboard'.to_sym =>user_user_control_panel_index_path(@user),
+                                                              'publishers'.to_sym => user_user_publishers_path(@user)} }
+      == render 'shared/flash_message'
+      .row
+        .col-sm-6
+          .help
+            .help-text
+              h2 = @publisher.legal_name
+              b Preview publishing agreement template
+            .help-button
+              == render 'admin/helps/help', identifier: 'user publisher'
+        .col-sm-6
+          .pull-right.pull-down-10
+            = link_to  user_user_publisher_publishing_templates_path(@user, @publisher) do
+                .btn.btn-default
+                  i.fa.fa-chevron-left
+                  '&nbsp;Back
+            
+
+      .sexy_line
+      .digi-box.pull-down-6 style="width:800px; padding:40px;"
+        .row
+          .col-sm-12 
+            = simple_format @document.text_content
+          .col-sm-12
+            .pull-right
+              => link_to  user_user_publisher_publishing_templates_path(@user, @publisher) do
+                  .btn.btn-default
+                    i.fa.fa-chevron-left
+                    '&nbsp;Back
+              = link_to new_user_user_publisher_publishing_template_path( @user, @publisher, uuid: @document.uuid) do
+                .btn.btn-default
+                  'Select and customize
+      
+
+
+          
+
+         
+              
+  == render 'shared/site_footer' 

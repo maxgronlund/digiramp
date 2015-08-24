@@ -272,7 +272,7 @@ gem "recaptcha", :require => "recaptcha/rails"
 
 #gem 'actionpack-action_caching'
 
-
+gem  'blockchain'
 
 group :development do
   gem 'rb-readline'

@@ -1,0 +1,109 @@
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'opportunities' 
+  
+  
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      - if @user
+        == render 'user/opportunities/sidebar', selected: 'publishers'
+      - else
+        == render 'public_opportunities/sidebar', selected: 'publishers'
+  #page-content-wrapper
+    .container-fluid
+      .row
+        .col-sm-5
+          .help
+            .help-text
+              h2 = @publisher.legal_name
+              b Publisher
+            .help-button
+              == render 'admin/helps/help', identifier: 'publishers show'
+          
+        .col-sm-7
+          .pull-down-10
+            
+            
+      .sexy_line
+      - if user = @publisher.user
+        .row
+          .col-sm-6
+            .digi-box
+              .products 
+                .seller-avatar
+                   = link_to image_tag( user.image_url :avatar_32x32), user
+                .seller-name
+                  'Managed by:
+                  br
+                  b = user.user_name
+              .row
+                .col-sm-12
+          .col-sm-6
+            - if current_user.id != user.id 
+              .inline-button
+                .connect-container
+                  .connect-buttons
+                  == render 'users/connect',    user: user, size: ''
+        
+      .digi-box
+        .table-responsive
+          table.table.table-bordered
+            tr
+              td
+                b Legal name
+                br = @publisher.legal_name
+              td
+              td
+          
+            tr
+              td
+                b IP Number
+                br = @publisher.ipi_code
+              
+            
+              td
+                b Phone number
+                br = @publisher.phone_number
+              
+              td
+                  
+            tr
+              td
+                b Address
+                - unless @publisher.address_line_1.blank?
+                  br
+                  = @publisher.address_line_1
+        
+                - unless @publisher.address_line_2.blank?
+                  br
+                  = @publisher.address_line_2
+        
+                - unless @publisher.city.blank?
+                  br
+                  = @publisher.city
+        
+                - unless @publisher.zip_code.blank?
+                  br
+                  = @publisher.zip_code
+        
+                - unless @user.country.blank?
+                  br
+                  = @user.country
+          
+              td
+                /b Publishing
+                /table
+                /  - @user.publishers.each do |publisher|
+                /    tr
+                /    
+                /      td = publisher.legal_name
+                /      td = publisher.ipi_code
+                /    
+                /    
+              td
+        
+        
+                        
+      
+
+  == render 'shared/site_footer'    

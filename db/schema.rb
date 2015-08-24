@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150818165105) do
+ActiveRecord::Schema.define(version: 20150824160649) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -436,6 +436,12 @@ ActiveRecord::Schema.define(version: 20150818165105) do
 
   create_table "blacklist_domains", force: :cascade do |t|
     t.string   "domain"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "block_registers", force: :cascade do |t|
+    t.text     "secret"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -1373,34 +1379,45 @@ ActiveRecord::Schema.define(version: 20150818165105) do
   add_index "digital_signatures", ["signable_type", "signable_id"], name: "index_digital_signatures_on_signable_type_and_signable_id", using: :btree
   add_index "digital_signatures", ["user_id"], name: "index_digital_signatures_on_user_id", using: :btree
 
-  create_table "document_users", force: :cascade do |t|
-    t.integer  "document_id"
+  create_table "document_users", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
+    t.uuid     "document_id"
     t.integer  "user_id"
-    t.string   "user_type"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.integer  "account_id"
+    t.boolean  "can_edit"
+    t.boolean  "should_sign"
+    t.string   "email"
+    t.string   "signature"
+    t.string   "signature_image"
+    t.integer  "status"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.string   "role"
   end
 
+  add_index "document_users", ["account_id"], name: "index_document_users_on_account_id", using: :btree
   add_index "document_users", ["document_id"], name: "index_document_users_on_document_id", using: :btree
-  add_index "document_users", ["user_type", "user_id"], name: "index_document_users_on_user_type_and_user_id", using: :btree
+  add_index "document_users", ["user_id"], name: "index_document_users_on_user_id", using: :btree
 
   create_table "documents", force: :cascade do |t|
-    t.string   "title",         limit: 255
-    t.string   "document_type", limit: 255
+    t.string   "title",           limit: 255
+    t.string   "document_type",   limit: 255
     t.text     "body"
-    t.string   "file",          limit: 255
-    t.string   "image_thumb",   limit: 255
+    t.string   "file",            limit: 255
+    t.string   "image_thumb",     limit: 255
     t.integer  "usage"
     t.text     "text_content"
-    t.string   "mime",          limit: 255
-    t.string   "file_type",     limit: 255
+    t.string   "mime",            limit: 255
+    t.string   "file_type",       limit: 255
     t.integer  "account_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "file_size",                 default: 0
+    t.integer  "file_size",                   default: 0
     t.integer  "template_id"
-    t.string   "tag",                       default: ""
+    t.string   "tag",                         default: ""
     t.uuid     "uuid"
+    t.integer  "status",                      default: 0
+    t.boolean  "expires",                     default: false
+    t.date     "expiration_date"
   end
 
   add_index "documents", ["account_id"], name: "index_documents_on_account_id", using: :btree
@@ -2577,11 +2594,11 @@ ActiveRecord::Schema.define(version: 20150818165105) do
 
   create_table "publishing_agreements", force: :cascade do |t|
     t.integer  "publisher_id"
-    t.integer  "document_id"
     t.string   "title"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
     t.string   "email"
+    t.uuid     "document_id"
   end
 
   add_index "publishing_agreements", ["document_id"], name: "index_publishing_agreements_on_document_id", using: :btree
@@ -3547,7 +3564,6 @@ ActiveRecord::Schema.define(version: 20150818165105) do
   add_foreign_key "contracts", "accounts", on_delete: :cascade
   add_foreign_key "creative_projects", "accounts", on_delete: :cascade
   add_foreign_key "customer_events", "accounts", on_delete: :cascade
-  add_foreign_key "document_users", "documents", on_delete: :cascade
   add_foreign_key "documents", "accounts", on_delete: :cascade
   add_foreign_key "import_batches", "accounts", on_delete: :cascade
   add_foreign_key "invoices", "accounts", on_delete: :cascade
@@ -3568,7 +3584,6 @@ ActiveRecord::Schema.define(version: 20150818165105) do
   add_foreign_key "projects", "accounts", on_delete: :cascade
   add_foreign_key "publishers", "accounts", on_delete: :cascade
   add_foreign_key "publishers", "pro_affiliations"
-  add_foreign_key "publishing_agreements", "documents"
   add_foreign_key "publishing_agreements", "publishers", on_delete: :cascade
   add_foreign_key "recording_downloads", "shop_products"
   add_foreign_key "recording_downloads", "users", on_delete: :cascade

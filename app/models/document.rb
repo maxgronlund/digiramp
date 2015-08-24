@@ -3,12 +3,15 @@ class Document < ActiveRecord::Base
   include PgSearch
   pg_search_scope :search_in_documents, against: [:title, :body, :text_content], :using => [:tsearch]
   
-  validates :title, :body, :text_content, presence: true
+  validates :title, :body, :text_content, :uuid, presence: true
   
   belongs_to :account
   has_and_belongs_to_many :catalogs
   
-  has_many :document_users
+  has_many :document_users, primary_key: :uuid
+  has_many :digital_signatures
+  has_many :digital_signatures,        as: :signable,     dependent: :destroy
+  
   
   TYPES = ['File', 'Financial', 'Legal', 'Template']
 
@@ -18,6 +21,8 @@ class Document < ActiveRecord::Base
   scope :templates,       ->  { where( document_type: 'Template')  }
   scope :legal,           ->  { where( document_type: 'Legal')  }
   scope :csv,             ->  { where( document_type: 'Csv')  }
+  
+  enum status: [ :draft, :execution_copy, :executed ]
   
 
   after_commit :flush_cache
