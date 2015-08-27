@@ -891,6 +891,7 @@ Digiramp::Application.routes.draw do
       resources :revenue_streams
       resources :legal_documents do
         resources :document_signatures
+        resources :legal_document_users
       end
       resources :legal_informations, only: [:edit, :update, :index]
       

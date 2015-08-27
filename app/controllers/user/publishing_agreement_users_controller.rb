@@ -17,19 +17,23 @@ class User::PublishingAgreementUsersController < ApplicationController
   def create
     @publishing_agreement = PublishingAgreement.cached_find(params[:publishing_agreement_id])
     @publisher            = Publisher.cached_find(params[:publisher_id])
-    @document_user        = DocumentUser.create(document_user_params)
     
-    if @document_user.should_sign
-      DigitalSignature.create(
-        signable_id: @publishing_agreement.document_id,
-        signable_type: 'Document',
-        role: @document_user.role,
-        email: @document_user.email
-
-      )
+    if @document_user     = DocumentUser.create(document_user_params)
+      
+      if @document_user.should_sign
+        DigitalSignature.create(
+          signable_id: @publishing_agreement.document_id,
+          signable_type: 'Document',
+          role: @document_user.role,
+          email: @document_user.email
+      
+        )
+      end
+      attach_user
+      redirect_to user_user_publisher_publishing_agreement_path(@user, @publisher, @publishing_agreement)
+    else
+      render :new
     end
-    
-    redirect_to user_user_publisher_publishing_agreement_path(@user, @publisher, @publishing_agreement)
 
 
   end
@@ -42,7 +46,15 @@ class User::PublishingAgreementUsersController < ApplicationController
   end
 
   def update
-    redirect_to :back
+    @publisher = Publisher.cached_find(params[:publisher_id])
+    @publishing_agreement = PublishingAgreement.cached_find(params[:publishing_agreement_id])
+    @document_user        = DocumentUser.cached_find(params[:id])
+    if @document_user.update(document_user_params)
+      attach_user
+      redirect_to user_user_publisher_publishing_agreement_path( @user, @publisher, @publishing_agreement)
+    else
+      render :edit
+    end
   end
 
   def destroy
@@ -50,6 +62,13 @@ class User::PublishingAgreementUsersController < ApplicationController
   end
   
   private  
+  
+  def attach_user
+    return unless @document_user.user
+    if user = User.find_or_create_from_email(@document_user.email)
+      @document_user.update(user_id: user.id)
+    end 
+  end
   
   def document_user_params
     params.require(:document_user).permit!

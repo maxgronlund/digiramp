@@ -76,6 +76,7 @@
               tr
                 th Partie
                 th Email
+                th Role
                 th Can edit
                 th Should sign
                 th Status
@@ -90,9 +91,12 @@
                                                 @publisher, 
                                                 @publishing_agreement, 
                                                 document_user), class: 'btn btn-default btn-xs'
+                  
                     - if user = document_user.user                          
                       =< user.user_name
+                      
                   td  = document_user.email
+                  td  = document_user.role
                   td  = document_user.can_edit
                   td  = document_user.should_sign
                   td  = document_user.status?

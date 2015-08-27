@@ -2,7 +2,9 @@ class User::LegalDocumentsController < ApplicationController
   before_action :access_user
   def index
     @account  = @user.account
-    @documents = @account.documents
+    #@documents = @account.documents
+    
+    @documents = @user.documents
   end
   
   def show
@@ -61,11 +63,8 @@ class User::LegalDocumentsController < ApplicationController
         
       end
     end
-    
-    
-    
-      
-    
+
+
     redirect_to user_user_legal_documents_path(@user)
   end
   

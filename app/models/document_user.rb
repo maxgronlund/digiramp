@@ -1,4 +1,5 @@
 class DocumentUser < ActiveRecord::Base
+  has_paper_trail 
   belongs_to :document, primary_key: :uuid
   belongs_to :user
   belongs_to :account
@@ -6,7 +7,7 @@ class DocumentUser < ActiveRecord::Base
   validates :email, presence: true
   validates_formatting_of :email, :using => :email
   
-  enum status: [ :pending, :viewed, :signed, :archived ]
+  enum status: [ :pending, :accepted, :dismissed ]
   
   after_commit :flush_cache
 

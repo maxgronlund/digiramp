@@ -34,60 +34,143 @@
             /    'New document
 
       = render 'user/shared/legal_navigation'
-      .digi-box
-        .table-responsive
-          table class="table"
-            thead
-              tr
-                th style="width: 124px;"
-                th 
-                  'Title/ Description
-                th Signatures
-            tbody
-              - @documents.each do |document|
-                tr
-                  td
-                    => link_to user_user_legal_document_path( @user, document.uuid), data: { confirm: 'Are you sure?' } , 
-                                                            :method => :delete, 
-                                                            turboboost: true do
-                      .btn.btn-danger.btn-xs
-                        i.fa.fa-times
-                        
-                    => link_to edit_user_user_legal_document_path( @user, document.uuid) do
-                      .btn.btn-default.btn-xs
-                        i.fa.fa-pencil
-                        
-                    => link_to user_user_legal_document_path( @user, document.uuid, :format => 'pdf') do 
-                      .btn.btn-default.btn-xs
-                        i.fa.fa-file-pdf-o
-                        
-                    = link_to user_user_legal_document_path( @user, document.uuid) do
-                        .btn.btn-default.btn-xs
-                          i.fa.fa-eye  
-                  td 
-                    .div style="max-width: 400px;"
-                      b = document.title
-                      br = simple_format document.body
-                  
-                  td
-                    - document.digital_signatures.each do |digital_signature|
-                      .div style="text-transform: uppercase;" 
-                        = digital_signature.role
-                      = digital_signature.email
-                      .sexy_line
-
-
-                    = link_to user_user_legal_document_document_signatures_path(@user, document.uuid) do
-                       .btn.btn-default.btn-xs
-                         'Edit signatures 
-                    /.pull-right
-                    /  = link_to user_user_legal_document_document_signatures_path(@user, document.uuid) do
-                    /    .btn.btn-default.btn-xs
-                    /      'Edit signatures
-                    /
+      .pull-down-10
+      - @documents.each do |document|
+        .digi-box
+          
+          .row
+            .col-sm-8
+              h4 = document.title
+              = document.body
+            .col-sm-4
+              .pull-right
+                h4
+                  .label.label-default
+                    = document.status
+          .row
+            .col-sm-12
+              .pull-right
+            
+                  => link_to user_user_legal_document_path( @user, document.uuid), data: { confirm: 'Are you sure?' } , 
+                                                          :method => :delete, 
+                                                          turboboost: true do
+                    .btn.btn-danger.btn-xs
+                      i.fa.fa-times
                       
+                  => link_to edit_user_user_legal_document_path( @user, document.uuid) do
+                    .btn.btn-default.btn-xs
+                      i.fa.fa-pencil
+                      
+                  => link_to user_user_legal_document_path( @user, document.uuid, :format => 'pdf') do 
+                    .btn.btn-default.btn-xs
+                      i.fa.fa-file-pdf-o
+                      
+                  = link_to user_user_legal_document_path( @user, document.uuid) do
+                      .btn.btn-default.btn-xs
+                        i.fa.fa-eye
+        
+          .sexy_line
+          .row
+            .col-sm-12
+              .table-responsive
+                table class="table table-hover"
+                  thead
+                    tr
+                      th Partie
+                      th Email
+                      th Role
+                      th Can edit
+                      th Should sign
+                      th Status
+                  tbody
+                    - document.document_users.each do |document_user|
+                      tr
+                        td 
+                          => link_to user_user_legal_document_legal_document_user_path(@user, document, document_user), data: { confirm: 'Are you sure?' } , 
+                                                          :method => :delete, 
+                                                          turboboost: true do
+                            .btn.btn-danger.btn-xs
+                              i.fa.fa-times
+                          = link_to 'Edit', edit_user_user_legal_document_legal_document_user_path(@user, document, document_user), class: 'btn btn-default btn-xs'
+                  
+                          - if user = document_user.user                          
+                            =< user.user_name
+                      
+                        td  = document_user.email
+                        td  = document_user.role
+                        td  = document_user.can_edit
+                        td  = document_user.should_sign
+                        td  = document_user.status?
+          .row
+            .col-sm-12
+              .pull-right
+                  = link_to '#' do
+                    .btn.btn-default.btn-xs
+                      i.fa.fa-user-plus&nbsp;Add user
               
-
+          
+        
+        
+        
+      /.digi-box
+      /  
+      /  .table-responsive
+      /    table class="table"
+      /      thead
+      /        tr
+      /          th style="width: 124px;"
+      /          th Title/ Description
+      /          th Users
+      /          /th Signatures
+      /      tbody
+      /        - @documents.each do |document|
+      /          tr
+      /            td
+      /              => link_to user_user_legal_document_path( @user, document.uuid), data: { confirm: 'Are you sure?' } , 
+      /                                                      :method => :delete, 
+      /                                                      turboboost: true do
+      /                .btn.btn-danger.btn-xs
+      /                  i.fa.fa-times
+      /                  
+      /              => link_to edit_user_user_legal_document_path( @user, document.uuid) do
+      /                .btn.btn-default.btn-xs
+      /                  i.fa.fa-pencil
+      /                  
+      /              => link_to user_user_legal_document_path( @user, document.uuid, :format => 'pdf') do 
+      /                .btn.btn-default.btn-xs
+      /                  i.fa.fa-file-pdf-o
+      /                  
+      /              = link_to user_user_legal_document_path( @user, document.uuid) do
+      /                  .btn.btn-default.btn-xs
+      /                    i.fa.fa-eye  
+      /              br
+      /              h4
+      /                .label.label-default
+      /                  = document.status
+      /            td 
+      /              .div style="max-width: 400px;"
+      /                b = document.title
+      /                br = simple_format document.body
+      /            
+      /            td
+      /              - document.document_users.each do |document_user|
+      /                = document_user.role
+      /                .sexy_line
+      /            /td
+      /            /  - document.digital_signatures.each do |digital_signature|
+      /            /    .div style="text-transform: uppercase;" 
+      /            /      = digital_signature.role
+      /            /    = digital_signature.email
+      /            /    .sexy_line
+      /            /
+      /            /
+      /            /  = link_to user_user_legal_document_document_signatures_path(@user, document.uuid) do
+      /            /     .btn.btn-default.btn-xs
+      /            /       'Edit signatures 
+      /            /  
+      /                
+      /        
+      /
       
       
                   

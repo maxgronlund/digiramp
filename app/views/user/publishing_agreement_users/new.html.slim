@@ -25,7 +25,7 @@
               == render 'admin/helps/help', identifier: 'user publishing  document users'
         .col-sm-6
           .pull-right.pull-down-10
-            => link_to  user_user_publisher_publishing_agreement_path(:user, @user, @publisher, @publishing_agreement) do
+            => link_to  user_user_publisher_publishing_agreement_path( @user, @publisher, @publishing_agreement) do
                 .btn.btn-default
                   i.fa.fa-chevron-left
                   '&nbsp;Back

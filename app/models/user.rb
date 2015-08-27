@@ -202,6 +202,9 @@ class User < ActiveRecord::Base
   has_many :stripe_transfers, class_name: 'Shop::StripeTransfer'
   #has_many :entries, through: :entries_media, class_name: 'Cms::ContentEntry', source: :entry
   
+  has_many :document_users
+  has_many :documents, through: :document_users
+  
   def liked_by user_id
     ItemLike.find_by(user_id: user_id, like_id: self.id, like_type: self.class.name)
   end

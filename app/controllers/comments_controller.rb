@@ -70,8 +70,8 @@ class CommentsController < ApplicationController
         Activity.notify_followers(  'Posted a comment on', current_user.id, 'Recording', @recording.id )
         CommentMailer.delay.notify_user( @comment.id )
       when 'User'
-        @user = User.cached_find(@comment.commentable_id)
-            
+        @user = User.cached_find( @comment.commentable_id)
+    
         current_user.create_activity(  :created, 
                                    owner: @comment, # the recording has many comments
                                recipient: @user,
