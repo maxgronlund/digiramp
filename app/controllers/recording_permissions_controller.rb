@@ -6,7 +6,7 @@ class RecordingPermissionsController < ApplicationController
     @recording             = Recording.cached_find(params[:id])
     
     @account               = @recording.account     if @recording.account
-    @common_work           = @recording.get_common_work if @recording.recording.get_common_work
+    @common_work           = @recording.get_common_work if @recording.get_common_work
 
  
     case params[:permissions]
