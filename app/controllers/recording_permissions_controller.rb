@@ -2,17 +2,17 @@ class RecordingPermissionsController < ApplicationController
   #include CatalogsHelper
   
   def show
-
-    @recording             = Recording.cached_find(params[:id])
+    forbidden unless current_catalog_user
     
+    @recording             = Recording.cached_find(params[:id])
     @account               = @recording.account     if @recording.account
     @common_work           = @recording.get_common_work if @recording.get_common_work
-
+    
  
     case params[:permissions]
     
     when 'catalog_recordings'
-      current_catalog_user  = CatalogUser.where(user_id: current_user.id, catalog_id: params[:permission_id]).first
+      #current_catalog_user  = CatalogUser.where(user_id: current_user.id, catalog_id: params[:permission_id]).first
       @catalog               = Catalog.cached_find(params[:permission_id])
       @read_recording        = "#read_recording_#{params[:id]}"           if current_catalog_user.read_recording
       @update_recording      = "#update_recording_#{params[:id]}"         if current_catalog_user.update_recording
@@ -21,7 +21,7 @@ class RecordingPermissionsController < ApplicationController
       @remove_from_catalog   = "#remove_from_catalog_#{params[:id]}"      if current_account_user.update_catalog
     
     when 'catalog_common_work_recordings'
-      current_catalog_user   = CatalogUser.where(user_id: current_user.id, catalog_id: params[:permission_id]).first
+      #current_catalog_user   = CatalogUser.where(user_id: current_user.id, catalog_id: params[:permission_id]).first
 
       @catalog               = Catalog.cached_find(params[:permission_id])
       @read_recording        = "#read_recording_#{params[:id]}"           if current_catalog_user.read_recording
@@ -32,7 +32,7 @@ class RecordingPermissionsController < ApplicationController
       
     when 'add_recordings'
 
-      current_catalog_user = CatalogUser.where(user_id: current_user.id, catalog_id: params[:permission_id]).first
+      #current_catalog_user = CatalogUser.where(user_id: current_user.id, catalog_id: params[:permission_id]).first
       @catalog               = Catalog.cached_find(params[:permission_id])
       @read_recording        = "#read_recording_#{params[:id]}"           if current_catalog_user.read_recording
 

@@ -62,59 +62,59 @@
       
               
       
-      h4 Creative credits & rights
-      .digi-box
-        .row
-          .col-sm-12
-            .table-responsive
-              table class="table table-hover"
-                thead
-                  tr
-                    th Capacity
-                    th Name
-                    th Email
-                    th Show credits
-                    th Share
-                    th Confirmation
-                tbody
-                  - @common_work.ipis.each do |ipi|
-                    tr
-                      
-                      
-                      td
-                        - if ipi.composer
-                          'Composer
-                          br
-                          
-                        - if ipi.writer
-                          'Writer
-                          br
-                          
-                        - if ipi.administrator
-                          'Administrator
-                          br
-                          
-                        - if ipi.original_publisher
-                          'Original publisher
-                          br
-                      td = ipi.full_name
-                      td = ipi.email
-                      td 
-                        - if ipi.show_credit_on_recordings
-                          i.fa.fa-check
-                      td = ipi.share
-                      td 
-                        .pull-right
-                          /== render 'user/common_works/confirmation', ipi: ipi
-                          
-                  tr
-                    td
-                    td
-                    td
-                    td
-                    td = @common_work.total_share
-                    td
-                                
+      /h4 Creative credits & rights
+      /.digi-box
+      /  .row
+      /    .col-sm-12
+      /      .table-responsive
+      /        table class="table table-hover"
+      /          thead
+      /            tr
+      /              th Capacity
+      /              th Name
+      /              th Email
+      /              th Show credits
+      /              th Share
+      /              th Confirmation
+      /          tbody
+      /            - @common_work.ipis.each do |ipi|
+      /              tr
+      /                
+      /                
+      /                td
+      /                  - if ipi.composer
+      /                    'Composer
+      /                    br
+      /                    
+      /                  - if ipi.writer
+      /                    'Writer
+      /                    br
+      /                    
+      /                  - if ipi.administrator
+      /                    'Administrator
+      /                    br
+      /                    
+      /                  - if ipi.original_publisher
+      /                    'Original publisher
+      /                    br
+      /                td = ipi.full_name
+      /                td = ipi.email
+      /                td 
+      /                  - if ipi.show_credit_on_recordings
+      /                    i.fa.fa-check
+      /                td = ipi.share
+      /                td 
+      /                  .pull-right
+      /                    /== render 'user/common_works/confirmation', ipi: ipi
+      /                    
+      /            tr
+      /              td
+      /              td
+      /              td
+      /              td
+      /              td = @common_work.total_share
+      /              td
+      /                          
       /  .sexy_line                        
       /  .row
       /    .col-sm-12
