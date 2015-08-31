@@ -46,11 +46,12 @@ class User::PublishingAgreementUsersController < ApplicationController
   end
 
   def update
-    @publisher = Publisher.cached_find(params[:publisher_id])
+    @publisher            = Publisher.cached_find(params[:publisher_id])
     @publishing_agreement = PublishingAgreement.cached_find(params[:publishing_agreement_id])
     @document_user        = DocumentUser.cached_find(params[:id])
+   
     if @document_user.update(document_user_params)
-      attach_user
+      attach_user unless @document_user.user
       redirect_to user_user_publisher_publishing_agreement_path( @user, @publisher, @publishing_agreement)
     else
       render :edit
@@ -64,10 +65,13 @@ class User::PublishingAgreementUsersController < ApplicationController
   private  
   
   def attach_user
-    return unless @document_user.user
-    if user = User.find_or_create_from_email(@document_user.email)
-      @document_user.update(user_id: user.id)
-    end 
+
+    user = User.find_or_create_from_email(@document_user.email)
+    
+    UserPublisher.where(user_id: user.id, publisher_id: @publisher.id)
+              .first_or_create(user_id: user.id, publisher_id: @publisher.id)
+    @document_user.update(user_id: user.id)
+     
   end
   
   def document_user_params

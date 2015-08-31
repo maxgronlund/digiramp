@@ -62,6 +62,7 @@ class User < ActiveRecord::Base
   include AddressMix
   
   has_one  :account
+  has_one  :user_configuration, dependent: :destroy
   has_many :account_users
   has_many :accounts,         :through => :account_users  
   
@@ -205,6 +206,15 @@ class User < ActiveRecord::Base
   has_many :document_users
   has_many :documents, through: :document_users
   
+  def get_documents
+    documents.where(status: [0, 1, 2])
+    # enum status: [ :draft, :execution_copy, :executed, :deleted ]
+  end
+  
+  def get_publishing_agreements
+    get_documents.publishing_agreements
+  end
+  
   def liked_by user_id
     ItemLike.find_by(user_id: user_id, like_id: self.id, like_type: self.class.name)
   end
@@ -315,14 +325,16 @@ class User < ActiveRecord::Base
   end
   
   def has_email test_this_email
-    return true if test_this_email == self.email
-    return true if self.user_emails.where(email: test_this_email).first
+    test_this_email.email.downcase!
+    return true if test_this_email.email == self.email
+    return true if self.user_emails.where(email: test_this_email.email).first
   end
   
-  def self.get_by_email email
-    if user =  User.find_by(email: email)
+  def self.get_by_email get_by_email
+    get_by_email.downcase!
+    if user =  User.find_by(email: get_by_email)
       return user
-    elsif user_email = UserEmail.where(email: email).first
+    elsif user_email = UserEmail.where(email: get_by_email).first
       return user_email.user if user_email.user
     end 
     nil
@@ -459,6 +471,8 @@ class User < ActiveRecord::Base
     #set_default_avatar
     CreateUserMandrillAccountJob.perform_later(self.id) if Rails.env.production?
     Stake.where(  email: self.email ).update_all( unassigned: false)
+    
+    UserConfiguration.create(user_id: self.id)
     #ProfessionalInfo.create(user_id: self.id)
   end
 
@@ -618,15 +632,14 @@ class User < ActiveRecord::Base
     false
   end
   
-  def full_name
-    full_name = self.name
-    if self.first_name && self.last_name
-      full_name = self.first_name + ' ' + self.last_name
-    end
-    
-    full_name
-  end
-  
+  #def full_name
+  #  full_name = self.user_name
+  #  if self.first_name && self.last_name
+  #    full_name = self.first_name +  ' ' +self.last_name
+  #  end
+  #  full_name
+  #end
+  #
  
   
   def permission_cache_for account

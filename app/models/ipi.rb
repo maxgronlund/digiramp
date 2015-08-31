@@ -1,15 +1,12 @@
 class Ipi < ActiveRecord::Base
+  #has_paper_trail
+  enum status: [ :pending, :accepted, :dismissed ]
   
   has_many :activity_events, as: :activity_eventable
   
   #has_many :ipi_publishing_agreements
   has_many :ipi_publishing_agreements
   has_many :publishing_agreements, :through => :ipi_publishing_agreements
-  
-  
-  
-  
-  
   
   
   
@@ -21,9 +18,9 @@ class Ipi < ActiveRecord::Base
   #validates_with IpiEmailValidator 
   validates_presence_of :email
   validates_formatting_of :email, :using => :email, :allow_nil => true
-  after_create :update_relations
-  after_update :attach_user_credits
-  before_destroy :remove_user_credits
+  after_create :attach_to_user
+  #after_update :attach_user_credits
+  #before_destroy :remove_user_credits
   
   
   after_commit :flush_cache
@@ -31,14 +28,39 @@ class Ipi < ActiveRecord::Base
 
   ROLES = [ "Writer", "Composer", "Administrator", "Producer", "Original Publisher",  "Artist", "Distributor", "Remixer", "Other", "Publisher"]
   
-  
-  def update_relations
-    add_uuid
-    attach_to_user
-    #attach_user_credits
+  def publishing_agreement document_uuid
+    if publishing_agreement = PublishingAgreement.find_by(document_id: document_uuid)
+      if ipi_publishing_agreement = IpiPublishingAgreement.where( publishing_agreement_id: publishing_agreement.id, ipi_id: self.id).first
+        return true 
+      end
+    end
+    return false
   end
   
-  def attach_user_credits
+  def is_published?
+    return true if self.user && self.user.publishers
+    false
+  end
+  
+  def get_full_name
+    if user
+      user.full_name
+    else
+      self.full_name || self.email
+    end
+  end
+  
+  def work_title
+    self.common_work ? self.common_work.title : 'Work missing!'
+  end
+  
+  #def update_relations
+  #  add_uuid
+  #  attach_to_user
+  #  #attach_user_credits
+  #end
+  #
+  #def attach_user_credits
     
     #if self.user
     #  user_credit = UserCredit
@@ -49,30 +71,19 @@ class Ipi < ActiveRecord::Base
     #  user_credit.show_credit_on_recordings  = self.show_credit_on_recordings
     #  user_credit.save!
     #end
-  end
+  #end
   
   
-  def remove_user_credits
-    begin
-      #UserCredit.wher(ipiable_type: self.common_work.class.name, ipiable_id: self.common_work_id, user_id: self.user_id)
-    rescue
-    end
-  end
+  #def remove_user_credits
+  #  begin
+  #    #UserCredit.wher(ipiable_type: self.common_work.class.name, ipiable_id: self.common_work_id, user_id: self.user_id)
+  #  rescue
+  #  end
+  #end
+  
+
   
   
-  def add_uuid
-    if self.uuid.to_s == ''
-      self.uuid = UUIDTools::UUID.timestamp_create().to_s
-      self.save!(validate: false)
-    end
-  end
-  
-  def attach_to_user
-    if attach_to = User.get_by_email(self.email)
-      self.user_id    = attach_to.id
-      self.save!(validate: false)
-    end
-  end
   
   def send_confirmation_request
     attach_to_user
@@ -90,6 +101,13 @@ class Ipi < ActiveRecord::Base
     roles                        
   end
 
+  def attach_to_user
+    return if self.user
+    if user      = User.get_by_email(self.email)
+      self.update(user_id: user.id, full_name: user.full_name)
+      #self.save!(validate: false)
+    end
+  end
   
   def self.cached_find(id)
     Rails.cache.fetch([name, id]) { find(id) }
@@ -98,12 +116,13 @@ class Ipi < ActiveRecord::Base
 
 private
 
+
+
   def flush_cache
     Rails.cache.delete([self.class.name, id])
   end
   
   def send_confirmation_email
-    
     IpiMailer.delay.common_work_ipi_confirmation_email self.id
   end
   

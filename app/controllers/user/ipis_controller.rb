@@ -3,15 +3,13 @@ class User::IpisController < ApplicationController
   before_action :access_user
   
   def index
-    #@user_credits = @user.user_credits.where.not(confirmation: 'Missing').order(:title)
-    logger.info params
-    logger.info @user
-    @user_credits = @user.user_credits
+    @ipis = @user.ipis
   end
   
   def show
     @ipi          = Ipi.cached_find(params[:id])
     not_found( params )  unless ( @common_work = @ipi.common_work ) && ( account = @common_work.account ) && ( @requester = account.user )
+
   end
   
   def new
@@ -26,17 +24,26 @@ class User::IpisController < ApplicationController
   def create
    
     @common_work = CommonWork.cached_find(params[:common_work_id])
+    params[:ipi][:uuid]  = UUIDTools::UUID.timestamp_create().to_s
+    params[:ipi][:email] = EmailSanitizer.saintize( params[:ipi][:email] )
+
     @ipi = Ipi.new(ipi_params)
     
     respond_to do |format|
-      if @ipi.save!
+      if @ipi.save
         
         format.html { 
-          if params[:commit] == "Save and add next"
-            redirect_to new_user_user_common_work_ipi_path(@user, @common_work) 
+          if @ipi.is_published? && @ipi.user && (@ipi.user_id == @user.id)
+            redirect_to new_user_user_common_work_ipi_ipi_publisher_path(@user,  @common_work, @ipi)
           else
             redirect_to user_user_common_work_path(@user, @common_work) 
           end
+          #if params[:commit] == "Save and add next"
+          #  redirect_to new_user_user_common_work_ipi_path(@user, @common_work) 
+          #  
+          #else
+          #  redirect_to user_user_common_work_path(@user, @common_work) 
+          #end
         }
         format.json { render :show, status: :created, location: @ipi }
       else
@@ -59,6 +66,7 @@ class User::IpisController < ApplicationController
     @common_work = CommonWork.cached_find(@ipi.common_work_id)
     
     if @ipi.update(ipi_params)
+      @ipi.attach_to_user
       redirect_to user_user_common_work_path(@user, @common_work)
       
       

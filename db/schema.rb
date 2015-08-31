@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150826143406) do
+ActiveRecord::Schema.define(version: 20150830141703) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1382,9 +1382,9 @@ ActiveRecord::Schema.define(version: 20150826143406) do
     t.string   "email"
     t.string   "signature"
     t.string   "signature_image"
-    t.integer  "status"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.integer  "status",          default: 0
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
     t.string   "role"
     t.string   "legal_name"
     t.string   "font"
@@ -1959,6 +1959,7 @@ ActiveRecord::Schema.define(version: 20150826143406) do
     t.integer  "ipi_id"
     t.boolean  "melody",                                default: false
     t.boolean  "arrangement",                           default: false
+    t.integer  "status"
   end
 
   add_index "ipis", ["common_work_id"], name: "index_ipis_on_common_work_id", using: :btree
@@ -3226,6 +3227,25 @@ ActiveRecord::Schema.define(version: 20150826143406) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "user_configurations", force: :cascade do |t|
+    t.integer  "user_id"
+    t.boolean  "i_want_to_promote_my_music",               default: false
+    t.boolean  "i_want_to_sell_music",                     default: false
+    t.boolean  "i_want_to_get_my_music_into_films_and_tv"
+    t.boolean  "i_want_find_and_listen_to_music"
+    t.boolean  "i_want_to_sell_goods",                     default: false
+    t.boolean  "i_want_to_offer_services",                 default: false
+    t.boolean  "i_want_to_collaborate",                    default: false
+    t.boolean  "i_want_to_manage_users_and_catalogs",      default: false
+    t.boolean  "i_want_to_build_custom_web_pages",         default: false
+    t.boolean  "dont_ask_me_again",                        default: false
+    t.boolean  "configured",                               default: false
+    t.datetime "created_at",                                               null: false
+    t.datetime "updated_at",                                               null: false
+  end
+
+  add_index "user_configurations", ["user_id"], name: "index_user_configurations_on_user_id", using: :btree
 
   create_table "user_credits", force: :cascade do |t|
     t.integer  "user_id"

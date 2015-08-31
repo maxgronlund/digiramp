@@ -10,15 +10,20 @@ class User::UsersController < ApplicationController
   end
   
   def update
-    ap 'update ---------------------------------------------'
-    ap params
     @user = User.cached_find(params[:id])
     @user.update!(user_params)
+    update_ips
     redirect_to user_user_legal_index_path( @user)
   end
   
   def user_params
     params.require(:user).permit!#( UserParams::PUBLIC_PARAMS ) 
+  end
+  
+  private
+  
+  def update_ips
+    @user.ipis.update_all(full_name: @user.full_name)
   end
   
 end

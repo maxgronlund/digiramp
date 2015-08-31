@@ -2,7 +2,6 @@
 
 class User::ConnectionsController < ApplicationController
   before_action :set_connection, only: [:edit, :update, :destroy]
-
   before_action :access_user, only: [:index, :show, :destroy]
   
 
@@ -66,7 +65,7 @@ class User::ConnectionsController < ApplicationController
 
   
   def update
-
+    ap params
     if params[:commit] == "Dismiss" || params[:commit] == "Disconnect"
       params[:connection][:dismissed] = true
       params[:connection][:approved] = false
@@ -119,11 +118,7 @@ class User::ConnectionsController < ApplicationController
     @message.save!
     
     @message.send_as_email
-  
-    
-    
-    
-  
+
   end
 
   

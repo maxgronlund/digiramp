@@ -1,0 +1,43 @@
+h1 Listing user_configurations
+
+table
+  thead
+    tr
+      th User
+      th I want to upload music
+      th I am looking for a publisher
+      th Register me as a publisher
+      th I have a publisher
+      th I want to sell goods
+      th I want to sell services
+      th I want to collaborate
+      th I want to receive money directly
+      th I want to manage users and catalogs
+      th Dont ask me again
+      th Configured
+      th
+      th
+      th
+
+  tbody
+    - @user_configurations.each do |user_configuration|
+      tr
+        td = user_configuration.user
+        td = user_configuration.i_want_to_upload_music
+        td = user_configuration.i_am_looking_for_a_publisher
+        td = user_configuration.register_me_as_a_publisher
+        td = user_configuration.i_have_a_publisher
+        td = user_configuration.i_want_to_sell_goods
+        td = user_configuration.i_want_to_sell_services
+        td = user_configuration.i_want_to_collaborate
+        td = user_configuration.i_want_to_receive_money_directly
+        td = user_configuration.i_want_to_manage_users_and_catalogs
+        td = user_configuration.dont_ask_me_again
+        td = user_configuration.configured
+        td = link_to 'Show', user_configuration
+        td = link_to 'Edit', edit_user_configuration_path(user_configuration)
+        td = link_to 'Destroy', user_configuration, data: {:confirm => 'Are you sure?'}, :method => :delete
+
+br
+
+= link_to 'New User configuration', new_user_configuration_path

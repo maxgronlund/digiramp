@@ -56,7 +56,7 @@ class User::PublishingAgreementsController < ApplicationController
   # PATCH/PUT /publishing_agreements/1
   # PATCH/PUT /publishing_agreements/1.json
   def update
-    ap params
+    
     @publisher              = Publisher.cached_find(params[:publisher_id])
     @publishing_agreement   = PublishingAgreement.cached_find(params[:id])
     @document               = Document.cached_find(params[:document][:uuid])

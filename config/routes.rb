@@ -740,7 +740,6 @@ Digiramp::Application.routes.draw do
           resources :recordings
         end
         resources :music_submissions do
-          
           resources :comments
         end
       end
@@ -756,9 +755,9 @@ Digiramp::Application.routes.draw do
     
     #resources :common_work_lyrics
     resources :users do
-
-      resources :withdraw, only:[:index]
+      
       resources :accounts, only: [:index]
+      resources :add_contacts_by_emails, only: [:create]
       #resources :deleted_messages, only: [:index, :update, :destroy]
       resources :digital_signatures
       resources :downloads, only: [:index]
@@ -780,26 +779,7 @@ Digiramp::Application.routes.draw do
       #get "shop"         => "shop#index",     :as => :user_user_shop_index
       #resources :shop, only: [:index]
       resources :create_shop, only: [:index] 
-      resources :shop_admin, only: [:index] 
-      resources :select_product_type, only: [:index] 
-      resources :special_offer, only: [:index] 
-      resources :publishers do
-        resources :publishing_agreements do
-          resources :publishing_agreement_users
-        end
-        
-        resources :publishing_templates
-        
-      end
-      
-      
-      
-      resources :publisher_legal_infos, only: [:edit] 
-      resources :product_admin, only: [:edit, :new, :create, :new]   
-      resources :invoices, only: [:index, :show]
-          resources :purchases, only: [:index, :show]
       resources :coupon_batches, only: [:show]
-      
       resources :accept_recording_ipis
       resources :authorization_providers
       resources :auto_fill_ipis, only: [:update]
@@ -809,7 +789,9 @@ Digiramp::Application.routes.draw do
         resources :common_work_contracts
         resources :confirm_work_rights, only: [:index]
         resources :creative_rights
-        resources :ipis
+        resources :ipis do
+          resources :ipi_publishers
+        end
         resources :accept_ipis, only: [:update]
         resources :request_ipi_confirmations
         #resources :please_clear_rights, only: [:index]
@@ -864,10 +846,6 @@ Digiramp::Application.routes.draw do
         get  'add_contacts_by_emails'
         post 'submit_contacts_by_emails'
       end
-      
-      resources :add_contacts_by_emails, only: [:create]
-
-      
       resources :catalogs, only: [:index]
       resources :collections, only: [:index]
       resources :connections, only: [:index, :create, :update, :destroy, :show]
@@ -878,7 +856,6 @@ Digiramp::Application.routes.draw do
         get 'add_all'
         get 'add_selected'
         resources :add_contacts 
-          
       end
       resources :control_panel, only: [:index]
       resources :from_linkedin
@@ -894,20 +871,17 @@ Digiramp::Application.routes.draw do
         resources :legal_document_users
       end
       resources :legal_informations, only: [:edit, :update, :index]
-      
       get "legal"        => "legal#index",      :as => :legal_index
       resources :mail_subscribtions, only: [:index, :show, :destroy, :create]
       resources :new_opportunities, only: [:index, :show, :destroy]
       resources :opportunities_for_reviews, only: [:index, :show]
       resources :opportunities, only: [:index, :show, :destroy] do
-      
         resources :music_requests do
           resources :request_recordings
           resources :music_submissions do
             resources :music_submission_selections, only: [:create, :destroy]
           end
         end
-        
       end
       resources :opportunity_selections
       resources :order_items
@@ -922,7 +896,20 @@ Digiramp::Application.routes.draw do
         resources :stakes
       end
       resources :private_opportunities, only: [:index]
-      resources :stakes, only: [:update]
+      resources :shop_admin, only: [:index] 
+      resources :select_product_type, only: [:index] 
+      resources :special_offer, only: [:index] 
+      resources :publishers do
+        resources :publishing_agreements do
+          resources :publishing_agreement_users
+        end
+        resources :publishing_templates
+      end
+      resources :publisher_legal_infos, only: [:edit] 
+      resources :product_admin, only: [:edit, :new, :create, :new]   
+      resources :invoices, only: [:index, :show]
+      resources :purchases, only: [:index, :show]
+      
       resources :recording_transfers
       resources :recording_credits
       resources :recordings do
@@ -945,22 +932,21 @@ Digiramp::Application.routes.draw do
       resources :removed_opportunities, only: [:index, :show, :destroy]
       resources :selected_opportunities, only: [:index, :show, :destroy]
       resources :select_templates
+      resources :stakes, only: [:update]
+      resources :user_configurations
       resources :user_emails
       resources :user_positions, only: [:index]
-      resources :user_ipis, only: [:index]
+      resources :user_ipis
+      resources :withdraw, only:[:index]
+      #resources :user_ipis, only: [:index]
 
     end
+    # end of user/user namespace
     resources :user_addresses
   end
   
   resources :users do
-    #get "shop"         => "user/shop#index",     :as => :user_shop_index
-    # hui v. 2
-    #member do
-    #  get :following, :followers
-    #end
-    #resources :connections, only: [:index, :create, :update, :destroy]
-    #resources :contacts
+    
     get "shop"         => "shop#index",     :as => :user_shop_index
     resources :shop, only: [:index]
     resources :products, only: [:show]

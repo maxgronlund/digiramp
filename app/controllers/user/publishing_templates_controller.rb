@@ -18,6 +18,7 @@ class User::PublishingTemplatesController < ApplicationController
                                 template_id: @template.id,
                                 tag: @template.tag)
     else
+      @template = nil
       @document = Document.new
     end                         
     @account = @user.account  
@@ -25,17 +26,14 @@ class User::PublishingTemplatesController < ApplicationController
   end
 
   def create
-    @document = Document.new(document_params)
+    @document   = Document.new(document_params)
     @document.uuid = UUIDTools::UUID.timestamp_create().to_s
-
-    
-    template_id = params[:document][:template_id]
-    params[:document][:template_id] = nil
 
     
     @document.save!
 
-    if template_id 
+    if template_id = params[:document][:template_id] 
+      params[:document][:template_id] = nil
       if template = Document.find_by(id: template_id)
         
         template.digital_signatures.each do |digital_signature|

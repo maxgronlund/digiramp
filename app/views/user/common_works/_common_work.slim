@@ -4,9 +4,11 @@
       table class="table table-hover"
         thead
           tr
-            th Legal name
+            th
+            th Legal name/ Email
             th Capacity
             th Publisher('s)
+            
             th 
 
         tbody
@@ -27,8 +29,9 @@
                 => link_to edit_user_user_common_work_ipi_path(@user, @common_work, ipi) do
                   .btn.btn-default.btn-xs
                     i.fa.fa-pencil
-
-                = ipi.full_name
+              td
+                = ipi.get_full_name
+                br = ipi.email
               td
                 /'&nbsp;
                 - if ipi.music
@@ -45,7 +48,12 @@
               
               td 
                 - ipi.publishing_agreements.each do |publishing_agreement|
-                  = publishing_agreement.publisher.legal_name
+                  - if publisher = publishing_agreement.publisher
+                    = publisher.legal_name
+                    
+                  - if document = publishing_agreement.document
+                    .label.label-default
+                      = document.status
                   br
 
 

@@ -62,7 +62,10 @@ module AddressMix
   def zip_code()          address.zip_code end
   def state()             address.state end
   def country()           address.country end
-    
+  
+  def full_name
+    [address.first_name, address.middle_name, address.last_name].join(' ')
+  end 
 
   def copy_address_to destination
 

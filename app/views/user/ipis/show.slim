@@ -12,13 +12,13 @@
   #page-content-wrapper
     .container-fluid
       == render 'shared/breadcrumbs', breadcrumbs: { links: { 'Dashboard'.to_sym => user_user_control_panel_index_path(@user),
-                                                              'ipis'.to_sym => user_user_ipis_path(@user) }, current: ''}
+                                                              'common work'.to_sym => user_user_common_work_path(@user, @common_work) }}
       .row
         .col-sm-6
           .help
             .help-text
-              h2 Interested party
-              b = @common_work.title
+              h2 = @ipi.get_full_name
+              h4 = @common_work.title
             .help-button
               == render 'admin/helps/help', identifier: 'user Creative role in Commonwork'
         .col-sm-6
@@ -27,9 +27,40 @@
               .btn.btn-default
                 i.fa.fa-chevron-left
                 '&nbsp;Back
+             
       .sexy_line
       .digi-box
-        h4 Publishing agreements
+        .row
+          .col-sm-6
+            h5 Capacities
+        
+            /'&nbsp;
+            - if @ipi.music
+              'Music
+              br
+            - if @ipi.lyric
+              'Lyric
+              br
+            - if @ipi.melody
+              'Melody
+              br
+            - if @ipi.arrangement
+              'Arrangement
+          .col-sm-6
+            - if user = @ipi.user
+              = user.email
+                
+      .digi-box
+        .row
+          .col-sm-6
+            h4 Publishing agreements
+          .col-sm-6
+            .pull-right
+              - if @user.id == @ipi.user_id
+                = link_to 'Add agreement', 
+                  new_user_user_common_work_ipi_ipi_publisher_path(@user, 
+                                                                  @common_work, 
+                                                                  @ipi), class: 'btn btn-default'
         .table-responsive
           table class="table table-hover"
             thead
@@ -37,6 +68,7 @@
                 th Title
                 th Date
                 th Document
+                th Status
             tbody
               - @ipi.publishing_agreements.each do |publishing_agreement|
                 tr
@@ -45,6 +77,9 @@
                   td 
                     - if document = publishing_agreement.document
                       = link_to document.title, '#', class: 'btn btn-default btn-xs'
+                  td
+                    .label.label-default
+                      = @ipi.status
           
           
           

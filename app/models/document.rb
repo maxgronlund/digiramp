@@ -16,13 +16,14 @@ class Document < ActiveRecord::Base
   TYPES = ['File', 'Financial', 'Legal', 'Template']
 
   
-  scope :files,           ->  { where( document_type: 'File')  }
-  scope :financial,       ->  { where( document_type: 'Financial')  }
-  scope :templates,       ->  { where( document_type: 'Template')  }
-  scope :legal,           ->  { where( document_type: 'Legal')  }
-  scope :csv,             ->  { where( document_type: 'Csv')  }
+  scope :files,                   ->  { where( document_type: 'File')  }
+  scope :financial,               ->  { where( document_type: 'Financial')  }
+  scope :templates,               ->  { where( document_type: 'Template')  }
+  scope :legal,                   ->  { where( document_type: 'Legal')  }
+  scope :csv,                     ->  { where( document_type: 'Csv')  }
+  scope :publishing_agreements,   ->  { where( document_type: 'Publishing agreement')  }
   
-  enum status: [ :draft, :execution_copy, :executed ]
+  enum status: [ :draft, :execution_copy, :executed, :deleted ]
   
 
   after_commit :flush_cache

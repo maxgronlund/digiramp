@@ -42,17 +42,17 @@
               
  
               = f.input :email
-              b* Publishing agreements
-              /= f.collection_select :publishing_agreement_ids, @publishing_agreements, :id, :title, {}, {multiple: true} 
-              .chosen-label
-                = f.input :publishing_agreement_ids, 
-                          collection: @publishing_agreements,
-                          include_blank: false,
-                          label: false,
-                          multiple: true,
-                          input_html: { class: 'chosen-select', 'data-placeholder'.to_sym => "Select recording..." }
-              
-           
+              /b* Publishing agreements
+              //= f.collection_select :publishing_agreement_ids, @publishing_agreements, :id, :title, {}, {multiple: true} 
+              /.chosen-label
+              /  = f.input :publishing_agreement_ids, 
+              /            collection: @publishing_agreements,
+              /            include_blank: false,
+              /            label: false,
+              /            multiple: true,
+              /            input_html: { class: 'chosen-select', 'data-placeholder'.to_sym => "Select recording..." }
+              /
+              /
             .col-sm-6
               b Roles
               br

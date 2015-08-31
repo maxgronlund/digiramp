@@ -1,0 +1,115 @@
+/ this view is rendered when the user and current_user and ipi is valid
+/= debug @user_credits
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'settings' 
+  
+  
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'users/shared/sidebar', selected: 'settings'
+  
+  #page-content-wrapper
+    .container-fluid
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { 'Dashboard'.to_sym => user_user_control_panel_index_path(@user),
+                                                              'ipis'.to_sym => user_user_ipis_path(@user) }, current: ''}
+      .row
+        .col-sm-6
+          .help
+            .help-text
+              h2 Publishing agreements
+              b = @common_work.title
+            .help-button
+              == render 'admin/helps/help', identifier: 'select publishing agreement for a work'
+        .col-sm-6
+          .pull-right.pull-down-10
+            = link_to user_user_common_work_ipi_path(@user, @common_work, @ipi ) do
+              .btn.btn-default
+                i.fa.fa-chevron-left
+                '&nbsp;Back
+            /= link_to 'Add publisher', new_user_user_common_work_ipi_ipi_publisher_path(@user, @common_work, @ipi), class: 'btn btn-default'
+      .sexy_line
+
+      - @documents.each do |document|
+        .digi-box
+          .row
+            .col-sm-6
+              
+              
+              h4 = document.title
+              = document.body
+            .col-sm-6
+              .row
+                .col-sm-12
+                  .pull-right
+                    - if @ipi.publishing_agreement(document.uuid)
+                      .btn.btn-default disabled='disabled'
+                        'Applied
+                    - else
+                      = link_to 'Apply', new_user_user_common_work_ipi_ipi_publisher_path( @user, 
+                                                                                           @common_work, 
+                                                                                           @ipi, 
+                                                                                           document_id: document.uuid ), 
+                                              #data: { confirm: "Are you sure? You will not be able to remove the publishing agreement without permission from the publisher" },
+                                              class: 'btn btn-default'
+                    
+
+              .row
+                .col-sm-12    
+                  table
+                    tr
+                      td
+                        .pull-right
+                          'Publisher:&nbsp;
+                      th
+                        - if publisher_agreement = PublishingAgreement.find_by(document_id: document.uuid)
+                          - if publisher = publisher_agreement.publisher
+                            = publisher.legal_name
+                    tr
+                      td 
+                        .pull-right
+                          'UUID:&nbsp;
+                      th  = document.uuid
+                    tr
+                      td 
+                        .pull-right
+                          'Status:&nbsp;
+                      th  = document.status.capitalize
+                    /tr
+                    /  th 
+                    /    .pull-right
+                    /      'Type:&nbsp;
+                    /  td  = document.document_type
+                  
+                
+          .sexy_line
+          .table-responsive
+            table class="table table-hover"
+              thead
+                tr
+                  th Parties
+                  th Email
+                  th Role
+                  th Can edit
+                  th Should sign
+                  th Status
+              tbody
+                - document.document_users.each do |document_user|
+                  tr
+                    td 
+                      /=> link_to '#' do
+                      /  .btn.btn-danger.btn-xs
+                      /    i.fa.fa-times
+                      /= link_to 'Edit', edit_user_user_publisher_publishing_agreement_publishing_agreement_user_path(@user, 
+                      /                            @publisher, 
+                      /                            @publishing_agreement, 
+                      /                            document_user), class: 'btn btn-default btn-xs'
+                      /
+                      - if user = document_user.user                          
+                        =< user.user_name
+                
+                    td  = document_user.email
+                    td  = document_user.role
+                    td  = document_user.can_edit
+                    td  = document_user.should_sign
+                    td  = document_user.status?

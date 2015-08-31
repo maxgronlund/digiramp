@@ -10,7 +10,7 @@
   
   #page-content-wrapper
     .container-fluid
-      == render 'shared/breadcrumbs', breadcrumbs: { links: { 'Dashboard'.to_sym => user_user_control_panel_index_path(@user)}, current: ''}
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { 'Dashboard'.to_sym => user_user_control_panel_index_path(@user)}}
       
       
       
@@ -18,10 +18,10 @@
         .col-sm-6
           .help
             .help-text
-              h2 Creative role and credits in common works
-              
+              h2 IP's
             .help-button
               == render 'admin/helps/help', identifier: 'common work credits'
+   
         .col-sm-6
           .pull-right.pull-down-10
             = link_to user_user_control_panel_index_path(@user ) do
@@ -29,12 +29,36 @@
                 i.fa.fa-chevron-left
                 '&nbsp;Back
       
-      .sexy_line
+      = render 'user/shared/legal_navigation'
       .digi-box
-        /= debug @user_credits
-        - @user_credits.each do |user_credit|
-          == render "user/ipis/#{user_credit.ipiable_type.underscore}", user_credit: user_credit
-          .sexy_line
+        .table-responsive
+          table class="table table-hover"
+            thead
+              tr
+                th
+                th Status
+                th IPI Code
+                th Work
+                th PRO
+                th
+            tbody
+              - @ipis.each do |ipi|
+                tr
+                  td = link_to user_user_user_ipi_path(@user, ipi) do
+                        .btn.btn-default.btn-xs
+                          i.fa.fa-eye&nbsp;Show
+                  td
+                    .label.label-default
+                        = ipi.status
+                  td 
+                    - if ipi.ipi_code
+                      = ipi.ipi_code
+                    - else
+                      .label.label-danger
+                        'Missing
+                  td = ipi.work_title
+                /== render "user/ipis/#{user_credit.ipiable_type.underscore}", user_credit: user_credit
+                /.sexy_line
         
             
         

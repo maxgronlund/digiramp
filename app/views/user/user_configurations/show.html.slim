@@ -1,0 +1,42 @@
+p#notice = notice
+
+p
+  strong User:
+  = @user_configuration.user
+p
+  strong I want to upload music:
+  = @user_configuration.i_want_to_upload_music
+p
+  strong I am looking for a publisher:
+  = @user_configuration.i_am_looking_for_a_publisher
+p
+  strong Register me as a publisher:
+  = @user_configuration.register_me_as_a_publisher
+p
+  strong I have a publisher:
+  = @user_configuration.i_have_a_publisher
+p
+  strong I want to sell goods:
+  = @user_configuration.i_want_to_sell_goods
+p
+  strong I want to sell services:
+  = @user_configuration.i_want_to_sell_services
+p
+  strong I want to collaborate:
+  = @user_configuration.i_want_to_collaborate
+p
+  strong I want to receive money directly:
+  = @user_configuration.i_want_to_receive_money_directly
+p
+  strong I want to manage users and catalogs:
+  = @user_configuration.i_want_to_manage_users_and_catalogs
+p
+  strong Dont ask me again:
+  = @user_configuration.dont_ask_me_again
+p
+  strong Configured:
+  = @user_configuration.configured
+
+= link_to 'Edit', edit_user_configuration_path(@user_configuration)
+'|
+= link_to 'Back', user_configurations_path

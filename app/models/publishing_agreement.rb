@@ -17,14 +17,15 @@ class PublishingAgreement < ActiveRecord::Base
   end
   
   def document
-    if document = Document.find_by(uuid: self.document_id)
+    if document = Document.cached_find(self.document_id)
+      document.update(document_type: 'Publishing agreement')
       return document
     else
       document = Document.create( title: 'Publishing agreement',
                                   body: 'Publishing agreement',
                                   text_content: 'Publishing agreement',
                                   account_id: self.publisher.account_id,
-                                  document_type: 'Legal',
+                                  document_type: 'Publishing agreement',
                                   uuid: UUIDTools::UUID.timestamp_create().to_s
                                  )
       self.update(document_id: document.uuid)
@@ -54,6 +55,7 @@ class PublishingAgreement < ActiveRecord::Base
   def act_as_deleted
     
   end
+  
 
   private 
 

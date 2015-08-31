@@ -32,7 +32,7 @@
       .digi-box
         = simple_form_for [ @user, @publisher, @document ] , :url => url_for(:action => 'create', :controller => 'publishing_templates'), turboboost: true, :method => 'POST' do |f|
           div style="max-width: 840px"
-            = f.hidden_field :template_id, value: @template.id
+            = f.hidden_field :template_id, value: @template.id if @template
             = f.hidden_field :account_id, value: @account.id
             = f.hidden_field :document_type, value: 'Legal'
             /= f.input :tag, collection: @legal_tags, include_blank: false, value_method: :title
