@@ -874,7 +874,7 @@ class User < ActiveRecord::Base
   end
   
   def has_access_to_cattalogs_on account
-    CatalogUser.find_by(catalog_id: account.catalog_ids, user_id: self.id).first
+    CatalogUser.find_by(catalog_id: account.catalog_ids, user_id: self.id)
   end
   
   def self.cached_find(id)
