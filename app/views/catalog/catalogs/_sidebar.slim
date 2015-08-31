@@ -6,7 +6,7 @@ li
       
     .user-avatar
       = image_tag @catalog.image_url(:image_184x184)
-- if current_catalog_user.read_recording 
+- if current_catalog_user.read_recording || current_catalog_user.download_recording
   .link-to-recordings
     == render 'catalog/catalogs/link_to_recordings', account: @account, catalog: @catalog, selected: selected
 

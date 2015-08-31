@@ -46,8 +46,13 @@
 
         div id="remove_recording_#{recording.id.to_s}"
           #digiWhams  class="/recordings/#{recording.id.to_s}"
-            == render 'show', recording: recording, 
-                              download_recording: current_catalog_user.download_recording
+            /== render 'show', recording: recording, 
+            /                  download_recording: current_catalog_user.download_recording
+            div id="delete_recording_#{recording.id.to_s}"
+              == render 'recording', recording: recording,
+                                     edit: current_catalog_user.update_recording, 
+                                     remove_from_catalog: current_catalog_user.delete_recording,
+                                     download_recording: current_catalog_user.download_recording
          
              
       .hidden-xs

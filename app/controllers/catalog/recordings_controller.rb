@@ -8,8 +8,8 @@ class Catalog::RecordingsController < ApplicationController
   #before_action :read_recording, only:[:show]
   
   def index
-    
-    if @catalog_user = CatalogUser.where(catalog_id: @catalog.id, user_id: current_user.id).first
+    forbidden unless current_catalog_user.read_recording || current_catalog_user.download_recording
+    #if @catalog_user = CatalogUser.where(catalog_id: @catalog.id, user_id: current_user.id).first
       @recordings   = Recording.not_in_bucket.catalogs_search( @catalog.recordings , params[:query]).order('title asc').page(params[:page]).per(24)
       @widget       = @catalog.default_widget  
       @playlists    = current_user.playlists
@@ -21,9 +21,9 @@ class Catalog::RecordingsController < ApplicationController
       #@query_string += '&catalog='                  + @catalog.uuid 
       #@query_string += '&catalog_user='             + @catalog_user.uuid   
       #@query_string += '&query=' + params[:query].to_s if params[:query]
-    else
-      forbidden
-    end
+      #else
+      #forbidden
+      #end
   end
   
   def info
