@@ -21,6 +21,8 @@ class Catalog::RecordingsController < ApplicationController
       #@query_string += '&catalog='                  + @catalog.uuid 
       #@query_string += '&catalog_user='             + @catalog_user.uuid   
       #@query_string += '&query=' + params[:query].to_s if params[:query]
+    else
+      forbidden
     end
   end
   
