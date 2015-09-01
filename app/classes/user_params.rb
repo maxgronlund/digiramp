@@ -43,6 +43,7 @@ class UserParams
                     :zip_code,                   
                     :phone_number,
                     :default_cms_page_id,
+                    :page_style_id,
                     address_attributes: [  :first_name,
                                            :middle_name,
                                            :last_name,
@@ -121,7 +122,8 @@ class UserParams
                       :super_catalog_user_id,
                       :password, 
                       :password_confirmation,
-                      :super_account_user_id
+                      :super_account_user_id,
+                      :page_style_id
                     ]
   
   

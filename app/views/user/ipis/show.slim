@@ -31,7 +31,7 @@
       .sexy_line
       .digi-box
         .row
-          .col-sm-6
+          .col-sm-4
             h5 Capacities
         
             /'&nbsp;
@@ -46,9 +46,26 @@
               br
             - if @ipi.arrangement
               'Arrangement
-          .col-sm-6
+          .col-sm-4
             - if user = @ipi.user
               = user.email
+          .col-sm-4
+            .pull-right
+              .ipi-status-label
+              == render 'status_label', ipi: @ipi
+
+            
+              
+              .ipi-confirmation-button
+                - if @ipi.status == 'pending'
+                  =< link_to 'Confirm', user_user_common_work_ipi_confirmation_path(\
+                                      @user, 
+                                      @common_work, 
+                                      @ipi),
+                                      :method => :put, 
+                                      data: { confirm: 'Are you sure? You are about to accept the terms in the agreement' } , 
+                                      remote: true,
+                                      class: 'btn btn-default btn'
                 
       .digi-box
         .row
@@ -68,7 +85,10 @@
                 th Title
                 th Date
                 th Document
-                th Status
+                th 
+                  .pull-right
+                    'Status
+                th
             tbody
               - @ipi.publishing_agreements.each do |publishing_agreement|
                 tr
@@ -77,10 +97,20 @@
                   td 
                     - if document = publishing_agreement.document
                       = link_to document.title, '#', class: 'btn btn-default btn-xs'
+                  td 
                   td
-                    .label.label-default
-                      = @ipi.status
-          
+                    - case document.status
+                    - when 'draft'
+                      .label.label-default
+                        'Draft
+                    - when 'executed'
+                      .label.label-success
+                        'Executed
+                    - else
+                      .label.label-default
+                        = document.status.to_s.capitalized
+                      
+                      
           
           
       /.digi-box.ipi-confirmations

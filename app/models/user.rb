@@ -73,9 +73,10 @@ class User < ActiveRecord::Base
   has_many :digital_signatures 
   has_many :recording_downloads, dependent: :destroy
   has_many :selected_opportunities
-  has_many :client_invitation
+  has_many :client_invitations
   has_many :subscriptions
   has_many :recording_ipis
+  has_many :client_invitation
   
 
   serialize :crop_params, Hash
@@ -205,6 +206,24 @@ class User < ActiveRecord::Base
   
   has_many :document_users
   has_many :documents, through: :document_users
+  
+  def next_up?
+    self.user_configuration.next_up?
+  end
+  
+  def has_no_recordings_on_playlist?
+    self.playlists.each do |playlist|
+      return false if playlist.recordings.count > 0
+    end
+  end
+  
+  def has_no_cleared_recording?
+    self.recordings.each do |recording|
+      return false if recording.is_cleared?
+    end
+    
+    return true
+  end
   
   def get_documents
     documents.where(status: [0, 1, 2])
@@ -369,10 +388,10 @@ class User < ActiveRecord::Base
       received_messages.update_all(recipient_removed: true)
     end
     
-    client_ids          = Client.where(member_id: self.id).pluck(:id)
-    if client_invitations  = ClientInvitation.where(client_id: client_ids)
-      client_invitations.destroy_all
-    end
+    #client_ids          = Client.where(member_id: self.id).pluck(:id)
+    #if client_invitations  = ClientInvitation.where(client_id: client_ids)
+    #  client_invitations.destroy_all
+    #end
     
     if clients             = Client.where(member_id: self.id)    
       clients.update_all(member_id: nil)

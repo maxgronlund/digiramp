@@ -1,0 +1,8 @@
+$(".old-ipi-status-label").remove()
+$(".ipi-status-label").append("<%= j render 'user/ipis/status_label', ipi: @ipi %>");
+//td
+//  .ipi-status-label
+//    .label.label-default
+//      = @ipi.status
+//td
+//  .ipi-confirmation-button

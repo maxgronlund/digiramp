@@ -23,7 +23,7 @@ class Document < ActiveRecord::Base
   scope :csv,                     ->  { where( document_type: 'Csv')  }
   scope :publishing_agreements,   ->  { where( document_type: 'Publishing agreement')  }
   
-  enum status: [ :draft, :execution_copy, :executed, :deleted ]
+  enum status: [ :draft, :execution_copy, :executed, :deleted, :archived, :expired ]
   
 
   after_commit :flush_cache

@@ -33,7 +33,7 @@
         .col-sm-6
           .digi-box
             = simple_form_for  [ :catalog, @account, @catalog, @common_work_import ], turboboost: true, url: url_for(action: 'ascap_import', controller: 'common_works_imports'), method: 'post' do |f|
-              = f.input :user_name, autofocus: true
+              = f.input :user_name, label: 'Display name' ,hint: 'This name will be displayed on the profile.', autofocus: true
               = f.input :password
              
               .row

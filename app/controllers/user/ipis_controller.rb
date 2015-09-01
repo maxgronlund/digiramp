@@ -24,9 +24,9 @@ class User::IpisController < ApplicationController
   def create
    
     @common_work = CommonWork.cached_find(params[:common_work_id])
-    params[:ipi][:uuid]  = UUIDTools::UUID.timestamp_create().to_s
-    params[:ipi][:email] = EmailSanitizer.saintize( params[:ipi][:email] )
-
+    params[:ipi][:uuid]   = UUIDTools::UUID.timestamp_create().to_s
+    params[:ipi][:email]  = EmailSanitizer.saintize( params[:ipi][:email] )
+    params[:ipi][:status] = 0
     @ipi = Ipi.new(ipi_params)
     
     respond_to do |format|
@@ -67,19 +67,19 @@ class User::IpisController < ApplicationController
     
     if @ipi.update(ipi_params)
       @ipi.attach_to_user
-      redirect_to user_user_common_work_path(@user, @common_work)
-      
-      
-      #if params[:commit] == 'Save and send message'
-      #  @ipi.send_confirmation_request 
-      #  redirect_to new_user_user_common_work_ipi_path(@user, @common_work)
+
+      if params[:commit] == 'Save and send message'
+        @ipi.send_confirmation_request 
+        redirect_to user_user_common_work_path(@user, @common_work)
+        #redirect_to new_user_user_common_work_ipi_path(@user, @common_work)
       #elsif params[:commit] == "Update"
-      #  redirect_to session[:go_to_after_update_ipi]
-      #elsif params[:commit] == "Save"
-      #  redirect_to new_user_user_common_work_ipi_path(@user, @common_work)
-      #elsif params[:commit] == "Send"
-      #  @ipi.send_confirmation_request 
-      #end
+      #  #redirect_to session[:go_to_after_update_ipi]
+      elsif params[:commit] == "Save"
+        redirect_to user_user_common_work_path(@user, @common_work)
+        #redirect_to new_user_user_common_work_ipi_path(@user, @common_work)
+      elsif params[:commit] == "Send"
+        @ipi.send_confirmation_request 
+      end
       
        
     else

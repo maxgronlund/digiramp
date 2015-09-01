@@ -72,6 +72,14 @@ class CommonWork < ActiveRecord::Base
   #def registration
   #  self.work_registrations.first
   #end
+  
+  def is_cleared?
+    return false if ipis.count == 0
+    self.ipis.each do |ipi|
+      return false unless ipi.accepted?
+    end
+    true
+  end
 
   def clear_rights
     

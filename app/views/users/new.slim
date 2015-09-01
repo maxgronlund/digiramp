@@ -10,14 +10,14 @@
         .digi-box
           ==render 'admin/shared/messages'
           /h2  = ab_test :signup_title, "Sign Up", "Sign Up for FREE", "Sign up in seconds..." 
-          h2 'Sign up
+          h2 Sign up
           = simple_form_for [@user] do |f|
             - unless f.error_notification.blank?
               .alert.alert-danger
                 = f.error_notification
     
             .form-inputs
-              = f.input :user_name, autofocus: true
+              = f.input :user_name, label: 'Diaplay name',  hint: 'This name will be displayed on the profile.', autofocus: true
               = f.input :email
               = f.input :password
               = f.input :password_confirmation

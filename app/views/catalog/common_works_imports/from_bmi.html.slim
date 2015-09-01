@@ -23,7 +23,7 @@
                 'IMPORT FROM BMI
               .panel-body
                 = simple_form_for  [ :catalog, @account, @catalog, @common_work_import ], url: url_for(action: 'bmi_import', controller: 'common_works_imports'), method: 'post' do |f|
-                  = f.input :user_name, autofocus: true
+                  = f.input :user_name, label: 'Display name', hint: 'This name will be displayed on the profile.', autofocus: true
                   = f.input :password
                  
                   

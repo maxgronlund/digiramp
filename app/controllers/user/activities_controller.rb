@@ -2,7 +2,7 @@ class User::ActivitiesController < ApplicationController
   before_action :access_user
   
   def index
-
+    
     #if @user = User.friendly.find(params[:user_id])
     @wall_posts          = @user.wall_posts.where.not(user_id: @user.id).order('created_at desc').page(params[:page]).per(4)
     @playlists           = current_user.playlists

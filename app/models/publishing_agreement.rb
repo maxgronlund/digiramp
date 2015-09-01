@@ -5,6 +5,8 @@ class PublishingAgreement < ActiveRecord::Base
   has_many :ipi_publishing_agreements
   has_many :ipis, through: :ipi_publishing_agreements
   
+  
+  
   #validates :email , presence: true
   #validates_formatting_of :email, :using => :email
   

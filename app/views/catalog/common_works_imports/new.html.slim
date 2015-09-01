@@ -42,8 +42,7 @@
               = f.hidden_field :user_email, value: current_user.email
               = f.hidden_field :in_progress, value: true
               = f.input :pro, collection: CommonWorksImport::PROS, include_blank: false, label: 'Performance Rights Organization'
-              /= f.input :user_name
-              /= f.input :password
+
               = f.input :title
               b Description
               br

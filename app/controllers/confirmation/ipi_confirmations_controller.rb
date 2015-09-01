@@ -6,22 +6,24 @@ class Confirmation::IpiConfirmationsController < ApplicationController
   
     return not_found unless @ipi    = Ipi.find_by(uuid: params[:id])
     return not_found unless @user   = User.get_by_email( @ipi.email )
-    
-
-    if current_user.id != @user.id
-      #there is a IPI and a user but the user 
-      redirect_to confirmation_wrong_user_path(uuid: params[:id])
-    end
-    
-    
-    
     # validate data integrity
     not_found( params )  unless ( @common_work = @ipi.common_work ) && 
                                 ( account = @common_work.account ) && 
                                 ( @requester = account.user )
+
+    if current_user.id != @user.id
+      #there is a IPI and a user but the user 
+      redirect_to confirmation_wrong_user_path(uuid: params[:id])
+    else
+      redirect_to user_user_ipi_path(@user, @ipi ) 
+    end
     
     
-    redirect_to user_user_ipi_path(@user, @ipi ) 
+    
+    
+    
+    
+    
     
   end
 

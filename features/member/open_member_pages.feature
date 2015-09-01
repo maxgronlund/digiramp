@@ -42,8 +42,8 @@ As an member I can create custom pages and add content to them
    #When I'm on the "User creative rights page"
    #Then I can see "Creative rights"
    
-   When I'm on the "User IPIs & Credits page"
-   Then I can see "Creative role and credits in common works"
+   #When I'm on the "User IPIs & Credits page"
+   #Then I can see "Creative role and credits in common works"
    
    When I'm on the "User positions page"
    Then I can see "Positions"

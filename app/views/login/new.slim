@@ -47,7 +47,8 @@
                     i class= 'fa fa-key'
                   = f.input_field :password, placeholder: 'Password', autocomplete: :off
                 br
-                = f.input :remember_me, as: :boolean, input_html: { value: '1' }
+                = f.input :remember_me, as: :boolean, input_html: { value: '1',class: 'icheck-me acceptance', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue"     }
+
                 .row
                   .col-sm-12
                     .pull-right

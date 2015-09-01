@@ -1,6 +1,6 @@
 class Ipi < ActiveRecord::Base
   #has_paper_trail
-  enum status: [ :pending, :accepted, :dismissed ]
+  enum status: [ :pending, :accepted, :dismissed, :in_progress ]
   
   has_many :activity_events, as: :activity_eventable
   
@@ -36,6 +36,8 @@ class Ipi < ActiveRecord::Base
     end
     return false
   end
+  
+
   
   def is_published?
     return true if self.user && self.user.publishers

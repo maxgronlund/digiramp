@@ -5,6 +5,8 @@ class RecordingIpi < ActiveRecord::Base
   validates :email, :role, :share, presence: true
   validates_formatting_of :email
   
+   enum status: [ :pending, :accepted, :dismissed, :in_progress ]
+  
   ROLES  = [ "Administrator",
              "Owner",
              "Artist",

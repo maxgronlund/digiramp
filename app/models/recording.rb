@@ -134,6 +134,19 @@ class Recording < ActiveRecord::Base
     VOCAL_HASH << [k,k]
   end
   
+  def is_cleared?
+    cleared = false
+    cleared = get_common_work.is_cleared?
+  end
+  
+  def ipis_id_cleared
+    return false if recording_ipis.count == 0
+    recording_ipis.each do |recording_ipi|
+      return false unless recording_ipi.accepted?
+    end
+    true
+  end
+  
   
   def get_common_work
     self.common_work ? self.common_work : self.mount_common_work 

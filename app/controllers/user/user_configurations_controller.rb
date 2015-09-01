@@ -16,7 +16,16 @@ class User::UserConfigurationsController < ApplicationController
   # PATCH/PUT /user_configurations/1
   # PATCH/PUT /user_configurations/1.json
   def update
-    @user_configuration.update(user_configuration_params)
+    
+    if params[:commit] == "Don't ask me again"
+      ap '----------------------------------------'
+      @user_configuration.deactivated!
+    else
+      @user_configuration.activated!
+      @user_configuration.update(user_configuration_params)
+    end
+    
+    
     redirect_to @user
      
   end
@@ -44,4 +53,6 @@ class User::UserConfigurationsController < ApplicationController
                                                   :dont_ask_me_again, 
                                                   :configured)
     end
+    
+    
 end

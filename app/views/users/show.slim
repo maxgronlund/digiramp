@@ -11,8 +11,64 @@
         .container-fluid
           .row
             .col-sm-8
-              /.alert.alert-warning
-              /  h1 fo
+              - if current_user.id == @user.id && @user.user_configuration.show?
+                .alert.alert-warning
+                  = @user.next_up?
+                  .row
+                    - if @user.user_configuration.pending?
+                      .col-sm-8
+                        h3 There is so much you can do
+                      .col-sm-4
+                        .pull-right.pull-down-12
+                          = link_to "Lets start", user_user_user_configurations_path(@user), class: 'btn btn-info', style: "color:#FFF;"
+                    - else
+                      - case @user.next_up?
+                      
+                      - when 'like a recording'
+                        .col-sm-8
+                          h3 
+                            'Like a few recordings&nbsp;
+                            i.fa.fa-thumbs-up 
+                        .col-sm-4
+                          .pull-right.pull-down-12
+                            = link_to "Take me there", songs_path(clear: 'clear'), class: 'btn btn-info', style: "color:#FFF;" 
+                      
+                      - when 'create a playlist'
+                        .col-sm-8
+                          h3 
+                            'Create a playlist&nbsp;
+                            i.fa.fa-plus 
+                        .col-sm-4
+                          .pull-right.pull-down-12
+                            = link_to "Great sugestion", new_user_playlist_path(@user), class: 'btn btn-info', style: "color:#FFF;"
+                      
+                      - when 'add a recording to a playlist'
+                        .col-sm-8
+                          h3 
+                            'Add a recording to a playlist&nbsp;
+                            i.fa.fa-plus 
+                        .col-sm-4
+                          .pull-right.pull-down-12
+                            = link_to "Find a recording", songs_path(clear: 'clear'), class: 'btn btn-info', style: "color:#FFF;"
+                      
+                      - when 'post on facebook'
+                        .col-sm-8
+                          h3 
+                            'Share what you like on Facebook&nbsp;
+                            i.fa.fa-facebook-official 
+                        .col-sm-4
+                          .pull-right.pull-down-12
+                            = link_to "Yes", user_likes_path(@user), class: 'btn btn-info', style: "color:#FFF;"
+                      
+                      - when 'post on twitter'
+                        .col-sm-8
+                          h3 
+                            'Share what you like on Twitter&nbsp;
+                            i.fa.fa-facebook-official 
+                        .col-sm-4
+                          .pull-right.pull-down-12
+                            = link_to "Let me tweet", user_likes_path(@user), class: 'btn btn-info', style: "color:#FFF;"
+                    
               == render 'cms_pages/cms_profile'
               h3 Activities
               == render 'user_activities'

@@ -22,6 +22,7 @@ class ApplicationController < ActionController::Base
 
   
   def current_user
+    #redirect_to root_path
     #User.where(email: 'test06@digiramp.com').first
     begin
       @current_user ||= User.find(cookies.permanent[:user_id]) if cookies.permanent[:user_id]

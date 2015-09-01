@@ -10,12 +10,15 @@
   #page-content-wrapper
     .container-fluid
       .row
-        .col-sm-12
+        .col-sm-8
           .help
             .help-text
               h2 Message center
             .help-button
               == render 'admin/helps/help', identifier: 'user messages'
+        .col-sm-4
+          .pull-right.pull-down-10
+            = link_to 'Mark all as read', new_user_unread_message_path(@user), class: 'btn btn-default'
       .sexy_line
       .messages
       .digi-box

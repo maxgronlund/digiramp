@@ -8,8 +8,9 @@
             th Legal name/ Email
             th Capacity
             th Publisher('s)
-            
             th 
+              .pull-right
+                'Status
 
         tbody
           - @common_work.ipis.each do |ipi|
@@ -46,7 +47,7 @@
                 - if ipi.arrangement
                   'Arrangement
               
-              td 
+              td     
                 - ipi.publishing_agreements.each do |publishing_agreement|
                   - if publisher = publishing_agreement.publisher
                     = publisher.legal_name
@@ -59,6 +60,7 @@
 
               
               td 
+                
                 .pull-right
                   div class="confirmation-button-#{ipi.id.to_s}"
                     == render 'user/ipis/confirmation_button', user: @user, common_work: @common_work, ipi: ipi

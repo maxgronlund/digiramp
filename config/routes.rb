@@ -1,5 +1,7 @@
 Digiramp::Application.routes.draw do
 
+  
+
   #resources :document_users
   get 'landing_page/index'
   
@@ -792,6 +794,7 @@ Digiramp::Application.routes.draw do
         resources :ipis do
           resources :ipi_publishers
         end
+        resources :ipi_confirmations
         resources :accept_ipis, only: [:update]
         resources :request_ipi_confirmations
         #resources :please_clear_rights, only: [:index]
@@ -970,7 +973,7 @@ Digiramp::Application.routes.draw do
     resources :messages
     resources :received_messages, only: [:index]
     resources :replies
-    resources :unread_messages, only: [:index]
+    resources :unread_messages, only: [:index, :new]
     resources :send_messages, only: [:index]
     #resources :recording_basics, only: [:edit, :update]
     #resources :recording_personas, only: [:edit, :update]
