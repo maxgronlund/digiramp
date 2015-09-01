@@ -13,7 +13,8 @@
             .col-sm-8
               - if current_user.id == @user.id && @user.user_configuration.show?
                 .alert.alert-warning
-                  = @user.next_up?
+                  - if Rails.env.development?
+                    = @user.next_up?
                   .row
                     - if @user.user_configuration.pending?
                       .col-sm-8
