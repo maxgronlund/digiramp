@@ -13,7 +13,6 @@ class User::UserConfigurationsController < ApplicationController
     @body_color = "#FFFFFF"
   end
 
-  
   # PATCH/PUT /user_configurations/1
   # PATCH/PUT /user_configurations/1.json
   def update

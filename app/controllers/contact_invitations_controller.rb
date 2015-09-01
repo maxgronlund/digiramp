@@ -185,7 +185,7 @@ private
     
     if params[:client][:user_name].to_s == ''
       full_name = client.full_name
-      full_name = User.create_uniq_user_name_from_email( email )  if full_name == ' '
+      full_name = User.create_uniq_user_name_from_email( email )  if (full_name == ' ' || full_name.blank?)
     else
       full_name = params[:client][:user_name]
     end
@@ -195,8 +195,8 @@ private
                         old_role:               'Customer',
                         provider:               'DigiRAMP',
                         private_profile:        false,
-                        first_name:             client.name,
-                        last_name:              client.last_name,
+                        #first_name:             client.name,
+                        #last_name:              client.last_name,
                         profession:             client.capacity,
                         email:                  email,
                         password:               params[:client][:password],
@@ -207,47 +207,58 @@ private
                         uuid:                   UUIDTools::UUID.timestamp_create().to_s,
                         composer:               client.capacity == 'Composer',
                         invited:                true,
-                        city:                   client.city_work,
-                        country:                client.country_work
+                        #city:                   client.city_work,
+                        #country:                client.country_work
                       )
     
 
-    if @user.save
-      DefaultAvararJob.perform_later @user.id
-      @account                        = User.create_a_new_account_for_the @user
-      @account.title                  = client.company if client.company.to_s != ''
-      @account.account_type           = 'Social'
-      @account.contact_first_name     = @user.first_name
-      @account.contact_last_name      = @user.last_name
+    begin
+      if @user.save!
+        DefaultAvararJob.perform_later @user.id
+        @account                        = User.create_a_new_account_for_the @user
+        @account.title                  = client.company if client.company.to_s != ''
+        @account.account_type           = 'Social'
+        @account.contact_first_name     = @user.first_name
+        @account.contact_last_name      = @user.last_name
+        
+        @user.address.city              = client.city_work
+        @user.address.country           = client.country_work
+        @user.address.first_name        = client.name
+        @user.address.last_name         = client.last_name
+        @user.address.save!
+        
+
+        
+        # update client
+        #client.is_member = true
+        client.member_id = @user.id
+        client.save!
+        
+        @user.authenticate(@user.password)
+        cookies[:auth_token]        = @user.auth_token
+        cookies.permanent[:user_id] = @user.id
       
-      
-      # update client
-      #client.is_member = true
-      client.member_id = @user.id
-      client.save!
-      
-      @user.authenticate(@user.password)
-      cookies[:auth_token]        = @user.auth_token
-      cookies.permanent[:user_id] = @user.id
-  
-      @user.create_activity(  :signed_in, 
-                         owner: @user,
-                     recipient: @user,
-                recipient_type: @user.class.name,
-                    account_id: @user.account.id) 
-      
-      
-      session[:show_profile_completeness] = false
-      
-      if client.user
-        if connect_with_user( client.user, @user ) 
-          return 'Success'
-        else
-          return 'Error: no user created'
+        @user.create_activity(  :signed_in, 
+                           owner: @user,
+                       recipient: @user,
+                  recipient_type: @user.class.name,
+                      account_id: @user.account.id) 
+        
+        
+        session[:show_profile_completeness] = false
+        
+        if client.user
+          if connect_with_user( client.user, @user ) 
+            return 'Success'
+          else
+            return 'Error: unable to connect'
+          end
         end
       end
+      return 'Error: no user created from invitation'
+    rescue => e
+      return "Error: #{e.inspect}"
     end
-    return 'Error: no user created'
     
   end
   
