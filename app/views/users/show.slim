@@ -11,7 +11,8 @@
         .container-fluid
           .row
             .col-sm-8
-              - if current_user.id == @user.id && @user.user_configuration.show?
+              
+              - if current_user && (current_user.id == @user.id) && @user.user_configuration.show? && super?
                 .alert.alert-warning
                   - if Rails.env.development?
                     = @user.next_up?
