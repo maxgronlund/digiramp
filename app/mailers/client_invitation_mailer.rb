@@ -87,7 +87,7 @@ class ClientInvitationMailer < ApplicationMailer
       template_content = []
       message = { to: receipients_with_names ,
                   from: {email: "noreply@digiramp.com"},
-                  subject: "(DigiRAMP signup error fixed!) Please join my network on DigiRAMP",
+                  subject: "(DigiRAMP signup error fixed) Please join my network on DigiRAMP",
                   tags: ["user-invitation"],
                   track_clicks: true,
                   track_opens: true,
