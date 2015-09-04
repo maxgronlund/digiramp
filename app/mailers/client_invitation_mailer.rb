@@ -111,6 +111,7 @@ class ClientInvitationMailer < ApplicationMailer
   end
   
   def client_has_received_email client
+    return false
     client_invitation = ClientInvitation.where( user_id: client.user_id, email: client.email ).first
     client_invitation && !client_invitation.pending?
   end
