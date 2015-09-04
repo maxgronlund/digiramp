@@ -28,7 +28,8 @@ class ProductParams
               :recording_id,
               :playlist_id,
               :document_id,
-              :connected_to_stripe
+              :connected_to_stripe,
+              :valid_for_sale
             ]
     
     

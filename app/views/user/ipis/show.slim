@@ -57,7 +57,8 @@
             
               
               .ipi-confirmation-button
-                - if @ipi.status == 'pending'
+                = debug @ipi.status
+                - if @ipi.pending?
                   =< link_to 'Confirm', user_user_common_work_ipi_confirmation_path(\
                                       @user, 
                                       @common_work, 

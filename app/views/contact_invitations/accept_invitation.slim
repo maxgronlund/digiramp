@@ -5,7 +5,7 @@
 
 .container
   .contact-invitations
-    - if params[:message].include?('Error: ')
+    - if params[:message] && params[:message].include?('Error: ')
       .alert.alert-danger
         = params[:message].gsub('Error: #<ActiveRecord::RecordInvalid: ', '').gsub('>', '').gsub('Email', '') 
     - if @message.include?('Signed up with email: ')

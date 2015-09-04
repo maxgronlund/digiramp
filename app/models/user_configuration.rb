@@ -20,8 +20,8 @@ class UserConfiguration < ActiveRecord::Base
   
   #user.next_up?
   def next_up?
-    self.update(configured: false)
-    return 'done' if self.configured
+    #self.update(configured: false)
+    #return 'done' if self.configured
     
     if self.i_want_to_promote_my_music
       return 'upload recordings'    if user.recordings.count                   == 0
@@ -35,7 +35,8 @@ class UserConfiguration < ActiveRecord::Base
       return 'register_a_publisher' if user.user_publishers.count           == 0
       return 'upload recordings'    if user.recordings.count                == 0
       return 'clear a recording'    if user.has_no_cleared_recording?
-      return 'enable shop'          if user.user_publishers.count           == 0
+      return 'enable shop'          unless user.has_enabled_shop
+      return 'add a recording'      if user.products.on_sale.count          == 0
     end
     
     if self.i_want_to_get_my_music_into_films_and_tv

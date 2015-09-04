@@ -99,8 +99,7 @@ class User::ProductsController < ApplicationController
   def update
     @category     = @shop_product.category
     set_productable params
-    
-    ap shop_product_params
+
     
     respond_to do |format|
       if @shop_product.update(shop_product_params)
@@ -167,8 +166,9 @@ class User::ProductsController < ApplicationController
   def set_productable params
     if recording_id = params[:shop_product][:recording_id]
       params[:shop_product][:productable_id]    = recording_id
-      params[:shop_product][:productable_type]  = 'Recording'
-      params[:shop_product][:recording_id]
+      params[:shop_product][:productable_type]  = 'Recording'  
+      @recording = Recording.cached_find(recording_id)
+      params[:shop_product][:valid_for_sale]    = @recording.is_cleared?
     end
   end
   

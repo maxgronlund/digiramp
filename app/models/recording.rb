@@ -135,8 +135,7 @@ class Recording < ActiveRecord::Base
   end
   
   def is_cleared?
-    cleared = false
-    cleared = get_common_work.is_cleared?
+    get_common_work.is_cleared?
   end
   
   def ipis_id_cleared

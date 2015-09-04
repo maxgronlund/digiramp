@@ -23,8 +23,9 @@ class Shop::Product < ActiveRecord::Base
   #has_and_belongs_to_many :orders, :class_name => "Shop::Order"
   has_many :order_items, :class_name => "Shop::OrderItem", foreign_key: "shop_product_id" 
   
-
-  scope :on_sale,  ->  { where( connected_to_stripe: true).order("title asc")  }
+  default_scope -> { order('created_at ASC') }
+  scope :on_sale,  ->  { where( valid_for_sale: true).order("title asc")  }
+  
   
   def product_title
     self.productable ? self.productable.title : 'na'
