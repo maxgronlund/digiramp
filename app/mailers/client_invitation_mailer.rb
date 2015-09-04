@@ -98,9 +98,12 @@ class ClientInvitationMailer < ApplicationMailer
       resoults =  mandril_client.messages.send_template template_name, template_content, message
       # stamp ids
       resoults.each_with_index do |resoult, index|
-        invitations[index].mandrill_id = resoult["_id"]
-        invitations[index].sent!
-        invitations[index].save
+        begin
+          invitations[index].mandrill_id = resoult["_id"]
+          invitations[index].sent!
+          invitations[index].save
+        rescue
+        end
       end
 
     rescue Mandrill::Error => e
