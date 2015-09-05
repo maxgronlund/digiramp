@@ -32,7 +32,7 @@
       - if user.recordings.count          == 0 
         == render '/users/nudge', user: user, blog: blog, link: new_user_recording_path(user), icon: 'headphones'
       - else
-        - recording = user.recording.first
+        - recording = user.recordings.first
         == render '/users/nudge', user: user, blog: blog, link: new_user_user_invite_friend_path(user), icon: 'users'
       
     /- when 'like a recording'
