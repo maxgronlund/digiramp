@@ -38,8 +38,8 @@ class BlogPost < ActiveRecord::Base
 private
 
   def flush_cache
-    Rails.cache.delete([self.class.name, identifier, blog.id])
-    Rails.cache.delete([self.class.name, id])
+    Rails.cache.delete([self.class.name, self.identifier, self.blog_id])
+    Rails.cache.delete([self.class.name, self.id])
   end
 end
 

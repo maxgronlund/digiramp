@@ -3,7 +3,7 @@
   - if user.user_configuration.pending?
     .alert.alert-warning
       .row
-        - blog_post             = BlogPost.cached_find( 'configuration pending' , blog )
+        - blog_post   = BlogPost.cached_find( 'configuration pending' , blog )
         .col-sm-8
           h3 = blog_post.title
           = simple_format blog.body

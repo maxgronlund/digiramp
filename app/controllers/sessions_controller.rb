@@ -139,11 +139,11 @@ class SessionsController < ApplicationController
 private
   
   def initialize_session_for user
-    ap 'initialize_session_for user'
-    ap 'session[:current_page]'
-    ap session[:current_page]
-    ap 'session[:request_url]'
-    ap session[:request_url]
+    #ap 'initialize_session_for user'
+    #ap 'session[:current_page]'
+    #ap session[:current_page]
+    #ap 'session[:request_url]'
+    #ap session[:request_url]
     
     
     provider = nil
@@ -213,7 +213,7 @@ private
       redirect_to go_to
     else  
       
-      if (session[:current_page] == "http://localhost:3000/") ||  session[:current_page] == "https://digiramp.com/"
+      if (session[:current_page] == "http://localhost:3000/") || ( session[:current_page] == "https://digiramp.com/")
         session[:current_page] = user_path(current_user)
         if current_user.user_configuration.updated_at + 7.days < DateTime.now
           current_user.user_configuration.reset!
