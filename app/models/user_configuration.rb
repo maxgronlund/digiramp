@@ -24,6 +24,7 @@ class UserConfiguration < ActiveRecord::Base
   def next_up?
     #self.update(configured: false)
     #return 'done' if self.configured
+    return 'done' if self.done?
     
     if self.i_want_to_promote_my_music
       unless self.upload_recordings_later           
@@ -89,7 +90,7 @@ class UserConfiguration < ActiveRecord::Base
       
     end
     
-    self.done!
+    self.done! unless( self.pending? || self.activated? )
 
     
   end
