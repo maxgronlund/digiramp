@@ -80,7 +80,6 @@
                   i class= 'fa fa-search'
                 = text_field_tag "query", "", class:        'search-query form-control', 
                                               placeholder:  'Search for users', 
-                                              autofocus:    true,
                                               value:        params[:query]
                 .input-group-btn
                   => submit_tag 'Go', class: "btn btn-primary"
