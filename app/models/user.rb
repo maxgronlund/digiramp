@@ -498,7 +498,7 @@ class User < ActiveRecord::Base
     UserConfiguration.create(user_id: self.id)
 
     
-    SlackService.user_signed_up self
+    SlackService.user_signed_up(self) if Rails.env.production?
     #ProfessionalInfo.create(user_id: self.id)
   end
 
