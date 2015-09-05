@@ -7,8 +7,8 @@ class UserConfiguration < ActiveRecord::Base
     
     #return false if self.dont_ask_me_again
     
-    return true if self.pending?
-    return true if self.activated?
+    return true  if self.pending?
+    return true  if self.activated?
     return false if self.deactivated?
     return false if self.done?
     true

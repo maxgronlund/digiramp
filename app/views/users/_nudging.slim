@@ -1,17 +1,16 @@
 .old-nudging
   - blog      = Blog.cached_find('Nudge users')
   .alert.alert-warning
-    - if Rails.env.development?
-      = user.next_up?
+    = user.next_up?
     .row
       - if user.user_configuration.pending?
         - blog_post             = BlogPost.cached_find( 'configuration pending' , blog )
         .col-sm-8
           h3 = blog_post.title
           = simple_format blog.body
-        .col-sm-4
-          .pull-right.pull-down-12
-          = link_to "Lets start", user_user_user_configurations_path(user), class: 'btn btn-info', style: "color:#FFF;"
+        .col-sm-4.pull-down-12
+          .pull-right
+            = link_to "Lets start", user_user_user_configurations_path(user), class: 'btn btn-info', style: "color:#FFF;"
       - else
         
         - case user.next_up?
