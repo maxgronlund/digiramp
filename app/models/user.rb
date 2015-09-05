@@ -344,7 +344,7 @@ class User < ActiveRecord::Base
   end
   
   def has_email test_this_email
-    test_this_email.email.downcase!
+    test_this_email.downcase!
     return true if test_this_email.email == self.email
     return true if self.user_emails.where(email: test_this_email.email).first
   end
