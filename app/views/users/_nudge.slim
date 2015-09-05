@@ -1,23 +1,24 @@
-
-- blog_post   = BlogPost.cached_find( user.next_up? , blog )
-.col-sm-8
-  h3 
-    = blog_post.title
-    '&nbsp;
-    i class="fa fa-#{icon}" 
-  = simple_format blog_post.body
-.col-sm-4
-  .pull-right.pull-down-12
-    => link_to 'Later', user_user_user_configuration_path(user, 
-                                                      user.user_configuration, 
-                                                      later: "#{user.next_up?}_later"), 
-                                                      class: 'btn btn-default', 
-                                                      style: "color:#333;", 
-                                                      remote: true
-    
-    
-    = link_to blog_post.teaser, link, class: 'btn btn-info', style: "color:#FFF;"
-    
+.alert.alert-warning
+  .row
+    - blog_post   = BlogPost.cached_find( user.next_up? , blog )
+    .col-sm-8
+      h3 
+        = blog_post.title
+        '&nbsp;
+        i class="fa fa-#{icon}" 
+      = simple_format blog_post.body
+    .col-sm-4
+      .pull-right.pull-down-12
+        => link_to 'Later', user_user_user_configuration_path(user, 
+                                                          user.user_configuration, 
+                                                          later: "#{user.next_up?}_later"), 
+                                                          class: 'btn btn-default', 
+                                                          style: "color:#333;", 
+                                                          remote: true
+        
+        
+        = link_to blog_post.teaser, link, class: 'btn btn-info', style: "color:#FFF;"
+        
 
     
             

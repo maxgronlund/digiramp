@@ -11,7 +11,7 @@ class UserConfiguration < ActiveRecord::Base
     return true  if self.activated?
     return false if self.deactivated?
     return false if self.done?
-    true
+    
     
   end
   
@@ -90,7 +90,7 @@ class UserConfiguration < ActiveRecord::Base
       
     end
     
-    self.done! unless( self.pending? || self.activated? )
+    self.done! unless( self.pending?)
 
     
   end
