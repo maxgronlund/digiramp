@@ -74,7 +74,7 @@ class UsersController < ApplicationController
     
     if request.format.to_s == 'text/html'
       
-      unless current_user && @user != current_user
+      unless current_user && @user.id == current_user.id
        
         @user.views += 1 
         @user.save
