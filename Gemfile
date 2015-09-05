@@ -187,6 +187,8 @@ gem 'high_voltage', '~> 2.4.0'
 gem 'charlock_holmes'
 gem 'cloudsponge', github: 'cloudsponge/cloudsponge-lib-ruby'
 
+gem 'slack-notifier'
+
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
   gem 'sdoc', '~> 0.4.0'

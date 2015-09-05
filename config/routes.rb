@@ -43,6 +43,8 @@ Digiramp::Application.routes.draw do
     post 'sendgrid_hook/update'
     post 'mandrill_hook/update'
     resources :mandrill_hook
+
+    resources :slacks
   end
 
   get "shop"         => "shop/shop#index",     :as => :shop_shop_index

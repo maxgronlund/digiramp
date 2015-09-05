@@ -62,7 +62,7 @@ class User < ActiveRecord::Base
   include AddressMix
   
   has_one  :account
-  has_one  :user_configuration, dependent: :destroy
+  has_one  :user_configuration
   has_many :account_users
   has_many :accounts,         :through => :account_users  
   
@@ -425,6 +425,10 @@ class User < ActiveRecord::Base
     end
     
     self.account_users.destroy_all
+    
+    if self.user_configuration
+      self.user_configuration.destroy
+    end
   end
   
   def self.system_user
@@ -492,6 +496,9 @@ class User < ActiveRecord::Base
     Stake.where(  email: self.email ).update_all( unassigned: false)
     
     UserConfiguration.create(user_id: self.id)
+
+    
+    SlackService.user_signed_up self
     #ProfessionalInfo.create(user_id: self.id)
   end
 
