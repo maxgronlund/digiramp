@@ -11,7 +11,7 @@
         .container-fluid
           .row
             .col-sm-8
-              /= @user.user_configuration.status
+              = @user.user_configuration.status
               - if current_user && (current_user.id == @user.id) && @user.user_configuration.show?
                 .pull-down-10
                   == render 'nudging' , user: @user

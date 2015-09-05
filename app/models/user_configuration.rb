@@ -30,31 +30,45 @@ class UserConfiguration < ActiveRecord::Base
       unless self.upload_recordings_later           
         return 'upload_recordings'    if user.recordings.count          == 0 
       end
+      
       unless self.create_a_playlist_later           
         return 'create_a_playlist'    if user.playlists.count           == 0 
       end
+      
       unless self.invite_friends_later              
         return 'invite_friends'       if user.client_invitations.count  == 0 
       end
+      
       unless self.post_on_facebook_later            
         return 'post_on_facebook'     if user.share_on_facebooks.count  == 0 
       end
+      
       unless self.post_on_twitter_later             
         return 'post_on_twitter'      if user.share_on_twitters.count   == 0 
       end
     end
     
+    
     if self.i_want_to_sell_music
-      return 'register_a_publisher'         if      user.user_publishers.count           == 0
-      return 'upload_recordings'            if      user.recordings.count                == 0
-      return 'clear a recording'            if      user.has_no_cleared_recording?
+      unless register_a_publisher_later
+        return 'register_a_publisher'  if user.user_publishers.count  == 0
+      end
+      
+      unless self.upload_recordings_later           
+        return 'upload_recordings'    if user.recordings.count          == 0 
+      end
+      
+      unless self.clear_a_recording_later
+        return 'clear_a_recording'    if user.has_no_cleared_recording?
+      end
+      
       return 'enable shop'                  unless  user.has_enabled_shop
       return 'add a recording to the shop'  if      user.products.on_sale.count          == 0
     end
     
     if self.i_want_to_get_my_music_into_films_and_tv
-      return 'upload_recordings'            if user.recordings.count                == 0
-      return 'register a publisher'         if user.user_publishers.count           == 0
+      return 'upload_recordings'            if user.recordings.count                     == 0
+      return 'register a publisher'         if user.user_publishers.count                == 0
       return 'submit to an opportunity'     if user.opportunity_users.count     == 0
     end
     
@@ -98,13 +112,13 @@ class UserConfiguration < ActiveRecord::Base
   def reset!
     
     self.update(
-                upload_recordings_later:            user.recordings.count  != 0 ,
-                create_a_playlist_later:            user.playlists.count   != 0,
-                invite_friends_later:               false,
-                post_on_facebook_later:             false,
-                post_on_twitter_later:              false,
-                register_a_publisher_later:         false,
-                clear_a_recording_later:            false,
+                upload_recordings_later:            user.recordings.count         != 0 ,
+                create_a_playlist_later:            user.playlists.count          != 0,
+                invite_friends_later:               user.client_invitations.count != 0,
+                post_on_facebook_later:             user.share_on_facebooks.count != 0,
+                post_on_twitter_later:              user.share_on_twitters.count  != 0,
+                register_a_publisher_later:         user.user_publishers.count    != 0,
+                clear_a_recording_later:            !user.has_no_cleared_recording?,
                 enable_shop_later:                  false,
                 add_a_recording_to_the_shop_later:  false
               )

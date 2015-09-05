@@ -139,6 +139,12 @@ class SessionsController < ApplicationController
 private
   
   def initialize_session_for user
+    ap 'initialize_session_for user'
+    ap 'session[:current_page]'
+    ap session[:current_page]
+    ap 'session[:request_url]'
+    ap session[:request_url]
+    
     
     provider = nil
     if env['omniauth.auth']
@@ -173,6 +179,8 @@ private
     if session[:request_url]
       go_to = session[:request_url]
       session[:request_url] = nil
+      
+
       redirect_to go_to
 
     
@@ -204,10 +212,15 @@ private
       session[:go_to_message] = nil
       redirect_to go_to
     else  
-      redirect_to session[:current_page] || root_path
-    end
-
       
+      if (session[:current_page] == "http://localhost:3000/") ||  session[:current_page] == "https://digiramp.com/"
+        session[:current_page] = user_path(current_user)
+        if current_user.user_configuration.updated_at + 7.days < DateTime.now
+          current_user.user_configuration.reset!
+        end
+      end
+      redirect_to session[:current_page] || user_path(current_user)
+    end
   end
 
 end
