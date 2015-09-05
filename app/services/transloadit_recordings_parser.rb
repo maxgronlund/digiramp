@@ -13,7 +13,7 @@ class TransloaditRecordingsParser
   def error_message uploads
     ap '+++++++++++++++++++++++++++++++++++++++++++++++++'
     ap 'ERROR: Unable to extract recordings:'
-    ap 'In TransloaditRecordingsParser#extract'
+    ap 'In TransloaditRecordingsParser#extract:'
     ap '+++++++++++++++++++++++++++++++++++++++++++++++++'
     Opbeat.capture_message("TransloaditRecordingsParser uploads: #{uploads}")
   end
