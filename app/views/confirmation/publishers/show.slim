@@ -23,7 +23,9 @@
       -if @user.has_email( @publisher.email )
         == render 'right_user'
       - else
-        'Not right user/email
+        .alert.alert-danger
+          h3 Not right user/email
+          'Please log out and try again
       
                   
 
