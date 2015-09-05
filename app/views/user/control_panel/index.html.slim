@@ -210,64 +210,64 @@
                     'Manage and redistribute income
              
                       
-              .control-panel-badge
-                = link_to  user_user_special_offer_index_path(@user) do
-                  .content
-                    .icon.icon-green
-                      i.fa.fa-shopping-cart
-                      
-                    .title
-                      h4 Special offers
-                    .body
-                      'Products and servces only you can buy
-                      
-              .control-panel-badge
-                = link_to  user_user_purchases_path(@user) do
-                  .content
-                    .icon.icon-green
-                      i.fa.fa-shopping-cart
-                      
-                    .title
-                      h4 Purchases
-                    .body
-                      'Coupons, services, downloads and othere resources you have bought
-                      
-              .control-panel-badge
-                = link_to  user_user_creative_projects_path(@user) do
-                  .content
-                    .icon.icon-dr-blue
-                      i.fa.fa-exchange
-                      
-                    .title
-                      h4 Projects
-                    .body
-                      'Collaboration projects you administrates
-                      
-              .control-panel-badge
-                = link_to  user_user_legal_index_path(@user) do
-                  .content
-                    .icon.icon-red
-                      i.fa.fa-gavel
-                      
-                    .title
-                      h4 Legal
-                    .body
-                      'Legal informations, Rights, Splits, Licences, and more
-                      
-              .control-panel-badge
-                = link_to  user_user_publishers_path(@user) do
-                  .content
-                    .icon.icon-green
-                      i.fa.fa-truck
-                      
-                    .title
-                      h4 Publishing
-                    .body
-                      'Publishers used for rights management
-                      
-              - if super?
-                = link_to 'SIGNATURE', accepting_signatures_path
-                      
+            .control-panel-badge
+              = link_to  user_user_special_offer_index_path(@user) do
+                .content
+                  .icon.icon-green
+                    i.fa.fa-shopping-cart
+                    
+                  .title
+                    h4 Special offers
+                  .body
+                    'Products and servces only you can buy
+                    
+            .control-panel-badge
+              = link_to  user_user_purchases_path(@user) do
+                .content
+                  .icon.icon-green
+                    i.fa.fa-shopping-cart
+                    
+                  .title
+                    h4 Purchases
+                  .body
+                    'Coupons, services, downloads and othere resources you have bought
+                    
+            .control-panel-badge
+              = link_to  user_user_creative_projects_path(@user) do
+                .content
+                  .icon.icon-dr-blue
+                    i.fa.fa-exchange
+                    
+                  .title
+                    h4 Projects
+                  .body
+                    'Collaboration projects you administrates
+                    
+            .control-panel-badge
+              = link_to  user_user_legal_index_path(@user) do
+                .content
+                  .icon.icon-red
+                    i.fa.fa-gavel
+                    
+                  .title
+                    h4 Legal
+                  .body
+                    'Legal informations, Rights, Splits, Licences, and more
+                    
+            .control-panel-badge
+              = link_to  user_user_publishers_path(@user) do
+                .content
+                  .icon.icon-green
+                    i.fa.fa-truck
+                    
+                  .title
+                    h4 Publishing
+                  .body
+                    'Publishers used for rights management
+                    
+            - if super?
+              = link_to 'SIGNATURE', accepting_signatures_path
+                    
               /.control-panel-badge
               /  = link_to  user_user_registrations_path(@user) do
               /    .content
