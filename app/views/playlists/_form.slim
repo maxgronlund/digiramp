@@ -3,7 +3,7 @@
 .digi-box
   = simple_form_for [@user, @playlist] do |f|
     .row
-      .col-sm-4
+      .col-sm-6
         = f.hidden_field :user_id, value: @user.id
         /= f.hidden_field :playlist_id, value: @playlist.id
         = f.input :title, autofocus: true
@@ -30,7 +30,7 @@
         
         
 
-      .col-sm-4
+      .col-sm-6
         b Description
         br
         div id="toolbar" class="wysihtml5-toolbar"

@@ -18,16 +18,24 @@ class User::UserConfigurationsController < ApplicationController
   def update
     
     if params[:commit] == "Don't ask me again"
-      ap '----------------------------------------'
       @user_configuration.deactivated!
     else
       @user_configuration.activated!
       @user_configuration.update(user_configuration_params)
+      @user_configuration.reset!
     end
     
     
     redirect_to @user
      
+  end
+  
+  def show
+    ap params[:later]
+    if params[:later]
+      @user_configuration.update(params[:later].to_sym => true)
+    end
+    #render nothing: true
   end
 
   
@@ -40,18 +48,7 @@ class User::UserConfigurationsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_configuration_params
-      params.require(:user_configuration).permit( :user_id, 
-                                                  :i_want_to_promote_my_music,
-                                                  :i_want_to_sell_music, 
-                                                  :i_want_to_get_my_music_into_films_and_tv, 
-                                                  :i_want_to_sell_goods, 
-                                                  :i_want_to_find_and_listen_to_music,
-                                                  :i_want_to_offer_services, 
-                                                  :i_want_to_collaborate, 
-                                                  :i_want_to_manage_users_and_catalogs, 
-                                                  :i_want_to_build_custom_web_pages,
-                                                  :dont_ask_me_again, 
-                                                  :configured)
+      params.require(:user_configuration).permit!
     end
     
     

@@ -1,94 +1,24 @@
-- blog      = Blog.cached_find('Nudge users')
-.alert.alert-warning
-  - if Rails.env.development?
-    = @user.next_up?
-  .row
-    - if @user.user_configuration.pending?
-      - blog_post             = BlogPost.cached_find( 'configuration pending' , blog )
-      .col-sm-8
-        h3 = blog_post.title
-        = simple_format blog.body
-      .col-sm-4
-        .pull-right.pull-down-12
-        = link_to "Lets start", user_user_user_configurations_path(@user), class: 'btn btn-info', style: "color:#FFF;"
-    - else
-      - case @user.next_up?
-      
-      - when 'like a recording'
-        .col-sm-8
-          h3 
-            'Like a few recordings&nbsp;
-            i.fa.fa-thumbs-up 
-        .col-sm-4
-          .pull-right.pull-down-12
-            = link_to "Take me there", songs_path(clear: 'clear'), class: 'btn btn-info', style: "color:#FFF;" 
-      
-      - when 'create a playlist'
-        .col-sm-8
-          h3 
-            'Create a playlist&nbsp;
-            i.fa.fa-plus 
-        .col-sm-4
-          .pull-right.pull-down-12
-            = link_to "Great sugestion", new_user_playlist_path(@user), class: 'btn btn-info', style: "color:#FFF;"
-      
-      - when 'add a recording to a playlist'
-        .col-sm-8
-          h3 
-            'Add a recording to a playlist&nbsp;
-            i.fa.fa-plus 
-        .col-sm-4
-          .pull-right.pull-down-12
-            = link_to "Find a recording", songs_path(clear: 'clear'), class: 'btn btn-info', style: "color:#FFF;"
-      
-      - when 'post on facebook'
-        .col-sm-8
-          h3 
-            'Share what you like on Facebook&nbsp;
-            i.fa.fa-facebook-official 
-        .col-sm-4
-          .pull-right.pull-down-12
-            = link_to "Yes", user_likes_path(@user), class: 'btn btn-info', style: "color:#FFF;"
-      
-      - when 'post on twitter'
-        .col-sm-8
-          h3 
-            'Share what you like on Twitter&nbsp;
-            i.fa.fa-facebook-official 
-        .col-sm-4
-          .pull-right.pull-down-12
-            = link_to "Let me tweet", user_likes_path(@user), class: 'btn btn-info', style: "color:#FFF;"
-      
-      - when 'enable shop'
-        .col-sm-8
-          h3 
-            'Open your shop and receive money directly&nbsp;
-            i.fa.fa-money 
-        .col-sm-4
-          .pull-right.pull-down-12
-            = link_to "Enable shop", user_user_create_shop_index_path(@user), class: 'btn btn-info', style: "color:#FFF;"
-      
-      - when 'upload recordings'
-        - blog_post   = BlogPost.cached_find( 'upload recordings' , blog )
-        .col-sm-8
-          h3 
-            = blog_post.title
-            '&nbsp;
-            i.fa.fa-cloud-upload 
-          = simple_format blog_post.body
-        .col-sm-4
-          .pull-right.pull-down-12
-            = link_to "Upload", new_user_recording_path(@user), class: 'btn btn-info', style: "color:#FFF;"
-            
-      - when 'add a recording'
-        .col-sm-8
-          h3 
-            'Add recording to your shop&nbsp;
-            i.fa.fa-basket 
-        .col-sm-4
-          .pull-right.pull-down-12
-            => link_to "Not now", new_user_user_product_path(@user,category: 'recording'), class: 'btn btn-info', style: "color:#FFF;"
-            = link_to "Yes", new_user_user_product_path(@user,category: 'recording'), class: 'btn btn-info', style: "color:#FFF;"
-            
+
+- blog_post   = BlogPost.cached_find( user.next_up? , blog )
+.col-sm-8
+  h3 
+    = blog_post.title
+    '&nbsp;
+    i class="fa fa-#{icon}" 
+  = simple_format blog_post.body
+.col-sm-4
+  .pull-right.pull-down-12
+    => link_to 'Later', user_user_user_configuration_path(user, 
+                                                      user.user_configuration, 
+                                                      later: "#{user.next_up?}_later"), 
+                                                      class: 'btn btn-default', 
+                                                      style: "color:#333;", 
+                                                      remote: true
+    
+    
+    = link_to blog_post.teaser, link, class: 'btn btn-info', style: "color:#FFF;"
+    
+
+    
             
                           

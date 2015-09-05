@@ -11,11 +11,11 @@
         .container-fluid
           .row
             .col-sm-8
-              
               - if current_user && (current_user.id == @user.id) && @user.user_configuration.show?
-                == render 'nudging'  
- 
-                    
+                .pull-down-10
+                  == render 'nudging' , user: @user
+                  .new-nudging
+              /=  debug @user.user_configuration     
               == render 'cms_pages/cms_profile'
               h3 Activities
               == render 'user_activities'

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150905070954) do
+ActiveRecord::Schema.define(version: 20150905091030) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -3232,31 +3232,30 @@ ActiveRecord::Schema.define(version: 20150905070954) do
 
   create_table "user_configurations", force: :cascade do |t|
     t.integer  "user_id"
-    t.boolean  "i_want_to_promote_my_music",                     default: false
-    t.boolean  "i_want_to_sell_music",                           default: false
+    t.boolean  "i_want_to_promote_my_music",               default: false
+    t.boolean  "i_want_to_sell_music",                     default: false
     t.boolean  "i_want_to_get_my_music_into_films_and_tv"
     t.boolean  "i_want_to_find_and_listen_to_music"
-    t.boolean  "i_want_to_sell_goods",                           default: false
-    t.boolean  "i_want_to_offer_services",                       default: false
-    t.boolean  "i_want_to_collaborate",                          default: false
-    t.boolean  "i_want_to_manage_users_and_catalogs",            default: false
-    t.boolean  "i_want_to_build_custom_web_pages",               default: false
-    t.boolean  "dont_ask_me_again",                              default: false
-    t.boolean  "configured",                                     default: false
-    t.datetime "created_at",                                                     null: false
-    t.datetime "updated_at",                                                     null: false
-    t.integer  "status",                                         default: 0
-    t.boolean  "i_want_to_promote_my_music_later",               default: false
-    t.boolean  "i_want_to_sell_music_later",                     default: false
-    t.boolean  "i_want_to_get_my_music_into_films_and_tv_later", default: false
-    t.boolean  "i_want_to_find_and_listen_to_music_later",       default: false
-    t.boolean  "i_want_to_sell_goods_later",                     default: false
-    t.boolean  "i_want_to_offer_services_later",                 default: false
-    t.boolean  "i_want_to_collaborate_later",                    default: false
-    t.boolean  "i_want_to_manage_users_and_catalogs_later",      default: false
-    t.boolean  "i_want_to_build_custom_web_pages_later",         default: false
-    t.boolean  "i_want_to_connect_with_people",                  default: false
-    t.boolean  "i_want_to_connect_with_people_later",            default: false
+    t.boolean  "i_want_to_sell_goods",                     default: false
+    t.boolean  "i_want_to_offer_services",                 default: false
+    t.boolean  "i_want_to_collaborate",                    default: false
+    t.boolean  "i_want_to_manage_users_and_catalogs",      default: false
+    t.boolean  "i_want_to_build_custom_web_pages",         default: false
+    t.boolean  "dont_ask_me_again",                        default: false
+    t.boolean  "configured",                               default: false
+    t.datetime "created_at",                                               null: false
+    t.datetime "updated_at",                                               null: false
+    t.integer  "status",                                   default: 0
+    t.boolean  "upload_recordings_later",                  default: false
+    t.boolean  "create_a_playlist_later",                  default: false
+    t.boolean  "invite_friends_later",                     default: false
+    t.boolean  "post_on_facebook_later",                   default: false
+    t.boolean  "post_on_twitter_later",                    default: false
+    t.boolean  "register_a_publisher_later",               default: false
+    t.boolean  "clear_a_recording_later",                  default: false
+    t.boolean  "enable_shop_later",                        default: false
+    t.boolean  "add_a_recording_to_the_shop_later",        default: false
+    t.boolean  "submit_to_an_opportunity_later",           default: false
   end
 
   add_index "user_configurations", ["user_id"], name: "index_user_configurations_on_user_id", using: :btree
