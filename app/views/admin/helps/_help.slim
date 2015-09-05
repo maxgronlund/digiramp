@@ -1,6 +1,6 @@
 - session[:return_url]         = request.url
 - help = Help.where(identifier: identifier).first_or_create(identifier: identifier)
-
+- help.update(request_url: request.url) 
 .modal.fade  id="helpModal_#{help.id.to_s}" tabindex="-1" role="dialog" aria-labelledby="helpModalLabel" aria-hidden="true"
   .modal-dialog
     .modal-content

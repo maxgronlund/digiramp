@@ -20,6 +20,7 @@
           table class="table table-hover"
             thead
               tr
+                
                 th Button
                 th Title
                 th Identifier
@@ -28,14 +29,23 @@
             tbody
               - @helps.each do |help|
                 tr
+                  
+                    
                   td = help.button
+                  
                   td = help.title
                   td = help.identifier
                   td 
                     .pull-right
-                      /=> link_to 'Show', admin_help_path( help )    , class: 'btn btn-default btn-xs' 
+                      - if help.request_url
+                        => link_to 'Page', help.request_url, class: 'btn btn-default btn-xs'
+
                       => link_to 'Edit', edit_admin_help_path(help) , class: 'btn btn-default btn-xs'
-                      /= link_to 'Destroy', admin_help_path(help), data: {:confirm => 'Are you sure?'}, :method => :delete,  class: 'btn btn-danger btn-xs'
+                      = link_to admin_help_path(help), data: {:confirm => 'Are you sure?'}, 
+                                                                  :method => :delete,  
+                                                                  turboboost: true,
+                                                                  class: 'btn btn-danger btn-xs' do
+                                i.fa.fa-times
 
             
           

@@ -161,49 +161,49 @@
               .user-stat-data
                 h4 = @user.playlists.count
           
-          - if current_user && current_user.betatester
-            - if current_user && current_user.id == @user.id
-              = link_to user_user_creative_projects_path(@user) do
-                .user-stat-row
-                  .user-stat-title
-                    h4 
-                      i.fa.fa-wrench
-                      '&nbsp;Projects
-                    
-                  .user-stat-data
-                    h4 = @user.creative_projects.count
-            - else
-              = link_to user_user_creative_projects_path(@user) do
-                .user-stat-row
-                  .user-stat-title
-                    h4 
-                      i.fa.fa-wrench
-                      '&nbsp;Projects
-                    
-                  .user-stat-data
-                    h4 = @user.creative_projects.where(public_project: true).count
           
-          - if current_user && current_user.betatester
-            = link_to user_ipis_path(@user) do
+          - if current_user && current_user.id == @user.id
+            = link_to user_user_creative_projects_path(@user) do
               .user-stat-row
                 .user-stat-title
                   h4 
-                    i.fa.fa-tags
-                    '&nbsp;Credits
+                    i.fa.fa-wrench
+                    '&nbsp;Projects
                   
                 .user-stat-data
-                  h4 = @user.user_credits.count
-                  
-            = link_to user_user_shop_index_path(@user) do
+                  h4 = @user.creative_projects.count
+          - else
+            = link_to user_user_creative_projects_path(@user) do
               .user-stat-row
                 .user-stat-title
                   h4 
-                    i.fa.fa-shopping-cart
-                    '&nbsp;Shop
+                    i.fa.fa-wrench
+                    '&nbsp;Projects
                   
                 .user-stat-data
-                  h4 = @user.products.where(for_sale: true).count
-                  
+                  h4 = @user.creative_projects.where(public_project: true).count
+          
+          
+          = link_to user_ipis_path(@user) do
+            .user-stat-row
+              .user-stat-title
+                h4 
+                  i.fa.fa-tags
+                  '&nbsp;Credits
+                
+              .user-stat-data
+                h4 = @user.user_credits.count
+                
+          = link_to user_user_shop_index_path(@user) do
+            .user-stat-row
+              .user-stat-title
+                h4 
+                  i.fa.fa-shopping-cart
+                  '&nbsp;Shop
+                
+              .user-stat-data
+                h4 = @user.products.where(for_sale: true).count
+                
 
         
     .pull-down-12
@@ -290,9 +290,10 @@
     - if current_user && (current_user.id == @user.id || super?)
       .row
         .col-sm-12
+          => link_to "Guide me", user_user_user_configurations_path(@user), class: 'btn btn-info', style: "color:#FFF;"
           = link_to  edit_user_social_link_path(@user) do
             .btn.btn-default
-              'Add/edit links to you socials media
+              'Add/Edit links to you socials media
               
        
     .row

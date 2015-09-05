@@ -22,7 +22,8 @@ class Digiwham::RecordingsController < ApplicationController
       @recording                      = Recording.cached_find(params[:id])
       @recording.playbacks_count      += 1
       @recording.uniq_playbacks_count = @recording.playbacks_count.to_uniq
-      @recording.save!
+      @recording.save(validate: false)
+      ap @recording.uniq_playbacks_count
       user_id                     = current_user ? current_user.id : nil
       
       playback = Playback.create(

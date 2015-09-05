@@ -12,15 +12,12 @@
             =  image_tag @user.image_url(:avatar_184x184) 
 
 
-
     li class="#{'sidebar-selected' if selected == 'profile'}"
       = link_to user_path(@user) do
         i class="fa fa-user"
         '&nbsp;
         'Profile
-
-
-
+        
     li class="#{'sidebar-selected' if selected == 'recordings'}"
       = link_to user_recordings_path(@user, clear: 'clear') do
         i class="fa fa-headphones"
@@ -55,12 +52,12 @@
         '&nbsp;
         = pluralize(@user.playlists.count, 'Playlist')  
      
-    - if current_user && current_user.betatester    
-      li class="#{'sidebar-selected' if selected == 'credits'}"
-        = link_to user_ipis_path(@user) do
-          i class="fa fa-tags"
-          '&nbsp;
-          = pluralize(@user.user_credits.count, 'Credit') 
+        
+    li class="#{'sidebar-selected' if selected == 'credits'}"
+      = link_to user_ipis_path(@user) do
+        i class="fa fa-tags"
+        '&nbsp;
+        = pluralize(@user.user_credits.count, 'Credit') 
     
     - if super?
       li class="#{'sidebar-selected' if selected == 'dashboard'}"
@@ -75,10 +72,7 @@
           i class="fa fa-money"
           '&nbsp;
           'Pro account
-
-          
- 
-        
+  
   - else
       .sidebar-ad.sidebar-top-ad
         == render 'admin/digiramp_ads/show', identifier: 'add on user page'

@@ -2,8 +2,7 @@ class XUserSettingsService
   
   def self.init user
     
-    user.s = { betatester:            user.betatester, 
-               salesperson:           user.salesperson,
+    user.s = { salesperson:           user.salesperson,
                administrator:         user.administrator,
                provider:              user.provider,
                show_welcome_message:  user.show_welcome_message,

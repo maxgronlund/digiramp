@@ -9,8 +9,8 @@ class Blog < ActiveRecord::Base
   
   include PgSearch
   pg_search_scope :search_blog, against: [:title, :body], :using => [:tsearch],  :associated_against => {
-      :blog_posts => [:title, :body, :teaser]
-    }
+    :blog_posts => [:title, :body, :teaser]
+  }
   
  
 
@@ -29,8 +29,7 @@ class Blog < ActiveRecord::Base
                                             .first_or_create(identifier: idnf, title: idnf, body: '') }
   end 
   
-  def self.news_count
-    
+  def self.news_count 
     blog = Blog.cached_find('news blog')
     blog.blog_posts.count
   end

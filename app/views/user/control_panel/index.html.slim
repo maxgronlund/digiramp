@@ -120,28 +120,28 @@
             /        'Manage IPI's and credits
             /      
             
-            - if current_user.betatester  
-              .control-panel-badge
-                = link_to  user_user_user_positions_path(@user) do
-                  .content
-                    .icon.icon-dr-blue
-                      i.fa.fa-university
-                      
-                    .title
-                      h4 Positions
-                    .body
-                      'Projects where you fulfill a role
-                      
-              .control-panel-badge
-                = link_to  user_user_user_emails_path(@user) do
-                  .content
-                    .icon.icon-gray
-                      i.fa.fa-at
-                      
-                    .title
-                      h4 Emails
-                    .body
-                      'Link aditional emails to your account. You can use this for copyrights
+             
+            .control-panel-badge
+              = link_to  user_user_user_positions_path(@user) do
+                .content
+                  .icon.icon-dr-blue
+                    i.fa.fa-university
+                    
+                  .title
+                    h4 Positions
+                  .body
+                    'Projects where you fulfill a role
+                    
+            .control-panel-badge
+              = link_to  user_user_user_emails_path(@user) do
+                .content
+                  .icon.icon-gray
+                    i.fa.fa-at
+                    
+                  .title
+                    h4 Emails
+                  .body
+                    'Link aditional emails to your account. You can use this for copyrights
             
             .control-panel-badge
               = link_to  edit_user_social_link_path(@user) do
@@ -176,39 +176,39 @@
                   .body
                     'Account you have access to
             
-            - if current_user.betatester
-              .control-panel-badge
-                = link_to  user_user_subscriptions_path(@user) do
-                  .content
-                    .icon.icon-dr-blue
-                      i.fa.fa-trophy
-                      
-                    .title
-                      h4 Subscription
-                    .body
-                      'Your DigiRAMP plan
-                      
-              .control-panel-badge
-                - shop_link = @user.is_stripe_connected ? user_user_shop_admin_index_path(@user) : user_user_create_shop_index_path(@user)
-                = link_to  shop_link, id: 'shop-administration' do
-                  .content
-                    .icon.icon-red
-                      i.fa.fa-shopping-cart
-                    .title
-                      h4 Shop administration
-                    .body
-                      'Manage your personal shop
-                      
-              .control-panel-badge
-                = link_to  user_user_revenue_streams_path(@user) do
-                  .content
-                    .icon.icon-red
-                      i.fa.fa-money
-                    .title
-                      h4 Revenue streams
-                    .body
-                      'Manage and redistribute income
-               
+            
+            .control-panel-badge
+              = link_to  user_user_subscriptions_path(@user) do
+                .content
+                  .icon.icon-dr-blue
+                    i.fa.fa-trophy
+                    
+                  .title
+                    h4 Subscription
+                  .body
+                    'Your DigiRAMP plan
+                    
+            .control-panel-badge
+              - shop_link = @user.is_stripe_connected ? user_user_shop_admin_index_path(@user) : user_user_create_shop_index_path(@user)
+              = link_to  shop_link, id: 'shop-administration' do
+                .content
+                  .icon.icon-red
+                    i.fa.fa-shopping-cart
+                  .title
+                    h4 Shop administration
+                  .body
+                    'Manage your personal shop
+                    
+            .control-panel-badge
+              = link_to  user_user_revenue_streams_path(@user) do
+                .content
+                  .icon.icon-red
+                    i.fa.fa-money
+                  .title
+                    h4 Revenue streams
+                  .body
+                    'Manage and redistribute income
+             
                       
               .control-panel-badge
                 = link_to  user_user_special_offer_index_path(@user) do

@@ -32,22 +32,22 @@
   /    = link_to public_opportunities_path do
   /        i class="fa fa-money"
   /        '&nbsp;Opportunities
-  - if current_user.betatester
-    .sexy_line 
-    li &nbsp;  
-    li class="#{'sidebar-selected' if selected == 'publishers'}"
-      = link_to publishers_path do
-          i class="fa fa-book"
-          '&nbsp;Publishers     
-    li class="#{'sidebar-selected' if selected == 'creative projects'}"
-      = link_to creative_projects_path do
-          i class="fa fa-rocket"
-          '&nbsp;Projects      
-    
-    li class="#{'sidebar-selected' if selected == 'creative positions'}"
-      = link_to creative_project_positions_path do
-          i class="fa fa-road"
-          '&nbsp;Positions
+  
+  .sexy_line 
+  li &nbsp;  
+  li class="#{'sidebar-selected' if selected == 'publishers'}"
+    = link_to publishers_path do
+        i class="fa fa-book"
+        '&nbsp;Publishers     
+  li class="#{'sidebar-selected' if selected == 'creative projects'}"
+    = link_to creative_projects_path do
+        i class="fa fa-rocket"
+        '&nbsp;Projects      
+  
+  li class="#{'sidebar-selected' if selected == 'creative positions'}"
+    = link_to creative_project_positions_path do
+        i class="fa fa-road"
+        '&nbsp;Positions
     
     /li class="#{ active == 'new' ? 'active' : '' }"
     /  = link_to 'New', user_user_new_opportunities_path(@user)

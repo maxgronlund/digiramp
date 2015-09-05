@@ -31,7 +31,6 @@ FactoryGirl.define do
     f.email_missing false
     #f.social_avatar Faker::Avatar.image
     f.salesperson false
-    f.betatester true
     f.slug slug
     
   end

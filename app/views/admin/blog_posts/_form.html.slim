@@ -10,7 +10,10 @@
       /  = f.input :identifier, :input_html => { class: 'span12', placeholder: "identifier"}
       = f.input :author, :input_html => {  placeholder: "Author"}
       = f.input :link, :input_html => {  placeholder: "Link (optional)"}
-      =render 'admin/blog_posts/edit_image'   
+      /=render 'admin/blog_posts/edit_image'   
+      - unless (@blog_post.image_url :size_423x228) == "/assets/fallback/size_423x228_artwork.jpg"
+        .img-responsive
+          = image_tag( @blog_post.image_url(:size_423x228), class: 'img-responsive')
       = f.input :image, :input_html => {  placeholder: "Select Image File"}
       /= f.input :layout , :include_blank => false , :collection => BlogPost::LAYOUTS, label: 'page layout', input_html: { class: 'chzn-select' }
       = f.input :image_title, :input_html => {  placeholder: "Image Title"}

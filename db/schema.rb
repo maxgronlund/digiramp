@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150901174708) do
+ActiveRecord::Schema.define(version: 20150905061159) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1674,13 +1674,14 @@ ActiveRecord::Schema.define(version: 20150901174708) do
   end
 
   create_table "helps", force: :cascade do |t|
-    t.string   "identifier", limit: 255
-    t.string   "button",     limit: 255
-    t.string   "title",      limit: 255
+    t.string   "identifier",  limit: 255
+    t.string   "button",      limit: 255
+    t.string   "title",       limit: 255
     t.text     "body"
     t.text     "snippet"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "request_url"
   end
 
   create_table "homes", force: :cascade do |t|
@@ -3351,7 +3352,6 @@ ActiveRecord::Schema.define(version: 20150901174708) do
     t.integer  "page_style_id"
     t.string   "top_tag",                    limit: 255
     t.string   "backdrop_image",             limit: 255
-    t.boolean  "betatester"
     t.string   "link_to_tumblr",             limit: 255, default: ""
     t.string   "link_to_instagram",          limit: 255, default: ""
     t.string   "link_to_youtube",            limit: 255, default: ""

@@ -156,6 +156,7 @@ class Recording < ActiveRecord::Base
   end
   
   def for_sale_in_shop?
+    return false unless self.is_cleared?
     if product_in_shop = product
       return product_in_shop if product_in_shop.for_sale
     end
