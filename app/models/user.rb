@@ -221,8 +221,13 @@ class User < ActiveRecord::Base
     self.recordings.each do |recording|
       return false if recording.is_cleared?
     end
-    
     return true
+  end
+  
+  def first_uncleared_recording
+    self.recordings.each do |recording|
+      return recording unless recording.is_cleared?
+    end
   end
   
   def get_documents

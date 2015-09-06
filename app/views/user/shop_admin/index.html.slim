@@ -44,7 +44,8 @@
                 /th User
                 /th Account
                 /th Download link
-                th For sale
+                th Valid for sale
+                th Units
                 th Category
                 th
                 /th
@@ -62,7 +63,17 @@
                   /td = product.user
                   /td = product.account
                   /td = product.download_link
-                  td = product.for_sale
+                  td = product.valid_for_sale
+                  th
+                    - case product.category
+                    - when 'physical-product'
+                      - units = product.units_on_stock
+                      - if units < 1
+                        .label.label-danger
+                          'Out of stock
+                      - else
+                        .label.label-success
+                          = units
                   td = product.category.gsub('-', ' ').capitalize
                   td 
                     .pull-right

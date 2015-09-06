@@ -77,13 +77,14 @@ class User::ProductsController < ApplicationController
   # POST /shop/products
   # POST /shop/products.json
   def create
-    set_productable params
+
     params[:shop_product][:connected_to_stripe] = @user.is_stripe_connected
 
     @shop_product = Shop::Product.new(shop_product_params)
 
     respond_to do |format|
       if @shop_product.save
+        @shop_product.valid_for_sale!
         format.html { redirect_to user_user_product_stakes_path(@user, @shop_product) }
         format.json { render :show, status: :created, location: @shop_product }
       else
@@ -98,12 +99,12 @@ class User::ProductsController < ApplicationController
   # PATCH/PUT /shop/products/1.json
   def update
     @category     = @shop_product.category
-    set_productable params
+    
 
     
     respond_to do |format|
       if @shop_product.update(shop_product_params)
-        
+        @shop_product.valid_for_sale!
         #update_show_in_shop
         format.html { redirect_to user_user_product_path(@user, @shop_product) }
 
@@ -151,7 +152,7 @@ class User::ProductsController < ApplicationController
     @shop_product.connected_to_stripe  = false
     @shop_product.save
     @shop_product.stakeholders.destroy_all
-    @shop_product.productable.update(in_shop: false) 
+    @shop_product.productable.update(in_shop: false) if @shop_product.productable
 
     Shop::OrderItem.where(sold: false, shop_product_id: @shop_product.id).destroy_all
     
@@ -163,14 +164,17 @@ class User::ProductsController < ApplicationController
 
   private
   
-  def set_productable params
-    if recording_id = params[:shop_product][:recording_id]
-      params[:shop_product][:productable_id]    = recording_id
-      params[:shop_product][:productable_type]  = 'Recording'  
-      @recording = Recording.cached_find(recording_id)
-      params[:shop_product][:valid_for_sale]    = @recording.is_cleared?
-    end
-  end
+  #def set_productable params
+  #  if recording_id = params[:shop_product][:recording_id]
+  #    params[:shop_product][:productable_id]    = recording_id
+  #    params[:shop_product][:productable_type]  = 'Recording'  
+  #    @recording = Recording.cached_find(recording_id)
+  #    params[:shop_product][:valid_for_sale]    = @recording.is_cleared?
+  #  else
+  #    params[:shop_product][:productable_type]  = 'Physical product'  
+  #    params[:shop_product][:valid_for_sale]    = true
+  #  end
+  #end
   
 
    # Use callbacks to share common setup or constraints between actions.

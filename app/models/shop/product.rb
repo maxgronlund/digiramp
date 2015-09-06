@@ -143,6 +143,7 @@ class Shop::Product < ActiveRecord::Base
     if self.units_on_stock 
       self.units_on_stock -= 1 
       self.save
+      self.valid_for_sale!
     end
   end
   
@@ -163,6 +164,30 @@ class Shop::Product < ActiveRecord::Base
      productable.get_shop_art
     else
       self.image_url  thumb_size
+    end
+  end
+  
+  def valid_for_sale!
+    begin 
+      case self.category
+     
+      when 'recording'
+        self.update( valid_for_sale: (recording.is_cleared? && connected_to_stripe) )
+      when 'physical-product'
+        self.update(valid_for_sale: (self.units_on_stock > 0) && connected_to_stripe)
+      when 'service'
+        
+      end
+    rescue => e
+      ErrorNotification.post "Product::set_valid_for_sale: #{e.inspect}"
+      self.update(valid_for_sale: false)
+    end
+     
+  end
+  
+  def recording
+    if self.productable_type == 'Recording'
+      return Recording.cached_find(self.productable_id)
     end
   end
   

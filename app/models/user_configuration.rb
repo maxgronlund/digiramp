@@ -26,7 +26,10 @@ class UserConfiguration < ActiveRecord::Base
     #return 'done' if self.configured
     return 'done' if self.done?
     
+    
+    # promote music
     if self.i_want_to_promote_my_music
+      
       unless self.upload_recordings_later           
         return 'upload_recordings'    if user.recordings.count          == 0 
       end
@@ -49,6 +52,8 @@ class UserConfiguration < ActiveRecord::Base
     end
     
     
+    
+    # sell music
     if self.i_want_to_sell_music
       unless register_a_publisher_later
         return 'register_a_publisher'  if user.user_publishers.count  == 0
@@ -59,18 +64,69 @@ class UserConfiguration < ActiveRecord::Base
       end
       
       unless self.clear_a_recording_later
-        return 'clear_a_recording'    if user.has_no_cleared_recording?
+        if user.recordings.count  > 0 
+          return 'clear_a_recording'    if user.has_no_cleared_recording?
+        end
       end
       
-      return 'enable shop'                  unless  user.has_enabled_shop
-      return 'add a recording to the shop'  if      user.products.on_sale.count          == 0
+      unless enable_shop_later
+        if Rails.env.production?
+          return 'enable_shop'                  unless  user.has_enabled_shop
+        end
+      end
+      
+      unless add_a_recording_to_the_shop_later
+        if user.has_enabled_shop
+          return 'add_a_recording_to_the_shop'  if user.products.on_sale.where(category: 'recording').count == 0
+        end
+      end
+      
     end
     
-    if self.i_want_to_get_my_music_into_films_and_tv
-      return 'upload_recordings'            if user.recordings.count                     == 0
-      return 'register a publisher'         if user.user_publishers.count                == 0
-      return 'submit to an opportunity'     if user.opportunity_users.count     == 0
+    
+    # sell goods
+    if self.i_want_to_sell_goods
+      
+      unless enable_shop_later
+        if Rails.env.production?
+          return 'enable_shop'                  unless  user.has_enabled_shop
+        end
+      end
+      
+      unless add_physical_product_later
+        if user.has_enabled_shop
+          return 'add_physical_product'         if  user.products.on_sale.where(category: 'physical-product').count == 0
+        end
+      end 
     end
+    
+    
+    # License music
+    if self.i_want_to_get_my_music_into_films_and_tv
+      
+      unless self.register_a_publisher_later 
+        return 'register_a_publisher'         if user.user_publishers.count  == 0
+      end
+      
+      unless self.upload_recordings_later           
+        return 'upload_recordings'    if user.recordings.count  == 0 
+      end
+      
+      unless self.clear_a_recording_later
+        return 'clear_a_recording'    if user.first_uncleared_recording
+      end
+      
+      unless self.submit_to_an_opportunity_later
+        if user.recordings.count  > 0 
+          unless user.has_no_cleared_recording?
+            return 'submit_to_an_opportunity'  if user.opportunity_users.count   == 0
+          end
+        end
+      end
+    end
+    
+    
+    
     
     if self.i_want_to_find_and_listen_to_music
       return 'like a recording'              if user.likes.count                    == 0
@@ -80,9 +136,10 @@ class UserConfiguration < ActiveRecord::Base
       return 'post on twitter'               if user.share_on_twitters.count        == 0
     end
     
-    if self.i_want_to_sell_goods
-      
-    end
+    
+    
+    
+    
     
     if self.i_want_to_offer_services
       
@@ -119,8 +176,9 @@ class UserConfiguration < ActiveRecord::Base
                 post_on_twitter_later:              user.share_on_twitters.count  != 0,
                 register_a_publisher_later:         user.user_publishers.count    != 0,
                 clear_a_recording_later:            !user.has_no_cleared_recording?,
-                enable_shop_later:                  false,
-                add_a_recording_to_the_shop_later:  false
+                enable_shop_later:                  user.has_enabled_shop,
+                add_a_recording_to_the_shop_later:  user.products.on_sale.where(category: 'recording').count > 0,
+                add_physical_product_later:         user.products.on_sale.where(category: 'physical-product').count > 0
               )
     self.activated!
   end

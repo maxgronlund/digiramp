@@ -13,7 +13,7 @@ class Shop::ShippingAddressController < ApplicationController
     
       
     if @shop_order.shipping_address
-      redirect_to edit_shop_order_shipping_address_path(@shop_order.uuid,@shop_order.shipping_address.id )
+      redirect_to edit_shop_order_shipping_address_path(@shop_order.id, @shop_order.shipping_address.id )
     end
     @address                      = Address.new
     if current_user

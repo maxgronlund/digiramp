@@ -47,6 +47,11 @@
         /    p#notice = notice
         /== render 'shop/products/shared/show' , product: @shop_product
         == render 'shop/products/shared/show' , product: @shop_product, buy: false
+        .sexy_line
+        - case @shop_product.category
+        - when 'physical-product'
+          b Units on stock:&nbsp;
+          = @shop_product.units_on_stock
       /.digi-box
       /  h4 Sales
       /  .table-responsive.pull-up-10
