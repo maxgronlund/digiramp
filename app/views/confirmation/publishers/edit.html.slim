@@ -20,13 +20,15 @@
       
       
       .sexy_line
-      /- if @publishers
-      /  h4 Publishers
-      /  .digi-box
-      /    - @publishers.each do |publisher|
-      /      = debug publisher.address
-      /- elsif @publisher
-      /  = debug @publisher.address
+      - if @publishers
+        h4 Select publishers
+        .digi-box
+          - @publishers.each do |publisher|
+            h4  = publisher.legal_name
+            
+      - elsif @publisher
+        h4 = @publisher.legal_name
+        
       
       /.digi-box
       /  = simple_form_for [:confirmation, @publisher] do |f|

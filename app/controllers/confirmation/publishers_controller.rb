@@ -12,8 +12,6 @@ class Confirmation::PublishersController < ApplicationController
   end
   
   def edit
-    ap '----------------------------------------------------------------'
-    ap 'Confirmation::PublishersController#edit'
     @publisher = Publisher.find_by!(transfer_uuid: params[:id])
     
     if current_user && current_user.has_email( @publisher.email )
