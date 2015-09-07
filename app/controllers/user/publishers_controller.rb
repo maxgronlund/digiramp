@@ -31,11 +31,13 @@ class User::PublishersController < ApplicationController
 
     respond_to do |format|
       if @publisher.save
-        @publisher.check_ownership!
+        
         if @publisher.i_am_my_own_publisher
           @user.copy_address_to( @publisher.address ) 
           format.html { redirect_to edit_user_user_publisher_legal_info_path(@publisher.user, @publisher), info: 'Please add legal informations.' }
         else
+          
+          @publisher.check_ownership!
           format.html { redirect_to user_user_publisher_path(@publisher.user, @publisher) }
         end
         format.json { render :show, status: :created, location: @publisher }

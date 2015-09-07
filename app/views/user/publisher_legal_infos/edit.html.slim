@@ -35,7 +35,7 @@
           .form-inputs
             .row
               .col-sm-6
-                = f.input :legal_name
+                = f.input :legal_name, label: 'Company name'
                 = f.input :email, hint: 'Use your own email if you are your own publisher'
                 = f.input :i_am_my_own_publisher, :input_html => { class: 'icheck-me acceptance', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue"     } 
                 span class="help-block" 

@@ -34,14 +34,43 @@ class Publisher < ActiveRecord::Base
   
   def check_ownership!
 
-    if self.i_am_my_own_publisher
+    if self.i_am_my_own_publisher 
       self.confirmed!
     else
-      if user = User.get_by_email( self.email )
+      if known_user = User.get_by_email( self.email )
         if self.pending?
           self.transfer_uuid = UUIDTools::UUID.timestamp_create().to_s
           self.save
-          PublisherMailer.delay.request_confirmation_from_existing_user self
+          #PublisherMailer.delay.request_confirmation_from_existing_user self
+          
+          
+         
+        
+         
+          @message                    = Message.new
+          @message.recipient_id       = known_user.id
+          @message.sender_id          = user.id
+          @message.title              = 'You have been listed as a publisher'
+          @message.body               = "Hi #{user.user_name} has listed you as publisher, please click the button for more details" 
+          @message.subjectable_id     = self.id
+          @message.subjectable_type   = self.class.name
+          @message.save!
+          @message.send_as_email
+          
+          
+          channel = 'digiramp_radio_' + known_user.email
+
+          Pusher.trigger(channel, 'digiramp_event', {"title" => 'Message received', 
+                                                "message" => "#{user.user_name} has listed you as a publisher", 
+                                                "time"    => '2000', 
+                                                "sticky"  => 'false', 
+                                                "image"   => 'notice'
+                                                })
+          
+        
+          
+          
+          
         else
           self.transfer_uuid = nil
           self.save
@@ -52,6 +81,8 @@ class Publisher < ActiveRecord::Base
       end
     end
   end
+  
+  
   
   
   
