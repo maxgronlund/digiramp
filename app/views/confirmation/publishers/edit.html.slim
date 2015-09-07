@@ -20,13 +20,13 @@
       
       
       .sexy_line
-      - if @publishers
-        h4 Publishers
-        .digi-box
-          - @publishers.each do |publisher|
-            = debug publisher.address
-      - elsif @publisher
-        = debug @publisher.address
+      /- if @publishers
+      /  h4 Publishers
+      /  .digi-box
+      /    - @publishers.each do |publisher|
+      /      = debug publisher.address
+      /- elsif @publisher
+      /  = debug @publisher.address
       
       /.digi-box
       /  = simple_form_for [:confirmation, @publisher] do |f|

@@ -80,7 +80,7 @@
             - case @message.subjectable_type
             - when 'Publisher'
               - if publisher = Publisher.cached_find(@message.subjectable_id)
-                = link_to 'Show me', confirmation_publisher_path(publisher.transfer_uuid), class: 'btn btn-default'
+                = link_to 'Show me', confirmation_publisher_path(publisher.transfer_uuid), class: 'btn btn-info' rescue ''
             - when 'User'
               '&nbsp;
             - when 'Ipi'
