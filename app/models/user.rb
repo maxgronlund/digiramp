@@ -126,7 +126,7 @@ class User < ActiveRecord::Base
   
 
   after_commit    :set_propperties
-  #before_save     :update_meta
+  before_save     :update_meta
   #before_create   :update_meta
   #before_create :set_token
   
@@ -228,7 +228,6 @@ class User < ActiveRecord::Base
     self.recordings.each do |recording|
       return recording unless recording.is_cleared?
     end
-    nil
   end
   
   def get_documents
@@ -842,7 +841,7 @@ class User < ActiveRecord::Base
     
     user_name.capitalize!
     
-    if User.find_by(user_name: user_name)
+    if User.where(user_name: user_name).first
       if last_user = User.last
         user_name = [ user_name, (last_user.id ).to_s].compact.join('_')
       end

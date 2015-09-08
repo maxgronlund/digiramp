@@ -6,15 +6,11 @@ class UserCompleteness
     nr_required_params      = 0.0
     completeness            = 0.0
     
-    #unless user.user_name
-    #  begin
-    #    default_name            = User.create_uniq_user_name_from_email(user.email)
-    #    completeness            += 1 unless user.user_name            == default_name
-    #    nr_required_params      += 1    
-    #  rescue
-    #  end      
-    #end                                                   
-                 
+    default_name            = User.create_uniq_user_name_from_email(user.email)
+                                                         
+    # user user_name is     still default name                                                                                            
+    completeness            += 1 unless user.user_name            == default_name
+    nr_required_params      += 1                                  
                                                                   
     completeness            += 1 unless user.profile.to_s         == ''
     nr_required_params      += 1 
