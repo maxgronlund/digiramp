@@ -5,7 +5,10 @@
   
   #sidebar-wrapper
     ul class="sidebar-nav"
-      == render 'user/opportunities/sidebar', selected: 'creative projects'
+      - if current_user
+        == render 'user/opportunities/sidebar', selected: 'creative projects'
+      - else
+       == render 'public_opportunities/sidebar', selected: 'creative projects'
    
   #page-content-wrapper
     .container-fluid
