@@ -60,7 +60,7 @@ class Stake < ActiveRecord::Base
     price = 0.0
     case self.asset_type
     when 'Shop::Product'
-      price = asset.price.to_f * 0.0001 * self.split
+      price = asset.price.to_f * 0.0001 * self.split if self.asset  
     when 'Stake'
       stake = Stake.cached_find(self.asset_id)
       price = stake.unit_price * stake.split * 0.0001
