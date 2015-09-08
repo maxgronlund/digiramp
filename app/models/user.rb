@@ -841,11 +841,11 @@ class User < ActiveRecord::Base
     
     user_name.capitalize!
     
-    if User.where(user_name: user_name).first
-      if last_user = User.last
-        user_name = [ user_name, (last_user.id ).to_s].compact.join('_')
-      end
-    end
+    #if fo = User.where(user_name: user_name).first
+    #  if last_user = User.last
+    #    user_name = [ user_name, (last_user.id ).to_s].compact.join('_')
+    #  end
+    #end
     user_name
   end
   
