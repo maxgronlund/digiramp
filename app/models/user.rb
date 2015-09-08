@@ -842,7 +842,7 @@ class User < ActiveRecord::Base
     
     user_name.capitalize!
     
-    if User.find_gy(user_name: user_name)
+    if User.find_by(user_name: user_name)
       if last_user = User.last
         user_name = [ user_name, (last_user.id ).to_s].compact.join('_')
       end
