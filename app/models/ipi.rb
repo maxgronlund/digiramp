@@ -48,7 +48,7 @@ class Ipi < ActiveRecord::Base
     if user
       user.full_name
     else
-      self.full_name || self.email
+      self.full_name || '! registration pending'
     end
   end
   

@@ -1,6 +1,3 @@
-/ this view is rendered when the user and current_user and ipi is valid
-/= debug @user_credits
-
 #wrapper
   .full-width-top
     == render 'shared/navigationbar', page: 'settings' 
@@ -12,8 +9,9 @@
   
   #page-content-wrapper
     .container-fluid
-      /== render 'shared/breadcrumbs', breadcrumbs: { links: { 'Dashboard'.to_sym => user_user_control_panel_index_path(@user),
-      /                                                        'ipis'.to_sym => user_user_ipis_path(@user) }, current: ''}
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { 'Dashboard'.to_sym => user_user_control_panel_index_path(@user),
+                                                              'legal'.to_sym => user_user_legal_index_path(@user),
+                                                              'ipis'.to_sym => user_user_ipis_path(@user) }, current: ''}
       .row
         .col-sm-6
           .help
@@ -41,8 +39,9 @@
               
               
  
-              = f.input :email
-              = f.input :share, label: 'split'
+              /= f.input :email
+              /= f.input :ipi_code
+              /= f.input :share, label: 'split'
               /b* Publishing agreements
               //= f.collection_select :publishing_agreement_ids, @publishing_agreements, :id, :title, {}, {multiple: true} 
               /.chosen-label
@@ -55,12 +54,12 @@
               /
               /
             .col-sm-6
-              b Roles
-              br
-              = f.input :music,       :as => :boolean,  :input_html => { class: 'icheck-me', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue"     }   , label: 'Music'
-              = f.input :lyric,       :as => :boolean,  :input_html => { class: 'icheck-me', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue"     }   , label: 'Lyric'
-              = f.input :melody,      :as => :boolean,  :input_html => { class: 'icheck-me', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue"     }   , label: 'Melody'
-              = f.input :arrangement, :as => :boolean,  :input_html => { class: 'icheck-me', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue"     }   , label: 'Arrangement'
+              /b Roles
+              /br
+              /= f.input :music,       :as => :boolean,  :input_html => { class: 'icheck-me', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue"     }   , label: 'Music'
+              /= f.input :lyric,       :as => :boolean,  :input_html => { class: 'icheck-me', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue"     }   , label: 'Lyric'
+              /= f.input :melody,      :as => :boolean,  :input_html => { class: 'icheck-me', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue"     }   , label: 'Melody'
+              /= f.input :arrangement, :as => :boolean,  :input_html => { class: 'icheck-me', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue"     }   , label: 'Arrangement'
               
               
               .row

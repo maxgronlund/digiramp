@@ -80,6 +80,12 @@ class CommonWork < ActiveRecord::Base
     end
     true
   end
+  
+  def user_id
+    if self.account
+      return self.account.user_id
+    end
+  end
 
   def clear_rights
     

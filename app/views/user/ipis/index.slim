@@ -44,19 +44,33 @@
             tbody
               - @ipis.each do |ipi|
                 tr
-                  td = link_to user_user_user_ipi_path(@user, ipi) do
+                  td 
+                    = link_to user_user_ipi_path(@user, ipi) do
                         .btn.btn-default.btn-xs
                           i.fa.fa-eye&nbsp;Show
+                    = link_to edit_user_user_user_ipi_path(@user, ipi) do
+                        .btn.btn-default.btn-xs
+                          i.fa.fa-pencil
                   td
-                    .label.label-default
-                        = ipi.status
+                    /= ipi.status
+                    - case ipi.status
+                    - when 'pending'
+                      .label.label-warning
+                        'Please confirm
+                    - when 'accepted'
+                      .label.label-success
+                        'Confirmed
                   td 
                     - if ipi.ipi_code
                       = ipi.ipi_code
                     - else
-                      .label.label-danger
-                        'Missing
+                      .label.label-default
+                        'na
                   td = ipi.work_title
+                  td 
+                    -if pro_affiliation = ipi.pro_affiliation
+                      = pro_affiliation.title
+                      
                 /== render "user/ipis/#{user_credit.ipiable_type.underscore}", user_credit: user_credit
                 /.sexy_line
         

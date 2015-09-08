@@ -228,6 +228,7 @@ class User < ActiveRecord::Base
     self.recordings.each do |recording|
       return recording unless recording.is_cleared?
     end
+    nil
   end
   
   def get_documents
@@ -841,7 +842,7 @@ class User < ActiveRecord::Base
     
     user_name.capitalize!
     
-    if User.where(user_name: user_name).first
+    if User.find_gy(user_name: user_name)
       if last_user = User.last
         user_name = [ user_name, (last_user.id ).to_s].compact.join('_')
       end

@@ -7,7 +7,8 @@
             th
             th Legal name/ Email
             th Capacity
-            th Publisher('s)
+            /th Publisher('s)
+            th Split
             th 
               .pull-right
                 'Status
@@ -47,18 +48,19 @@
                 - if ipi.arrangement
                   'Arrangement
               
-              td     
-                - ipi.publishing_agreements.each do |publishing_agreement|
-                  - if publisher = publishing_agreement.publisher
-                    = publisher.legal_name
-                    
-                  - if document = publishing_agreement.document
-                    .label.label-default
-                      = document.status
-                  br
-
+              /td     
+              /  - ipi.publishing_agreements.each do |publishing_agreement|
+              /    - if publisher = publishing_agreement.publisher
+              /      = publisher.legal_name
+              /      
+              /    - if document = publishing_agreement.document
+              /      .label.label-default
+              /        = document.status
+              /    br
+              /
 
               
+              td = number_to_percentage(ipi.share, precision: 0)    
               td 
                 
                 .pull-right

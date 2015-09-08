@@ -9,7 +9,9 @@ class User::CommonWorksController < ApplicationController
   def show
     #@recording    = Recording.cached_find(params[:recording_id])
     @common_work  = CommonWork.cached_find(params[:id])
-    
+    if @common_work.user_id != current_user.id
+      return forbidden unless current_user.super?
+    end
     #if @common_work.ipis.count == 0
     #  
     #  redirect_to user_user_common_work_confirm_work_rights_path(@user, @common_work)

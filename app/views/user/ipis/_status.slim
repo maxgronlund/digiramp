@@ -1,0 +1,18 @@
+.old-ipi-status
+  - case ipi.status
+  - when 'pending'
+    =< link_to 'Click here to confirm', user_user_common_work_ipi_confirmation_path(\
+                              @user, 
+                              @common_work, 
+                              @ipi),
+                              :method => :put, 
+                              data: { confirm: "By clicking this button you confirm you are the rights owner for this IP" } , 
+                              remote: true,
+                              class: 'btn btn-warning btn'
+  - when 'accepted'
+    h4
+      .label.label-success
+        'Confirmed
+    
+  
+  
