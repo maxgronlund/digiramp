@@ -477,7 +477,7 @@ class User < ActiveRecord::Base
   
   def update_meta
     UserSearchField.process self
-    #UserCompleteness.process self
+    UserCompleteness.process self
     SetUserTopTag.process self
   end
 
@@ -841,11 +841,11 @@ class User < ActiveRecord::Base
     
     user_name.capitalize!
     
-    #if fo = User.where(user_name: user_name).first
-    #  if last_user = User.last
-    #    user_name = [ user_name, (last_user.id ).to_s].compact.join('_')
-    #  end
-    #end
+    if usr = User.where(user_name: user_name).first
+      if last_user = User.last
+        user_name = [ user_name, last_user.id.to_s].compact.join('_')
+      end
+    end
     user_name
   end
   

@@ -22,10 +22,10 @@ class User::InviteFriendsController < ApplicationController
                                          user_id: @user.id, 
                                          account_id: @user.account.id)
           
-          #if client.
-          #  client.name =  User.create_uniq_user_name_from_email( email )  
-          #  client.save!
-          #end
+          if client.name.to_s == ''
+            client.name =  User.create_uniq_user_name_from_email( email )  
+            client.save!
+          end
           
           unless @client_invitation = ClientInvitation.where( account_id: @user.account.id, client_id: client.id).first
                  client_invitation = ClientInvitation.create( account_id: @user.account.id, 
