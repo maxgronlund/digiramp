@@ -7,9 +7,12 @@ class UserCompleteness
     completeness            = 0.0
     
     unless user.user_name
-      default_name            = User.create_uniq_user_name_from_email(user.email)
-      completeness            += 1 unless user.user_name            == default_name
-      nr_required_params      += 1          
+      begin
+        default_name            = User.create_uniq_user_name_from_email(user.email)
+        completeness            += 1 unless user.user_name            == default_name
+        nr_required_params      += 1    
+      rescue
+      end      
     end                                                   
                  
                                                                   
