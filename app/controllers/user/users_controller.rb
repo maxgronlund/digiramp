@@ -10,9 +10,9 @@ class User::UsersController < ApplicationController
   end
   
   def update
-    ap params
     @user = User.cached_find(params[:id])
     @user.update(user_params)
+    @user.update_meta
     update_ips
     redirect_to user_user_legal_index_path( @user)
   end
