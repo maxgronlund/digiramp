@@ -39,7 +39,7 @@
               .row
                 .col-sm-12
           .col-sm-6
-            - if current_user.id != user.id 
+            - if current_user && current_user.id != user.id 
               .inline-button
                 .connect-container
                   .connect-buttons
