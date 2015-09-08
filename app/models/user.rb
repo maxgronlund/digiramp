@@ -126,7 +126,7 @@ class User < ActiveRecord::Base
   
 
   after_commit    :set_propperties
-  before_save     :update_meta
+  #before_save     :update_meta
   #before_create   :update_meta
   #before_create :set_token
   
@@ -477,7 +477,7 @@ class User < ActiveRecord::Base
   
   def update_meta
     UserSearchField.process self
-    UserCompleteness.process self
+    #UserCompleteness.process self
     SetUserTopTag.process self
   end
 
