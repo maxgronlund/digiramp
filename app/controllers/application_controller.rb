@@ -209,7 +209,7 @@ class ApplicationController < ActionController::Base
   
   def get_private_user
     get_user
-    unless current_user.super?
+    unless current_user && current_user.super?
       forbidden if current_user.id != @user.id
     end
   end
