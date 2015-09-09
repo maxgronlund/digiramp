@@ -129,8 +129,18 @@ class UserConfiguration < ActiveRecord::Base
     
     
     if self.i_want_to_find_and_listen_to_music
-      return 'like a recording'              if user.likes.count                    == 0
-      return 'create_a_playlist'             if user.playlists.count                == 0 && !user.create_a_playlist_later
+      unless self.like_a_recording_later
+        return 'like_a_recording'
+      end              
+      
+      unless self.create_a_playlist_later           
+        return 'create_a_playlist'    if user.playlists.count           == 0 
+      end
+      
+      unless self.add_recording_to_a_playlist_later
+        return 'add_recording_to_a_playlist' if self.user.has_no_recordings_on_playlist?
+      end
+      
       return 'add a recording to a playlist' if user.has_no_recordings_on_playlist?
       return 'post on facebook'              if user.share_on_facebooks.count       == 0
       return 'post on twitter'               if user.share_on_twitters.count        == 0
@@ -167,7 +177,7 @@ class UserConfiguration < ActiveRecord::Base
   end
   
   def reset!
-    
+
     self.update(
                 upload_recordings_later:            user.recordings.count         != 0 ,
                 create_a_playlist_later:            user.playlists.count          != 0,
@@ -177,8 +187,10 @@ class UserConfiguration < ActiveRecord::Base
                 register_a_publisher_later:         user.user_publishers.count    != 0,
                 clear_a_recording_later:            !user.has_no_cleared_recording?,
                 enable_shop_later:                  user.has_enabled_shop,
+                like_a_recording_later:             user.likes != 0,
                 add_a_recording_to_the_shop_later:  user.products.on_sale.where(category: 'recording').count > 0,
-                add_physical_product_later:         user.products.on_sale.where(category: 'physical-product').count > 0
+                add_physical_product_later:         user.products.on_sale.where(category: 'physical-product').count > 0,
+                add_recording_to_a_playlist_later:  !user.has_no_recordings_on_playlist?
               )
     self.activated!
   end

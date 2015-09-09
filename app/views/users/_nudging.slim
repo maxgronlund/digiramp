@@ -45,6 +45,16 @@
 
     - when 'submit_to_an_opportunity'
       == render '/users/nudge', user: user, blog: blog, link: user_user_opportunities_path(user), icon: 'money'
+      
+    - when 'like_a_recording'
+      == render '/users/nudge', user: user, blog: blog, link: songs_path(clear: 'clear'), icon: 'thumbs-up'
+      
+    - when 'create_a_playlist'
+      == render '/users/nudge', user: user, blog: blog, link: new_user_playlist_path(user), icon: 'list-alt'
+      
+    - when 'add_recording_to_a_playlist'
+      == render '/users/nudge', user: user, blog: blog, link: songs_path(clear: 'clear'), icon: 'thumbs-up'
+    
     /- when 'like a recording'
     /  .col-sm-8
     /    h3 

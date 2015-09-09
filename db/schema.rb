@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150908180819) do
+ActiveRecord::Schema.define(version: 20150909105750) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -3257,6 +3257,8 @@ ActiveRecord::Schema.define(version: 20150908180819) do
     t.boolean  "add_a_recording_to_the_shop_later",        default: false
     t.boolean  "submit_to_an_opportunity_later",           default: false
     t.boolean  "add_physical_product_later"
+    t.boolean  "like_a_recording_later"
+    t.boolean  "add_recording_to_a_playlist_later"
   end
 
   add_index "user_configurations", ["user_id"], name: "index_user_configurations_on_user_id", using: :btree
