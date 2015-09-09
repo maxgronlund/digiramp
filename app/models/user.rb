@@ -228,6 +228,7 @@ class User < ActiveRecord::Base
     self.recordings.each do |recording|
       return recording unless recording.is_cleared?
     end
+    nil
   end
   
   def get_documents
