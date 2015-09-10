@@ -122,7 +122,18 @@ class UserParams
                       :password, 
                       :password_confirmation,
                       :super_account_user_id,
-                      :page_style_id
+                      :page_style_id,
+                      address_attributes: [  :first_name,
+                                             :middle_name,
+                                             :last_name,
+                                             :address_line_1,
+                                             :address_line_2,
+                                             :city,
+                                             :state,
+                                             :country,
+                                             :id,
+                                             :zip_code
+                                           ]
                     ]
   
   

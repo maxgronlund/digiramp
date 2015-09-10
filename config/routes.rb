@@ -2,6 +2,18 @@ Digiramp::Application.routes.draw do
 
   
 
+  namespace :user do
+  get 'find_publisher/edit'
+  end
+
+  namespace :user do
+  get 'register_publisher/edit'
+  end
+
+  namespace :user do
+  get 'self_publishing/edit'
+  end
+
   #resources :document_users
   get 'landing_page/index'
   

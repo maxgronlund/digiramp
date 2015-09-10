@@ -1,10 +1,11 @@
-= simple_form_for [:user, @user, @common_work, @ipi], turboboost: false do |f|
+= simple_form_for [:user, @user, @common_work, @ipi], turboboost: true do |f|
   = f.hidden_field :common_work_id, value: @common_work.id
   = f.error_notification
 
   .row
     .col-sm-6
       = f.input :email
+      = f.input :share, label: 'split'
     .col-sm-6
       b Roles
       br

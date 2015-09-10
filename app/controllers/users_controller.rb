@@ -190,6 +190,7 @@ class UsersController < ApplicationController
     params[:user][:initialized]   = true
     if @user.update(user_params)
       @user.update_meta
+      @user.save!
       # show completeness 
       session[:show_profile_completeness] = true
       @user.flush_auth_token_cache(cookies[:auth_token])

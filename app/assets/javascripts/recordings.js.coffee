@@ -21,7 +21,6 @@ ready = ->
       enable_next_button()
     return
 
-
   $("#recording_file").change ->
     enable_next_button()
     

@@ -1,5 +1,5 @@
-/ this view is rendered when the user and current_user and ipi is valid
-/= debug @user_credits
+- session[:return_url]         = request.url
+
 #wrapper
   .full-width-top
     == render 'shared/navigationbar', page: 'settings' 
@@ -55,9 +55,6 @@
               .ipi-status
               == render 'status', ipi: @ipi
 
-            
-              
-              
                 
       
       - if @ipi.publishing_agreements.any?
@@ -105,17 +102,74 @@
                           = document.status.to_s.capitalized
                         
       - else 
+        - blog      = Blog.cached_find('User ipis')
+        - blog_post = BlogPost.cached_find( 'You have no publishing' , blog )
+        
+                
         .row
           .col-sm-12
             .alert.alert-info
-              h4 You have no publishing
-              'To receive money for you IP's you need a publishe and a publishing agreement
+              h4 = blog_post.title
+              = blog_post.body
+              - if super?
+                .row
+                  .col-sm-12
+                    .pull-right
+                      = link_to edit_admin_blog_blog_post_path(blog, blog_post) do
+                        .btn.btn-default.btn-xs
+                          i.fa.fa-pencil
+        .row
+          .col-sm-6
+            .digi-box
+              - blog_post = BlogPost.cached_find( "I have no publiser" , blog )
+              h4 = blog_post.title
+              = blog_post.body
               .row
-                .col-sm-4
-                  'Find a publisher
-                .col-sm-4
-                  'Create you own publishing company
-        
+                .col-sm-12
+                  .pull-right
+                    = link_to 'Configure', '#', class: 'btn btn-default'
+              /- @ipi.full_name =  @user.full_name if (@ipi.full_name.blank? && !@user.full_name)
+              /= simple_form_for [:user, @user, @ipi.common_work, @ipi], turboboost: true do |f|
+              /  = f.simple_fields_for :address do |address_form|
+              /    = address_form.input :first_name
+              /    = address_form.input :middle_name
+              /    = address_form.input :last_name
+              /
+              /
+              /  = f.input :i_am_the_publishing_designee, 
+              /            label: false, 
+              /            turboboost: true,
+              /            inline_label:  raw( "*I am the publishing designee and have <a href=#{terms_and_conditions_path}>read and agree</a>  to the terms and conditions"),
+              /            :input_html => { class: 'icheck-me acceptance', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue"     }
+              /  .row
+              /    .col-sm-12
+              /      .pull-right
+              /        /= f.submit 'Confirm',  class: 'btn btn-primary', id: 'acceptance_of_terms'
+              /        = f.submit 'Confirm', class: 'btn btn-primary'
+              /
+          .col-sm-6
+            .digi-box
+              - blog_post = BlogPost.cached_find( "I have publisher" , blog )
+              h4 = blog_post.title
+              = blog_post.body
+
+              .row
+                .col-sm-12
+                  .pull-right
+                    = link_to 'Configure', '#', class: 'btn btn-default'
+              
+        .row  
+          .col-sm-6
+            .digi-box
+              - blog_post = BlogPost.cached_find( "I want a publisher" , blog )
+              h4 = blog_post.title
+              = blog_post.body
+              .row
+                .col-sm-12
+                  .pull-right
+                    = link_to 'Find publisher', publishers_path, class: 'btn btn-default'
+              
+          
         
       /.digi-box.ipi-confirmations
       /  .row

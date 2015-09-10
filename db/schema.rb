@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150909105750) do
+ActiveRecord::Schema.define(version: 20150909163632) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1916,51 +1916,52 @@ ActiveRecord::Schema.define(version: 20150909105750) do
   add_index "ipi_publishing_agreements", ["publishing_agreement_id"], name: "index_ipi_publishing_agreements_on_publishing_agreement_id", using: :btree
 
   create_table "ipis", force: :cascade do |t|
-    t.string   "full_name",                 limit: 255
+    t.string   "full_name",                    limit: 255
     t.text     "address"
-    t.string   "email",                     limit: 255
-    t.string   "phone_number",              limit: 255
-    t.string   "role",                      limit: 255
+    t.string   "email",                        limit: 255
+    t.string   "phone_number",                 limit: 255
+    t.string   "role",                         limit: 255
     t.integer  "common_work_id"
     t.integer  "import_ipi_id"
-    t.datetime "created_at",                                                null: false
-    t.datetime "updated_at",                                                null: false
+    t.datetime "created_at",                                                   null: false
+    t.datetime "updated_at",                                                   null: false
     t.integer  "user_id"
-    t.string   "ipi_code",                  limit: 255
-    t.string   "cae_code",                  limit: 255
+    t.string   "ipi_code",                     limit: 255
+    t.string   "cae_code",                     limit: 255
     t.boolean  "controlled"
-    t.string   "territory",                 limit: 255
-    t.decimal  "share",                                 default: 0.0,       null: false
-    t.decimal  "mech_owned",                            default: 0.0,       null: false
-    t.decimal  "mech_collected",                        default: 0.0,       null: false
-    t.decimal  "perf_owned",                            default: 0.0,       null: false
-    t.decimal  "perf_collected",                        default: 0.0,       null: false
+    t.string   "territory",                    limit: 255
+    t.decimal  "share",                                    default: 0.0,       null: false
+    t.decimal  "mech_owned",                               default: 0.0,       null: false
+    t.decimal  "mech_collected",                           default: 0.0,       null: false
+    t.decimal  "perf_owned",                               default: 0.0,       null: false
+    t.decimal  "perf_collected",                           default: 0.0,       null: false
     t.text     "notes"
     t.boolean  "has_agreement"
     t.boolean  "linked_to_ascap_member"
     t.boolean  "controlled_by_submitter"
-    t.string   "ascap_work_id",             limit: 255
-    t.string   "bmi_work_id",               limit: 255, default: ""
-    t.boolean  "lyric",                                 default: false
-    t.boolean  "music",                                 default: false
-    t.boolean  "administrator",                         default: false
-    t.boolean  "producer",                              default: false
-    t.boolean  "original_publisher",                    default: false
-    t.boolean  "artist",                                default: false
-    t.boolean  "distributor",                           default: false
-    t.boolean  "remixer",                               default: false
-    t.boolean  "other",                                 default: false
-    t.boolean  "publisher",                             default: false
-    t.string   "uuid",                      limit: 255
+    t.string   "ascap_work_id",                limit: 255
+    t.string   "bmi_work_id",                  limit: 255, default: ""
+    t.boolean  "lyric",                                    default: false
+    t.boolean  "music",                                    default: false
+    t.boolean  "administrator",                            default: false
+    t.boolean  "producer",                                 default: false
+    t.boolean  "original_publisher",                       default: false
+    t.boolean  "artist",                                   default: false
+    t.boolean  "distributor",                              default: false
+    t.boolean  "remixer",                                  default: false
+    t.boolean  "other",                                    default: false
+    t.boolean  "publisher",                                default: false
+    t.string   "uuid",                         limit: 255
     t.integer  "pro_affiliation_id"
-    t.boolean  "show_credit_on_recordings",             default: false
-    t.string   "confirmation",              limit: 255, default: "Missing"
-    t.string   "title",                     limit: 255, default: ""
-    t.text     "message",                               default: ""
+    t.boolean  "show_credit_on_recordings",                default: false
+    t.string   "confirmation",                 limit: 255, default: "Missing"
+    t.string   "title",                        limit: 255, default: ""
+    t.text     "message",                                  default: ""
     t.integer  "ipi_id"
-    t.boolean  "melody",                                default: false
-    t.boolean  "arrangement",                           default: false
+    t.boolean  "melody",                                   default: false
+    t.boolean  "arrangement",                              default: false
     t.integer  "status"
+    t.boolean  "i_am_the_publishing_designee",             default: false
   end
 
   add_index "ipis", ["common_work_id"], name: "index_ipis_on_common_work_id", using: :btree

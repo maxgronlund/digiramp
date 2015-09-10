@@ -1,4 +1,9 @@
 class Ipi < ActiveRecord::Base
+  
+  has_one :address
+  accepts_nested_attributes_for :address
+  include AddressMix
+  
   #has_paper_trail
   enum status: [ :pending, :accepted, :dismissed, :in_progress ]
   
@@ -21,6 +26,7 @@ class Ipi < ActiveRecord::Base
   after_create :attach_to_user
   #after_update :attach_user_credits
   #before_destroy :remove_user_credits
+  
   
   
   after_commit :flush_cache
