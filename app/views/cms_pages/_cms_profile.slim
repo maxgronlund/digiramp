@@ -1,3 +1,5 @@
+- can_edit_user = @user.permits?(current_user)
+
 .digi-box
   .cms-profile
     .row
@@ -162,7 +164,7 @@
                 h4 = @user.playlists.count
           
           
-          - if current_user && current_user.id == @user.id
+          - if can_edit_user
             = link_to user_user_creative_projects_path(@user) do
               .user-stat-row
                 .user-stat-title
@@ -213,7 +215,8 @@
           - if current_user 
             .inline-button
               / only the user and supers can edit and add pages
-              - if current_user.id == @user.id || super?
+              
+              - if can_edit_user
                 => link_to edit_user_path(@user) do
                   .btn.btn-default
                     i class="fa fa-pencil"
@@ -287,7 +290,7 @@
             li
               => link_to @user.link_to_homepage , target: "_blank" do
                 i.fa.fa-home
-    - if current_user && (current_user.id == @user.id || super?)
+    - if can_edit_user
       .row
         .col-sm-12
           => link_to "Killer features!", user_user_user_configurations_path(@user), class: 'btn btn-info', style: "color:#FFF;"

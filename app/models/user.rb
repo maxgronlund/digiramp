@@ -211,6 +211,23 @@ class User < ActiveRecord::Base
     self.user_configuration.next_up?
   end
   
+  def administrated_by user
+    
+  end
+  
+  # user by?
+  def permits? current_user
+    # users can access their own profile
+    return false if current_user.nil?
+    return true if current_user.id == self.id
+    return true if self.account.administrator_id == current_user.id
+    # super user can access all profiles 
+    return true if current_user.role == 'Super'
+    # no access
+    false
+  end
+  
+  
   def has_no_recordings_on_playlist?
     self.playlists.each do |playlist|
       return false if playlist.recordings.count > 0
@@ -654,16 +671,7 @@ class User < ActiveRecord::Base
     false
   end
 
-  # user by?
-  def permits? current_user
-    # users can access their own profile
-    return true if current_user.id == self.id
-       
-    # super user can access all profiles 
-    return true if current_user.role == 'Super'
-    # no access
-    false
-  end
+
   
   #def full_name
   #  full_name = self.user_name

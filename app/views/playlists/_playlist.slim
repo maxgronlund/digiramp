@@ -21,7 +21,7 @@
     i class="fa fa-heart red-heart"
     '&nbsp;
     = playlist.comments.count
-    - if @authorized
+    - if @user.permits? current_user
       /= link_to edit_user_playlist_path( @user, playlist) do
       /  '&nbsp;|&nbsp;
       /  i class="fa fa-pencil"

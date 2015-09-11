@@ -139,6 +139,7 @@ class UsersController < ApplicationController
 
     session[:show_profile_completeness] = true
     params[:user][:show_introduction]   = true
+    params[:user][:name]                = params[:user][:user_name]
     params[:user][:email].downcase! if params[:user][:email]
     
     @user                = User.new(user_params)
@@ -189,6 +190,7 @@ class UsersController < ApplicationController
     @user.slug  = nil
     params[:user][:email_missing] = false
     params[:user][:initialized]   = true
+    params[:user][:name]          = params[:user][:user_name] if params[:user][:user_name]
     if @user.update(user_params)
       @user.update_meta
       @user.save!

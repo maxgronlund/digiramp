@@ -45,7 +45,7 @@
                   
         
       .sexy_line
-      - if current_user && current_user.id == @user.id
+      - if @user.permits?( current_user )
         .new-recording
           = link_to new_user_recording_path(@user) do
             .new-recording-badge

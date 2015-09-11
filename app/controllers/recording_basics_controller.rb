@@ -11,7 +11,7 @@ class RecordingBasicsController < ApplicationController
     #@recording      = Recording.cached_find(params[:id])
     
 
-    forbidden unless (current_user && @recording.user_id == current_user.id) || super?
+    forbidden unless @user.permits?( current_user )#(current_user && @recording.user_id == current_user.id) || super?
     @common_work = @recording.get_common_work
     
   end

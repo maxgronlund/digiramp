@@ -21,7 +21,7 @@
 
       .sexy_line
       .playlist-badges
-        - if @authorized  
+        - if @user.permits? current_user  
           == render 'playlists/create_playlist'
         - @user.playlists.each do |playlist|
           == render 'playlists/playlist', playlist: playlist

@@ -2,7 +2,7 @@ class PlaylistsController < ApplicationController
   #include AccountsHelper
   #before_action :access_account
   before_action :get_user
-  before_action :authorized, except: [:show, :index]
+  #before_action :authorized, except: [:show, :index]
   
   def index
     #@playlists = @user.playlists
@@ -23,13 +23,14 @@ class PlaylistsController < ApplicationController
   end
   
   def new
+    forbidden unless @user.permits?( current_user )
     @playlist = Playlist.new
     @playlist.downloadkey = UUIDTools::UUID.timestamp_create().to_s
     @recordings   = @user.recordings.not_in_bucket
   end
   
   def create
-    
+    forbidden unless @user.permits?( current_user )
     if @playlist = Playlist.create(playlist_params)
       @playlist.check_default_image
       redirect_to user_playlist_path( @user, @playlist)
@@ -70,9 +71,9 @@ class PlaylistsController < ApplicationController
   
 private 
 
-  def authorized
-    forbidden unless @authorized
-  end
+  #def authorized
+  #  forbidden unless @authorized
+  #end
 
   def playlist_params
      params.require(:playlist).permit!

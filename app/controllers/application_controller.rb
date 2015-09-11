@@ -172,6 +172,14 @@ class ApplicationController < ActionController::Base
                                                 approved_by_project_manager: true).first
   end
   helper_method :permit_creative_project_user
+  
+  #def account_administrator?
+  #  if current_user
+  #    
+  #  end
+  #  false
+  #end
+
 
   def access_user
     if current_user

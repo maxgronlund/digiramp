@@ -6,7 +6,7 @@ class RecordingLyricsController < ApplicationController
   
   
   def edit
-    forbidden unless (current_user && @recording.user_id == current_user.id) || super?
+    forbidden unless @user.permits?( current_user )
     @common_work = @recording.get_common_work
   end
 
