@@ -3,44 +3,48 @@
     == render 'shared/navigationbar', page: 'account' 
        
   .container
+    
     .row
       .col-sm-3
 
       .col-sm-6
-        .digi-box
-          ==render 'admin/shared/messages'
-          /h2  = ab_test :signup_title, "Sign Up", "Sign Up for FREE", "Sign up in seconds..." 
-          h2 Sign up
-          = simple_form_for [@user] do |f|
-            - unless f.error_notification.blank?
-              .alert.alert-danger
-                = f.error_notification
-    
-            .form-inputs
-              = f.input :user_name, label: 'Diaplay name',  hint: 'This name will be displayed on the profile.', autofocus: true
-              = f.input :email
-              = f.input :password
-              = f.input :password_confirmation
-              - if Rails.env.production?
-                = recaptcha_tags
-    
-            .form-actions
-              .row.pull-down-10
-                .col-sm-12
-                  .pull-right
-                    = f.submit 'Save', class: 'btn btn-primary', id: 'commit-form'
-                    coffee:
-                      $("form#new_user").submit ->
-                        $(this).find('input[type=submit]').attr('disabled', 'disabled')
-                        $(this).find('input[type=submit]').val "Updating, please wait ..."
+        - if current_user
+          .alert.alert-info
+            h4 Seems like you'r already signed up and signed in
+        -else
+          .digi-box
+            ==render 'admin/shared/messages'
+            h2 Sign up
+            = simple_form_for [@user], turboboost: true do |f|
+              - unless f.error_notification.blank?
+                .alert.alert-danger
+                  = f.error_notification
             
-            .row
-              .col-sm-12
-                .sexy_line
-                == render 'users/shared/social_signup'
-                
-
-      
+              .form-inputs
+                = f.input :user_name, label: 'Diaplay name',  hint: 'This name will be displayed on the profile.', autofocus: true
+                = f.input :email
+                = f.input :password
+                = f.input :password_confirmation
+                - if Rails.env.production?
+                  = recaptcha_tags
+            
+              .form-actions
+                .row.pull-down-10
+                  .col-sm-12
+                    .pull-right
+                      = f.submit 'Save', class: 'btn btn-primary', id: 'commit-form'
+                      coffee:
+                        $("form#new_user").submit ->
+                          $(this).find('input[type=submit]').attr('disabled', 'disabled')
+                          $(this).find('input[type=submit]').val "Updating, please wait ..."
+              
+              .row
+                .col-sm-12
+                  .sexy_line
+                  == render 'users/shared/social_signup'
+                  
+          
+          
   == render 'shared/site_footer'
 
 

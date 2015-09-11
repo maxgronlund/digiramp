@@ -1,0 +1,190 @@
+/#wrap
+/  .full-width-top
+/    == render 'shared/navigationbar', page: 'settings'
+/    
+/  .page_b_banner
+/    img src="https://digiramp.s3.amazonaws.com/uploads/page_style/backdrop_image/1/music-enthusiasts.jpg" alt="Music enthusiasts"
+/    
+/    
+.full-width-top
+  == render 'shared/navigationbar', page: 'settings'
+
+  .container-fluid
+    .page_b_banner
+      img alt="Music enthusiasts" src="https://digiramp.s3.amazonaws.com/uploads/page_style/backdrop_image/1/music-enthusiasts.jpg" 
+    .cms-content
+      .container-fluid
+        .row
+          .col-sm-3
+          .col-sm-6
+            .digi-box.pull-down-48.text-align-center
+              h2 Take controll of your music
+              h3 Publish, promote, manag, share
+              = link_to 'Create Account', signup_index_path, class: 'btn btn-lg btn-warning'
+              
+              .pull-down-12
+                'Free, secure, & super easy. After signup, the site helps you setup.
+          .col-sm-3
+          
+
+        
+          .col-sm-12.pull-down-24.white-back
+            .row
+              .col-sm-12.text-align-center
+                h2 For music creators, industry pros, and fans.
+            .person-badges.pull-down-10
+              .all-users
+                .util-carousel.normal-imglist id="users-imglist"
+                  - @users.each do |user|
+                    == render 'users/show', user: user
+        javascript:
+        	$('#users-imglist').utilCarousel({
+        		pagination : false,
+        		navigationText : ['<i class="fa fa-chevron-left"></i>', '<i class="fa fa-chevron-right"></i>'],
+        		navigation : true,
+        		rewind : false,
+        		responsiveMode : 'itemWidthRange',
+        		itemWidthRange : [200, 315],
+            lazyLoad: true
+        	});
+          
+        .row.pull-down-24
+          .col-sm-12
+            
+            /#digiWhams  class="/recordings/#{@recordings.first.id.to_s}"
+            /  == render 'recordings/show', recording: @recordings.first
+            - recording = []
+            - recording << @recordings.first
+            == render 'recordings/index', recordings: recording
+        
+        
+        .digi-box.pull-down-24
+          
+          .row
+            .col-sm-4
+              h4
+                i.fa.fa-check.green-font&nbsp;
+                'Share & sell music
+                br
+                i.fa.fa-check.green-font&nbsp;
+                'Be your own label
+                br
+                i.fa.fa-check.green-font&nbsp;
+                'Get more fans & gigs
+            .col-sm-4
+              h4
+                i.fa.fa-check.green-font&nbsp;
+                'License work quickly, easily
+                br
+                i.fa.fa-check.green-font&nbsp;
+                'Manage artists & catalogs
+                br
+                i.fa.fa-check.green-font&nbsp;
+                'Network privately
+            .col-sm-4
+              h4
+                i.fa.fa-check.green-font&nbsp;
+                'Best way to support artists
+                br
+                i.fa.fa-check.green-font&nbsp;
+                'Free. Listen & discover great music
+                br
+                i.fa.fa-check.green-font&nbsp;
+                'Connect with artists
+                br
+                
+        
+          == render 'create_account'
+          
+        .row.full-width-color.pull-down-24
+          h3 Opportunities
+          /.col-sm-12.pull-down-12
+        
+        
+          
+        .row
+          .col-sm-12
+            .digibox
+              .opportunity
+                .new_opportunities 
+                  == render 'public_opportunities/index'
+          .col-am-12
+            .digi-box
+              == render 'create_account'
+          
+        
+        .row.full-width-color.pull-down-24
+          h3 Fretures
+          
+        
+        
+        .digi-box
+          
+          .row
+            .col-sm-4
+              h4
+                i.fa.fa-check.green-font&nbsp;
+                'High quality audio
+                br
+                i.fa.fa-check.green-font&nbsp;
+                'Custom profile & store
+                br
+                i.fa.fa-check.green-font&nbsp;
+                'Playlists
+                br
+                i.fa.fa-check.green-font&nbsp;
+                'Sell music & merch
+            .col-sm-4
+              h4
+                i.fa.fa-check.green-font&nbsp;
+                'Catalogs
+                br
+                i.fa.fa-check.green-font&nbsp;
+                'Special offers
+                br
+                i.fa.fa-check.green-font&nbsp;
+                'Community
+                br
+                i.fa.fa-check.green-font&nbsp;
+                'Collaboration
+                br
+                i.fa.fa-check.green-font&nbsp;
+                'Projects
+            .col-sm-4
+              h4
+                i.fa.fa-check.green-font&nbsp;
+                'Publishing
+                br
+                i.fa.fa-check.green-font&nbsp;
+                'Licenses
+                br
+                i.fa.fa-check.green-font&nbsp;
+                'Rights management
+                br
+                i.fa.fa-check.green-font&nbsp;
+                'Splits
+                br
+                i.fa.fa-check.green-font&nbsp;
+                'Reports
+          == render 'create_account'
+          
+        .row.full-width-color.pull-down-24.text-align-center
+          h3 Our story   
+        .row
+          .col-sm-12
+            .digi-box
+              .text-align-center
+                h3 Founder & CEO Peter Rafelson
+              .row
+                .col-sm-2
+                .col-sm-8
+                  #welcome-videos.pull-down-24.
+                    iframe src="https://www.youtube.com/embed/lOCJL2M3IzM" width="1280" height="720" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen
+  
+              == render 'create_account'
+        .row.pull-down-68
+          .col-sm-12
+
+    '&nbsp;
+  == render 'shared/site_footer'
+        

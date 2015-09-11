@@ -3,6 +3,7 @@ class WelcomeController < ApplicationController
   
   
   def index
+    @body_color = "#16151D"
 
     # lots of requests to the db here
     

@@ -144,6 +144,7 @@ class UsersController < ApplicationController
     @user                = User.new(user_params)
       
     if @user.save
+      finished("landing_page")
       DefaultAvararJob.perform_later @user.id
       finished(:landing_page)
       
