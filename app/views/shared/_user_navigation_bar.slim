@@ -87,6 +87,12 @@ nav.navbar.nav-user
                 i class="fa fa-user"
                 '&nbsp;
                 'Profile
+                
+            li  class="#{page == 'contacts' ? 'active' : ''}"
+              = link_to user_recordings_path(current_user, clear: 'clear' ) do
+                i class="fa fa-headphones"
+                '&nbsp;
+                'Recordings
 
             
             - unless current_user.account_type  == "Social"    

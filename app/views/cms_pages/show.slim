@@ -34,7 +34,8 @@
             
       == render 'shared/site_footer'   
 
--else  
+-else 
+ 
   #wrapper
     .full-width-top
       == render 'shared/navigationbar', page: 'user' 
@@ -43,7 +44,7 @@
     #sidebar-wrapper
       ul class="sidebar-nav"
         == render 'users/shared/sidebar', selected: 'user'
-    .orange
+    .orangex
       #page-content-wrapper
         .container-fluid
           == render "user/cms_pages/themes/#{@cms_page.theme.downcase}"
