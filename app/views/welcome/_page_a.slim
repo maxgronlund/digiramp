@@ -144,7 +144,8 @@
                     'More opportunities
           .col-sm-8
             h4 Featured recordings
-            == render 'recordings/index', recordings: @recordings
+            - unless @recordings.empty?
+              == render 'recordings/index', recordings: @recordings
             
           
 == render 'shared/site_footer'

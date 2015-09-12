@@ -1,7 +1,6 @@
 class WelcomeController < ApplicationController
   
-  
-  
+
   def index
     @ab_test =  ab_test( "landing_page", "page_a", "page_b")
     

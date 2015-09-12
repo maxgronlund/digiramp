@@ -15,7 +15,7 @@ As an administrator i can se all the admin pages
     
     
     
-  #@javascript  
+  @javascript  
   Scenario: As an administrator i can open all admin the pages
     When I'm on the "Admin page"
     Then I can see "Admin"
