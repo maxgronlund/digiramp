@@ -53,9 +53,9 @@
             
             /#digiWhams  class="/recordings/#{@recordings.first.id.to_s}"
             /  == render 'recordings/show', recording: @recordings.first
-            - recording = []
-            - recording << @recordings.first
-            == render 'recordings/index', recordings: recording
+            - recordins = []
+            - recordins << @recordings.first
+            == render 'recordings/index', recordings: recordings
         
         
         .digi-box.pull-down-24

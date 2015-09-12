@@ -6,7 +6,7 @@ Given(/^I am logged in as a salesperson with the email "(.*?)"$/) do |email|
   fill_in 'sessions_email', with: email
   fill_in 'sessions_password', with: 'salesale'
   find_by_id('log_in_form_button').click
-  visit "/?landing_page=users"
+  visit "/?landing_page=page_a"
   find('.all-users')
   
   
