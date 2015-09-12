@@ -144,10 +144,11 @@ class UsersController < ApplicationController
     
     @user                = User.new(user_params)
       
-    if @user.save
+    if @user.save!
       finished("landing_page")
+      finished("invitation_from_user")
       DefaultAvararJob.perform_later @user.id
-      finished(:landing_page)
+
       
       @account          = User.create_a_new_account_for_the @user
 
@@ -162,8 +163,8 @@ class UsersController < ApplicationController
                     account_id: @user.account.id) 
 
       @user.confirm_ips
-      redirect_to edit_user_path(@user)
-
+      redirect_to edit_user_user_configurations_path(@user)
+      #user/users/test-4/user_configurations/1057/edit
     else
       render :new
     end
@@ -222,14 +223,31 @@ class UsersController < ApplicationController
   end
 
   def destroy
-    
-    if super? || (current_user.id == @user.id)
+
+    if @user.permits?(current_user)
       
-      session[:go_to_after_edit]          = nil
+      begin 
+        user = User.cached_find_by_auth_token( cookies[:auth_token] )
+        user.flush_auth_token_cache(cookies[:auth_token])
+      
+        user.create_activity(  :logged_out, 
+                           owner: user,
+                       recipient: user,
+                  recipient_type: user.class.name,
+                      account_id: user.account.id)       
+      rescue
+      end
+      cookies.delete(:auth_token)
       cookies.delete(:user_id)
+    
+      session[:share_recording_id]        = nil
       session[:show_profile_completeness] = nil
+      session[:request_url]               = nil
+      session[:go_to_after_edit]          = nil
       @user.flush_auth_token_cache(cookies[:auth_token])
+      
       DeleteUserJob.perform_later @user.id
+      current_user = nil
       redirect_to root_path
     else
       forbidden

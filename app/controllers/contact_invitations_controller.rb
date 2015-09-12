@@ -4,6 +4,7 @@ class ContactInvitationsController < ApplicationController
   # linked to from email
   def accept_invitation 
     if @client_invitation = ClientInvitation.where(uuid: params[:contact_invitation_id]).first
+      @ab_test =  ab_test( "invitation_from_user", "form")
       @message = validate_invitation( @client_invitation ) 
     else
       @message = 'Error: Invitation do not exists?'
@@ -91,7 +92,8 @@ class ContactInvitationsController < ApplicationController
     if InvitationPasswordValidatorService.validate( params[:client][:password], params[:client][:password_confirmation])
       message = sign_up_with_valid_password( params )
       if message == 'Success'
-        redirect_to user_path( @user )
+        #redirect_to user_path( @user )
+        redirect_to user_user_user_configurations_path(@user)
       else
         redirect_to contact_invitation_accept_invitation_path(contact_invitation_id: params[:contact_invitation_id], message: message)
       end

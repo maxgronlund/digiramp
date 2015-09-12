@@ -55,8 +55,7 @@
             /  == render 'recordings/show', recording: @recordings.first
             - recordings = []
             - recordings << @recordings.first
-            - unless recordings.empty?
-              == render 'recordings/index', recordings: recordings
+            == render 'recordings/index', recordings: recordings
         
         
         .digi-box.pull-down-24

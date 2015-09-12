@@ -1,7 +1,7 @@
 == render @ab_test
 
 javascript:
-  window.history.pushState('page2', 'Title', "?#{@ab_test}");
+  window.history.pushState('page2', 'Title', "?landing_page=#{@ab_test}");
 
 /- ab_test( "landing_page", "page_a", "page_b") do |page|
 /  = render page

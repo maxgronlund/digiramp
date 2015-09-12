@@ -9,5 +9,5 @@ Split.configure do |config|
 end
 
 Split::Dashboard.use Rack::Auth::Basic do |username, password|
-  username == 'ab-test' && password == 'better-digiramp-convertion-rate'
+  username == 'ab-test' && password == 'better-digiramp-conversion-rate'
 end
