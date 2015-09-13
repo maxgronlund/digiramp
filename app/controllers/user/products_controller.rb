@@ -100,7 +100,7 @@ class User::ProductsController < ApplicationController
   def update
     @category     = @shop_product.category
 
-    
+    params[:shop_product][:connected_to_stripe] = @user.is_stripe_connected
     respond_to do |format|
       if @shop_product.update(shop_product_params)
         

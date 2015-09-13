@@ -717,9 +717,11 @@ class User < ActiveRecord::Base
                         legal_name:             self.user_name + ' Publishing',
                         show_on_public_page:    false,
                         i_am_my_own_publisher:  true,
-                        description:            "Personal publisher for #{self.user_name}"
+                        description:            "Personal publisher for #{self.user_name}",
+                        ipi_code:               self.ipi_code
                       )
-      
+      self.copy_address_to(@publisher.address)
+
       @publisher.confirmed! 
     end
     
