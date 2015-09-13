@@ -30,8 +30,9 @@
 
       .sexy_line
       h4 = @ipi.common_work.title
-      .digi-box
-        == render 'form'
+
+      == render 'form'
+      
       /.digi-box
       /  = simple_form_for [:user, @user, @common_work, @ipi], turboboost: false do |f|
       /    = f.error_notification

@@ -2,6 +2,12 @@ Digiramp::Application.routes.draw do
 
   
 
+
+
+  #namespace :user do
+  #get 'ipi_publishing_agreements/create'
+  #end
+
   namespace :user do
   get 'find_publisher/edit'
   end
@@ -811,6 +817,7 @@ Digiramp::Application.routes.draw do
         resources :ipi_confirmations
         resources :accept_ipis, only: [:update]
         resources :request_ipi_confirmations
+        
         #resources :please_clear_rights, only: [:index]
       end
       resources :common_work_lyrics, only: [:edit, :update]
@@ -882,6 +889,7 @@ Digiramp::Application.routes.draw do
       resources :invite_client_groups, only: [:update]
       resources :invite_friends, only: [:new, :create]
       resources :ipis
+      resources :ipi_publishing_agreements, only: [:create]
       resources :revenue_streams
       resources :legal_documents do
         resources :document_signatures
@@ -922,6 +930,7 @@ Digiramp::Application.routes.draw do
         end
         resources :publishing_templates
       end
+      resources :publishing_designees, only: [:show]
       resources :publisher_legal_infos, only: [:edit] 
       resources :product_admin, only: [:edit, :new, :create, :new]   
       resources :invoices, only: [:index, :show]
@@ -949,6 +958,7 @@ Digiramp::Application.routes.draw do
       resources :removed_opportunities, only: [:index, :show, :destroy]
       resources :selected_opportunities, only: [:index, :show, :destroy]
       resources :select_templates
+      resources :self_publishers, only: [:edit, :show]
       resources :stakes, only: [:update]
       resources :user_configurations
       resources :user_emails

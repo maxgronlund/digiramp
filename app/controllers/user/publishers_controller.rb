@@ -5,12 +5,14 @@ class User::PublishersController < ApplicationController
   # GET /publishers.json
   def index
     @publishers = @user.publishers
-   
   end
 
   # GET /publishers/1
   # GET /publishers/1.json
   def show
+    #if params[:ipi_id]
+    #  IpiPublishingAgreement.where()
+    #end
   end
 
   # GET /publishers/new
@@ -42,7 +44,7 @@ class User::PublishersController < ApplicationController
         end
         format.json { render :show, status: :created, location: @publisher }
       else
-        format.html { render :new }
+        format.html { render :new, info: 'Publisher was successfully destroyed.' }
         format.json { render json: @publisher.errors, status: :unprocessable_entity }
       end
     end
@@ -51,10 +53,11 @@ class User::PublishersController < ApplicationController
   # PATCH/PUT /publishers/1
   # PATCH/PUT /publishers/1.json
   def update
+    ap params
     respond_to do |format|
       if @publisher.update(publisher_params)
-        @publisher.check_ownership! 
-        @publisher.add_user_email!
+        #@publisher.check_ownership! 
+        #@publisher.add_user_email!
         format.html { redirect_to user_user_publisher_path(@publisher.user, @publisher) }
         format.json { render :show, status: :ok, location: @publisher }
       else
@@ -69,7 +72,7 @@ class User::PublishersController < ApplicationController
   def destroy
     @publisher.destroy
     respond_to do |format|
-      format.html { redirect_to user_user_publishers_path(@user), ibfo: 'Publisher was successfully destroyed.' }
+      format.html { redirect_to user_user_publishers_path(@user), info: 'Publisher was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

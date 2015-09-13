@@ -135,15 +135,21 @@ class Recording < ActiveRecord::Base
   end
   
   def is_cleared?
-    get_common_work.is_cleared?
+    return false unless get_common_work.is_cleared?
+    return false unless ipis_is_cleared?
+    true
   end
   
-  def ipis_id_cleared
-    return false if recording_ipis.count == 0
+  def ipis_is_cleared?
+    return false unless ipis_is_registered?
     recording_ipis.each do |recording_ipi|
       return false unless recording_ipi.accepted?
     end
     true
+  end
+  
+  def ipis_is_registered?
+    recording_ipis.count > 0
   end
   
   

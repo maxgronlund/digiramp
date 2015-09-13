@@ -1,0 +1,52 @@
+.digi-box
+  .row
+    .col-sm-6
+      h4 Publishing agreements
+    .col-sm-6
+      .pull-right
+        - if @user.id == @ipi.user_id
+          = link_to 'Add agreement', 
+            new_user_user_common_work_ipi_ipi_publisher_path(@user, 
+                                                            @common_work, 
+                                                            @ipi), class: 'btn btn-default'
+  .table-responsive
+    table class="table table-hover"
+      thead
+        tr
+          th Title
+          th Publisher
+          th Publishing agreement
+          th 
+            .pull-right
+              'Status
+          th
+      tbody
+        - @ipi.publishing_agreements.each do |publishing_agreement|
+          tr
+            td = publishing_agreement.title
+            td 
+              - if publisher = publishing_agreement.publisher
+                = publisher.legal_name
+            td
+              = link_to 'Show', user_user_publisher_publishing_agreement_path(@user, publishing_agreement.publisher, publishing_agreement), class: 'btn btn-default btn-xs'
+              /- if document = publishing_agreement.document
+              /  = link_to document.title, '#', class: 'btn btn-default btn-xs'
+             
+            td
+              - if document = publishing_agreement.document
+                .pull-right
+                  - case document.status
+                  - when 'draft'
+                    .label.label-default
+                      'Draft
+                  - when 'executed'
+                    .label.label-success
+                      'Executed
+                  - else
+                    .label.label-default
+                      = document.status.to_s.capitalized
+                  
+                  /'&nbsp;    
+                  /=< link_to '#' do
+                  /  .btn.btn-danger.btn-xs
+                  /    i.fa.fa-times

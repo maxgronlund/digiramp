@@ -705,7 +705,38 @@ class User < ActiveRecord::Base
     'no access'
   end
   
-
+  def publishing
+    if @publisher = Publisher.find_by( user_id:             self.id,
+                                       i_am_my_own_publisher: true
+                                     )
+    else
+      @publisher = Publisher.create( 
+                        user_id:                self.id,
+                        account_id:             self.account.id,
+                        email:                  self.email,
+                        legal_name:             self.user_name + ' Publishing',
+                        show_on_public_page:    false,
+                        i_am_my_own_publisher:  true,
+                        description:            "Personal publisher for #{self.user_name}"
+                      )
+      
+      @publisher.confirmed! 
+    end
+    
+    
+    @publisher    
+  end
+  
+  def publishing_agreement
+    @publishing_agreement  = PublishingAgreement.where(publisher_id: self.publishing.id)
+                                .first_or_create(publisher_id: self.publishing.id,
+                                title: self.user_name + ' self publishing')
+    
+  end
+  
+  def publishing_agreement_document
+    
+  end
   
   def self.search query 
     if query.present?

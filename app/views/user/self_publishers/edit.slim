@@ -1,0 +1,217 @@
+- session[:return_url]         = request.url
+
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'settings' 
+  
+  
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'users/shared/sidebar', selected: 'settings'
+  
+  #page-content-wrapper
+    .container-fluid
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { 'Dashboard'.to_sym => user_user_control_panel_index_path(@user),
+                                                              'legal'.to_sym => user_user_legal_index_path(@user),
+                                                              'ipis'.to_sym => user_user_ipis_path(@user) }}
+      .row
+        .col-sm-6
+          .help
+            .help-text
+              h2 = @publisher.legal_name
+              'Self publishing
+            .help-button
+              == render 'admin/helps/help', identifier: 'user self publishing'
+        .col-sm-6
+          .pull-right.pull-down-10
+            = link_to user_user_ipis_path(@user ) do
+              .btn.btn-default
+                i.fa.fa-chevron-left
+                '&nbsp;Back
+             
+      .sexy_line
+      .digi-box
+        = simple_form_for [:user, @user, @publisher] do |f|
+          = f.error_notification
+
+          .form-inputs
+            /== render 'shared/flash_message'
+            .row
+              .col-sm-6
+                = f.hidden_field :account_id, value: @user.account.id
+                = f.hidden_field :user_id, value: @user.id
+                = f.hidden_field :activated, value: true
+        
+                = f.input :email, placeholder: 'Use your own email if you are your own publisher'
+                = f.input :ipi_code, placeholder: 'Optional', hint: 'This code is provided to you by a PRO'
+                
+              .col-sm-6
+                = f.input :legal_name, hint: "This is the name your publishing will be registered under"
+          .row
+            .col-sm-12
+              .pull-right
+                = f.submit 'Save', class: 'btn btn-default'
+        
+            /.row
+      /.digi-box
+      /  .table-responsive
+      /    table class="table table-hover"
+      /      thead
+      /        tr
+      /          th Capacity
+      /          th Email
+      /          th Split
+      /      tbody
+      /        tr
+      /          td
+      /             - if @ipi.music
+      /               'Music
+      /               br
+      /             - if @ipi.lyric
+      /               'Lyric
+      /               br
+      /             - if @ipi.melody
+      /               'Melody
+      /               br
+      /             - if @ipi.arrangement
+      /               'Arrangement
+      /          td
+      /            - if user = @ipi.user
+      /              = user.email
+      /            - else
+      /              = @ipi.email
+      /          td = number_to_percentage(@ipi.share,  precision: 2)
+      /            
+      /  .row  
+      /    .col-sm-12
+      /      .pull-right
+      /        .ipi-status
+      /        == render 'status', ipi: @ipi
+      /
+      /          
+      /
+      /- if @ipi.publishing_agreements.any?
+      /  .digi-box
+      /    .row
+      /      .col-sm-6
+      /        h4 Publishing agreements
+      /      .col-sm-6
+      /        .pull-right
+      /          - if @user.id == @ipi.user_id
+      /            = link_to 'Add agreement', 
+      /              new_user_user_common_work_ipi_ipi_publisher_path(@user, 
+      /                                                              @common_work, 
+      /                                                              @ipi), class: 'btn btn-default'
+      /    .table-responsive
+      /      table class="table table-hover"
+      /        thead
+      /          tr
+      /            th Title
+      /            th Date
+      /            th Document
+      /            th 
+      /              .pull-right
+      /                'Status
+      /            th
+      /        tbody
+      /          - @ipi.publishing_agreements.each do |publishing_agreement|
+      /            tr
+      /              td = publishing_agreement.title
+      /              td = l publishing_agreement.created_at, format: :date
+      /              td 
+      /                - if document = publishing_agreement.document
+      /                  = link_to document.title, '#', class: 'btn btn-default btn-xs'
+      /              td 
+      /              td
+      /                - case document.status
+      /                - when 'draft'
+      /                  .label.label-default
+      /                    'Draft
+      /                - when 'executed'
+      /                  .label.label-success
+      /                    'Executed
+      /                - else
+      /                  .label.label-default
+      /                    = document.status.to_s.capitalized
+      /                  
+      /- else 
+      /  - blog      = Blog.cached_find('User ipis')
+      /  - blog_post = BlogPost.cached_find( 'You have no publishing' , blog )
+      /  
+      /          
+      /  .row
+      /    .col-sm-12
+      /      .alert.alert-info
+      /        b = blog_post.title
+      /        = blog_post.body
+      /        - if super?
+      /          .row
+      /            .col-sm-12
+      /              .pull-right
+      /                = link_to edit_admin_blog_blog_post_path(blog, blog_post) do
+      /                  .btn.btn-default.btn-xs
+      /                    i.fa.fa-pencil
+      /  .row
+      /    .col-sm-6
+      /      .digi-box
+      /        - blog_post = BlogPost.cached_find( "I have no publiser" , blog )
+      /        h4 = blog_post.title
+      /        = blog_post.body
+      /        = debug @user.publisher
+      /        .row
+      /          .col-sm-12
+      /            .pull-right
+      /              = link_to 'Configure', user_user_self_publishing_edit_path(@user, @user.publisher), class: 'btn btn-default'
+      /        /- @ipi.full_name =  @user.full_name if (@ipi.full_name.blank? && !@user.full_name)
+      /        /= simple_form_for [:user, @user, @ipi.common_work, @ipi], turboboost: true do |f|
+      /        /  = f.simple_fields_for :address do |address_form|
+      /        /    = address_form.input :first_name
+      /        /    = address_form.input :middle_name
+      /        /    = address_form.input :last_name
+      /        /
+      /        /
+      /        /  = f.input :i_am_the_publishing_designee, 
+      /        /            label: false, 
+      /        /            turboboost: true,
+      /        /            inline_label:  raw( "*I am the publishing designee and have <a href=#{terms_and_conditions_path}>read and agree</a>  to the terms and conditions"),
+      /        /            :input_html => { class: 'icheck-me acceptance', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue"     }
+      /        /  .row
+      /        /    .col-sm-12
+      /        /      .pull-right
+      /        /        /= f.submit 'Confirm',  class: 'btn btn-primary', id: 'acceptance_of_terms'
+      /        /        = f.submit 'Confirm', class: 'btn btn-primary'
+      /        /
+      /    .col-sm-6
+      /      .digi-box
+      /        - blog_post = BlogPost.cached_find( "I have publisher" , blog )
+      /        h4 = blog_post.title
+      /        = blog_post.body
+      /
+      /        .row
+      /          .col-sm-12
+      /            .pull-right
+      /              = link_to 'Configure', '#', class: 'btn btn-default'
+      /        
+      /  .row  
+      /    .col-sm-6
+      /      .digi-box
+      /        - blog_post = BlogPost.cached_find( "I want a publisher" , blog )
+      /        h4 = blog_post.title
+      /        = blog_post.body
+      /        .row
+      /          .col-sm-12
+      /            .pull-right
+      /              = link_to 'Find publisher', publishers_path, class: 'btn btn-default'
+      /        
+      /    
+      /
+      /
+      /
+      /            
+      /
+  == render 'shared/site_footer'   
+  
+
+
+
+

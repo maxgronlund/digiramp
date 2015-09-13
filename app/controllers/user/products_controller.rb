@@ -99,11 +99,11 @@ class User::ProductsController < ApplicationController
   # PATCH/PUT /shop/products/1.json
   def update
     @category     = @shop_product.category
-    
 
     
     respond_to do |format|
       if @shop_product.update(shop_product_params)
+        
         @shop_product.valid_for_sale!
         #update_show_in_shop
         format.html { redirect_to user_user_product_path(@user, @shop_product) }

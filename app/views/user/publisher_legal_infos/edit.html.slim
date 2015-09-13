@@ -42,10 +42,11 @@
                   'Check this if you have your own publishing company or want to create one
 
                 = f.input :show_on_public_page, input_html: { class: 'icheck-me acceptance', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue" }, hint: 'Your contact info will not be exposed'
-                = f.input :phone_number
-                = f.input :ipi_code
-                = f.input :cae_code
-                = f.input :pro_affiliation_id, collection: ProAffiliation.order(:title), value_method: :id, include_blank: true, label: 'Performance Rights Organization'
+                = f.input :phone_number, placeholder: 'Optional'
+                = f.input :ipi_code, placeholder: 'Optional'
+                = f.input :cae_code, placeholder: 'Optional'
+                = f.input :pro_affiliation_id, collection: ProAffiliation.order(:title), value_method: :id, include_blank: true, label: 'Performance Rights Organization',
+                            hint: 'Optional. Only fill this if you are registered as a publisher with a PRO'
               .col-sm-6
       
                 = f.simple_fields_for :address do |address_form|

@@ -31,8 +31,17 @@ class PublishingAgreement < ActiveRecord::Base
                                   uuid: UUIDTools::UUID.timestamp_create().to_s
                                  )
       self.update(document_id: document.uuid)
+      if self_publishing?
+        document.executed!
+      end
     end
     document
+  end
+  
+  def self_publishing?
+    if self.publisher
+     return self.publisher.i_am_my_own_publisher
+   end
   end
   
   def between

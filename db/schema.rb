@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150911112752) do
+ActiveRecord::Schema.define(version: 20150913145025) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1962,6 +1962,7 @@ ActiveRecord::Schema.define(version: 20150911112752) do
     t.boolean  "arrangement",                              default: false
     t.integer  "status"
     t.boolean  "i_am_the_publishing_designee",             default: false
+    t.boolean  "publishing_designee",                      default: false
   end
 
   add_index "ipis", ["common_work_id"], name: "index_ipis_on_common_work_id", using: :btree
@@ -2650,6 +2651,7 @@ ActiveRecord::Schema.define(version: 20150911112752) do
     t.string   "phone_number",             limit: 255, default: ""
     t.integer  "account_id"
     t.integer  "status",                               default: 0
+    t.boolean  "publishing_designee",                  default: false
   end
 
   add_index "recording_ipis", ["account_id"], name: "index_recording_ipis_on_account_id", using: :btree

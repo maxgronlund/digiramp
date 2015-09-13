@@ -7,7 +7,8 @@ class User::IpisController < ApplicationController
   end
   
   def show
-    @ipi          = Ipi.cached_find(params[:id])
+    @ipi                              = Ipi.cached_find(params[:id])
+    @ipi_publishing_agreement         = IpiPublishingAgreement.new
     not_found( params )  unless ( @common_work = @ipi.common_work ) && ( account = @common_work.account ) && ( @requester = account.user )
 
   end

@@ -10,7 +10,7 @@ class Ipi < ActiveRecord::Base
   has_many :activity_events, as: :activity_eventable
   
   #has_many :ipi_publishing_agreements
-  has_many :ipi_publishing_agreements
+  has_many :ipi_publishing_agreements, dependent: :destroy
   has_many :publishing_agreements, :through => :ipi_publishing_agreements
   
   
@@ -20,9 +20,10 @@ class Ipi < ActiveRecord::Base
   
   belongs_to :import_ipi
   belongs_to :user
-  #validates_with IpiEmailValidator 
+  validates_with IpiValidator 
   validates_presence_of :email
   validates_formatting_of :email, :using => :email, :allow_nil => true
+  #validates_numericality_of :share, less_than_or_equal_to: 100
   after_create :attach_to_user
   #after_update :attach_user_credits
   #before_destroy :remove_user_credits

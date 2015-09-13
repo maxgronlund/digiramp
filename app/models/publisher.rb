@@ -22,6 +22,8 @@ class Publisher < ActiveRecord::Base
   accepts_nested_attributes_for :address
   include AddressMix
   
+  has_many :ipis,   :through => :publishing_agreements 
+  
  
   
   
