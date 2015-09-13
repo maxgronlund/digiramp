@@ -734,6 +734,16 @@ class User < ActiveRecord::Base
     
   end
   
+  def legal_informations_completed?
+    return false if self.address.first_name.blank?
+    return false if self.address.last_name.blank?
+    return false if self.address.address_line_1.blank?
+    return false if self.address.city.blank?
+    return false if self.address.country.blank?
+    return false if self.address.zip_code.blank?
+    true
+  end
+  
   def publishing_agreement_document
     
   end

@@ -55,6 +55,11 @@ class UserConfiguration < ActiveRecord::Base
     
     # sell music
     if self.i_want_to_sell_music
+
+      unless add_legal_informations_later
+        return 'add_legal_informations' unless user.legal_informations_completed?
+      end
+      
       unless register_a_publisher_later
         return 'register_a_publisher'  if user.user_publishers.count  == 0
       end
@@ -87,6 +92,11 @@ class UserConfiguration < ActiveRecord::Base
     # sell goods
     if self.i_want_to_sell_goods
       
+      unless add_legal_informations_later
+        return 'add_legal_informations' unless user.legal_informations_completed?
+      end
+      
+      
       unless enable_shop_later
         if Rails.env.production?
           return 'enable_shop'                  unless  user.has_enabled_shop
@@ -103,6 +113,11 @@ class UserConfiguration < ActiveRecord::Base
     
     # License music
     if self.i_want_to_get_my_music_into_films_and_tv
+      
+      unless add_legal_informations_later
+        return 'add_legal_informations' unless user.legal_informations_completed?
+      end
+      
       
       unless self.register_a_publisher_later 
         return 'register_a_publisher'         if user.user_publishers.count  == 0
@@ -152,6 +167,9 @@ class UserConfiguration < ActiveRecord::Base
     
     
     if self.i_want_to_offer_services
+      unless add_legal_informations_later
+        return 'add_legal_informations' unless user.legal_informations_completed?
+      end
       
     end
     
@@ -160,6 +178,9 @@ class UserConfiguration < ActiveRecord::Base
     end
     
     if self.i_want_to_manage_users_and_catalogs
+      unless add_legal_informations_later
+        return 'add_legal_informations' unless user.legal_informations_completed?
+      end
       
     end
     

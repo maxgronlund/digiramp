@@ -54,6 +54,9 @@
       
     - when 'add_recording_to_a_playlist'
       == render '/users/nudge', user: user, blog: blog, link: songs_path(clear: 'clear'), icon: 'thumbs-up'
+      
+    - when 'add_legal_informations'
+       == render '/users/nudge', user: user, blog: blog, link: user_user_legal_informations_path(user), icon: 'gavel'
     
     /- when 'like a recording'
     /  .col-sm-8
