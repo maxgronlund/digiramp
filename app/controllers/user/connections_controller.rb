@@ -104,10 +104,10 @@ class User::ConnectionsController < ApplicationController
                                             })
     else
       @message.title              = @connection.connection.user_name  + ' has rejected you request'
-      @message.body               = ' Sorry. Your request for a connection with ' + @connection.connection.user_name + ' has been rejected' 
+      @message.body               = ' Sorry. Your request for a connection with ' + @connection.connection.user_name + ' has been declined' 
       channel = 'digiramp_radio_' + @connection.user.email
       Pusher.trigger(channel, 'digiramp_event', {"title" => 'Message received', 
-                                            "message" => "#{@connection.connection.user_name} has rejected your request", 
+                                            "message" => "#{@connection.connection.user_name} has declined your request", 
                                             "time"    => '2500', 
                                             "sticky"  => 'false', 
                                             "image"   => 'notice'

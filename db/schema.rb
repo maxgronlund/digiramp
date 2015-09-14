@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150913172418) do
+ActiveRecord::Schema.define(version: 20150914102354) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1195,7 +1195,6 @@ ActiveRecord::Schema.define(version: 20150913172418) do
     t.boolean  "experimental"
     t.string   "other_genre",          limit: 255
     t.text     "description"
-    t.string   "budget",               limit: 255
     t.decimal  "copyright_split"
     t.decimal  "master_split"
     t.string   "role",                 limit: 255
@@ -1205,6 +1204,7 @@ ActiveRecord::Schema.define(version: 20150913172418) do
     t.string   "location",             limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.decimal  "budget"
   end
 
   add_index "creative_project_roles", ["creative_project_id"], name: "index_creative_project_roles_on_creative_project_id", using: :btree
@@ -3108,6 +3108,8 @@ ActiveRecord::Schema.define(version: 20150913172418) do
     t.uuid     "channel_uuid"
     t.uuid     "asset_id"
     t.string   "asset_type"
+    t.uuid     "ip_uuid"
+    t.string   "ip_type"
   end
 
   add_index "stakes", ["asset_type", "asset_id"], name: "index_stakes_on_asset_type_and_asset_id", using: :btree
@@ -3263,6 +3265,7 @@ ActiveRecord::Schema.define(version: 20150913172418) do
     t.boolean  "like_a_recording_later"
     t.boolean  "add_recording_to_a_playlist_later"
     t.boolean  "add_legal_informations_later"
+    t.boolean  "add_digital_signature_later"
   end
 
   add_index "user_configurations", ["user_id"], name: "index_user_configurations_on_user_id", using: :btree
@@ -3390,6 +3393,7 @@ ActiveRecord::Schema.define(version: 20150913172418) do
     t.integer  "likings",                                default: 0
     t.text     "seller_info"
     t.string   "ipi_code"
+    t.uuid     "digital_signature_uuid"
   end
 
   add_index "users", ["default_cms_page_id"], name: "index_users_on_default_cms_page_id", using: :btree

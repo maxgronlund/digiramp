@@ -41,35 +41,35 @@
             /  'Recording
             
       .sexy_line
-      .row
-        .col-sm-6
-          .digi-box 
-            h4 Create stakeholdes  
-            /= debug @shop_product.id
-            = simple_form_for [:user, @user, @shop_product, Stake.new(split: 10)], url: url_for( action: 'create', 
-                                                                                      controller: 'user/stakes'), 
-                                                                        turboboost: true, 
-                                                                        :method => 'post' do |f|
-                
-                = f.hidden_field :asset_type, value: @shop_product.class.name
-                = f.hidden_field :flat_rate_in_cent, value: 0
-                = f.hidden_field :currency, value: 'usd'
-                = f.hidden_field :unassigned, value: true
-                = f.input :email
-                = f.input :split, input_html: {min: "1", max: "100"}
-                .row
-                  .col-sm-12
-                    .pull-right
-                      = f.submit 'Save', class: 'btn btn-default'
-        .col-sm-6
-
+      /.row
+      /  .col-sm-6
+      /    .digi-box 
+      /      h4 Create stakeholdes  
+      /      /= debug @shop_product.id
+      /      = simple_form_for [:user, @user, @shop_product, Stake.new(split: 10)], url: url_for( action: 'create', 
+      /                                                                                controller: 'user/stakes'), 
+      /                                                                  turboboost: true, 
+      /                                                                  :method => 'post' do |f|
+      /          
+      /          = f.hidden_field :asset_type, value: @shop_product.class.name
+      /          = f.hidden_field :flat_rate_in_cent, value: 0
+      /          = f.hidden_field :currency, value: 'usd'
+      /          = f.hidden_field :unassigned, value: true
+      /          = f.input :email
+      /          = f.input :split, input_html: {min: "1", max: "100"}
+      /          .row
+      /            .col-sm-12
+      /              .pull-right
+      /                = f.submit 'Save', class: 'btn btn-default'
+      /  .col-sm-6
+      /
       .row
         .col-sm-12
           .digi-box
-            -  if @shop_product.total_stakes != 100
-              .alert.alert-danger
-                = "Total share is #{@shop_product.total_stakes}"
-            h4 Stakeholders
+            /-  if @shop_product.total_stakes != 100
+            /  .alert.alert-danger
+            /    = "Total share is #{@shop_product.total_stakes}"
+            /h4 Stakeholders
             
             .table-responsive
               table class="table table-hover"
@@ -78,10 +78,10 @@
                     th
                     th Email
                     th Split
-                    th Collected
-                    th Channel
+                    /th Collected
+                    /th Channel
                 tbody
-                  - @shop_product.stakeholders.order(:created_at).each do |stake|
+                  - @stakes.to_a.each do |stake|
                     tr
                       td = link_to user_user_product_stake_path(@user, @shop_product, stake), 
                                                     data: { confirm: 'Are you sure?' } , 
@@ -91,18 +91,19 @@
                                 i.fa.fa-times
                       td = stake.email
                       td
-                        .small-input
-                          .width-150
-                            
-                            = simple_form_for [:user, @user, stake], turboboost: true, :method => 'put' do |f|
-                                                                                          
-                              .input-group
-                                = f.input :split, label: false, class: 'form-control'
-                                .input-group-btn
-                                  = f.submit 'Update', class: 'btn btn-default'
-
-                      td = stake.account_id ? 'Yes': 'No'
-                      td = stake.channel_uuid
+                        = number_to_percentage(stake.split, precision: 2)
+                        /.small-input
+                        /  .width-150
+                        /    
+                        /    = simple_form_for [:user, @user, stake], turboboost: true, :method => 'put' do |f|
+                        /                                                                  
+                        /      .input-group
+                        /        = f.input :split, label: false, class: 'form-control'
+                        /        .input-group-btn
+                        /          = f.submit 'Update', class: 'btn btn-default'
+                        /
+                      /td = stake.account_id ? 'Yes': 'No'
+                      /td = stake.channel_uuid
               
 
 

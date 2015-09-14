@@ -73,6 +73,7 @@ class User::PublishingAgreementsController < ApplicationController
     @document.text_content     = text_content
     @document.expires          = expires
     @document.expiration_date  = expiration_date
+    @document.document_type    = "Publishing agreement"
     
     if @document.save!
       @publishing_agreement.update(title: @document.title)

@@ -134,13 +134,85 @@ class Recording < ActiveRecord::Base
     VOCAL_HASH << [k,k]
   end
   
+  def stakes
+    Stake.where(asset_type: self.class.name,asset_id: self.uuid )
+  end
+  
+  def update_stakes recording
+
+    self.get_common_work.ipis.each do |ipi|
+      if stake = Stake.find_by(
+                                account_id:   ipi.get_account_id,
+                                asset_id:     recording.uuid,
+                                asset_type:   recording.class.name,
+                                ip_uuid:      ipi.uuid,
+                                ip_type:     ipi.class.name
+                               )
+      else
+        stake = Stake.create(  
+                                account_id:          ipi.get_account_id,
+                                asset_id:            recording.uuid,
+                                asset_type:          recording.class.name,
+                                split:               ipi.share * 0.5,
+                                flat_rate_in_cent:   0,
+                                currency:            'usd',
+                                email:               ipi.user.email,
+                                unassigned:          false,
+                                ip_uuid:             ipi.uuid,
+                                ip_type:            ipi.class.name
+                            )
+      end
+
+    end
+    
+    self.recording_ipis.each do |recording_ipi|
+      if stake = Stake.find_by( account_id:          recording_ipi.account_id, 
+                                ip_uuid:             recording_ipi.uuid,
+                                ip_type:            recording_ipi.class.name,
+                                asset_id:            recording.uuid,
+                                asset_type:          recording.class.name
+                               )
+        
+        
+      else stake = Stake.create( account_id:          recording_ipi.account_id, 
+                                 ip_uuid:             recording_ipi.uuid,
+                                 ip_type:            recording_ipi.class.name,
+                                 asset_id:            recording.uuid,
+                                 asset_type:          recording.class.name,
+                                 split:               recording_ipi.share * 0.5,
+                                 flat_rate_in_cent:   0,
+                                 currency:            'usd',
+                                 email:               recording_ipi.email,
+                                 unassigned:          false,
+   
+                                )
+                               
+      end
+
+      
+    end
+    
+  end
+  
+  #def update_stakes
+  #  #begin
+  #  #  if shop_products = Shop::Product.where(productable_id: self.id,  productable_type: self.class.name)
+  #  #     shop_products.update_all(title: self.title)
+  #  #  end
+  #  #rescue => e
+  #  #  post_error "Recording#update_stakes #{e.message}"
+  #  #end
+  #end
+  
+  
   def is_cleared?
+
     return false unless get_common_work.is_cleared?
-    return false unless ipis_is_cleared?
+    return false unless master_is_cleared?
     true
   end
   
-  def ipis_is_cleared?
+  def master_is_cleared?
     return false unless ipis_is_registered?
     recording_ipis.each do |recording_ipi|
       return false unless recording_ipi.accepted?
@@ -169,21 +241,12 @@ class Recording < ActiveRecord::Base
     nil
   end
   
-  def stakes
-    stks =  Stake.where( asset_id: self.id,             asset_type: 'Recording' )
-    stks += Stake.where( asset_id: self.common_work_id, asset_type: 'CommonWork')
-  end
+  #def stakes
+  #  stks =  Stake.where( asset_id: self.id,             asset_type: 'Recording' )
+  #  stks += Stake.where( asset_id: self.common_work_id, asset_type: 'CommonWork')
+  #end
   
-  def update_stakes
-    begin
-      if shop_products = Shop::Product.where(productable_id: self.id,  productable_type: self.class.name)
-         shop_products.update_all(title: self.title)
-      end
-    rescue => e
-      post_error "Recording#update_stakes #{e.message}"
-    end
-  end
-
+  
   
   def validate_splits
     #total = 0.0

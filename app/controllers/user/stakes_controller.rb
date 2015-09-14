@@ -5,6 +5,10 @@ class User::StakesController < ApplicationController
   
   def index
     #not_found unless @shop_product
+    if recording = @shop_product.recording
+      @stakes =  recording.stakes
+    end
+    ap 'stakes ------------------------------------------------'
   end
 
   def new

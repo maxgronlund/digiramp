@@ -51,6 +51,11 @@ class Ipi < ActiveRecord::Base
     false
   end
   
+  def users_publishing_agreements
+    #return nil unless user
+    return user.get_publishing_agreements
+  end
+  
   def get_full_name
     if user
       user.full_name
@@ -61,6 +66,18 @@ class Ipi < ActiveRecord::Base
   
   def work_title
     self.common_work ? self.common_work.title : 'Work missing!'
+  end
+  
+  def get_account_id
+    if user
+      return user.get_account_id
+    end
+  end
+  
+  def get_account
+    if user
+      return user.account
+    end
   end
   
   #def update_relations

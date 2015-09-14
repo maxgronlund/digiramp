@@ -66,6 +66,11 @@ class Document < ActiveRecord::Base
     
   end
   
+  def publishing_agreement
+    return nil unless self.document_type == 'Publishing agreement'
+    PublishingAgreement.find_by(document_id: self.uuid)
+  end
+  
   #def copy_signatures_from_template
   #  if self.template_id 
   #    if template = Document.find_by(id: self.template_id)

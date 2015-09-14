@@ -5,8 +5,16 @@ class User::DigitalSignaturesController < ApplicationController
   # GET /digital_signatures.json
   def index
     @digital_signatures = @user.digital_signatures.where(hidden: false)
+    @selected_digital_signature = @user.digital_signature
   end
-
+  
+  def show
+    ap params
+    ap @digital_signature.uuid
+    ap @user.digital_signature_uuid
+    @user.update(digital_signature_uuid: @digital_signature.uuid) 
+    redirect_to :back
+  end
 
   # GET /digital_signatures/new
   def new
@@ -15,7 +23,7 @@ class User::DigitalSignaturesController < ApplicationController
   
   def update
 
-    @digital_signature = DigitalSignature.cached_find(params[:id])
+    #@digital_signature = DigitalSignature.cached_find(params[:id])
     @digital_signature.email = params[:digital_signature][:email]
     @digital_signature.role  = params[:digital_signature][:role]
     if user = User.find_by(email: @digital_signature.email)
@@ -29,10 +37,14 @@ class User::DigitalSignaturesController < ApplicationController
   # POST /digital_signatures
   # POST /digital_signatures.json
   def create
+    params[:digital_signature][:uuid] = UUIDTools::UUID.timestamp_create().to_s
     @digital_signature = DigitalSignature.new(digital_signature_params)
 
     respond_to do |format|
       if @digital_signature.save
+        unless @user.digital_signature
+          @user.update(digital_signature_uuid: @digital_signature.uuid) 
+        end
         format.html { redirect_to user_user_digital_signatures_path(@user), notice: 'Digital signature was successfully created.' }
         format.json { render :show, status: :created, location: @digital_signature }
       else
@@ -47,6 +59,13 @@ class User::DigitalSignaturesController < ApplicationController
   def destroy
     @digital_signature.hidden = true
     @digital_signature.save
+    
+    ap @user.digital_signature_uuid
+    ap @digital_signature.uuid
+    if @user.digital_signature_uuid == @digital_signature.uuid
+      @user.update(digital_signature_uuid: nil) 
+    end
+    ap @user.digital_signature_uuid
     respond_to do |format|
       format.html { redirect_to user_user_digital_signatures_path(@user) }
       format.json { head :no_content }

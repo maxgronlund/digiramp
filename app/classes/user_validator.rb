@@ -1,11 +1,11 @@
 class UserValidator < ActiveModel::Validator
   def validate(record)
     if user_email = UserEmail.where(email: record.email).first
-      ap 'user_email'
-      ap user_email
-      ap user_email.user_id
-      ap 'record'
-      ap record.id
+      #ap 'user_email'
+      #ap user_email
+      #ap user_email.user_id
+      #ap 'record'
+      #ap record.id
       if user_email.user_id != record.id
         record.errors[:email] << 'Email has been added to another account!'
       end

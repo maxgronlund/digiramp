@@ -101,10 +101,15 @@ class User::ProductsController < ApplicationController
     @category     = @shop_product.category
 
     params[:shop_product][:connected_to_stripe] = @user.is_stripe_connected
+    
     respond_to do |format|
       if @shop_product.update(shop_product_params)
         
         @shop_product.valid_for_sale!
+        
+        if @shop_product.productable_type == 'Recording'
+          @shop_product.recording.update_stakes( @shop_product.recording )
+        end
         #update_show_in_shop
         format.html { redirect_to user_user_product_path(@user, @shop_product) }
 
@@ -132,6 +137,7 @@ class User::ProductsController < ApplicationController
         format.json { render json: @shop_product.errors, status: :unprocessable_entity }
       end
     end
+    
   end
   
   

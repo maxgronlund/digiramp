@@ -68,6 +68,12 @@ class User::IpisController < ApplicationController
     
     if @ipi.update(ipi_params)
       @ipi.attach_to_user
+      
+      if @ipi.user_id == @user.id
+        ap 'hey confirm this'
+        @ipi.update(confirmation: 'Confirmed')
+        @ipi.accepted!
+      end
 
       if params[:commit] == 'Save and send message'
         @ipi.send_confirmation_request 

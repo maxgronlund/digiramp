@@ -86,7 +86,31 @@
                       
                       
               td
+                - blog = Blog.cached_find('Legal information')
+                - blog_post             = BlogPost.cached_find( 'add digital signature' , blog )
+                - if editor?
+                  .row
+                    .col-sm-12
+                      .pull-right
+                        = link_to edit_admin_blog_blog_post_path(blog, blog_post) do
+                          .btn.btn-default.btn-xs
+                            i.fa.fa-pencil
+               
+                - if @user.digital_signature
+                  b Digital signature
+                  br
+                  .pull-down-10
+                    = image_tag @user.digital_signature.image_url(:image_300x50), class: 'img-thumbnail img-responsive'
+                - else
+                  .alert.alert-warning
+                    b = blog_post.title
+                    = simple_format blog_post.body
+                    
+                        
 
+                .pull-down-12.pull-right
+                  = link_to 'Select signature', user_user_digital_signatures_path(@user), class: 'btn btn-default btn-xs'
+                
                 
                 
               

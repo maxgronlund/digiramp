@@ -24,10 +24,16 @@
               == render 'admin/helps/help', identifier: 'user common work ip'
         .col-sm-6
           .pull-right.pull-down-10
+                                                                
             = link_to user_user_ipis_path(@user ) do
               .btn.btn-default
                 i.fa.fa-chevron-left
                 '&nbsp;Back
+            - if @user.id == @ipi.user_id
+              =< link_to 'Add agreement', 
+                new_user_user_common_work_ipi_ipi_publisher_path(@user, 
+                                                                @common_work, 
+                                                                @ipi), class: 'btn btn-default'
              
       .sexy_line
       .digi-box
@@ -68,8 +74,9 @@
                 
       
 
-      /= debug @ipi.publishing_agreements
-      - if @ipi.publishing_agreements.any?
+
+      - if @ipi.users_publishing_agreements.any?
+        
         == render 'publishing_agreements'
       - else
         .row

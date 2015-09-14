@@ -26,7 +26,7 @@
             thead
               tr
                 /th
-                /th Type
+                th Type
                 th Source
                 th Units sold
                 th Split
@@ -37,6 +37,7 @@
               - @stakes.each do |stake|
                 
                 tr
+                  td = stake.ip_type 
                   /td = link_to user_user_product_stake_path(@user, @shop_product, stakeholder), 
                   /                              data: { confirm: 'Are you sure?' } , 
                   /                              turboboost: true, 

@@ -1,7 +1,9 @@
 # is attached to an shop item
 class Stake < ActiveRecord::Base
   belongs_to :account
-  belongs_to :asset, polymorphic: true
+  #belongs_to :asset, polymorphic: true
+  
+  default_scope -> { order('created_at ASC') }
 
   has_paper_trail
   include ErrorNotification
@@ -17,7 +19,13 @@ class Stake < ActiveRecord::Base
 
   after_commit :flush_cache
   
- 
+  def asset
+    case self.asset_type
+      
+    when 'Recording'
+      return Recording.find_by(uuid: self.asset_id)
+    end
+  end
   
   def generated_income
     unit_price * units_sold

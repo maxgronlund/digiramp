@@ -133,8 +133,17 @@ class Shop::Product < ActiveRecord::Base
     nil
   end
   
+  def recording
+    return nil unless self.productable_type == 'Recording'
+    Recording.cached_find(self.productable_id)
+  end
+  
   def stakeholders
-    Stake.where(asset_type: self.class.name, asset_id: self.id)
+
+    if recording
+      recording.stakes
+    end
+
   end
   
 
@@ -168,10 +177,14 @@ class Shop::Product < ActiveRecord::Base
   end
   
   def valid_for_sale!
+    ap '---------------------- Valid for sale ----------------'
+    ap self.category
+    ap connected_to_stripe
     begin 
       case self.category
      
       when 'recording'
+        ap recording.is_cleared?
         self.update( valid_for_sale: (recording.is_cleared? && connected_to_stripe) )
       when 'physical-product'
         self.update(valid_for_sale: (self.units_on_stock > 0) && connected_to_stripe)
@@ -189,6 +202,7 @@ class Shop::Product < ActiveRecord::Base
     if self.productable_type == 'Recording'
       return Recording.cached_find(self.productable_id)
     end
+    nil
   end
   
 
@@ -206,7 +220,13 @@ class Shop::Product < ActiveRecord::Base
 
   
   def initialize_defaults
-    Stake.create(account_id:            self.account_id, 
+    ap '--------------------------------------'
+    ap 'initialize_defaults'
+    ap '--------------------------------------'
+    if self.productable_type == 'Recording'
+      recording.update_stakes self
+    else
+      Stake.create( account_id:            self.account_id, 
                     split:               100,
                     flat_rate_in_cent:   0,
                     currency:            'usd',
@@ -216,6 +236,7 @@ class Shop::Product < ActiveRecord::Base
                     asset_type:          self.class.name
                     #original_source:     self.title
                    )
+    end
   end
   
 

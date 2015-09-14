@@ -207,6 +207,13 @@ class User < ActiveRecord::Base
   has_many :document_users
   has_many :documents, through: :document_users
   
+  def digital_signature
+    return nil if self.digital_signature_uuid.nil?
+    signature = DigitalSignature.find_by(uuid: self.digital_signature_uuid)
+    return nil if signature.hidden
+    signature
+  end
+  
   def next_up?
     self.user_configuration.next_up?
   end
@@ -249,12 +256,14 @@ class User < ActiveRecord::Base
   end
   
   def get_documents
-    documents.where(status: [0, 1, 2])
+    documents.publishing_agreements.where(status: [0, 1, 2])
     # enum status: [ :draft, :execution_copy, :executed, :deleted ]
   end
   
   def get_publishing_agreements
-    get_documents.publishing_agreements
+    
+    account.get_publishing_agreements
+    #get_documents.publishing_agreements
   end
   
   def liked_by user_id
@@ -682,6 +691,9 @@ class User < ActiveRecord::Base
   #end
   #
  
+  def get_account_id
+    self.account.id
+  end
   
   def permission_cache_for account
     begin

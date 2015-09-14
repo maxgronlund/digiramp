@@ -252,7 +252,7 @@
                   .title
                     h4 Legal
                   .body
-                    'Legal informations, Rights, Splits, Licences, and more
+                    'Legal information, Rights, Splits, Licences, and more
                     
             .control-panel-badge
               = link_to  user_user_publishers_path(@user) do
@@ -265,8 +265,8 @@
                   .body
                     'Publishers used for rights management
                     
-            - if super?
-              = link_to 'SIGNATURE', accepting_signatures_path
+            /- if super?
+            /  = link_to 'SIGNATURE', accepting_signatures_path
                     
               /.control-panel-badge
               /  = link_to  user_user_registrations_path(@user) do

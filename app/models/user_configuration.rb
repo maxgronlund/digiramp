@@ -60,6 +60,10 @@ class UserConfiguration < ActiveRecord::Base
         return 'add_legal_informations' unless user.legal_informations_completed?
       end
       
+      unless add_digital_signature_later
+        return 'add_digital_signature' unless !user.digital_signature_uuid.nil?
+      end
+      
       unless register_a_publisher_later
         return 'register_a_publisher'  if user.user_publishers.count  == 0
       end
@@ -96,6 +100,9 @@ class UserConfiguration < ActiveRecord::Base
         return 'add_legal_informations' unless user.legal_informations_completed?
       end
       
+      unless add_digital_signature_later
+        return 'add_digital_signature' unless !user.digital_signature_uuid.nil?
+      end
       
       unless enable_shop_later
         if Rails.env.production?
@@ -118,6 +125,9 @@ class UserConfiguration < ActiveRecord::Base
         return 'add_legal_informations' unless user.legal_informations_completed?
       end
       
+      unless add_digital_signature_later
+        return 'add_digital_signature' unless !user.digital_signature_uuid.nil?
+      end
       
       unless self.register_a_publisher_later 
         return 'register_a_publisher'         if user.user_publishers.count  == 0
@@ -171,6 +181,9 @@ class UserConfiguration < ActiveRecord::Base
         return 'add_legal_informations' unless user.legal_informations_completed?
       end
       
+      unless add_digital_signature_later
+        return 'add_digital_signature' unless !user.digital_signature_uuid.nil?
+      end
     end
     
     if self.i_want_to_collaborate
@@ -198,7 +211,6 @@ class UserConfiguration < ActiveRecord::Base
   end
   
   def reset!
-
     self.update(
                 upload_recordings_later:            user.recordings.count         != 0 ,
                 create_a_playlist_later:            user.playlists.count          != 0,
@@ -211,7 +223,8 @@ class UserConfiguration < ActiveRecord::Base
                 like_a_recording_later:             user.likes != 0,
                 add_a_recording_to_the_shop_later:  user.products.on_sale.where(category: 'recording').count > 0,
                 add_physical_product_later:         user.products.on_sale.where(category: 'physical-product').count > 0,
-                add_recording_to_a_playlist_later:  !user.has_no_recordings_on_playlist?
+                add_recording_to_a_playlist_later:  !user.has_no_recordings_on_playlist?,
+                add_digital_signature_later:        !user.digital_signature_uuid.nil?
               )
     self.activated!
   end

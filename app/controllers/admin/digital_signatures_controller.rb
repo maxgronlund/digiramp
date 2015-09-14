@@ -19,6 +19,8 @@ class Admin::DigitalSignaturesController < ApplicationController
       
   end
   
+ 
+  
   def destroy
 
     @digital_signature = DigitalSignature.cached_find(params[:id])

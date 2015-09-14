@@ -18,7 +18,7 @@ class UserMailer < ApplicationMailer
  
     send_with_mandrill( [{email: user.email, name: user.user_name }], 
                         "password-reset", 
-                        'Passeword reset from DigiRAMP', 
+                        'Password reset from DigiRAMP', 
                         ["reset-password"], 
                         merge_vars,
                         false,

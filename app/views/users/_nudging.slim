@@ -57,6 +57,9 @@
       
     - when 'add_legal_informations'
        == render '/users/nudge', user: user, blog: blog, link: user_user_legal_informations_path(user), icon: 'gavel'
+       
+    - when 'add_digital_signature'
+        == render '/users/nudge', user: user, blog: blog, link: new_user_user_digital_signature_path(user), icon: 'pencil'
     
     /- when 'like a recording'
     /  .col-sm-8
