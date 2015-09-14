@@ -86,7 +86,7 @@ class CommonWork < ActiveRecord::Base
 
     return false if ipis.count == 0
     self.ipis.each do |ipi|
-      return false unless (ipi.accepted? || ipi.confirmed?)
+      return false unless (ipi.accepted?)
     end
     true
   end
