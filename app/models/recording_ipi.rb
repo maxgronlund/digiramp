@@ -51,8 +51,8 @@ class RecordingIpi < ActiveRecord::Base
   end
   
   def configure_payment( price, rake , recording_uuid , label_id)
-    share_after_publishers = rake / price.to_fo
-    ap share_after_publishers
+    share_after_publishers = rake / price.to_f
+    #ap share_after_publishers
     begin
       
       if stake = Stake.find_by( account_id:         self.account_id,
@@ -84,7 +84,7 @@ class RecordingIpi < ActiveRecord::Base
                             )
       end
       
-      ap stake
+      #ap stake
     rescue => e
       ErrorNotification.post_object 'RecordingIpi#configure_payment', e
       

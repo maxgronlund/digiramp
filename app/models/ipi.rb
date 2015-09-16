@@ -46,18 +46,20 @@ class Ipi < ActiveRecord::Base
   
   def configure_payment( royalty, price, recording_uuid, common_work_id )
     begin
-      amount_in_cent = share * 0.01 * royalty
-      amount_in_pct   = amount_in_cent /  price
+      amount_in_cent =  share * 0.01 * royalty
+      amount_in_pct  =  amount_in_cent /  price
+      amount_in_pct  *= 100.0
       
-      ap '===================== IPs share ==============================='
-      ap 'Ipi#configure_payment'
-      ap "amount_in_pct: #{amount_in_pct}"
-      
-      ap '  GET IPS PUBLISHERS HERE'
-      
-      ap '  STASH STAKES HERE'
-      ap "uuid: #{self.uuid}"
-      
+
+      #ap '===================== IPs share ==============================='
+      #ap 'Ipi#configure_payment'
+      #ap "amount_in_pct: #{amount_in_pct}"
+      #
+      #ap '  GET IPS PUBLISHERS HERE'
+      #
+      #ap '  STASH STAKES HERE'
+      #ap "uuid: #{self.uuid}"
+
       
       if stake = Stake.find_by( account_id:         self.user.account.id,
                                 asset_id:           recording_uuid,
@@ -65,6 +67,14 @@ class Ipi < ActiveRecord::Base
                                 ip_uuid:            self.uuid,
                                 ip_type:            self.class.name
                                )
+        stake.update(
+               split:               amount_in_pct,
+               flat_rate_in_cent:   0,
+               currency:            'usd',
+               email:               self.user.email,
+               unassigned:          false,
+               
+               )
       else
         stake = Stake.create(  account_id:          self.user.account.id,
                                asset_id:            recording_uuid,
@@ -75,28 +85,15 @@ class Ipi < ActiveRecord::Base
                                flat_rate_in_cent:   0,
                                currency:            'usd',
                                email:               self.user.email,
-                               unassigned:          false,
+                               unassigned:          false
                             )
       end
       
       
-      ap stake
+      
     rescue => e
       ErrorNotification.post_object 'Ipi#configure_payment', e
-      
     end
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-
   end
   
   def is_published?

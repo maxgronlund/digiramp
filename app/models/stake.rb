@@ -77,9 +77,11 @@ class Stake < ActiveRecord::Base
   
   private 
   
+  
+  # optimize this . Cache in field
   def calculate_unit_price
-    #ap 'calculate_unit_price'
-    #ap self.asset_type
+    ap 'calculate_unit_price'
+    ap self.asset_type
     price = 0.0
     case self.asset_type
     when 'Shop::Product'
@@ -90,7 +92,7 @@ class Stake < ActiveRecord::Base
     when 'Recording'
       if recording = Recording.find_by(uuid: self.asset_id)
         if product = recording.product
-          price = product.price * self.split * 0.0001
+          price    = product.price * self.split * 0.0001
         end
       end
       #price = asset

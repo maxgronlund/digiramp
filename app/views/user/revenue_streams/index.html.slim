@@ -28,9 +28,9 @@
                 /th
                 th Type
                 th Source
+                th Income in cent
+                /th Split in %
                 th Units sold
-                th Split
-                th Amount
                 th Income
                 th
             tbody
@@ -52,10 +52,10 @@
                   /        .btn.btn-danger.btn-xs
                   /          i.fa.fa-times
                   td = stake.title
+                  td = number_to_currency( stake.unit_price, precision: 2, locale: 'en')
+                  /td = number_to_percentage(stake.split, precision: 4) 
                   td = stake.units_sold
-                  td = number_to_percentage(stake.split, precision: 0) 
-                  td = number_to_currency( stake.unit_price, precision: 4, locale: 'en')
-                  th = number_to_currency( stake.generated_income, precision: 4, locale: 'en')
+                  th = number_to_currency( stake.generated_income, precision: 2, locale: 'en')
                   td
                     .pull-right
                       = link_to user_user_revenue_stream_path(@user, stake) do
