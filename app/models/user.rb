@@ -217,15 +217,15 @@ class User < ActiveRecord::Base
   end
   
   def label
-    begin
-      unless _label = Label.find_by(self.default_label_id)
+    #begin
+      unless _label = Label.find_by(id: self.default_label_id )
         _label = Label.create_label( self.account.id)
       end
       return _label
-    rescue => e
-      ErrorNotification.post_object 'User#label', e
-      return nil
-    end
+    #rescue => e
+    #  ErrorNotification.post_object 'User#label', e
+    #  return nil
+    #end
     
   end
   
