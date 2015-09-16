@@ -7,6 +7,7 @@ class User::CommonWorksController < ApplicationController
   end
 
   def show
+    ap params
     #@recording    = Recording.cached_find(params[:recording_id])
     @common_work  = CommonWork.cached_find(params[:id])
     #if @common_work.user_id != current_user.id
@@ -51,7 +52,11 @@ class User::CommonWorksController < ApplicationController
     #@recording    = Recording.cached_find(params[:common_work][:recording_id])
     #params[:common_work].delete :recording_id
     @common_work  = CommonWork.cached_find(params[:id])
-    @common_work.update(common_work_params)
+    if @common_work.update(common_work_params)
+      
+    else
+      render :edit
+    end
     
     #redirect_to edit_user_user_recording_common_work_lyric_path(@user, @recording, @common_work)
     redirect_to edit_user_user_common_work_lyric_path(@user, @common_work)

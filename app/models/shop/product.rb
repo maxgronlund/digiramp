@@ -6,7 +6,7 @@ class Shop::Product < ActiveRecord::Base
   belongs_to :productable, polymorphic: true
   validates_with   ProductValidator
   validates :price, :title, :additional_info, presence: true
-  
+  belongs_to :distribution_agreement
     
   
   mount_uploader :image,          ProductImageUploader
@@ -145,7 +145,6 @@ class Shop::Product < ActiveRecord::Base
     end
 
   end
-  
 
   
   def update_stock
@@ -177,9 +176,9 @@ class Shop::Product < ActiveRecord::Base
   end
   
   def valid_for_sale!
-    ap '---------------------- Valid for sale ----------------'
-    ap self.category
-    ap connected_to_stripe
+    #ap '---------------------- Valid for sale ----------------'
+    #ap self.category
+    #ap connected_to_stripe
     begin 
       case self.category
      
@@ -224,7 +223,7 @@ class Shop::Product < ActiveRecord::Base
     ap 'initialize_defaults'
     ap '--------------------------------------'
     if self.productable_type == 'Recording'
-      recording.update_stakes self
+      #recording.update_stakes self
     else
       Stake.create( account_id:            self.account_id, 
                     split:               100,

@@ -74,6 +74,13 @@
             
             
           br
+          .chosen-label
+            = f.input :distribution_agreement_id, 
+                      collection: @distribution_agreements,
+                      include_blank: false,
+                      label: false,
+                      input_html: { class: 'chosen-select', 'data-placeholder'.to_sym => "Distribution agreement" }
+          br
           b 
             '*Term of usage
           == render 'shared/popover', id: 'term-of-usage', body: 'What the buyer is permitted to do with the recording, you can create your own terms from your dashboard under legal'

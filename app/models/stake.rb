@@ -1,3 +1,16 @@
+# a stake defines a split of a transaction 
+# a stake comes from a source 
+# - a recording
+# - a a shop item
+#
+# a stake belongs to an account to where the money goes
+# a stake has a channel_uuid only used to display
+# a stake belongs to an asset thrue a uuid and a type
+
+
+
+
+
 # is attached to an shop item
 class Stake < ActiveRecord::Base
   belongs_to :account
@@ -40,7 +53,7 @@ class Stake < ActiveRecord::Base
   end
   
   def unit_price
-    @price ||= calculate_unit_price
+    @unit_price ||= calculate_unit_price
   end
   
   def stakeholders
@@ -65,6 +78,8 @@ class Stake < ActiveRecord::Base
   private 
   
   def calculate_unit_price
+    #ap 'calculate_unit_price'
+    #ap self.asset_type
     price = 0.0
     case self.asset_type
     when 'Shop::Product'
@@ -72,6 +87,13 @@ class Stake < ActiveRecord::Base
     when 'Stake'
       stake = Stake.cached_find(self.asset_id)
       price = stake.unit_price * stake.split * 0.0001
+    when 'Recording'
+      if recording = Recording.find_by(uuid: self.asset_id)
+        if product = recording.product
+          price = product.price * self.split * 0.0001
+        end
+      end
+      #price = asset
     end
     price
   end

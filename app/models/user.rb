@@ -65,6 +65,7 @@ class User < ActiveRecord::Base
   has_one  :user_configuration
   has_many :account_users
   has_many :accounts,         :through => :account_users  
+  has_many :labels
   
   has_many :user_publishers
   has_many :publishers,       :through => :user_publishers 
@@ -206,12 +207,22 @@ class User < ActiveRecord::Base
   
   has_many :document_users
   has_many :documents, through: :document_users
+  has_many :distribution_agreements
   
   def digital_signature
     return nil if self.digital_signature_uuid.nil?
     signature = DigitalSignature.find_by(uuid: self.digital_signature_uuid)
     return nil if signature.hidden
     signature
+  end
+  
+  def label
+    begin
+      return Label.cached_find(self.default_label_id)
+    rescue => e
+      ErrorNotification.post_object 'User#label', e
+    end
+    nil
   end
   
   def next_up?
@@ -532,6 +543,8 @@ class User < ActiveRecord::Base
 
     
     SlackService.user_signed_up(self) if Rails.env.production?
+    
+    
     #ProfessionalInfo.create(user_id: self.id)
   end
 
@@ -593,11 +606,11 @@ class User < ActiveRecord::Base
             .first_or_create( uuid:       self.uuid,
                               user_id:    self.id,
                               account_id: self.account.id,
-                              title:      self.full_name,
+                              title:      self.get_full_name,
                               #body:       self.body,
                               url:        UUIDTools::UUID.timestamp_create().to_s,
-                              url_title:  self.full_name,
-                              link_title: self.full_name
+                              url_title:  self.get_full_name,
+                              link_title: self.get_full_name
                             )
 
 
@@ -678,6 +691,13 @@ class User < ActiveRecord::Base
     return true if user.super?
     return true if user.id == self.id
     false
+  end
+  
+  def get_full_name
+    if self.full_name.split.join == ''
+      self.address.update(first_name: self.user_name.strip)
+    end
+    self.full_name
   end
 
 

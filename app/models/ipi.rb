@@ -44,7 +44,60 @@ class Ipi < ActiveRecord::Base
     return false
   end
   
+  def configure_payment( royalty, price, recording_uuid, common_work_id )
+    begin
+      amount_in_cent = share * 0.01 * royalty
+      amount_in_pct   = amount_in_cent /  price
+      
+      ap '===================== IPs share ==============================='
+      ap 'Ipi#configure_payment'
+      ap "amount_in_pct: #{amount_in_pct}"
+      
+      ap '  GET IPS PUBLISHERS HERE'
+      
+      ap '  STASH STAKES HERE'
+      ap "uuid: #{self.uuid}"
+      
+      
+      if stake = Stake.find_by( account_id:         self.user.account.id,
+                                asset_id:           recording_uuid,
+                                asset_type:         'Recording',
+                                ip_uuid:            self.uuid,
+                                ip_type:            self.class.name
+                               )
+      else
+        stake = Stake.create(  account_id:          self.user.account.id,
+                               asset_id:            recording_uuid,
+                               asset_type:          'Recording',
+                               ip_uuid:             self.uuid,
+                               ip_type:             self.class.name,
+                               split:               amount_in_pct,
+                               flat_rate_in_cent:   0,
+                               currency:            'usd',
+                               email:               self.user.email,
+                               unassigned:          false,
+                            )
+      end
+      
+      
+      ap stake
+    rescue => e
+      ErrorNotification.post_object 'Ipi#configure_payment', e
+      
+    end
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 
+  end
   
   def is_published?
     return true if self.user && self.user.publishers
@@ -128,6 +181,7 @@ class Ipi < ActiveRecord::Base
   end
 
   def attach_to_user
+    self.update(uuid: UUIDTools::UUID.timestamp_create().to_s) if self.uuid.nil?
     return if self.user
     if user      = User.get_by_email(self.email)
       self.update(user_id: user.id, full_name: user.full_name)

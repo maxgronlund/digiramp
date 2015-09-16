@@ -50,6 +50,49 @@ class RecordingIpi < ActiveRecord::Base
     
   end
   
+  def configure_payment( price, rake , recording_uuid , label_id)
+    share_after_publishers = rake / price.to_f
+    ap share_after_publishers
+    begin
+      
+      if stake = Stake.find_by( account_id:         self.account_id,
+                                asset_id:           recording_uuid,
+                                asset_type:         'Recording',
+                                ip_uuid:            self.uuid,
+                                ip_type:            self.class.name
+                               )
+                               
+        stake.update(
+                     split:               self.share * share_after_publishers,
+                     flat_rate_in_cent:   0,
+                     currency:            'usd',
+                     email:               self.user.email,
+                     unassigned:          false
+                     
+                     )
+      else
+        stake = Stake.create(  account_id:          self.account_id,
+                               asset_id:            recording_uuid,
+                               asset_type:          'Recording',
+                               ip_uuid:             self.uuid,
+                               ip_type:             self.class.name,
+                               split:               self.share * share_after_publishers,
+                               flat_rate_in_cent:   0,
+                               currency:            'usd',
+                               email:               self.user.email,
+                               unassigned:          false
+                            )
+      end
+      
+      ap stake
+    rescue => e
+      ErrorNotification.post_object 'RecordingIpi#configure_payment', e
+      
+    end
+    
+    
+  end
+  
   #def remove_user_credits
   #  begin
   #    UserCredit.where( ipiable_id: self.id, ipiable_type: self.class.name).destroy_all

@@ -65,6 +65,7 @@
                 
 
                 .col-sm-6
+                  = f.input :royalty, label: 'Royalty in cent', hint: 'Minimum 10', placeholder: 'Payment to the IPS'
                   .row
                     .col-sm-6
                       = f.input :iswc_code, label: 'ISWC Code',:input_html => {  placeholder: "ISWC Code"}

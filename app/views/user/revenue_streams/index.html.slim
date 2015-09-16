@@ -37,7 +37,14 @@
               - @stakes.each do |stake|
                 
                 tr
-                  td = stake.ip_type 
+                  td
+                    - case stake.ip_type
+                    - when 'Ipi'
+                      'Work
+                    - when 'RecordingIpi'
+                      'Master
+                    - else
+                      = stake.ip_type
                   /td = link_to user_user_product_stake_path(@user, @shop_product, stakeholder), 
                   /                              data: { confirm: 'Are you sure?' } , 
                   /                              turboboost: true, 

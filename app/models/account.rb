@@ -120,6 +120,7 @@ class Account < ActiveRecord::Base
   
   # clear memcache
   after_commit :flush_cache
+  after_create :create_label
   
   
   # search against
@@ -141,12 +142,16 @@ class Account < ActiveRecord::Base
   #before_create :initialize_account
   
   # update the uuid so all cached segments expires
+  
+  def create_label
+    Label.create_label( self.id )
+  end
+  
   before_save :set_uuid
   
   before_destroy :cleanup_relations
   
   def get_publishing_agreements
-    ap 'get_publishing_agreements'
     documents.publishing_agreements
   end
   

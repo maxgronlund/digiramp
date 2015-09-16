@@ -82,7 +82,7 @@ class Recording < ActiveRecord::Base
   belongs_to :common_work
   belongs_to :import_batch
   belongs_to :user
-  has_many :products, class_name: "Shop::Product"
+  has_many   :products, class_name: "Shop::Product"
   
   has_many :comments,        as: :commentable,          dependent: :destroy
   has_many :share_on_facebooks
@@ -105,6 +105,9 @@ class Recording < ActiveRecord::Base
   has_many :recording_views,                            dependent: :destroy
   has_many :likes,                                      dependent: :destroy
   has_many :recording_users
+  
+  has_many :label_recordings
+  has_many :labels,  :through => :label_recordings  
 
   before_save :uniqify_fields
   after_commit :flush_cache
@@ -138,61 +141,65 @@ class Recording < ActiveRecord::Base
     Stake.where(asset_type: self.class.name,asset_id: self.uuid )
   end
   
-  def update_stakes recording
-
-    self.get_common_work.ipis.each do |ipi|
-      if stake = Stake.find_by(
-                                account_id:   ipi.get_account_id,
-                                asset_id:     recording.uuid,
-                                asset_type:   recording.class.name,
-                                ip_uuid:      ipi.uuid,
-                                ip_type:     ipi.class.name
-                               )
-      else
-        stake = Stake.create(  
-                                account_id:          ipi.get_account_id,
-                                asset_id:            recording.uuid,
-                                asset_type:          recording.class.name,
-                                split:               ipi.share * 0.5,
-                                flat_rate_in_cent:   0,
-                                currency:            'usd',
-                                email:               ipi.user.email,
-                                unassigned:          false,
-                                ip_uuid:             ipi.uuid,
-                                ip_type:            ipi.class.name
-                            )
-      end
-
-    end
-    
-    self.recording_ipis.each do |recording_ipi|
-      if stake = Stake.find_by( account_id:          recording_ipi.account_id, 
-                                ip_uuid:             recording_ipi.uuid,
-                                ip_type:            recording_ipi.class.name,
-                                asset_id:            recording.uuid,
-                                asset_type:          recording.class.name
-                               )
-        
-        
-      else stake = Stake.create( account_id:          recording_ipi.account_id, 
-                                 ip_uuid:             recording_ipi.uuid,
-                                 ip_type:            recording_ipi.class.name,
-                                 asset_id:            recording.uuid,
-                                 asset_type:          recording.class.name,
-                                 split:               recording_ipi.share * 0.5,
-                                 flat_rate_in_cent:   0,
-                                 currency:            'usd',
-                                 email:               recording_ipi.email,
-                                 unassigned:          false,
-   
-                                )
-                               
-      end
-
-      
-    end
-    
-  end
+  
+  
+  
+  # move this to stake or service object
+  #def update_stakes recording
+  #
+  #  self.get_common_work.ipis.each do |ipi|
+  #    if stake = Stake.find_by(
+  #                              account_id:   ipi.get_account_id,
+  #                              asset_id:     recording.uuid,
+  #                              asset_type:   recording.class.name,
+  #                              ip_uuid:      ipi.uuid,
+  #                              ip_type:      ipi.class.name
+  #                             )
+  #    else
+  #      stake = Stake.create(  
+  #                              account_id:          ipi.get_account_id,
+  #                              asset_id:            recording.uuid,
+  #                              asset_type:          recording.class.name,
+  #                              split:               ipi.share * 0.5,
+  #                              flat_rate_in_cent:   0,
+  #                              currency:            'usd',
+  #                              email:               ipi.user.email,
+  #                              unassigned:          false,
+  #                              ip_uuid:             ipi.uuid,
+  #                              ip_type:             ipi.class.name
+  #                          )
+  #    end
+  #
+  #  end
+  #  
+  #  self.recording_ipis.each do |recording_ipi|
+  #    if stake = Stake.find_by( account_id:          recording_ipi.account_id, 
+  #                              ip_uuid:             recording_ipi.uuid,
+  #                              ip_type:             recording_ipi.class.name,
+  #                              asset_id:            recording.uuid,
+  #                              asset_type:          recording.class.name
+  #                             )
+  #      
+  #      
+  #    else stake = Stake.create( account_id:          recording_ipi.account_id, 
+  #                               ip_uuid:             recording_ipi.uuid,
+  #                               ip_type:             recording_ipi.class.name,
+  #                               asset_id:            recording.uuid,
+  #                               asset_type:          recording.class.name,
+  #                               split:               recording_ipi.share * 0.5,
+  #                               flat_rate_in_cent:   0,
+  #                               currency:            'usd',
+  #                               email:               recording_ipi.email,
+  #                               unassigned:          false,
+  # 
+  #                              )
+  #                             
+  #    end
+  #
+  #    
+  #  end
+  #  
+  #end
   
   #def update_stakes
   #  #begin
@@ -264,6 +271,7 @@ class Recording < ActiveRecord::Base
     end
     self.uniq_playbacks_count    = self.playbacks_count.to_uniq
     self.uniq_likes_count        = self.likes_count.to_uniq
+    self.uuid = UUIDTools::UUID.timestamp_create().to_s if self.uuid.nil?
   end
   
   def notify_followers

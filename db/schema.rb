@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150914102354) do
+ActiveRecord::Schema.define(version: 20150915154554) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1072,6 +1072,7 @@ ActiveRecord::Schema.define(version: 20150914102354) do
     t.string   "pro_work_id",            limit: 255, default: ""
     t.string   "pro_catalog",            limit: 255, default: ""
     t.boolean  "arrangement",                        default: false
+    t.integer  "royalty",                            default: 10
   end
 
   add_index "common_works", ["account_id"], name: "index_common_works_on_account_id", using: :btree
@@ -1372,6 +1373,22 @@ ActiveRecord::Schema.define(version: 20150914102354) do
 
   add_index "digital_signatures", ["signable_type", "signable_id"], name: "index_digital_signatures_on_signable_type_and_signable_id", using: :btree
   add_index "digital_signatures", ["user_id"], name: "index_digital_signatures_on_user_id", using: :btree
+
+  create_table "distribution_agreements", force: :cascade do |t|
+    t.integer  "label_id"
+    t.integer  "account_id"
+    t.integer  "distributor_id"
+    t.integer  "royalty",          default: 10
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
+    t.decimal  "distribution_fee", default: 25.0
+    t.integer  "user_id"
+    t.string   "title"
+  end
+
+  add_index "distribution_agreements", ["account_id"], name: "index_distribution_agreements_on_account_id", using: :btree
+  add_index "distribution_agreements", ["label_id"], name: "index_distribution_agreements_on_label_id", using: :btree
+  add_index "distribution_agreements", ["user_id"], name: "index_distribution_agreements_on_user_id", using: :btree
 
   create_table "document_users", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
     t.uuid     "document_id"
@@ -2017,6 +2034,44 @@ ActiveRecord::Schema.define(version: 20150914102354) do
 
   add_index "item_likes", ["like_type", "like_id"], name: "index_item_likes_on_like_type_and_like_id", using: :btree
   add_index "item_likes", ["user_id"], name: "index_item_likes_on_user_id", using: :btree
+
+  create_table "label_recordings", force: :cascade do |t|
+    t.integer  "label_id"
+    t.integer  "recording_id"
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+    t.string   "distribution_agreement_id"
+  end
+
+  add_index "label_recordings", ["label_id"], name: "index_label_recordings_on_label_id", using: :btree
+  add_index "label_recordings", ["recording_id"], name: "index_label_recordings_on_recording_id", using: :btree
+
+  create_table "label_works", force: :cascade do |t|
+    t.integer  "royalty"
+    t.integer  "label_id"
+    t.integer  "common_work_id"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+  end
+
+  add_index "label_works", ["common_work_id"], name: "index_label_works_on_common_work_id", using: :btree
+  add_index "label_works", ["label_id"], name: "index_label_works_on_label_id", using: :btree
+
+  create_table "labels", force: :cascade do |t|
+    t.string   "title"
+    t.text     "body"
+    t.string   "image"
+    t.boolean  "activated"
+    t.integer  "user_id"
+    t.integer  "account_id"
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
+    t.string   "default_distribution_agreement_id"
+    t.uuid     "uuid"
+  end
+
+  add_index "labels", ["account_id"], name: "index_labels_on_account_id", using: :btree
+  add_index "labels", ["user_id"], name: "index_labels_on_user_id", using: :btree
 
   create_table "likes", force: :cascade do |t|
     t.integer  "user_id"
@@ -3055,10 +3110,14 @@ ActiveRecord::Schema.define(version: 20150914102354) do
     t.integer  "document_id"
     t.boolean  "connected_to_stripe",        default: false
     t.boolean  "valid_for_sale",             default: false
+    t.integer  "label_recording_id"
+    t.integer  "distribution_agreement_id"
   end
 
   add_index "shop_products", ["account_id"], name: "index_shop_products_on_account_id", using: :btree
+  add_index "shop_products", ["distribution_agreement_id"], name: "index_shop_products_on_distribution_agreement_id", using: :btree
   add_index "shop_products", ["document_id"], name: "index_shop_products_on_document_id", using: :btree
+  add_index "shop_products", ["label_recording_id"], name: "index_shop_products_on_label_recording_id", using: :btree
   add_index "shop_products", ["productable_type", "productable_id"], name: "index_shop_products_on_productable_type_and_productable_id", using: :btree
   add_index "shop_products", ["user_id"], name: "index_shop_products_on_user_id", using: :btree
 
@@ -3394,6 +3453,7 @@ ActiveRecord::Schema.define(version: 20150914102354) do
     t.text     "seller_info"
     t.string   "ipi_code"
     t.uuid     "digital_signature_uuid"
+    t.integer  "default_label_id"
   end
 
   add_index "users", ["default_cms_page_id"], name: "index_users_on_default_cms_page_id", using: :btree
@@ -3605,11 +3665,19 @@ ActiveRecord::Schema.define(version: 20150914102354) do
   add_foreign_key "contracts", "accounts", on_delete: :cascade
   add_foreign_key "creative_projects", "accounts", on_delete: :cascade
   add_foreign_key "customer_events", "accounts", on_delete: :cascade
+  add_foreign_key "distribution_agreements", "accounts", on_delete: :cascade
+  add_foreign_key "distribution_agreements", "labels", on_delete: :cascade
   add_foreign_key "documents", "accounts", on_delete: :cascade
   add_foreign_key "import_batches", "accounts", on_delete: :cascade
   add_foreign_key "invoices", "accounts", on_delete: :cascade
   add_foreign_key "ipis", "ipis", on_delete: :cascade
   add_foreign_key "item_likes", "users", on_delete: :cascade
+  add_foreign_key "label_recordings", "labels", on_delete: :cascade
+  add_foreign_key "label_recordings", "recordings", on_delete: :cascade
+  add_foreign_key "label_works", "common_works", on_delete: :cascade
+  add_foreign_key "label_works", "labels", on_delete: :cascade
+  add_foreign_key "labels", "accounts", on_delete: :cascade
+  add_foreign_key "labels", "users", on_delete: :cascade
   add_foreign_key "likes", "accounts", on_delete: :cascade
   add_foreign_key "mail_campaigns", "accounts", on_delete: :cascade
   add_foreign_key "music_submission_selections", "music_requests", on_delete: :cascade
@@ -3639,6 +3707,7 @@ ActiveRecord::Schema.define(version: 20150914102354) do
   add_foreign_key "shop_orders", "users"
   add_foreign_key "shop_products", "accounts"
   add_foreign_key "shop_products", "documents"
+  add_foreign_key "shop_products", "label_recordings", on_delete: :cascade
   add_foreign_key "shop_products", "users"
   add_foreign_key "shop_stripe_transfers", "accounts"
   add_foreign_key "shop_stripe_transfers", "shop_order_items", on_delete: :cascade

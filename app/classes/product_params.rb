@@ -29,7 +29,8 @@ class ProductParams
               :playlist_id,
               :document_id,
               :connected_to_stripe,
-              :valid_for_sale
+              :valid_for_sale,
+              :distribution_agreement_id
             ]
     
     

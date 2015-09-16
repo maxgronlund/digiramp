@@ -27,10 +27,20 @@ class User::ProductsController < ApplicationController
       when 'recording'
         additional_info = nil
         @recording      = nil
+        
+        @distribution_agreements = @user.distribution_agreements
+        
         if params[:recording_id] 
           begin
-            @recording          = Recording.cached_find(params[:recording_id]) if params[:recording_id] 
+            @recording          = Recording.cached_find(params[:recording_id])
             additional_info     = @recording.comment
+            
+            label           = @user.label
+            label_recording = LabelRecording.where(label_id: label.id, recording_id: @recording.id)
+                                            .first_or_create(label_id: label.id, recording_id: @recording.id)
+                                            
+                                            
+                                            
           rescue
             ErrorNotification.post("User::ProductsController#new recording_id: #{params[:recording_id]} not found")
           end
@@ -61,6 +71,7 @@ class User::ProductsController < ApplicationController
                  @shop_product.productable :
                  nil
     get_documents
+    @distribution_agreements = @user.distribution_agreements
   end
   
   def get_documents
@@ -85,6 +96,12 @@ class User::ProductsController < ApplicationController
     respond_to do |format|
       if @shop_product.save
         @shop_product.valid_for_sale!
+        
+        # only aplies for recordings
+        if @shop_product.distribution_agreement
+          @shop_product.distribution_agreement.configure_payment( self.price, @shop_product.recording)
+        end
+        
         format.html { redirect_to user_user_product_stakes_path(@user, @shop_product) }
         format.json { render :show, status: :created, location: @shop_product }
       else
@@ -107,9 +124,13 @@ class User::ProductsController < ApplicationController
         
         @shop_product.valid_for_sale!
         
-        if @shop_product.productable_type == 'Recording'
-          @shop_product.recording.update_stakes( @shop_product.recording )
+        if @shop_product.distribution_agreement
+          @shop_product.distribution_agreement.configure_payment( @shop_product.price, @shop_product.recording)
         end
+        
+        #if @shop_product.productable_type == 'Recording'
+        #  @shop_product.recording.update_stakes( @shop_product.recording )
+        #end
         #update_show_in_shop
         format.html { redirect_to user_user_product_path(@user, @shop_product) }
 

@@ -4,6 +4,15 @@ Digiramp::Application.routes.draw do
 
 
 
+  resources :labels
+  namespace :user do
+  get 'labels/show'
+  end
+
+  namespace :user do
+  get 'labels/edit'
+  end
+
   #namespace :user do
   #get 'ipi_publishing_agreements/create'
   #end

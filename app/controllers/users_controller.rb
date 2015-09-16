@@ -163,7 +163,7 @@ class UsersController < ApplicationController
                     account_id: @user.account.id) 
 
       @user.confirm_ips
-      redirect_to edit_user_user_configurations_path(@user)
+      redirect_to user_user_user_configurations_path(@user)
       #user/users/test-4/user_configurations/1057/edit
     else
       render :new

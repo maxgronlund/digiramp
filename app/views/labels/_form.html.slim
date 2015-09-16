@@ -1,0 +1,12 @@
+= simple_form_for(@label) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :title
+    = f.input :body
+    = f.input :image
+    = f.association :user
+    = f.association :account
+
+  .form-actions
+    = f.button :submit
