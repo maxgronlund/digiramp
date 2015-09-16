@@ -213,15 +213,18 @@ class Recording < ActiveRecord::Base
   
   
   def is_cleared?
-
+    #ap "get_common_work.is_cleared?: #{get_common_work.is_cleared?}"
+    #ap "master_is_cleared?: #{master_is_cleared?}"
     return false unless get_common_work.is_cleared?
     return false unless master_is_cleared?
     true
   end
   
   def master_is_cleared?
+
     return false unless ipis_is_registered?
     recording_ipis.each do |recording_ipi|
+      ap "recording_ipi.accepted?: #{recording_ipi.status}"
       return false unless recording_ipi.accepted?
     end
     true

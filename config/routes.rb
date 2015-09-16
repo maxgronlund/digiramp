@@ -4,6 +4,10 @@ Digiramp::Application.routes.draw do
 
 
 
+  #namespace :user do
+  #get 'stripe_transfers/index'
+  #end
+
   resources :labels
   namespace :user do
   get 'labels/show'
@@ -953,7 +957,7 @@ Digiramp::Application.routes.draw do
         resources :recording_users
         resources :recording_confirmations, only: [:new, :update]
       end
-      
+      resources :recording_confirmations, only: [:update]
       resources :recording_basics, only: [:edit, :update]
       resources :recording_personas, only: [:edit, :update]
       resources :recording_tags, only: [:edit, :update]
@@ -968,7 +972,9 @@ Digiramp::Application.routes.draw do
       resources :selected_opportunities, only: [:index, :show, :destroy]
       resources :select_templates
       resources :self_publishers, only: [:edit, :show]
-      resources :stakes, only: [:update]
+      resources :stakes do
+        resources :stripe_transfers, only: [:index]
+      end
       resources :user_configurations
       resources :user_emails
       resources :user_positions, only: [:index]

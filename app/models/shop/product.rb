@@ -97,7 +97,6 @@ class Shop::Product < ActiveRecord::Base
                                      image:                         product_params[:image],
                                      productable_id:                record.id,      
                                      productable_type:              record.class.name      
-                                     
                                   )
 
     
@@ -111,6 +110,7 @@ class Shop::Product < ActiveRecord::Base
       end
     end
   end
+  
   def additional_download_url
 
     return nil if self.zip_file_url.nil?
@@ -139,11 +139,9 @@ class Shop::Product < ActiveRecord::Base
   end
   
   def stakeholders
-
     if recording
       recording.stakes
     end
-
   end
 
   
@@ -196,6 +194,9 @@ class Shop::Product < ActiveRecord::Base
     end
      
   end
+  
+  
+  
   
   def recording
     if self.productable_type == 'Recording'

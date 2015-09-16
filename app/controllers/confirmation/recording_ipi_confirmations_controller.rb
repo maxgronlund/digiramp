@@ -33,7 +33,7 @@ class Confirmation::RecordingIpiConfirmationsController < ApplicationController
       redirect_to confirmation_wrong_recording_user_path(uuid: params[:id])
     end
     
-    redirect_to user_user_recording_ipi_path(@user, @recording_ipi ) if  @recording_ipi.confirmation == "Confirmed"
+    redirect_to user_user_recording_ipi_path(@user, @recording_ipi ) if  @recording_ipi.confirmed?
     
     not_found( params )  unless ( @recording = @recording_ipi.recording ) && ( account = @recording.account ) && ( @requester = account.user )
     
@@ -50,9 +50,8 @@ class Confirmation::RecordingIpiConfirmationsController < ApplicationController
     @recording_ipi              = RecordingIpi.where(uuid: params[:id]).first
     @user                       = User.get_by_email( @recording_ipi.email )
     @recording_ipi.user_id      = @user.id
-    @recording_ipi.confirmation = 'Confirmed'
     @recording_ipi.save!
-    
+    @recording_ipi.confirmed!
     redirect_to user_user_recording_ipi_path( @user, @recording_ipi)
     
   end

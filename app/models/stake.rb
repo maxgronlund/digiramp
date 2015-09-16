@@ -41,7 +41,13 @@ class Stake < ActiveRecord::Base
   end
   
   def generated_income
-    unit_price * units_sold
+    # use payments
+    income = 0
+    self.stripe_transfers.each do |stripe_transfer|
+      income += stripe_transfer.amount
+    end
+    #unit_price * units_sold
+    income * 0.01
   end
   
   def units_sold

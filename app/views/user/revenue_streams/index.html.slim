@@ -58,6 +58,7 @@
                   th = number_to_currency( stake.generated_income, precision: 2, locale: 'en')
                   td
                     .pull-right
+                      = link_to 'Details', user_user_stake_stripe_transfers_path(@user, stake), class: 'btn btn-default btn-xs'
                       = link_to user_user_revenue_stream_path(@user, stake) do
                         .btn.btn-default.btn-xs
                           i.fa.fa-share&nbsp;Share

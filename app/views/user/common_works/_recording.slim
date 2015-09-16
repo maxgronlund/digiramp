@@ -16,9 +16,8 @@
                 th Legal name / Email
                 th Capacity
                 th Split
-                th 
-                  .pull-right
-                    'Status
+                th Status
+                th
             tbody
               - recording.recording_ipis.order(:id).each do |recording_ipi|
                 tr
@@ -41,14 +40,15 @@
                     br = recording_ipi.email
                   td = recording_ipi.role
                   td = number_to_percentage(recording_ipi.share, precision: 2)
-                  td
-                    .pull-right
-                      div class="recording-confirmation-button-#{recording_ipi.id.to_s}"
-                        == render 'user/recording_ipis/confirmation_button', user: @user, recording: recording, recording_ipi: recording_ipi
+                  
+                  td  
+                    div class="recording-confirmation-button-#{recording_ipi.id.to_s}"
+                    == render 'user/recording_ipis/confirmation_button', user: @user, recording: recording, recording_ipi: recording_ipi
+                  
 
                 
           .pull-right
-            - if  recording.is_cleared?
+            - if recording.is_cleared?
               - if product = recording.product
                 => link_to edit_user_user_product_path(@user, product ) do
                         .btn.btn-success

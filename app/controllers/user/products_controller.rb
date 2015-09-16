@@ -99,7 +99,7 @@ class User::ProductsController < ApplicationController
         
         # only aplies for recordings
         if @shop_product.distribution_agreement
-          @shop_product.distribution_agreement.configure_payment( self.price, @shop_product.recording)
+          @shop_product.distribution_agreement.configure_payment( @shop_product.price, @shop_product.recording)
         end
         
         format.html { redirect_to user_user_product_stakes_path(@user, @shop_product) }

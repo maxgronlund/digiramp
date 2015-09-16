@@ -1,11 +1,73 @@
-div class="old-recording-confirmation-button-#{recording_ipi.id.to_s}"
-  - if recording_ipi.confirmation == 'Missing'
-    = link_to 'Request confirmation', new_user_user_recording_recording_confirmation_path( user,  recording, recording_ipi_id: recording_ipi), remote: true, class: 'btn btn-default btn-xs'
-  - elsif recording_ipi.confirmation == 'Pending'
-    = link_to 'Resend confirmation request', new_user_user_recording_recording_confirmation_path( user,  recording, recording_ipi_id: recording_ipi), remote: true, class: 'btn btn-default btn-xs'
-    .btn.btn-info.btn-xs disabled="disabled"
-      'Pending
-  - elsif recording_ipi.confirmation == 'Confirmed'
-    .btn.btn-success.btn-xs disabled='disabled'
-      'Confirmed
+div id="old-recording-confirmation-button-#{recording_ipi.id.to_s}"
+  - case recording_ipi.status
+  
+  - when 'pending'
     
+    .label.label-warning
+      'Pending
+    
+    .pull-right
+      - if recording_ipi.user && ( recording_ipi.user.id == user.id)
+
+        = link_to 'Confirm', user_user_recording_confirmation_path( \
+                                          user,  
+                                          recording, 
+                                          recording_ipi_id: recording_ipi.id), 
+                                          method: 'PUT',
+                                          data: {confirm: "I confirm this is the right IP" },
+                                          class: 'btn btn-success btn-xs'
+      - else
+        = link_to 'Request confirmation', new_user_user_recording_recording_confirmation_path( \
+                                          user,  
+                                            recording, 
+                                            recording_ipi_id: recording_ipi.id), 
+                                            remote: true, 
+                                            class: 'btn btn-default btn-xs'
+  
+  - when 'confirmed'
+    
+    .label.label-info
+      'Confirmed
+  
+  - when 'accepted'
+    
+    .label.label-success
+      'Accepted
+    
+  
+  - when 'dismissed'
+    
+    .label.label-danger
+      'Dismissed
+    
+      
+   
+  
+  
+  
+  
+  
+  
+/- if recording_ipi.confirmation == 'Missing'
+/  = link_to 'Request confirmation', new_user_user_recording_recording_confirmation_path( \
+/                                    user,  
+/                                    recording, 
+/                                    recording_ipi_id: recording_ipi), 
+/                                    remote: true, 
+/                                    class: 'btn btn-default btn-xs'
+/                                      
+/- elsif recording_ipi.confirmation == 'Pending'
+/  = link_to 'Resend confirmation request', new_user_user_recording_recording_confirmation_path( \
+/                                           user,  
+/                                           recording, 
+/                                           recording_ipi_id: recording_ipi), 
+/                                           remote: true, 
+/                                           class: 'btn btn-default btn-xs'
+/                                             
+/  .btn.btn-info.btn-xs disabled="disabled"
+/    'Pending
+/- elsif recording_ipi.confirmation == 'Confirmed'
+/  .btn.btn-success.btn-xs disabled='disabled'
+/    'Confirmed
+/    
+/

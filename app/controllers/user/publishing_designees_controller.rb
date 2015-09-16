@@ -44,7 +44,6 @@ class User::PublishingDesigneesController < ApplicationController
                                                  name:                       @user.full_name,
                                                  email:                      @user.email,
                                                  confirmed:                  true,
-                                                 confirmation:               'Confirmed',
                                                  uuid:                       UUIDTools::UUID.timestamp_create().to_s,
                                                  show_credit_on_recording:   false,
                                                  account_id:                 @user.account.id,

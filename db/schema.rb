@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150916061000) do
+ActiveRecord::Schema.define(version: 20150916123742) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -2695,7 +2695,6 @@ ActiveRecord::Schema.define(version: 20150916061000) do
     t.datetime "updated_at"
     t.string   "email",                    limit: 255, default: ""
     t.boolean  "confirmed",                            default: false
-    t.string   "confirmation",             limit: 255, default: "Missing"
     t.boolean  "show_credit_on_recording",             default: false
     t.text     "notes",                                default: ""
     t.string   "credit_for",               limit: 255, default: ""
@@ -3169,6 +3168,7 @@ ActiveRecord::Schema.define(version: 20150916061000) do
     t.string   "asset_type"
     t.uuid     "ip_uuid"
     t.string   "ip_type"
+    t.boolean  "expired",           default: false
   end
 
   add_index "stakes", ["asset_type", "asset_id"], name: "index_stakes_on_asset_type_and_asset_id", using: :btree

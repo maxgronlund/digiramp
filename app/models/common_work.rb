@@ -73,8 +73,17 @@ class CommonWork < ActiveRecord::Base
   #  self.work_registrations.first
   #end
   
+  def update_publishers_payment
+    begin
+      self.recordings.each do |recording|
+        LabelRecording.configure_payment( recording.id )
+      end
+    rescue => e
+      ErrorNotification.post_object 'CommonWork#update_publishers_payment', e
+    end
+  end
+  
   def configure_publishers_payment( price, recording_uuid )
-    
     
     return -1 if price < self.royalty
 

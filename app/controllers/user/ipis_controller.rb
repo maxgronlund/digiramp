@@ -33,6 +33,9 @@ class User::IpisController < ApplicationController
     respond_to do |format|
       if @ipi.save
         
+        # make sure all ips get a fair share
+        @common_work.update_publishers_payment
+        
         format.html { 
           if @ipi.is_published? && @ipi.user && (@ipi.user_id == @user.id)
             redirect_to new_user_user_common_work_ipi_ipi_publisher_path(@user,  @common_work, @ipi)
@@ -64,17 +67,21 @@ class User::IpisController < ApplicationController
   
   def update
     @ipi          = Ipi.cached_find(params[:id])
-    @common_work = CommonWork.cached_find(@ipi.common_work_id)
+    @common_work  = CommonWork.cached_find(@ipi.common_work_id)
     
     if @ipi.update(ipi_params)
       @ipi.attach_to_user
       
       if @ipi.user_id == @user.id
-        ap 'hey confirm this'
+        #ap 'hey confirm this'
         @ipi.update(confirmation: 'Confirmed')
         @ipi.accepted!
       end
 
+      # make sure all ips get a fair share
+      @common_work.update_publishers_payment
+      
+      
       if params[:commit] == 'Save and send message'
         @ipi.send_confirmation_request 
         redirect_to user_user_common_work_path(@user, @common_work)

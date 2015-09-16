@@ -5,7 +5,7 @@ class RecordingIpi < ActiveRecord::Base
   validates :email, :role, :share, presence: true
   validates_formatting_of :email
   
-   enum status: [ :pending, :accepted, :dismissed, :in_progress ]
+   enum status: [ :pending, :confirmed, :accepted, :dismissed, :in_progress ]
   
   ROLES  = [ "Administrator",
              "Owner",
@@ -51,6 +51,12 @@ class RecordingIpi < ActiveRecord::Base
   end
   
   def configure_payment( price, rake , recording_uuid , label_id)
+    
+    if stakes = Stake.where(ip_uuid: self.uuid, ip_type: self.class.name)
+      stakes.update_all(expired: true)
+    end
+    
+    
     share_after_publishers = rake / price.to_f
     #ap share_after_publishers
     begin
@@ -67,7 +73,8 @@ class RecordingIpi < ActiveRecord::Base
                      flat_rate_in_cent:   0,
                      currency:            'usd',
                      email:               self.user.email,
-                     unassigned:          false
+                     unassigned:          false,
+                     expired:             false
                      
                      )
       else
@@ -80,7 +87,8 @@ class RecordingIpi < ActiveRecord::Base
                                flat_rate_in_cent:   0,
                                currency:            'usd',
                                email:               self.user.email,
-                               unassigned:          false
+                               unassigned:          false,
+                               expired:             false
                             )
       end
       
