@@ -28,6 +28,23 @@ div id="old-recording-confirmation-button-#{recording_ipi.id.to_s}"
     
     .label.label-info
       'Confirmed
+    .pull-right
+      - if recording_ipi.user && ( recording_ipi.user.id == user.id)
+
+        = link_to 'Confirm', user_user_recording_confirmation_path( \
+                                          user,  
+                                          recording, 
+                                          recording_ipi_id: recording_ipi.id), 
+                                          method: 'PUT',
+                                          data: {confirm: "I confirm this is the right IP" },
+                                          class: 'btn btn-success btn-xs'
+      - else
+        = link_to 'Request confirmation', new_user_user_recording_recording_confirmation_path( \
+                                          user,  
+                                            recording, 
+                                            recording_ipi_id: recording_ipi.id), 
+                                            remote: true, 
+                                            class: 'btn btn-default btn-xs'
   
   - when 'accepted'
     

@@ -88,6 +88,7 @@ class CommonWork < ActiveRecord::Base
     return -1 if price < self.royalty
 
     begin
+      
       self.ipis.each do |ipi|
         ipi.configure_payment( self.royalty , price , recording_uuid, self.id )
       end

@@ -49,18 +49,7 @@ class Ipi < ActiveRecord::Base
       amount_in_cent =  share * 0.01 * royalty
       amount_in_pct  =  amount_in_cent /  price
       amount_in_pct  *= 100.0
-      
 
-      #ap '===================== IPs share ==============================='
-      #ap 'Ipi#configure_payment'
-      #ap "amount_in_pct: #{amount_in_pct}"
-      #
-      #ap '  GET IPS PUBLISHERS HERE'
-      #
-      #ap '  STASH STAKES HERE'
-      #ap "uuid: #{self.uuid}"
-
-      
       if stake = Stake.find_by( account_id:         self.user.account.id,
                                 asset_id:           recording_uuid,
                                 asset_type:         'Recording',
@@ -88,9 +77,7 @@ class Ipi < ActiveRecord::Base
                                unassigned:          false
                             )
       end
-      
-      
-      
+
     rescue => e
       ErrorNotification.post_object 'Ipi#configure_payment', e
     end

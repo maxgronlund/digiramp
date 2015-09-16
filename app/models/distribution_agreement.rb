@@ -38,6 +38,7 @@ class DistributionAgreement < ActiveRecord::Base
   private 
   
     def configure_publishers_payment( price, recording_id )
+
       begin 
         recording   = Recording.cached_find(recording_id)
         common_work = recording.common_work
