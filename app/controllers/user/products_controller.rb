@@ -36,6 +36,7 @@ class User::ProductsController < ApplicationController
             additional_info     = @recording.comment
             
             label           = @user.label
+            label.default_distribution_agreement
             label_recording = LabelRecording.where(label_id: label.id, recording_id: @recording.id)
                                             .first_or_create(label_id: label.id, recording_id: @recording.id)
                                             

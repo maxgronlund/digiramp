@@ -218,11 +218,15 @@ class User < ActiveRecord::Base
   
   def label
     begin
-      return Label.cached_find(self.default_label_id)
+      unless _label = Label.find_by(self.default_label_id)
+        _label = Label.create_label( self.account.id)
+      end
+      return _label
     rescue => e
       ErrorNotification.post_object 'User#label', e
+      return nil
     end
-    nil
+    
   end
   
   def next_up?
