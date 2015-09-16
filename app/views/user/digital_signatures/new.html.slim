@@ -32,7 +32,14 @@
             br
             == render 'form'
 
-            
+      .row
+        .col-sm-12
+          .digi-box
+            h4 Online editors that might help you
+            'If you don't have an image of your signature these links might help you
+            .pull-down-10
+            => link_to 'Edit an image online', 'https://pixlr.com/editor/', :target => "_blank", class: 'btn btn-default'
+            = link_to 'Create a signature online', 'https://pixlr.com/editor/', :target => "_blank", class: 'btn btn-default'      
         
 
       

@@ -21,6 +21,18 @@ class DigitalSignature < ActiveRecord::Base
 
     end
   end
+  
+  def is_selected?
+    if user = self.user
+      if digital_signature = user.digital_signature
+        if user.digital_signature_uuid == self.uuid
+          ap 'SELECTED'
+          return true 
+        end
+      end
+    end
+    false
+  end
 
   private 
 

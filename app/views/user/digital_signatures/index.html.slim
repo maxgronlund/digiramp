@@ -42,19 +42,20 @@
         
         .col-sm-6
           .digi-box
+            b Uploaded signatures
             - @digital_signatures.each do |digital_signature|
               .row
                 .col-sm-8
                    = image_tag digital_signature.image_url(:image_300x50), class: 'img-responsive img-thumbnail'
                 .col-sm-4
                   .pull-right.pull-down-10
-                    - unless @selected_digital_signature.id == digital_signature.id
-                      => link_to 'Select', user_user_digital_signature_path(@user, digital_signature), class: 'btn btn-default'
+                    - unless digital_signature.is_selected?
+                      => link_to 'Select', user_user_digital_signature_path(@user, digital_signature), class: 'btn btn-default btn-xs'
                     = link_to user_user_digital_signature_path(@user, digital_signature), 
                                           data: {:confirm => 'Are you sure?'}, 
                                           :method => :delete, 
                                           turboboost: true do
-                            .btn.btn-danger
+                            .btn.btn-danger.btn-xs
                               i.fa.fa-times
                   
               .sexy_line

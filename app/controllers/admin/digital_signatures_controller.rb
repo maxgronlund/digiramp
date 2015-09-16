@@ -1,7 +1,7 @@
 class Admin::DigitalSignaturesController < ApplicationController
   
   def create
-
+    params[:digital_signature][:uuid] = UUIDTools::UUID.timestamp_create().to_s
     @digital_signature = DigitalSignature.new(digital_signature_params)
     
     case params[:commit]

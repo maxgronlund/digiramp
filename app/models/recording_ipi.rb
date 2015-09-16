@@ -51,7 +51,7 @@ class RecordingIpi < ActiveRecord::Base
   end
   
   def configure_payment( price, rake , recording_uuid , label_id)
-    share_after_publishers = rake / price.to_f
+    share_after_publishers = rake / price.to_fo
     ap share_after_publishers
     begin
       
