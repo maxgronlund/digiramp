@@ -27,7 +27,8 @@ class Label < ActiveRecord::Base
   
   def default_distribution_agreement
     begin 
-      return DistributionAgreement.cached_find(self.default_distribution_agreement_id)
+      dist_agree =  DistributionAgreement.cached_find(self.default_distribution_agreement_id)
+      dist_agree.update( title:          user.first_name + ' distribution agreement', user_id: user.id)
     rescue
       if _distribution_agreement = self.distribution_agreements.first
         self.update(default_distribution_agreement_id: _distribution_agreement.id)
