@@ -4,6 +4,7 @@ class CreateLabels < ActiveRecord::Migration
       t.string :title
       t.text :body
       t.string :image
+      t.uuid :uuid
       t.boolean :activated
       t.belongs_to :user, index: true, foreign_key: false
       t.belongs_to :account, index: true, foreign_key: false

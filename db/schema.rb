@@ -2061,13 +2061,13 @@ ActiveRecord::Schema.define(version: 20150916123742) do
     t.string   "title"
     t.text     "body"
     t.string   "image"
+    t.uuid     "uuid"
     t.boolean  "activated"
     t.integer  "user_id"
     t.integer  "account_id"
     t.datetime "created_at",                        null: false
     t.datetime "updated_at",                        null: false
     t.string   "default_distribution_agreement_id"
-    t.uuid     "uuid"
   end
 
   add_index "labels", ["account_id"], name: "index_labels_on_account_id", using: :btree
