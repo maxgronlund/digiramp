@@ -57,14 +57,14 @@
                       = link_to user_user_revenue_stream_path(@user, stake) do
                         .btn.btn-default.btn-xs
                           i.fa.fa-share&nbsp;Share
-                      - if super?
-                        = link_to user_user_stake_path(@user, stake), 
-                                                   data: { confirm: 'Are you sure?' } , 
-                                                   turboboost: true, 
-                                                   :method => :delete do
-                             .btn.btn-danger.btn-xs
-                               i.fa.fa-times
-                      
+                      /- if super?
+                      /  = link_to user_user_stake_path(@user, stake), 
+                      /                             data: { confirm: 'Are you sure?' } , 
+                      /                             turboboost: true, 
+                      /                             :method => :delete do
+                      /       .btn.btn-danger.btn-xs
+                      /         i.fa.fa-times
+                      /
       
 
          
