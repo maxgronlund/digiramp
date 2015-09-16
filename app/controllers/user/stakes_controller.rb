@@ -1,14 +1,13 @@
 class User::StakesController < ApplicationController
   before_action :set_stake, only: [:show, :edit, :update, :destroy]
-  before_action :set_shop_product, only: [:show, :edit, :destroy, :index, :create]
+  before_action :set_shop_product, only: [:show, :edit, :index, :create]
   before_action :access_user
   
   def index
-    #not_found unless @shop_product
+
     if recording = @shop_product.recording
       @stakes =  recording.stakes
     end
-    ap 'stakes ------------------------------------------------'
   end
 
   def new
@@ -29,7 +28,7 @@ class User::StakesController < ApplicationController
 
   def destroy
     @stake.destroy
-    redirect_to user_user_product_stakes_path(@user, @shop_product)
+    redirect_to user_user_revenue_streams_path(@user)
   end
   
   private

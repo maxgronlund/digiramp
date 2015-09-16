@@ -45,12 +45,7 @@
                       'Master
                     - else
                       = stake.ip_type
-                  /td = link_to user_user_product_stake_path(@user, @shop_product, stakeholder), 
-                  /                              data: { confirm: 'Are you sure?' } , 
-                  /                              turboboost: true, 
-                  /                              :method => :delete do
-                  /        .btn.btn-danger.btn-xs
-                  /          i.fa.fa-times
+                  
                   td = stake.title
                   td = number_to_currency( stake.unit_price, precision: 2, locale: 'en')
                   /td = number_to_percentage(stake.split, precision: 4) 
@@ -62,7 +57,14 @@
                       = link_to user_user_revenue_stream_path(@user, stake) do
                         .btn.btn-default.btn-xs
                           i.fa.fa-share&nbsp;Share
-        
+                      - if super?
+                        = link_to user_user_stake_path(@user, stake), 
+                                                   data: { confirm: 'Are you sure?' } , 
+                                                   turboboost: true, 
+                                                   :method => :delete do
+                             .btn.btn-danger.btn-xs
+                               i.fa.fa-times
+                      
       
 
          
