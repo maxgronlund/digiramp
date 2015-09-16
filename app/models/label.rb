@@ -29,7 +29,20 @@ class Label < ActiveRecord::Base
     begin 
       return DistributionAgreement.cached_find(self.default_distribution_agreement_id)
     rescue
-    
+      if _distribution_agreement = self.distribution_agreements.first
+        self.update(default_distribution_agreement_id: _distribution_agreement.id)
+        return _distribution_agreement
+      else
+        return DistributionAgreement.create(
+               label_id:       self.id,
+               account_id:     self.account_id,
+               user_id:        self.user_id,
+               distributor_id: self.id,
+               royalty:        10,
+               distribution_fee: 25.0,
+               title:          user.first_name + ' distribution agreement'
+             )
+      end
     end
     nil
   end
