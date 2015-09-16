@@ -34,10 +34,10 @@
               .panel-heading
                 'Status
               .panel-body
-                b = @recording_ipi.confirmation
+                b = @recording_ipi.status
                 
                 
-                - if @recording_ipi.confirmation == 'Confirmed'
+                - if @recording_ipi.confirmed? 
                   .row
                     .col-sm-12
                       .pull-right
