@@ -13,9 +13,10 @@ class Ipi < ActiveRecord::Base
   has_many :ipi_publishing_agreements, dependent: :destroy
   has_many :publishing_agreements, :through => :ipi_publishing_agreements
   
-  
-  
+
   belongs_to :common_work
+  
+  
   belongs_to :pro_affiliation
   
   belongs_to :import_ipi

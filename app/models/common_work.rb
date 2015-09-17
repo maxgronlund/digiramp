@@ -34,7 +34,7 @@ class CommonWork < ActiveRecord::Base
   
   has_many :attachments, as: :attachable,       dependent: :destroy
 
-  has_many :ipis,       dependent: :destroy
+  has_many :ipis
   #has_many :user_credits, as: :ipiable
   #accepts_nested_attributes_for :ipis, allow_destroy: true
   accepts_nested_attributes_for :ipis, :reject_if => :all_blank, :allow_destroy => true

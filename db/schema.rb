@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150917043350) do
+ActiveRecord::Schema.define(version: 20150917080048) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1023,6 +1023,16 @@ ActiveRecord::Schema.define(version: 20150917043350) do
   add_index "comments", ["commentable_id", "commentable_type"], name: "index_comments_on_commentable_id_and_commentable_type", using: :btree
   add_index "comments", ["user_id"], name: "index_comments_on_user_id", using: :btree
 
+  create_table "common_work_ipis", force: :cascade do |t|
+    t.integer  "common_work_id"
+    t.integer  "ipi_id"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+  end
+
+  add_index "common_work_ipis", ["common_work_id"], name: "index_common_work_ipis_on_common_work_id", using: :btree
+  add_index "common_work_ipis", ["ipi_id"], name: "index_common_work_ipis_on_ipi_id", using: :btree
+
   create_table "common_work_items", force: :cascade do |t|
     t.integer  "account_id"
     t.integer  "common_work_id"
@@ -1980,6 +1990,7 @@ ActiveRecord::Schema.define(version: 20150917043350) do
     t.integer  "status"
     t.boolean  "i_am_the_publishing_designee",             default: false
     t.boolean  "publishing_designee",                      default: false
+    t.boolean  "master_ipi",                               default: false
   end
 
   add_index "ipis", ["common_work_id"], name: "index_ipis_on_common_work_id", using: :btree
@@ -3662,6 +3673,8 @@ ActiveRecord::Schema.define(version: 20150917043350) do
   add_foreign_key "client_invitations", "accounts", on_delete: :cascade
   add_foreign_key "client_invitations", "client_groups", on_delete: :cascade
   add_foreign_key "clients", "accounts", on_delete: :cascade
+  add_foreign_key "common_work_ipis", "common_works", on_delete: :cascade
+  add_foreign_key "common_work_ipis", "ipis", on_delete: :cascade
   add_foreign_key "common_works_imports", "accounts", on_delete: :cascade
   add_foreign_key "contracts", "accounts", on_delete: :cascade
   add_foreign_key "creative_projects", "accounts", on_delete: :cascade
