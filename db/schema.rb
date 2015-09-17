@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150916165850) do
+ActiveRecord::Schema.define(version: 20150917043350) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -3641,13 +3641,14 @@ ActiveRecord::Schema.define(version: 20150916165850) do
   add_index "work_users", ["user_id"], name: "index_work_users_on_user_id", using: :btree
 
   create_table "zip_files", force: :cascade do |t|
-    t.string   "identifier", limit: 255
-    t.string   "title",      limit: 255
+    t.string   "identifier",   limit: 255
+    t.string   "title",        limit: 255
     t.text     "body"
-    t.string   "zip_file",   limit: 255
+    t.string   "zip_file",     limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "file_size"
+    t.string   "content_type"
   end
 
   add_foreign_key "account_features", "plans", on_delete: :cascade
