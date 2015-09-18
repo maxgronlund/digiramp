@@ -44,7 +44,7 @@ class CopyMachine
     )
     setup_default_publisher_documents( 
       publisher,
-      '8d96ed60-5dd5-11e5-b2ca-60334bfffe81',
+      '5dcab336-5dd6-11e5-88f3-d43d7eecec4d',
       publishing_agreement
     )
 
@@ -61,7 +61,7 @@ class CopyMachine
     )
     setup_default_publisher_documents( 
       publisher,
-      '99a988f4-5e09-11e5-80b4-60334bfffe81',
+      '34debb4c-5e09-11e5-a542-d43d7eecec4d',
       publishing_agreement
     )
 
