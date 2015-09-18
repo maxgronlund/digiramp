@@ -1,3 +1,4 @@
+- session[:sign_document]         = request.url
 #wrapper
   .full-width-top
     == render 'shared/navigationbar', page: 'settings' 
@@ -48,39 +49,52 @@
                 
           .row
             .col-sm-6
+              = 
               h4
                 - if document.signed?
-                  .label.label-success
-                    'Signed
+                  .label.label-default
+                    'Signed by all parties
                   '&nbsp;
-                .label.label-default
-                  = document.status
+                  - if document.executed?
+                    .label.label-success
+                      'Executed
+                  - else
+                    = link_to user_user_legal_document_path( @user, 
+                                                            document.uuid, 
+                                                            document: {status: 2}), 
+                                                            turboboost: true,
+                                                            method: 'PUT' do
+                       .btn.btn-primary.btn-xs
+                         i.fa.fa-exclamation-triangle&nbsp;Execute
             .col-sm-6
-              - unless document.executed? || document.archived? ||  document.expired?
-                .pull-right.pull-down-8
+              .pull-right.pull-down-8
+                => link_to user_user_legal_document_path( @user, document.uuid, :format => 'pdf') do 
+                  .btn.btn-default.btn-xs
+                    i.fa.fa-file-pdf-o
+                    
+                = link_to user_user_legal_document_path( @user, document.uuid) do
+                    .btn.btn-default.btn-xs
+                      i.fa.fa-eye
+                      
+                - unless document.executed? || document.archived? ||  document.expired?
+                  => link_to user_user_legal_document_path( @user, document.uuid), data: { confirm: 'Are you sure?' } , 
+                                                          :method => :delete, 
+                                                          turboboost: true do
+                    .btn.btn-danger.btn-xs
+                      i.fa.fa-times
+                      
+                  => link_to edit_user_user_legal_document_path( @user, document.uuid) do
+                    .btn.btn-default.btn-xs
+                      i.fa.fa-pencil
+                      
                   
-                    => link_to user_user_legal_document_path( @user, document.uuid), data: { confirm: 'Are you sure?' } , 
-                                                            :method => :delete, 
-                                                            turboboost: true do
-                      .btn.btn-danger.btn-xs
-                        i.fa.fa-times
-                        
-                    => link_to edit_user_user_legal_document_path( @user, document.uuid) do
-                      .btn.btn-default.btn-xs
-                        i.fa.fa-pencil
-                        
-                    => link_to user_user_legal_document_path( @user, document.uuid, :format => 'pdf') do 
-                      .btn.btn-default.btn-xs
-                        i.fa.fa-file-pdf-o
-                        
-                    = link_to user_user_legal_document_path( @user, document.uuid) do
-                        .btn.btn-default.btn-xs
-                          i.fa.fa-eye
-                    
-                    = link_to '#' do
-                      .btn.btn-default.btn-xs
-                        i.fa.fa-user-plus&nbsp;Add user
-                    
+                  = link_to new_user_user_legal_document_legal_document_user_path(@user, document.uuid) do
+                    .btn.btn-default.btn-xs
+                      i.fa.fa-user-plus&nbsp;Add user
+                  /= link_to '#' do
+                  /  .btn.btn-default.btn-xs
+                  /    i.fa.fa-user-plus&nbsp;Add user
+                  /
         
           .sexy_line
           .row
@@ -94,26 +108,32 @@
                       th Role
                       th Can edit
                       th Should sign
-                      th Status
+                      /th Status
                   tbody
                     - document.document_users.each do |document_user|
                       tr
-                        td 
-                          => link_to user_user_legal_document_legal_document_user_path(@user, document, document_user), data: { confirm: 'Are you sure?' } , 
-                                                          :method => :delete, 
-                                                          turboboost: true do
-                            .btn.btn-danger.btn-xs
-                              i.fa.fa-times
-                          = link_to 'Edit', edit_user_user_legal_document_legal_document_user_path(@user, document, document_user), class: 'btn btn-default btn-xs'
-                  
+                        td
+
                           - if user = document_user.user                          
-                            =< user.user_name
+                            = user.user_name
+                            br
+                          - unless document_user.digital_signature_id
+                            => link_to user_user_legal_document_legal_document_user_path(@user, document, document_user), data: { confirm: 'Are you sure?' } , 
+                                                            :method => :delete, 
+                                                            turboboost: true do
+                              .btn.btn-danger.btn-xs
+                                i.fa.fa-times
+                            = link_to 'Edit', edit_user_user_legal_document_legal_document_user_path(@user, document.uuid, document_user), class: 'btn btn-default btn-xs'
+                          - else
+                            h5
+                              .label.label-success
+                                'Signed
                       
                         td  = document_user.email
                         td  = document_user.role
                         td  = document_user.can_edit
                         td  = document_user.should_sign
-                        td  = document_user.status?
+                        /td  = document_user.status
           
           
         

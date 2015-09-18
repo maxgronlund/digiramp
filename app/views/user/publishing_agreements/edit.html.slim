@@ -21,50 +21,71 @@
               == render 'admin/helps/help', identifier: 'user edit publishing agreement'
 
       .sexy_line
-      div style="max-width: 840px"
-        .digi-box
-          .row
-            .col-sm-12
-              = simple_form_for [ @user, @publisher, @document ] , :url => url_for(:action => 'update', :controller => 'publishing_agreements'), turboboost: true, :method => 'PUT' do |f|
-                = f.error_notification
-                .form-inputs
+      .digi-box
+        .row
+          .col-sm-12
+            = simple_form_for [:user, @user, @publisher, @publishing_agreement] do |f|
 
-                  = f.hidden_field :uuid, value: @document.uuid
-                  = f.input :title, placeholder: "i.e. publishing agreement between Janis Joplin and #{@publisher.legal_name}", 
-                                    hint: "Give this agremment a descriptive name so it's easy for everyone involved to find it again"
-                  = f.input :body, label: 'Description',
-                                   placeholder: "i.e. This agreement gives #{@publisher.legal_name} rights to Janis Joplin's Farewell Song on the Canary Islands last week of 1791 ",
-                                   hint: "A short summary of the agreement"
-                  .row
-                    .col-sm-6
-                      = f.input :expires, 
-                                id: 'expires',
-                                label: false, 
-                                inline_label:  'Expires',
-                                :input_html => { class: 'icheck-me acceptance', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue"     }
-                    .col-sm-6
-                      = f.text_field :expiration_date, class: "form-control", 'data-date-format'.to_sym => "YYYY/MM/DD", id: 'datetimepicker5'
-                  
-                  /= f.input :body, label: 'Description'
-                  
-                  
-                  
-                  b
-                    '*Content
+              .row
+                .col-sm-6
+                  = f.input :title
+                .col-sm-6
+                  = f.input :split
+              .row
+                .col-sm-6
+                  = f.input :expires, 
+                            id: 'expires',
+                            label: false, 
+                            inline_label:  'Expires',
+                            :input_html => { class: 'icheck-me acceptance', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue"     }
+                  b Expiration date
                   br
-                  div id="toolbar" class="wysihtml5-toolbar"
-                    a data-wysihtml5-command="bold" Bold
-                    '&nbsp; 
-                    a data-wysihtml5-command="italic" Italic
-                    .pull-right
-                      a data-wysihtml5-action="change_view"  Html
-                  =f.input :text_content, label: false, :input_html => {  style: "height: 800px;", placeholder: "Document content", id: 'wysihtml5_editor'}
-                  .row
-                    .col-sm-12
-                      .pull-right
-                        = f.submit 'Save', class: 'btn btn-default'
-            
-
+                  = f.text_field :expiration_date, class: "form-control", 'data-date-format'.to_sym => "YYYY/MM/DD", id: 'datetimepicker5'
+              
+              .row
+                .col-sm-12
+                  .pull-right
+                    = f.submit 'Save', class: 'btn btn-primary'
+            /= simple_form_for [ @user, @publisher, @document ] , :url => url_for(:action => 'update', :controller => 'publishing_agreements'), turboboost: true, :method => 'PUT' do |f|
+            /  = f.error_notification
+            /  .form-inputs
+            /
+            /    = f.hidden_field :uuid, value: @document.uuid
+            /    = f.input :title, placeholder: "i.e. publishing agreement between Janis Joplin and #{@publisher.legal_name}", 
+            /                      hint: "Give this agremment a descriptive name so it's easy for everyone involved to find it again"
+            /    = f.input :body, label: 'Description',
+            /                     placeholder: "i.e. This agreement gives #{@publisher.legal_name} rights to Janis Joplin's Farewell Song on the Canary Islands last week of 1791 ",
+            /                     hint: "A short summary of the agreement"
+            /    .row
+            /      .col-sm-6
+            /        = f.input :expires, 
+            /                  id: 'expires',
+            /                  label: false, 
+            /                  inline_label:  'Expires',
+            /                  :input_html => { class: 'icheck-me acceptance', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue"     }
+            /      .col-sm-6
+            /        = f.text_field :expiration_date, class: "form-control", 'data-date-format'.to_sym => "YYYY/MM/DD", id: 'datetimepicker5'
+            /    
+            /    /= f.input :body, label: 'Description'
+            /    
+            /    
+            /    
+            /    b
+            /      '*Content
+            /    br
+            /    div id="toolbar" class="wysihtml5-toolbar"
+            /      a data-wysihtml5-command="bold" Bold
+            /      '&nbsp; 
+            /      a data-wysihtml5-command="italic" Italic
+            /      .pull-right
+            /        a data-wysihtml5-action="change_view"  Html
+            /    =f.input :text_content, label: false, :input_html => {  style: "height: 800px;", placeholder: "Document content", id: 'wysihtml5_editor'}
+            /    .row
+            /      .col-sm-12
+            /        .pull-right
+            /          = f.submit 'Save', class: 'btn btn-default'
+            /
+      
          
     == render 'shared/init_wysiwyg5'          
   == render 'shared/site_footer'    

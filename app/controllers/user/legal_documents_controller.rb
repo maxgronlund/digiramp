@@ -75,13 +75,17 @@ class User::LegalDocumentsController < ApplicationController
   
   def update
     ap params
-     @document = Document.cached_find(params[:id])
-
-     if @document.update(document_params)
-       redirect_to user_user_legal_documents_path(@user)
-     else
-       render edit
-     end
+    
+    @document = Document.cached_find(params[:id])
+    
+    if params[:document][:status]
+      @document.executed!
+      redirect_to user_user_legal_documents_path(@user)
+    elsif @document.update(document_params)
+      redirect_to user_user_legal_documents_path(@user)
+    else
+      render edit
+    end
   end
   
   def destroy
@@ -107,7 +111,8 @@ class User::LegalDocumentsController < ApplicationController
                                       :text_content,
                                       :template_id,
                                       :tag,
-                                      :uuid) 
+                                      :uuid,
+                                      :status) 
     
   end
   

@@ -23,23 +23,27 @@
           .col-sm-12 
             = simple_format @document.text_content
         .sexy_line
-        - @document.document_users.each do |document_user|
-          
-          .row
-            .col-sm-12
+        .row
+          - @document.document_users.each do |document_user|
+            .col-sm-6
               - if document_user.signed_on
+                br
+                .pull-down-8
                 
-                
-                -if document_user.digital_signature
+                - if document_user.digital_signature
                   = "#{document_user.signed_on}"
                   br
-                  .pull-down-8
                   'ACCEPTED AND AGREED TO BY:
                   =  image_tag document_user.digital_signature.image_url(:image_300x50), class: 'img-responsive'
-                br
+                - else
+                  'ACCEPTED AND AGREED TO BY:
+                  'Date:
+                  h4 &nbsp;
+                
                 .uppercase
                   = document_user.role
                 br
+                
                
       /.digi-box 
       /  h4 Used on

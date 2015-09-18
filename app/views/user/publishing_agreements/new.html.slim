@@ -25,11 +25,13 @@
       .row
         .col-sm-6
           .digi-box
+            
             = simple_form_for [:user, @user, @publisher, @publishing_agreement], turboboost: true do |f|
               = f.error_notification
 
               .form-inputs
                 = f.hidden_field :publisher_id, value: @publisher.id
+                = f.hidden_field :personal_agreemen, value: false
                 - if @document
                   = f.hidden_field :document_id, value: @document.id
                   

@@ -724,24 +724,7 @@ class User < ActiveRecord::Base
   
   
   def setup_personal_publishing
-
-    _publisher = Publisher.create!(
-                   user_id: self.id,
-                   account_id: self.account.id,
-                   legal_name: "Personal publisher for #{self.user_name}",
-                   email:      self.email,
-                   personal_publisher: true,
-                   show_on_public_page: false 
-                 )
-     
-    _publisher.confirmed!
-
-    _publishing_agreement = PublishingAgreement.create(
-      publisher_id:       _publisher.id,
-      split:              100.0,
-      personal_agreement: true
-    )
-
+    CopyMachine.setup_personal_publishing self.id
   end
   
   def pro_affiliation() 

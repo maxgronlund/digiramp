@@ -15,10 +15,10 @@
         .col-sm-6
           .help
             .help-text
-              h2 Documents
+              h2 Edit document user
               
             .help-button
-              == render 'admin/helps/help', identifier: 'legal documents'
+              == render 'admin/helps/help', identifier: 'edit document user'
         /.col-sm-6
         /  .pull-right.pull-down-10
         /
@@ -35,9 +35,36 @@
         /
       = render 'user/shared/legal_navigation'
       .pull-down-10
-
-          
-          
+      .sexy_line
+      .row
+        .col-sm-6
+          .digi-box
+            = simple_form_for [ @user, @document, @document_user], :url => url_for(:action => 'update', 
+                                                                                          :controller => 'legal_document_users'), 
+                                                                                          turboboost: true, :method => 'PUT' do |f|
+              
+              = f.error_notification
+              .form-inputs
+                = f.hidden_field :document_id, value: @document.uuid
+                .row
+                  .col-sm-6
+                    = f.input :can_edit,  :input_html => { class: 'icheck-me', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue"     }  
+                  .col-sm-6
+                    = f.input :should_sign,  :input_html => { class: 'icheck-me', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue"     }  
+                .row
+                  .col-sm-6
+                    = f.input :email
+                  .col-sm-6
+                    = f.input :legal_name
+                = f.input :role
+              .form-actions
+                .row
+                  .col-sm-12
+                    .pull-right
+                      = f.submit 'Save', class: 'btn btn-default'
+              
+              
+              
         
 
          

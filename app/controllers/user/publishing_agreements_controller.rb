@@ -33,15 +33,16 @@ class User::PublishingAgreementsController < ApplicationController
     @publisher             = Publisher.cached_find(params[:publisher_id])
     
     #@documents             = @user.account.documents#.where(tag: 'Recording', document_type: 'Legal')
-    @publishing_agreement  = PublishingAgreement.cached_find(params[:id])
-    @document              = @publishing_agreement.document
+    @publishing_agreement   = PublishingAgreement.cached_find(params[:id])
+    #@documents              = @publishing_agreement.document
   end
 
   # POST /publishing_agreements
   # POST /publishing_agreements.json
   def create
-    @publishing_agreement = PublishingAgreement.new(publishing_agreement_params)
 
+    @publishing_agreement = PublishingAgreement.new(publishing_agreement_params)
+    
     respond_to do |format|
       if @publishing_agreement.save
         format.html { redirect_to user_user_publisher_path(@user, @publishing_agreement.publisher), info: 'Publishing deal was successfully created.' }
@@ -59,24 +60,24 @@ class User::PublishingAgreementsController < ApplicationController
     
     @publisher              = Publisher.cached_find(params[:publisher_id])
     @publishing_agreement   = PublishingAgreement.cached_find(params[:id])
-    @document               = Document.cached_find(params[:document][:uuid])
+    
                              
-    title                   = params[:document][:title]
-    body                    = params[:document][:body]
-    text_content            = params[:document][:text_content]
-    expires                 = params[:document][:expires]
-    expiration_date         = params[:document][:expiration_date]
+    #title                   = params[:document][:title]
+    #body                    = params[:document][:body]
+    #text_content            = params[:document][:text_content]
+    #expires                 = params[:document][:expires]
+    #expiration_date         = params[:document][:expiration_date]
+    #
+    #
+    #@document.title            = title
+    #@document.body             = body
+    #@document.text_content     = text_content
+    #@document.expires          = expires
+    #@document.expiration_date  = expiration_date
+    #@document.document_type    = "Publishing agreement"
     
-
-    @document.title            = title
-    @document.body             = body
-    @document.text_content     = text_content
-    @document.expires          = expires
-    @document.expiration_date  = expiration_date
-    @document.document_type    = "Publishing agreement"
     
-    if @document.save!
-      @publishing_agreement.update(title: @document.title)
+    if @publishing_agreement.update(publishing_agreement_params)
       redirect_to user_user_publisher_publishing_agreement_path(@user, @publisher, @publishing_agreement)
     else
       flash[:danger] = "Something went wrong" 
@@ -113,6 +114,6 @@ class User::PublishingAgreementsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def publishing_agreement_params
-      params.require(:publishing_agreement).permit(:publisher_id, :title, :document_id, :email)
+      params.require(:publishing_agreement).permit!
     end
 end

@@ -1,16 +1,41 @@
 = simple_format @document.text_content
-br
-- @document.digital_signatures.each do |digital_signature|
-  .div style="text-transform: uppercase; width: 300px; height: 70px; display: inline-block; margin-right: 32px;" 
-    = digital_signature.role
-    br
-    
-    
-    - if user = digital_signature.user and signature = user.digital_signatures.first
-      = image_tag signature.image_url(:image_300x50)
-    - else
-      .div style="height: 50px"
-    
-    
-  hr
-  br
+hr
+.row
+  - @document.document_users.each do |document_user|
+    .col-sm-6
+      - if document_user.signed_on
+        br
+        .pull-down-8
+        
+        - if document_user.digital_signature
+          = "#{document_user.signed_on}"
+          br
+          'ACCEPTED AND AGREED TO BY:
+          br
+          =  image_tag document_user.digital_signature.image_url(:image_300x50), class: 'img-responsive'
+        - else
+          'ACCEPTED AND AGREED TO BY:
+          br
+          'Date:
+          h4 &nbsp;
+        
+        .uppercase
+          = document_user.role
+        br
+        
+               
+/br
+/- @document.digital_signatures.each do |digital_signature|
+/  .div style="text-transform: uppercase; width: 300px; height: 70px; display: inline-block; margin-right: 32px;" 
+/    = digital_signature.role
+/    br
+/    
+/    
+/    - if user = digital_signature.user and signature = user.digital_signatures.first
+/      = image_tag signature.image_url(:image_300x50)
+/    - else
+/      .div style="height: 50px"
+/    
+/    
+/  hr
+/  br

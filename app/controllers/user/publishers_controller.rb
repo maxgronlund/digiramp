@@ -34,7 +34,7 @@ class User::PublishersController < ApplicationController
     respond_to do |format|
       if @publisher.save
         @user.copy_address_to( @publisher.address ) 
-        @publisher.
+        CopyMachine.setup_publisher @publisher.id
         #if @publisher.personal_publisher
         #  @user.copy_address_to( @publisher.address ) 
         #end

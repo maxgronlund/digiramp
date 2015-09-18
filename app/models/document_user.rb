@@ -15,12 +15,32 @@ class DocumentUser < ActiveRecord::Base
   def self.cached_find(id)
     Rails.cache.fetch([name, id]) { find(id) }
   end
+  
+  def assign_to_user
+    if self.email
+      if user = User.get_by_email( self.email )
+        self.update(user_id: user.id)
+        notify_user( user )
+      else
+        invite_and_notify user
+      end
+    end
+    
+  end
 
   private 
+  
+  def notify_user user
+    ap 'notify user'
+  end
+  
+  def invite_and_notify user
+     ap 'invita and notify user'
+  end
 
-    def flush_cache
-      Rails.cache.delete([self.class.name, id])
-    end
+  def flush_cache
+    Rails.cache.delete([self.class.name, id])
+  end
   
   
 end

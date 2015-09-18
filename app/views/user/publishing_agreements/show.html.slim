@@ -1,4 +1,5 @@
 - document = @publishing_agreement.document
+
 #wrapper
   .full-width-top
     == render 'shared/navigationbar', page: 'settings' 
@@ -80,7 +81,7 @@
                       - unless document_signed
                         br
                         .pull-down-6
-                          = link_to 'Sign document', user_user_sign_document_path(@user, document.uuid), class: 'btn btn-success btn-xs'
+                          = link_to 'Manage Signatures', user_user_sign_document_path(@user, document.uuid), class: 'btn btn-success btn-xs'
                         
 
                   td 

@@ -1,4 +1,4 @@
-
+- session[:sign_document]         = request.url
 #wrapper
   .full-width-top
     == render 'shared/navigationbar', page: 'settings' 
@@ -10,8 +10,8 @@
   
   #page-content-wrapper
     .container-fluid
-      /== render 'shared/breadcrumbs', breadcrumbs: { links: { 'publishers'.to_sym => user_user_publishers_path(@user),
-      /                                                         @publisher.legal_name.to_sym => user_user_publisher_path(@user, @publisher)}}
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { 'Dashboard'.to_sym => user_user_control_panel_index_path(@user), 
+                                                              'legal'.to_sym => user_user_legal_documents_path(@user)} }
       == render 'shared/flash_message'
       .row
         .col-sm-6
@@ -23,15 +23,16 @@
               == render 'admin/helps/help', identifier: 'sign document'
         .col-sm-6
           
-          /.pull-right.pull-down-10
-          /  => link_to  user_user_publisher_path(@user, @publisher) do
-          /      .btn.btn-default
-          /        i.fa.fa-chevron-left
-          /        '&nbsp;Back
-          /  = link_to edit_user_user_publisher_publishing_agreement_path(@user, @publisher, @publishing_agreement) do
-          /    .btn.btn-default
-          /      i.fa.fa-pencil&nbsp;Edit agreement
-          / 
+          .pull-right.pull-down-10
+            => link_to  user_user_legal_documents_path(@user) do
+                .btn.btn-default
+                  i.fa.fa-chevron-left
+                  '&nbsp;Back
+            
+            = link_to new_user_user_legal_document_legal_document_user_path(@user, @document.uuid) do
+              .btn.btn-default
+                i.fa.fa-user-plus&nbsp;Add user
+           
             
             
 
@@ -42,40 +43,84 @@
           table class="table table-hover"
             thead
               tr
-                th Full Name
+                th Full Name / Email
                 th Role
                 th Date
                 th Signature
                 th
             tbody
               - @document.document_users.each do |document_user|
-                - user = document_user.user
                 tr
-                  td 
-                    - if user
-                      = user.full_name
-                    - else 
-                      = document_user.email
-                  td = document_user.role
-                  td 
-                    - if document_user.digital_signature_id
-                      = document_user.signed_on
-                  td
-                    - if user &&  user.digital_signature
-                      .pull-down-10
-                        = image_tag @user.digital_signature.image_url(:image_300x50), class: 'img-thumbnail img-responsive'
-                  td
-                    .pull-right.pull-down-24
-
-                      - if document_user.digital_signature
-                        .btn.btn-success disabled="disabled"
-                          'Signed
-                      - elsif( user && user == @user )
-                        = link_to 'Sign document', user_user_sign_document_path(@user, document_user.id), 
-                                            method: 'PUT', 
-                                            data: {confirm: 'By clicking this button you confirm'},
-                                            class: 'btn btn-success'
-          
+                  - if user = document_user.user
+                   
+                     td 
+                       - if user
+                         = user.full_name
+                         br
+                         = user.email
+                       - else 
+                         = document_user.email
+                       - if( user && document_user.digital_signature_id.nil? )
+                        .pull-down-8
+                          = link_to user_user_sign_document_path(@user, document_user.id),
+                              data: { confirm: 'Are you sure?' } , 
+                              turboboost: true, 
+                              :method => :delete do
+                            .btn.btn-danger.btn-xs
+                              i.fa.fa-times&nbsp;Remove
+                       
+                     td = document_user.role
+                     td 
+                       - if document_user.digital_signature_id
+                         = document_user.signed_on
+                     td
+                       - if user &&  user.digital_signature
+                         .pull-down-10
+                           = image_tag @user.digital_signature.image_url(:image_300x50), class: 'img-thumbnail img-responsive'
+                       - elsif user
+                         .alert.alert-warning
+                          'Not signed
+                      
+                       - else
+                         .alert.alert-warning
+                           'Not assigned to an user
+                         
+                     td
+                       .pull-right.pull-down-24
+                   
+                         - if document_user.digital_signature
+                           .btn.btn-success disabled="disabled"
+                             'Signed
+                         - elsif( user && user == @user )
+                           br
+                           = link_to 'Sign document', user_user_sign_document_path(@user, document_user.id), 
+                                               method: 'PUT', 
+                                               data: { confirm: 'By clicking this button you confirm'},
+                                               class: 'btn btn-success'
+                         - else
+                          = link_to 'Send reminder', user_user_sign_document_path(@user, document_user.id, reminder: 'true'), 
+                                                method: 'PUT', 
+                                                class: 'btn btn-default'
+                  - else
+                    
+                    th
+                      span.yellow-text 
+                        i.fa.fa-exclamation-triangle
+                      = link_to  edit_user_user_legal_document_legal_document_user_path(@user, @document.uuid, document_user) do
+                        .btn.btn-default.btn-xs
+                          i.fa.fa-user-plus&nbsp;Assign user
+                          
+                    th = document_user.role
+                    th = document_user.email
+                    th
+                      .alert.alert-warning
+                        'User not signed up
+                    th 
+                      .pull-right
+                        = link_to 'Send reminder', user_user_sign_document_path(@user, document_user.id, reminder: 'true'), 
+                                               method: 'PUT', 
+                                               class: 'btn btn-default'
+                  
 
       
   == render 'shared/site_footer'    

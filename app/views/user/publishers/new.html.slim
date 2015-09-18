@@ -38,6 +38,7 @@
               .col-sm-6
                 = f.hidden_field :account_id, value: @user.account.id
                 = f.hidden_field :user_id, value: @user.id
+                = f.hidden_field :personal_publisher, value: false
         
                 = f.input :email, :hint => "Publishers email"
         

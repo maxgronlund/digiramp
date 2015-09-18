@@ -7,10 +7,13 @@ class User::SignDocumentsController < ApplicationController
   end
 
   def update
-    ap params
-    if digital_signature = @user.digital_signature
-      document_user = DocumentUser.cached_find(params[:id])
-      document_user.update(digital_signature_id: digital_signature.id, signed_on: Date.today)
+    if params[:reminder]
+      
+    else
+      if digital_signature = @user.digital_signature
+        document_user = DocumentUser.cached_find(params[:id])
+        document_user.update(digital_signature_id: digital_signature.id, signed_on: Date.today)
+      end
     end
     redirect_to :back
   end
