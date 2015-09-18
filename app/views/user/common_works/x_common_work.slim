@@ -1,0 +1,51 @@
+.row
+  .col-sm-12
+    == render 'common_work_ipis'
+                  
+                
+                
+        /tbody
+        /  - @common_work.ipis.each do |ipi|
+        /    tr
+        /      td
+        /        => link_to user_user_common_work_ipi_path(@user, @common_work, ipi),
+        /                                                    turboboost: true,
+        /                                                    data: { confirm: 'Are you sure?' }, 
+        /                                                    method: :delete do
+        /          .btn.btn-danger.btn-xs
+        /            i.fa.fa-times
+        /        
+        /        => link_to user_user_common_work_ipi_path(@user, @common_work, ipi) do
+        /          .btn.btn-default.btn-xs
+        /            i.fa.fa-eye
+        /                
+        /        => link_to edit_user_user_common_work_ipi_path(@user, @common_work, ipi) do
+        /          .btn.btn-default.btn-xs
+        /            i.fa.fa-pencil
+        /      td
+        /        = ipi.get_full_name
+        /        br = ipi.email
+        /      td
+        /        /'&nbsp;
+        /        - if ipi.music
+        /          'Music
+        /          br
+        /        - if ipi.lyric
+        /          'Lyric
+        /          br
+        /        - if ipi.melody
+        /          'Melody
+        /          br
+        /        - if ipi.arrangement
+        /          'Arrangement
+        /
+        /      
+        /      td = number_to_percentage(ipi.share, precision: 0)    
+        /      td 
+        /        
+        /        .pull-right
+        /          div class="confirmation-button-#{ipi.id.to_s}"
+        /            == render 'user/ipis/confirmation_button', user: @user, common_work: @common_work, ipi: ipi
+        /            
+                  
+       

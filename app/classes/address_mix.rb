@@ -107,8 +107,8 @@ module AddressMix
     destination.save
 
   end
-
   
+
   private
   
   def get_address

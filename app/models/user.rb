@@ -58,7 +58,9 @@ class User < ActiveRecord::Base
 
 
   has_one :address
+  has_one :publisher
   accepts_nested_attributes_for :address
+  accepts_nested_attributes_for :publisher
   include AddressMix
   
   has_one  :account
@@ -276,9 +278,7 @@ class User < ActiveRecord::Base
   end
   
   def get_publishing_agreements
-    
     account.get_publishing_agreements
-    #get_documents.publishing_agreements
   end
   
   def liked_by user_id
@@ -619,25 +619,6 @@ class User < ActiveRecord::Base
 
 
   end
-  
-  
-  # end of module
-  
-  
-  
-
-  
-  # update the uuid to force rebuild of 
-  # segment cached pages
-  # 
-  def set_uuid
-    puts '==============================================='
-    puts 'ERROR'
-    puts 'User#set_uuid is outdated'
-    puts '==============================================='
-    
-    #self.uuid = UUIDTools::UUID.timestamp_create().to_s
-  end
 
   ## !!!! should be depricated! Moved to AccountUser
   def can? action, id_name_or_record, _account_id
@@ -741,36 +722,100 @@ class User < ActiveRecord::Base
     'no access'
   end
   
-  def publishing
-    if @publisher = Publisher.find_by( user_id:             self.id,
-                                       i_am_my_own_publisher: true
-                                     )
-    else
-      @publisher = Publisher.create( 
-                        user_id:                self.id,
-                        account_id:             self.account.id,
-                        email:                  self.email,
-                        legal_name:             self.user_name + ' Publishing',
-                        show_on_public_page:    false,
-                        i_am_my_own_publisher:  true,
-                        description:            "Personal publisher for #{self.user_name}",
-                        ipi_code:               self.ipi_code
-                      )
-      self.copy_address_to(@publisher.address)
+  
+  def setup_personal_publishing
 
-      @publisher.confirmed! 
-    end
-    
-    
-    @publisher    
+    _publisher = Publisher.create!(
+                   user_id: self.id,
+                   account_id: self.account.id,
+                   legal_name: "Personal publisher for #{self.user_name}",
+                   email:      self.email,
+                   personal_publisher: true,
+                   show_on_public_page: false 
+                 )
+     
+    _publisher.confirmed!
+
+    _publishing_agreement = PublishingAgreement.create(
+      publisher_id:       _publisher.id,
+      split:              100.0,
+      personal_agreement: true
+    )
+
   end
   
-  def publishing_agreement
-    @publishing_agreement  = PublishingAgreement.where(publisher_id: self.publishing.id)
-                                .first_or_create(publisher_id: self.publishing.id,
-                                title: self.user_name + ' self publishing')
+  def pro_affiliation() 
+    
+    pub = Publisher.find_by(user_id: self.id, personal_publisher: true)
+    pub.pro_affiliation_id 
+  
+  end
+    
+  def pro_affiliation=( code)
+    personal_publisher.update(pro_affiliation_id: code)
+  end
+  
+  def personal_publisher_ipi_code() personal_publisher.ipi_code end
+  def personal_publisher_ipi_code=( code)
+    personal_publisher.update(ipi_code: code)
+  end
+  
+  def personal_publisher
+    @publisher ||= Publisher.find_by(user_id: self.id, personal_publisher: true)
+  end
+  
+  def personal_publishing_agreement
+    @personal_publishing_agreement ||= PublishingAgreement.find_by(personal_agreement: true, publisher_id: personal_publisher.id)
+  end
+  
+  def publishing_agreement_document
     
   end
+  
+  def ipi
+    if ipi = Ipi.where( user_id: self.id,  master_ipi: true).first
+      return ipi
+    else
+      _ipi = Ipi.create(
+        user_id: self.id, 
+        master_ipi: true,
+        ipi_code: self.ipi_code
+      )
+      user.copy_address_to( _ipi.address )
+      return _ipi
+    end
+  end
+  
+  #def publishing
+  #  if @publisher = Publisher.find_by( user_id:             self.id,
+  #                                     personal_publisher: true
+  #                                   )
+  #  else
+  #    @publisher = Publisher.create( 
+  #                      user_id:                self.id,
+  #                      account_id:             self.account.id,
+  #                      email:                  self.email,
+  #                      legal_name:             self.user_name + ' Publishing',
+  #                      show_on_public_page:    false,
+  #                      personal_publisher:  true,
+  #                      description:            "Personal publisher for #{self.user_name}",
+  #                      ipi_code:               self.ipi_code
+  #                    )
+  #    self.copy_address_to(@publisher.address)
+  #
+  #    @publisher.confirmed! 
+  #  end
+  #  
+  #  
+  #  @publisher    
+  #end
+  #
+  #def publishing_agreement
+  #  @publishing_agreement  = PublishingAgreement.where(publisher_id: self.publishing.id)
+  #                              .first_or_create(publisher_id: self.publishing.id,
+  #                              title: self.user_name + ' self publishing')
+  #  
+  #end
   
   def legal_informations_completed?
     return false if self.address.first_name.blank?
@@ -782,9 +827,12 @@ class User < ActiveRecord::Base
     true
   end
   
-  def publishing_agreement_document
-    
-  end
+  
+  
+  
+  
+  
+  
   
   def self.search query 
     if query.present?

@@ -28,7 +28,7 @@
                   i.fa.fa-chevron-left
                   '&nbsp;
                   'Back
-              = link_to 'Export CSV', user_user_export_work_and_master_path(@user, @common_work, format: "csv"), class: 'btn btn-default'
+              /= link_to 'Export CSV', user_user_export_work_and_master_path(@user, @common_work, format: "csv"), class: 'btn btn-default'
 
         
       h4 = @common_work.title
@@ -56,14 +56,14 @@
               .btn.btn-default
                 i.fa.fa-pencil
                 '&nbsp;Edit
-            = link_to "Add IP", new_user_user_common_work_ipi_path(@user, @common_work), class: 'btn btn-default' 
+            = link_to "Add IP", new_user_user_common_work_common_work_ipi_path(@user, @common_work), class: 'btn btn-default' 
             
             - unless @common_work.is_registered?
               =< link_to "I'm the publishing designee",user_user_publishing_designee_path(@user, @common_work.id),
                                     turboboost: true, 
                                     class: 'btn btn-warning'
-      .digi-box    
-        == render 'common_work'
+         
+      == render 'common_work_ipis'
         
 
       

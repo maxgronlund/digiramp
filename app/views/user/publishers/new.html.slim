@@ -29,7 +29,31 @@
 
       .sexy_line
       .digi-box
-        == render 'form'
+        = simple_form_for [:user, @user, @publisher] do |f|
+          = f.error_notification
+
+          .form-inputs
+            == render 'shared/flash_message'
+            .row
+              .col-sm-6
+                = f.hidden_field :account_id, value: @user.account.id
+                = f.hidden_field :user_id, value: @user.id
+        
+                = f.input :email, :hint => "Publishers email"
+        
+                - unless @publisher.personal_publisher
+                  = f.input :show_on_public_page, input_html: { class: 'icheck-me acceptance', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue" }
+          
+                  span.help-block Make this publisher avaliable to the public
+
+              .col-sm-6
+                = f.input :legal_name, :hint => "Publishers legal name"
+          .form-actions
+            .row
+              .col-sm-12
+                .pull-right
+                  /= f.submit 'Create with legal info', class: 'btn btn-default'
+                  = f.submit 'Create', class: 'btn btn-default'
                   
 
          

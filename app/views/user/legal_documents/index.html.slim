@@ -41,33 +41,46 @@
           .row
             .col-sm-8
               h4 = document.title
+              - if document.signed?
               = document.body
-            .col-sm-4
-              .pull-right
-                h4
-                  .label.label-default
-                    = document.status
+
+          
+                
           .row
-            .col-sm-12
-              .pull-right
-            
-                  => link_to user_user_legal_document_path( @user, document.uuid), data: { confirm: 'Are you sure?' } , 
-                                                          :method => :delete, 
-                                                          turboboost: true do
-                    .btn.btn-danger.btn-xs
-                      i.fa.fa-times
-                      
-                  => link_to edit_user_user_legal_document_path( @user, document.uuid) do
-                    .btn.btn-default.btn-xs
-                      i.fa.fa-pencil
-                      
-                  => link_to user_user_legal_document_path( @user, document.uuid, :format => 'pdf') do 
-                    .btn.btn-default.btn-xs
-                      i.fa.fa-file-pdf-o
-                      
-                  = link_to user_user_legal_document_path( @user, document.uuid) do
+            .col-sm-6
+              h4
+                - if document.signed?
+                  .label.label-success
+                    'Signed
+                  '&nbsp;
+                .label.label-default
+                  = document.status
+            .col-sm-6
+              - unless document.executed? || document.archived? ||  document.expired?
+                .pull-right.pull-down-8
+                  
+                    => link_to user_user_legal_document_path( @user, document.uuid), data: { confirm: 'Are you sure?' } , 
+                                                            :method => :delete, 
+                                                            turboboost: true do
+                      .btn.btn-danger.btn-xs
+                        i.fa.fa-times
+                        
+                    => link_to edit_user_user_legal_document_path( @user, document.uuid) do
                       .btn.btn-default.btn-xs
-                        i.fa.fa-eye
+                        i.fa.fa-pencil
+                        
+                    => link_to user_user_legal_document_path( @user, document.uuid, :format => 'pdf') do 
+                      .btn.btn-default.btn-xs
+                        i.fa.fa-file-pdf-o
+                        
+                    = link_to user_user_legal_document_path( @user, document.uuid) do
+                        .btn.btn-default.btn-xs
+                          i.fa.fa-eye
+                    
+                    = link_to '#' do
+                      .btn.btn-default.btn-xs
+                        i.fa.fa-user-plus&nbsp;Add user
+                    
         
           .sexy_line
           .row
@@ -101,13 +114,7 @@
                         td  = document_user.can_edit
                         td  = document_user.should_sign
                         td  = document_user.status?
-          .row
-            .col-sm-12
-              .pull-right
-                  = link_to '#' do
-                    .btn.btn-default.btn-xs
-                      i.fa.fa-user-plus&nbsp;Add user
-              
+          
           
         
         

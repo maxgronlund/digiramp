@@ -3,6 +3,7 @@ class DocumentUser < ActiveRecord::Base
   belongs_to :document, primary_key: :uuid
   belongs_to :user
   belongs_to :account
+  belongs_to :digital_signature
   
   validates :email, presence: true
   validates_formatting_of :email, :using => :email

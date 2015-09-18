@@ -77,25 +77,28 @@
             
               td
                 b Publishing
-                table
-                  - @user.publishers.each do |publisher|
-                    tr
-                      
-                      td = publisher.legal_name
-                      td = publisher.ipi_code
-                      
+                - @user.publishers.each do |publisher|  
+                  .sexy_line  
+                  = publisher.legal_name
+                  - if ipi_code = publisher.ipi_code
+                    br
+                    = "IPI CODE: #{ipi_code}"
+                    
+                  - if pro_affiliation = publisher.pro_affiliation
+                    br
+                    = "PRO: #{pro_affiliation.title}"
+                    
                       
               td
                 - blog = Blog.cached_find('Legal information')
                 - blog_post             = BlogPost.cached_find( 'add digital signature' , blog )
                 - if editor?
-                  .row
-                    .col-sm-12
-                      .pull-right
-                        = link_to edit_admin_blog_blog_post_path(blog, blog_post) do
-                          .btn.btn-default.btn-xs
-                            i.fa.fa-pencil
-               
+                  .pull-right
+                    = link_to edit_admin_blog_blog_post_path(blog, blog_post) do
+                      .btn.btn-default.btn-xs
+                        i.fa.fa-pencil
+
+                 
                 - if @user.digital_signature
                   b Digital signature
                   br

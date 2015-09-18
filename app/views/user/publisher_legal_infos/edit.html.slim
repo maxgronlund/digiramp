@@ -31,37 +31,55 @@
       .digi-box
         = simple_form_for [:user, @user, @publisher] do |f|
           = f.error_notification
-
+          = f.hidden_field :user_id, value: @user.id
+          = f.hidden_field :account_id, value: @user.account.id
           .form-inputs
             .row
               .col-sm-6
                 = f.input :legal_name, label: 'Company name'
                 = f.input :email, hint: 'Use your own email if you are your own publisher'
-                = f.input :i_am_my_own_publisher, :input_html => { class: 'icheck-me acceptance', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue"     } 
-                span class="help-block" 
-                  'Check this if you have your own publishing company or want to create one
-
-                = f.input :show_on_public_page, input_html: { class: 'icheck-me acceptance', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue" }, hint: 'Your contact info will not be exposed'
-                = f.input :phone_number, placeholder: 'Optional'
-                = f.input :ipi_code, placeholder: 'Optional'
-                = f.input :cae_code, placeholder: 'Optional'
-                = f.input :pro_affiliation_id, collection: ProAffiliation.order(:title), value_method: :id, include_blank: true, label: 'Performance Rights Organization',
-                            hint: 'Optional. Only fill this if you are registered as a publisher with a PRO'
-              .col-sm-6
-      
+                /= f.input :personal_publisher, label: "I'm my own publisher", :input_html => { class: 'icheck-me acceptance', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue"     } 
+                /span class="help-block" 
+                /  'Check this if you have your own publishing company or want to create one
+                / - unless @publisher.personal_publisher
+                = f.input :show_on_public_page, 
+                          input_html: { class: 'icheck-me acceptance', 
+                                                'data-skin'.to_sym => "square", 
+                                                'data-color'.to_sym => "blue" }, 
+                          hint: 'Your contact info will not be exposed'
+                          
+                
                 = f.simple_fields_for :address do |address_form|
                   = address_form.input :address_line_1
                   = address_form.input :address_line_2
-                  = address_form.input :city
-                  = address_form.input :state
-                  = address_form.input :country
-                  = address_form.input :zip_code
+                  .row
+                    .col-sm-6
+                      = address_form.input :city
+                    .col-sm-6
+                      = address_form.input :zip_code
+                  .row
+                    .col-sm-6
+                      = address_form.input :country
+                    .col-sm-6
+                      = address_form.input :state
+                
+                
+              .col-sm-6
+                = f.input :phone_number, placeholder: 'Optional'
+                = f.input :ipi_code, placeholder: 'Optional'
+                  
+                = f.input :cae_code, placeholder: 'Optional'
+                = f.input :pro_affiliation_id, collection: ProAffiliation.order(:title), value_method: :id, include_blank: true, label: 'Performance Rights Organization',
+                            hint: 'Optional. Only fill this if you are registered as a publisher with a PRO'
+                
+                
+                
 
           .form-actions
             .row
               .col-sm-12
                 .pull-right
-                  = f.submit 'Save', class: 'btn btn-default'
+                  = f.submit 'Save', class: 'btn btn-primary'
         
                   
 

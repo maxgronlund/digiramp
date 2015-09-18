@@ -15,10 +15,9 @@
           .digi-box
             ==render 'admin/shared/messages'
             h2 Sign up
-            = simple_form_for [@user], turboboost: true do |f|
+            = simple_form_for [@user] do |f|
               - unless f.error_notification.blank?
-                .alert.alert-danger
-                  = f.error_notification
+                = f.error_notification
             
               .form-inputs
                 = f.input :user_name, label: 'Display Name',  hint: 'This name will be displayed on the profile.', autofocus: true

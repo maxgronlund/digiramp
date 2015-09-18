@@ -41,7 +41,7 @@ class Confirmation::PublishersController < ApplicationController
   
   def grab_publisher
     #ap '--------- Ok Im grapping this one -------------------'
-    @publisher.i_am_my_own_publisher = true
+    @publisher.personal_publisher    = true
     @publisher.user_id               = @user.id
     @publisher.account_id            = current_user.account.id
     @publisher.confirmed!

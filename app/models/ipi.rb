@@ -14,6 +14,9 @@ class Ipi < ActiveRecord::Base
   has_many :publishing_agreements, :through => :ipi_publishing_agreements
   
 
+  has_many :common_work_ipis
+  has_many :common_works, :through => :common_work_ipis
+  
   belongs_to :common_work
   
   
@@ -36,14 +39,18 @@ class Ipi < ActiveRecord::Base
 
   ROLES = [ "Writer", "Composer", "Administrator", "Producer", "Original Publisher",  "Artist", "Distributor", "Remixer", "Other", "Publisher"]
   
-  def publishing_agreement document_uuid
-    if publishing_agreement = PublishingAgreement.find_by(document_id: document_uuid)
-      if ipi_publishing_agreement = IpiPublishingAgreement.where( publishing_agreement_id: publishing_agreement.id, ipi_id: self.id).first
-        return true 
-      end
-    end
-    return false
-  end
+  
+  
+  
+  
+  #def publishing_agreement document_uuid
+  #  if publishing_agreement = PublishingAgreement.find_by(document_id: document_uuid)
+  #    if ipi_publishing_agreement = IpiPublishingAgreement.where( publishing_agreement_id: publishing_agreement.id, ipi_id: self.id).first
+  #      return true 
+  #    end
+  #  end
+  #  return false
+  #end
   
   def configure_payment( royalty, price, recording_uuid, common_work_id )
     begin

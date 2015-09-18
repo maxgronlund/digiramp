@@ -13,6 +13,15 @@ class User::UsersController < ApplicationController
     @user = User.cached_find(params[:id])
     @user.update(user_params)
     @user.update_meta
+    
+    if @user.personal_publisher.address.empty?
+      @user.copy_address_to( @user.personal_publisher.address )
+    end
+    
+    if !@user.ipi_code.nil? && @user.personal_publisher.ipi_code.nil?
+      @user.personal_publisher.update(ipi_code: @user.ipi_code)
+    end
+    
     update_ips
     redirect_to user_user_legal_index_path( @user)
   end

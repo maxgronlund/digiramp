@@ -7,7 +7,7 @@ Associations
 rails g migration AddUserRefToSalesCouponBatches user:references
 rails g migration AddDocumentableRefToDocuments documentable:references{polymorphic}
 
-rails g migration AddSignableRefToDigitalSignatures signable:references{polymorphic}
+rails g migration AddSignatureRefToDocumentUsers digital_signature:references
 
 add_reference :shop_products, :productable, index: true, polymorphic: true
 

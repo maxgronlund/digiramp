@@ -28,7 +28,7 @@
                 .btn.btn-default
                   i.fa.fa-chevron-left
                   '&nbsp;Back
-            = link_to edit_user_user_publisher_publishing_agreement_path(@user, @publisher, @publishing_agreement, document_uuid: document.uuid) do
+            = link_to edit_user_user_publisher_publishing_agreement_path(@user, @publisher, @publishing_agreement) do
               .btn.btn-default
                 i.fa.fa-pencil&nbsp;Edit agreement
            
@@ -36,89 +36,81 @@
             
 
       .sexy_line
-      
-      .row
-        .col-sm-6
-          h4 Parties
-
-        .col-sm-6
-          .pull-right
-            => link_to 'Add IP', new_user_user_publisher_publishing_agreement_publishing_agreement_user_path(\
-                                      @user, 
-                                      @publisher, 
-                                      @publishing_agreement), class: 'btn btn-default'
-            a data-toggle="collapse" data-parent="#accordion" href="#collapse"
-                .btn.btn-default
-                  i.fa.fa-eye&nbsp;Read agreement
-              
-            /=> link_to edit_user_user_publisher_publishing_agreement_path(@user, @publisher, @publishing_agreement, document_uuid: document.uuid) do
-            /      .btn.btn-default
-            /        i.fa.fa-pencil&nbsp;Edit agreement
-            
-            /= link_to 'New signature', new user_user_legal_document_digital_signature_path(@user,)
-      .row
-        .col-sm-12.pull-down-8
-          div id="collapse" class="panel-collapse collapse"  
-            b = "UUID: #{document.uuid}"
-            .digi-box style="width:800px; padding:40px;"
-              
-              = simple_format document.text_content
-       
-
-     
-          
-        
       .digi-box
+        - if @publishing_agreement.personal_agreement
+          - blog      = Blog.cached_find('Publishing')
+          - blog_post = BlogPost.cached_find('Self publishing', blog)
+          - if editor?
+            .row
+              .col-sm-12
+                .pull-right
+                  = link_to edit_admin_blog_blog_post_path( blog, blog_post) do
+                    .btn.btn-default.btn-xs
+                      i.fa.fa-pencil
+          h4 = blog_post.title
+          = simple_format blog_post.body
+          
+      .digi-box
+        h4 Documents
         .table-responsive
           table class="table table-hover"
             thead
               tr
-                th Partie
-                th Email
-                th Role
-                th Can edit
-                th Should sign
+                th
                 th Status
+                th Title
+                th Expires
+                th Users
             tbody
-              - document.document_users.each do |document_user|
+              - @publishing_agreement.documents.each do |document|
+                - document_signed = document.signed?
                 tr
+                  td style="min-width: 100px"
+                    - if document.account_id == @user.account.id || super?
+                    
+                      = link_to edit_user_user_legal_document_path(@user, document.uuid) do
+                            .btn.btn-default.btn-xs
+                              i.fa.fa-pencil
+                      =< link_to user_user_legal_document_path(@user, document.uuid, :format => 'pdf') do 
+                        .btn.btn-default.btn-xs
+                          i.fa.fa-file-pdf-o
+                      =< link_to user_user_legal_document_path(@user, document.uuid) do 
+                        .btn.btn-default.btn-xs
+                          i.fa.fa-eye
+                      - unless document_signed
+                        br
+                        .pull-down-6
+                          = link_to 'Sign document', user_user_sign_document_path(@user, document.uuid), class: 'btn btn-success btn-xs'
+                        
+
                   td 
-                    => link_to '#' do
-                      .btn.btn-danger.btn-xs
-                        i.fa.fa-times
-                    = link_to 'Edit', edit_user_user_publisher_publishing_agreement_publishing_agreement_user_path(@user, 
-                                                @publisher, 
-                                                @publishing_agreement, 
-                                                document_user), class: 'btn btn-default btn-xs'
+                    /.label.label-default
+                    /  = document.status 
+                    /.br
+                    h4
+                      - if document_signed
+                        .label.label-info
+                          'Signed
+                        /= link_to 'Execute','#', class: 'btn btn-default btn-xs'
+                      - else
+                        .alert.alert-warning
+                          'Document not signed
+                  td 
+                    .div style="max-width: 480px"
+                      h5 =  document.title
+                      = simple_format document.body
                   
-                    - if user = document_user.user                          
-                      =< user.user_name
-                      
-                  td  = document_user.email
-                  td  = document_user.role
-                  td  = document_user.can_edit
-                  td  = document_user.should_sign
-                  td  = document_user.status
-                /br
-        /br
-        /- document.digital_signatures.each do |digital_signature|
-        /  
-        /  .div style="text-transform: uppercase; width: 300px; height: 70px; display: inline-block; margin-right: 32px;" 
-        /    = digital_signature.role
-        /    br
-        /
-        /
-        /    - if user = digital_signature.user and signature = user.digital_signatures.first
-        /      = image_tag signature.image_url(:image_300x50)
-        /    - else
-        /      .div style="height: 50px"
-        /
-        /
-        /  hr
-        /  br
-              
-      
-          
+                  
+                  td 
+                     - if document.expires
+                       = l document.expiration_date, format: :date
+                     - else
+                       'No
+                  
+                  td = document.document_users.count
+                  
+                   
+
        
        
        

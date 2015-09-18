@@ -1,0 +1,14 @@
+div class="old-confirmation-button-#{common_work_ipi.id.to_s}"
+  
+  - case common_work_ipi.status
+  - when 'pending'
+    /=> link_to 'Request confirmation',  user_user_common_work_request_ipi_confirmation_path( user,  common_work, ipi), remote: true, class: 'btn btn-default btn-xs', method: 'put'
+    /h5
+    /  .label.label-warning.pull-right
+    /    'Waiting for confirmation
+  - when 'accepted'
+    .label.label-success
+      'Accepted
+  - else
+    .label.label-default
+      = common_work_ipi.status.to_s.capitalize

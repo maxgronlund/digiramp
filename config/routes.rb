@@ -4,6 +4,16 @@ Digiramp::Application.routes.draw do
 
 
 
+ 
+
+  #namespace :user do
+  #get 'sign_documents/show'
+  #end
+  #
+  #namespace :user do
+  #get 'sign_documents/update'
+  #end
+
   #namespace :user do
   #get 'stripe_transfers/index'
   #end
@@ -821,6 +831,7 @@ Digiramp::Application.routes.draw do
       resources :confirm_ipis
       resources :creative_rights, only: [:index, :show, :destroy]
       resources :common_works do
+        resources :common_work_ipis
         resources :common_work_contracts
         resources :confirm_work_rights, only: [:index]
         resources :creative_rights
@@ -972,6 +983,7 @@ Digiramp::Application.routes.draw do
       resources :selected_opportunities, only: [:index, :show, :destroy]
       resources :select_templates
       resources :self_publishers, only: [:edit, :show]
+      resources :sign_documents, only: [:show, :update]
       resources :stakes do
         resources :stripe_transfers, only: [:index]
       end

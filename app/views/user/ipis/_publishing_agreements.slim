@@ -1,3 +1,5 @@
+
+
 .digi-box
   .row
     .col-sm-6
@@ -7,41 +9,53 @@
     table class="table table-hover"
       thead
         tr
-          th Title
           th Publisher
           th Publishing agreement
-          th 
-            .pull-right
-              'Status
+          th Exipres
+            
           th
       tbody
-        - @ipi.users_publishing_agreements.each do |document|
-          - if publishing_agreement = document.publishing_agreement
-            tr
-              td = publishing_agreement.title
-              td 
-                - if publisher = publishing_agreement.publisher
-                  = publisher.legal_name
-              td
-                = link_to 'Show', user_user_publisher_publishing_agreement_path(@user, publishing_agreement.publisher, publishing_agreement), class: 'btn btn-default btn-xs'
-                /- if document = publishing_agreement.document
-                /  = link_to document.title, '#', class: 'btn btn-default btn-xs'
-               
-              td
-                - if document = publishing_agreement.document
-                  .pull-right
-                    - case document.status
-                    - when 'draft'
-                      .label.label-default
-                        'Draft
-                    - when 'executed'
-                      .label.label-success
-                        'Executed
-                    - else
-                      .label.label-default
-                        = document.status.to_s.capitalized
-                    
-                    /'&nbsp;    
-                    /=< link_to '#' do
-                    /  .btn.btn-danger.btn-xs
-                    /    i.fa.fa-times
+        - @ipi.publishing_agreements.each do |publishing_agreement|
+          tr
+            td = publishing_agreement.publisher.legal_name
+            td 
+              - if publishing_agreement.personal_agreement
+                'Self publishing
+              - else
+                = publishing_agreement.title
+            td 
+              - if publishing_agreement.expires
+                = publishing_agreement.expiration_date
+              - else
+                'No
+/        
+/        /- @ipi.users_publishing_agreements.each do |document|
+/        /  - if publishing_agreement = document.publishing_agreement
+/        /    tr
+/        /      td = publishing_agreement.title
+/        /      td 
+/        /        - if publisher = publishing_agreement.publisher
+/        /          = publisher.legal_name
+/        /      td
+/        /        = link_to 'Show', user_user_publisher_publishing_agreement_path(@user, publishing_agreement.publisher, publishing_agreement), class: 'btn btn-default btn-xs'
+/        /        /- if document = publishing_agreement.document
+/        /        /  = link_to document.title, '#', class: 'btn btn-default btn-xs'
+/        /       
+/        /      td
+/        /        - if document = publishing_agreement.document
+/        /          .pull-right
+/        /            - case document.status
+/        /            - when 'draft'
+/        /              .label.label-default
+/        /                'Draft
+/        /            - when 'executed'
+/        /              .label.label-success
+/        /                'Executed
+/        /            - else
+/        /              .label.label-default
+/        /                = document.status.to_s.capitalized
+/        /            
+/        /            /'&nbsp;    
+/        /            /=< link_to '#' do
+/        /            /  .btn.btn-danger.btn-xs
+/        /            /    i.fa.fa-times

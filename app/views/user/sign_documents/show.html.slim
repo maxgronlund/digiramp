@@ -1,0 +1,83 @@
+
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'settings' 
+  
+  
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'users/shared/sidebar', selected: 'control panel'
+  
+  #page-content-wrapper
+    .container-fluid
+      /== render 'shared/breadcrumbs', breadcrumbs: { links: { 'publishers'.to_sym => user_user_publishers_path(@user),
+      /                                                         @publisher.legal_name.to_sym => user_user_publisher_path(@user, @publisher)}}
+      == render 'shared/flash_message'
+      .row
+        .col-sm-6
+          .help
+            .help-text
+              h2 = @document.title 
+              b Sign document
+            .help-button
+              == render 'admin/helps/help', identifier: 'sign document'
+        .col-sm-6
+          
+          /.pull-right.pull-down-10
+          /  => link_to  user_user_publisher_path(@user, @publisher) do
+          /      .btn.btn-default
+          /        i.fa.fa-chevron-left
+          /        '&nbsp;Back
+          /  = link_to edit_user_user_publisher_publishing_agreement_path(@user, @publisher, @publishing_agreement) do
+          /    .btn.btn-default
+          /      i.fa.fa-pencil&nbsp;Edit agreement
+          / 
+            
+            
+
+      .sexy_line
+      .digi-box
+        h4 Signatures
+        .table-responsive
+          table class="table table-hover"
+            thead
+              tr
+                th Full Name
+                th Role
+                th Date
+                th Signature
+                th
+            tbody
+              - @document.document_users.each do |document_user|
+                - user = document_user.user
+                tr
+                  td 
+                    - if user
+                      = user.full_name
+                    - else 
+                      = document_user.email
+                  td = document_user.role
+                  td 
+                    - if document_user.digital_signature_id
+                      = document_user.signed_on
+                  td
+                    - if user &&  user.digital_signature
+                      .pull-down-10
+                        = image_tag @user.digital_signature.image_url(:image_300x50), class: 'img-thumbnail img-responsive'
+                  td
+                    .pull-right.pull-down-24
+
+                      - if document_user.digital_signature
+                        .btn.btn-success disabled="disabled"
+                          'Signed
+                      - elsif( user && user == @user )
+                        = link_to 'Sign document', user_user_sign_document_path(@user, document_user.id), 
+                                            method: 'PUT', 
+                                            data: {confirm: 'By clicking this button you confirm'},
+                                            class: 'btn btn-success'
+          
+
+      
+  == render 'shared/site_footer'    
+ 
+

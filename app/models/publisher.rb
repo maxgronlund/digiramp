@@ -23,78 +23,25 @@ class Publisher < ActiveRecord::Base
   include AddressMix
   
   has_many :ipis,   :through => :publishing_agreements 
-  
- 
-  
+
   
   validates_with PublisherValidator, fields: [:email] 
   #validates :email, presence: true, uniqueness: true#
   # all users can create publishers
   # sometime they create a user on behalf of someone else
-  after_create :create_publisher_user
+  after_create :create_user_publisher
   after_commit :flush_cache
   
-  def check_ownership!
-
-    if self.i_am_my_own_publisher 
-      self.confirmed!
-    else
-      if known_user = User.get_by_email( self.email )
-        if self.pending?
-          self.transfer_uuid = UUIDTools::UUID.timestamp_create().to_s
-          self.save
-          #PublisherMailer.delay.request_confirmation_from_existing_user self
-          
-          
-         
-        
-         
-          @message                    = Message.new
-          @message.recipient_id       = known_user.id
-          @message.sender_id          = user.id
-          @message.title              = 'You have been listed as a publisher'
-          @message.body               = "Hi #{user.user_name} has listed you as publisher, please click the button for more details" 
-          @message.subjectable_id     = self.id
-          @message.subjectable_type   = self.class.name
-          @message.save!
-          @message.send_as_email
-          
-          
-          channel = 'digiramp_radio_' + known_user.email
-
-          Pusher.trigger(channel, 'digiramp_event', {"title" => 'Message received', 
-                                                "message" => "#{user.user_name} has listed you as a publisher", 
-                                                "time"    => '2000', 
-                                                "sticky"  => 'false', 
-                                                "image"   => 'notice'
-                                                })
-          
-        
-          
-          
-          
-        else
-          self.transfer_uuid = nil
-          self.save
-        end
-      else
-        self.pending!
-        ap 'Notify unknown user, publisher is attached to wrong account untill confirmed'
-      end
-    end
+  def personal_publishing_document
+    
   end
-  
-  
-  
-  
-  
 
   def self.cached_find(id)
     Rails.cache.fetch([name, id]) { find(id) }
   end
   
   def add_user_email!
-    if self.i_am_my_own_publisher
+    if self.personal_publisher
       user_email = UserEmail.where(email: self.email, user_id: self.user_id)
                             .first_or_create(email: self.email, user_id: self.user_id)
     end
@@ -107,9 +54,13 @@ class Publisher < ActiveRecord::Base
   end
 
   
-  def create_publisher_user
+  def create_user_publisher
     UserPublisher.where(publisher_id: self.id, user_id: self.user_id)
                  .first_or_create(publisher_id: self.id, user_id: self.user_id)
+  end
+  
+  def create_personal_publishing_document
+   
   end
   
   

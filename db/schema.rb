@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150917080048) do
+ActiveRecord::Schema.define(version: 20150918093450) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1026,8 +1026,21 @@ ActiveRecord::Schema.define(version: 20150917080048) do
   create_table "common_work_ipis", force: :cascade do |t|
     t.integer  "common_work_id"
     t.integer  "ipi_id"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+    t.boolean  "lyric"
+    t.boolean  "music"
+    t.boolean  "melody"
+    t.boolean  "arrangement"
+    t.decimal  "share"
+    t.boolean  "show_on_recordings"
+    t.integer  "status"
+    t.text     "notes"
+    t.integer  "ascap_work_id"
+    t.integer  "bmi_work_id"
+    t.string   "email"
+    t.string   "alias"
+    t.string   "full_name"
   end
 
   add_index "common_work_ipis", ["common_work_id"], name: "index_common_work_ipis_on_common_work_id", using: :btree
@@ -1409,16 +1422,18 @@ ActiveRecord::Schema.define(version: 20150917080048) do
     t.string   "email"
     t.string   "signature"
     t.string   "signature_image"
-    t.integer  "status",          default: 0
-    t.datetime "created_at",                  null: false
-    t.datetime "updated_at",                  null: false
+    t.integer  "status",               default: 0
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
     t.string   "role"
     t.string   "legal_name"
     t.string   "font"
     t.date     "signed_on"
+    t.integer  "digital_signature_id"
   end
 
   add_index "document_users", ["account_id"], name: "index_document_users_on_account_id", using: :btree
+  add_index "document_users", ["digital_signature_id"], name: "index_document_users_on_digital_signature_id", using: :btree
   add_index "document_users", ["document_id"], name: "index_document_users_on_document_id", using: :btree
   add_index "document_users", ["user_id"], name: "index_document_users_on_user_id", using: :btree
 
@@ -1442,9 +1457,12 @@ ActiveRecord::Schema.define(version: 20150917080048) do
     t.integer  "status",                      default: 0
     t.boolean  "expires",                     default: false
     t.date     "expiration_date"
+    t.integer  "belongs_to_id"
+    t.string   "belongs_to_type"
   end
 
   add_index "documents", ["account_id"], name: "index_documents_on_account_id", using: :btree
+  add_index "documents", ["belongs_to_type", "belongs_to_id"], name: "index_documents_on_belongs_to_type_and_belongs_to_id", using: :btree
 
   create_table "email_groups", force: :cascade do |t|
     t.string   "title",                   limit: 255, default: ""
@@ -2650,25 +2668,30 @@ ActiveRecord::Schema.define(version: 20150917080048) do
     t.string   "ipi_code"
     t.string   "cae_code"
     t.integer  "pro_affiliation_id"
-    t.integer  "status",                default: 0
-    t.boolean  "i_am_my_own_publisher"
-    t.boolean  "show_on_public_page",   default: false
+    t.integer  "status",              default: 0
+    t.boolean  "personal_publisher"
+    t.boolean  "show_on_public_page", default: false
     t.text     "description"
-    t.datetime "created_at",                            null: false
-    t.datetime "updated_at",                            null: false
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
     t.uuid     "transfer_uuid"
   end
 
   create_table "publishing_agreements", force: :cascade do |t|
     t.integer  "publisher_id"
     t.string   "title"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
-    t.string   "email"
-    t.uuid     "document_id"
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
+    t.uuid     "document_uuid"
+    t.decimal  "split",              default: 100.0
+    t.boolean  "personal_agreement", default: false
+    t.boolean  "expires",            default: false
+    t.date     "expiration_date"
+    t.integer  "account_id"
   end
 
-  add_index "publishing_agreements", ["document_id"], name: "index_publishing_agreements_on_document_id", using: :btree
+  add_index "publishing_agreements", ["account_id"], name: "index_publishing_agreements_on_account_id", using: :btree
+  add_index "publishing_agreements", ["document_uuid"], name: "index_publishing_agreements_on_document_uuid", using: :btree
   add_index "publishing_agreements", ["publisher_id"], name: "index_publishing_agreements_on_publisher_id", using: :btree
 
   create_table "raw_images", force: :cascade do |t|

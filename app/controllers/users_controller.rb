@@ -144,14 +144,14 @@ class UsersController < ApplicationController
     
     @user                = User.new(user_params)
       
-    if @user.save!
+    if @user.save
       finished("landing_page")
       finished("invitation_from_user")
       DefaultAvararJob.perform_later @user.id
 
       
       @account          = User.create_a_new_account_for_the @user
-
+      @user.setup_personal_publishing
       # signout if you was signed in as another user
       cookies.delete(:auth_token)
       sign_in
@@ -166,6 +166,7 @@ class UsersController < ApplicationController
       redirect_to user_user_user_configurations_path(@user)
       #user/users/test-4/user_configurations/1057/edit
     else
+      ap '==================== new ======================='
       render :new
     end
 

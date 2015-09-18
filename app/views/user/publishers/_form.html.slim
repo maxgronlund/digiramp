@@ -8,12 +8,18 @@
         = f.hidden_field :account_id, value: @user.account.id
         = f.hidden_field :user_id, value: @user.id
         
-        = f.input :email, placeholder: 'Use your own email if you are your own publisher'
-        = f.input :i_am_my_own_publisher, :input_html => { class: 'icheck-me acceptance', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue"     } 
-        span class="help-block" 
-          'Check this if you have your own publishing company or want to create one
+        = f.input :email, :hint => "Publishers email"
+        
+        - unless @publisher.personal_publisher
+          = f.input :show_on_public_page, input_html: { class: 'icheck-me acceptance', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue" }
+          
+          span.help-block Make this publisher avaliable to the public
+        /= f.input :personal_publisher, :input_html => { class: 'icheck-me acceptance', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue"     } 
+        /span class="help-block" 
+        /  'Check this if you have your own publishing company or want to create one
       .col-sm-6
-        = f.input :legal_name, hint: "If you don't have a publishing company just make up a name here"
+        = f.input :legal_name, :hint => "Publishers legal name"
+       
         
     /.row
     /  .col-sm-6

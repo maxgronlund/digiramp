@@ -33,15 +33,12 @@ class User::PublishersController < ApplicationController
 
     respond_to do |format|
       if @publisher.save
-        
-        if @publisher.i_am_my_own_publisher
-          @user.copy_address_to( @publisher.address ) 
-          format.html { redirect_to edit_user_user_publisher_legal_info_path(@publisher.user, @publisher), info: 'Please add legal informations.' }
-        else
-          
-          @publisher.check_ownership!
-          format.html { redirect_to user_user_publisher_path(@publisher.user, @publisher) }
-        end
+        @user.copy_address_to( @publisher.address ) 
+        @publisher.
+        #if @publisher.personal_publisher
+        #  @user.copy_address_to( @publisher.address ) 
+        #end
+        format.html { redirect_to edit_user_user_publisher_legal_info_path(@publisher.user, @publisher), info: 'Please add legal informations.' }
         format.json { render :show, status: :created, location: @publisher }
       else
         format.html { render :new, info: 'Publisher was successfully destroyed.' }
@@ -53,7 +50,7 @@ class User::PublishersController < ApplicationController
   # PATCH/PUT /publishers/1
   # PATCH/PUT /publishers/1.json
   def update
-    ap params
+    
     respond_to do |format|
       if @publisher.update(publisher_params)
         #@publisher.check_ownership! 
@@ -95,7 +92,7 @@ class User::PublishersController < ApplicationController
                                         :uuid, 
                                         :pro_affiliation_id, 
                                         :status,
-                                        :i_am_my_own_publisher,
+                                        :personal_publisher,
                                         :show_on_public_page,
                                         :description,
                                         address_attributes: 
