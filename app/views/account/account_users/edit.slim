@@ -15,7 +15,12 @@
                                                               users: account_account_account_users_path(@account)}, current:  ''}
       .row
         .col-sm-6
-          h2 Edit permissions
+          .help
+            .help-text
+              h2 Account users permissions
+            .help-button
+              == render 'admin/helps/help', identifier: 'edit account user permissions'
+          
         .col-sm-6
           .pull-right.pull-down-10
             = link_to  account_account_account_users_path(@account) do

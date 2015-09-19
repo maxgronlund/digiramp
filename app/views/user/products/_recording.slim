@@ -64,7 +64,7 @@
             b 
               '*Select recording
             == render 'shared/popover', id: 'recording', body: 'Please select a recording from your collection.'
-            .chosen-label
+            .chosen-label.pull-down-6
               = f.input :productable_id, 
                         collection: recordings,
                         include_blank: false,
@@ -74,7 +74,10 @@
             
             
           br
-          .chosen-label
+          b 
+            '*Distribution agreement
+          == render 'shared/popover', id: 'distribution-agreement', body: 'The agreement that verify you can sell the recording and where the money for the master goes'
+          .chosen-label.pull-down-6
             = f.input :distribution_agreement_id, 
                       collection: @distribution_agreements,
                       include_blank: false,
@@ -84,7 +87,7 @@
           b 
             '*Term of usage
           == render 'shared/popover', id: 'term-of-usage', body: 'What the buyer is permitted to do with the recording, you can create your own terms from your dashboard under legal'
-          .chosen-label
+          .chosen-label.pull-down-6
             = f.input :document_id, 
                       collection: @documents,
                       include_blank: false,
@@ -96,6 +99,7 @@
           b 
             'Additional zip file (optional)
           == render 'shared/popover', id: 'additional-zip', body: 'A zip file that buyers can download'
+          .pull-down-6
           = f.input :zip_file, hint: 'Art work, lyrics, funn stuff', label: false
               
         .col-sm-6
