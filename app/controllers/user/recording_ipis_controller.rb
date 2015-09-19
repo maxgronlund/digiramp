@@ -39,9 +39,10 @@ class User::RecordingIpisController < ApplicationController
   
   
   def edit
-    @recording        = Recording.cached_find(params[:recording_id])
-    @common_work      = @recording.get_common_work
-    @recording_ipi     = RecordingIpi.cached_find(params[:id])
+    @recording                = Recording.cached_find(params[:recording_id])
+    @common_work              = @recording.get_common_work
+    @recording_ipi            = RecordingIpi.cached_find(params[:id])
+    @distribution_agreements  = @user.distribution_agreements
   end
   
   

@@ -6,6 +6,7 @@ class DistributionAgreement < ActiveRecord::Base
   
   has_many :label_recordings
   has_many :recordings,  :through => :label_recordings  
+  has_many :recording_ipis
   
   after_commit :flush_cache
 

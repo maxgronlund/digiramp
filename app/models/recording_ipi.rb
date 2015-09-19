@@ -2,6 +2,7 @@ class RecordingIpi < ActiveRecord::Base
   
   belongs_to :user
   belongs_to :recording
+  belongs_to :distribution_agreement
   validates :email, :role, :share, presence: true
   validates_formatting_of :email
   

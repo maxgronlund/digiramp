@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150919100712) do
+ActiveRecord::Schema.define(version: 20150919220425) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -2724,30 +2724,32 @@ ActiveRecord::Schema.define(version: 20150919100712) do
   add_index "recording_downloads", ["user_id"], name: "index_recording_downloads_on_user_id", using: :btree
 
   create_table "recording_ipis", force: :cascade do |t|
-    t.string   "role",                     limit: 255
-    t.string   "name",                     limit: 255
+    t.string   "role",                      limit: 255
+    t.string   "name",                      limit: 255
     t.decimal  "share"
     t.integer  "user_id"
-    t.string   "user_uuid",                limit: 255
+    t.string   "user_uuid",                 limit: 255
     t.integer  "recording_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "email",                    limit: 255, default: ""
-    t.boolean  "confirmed",                            default: false
-    t.boolean  "show_credit_on_recording",             default: false
-    t.text     "notes",                                default: ""
-    t.string   "credit_for",               limit: 255, default: ""
-    t.string   "title",                    limit: 255, default: ""
-    t.text     "message",                              default: ""
-    t.string   "uuid",                     limit: 255, default: ""
-    t.text     "address",                              default: ""
-    t.string   "phone_number",             limit: 255, default: ""
+    t.string   "email",                     limit: 255, default: ""
+    t.boolean  "confirmed",                             default: false
+    t.boolean  "show_credit_on_recording",              default: false
+    t.text     "notes",                                 default: ""
+    t.string   "credit_for",                limit: 255, default: ""
+    t.string   "title",                     limit: 255, default: ""
+    t.text     "message",                               default: ""
+    t.string   "uuid",                      limit: 255, default: ""
+    t.text     "address",                               default: ""
+    t.string   "phone_number",              limit: 255, default: ""
     t.integer  "account_id"
-    t.integer  "status",                               default: 0
-    t.boolean  "publishing_designee",                  default: false
+    t.integer  "status",                                default: 0
+    t.boolean  "publishing_designee",                   default: false
+    t.integer  "distribution_agreement_id"
   end
 
   add_index "recording_ipis", ["account_id"], name: "index_recording_ipis_on_account_id", using: :btree
+  add_index "recording_ipis", ["distribution_agreement_id"], name: "index_recording_ipis_on_distribution_agreement_id", using: :btree
   add_index "recording_ipis", ["recording_id"], name: "index_recording_ipis_on_recording_id", using: :btree
   add_index "recording_ipis", ["user_id"], name: "index_recording_ipis_on_user_id", using: :btree
 
@@ -3740,6 +3742,7 @@ ActiveRecord::Schema.define(version: 20150919100712) do
   add_foreign_key "recording_downloads", "shop_products"
   add_foreign_key "recording_downloads", "users", on_delete: :cascade
   add_foreign_key "recording_ipis", "accounts", on_delete: :cascade
+  add_foreign_key "recording_ipis", "distribution_agreements"
   add_foreign_key "recording_users", "recordings", on_delete: :cascade
   add_foreign_key "recording_views", "accounts", on_delete: :cascade
   add_foreign_key "representative_splits", "accounts"

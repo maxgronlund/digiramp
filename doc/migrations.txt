@@ -9,7 +9,7 @@ rails g migration AddDocumentableRefToDocuments documentable:references{polymorp
 
 rails g migration AddSignatureRefToDocumentUsers digital_signature:references
 
-rails g migration AddPublishingAgreementRefToCommonWorkIpis publishing_agreement:references
+rails g migration AddDistributionAgreementRefToRecordingIpis distribution_agreement:references
 
 add_reference :shop_products, :productable, index: true, polymorphic: true
 
