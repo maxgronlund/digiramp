@@ -36,31 +36,6 @@ class Document < ActiveRecord::Base
     documents
   end
   
-  #def self.clone_templates account_id, tag, document_type
-  #  documents = []
-  #  Document.where(tag: 'Recording', document_type: 'Template').each do |template|
-  #    document = Document.create( title:          template.title, 
-  #                                body:           template.body, 
-  #                                text_content:   template.text_content,
-  #                                tag:            tag,
-  #                                document_type:  document_type,
-  #                                account_id:     account_id,
-  #                                template_id:    template.id).id
-  #                                  
-  #    
-  #    DigitalSignature.clone_signatures_from template, document
-  #    documents << document
-  #  end
-  #  documents
-  #end
-
-  
-  #Document.clone_templates(
-  #
-  #
-  #)
-  
-
   
   def self.cached_find(id)
     Rails.cache.fetch([name, id]) { find_by(uuid: id) }
@@ -71,6 +46,7 @@ class Document < ActiveRecord::Base
   end
   
   def signed?
+    return false if self.document_users.count == 0
     self.document_users.each do |document_user|
       return false if( document_user.should_sign && document_user.digital_signature_id.nil?)
     end
@@ -85,29 +61,7 @@ class Document < ActiveRecord::Base
     
   end
   
-  #def publishing_agreement
-  #  return nil unless self.document_type == 'Publishing agreement'
-  #  PublishingAgreement.find_by(document_id: self.uuid)
-  #end
-  
-  #def copy_signatures_from_template
-  #  if self.template_id 
-  #    if template = Document.find_by(id: self.template_id)
-  #      
-  #      template.sigital_signatures.each do |digital_signature|
-  #        signature = DigitalSignature.new( signable_id: self.id,
-  #                                          signable_type: self.class.name,
-  #                                          role: digital_signature.role
-  #                                          )
-  #        signature.save(validate: false)
-  #      end
-  #      
-  #    end
-  #  end
-  #end
-  
-
-  
+ 
   
 private
   

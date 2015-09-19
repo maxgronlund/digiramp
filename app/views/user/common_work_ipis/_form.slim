@@ -14,7 +14,17 @@
           = f.input :full_name
           = f.input :alias
           
-        = f.input :share, input_html: { style: "max-width:150px;" }, label: 'split'
+        /= f.input :share, input_html: { style: "max-width:150px;" }, label: 'split'
+        /= f.input :publishing_agreement
+        .chosen-label
+          b Publishing agreement
+          br
+          .pull-down-6
+          = f.input :publishing_agreement_id, 
+                    collection: @publishing_agreements,
+                    include_blank: false,
+                    label: false,
+                    input_html: { class: 'chosen-select', 'data-placeholder'.to_sym => "Distribution agreement" }
         = f.input :show_on_recordings,    :as => :boolean,  :input_html => { class: 'icheck-me', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue"     } 
       .col-sm-6
         b Roles

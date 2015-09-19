@@ -25,41 +25,61 @@ class CopyMachine
   #CopyMachine.setup_personal_publishing user
   def self.setup_personal_publishing user_id
     
-    user = User.cached_find(user_id)
+    user = User.find(user_id)
     
-    publisher = Publisher.create!(
-                   user_id: user.id,
-                   account_id: user.account.id,
-                   legal_name: "Personal publisher for #{user.user_name}",
-                   email:      user.email,
-                   personal_publisher: true,
-                   show_on_public_page: false 
-                 )
-     
-    publisher.confirmed!
+    begin
+      publisher = Publisher.create(
+                     user_id: user.id,
+                     account_id: user.account.id,
+                     legal_name: "Personal publisher for #{user.user_name}",
+                     email:      user.email,
+                     personal_publisher: true,
+                     show_on_public_page: false 
+                   )
+       
+      publisher.confirmed!
+    rescue
+      publisher = Publisher.new(
+                     user_id: user.id,
+                     account_id: user.account.id,
+                     legal_name: "Personal publisher for #{user.user_name}",
+                     email:      user.email,
+                     personal_publisher: true,
+                     show_on_public_page: false 
+                   )
+      publisher.save(validate: false) 
+      
+      ap user.email
+    end
     publishing_agreement = setup_publishing_agreement(
       publisher.id, 
-      false,
-      "Self publishing"
+      true,
+      "Self publishing",
+      user
     )
-    setup_default_publisher_documents( 
+    doc = setup_publishing_documents( 
       publisher,
       '5dcab336-5dd6-11e5-88f3-d43d7eecec4d',
       publishing_agreement
     )
+    
+    doc.document_users.each do |document_user|
+      document_user.update(user_id: user.id, account_id: user.account.id, email: user.email, legal_name: user.full_name)
+    end
 
   end
   # CopyMachine.setup_publisher publisher_id
   def self.setup_publisher publisher_id
     
-    publisher = Publisher.cached_find(publisher_id)
+    publisher = Publisher.find(publisher_id)
     publisher.confirmed!
     publishing_agreement = setup_publishing_agreement(
       publisher.id, 
       false,
-      'Default publishing agreement'
+      'Default publishing agreement',
+      publisher.user
     )
-    setup_default_publisher_documents( 
+    setup_publishing_documents( 
       publisher,
       '34debb4c-5e09-11e5-a542-d43d7eecec4d',
       publishing_agreement
@@ -67,19 +87,20 @@ class CopyMachine
 
   end
   
-  def self.setup_publishing_agreement(publisher_id, personal_agreement, title)
+  def self.setup_publishing_agreement(publisher_id, personal_agreement, title, user)
     PublishingAgreement.create(
       publisher_id:       publisher_id,
       split:              100.0,
-      personal_agreement: true,
       title:              title,
-      personal_agreement: personal_agreement
+      personal_agreement: personal_agreement,
+      user_id:            user.id,
+      account_id:         user.account.id, 
     )
   end
   
-  def self.setup_default_publisher_documents( publisher, uuid, publishing_agreement )
+  def self.setup_publishing_documents( publisher, uuid, publishing_agreement )
 
-    template  = Document.cached_find(uuid)
+    template  = Document.find_by(uuid: uuid)
     doc       = CopyMachine.copy_document( template )
     
     doc.update( 
@@ -105,6 +126,8 @@ class CopyMachine
       )
       document_user.save(validate: false)
     end
+    
+    doc
     
   end
   

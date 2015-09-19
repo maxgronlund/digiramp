@@ -26,6 +26,7 @@ class Account < ActiveRecord::Base
   has_many :shop_products
   has_many :publishers
   has_many :publisher_deals, :through => :publishers 
+  has_many :publishing_agreements
   
   
   # image files uploaded
@@ -150,10 +151,6 @@ class Account < ActiveRecord::Base
   before_save :set_uuid
   
   before_destroy :cleanup_relations
-  
-  def get_publishing_agreements
-    documents.publishing_agreements
-  end
   
   def cleanup_relations
     if unlocked_creative_projects    = self.creative_projects.where(locked: false)

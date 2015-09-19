@@ -19,8 +19,8 @@
         .col-sm-6
           .help
             .help-text
-              h2 = @publishing_agreement.title 
-              b Publishing agreement
+              
+              h2 Publishing agreement
             .help-button
               == render 'admin/helps/help', identifier: 'user publishing deal'
         .col-sm-6
@@ -38,18 +38,27 @@
 
       .sexy_line
       .digi-box
-        - if @publishing_agreement.personal_agreement
-          - blog      = Blog.cached_find('Publishing')
-          - blog_post = BlogPost.cached_find('Self publishing', blog)
-          - if editor?
-            .row
-              .col-sm-12
-                .pull-right
-                  = link_to edit_admin_blog_blog_post_path( blog, blog_post) do
-                    .btn.btn-default.btn-xs
-                      i.fa.fa-pencil
-          h4 = blog_post.title
-          = simple_format blog_post.body
+        h4 = @publishing_agreement.title 
+        .row
+          .col-sm-6
+            b Split
+            br = number_to_percentage(@publishing_agreement.split, precision: 2)
+          .col-sm-6
+            - if @publishing_agreement.expires
+              b Expires
+              br = @publishing_agreement.expiration_date
+        /- if @publishing_agreement.personal_agreement
+        /  - blog      = Blog.cached_find('Publishing')
+        /  - blog_post = BlogPost.cached_find('Self publishing', blog)
+        /  - if editor?
+        /    .row
+        /      .col-sm-12
+        /        .pull-right
+        /          = link_to edit_admin_blog_blog_post_path( blog, blog_post) do
+        /            .btn.btn-default.btn-xs
+        /              i.fa.fa-pencil
+        /  h4 = blog_post.title
+        /  = simple_format blog_post.body
           
       .digi-box
         h4 Documents
@@ -114,7 +123,45 @@
 
        
        
-       
+      .digi-box
+        h4 IPs
+        .table-responsive
+          table class="table table-hover"
+            thead
+              tr
+                th Full name
+                th PRO
+                th Roles
+                th Works
+                
+            tbody
+              - @publishing_agreement.ipis.each do |common_work_ipi|
+                tr
+                  td 
+                    = common_work_ipi.full_name
+                    br = common_work_ipi.email
+                  td 
+                    - if pro = common_work_ipi.pro_affiliation
+                      = pro.title
+                  td
+                    - if common_work_ipi.music
+                      'Music
+                      br
+                    - if common_work_ipi.lyric
+                      'Lyric
+                      br
+                    - if common_work_ipi.melody
+                      'Melody
+                      br
+                    - if common_work_ipi.arrangement
+                      'Arrangement
+                  td 
+                    - if common_works = CommonWorkIpi.where(publishing_agreement_id: @publishing_agreement.id)
+                      - common_works.each do |common_work_ipi|
+                        - if common_work = common_work_ipi.common_work
+                          = link_to common_work.title, user_user_common_work_path(@user, common_work), class: 'btn btn-default btn-xs'
+                          .pull-down-6
+                          
        
     == render 'shared/init_wysiwyg5'         
   == render 'shared/site_footer'    

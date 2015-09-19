@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150918093450) do
+ActiveRecord::Schema.define(version: 20150919065036) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1026,8 +1026,8 @@ ActiveRecord::Schema.define(version: 20150918093450) do
   create_table "common_work_ipis", force: :cascade do |t|
     t.integer  "common_work_id"
     t.integer  "ipi_id"
-    t.datetime "created_at",         null: false
-    t.datetime "updated_at",         null: false
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
     t.boolean  "lyric"
     t.boolean  "music"
     t.boolean  "melody"
@@ -1041,10 +1041,12 @@ ActiveRecord::Schema.define(version: 20150918093450) do
     t.string   "email"
     t.string   "alias"
     t.string   "full_name"
+    t.integer  "publishing_agreement_id"
   end
 
   add_index "common_work_ipis", ["common_work_id"], name: "index_common_work_ipis_on_common_work_id", using: :btree
   add_index "common_work_ipis", ["ipi_id"], name: "index_common_work_ipis_on_ipi_id", using: :btree
+  add_index "common_work_ipis", ["publishing_agreement_id"], name: "index_common_work_ipis_on_publishing_agreement_id", using: :btree
 
   create_table "common_work_items", force: :cascade do |t|
     t.integer  "account_id"
@@ -2688,11 +2690,13 @@ ActiveRecord::Schema.define(version: 20150918093450) do
     t.boolean  "expires",            default: false
     t.date     "expiration_date"
     t.integer  "account_id"
+    t.integer  "user_id"
   end
 
   add_index "publishing_agreements", ["account_id"], name: "index_publishing_agreements_on_account_id", using: :btree
   add_index "publishing_agreements", ["document_uuid"], name: "index_publishing_agreements_on_document_uuid", using: :btree
   add_index "publishing_agreements", ["publisher_id"], name: "index_publishing_agreements_on_publisher_id", using: :btree
+  add_index "publishing_agreements", ["user_id"], name: "index_publishing_agreements_on_user_id", using: :btree
 
   create_table "raw_images", force: :cascade do |t|
     t.string   "identifier", limit: 255
@@ -3698,6 +3702,7 @@ ActiveRecord::Schema.define(version: 20150918093450) do
   add_foreign_key "clients", "accounts", on_delete: :cascade
   add_foreign_key "common_work_ipis", "common_works", on_delete: :cascade
   add_foreign_key "common_work_ipis", "ipis", on_delete: :cascade
+  add_foreign_key "common_work_ipis", "publishing_agreements"
   add_foreign_key "common_works_imports", "accounts", on_delete: :cascade
   add_foreign_key "contracts", "accounts", on_delete: :cascade
   add_foreign_key "creative_projects", "accounts", on_delete: :cascade

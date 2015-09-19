@@ -1,6 +1,18 @@
 class UpdateIpisV2 < ActiveRecord::Migration
   def up
-    
+    #add_column :common_work_ipis, :lyric, :boolean
+    #add_column :common_work_ipis, :music, :boolean
+    #add_column :common_work_ipis, :melody, :boolean
+    #add_column :common_work_ipis, :arrangement, :boolean
+    #add_column :common_work_ipis, :share, :decimal
+    #add_column :common_work_ipis, :show_on_recordings, :boolean
+    #add_column :common_work_ipis, :status, :integer
+    #add_column :common_work_ipis, :notes, :text
+    #add_column :common_work_ipis, :ascap_work_id, :integer
+    #add_column :common_work_ipis, :bmi_work_id, :integer
+    #add_column :common_work_ipis, :email, :string
+    #add_column :common_work_ipis, :alias, :string
+    #add_column :common_work_ipis, :full_name, :string
     add_column :ipis, :master_ipi, :boolean, default: false
 
     bad_ipis = []
@@ -34,6 +46,21 @@ class UpdateIpisV2 < ActiveRecord::Migration
   def down
     remove_column :ipis, :master_ipi, :boolean, default: false
     CommonWorkIpi.destroy_all
+    
+    #remove_column :common_work_ipis, :lyric, :boolean
+    #remove_column :common_work_ipis, :music, :boolean
+    #remove_column :common_work_ipis, :melody, :boolean
+    #remove_column :common_work_ipis, :arrangement, :boolean
+    #remove_column :common_work_ipis, :share, :decimal
+    #remove_column :common_work_ipis, :show_on_recordings, :boolean
+    #remove_column :common_work_ipis, :status, :integer
+    #remove_column :common_work_ipis, :notes, :text
+    #remove_column :common_work_ipis, :ascap_work_id, :integer
+    #remove_column :common_work_ipis, :bmi_work_id, :integer
+    #remove_column :common_work_ipis, :email, :string
+    #remove_column :common_work_ipis, :alias, :string
+    #remove_column :common_work_ipis, :full_name, :string
+    remove_column :ipis, :master_ipi, :boolean, default: false
   end
   
   

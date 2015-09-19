@@ -1,6 +1,7 @@
 class CommonWorkIpi < ActiveRecord::Base
   belongs_to :common_work
   belongs_to :ipi
+  belongs_to :publishing_agreement
   
   validates_presence_of :email
   validates_formatting_of :email, :using => :email

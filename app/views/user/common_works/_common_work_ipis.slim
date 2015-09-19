@@ -7,7 +7,7 @@
           th
           th Legal name/ Email
           th Capacity
-          /th Publisher('s)
+          th Publisher
           th Split
           th 
             .pull-right
@@ -15,7 +15,7 @@
   
       tbody
         - @common_work.common_work_ipis.each do |common_work_ipi|
-          
+          - publishing_agreement = common_work_ipi.publishing_agreement
           tr
             td
 
@@ -51,7 +51,13 @@
                 br
               - if common_work_ipi.arrangement
                 'Arrangement
-            td = number_to_percentage(common_work_ipi.share, precision: 0)   
+            td
+               - if publishing_agreement
+                 - if publisher = publishing_agreement.publisher
+                   = link_to publisher.legal_name, user_user_publisher_path(@user, publisher), class: 'btn btn-default btn-xs'
+            td
+              - if publishing_agreement
+                = number_to_percentage(publishing_agreement.split, precision: 0)   
             
             td   
               .pull-right

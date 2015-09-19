@@ -210,6 +210,7 @@ class User < ActiveRecord::Base
   has_many :document_users
   has_many :documents, through: :document_users
   has_many :distribution_agreements
+  has_many :publishing_agreement
   
   def digital_signature
     return nil if self.digital_signature_uuid.nil?
@@ -229,6 +230,10 @@ class User < ActiveRecord::Base
     #  return nil
     #end
     
+  end
+  
+  def publishing_agreements
+    PublishingAgreement.where(account_id: self.account.id)
   end
   
   def next_up?
@@ -744,11 +749,13 @@ class User < ActiveRecord::Base
   end
   
   def personal_publisher
-    @publisher ||= Publisher.find_by(user_id: self.id, personal_publisher: true)
+    #@publisher ||= 
+    Publisher.find_by(user_id: self.id, personal_publisher: true)
   end
   
   def personal_publishing_agreement
-    @personal_publishing_agreement ||= PublishingAgreement.find_by(personal_agreement: true, publisher_id: personal_publisher.id)
+    #@personal_publishing_agreement ||= 
+    PublishingAgreement.find_by(personal_agreement: true, publisher_id: personal_publisher.id)
   end
   
   def publishing_agreement_document

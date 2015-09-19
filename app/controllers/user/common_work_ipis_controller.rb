@@ -11,7 +11,7 @@ class User::CommonWorkIpisController < ApplicationController
     if ipi = @common_work_ipi.ipi
       if user = ipi.user
         @common_work_ipi_user = user
-        #@publishing_agreements
+        @publishing_agreements = @user.publishing_agreements
       end
     end
    
@@ -20,7 +20,7 @@ class User::CommonWorkIpisController < ApplicationController
   
   def update
     @common_work              = CommonWork.cached_find(params[:common_work_id])
-    @common_work_ipi          = CommonWorkIpi.cached_find(params[:id])
+    @common_work_ipi          = CommonWorkIpi.find(params[:id])
     
     if @common_work_ipi.update(common_work_ipi_params)
       @common_work_ipi.attach_to_ip
@@ -33,6 +33,7 @@ class User::CommonWorkIpisController < ApplicationController
   def new
     @common_work        = CommonWork.cached_find(params[:common_work_id])
     @common_work_ipi    = CommonWorkIpi.new
+    @publishing_agreements = @user.publishing_agreements
   end
   
   def create

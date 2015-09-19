@@ -3,6 +3,8 @@
 
   .form-inputs
     = f.hidden_field :publisher_id, value: @publisher.id
+    = f.hidden_field :user_id, value: @user.id
+    = f.hidden_field :account_id, value: @user.account.id
     = f.input :title, hint: "Make a descriptive name so it's easy for you to find and raconize this agreement" 
     /= f.input :email, hint: "Receipients email" 
     /

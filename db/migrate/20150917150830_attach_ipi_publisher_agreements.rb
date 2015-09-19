@@ -1,6 +1,7 @@
 class AttachIpiPublisherAgreements < ActiveRecord::Migration
   def up
     IpiPublishingAgreement.destroy_all
+
     
     Ipi.where(master_ipi: true).each do |ipi|
       
@@ -8,8 +9,14 @@ class AttachIpiPublisherAgreements < ActiveRecord::Migration
         if user =  ipi.user
           # I assume this is a self published ip
           if ipi.email == user.email
-            ipa = IpiPublishingAgreement.create(ipi_id: ipi.id, publishing_agreement_id: user.personal_publishing_agreement.id)
-            ap ipa
+            begin
+              IpiPublishingAgreement.create(ipi_id: ipi.id, publishing_agreement_id: user.personal_publishing_agreement.id)
+            rescue => e
+              ap '--------------------------------'
+              ap user.email
+              ap e.inspect
+              ap "user.personal_publishing_agreement: #{user.personal_publishing_agreement}"
+            end 
           end
         end
       end
