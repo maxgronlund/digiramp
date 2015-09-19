@@ -9,17 +9,26 @@
   
   #page-content-wrapper
     .container-fluid
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { 'Dashboard'.to_sym => user_user_control_panel_index_path(@user),
+                                                               labels: user_user_labels_path(@user)}}
       == render 'shared/flash_message'
       .container-fluid
         .row
-          .col-sm-12
+          .col-sm-8
             .help
               .help-text
                 h2 = @label.title
+                = "UUID: #{@label.uuid}"
               .help-button
                 == render 'admin/helps/help', identifier: 'user labels'
       
-      
+          .col-sm-4
+            .pull-right.pull-down-10
+              => link_to  user_user_labels_path(@user) do
+                  .btn.btn-default
+                    i.fa.fa-chevron-left
+                    '&nbsp;Back
+              = link_to 'Edit', edit_user_user_label_path(@user, @label), class: 'btn btn-default'
       .sexy_line
       .digi-box
         .row
@@ -33,19 +42,30 @@
             thead
               tr
                 th Title
-                th Original label
+                th Distributor
                 th Distribution fee 
                 th Recordings
             tbody
               - @label.distribution_agreements.each do |distribution_agreement|
                 tr
                   td
+                    => link_to user_user_label_distribution_agreement_path(@user, @label, distribution_agreement), 
+                                        data:  { confirm: 'Are you sure?' }, 
+                                        method: :delete,
+                                        turboboost: true  do
+                      .btn.btn-danger.btn-xs
+                        i.fa.fa-times
                     => link_to edit_user_user_label_distribution_agreement_path(@user, @label, distribution_agreement) do
                       .btn.btn-default.btn-xs
                         i.fa.fa-pencil
                     = link_to distribution_agreement.title, user_user_label_distribution_agreement_path(@user, @label, distribution_agreement), class: 'btn btn-default btn-xs'
-                  td = distribution_agreement.original_label
-                  td = number_to_percentage(distribution_agreement.distribution_fee, precision: 2)
+                  td
+                    - unless distribution_agreement.original_label
+                      - if  distributor = distribution_agreement.distributor
+                        = link_to distributor.title, label_path(distributor), class: 'btn btn-default btn-xs'
+                  td 
+                    - unless distribution_agreement.original_label
+                      = number_to_percentage(distribution_agreement.distribution_fee, precision: 2)
                   td = distribution_agreement.recordings.count
 
         .sexy_line

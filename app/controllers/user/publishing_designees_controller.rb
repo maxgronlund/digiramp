@@ -1,6 +1,6 @@
 class User::PublishingDesigneesController < ApplicationController
   def show
-
+    ap 'show'
     @common_work = CommonWork.cached_find(params[:id])
     @user        = User.cached_find(params[:user_id])
     
@@ -23,10 +23,10 @@ class User::PublishingDesigneesController < ApplicationController
   private
   
   def attach_to_publishing_agreement
-    publishing_agreement  = @user.publishing_agreement
+    publishing_agreement  = @user.personal_publishing_agreement
     
     IpiPublishingAgreement.where(ipi_id: @ipi.id, publishing_agreement_id: publishing_agreement.id)
-                      .first_or_create(ipi_id: @ipi.id, publishing_agreement_id: publishing_agreement.id)
+                          .first_or_create(ipi_id: @ipi.id, publishing_agreement_id: publishing_agreement.id)
     
   end
   

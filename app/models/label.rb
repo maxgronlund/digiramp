@@ -5,14 +5,82 @@ class Label < ActiveRecord::Base
   has_many :label_recordings
   has_many :recordings,  :through => :label_recordings  
   has_many :distribution_agreements
-  
+  before_destroy :remove_from_shop
   after_create :init_defaults
-  
   after_commit :flush_cache
   
   
   def init_defaults
     self.update(uuid: UUIDTools::UUID.timestamp_create().to_s)
+  end
+  
+  def configure_distribution_fee( price, rake, recording_id , distribution_agreement_id)
+    ap '---------------------------------------'
+    ap 'configure_distribution_fee'
+    
+    
+    ap "price: #{price}"
+    ap "rake: #{rake}"
+    ap "recording_id: #{recording_id}"
+    
+    #begin
+    #  
+    #  if stake = Stake.find_by( account_id:         self.account_id,
+    #                            asset_id:           recording_uuid,
+    #                            asset_type:         'Recording',
+    #                            ip_uuid:            self.uuid,
+    #                            ip_type:            self.class.name
+    #                           )
+    #                           
+    #    stake.update(
+    #                 split:               self.share * share_after_publishers,
+    #                 flat_rate_in_cent:   0,
+    #                 currency:            'usd',
+    #                 email:               self.user.email,
+    #                 unassigned:          false,
+    #                 expired:             false
+    #                 
+    #                 )
+    #  else
+    #    stake = Stake.create(  account_id:          self.account_id,
+    #                           asset_id:            recording_uuid,
+    #                           asset_type:          'Recording',
+    #                           ip_uuid:             self.uuid,
+    #                           ip_type:             self.class.name,
+    #                           split:               self.share * share_after_publishers,
+    #                           flat_rate_in_cent:   0,
+    #                           currency:            'usd',
+    #                           email:               self.user.email,
+    #                           unassigned:          false,
+    #                           expired:             false
+    #                        )
+    #  end
+    #  
+    #  #ap stake
+    #rescue => e
+    #  ErrorNotification.post_object 'RecordingIpi#configure_payment', e
+    #  
+    #end
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
   end
   
   def configure_payment( price, rake, recording_id , distribution_agreement_id)
@@ -24,30 +92,14 @@ class Label < ActiveRecord::Base
     end
     
   end
+
   
-  def default_distribution_agreement
-    begin 
-      dist_agree =  DistributionAgreement.cached_find(self.default_distribution_agreement_id)
-      dist_agree.update( title:          user.first_name + ' distribution agreement', user_id: user.id)
-    rescue
-      if _distribution_agreement = self.distribution_agreements.first
-        self.update(default_distribution_agreement_id: _distribution_agreement.id)
-        return _distribution_agreement
-      else
-        return DistributionAgreement.create(
-               label_id:       self.id,
-               account_id:     self.account_id,
-               user_id:        self.user_id,
-               distributor_id: self.id,
-               royalty:        10,
-               distribution_fee: 25.0,
-               title:          user.first_name + ' distribution agreement'
-             )
-      end
+  def remove_from_shop
+    self.distribution_agreements.each do |distribution_agreement|
+      distribution_agreement.remove_from_shop
     end
-    nil
   end
-  
+
   def self.create_label account_id
     account = Account.cached_find(account_id)
     #begin

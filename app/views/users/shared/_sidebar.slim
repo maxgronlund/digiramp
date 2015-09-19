@@ -53,11 +53,11 @@
         = pluralize(@user.playlists.count, 'Playlist')  
      
         
-    li class="#{'sidebar-selected' if selected == 'credits'}"
-      = link_to user_ipis_path(@user) do
-        i class="fa fa-tags"
-        '&nbsp;
-        = pluralize(@user.user_credits.count, 'Credit') 
+    /li class="#{'sidebar-selected' if selected == 'credits'}"
+    /  = link_to user_ipis_path(@user) do
+    /    i class="fa fa-tags"
+    /    '&nbsp;
+    /    = pluralize(@user.user_credits.count, 'Credit') 
     
     - if current_user && @user.permits?( current_user)
       li class="#{'sidebar-selected' if selected == 'dashboard'}"

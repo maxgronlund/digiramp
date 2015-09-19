@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150919092815) do
+ActiveRecord::Schema.define(version: 20150919100712) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1403,12 +1403,13 @@ ActiveRecord::Schema.define(version: 20150919092815) do
     t.integer  "label_id"
     t.integer  "account_id"
     t.integer  "distributor_id"
-    t.integer  "royalty",          default: 10
-    t.datetime "created_at",                      null: false
-    t.datetime "updated_at",                      null: false
-    t.decimal  "distribution_fee", default: 25.0
+    t.integer  "royalty",                     default: 10
+    t.datetime "created_at",                                 null: false
+    t.datetime "updated_at",                                 null: false
+    t.decimal  "distribution_fee",            default: 25.0
     t.integer  "user_id"
     t.string   "title"
+    t.uuid     "distribution_agreement_uuid"
   end
 
   add_index "distribution_agreements", ["account_id"], name: "index_distribution_agreements_on_account_id", using: :btree

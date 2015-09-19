@@ -131,7 +131,7 @@ class CommonWork < ActiveRecord::Base
   end
   
   def user_credits
-    UserCredit.where(ipiable_id: ipi_ids, ipiable_type: 'Ipi', show_credit_on_recordings: true)
+    #UserCredit.where(ipiable_id: ipi_ids, ipiable_type: 'Ipi', show_credit_on_recordings: true)
   end
   
   

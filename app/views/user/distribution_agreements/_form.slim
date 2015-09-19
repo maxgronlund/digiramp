@@ -1,0 +1,22 @@
+= simple_form_for [:user, @user, @label, @distribution_agreement ], turboboost: true do |f|
+  = f.error_notification
+  .form-inputs
+    = f.hidden_field :user_id, value: @user.id
+    = f.hidden_field :account_id, value: @user.account.id
+    = f.hidden_field :distributor_id, value: @label.id
+    = f.hidden_field :label_id, value: @label.id
+    = f.input :title
+    .sexy_line
+    .alert.alert-info
+      'Only fill the following fields if this agreement is for redistribution by another label
+    = f.input :distribution_agreement_uuid, 
+                label: 'Distributers Label UUID ( found on the label page)', 
+                placeholder: 'Optional',
+                hint: 'Fill only if this agreement is for redistribution'
+    = f.input :distribution_fee, hint: 'Fill only if this agreement is for redistribution'
+  
+  .form-actions
+    .row
+      .col-sm-12
+        .pull-right
+          = f.submit 'Save', class: 'btn btn-primary'

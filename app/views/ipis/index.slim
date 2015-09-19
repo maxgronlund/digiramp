@@ -47,10 +47,10 @@
                   
         
       .sexy_line
-      .digi-box
-        - @user_credits.each do |user_credit|
-          == render "ipis/#{user_credit.ipiable_type.underscore}", user_credit: user_credit
-          .sexy_line
+      /.digi-box
+      /  - @user_credits.each do |user_credit|
+      /    == render "ipis/#{user_credit.ipiable_type.underscore}", user_credit: user_credit
+      /    .sexy_line
       
 
   == render 'shared/site_footer'  

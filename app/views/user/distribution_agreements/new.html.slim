@@ -1,2 +1,28 @@
-h1 User::DistributionAgreements#new
-p Find me in app/views/user/distribution_agreements/new.html.slim
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'dashboard' 
+  
+  
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'users/shared/sidebar', selected: 'dashboard'
+  
+  #page-content-wrapper
+    .container-fluid
+      == render 'shared/flash_message'
+      .container-fluid
+        .row
+          .col-sm-12
+            .help
+              .help-text
+                h2 New distribution agreement
+              .help-button
+                == render 'admin/helps/help', identifier: 'new user distribution agreement'
+      
+      
+      .sexy_line
+      .row
+        .col-sm-6
+          .digi-box
+            = render 'form'
+            

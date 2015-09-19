@@ -32,23 +32,23 @@ class RecordingIpi < ActiveRecord::Base
 
   has_many :user_credits, as: :ipiable, dependent: :destroy
   #before_create :add_uuid
-  after_create :attach_user_credits
+  #after_create :attach_user_credits
   #after_update :attach_user_credits
   #before_destroy :remove_user_credits
   
   # !!! self.recording.title is not a good ide
-  def attach_user_credits
-    if self.user
-      UserCredit
-      .where(ipiable_type: self.class.name, ipiable_id: self.id, user_id: self.user_id)
-      .first_or_create(title: self.recording.title, 
-                       ipiable_type: self.class.name, 
-                       ipiable_id: self.id, 
-                       user_id: self.user_id
-                       )
-    end
-    
-  end
+  #def attach_user_credits
+  #  #if self.user
+  #  #  UserCredit
+  #  #  .where(ipiable_type: self.class.name, ipiable_id: self.id, user_id: self.user_id)
+  #  #  .first_or_create(title: self.recording.title, 
+  #  #                   ipiable_type: self.class.name, 
+  #  #                   ipiable_id: self.id, 
+  #  #                   user_id: self.user_id
+  #  #                   )
+  #  #end
+  #  
+  #end
   
   def configure_payment( price, rake , recording_uuid , label_id)
     

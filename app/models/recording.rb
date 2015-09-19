@@ -352,15 +352,15 @@ class Recording < ActiveRecord::Base
   end
   
   def user_credits
-    begin
-      self.common_work.user_credits + UserCredit.where(ipiable_id: recording_ipi_ids, 
-                                                       ipiable_type: 'RecordingIpi', 
-                                                       show_credit_on_recordings: true, 
-                                                       confirmation: "Accepted")
-    rescue
-      
-      ErrorNotification.post "Recording#user_credits: recording_id: #{self.id}"
-    end
+    #begin
+    #  self.common_work.user_credits + UserCredit.where(ipiable_id: recording_ipi_ids, 
+    #                                                   ipiable_type: 'RecordingIpi', 
+    #                                                   show_credit_on_recordings: true, 
+    #                                                   confirmation: "Accepted")
+    #rescue
+    #  
+    #  ErrorNotification.post "Recording#user_credits: recording_id: #{self.id}"
+    #end
   end
   
   def total_share
