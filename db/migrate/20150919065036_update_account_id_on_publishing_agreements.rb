@@ -1,7 +1,7 @@
 class UpdateAccountIdOnPublishingAgreements < ActiveRecord::Migration
   def change
     
-    add_reference :publishing_agreements, :user, index: true, foreign_key: false
+    
     
     User.find_each do |user|
       user.publishers.each do |publisher|
