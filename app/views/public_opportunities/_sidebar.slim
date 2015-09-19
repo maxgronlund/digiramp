@@ -9,6 +9,10 @@
     = link_to publishers_path do
         i class="fa fa-book"
         '&nbsp;Publishers
+  li class="#{'sidebar-selected' if selected == 'publishers'}"
+    = link_to labels_path do
+        i class="fa fa-book"
+        '&nbsp;Labels     
   
   /.sexy_line        
   /li class="#{'sidebar-selected' if selected == 'creative projects'}"
