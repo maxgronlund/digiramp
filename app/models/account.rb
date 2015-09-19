@@ -116,7 +116,7 @@ class Account < ActiveRecord::Base
   # !!! should never be shown in the front end
   SECRET_NAME = "opjeKDV79Ml4"
   
-  # !!! should be swaped with s3 storage
+
   mount_uploader :logo, LogoUploader
   
   # clear memcache

@@ -71,14 +71,17 @@
       h2 = @label.title
       .sexy_line
       .digi-box  
-        = @label.body
-        = @label.image
+        .row
+          .col-sm-6
+            = @label.body
+          .col-sm-6
+            = image_tag @label.image_url(:size_270x270)
       .digi-box
         .table-responsive
           table class="table table-hover"
             thead
               tr
-                th Title
+                th Recordings
                 /th IPI Code
                 /th Capacity
                 /th PRO

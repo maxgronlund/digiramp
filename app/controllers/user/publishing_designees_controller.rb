@@ -4,31 +4,34 @@ class User::PublishingDesigneesController < ApplicationController
     @common_work = CommonWork.cached_find(params[:id])
     @user        = User.cached_find(params[:user_id])
     
-    @ipi         = Ipi.where(common_work_id: @common_work.id, user_id: @user.id)
+    @ipi         = Ipi.where(user_id: @user.id)
                       .first_or_create( user_id: @user.id,
-                                                common_work_id: @common_work.id,
-                                                full_name: @user.full_name,
-                                                email:     @user.email,
-                                                share:      100,
-                                                publishing_designee: true
-                                                )
+                                       full_name: @user.full_name,
+                                       email:     @user.email,
+                                       share:      100,
+                                       publishing_designee: true
+                                       )
                                                 
     @ipi.accepted!                          
     @user.copy_address_to( @ipi.address )
-    attach_to_publishing_agreement
+    common_work_ipi = CommonWorkIpi.create(
+      common_work_id:               @common_work.id,
+      ipi_id:                       @ipi.id,
+      publishing_agreement_id:      @user.personal_publishing_agreement.id,
+      share:                        100.0,    
+      email:                        @user.email,
+      alias:                        @user.user_name,
+      full_name:                    @user.full_name
+    )
+    common_work_ipi.accepted!
+
     attach_recording_ipi
-    redirect_to :back
+    redirect_to user_user_common_work_path(@user, @common_work)
   end
   
   private
   
-  def attach_to_publishing_agreement
-    publishing_agreement  = @user.personal_publishing_agreement
-    
-    IpiPublishingAgreement.where(ipi_id: @ipi.id, publishing_agreement_id: publishing_agreement.id)
-                          .first_or_create(ipi_id: @ipi.id, publishing_agreement_id: publishing_agreement.id)
-    
-  end
+  
   
   def attach_recording_ipi
     return unless @common_work.recordings.count == 1

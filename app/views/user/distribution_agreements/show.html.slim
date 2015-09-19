@@ -1,2 +1,65 @@
-h1 User::DistributionAgreements#show
-p Find me in app/views/user/distribution_agreements/show.html.slim
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'dashboard' 
+  
+  
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'users/shared/sidebar', selected: 'dashboard'
+  
+  #page-content-wrapper
+    .container-fluid
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { 'Dashboard'.to_sym => user_user_control_panel_index_path(@user),
+                                                               labels: user_user_labels_path(@user),
+                                                               label: user_user_label_path(@user, @label)}}
+      == render 'shared/flash_message'
+      .container-fluid
+        .row
+          .col-sm-8
+            .help
+              .help-text
+                h2 = @distribution_agreement.title
+                
+              .help-button
+                == render 'admin/helps/help', identifier: 'user labels'
+      
+          .col-sm-4
+            .pull-right.pull-down-10
+              => link_to  user_user_label_path(@user, @label) do
+                  .btn.btn-default
+                    i.fa.fa-chevron-left
+                    '&nbsp;Back
+              = link_to edit_user_user_label_distribution_agreement_path(@user, @label, @distribution_agreement) do
+                .btn.btn-primary
+                  i.fa.fa-pencil&nbsp;Edit
+      .sexy_line
+      - unless @distribution_agreement.original_label
+        .digi-box
+          .row
+            .col-sm-6
+              b Distributor
+              br = @distribution_agreement.distributor.title
+            .col-sm-6
+              b Distribution fee
+              br = number_to_percentage(@distribution_agreement.distribution_fee, precision: 2)
+      .digi-box
+        .row
+          .col-sm-6
+            h4 Documents
+          .col-sm-6
+            .pull-right
+              = link_to '#' do
+                .btn.btn-default
+                  i.fa.fa-plus&nbsp;Add legal document
+              
+      
+      
+                  
+
+         
+              
+  == render 'shared/site_footer'    
+ 
+
+
+

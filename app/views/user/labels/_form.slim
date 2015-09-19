@@ -1,20 +1,48 @@
 .row
-  .col-sm-6
-    = simple_form_for [:user, @user, @label]  do |f|
-      = f.error_notification
-    
+  
+  = simple_form_for [:user, @user, @label]  do |f|
+    = f.error_notification
+    .col-sm-6
       .form-inputs
         = f.input :title
-        = f.input :body
-        = f.input :image
-        = f.hidden_field :user_id, value: @user.id
-        = f.hidden_field :account_id, value: @user.account.id
-    
-      .form-actions
-        .row
-          .col-sm-12
-            .pull-right
-              = f.submit 'Save', class: 'btn btn-primary'
+        br
+        b Description
+        div id="toolbar" class="wysihtml5-toolbar"
+          a data-wysihtml5-command="bold" Bold
+          '&nbsp; 
+          a data-wysihtml5-command="italic" Italic
+          .pull-right
+            a data-wysihtml5-action="change_view"  Html 
+      
+        =f.input :body, label: false, :input_html => {  style: "height: 182px;", placeholder: "Description", id: 'wysihtml5_editor'}
+    .col-sm-6
+      'Ratio 1:1
+      br
+      .fileinput.fileinput-new data-provides="fileinput"
+        .fileinput-new.thumbnail style="width: 270px; height: 270px;"
+          = image_tag @label.image_url(:size_270x270), size: ':size_270x270'
 
+        div.fileinput-preview.fileinput-exists.thumbnail style="max-width: 270px; max-height: 270px;"
+        div
+          span.btn.btn-default.btn-file
+            span class="fileinput-new"
+              'Change image
+            '&nbsp;
+            span class="fileinput-exists"
+              'Change
+            = f.file_field :image, multiple: false
+
+          '&nbsp;
+          a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput"
+            'Remove
+      
+      = f.hidden_field :user_id, value: @user.id
+      = f.hidden_field :account_id, value: @user.account.id
+    
+    .form-actions
+      .col-sm-12
+        .pull-right
+          = f.submit 'Save', class: 'btn btn-primary'
+      
 
 

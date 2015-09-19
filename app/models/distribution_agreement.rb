@@ -11,9 +11,9 @@ class DistributionAgreement < ActiveRecord::Base
 
 
   def original_label
-    ap 'original label'
-    ap "self.label_id: #{self.label_id}"
-    ap "self.distributor_id: #{self.distributor_id}"
+    #ap 'original label'
+    #ap "self.label_id: #{self.label_id}"
+    #ap "self.distributor_id: #{self.distributor_id}"
     self.distributor_id == self.label_id 
   end
   

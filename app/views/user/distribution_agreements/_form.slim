@@ -6,15 +6,21 @@
     = f.hidden_field :distributor_id, value: @label.id
     = f.hidden_field :label_id, value: @label.id
     = f.input :title
-    .sexy_line
-    .alert.alert-info
-      'Only fill the following fields if this agreement is for redistribution by another label
-    = f.input :distribution_agreement_uuid, 
-                label: 'Distributers Label UUID ( found on the label page)', 
-                placeholder: 'Optional',
-                hint: 'Fill only if this agreement is for redistribution'
-    = f.input :distribution_fee, hint: 'Fill only if this agreement is for redistribution'
-  
+    
+    - if @distribution_agreement.original_label
+      .alert.alert-info
+        'Only fill the following fields if this agreement is for redistribution by another label
+      
+      = f.input :distribution_agreement_uuid, 
+                  label: 'Distributers Label UUID ( found on the label page)', 
+                  placeholder: 'Optional',
+                  hint: 'Fill only if this agreement is for redistribution'
+      = f.input :distribution_fee, hint: 'Fill only if this agreement is for redistribution'
+    - else
+      = f.input :distribution_fee
+      b Distributor
+      .pull-down-6
+      = link_to @distribution_agreement.distributor.title, label_path( @distribution_agreement.distributor), class: 'btn btn-default btn-xs'
   .form-actions
     .row
       .col-sm-12

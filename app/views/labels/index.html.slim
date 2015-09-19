@@ -75,6 +75,7 @@
           table class="table table-hover"
             thead
               tr
+                
                 th Title
                 th Recordings
                 /th Body
@@ -87,7 +88,9 @@
             tbody
               - @labels.each do |label|
                 tr
-                  td = link_to label.title, label, class: 'btn btn-default btn-xs'
+                  td 
+                    => link_to image_tag(label.image_url(:default)), label
+                    = link_to label.title, label, class: 'btn btn-default btn-xs'
                   td = label.recordings.count
                   /td = label.body
                   /td = label.image

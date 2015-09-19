@@ -1,6 +1,10 @@
 Digiramp::Application.routes.draw do
 
 
+  namespace :user do
+  get 'distribution_agreement_templates/index'
+  end
+
   #namespace :user do
   #get 'sign_documents/show'
   #end

@@ -9,6 +9,8 @@
   
   #page-content-wrapper
     .container-fluid
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { label: user_user_label_path(@user, @label),
+                                                              'distribution agreement'.to_sym => user_user_label_distribution_agreement_path(@user, @label, @distribution_agreement)}}
       == render 'shared/flash_message'
       .container-fluid
         .row

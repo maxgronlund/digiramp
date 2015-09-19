@@ -1,20 +1,23 @@
 class User::DistributionAgreementsController < ApplicationController
   before_action :access_user
+  before_action :set_label
+  before_action :set_distribution_agreement, only: [:show, :edit, :update, :destroy]
+  
   def show
+     
   end
 
   def edit
-    @label = Label.cached_find(params[:label_id])
-    @distribution_agreement = DistributionAgreement.cached_find(params[:id])
+    
   end
 
   def new
-    @label = Label.cached_find(params[:label_id])
+    
     @distribution_agreement = DistributionAgreement.new
   end
   
   def create
-    @label = Label.cached_find(params[:label_id])
+    
     if @distribution_agreement = DistributionAgreement.create(distribution_agreement_params)
       @distribution_agreement.connect_to_label
       redirect_to user_user_label_path(@user, @label)
@@ -25,8 +28,6 @@ class User::DistributionAgreementsController < ApplicationController
   
   
   def update
-    @label = Label.cached_find(params[:label_id])
-    @distribution_agreement = DistributionAgreement.cached_find(params[:id])
     if @distribution_agreement.update(distribution_agreement_params)
       @distribution_agreement.connect_to_label
       redirect_to user_user_label_path(@user, @label)
@@ -37,12 +38,19 @@ class User::DistributionAgreementsController < ApplicationController
   
   def destroy
     @label = Label.cached_find(params[:label_id])
-    @distribution_agreement = DistributionAgreement.cached_find(params[:id])
     @distribution_agreement.destroy
     redirect_to user_user_label_path(@user, @label)
   end
   
   private
+  
+  def set_label
+    @label = Label.cached_find(params[:label_id])
+  end
+  
+  def set_distribution_agreement
+    @distribution_agreement = DistributionAgreement.cached_find(params[:id])
+  end
   
   def distribution_agreement_params
     params.require(:distribution_agreement).permit!
