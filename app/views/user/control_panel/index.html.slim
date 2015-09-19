@@ -265,6 +265,17 @@
                   .body
                     'Publishers used for rights management
                     
+            .control-panel-badge
+              = link_to  user_user_labels_path(@user) do
+                .content
+                  .icon.icon-yellow
+                    i.fa.fa-book
+                    
+                  .title
+                    h4 Labels
+                  .body
+                    'Manage masters
+                    
             /- if super?
             /  = link_to 'SIGNATURE', accepting_signatures_path
                     

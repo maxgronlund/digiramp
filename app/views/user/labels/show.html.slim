@@ -1,2 +1,72 @@
-h1 User::Labels#show
-p Find me in app/views/user/labels/show.html.slim
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'dashboard' 
+  
+  
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'users/shared/sidebar', selected: 'dashboard'
+  
+  #page-content-wrapper
+    .container-fluid
+      == render 'shared/flash_message'
+      .container-fluid
+        .row
+          .col-sm-12
+            .help
+              .help-text
+                h2 = @label.title
+              .help-button
+                == render 'admin/helps/help', identifier: 'user labels'
+      
+      
+      .sexy_line
+      .digi-box
+        .row
+          .col-sm-6
+            h4 Distribution agreements
+          .col-sm-6
+            .pull-right.pull-down-6
+              = link_to "New distribution agreement", new_user_user_label_distribution_agreement_path(@user, @label), class: 'btn btn-default'
+        .table-responsive
+          table class="table table-hover"
+            thead
+              tr
+                th Title
+                th Original label
+                th Distribution fee 
+                th Recordings
+            tbody
+              - @label.distribution_agreements.each do |distribution_agreement|
+                tr
+                  td
+                    => link_to edit_user_user_label_distribution_agreement_path(@user, @label, distribution_agreement) do
+                      .btn.btn-default.btn-xs
+                        i.fa.fa-pencil
+                    = link_to distribution_agreement.title, user_user_label_distribution_agreement_path(@user, @label, distribution_agreement), class: 'btn btn-default btn-xs'
+                  td = distribution_agreement.original_label
+                  td = number_to_percentage(distribution_agreement.distribution_fee, precision: 2)
+                  td = distribution_agreement.recordings.count
+
+        .sexy_line
+        h4 Recordings
+        .table-responsive
+          table class="table table-hover"
+            thead
+              tr
+                th Title
+            tbody
+              - @label.recordings.each do |recording|
+                tr
+                  td = recording.title
+      
+      
+                  
+
+         
+              
+  == render 'shared/site_footer'    
+ 
+
+
+

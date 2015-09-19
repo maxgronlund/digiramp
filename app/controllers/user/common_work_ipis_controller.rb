@@ -7,11 +7,12 @@ class User::CommonWorkIpisController < ApplicationController
   def edit
     @common_work              = CommonWork.cached_find(params[:common_work_id])
     @common_work_ipi          = CommonWorkIpi.cached_find(params[:id])
+    @publishing_agreements    = @user.publishing_agreements
     
     if ipi = @common_work_ipi.ipi
       if user = ipi.user
         @common_work_ipi_user = user
-        @publishing_agreements = @user.publishing_agreements
+        
       end
     end
    
@@ -37,8 +38,7 @@ class User::CommonWorkIpisController < ApplicationController
   end
   
   def create
-    ap params
-    #redirect_to :back
+
     @common_work           = CommonWork.cached_find(params[:common_work_id])
     if @common_work_ipi    = CommonWorkIpi.create(common_work_ipi_params)
       @common_work_ipi.attach_to_ip

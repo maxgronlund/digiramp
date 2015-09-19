@@ -73,9 +73,9 @@ class User::ProductsController < ApplicationController
                  nil
     get_documents
     
-    label           = @user.label
-    ap label.default_distribution_agreement
-    ap @user.distribution_agreements
+    #label           = @user.label
+    #ap label.default_distribution_agreement
+    #ap @user.distribution_agreements
     @distribution_agreements = @user.distribution_agreements
   end
   

@@ -1,7 +1,6 @@
 class LabelRecording < ActiveRecord::Base
   belongs_to :label
   belongs_to :recording
-  
   belongs_to :distribution_agreement
   
   #def receive_payment payment

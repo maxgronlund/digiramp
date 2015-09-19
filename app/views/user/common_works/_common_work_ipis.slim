@@ -7,7 +7,7 @@
           th
           th Legal name/ Email
           th Capacity
-          th Publisher
+          th Publishing agreement
           th Split
           th 
             .pull-right
@@ -53,8 +53,11 @@
                 'Arrangement
             td
                - if publishing_agreement
-                 - if publisher = publishing_agreement.publisher
-                   = link_to publisher.legal_name, user_user_publisher_path(@user, publisher), class: 'btn btn-default btn-xs'
+                 = link_to publishing_agreement.title, 
+                           user_user_publisher_publishing_agreement_path(@user, 
+                                                                         publishing_agreement.publisher, 
+                                                                         publishing_agreement), 
+                                                                         class: 'btn btn-default btn-xs'
             td
               - if publishing_agreement
                 = number_to_percentage(publishing_agreement.split, precision: 0)   

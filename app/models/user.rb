@@ -749,13 +749,11 @@ class User < ActiveRecord::Base
   end
   
   def personal_publisher
-    #@publisher ||= 
-    Publisher.find_by(user_id: self.id, personal_publisher: true)
+    @publisher ||=  Publisher.find_by(user_id: self.id, personal_publisher: true)
   end
   
   def personal_publishing_agreement
-    #@personal_publishing_agreement ||= 
-    PublishingAgreement.find_by(personal_agreement: true, publisher_id: personal_publisher.id)
+    @personal_publishing_agreement ||= PublishingAgreement.find_by(personal_agreement: true, publisher_id: personal_publisher.id)
   end
   
   def publishing_agreement_document

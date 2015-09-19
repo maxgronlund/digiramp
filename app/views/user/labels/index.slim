@@ -1,0 +1,45 @@
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'dashboard' 
+  
+  
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'users/shared/sidebar', selected: 'dashboard'
+  
+  #page-content-wrapper
+    .container-fluid
+      == render 'shared/flash_message'
+      .container-fluid
+        .row
+          .col-sm-12
+            .help
+              .help-text
+                h2 Labels
+              .help-button
+                == render 'admin/helps/help', identifier: 'user labels'
+      
+      
+      .sexy_line
+      .digi-box
+        .table-responsive
+          table class="table table-hover"
+            thead
+              tr
+                th Title
+                
+            tbody
+              - @labels.to_a.each do |labelx|
+                tr
+                  td = link_to labelx.title, user_user_label_path(@user, labelx), class: 'btn btn-default btn-xs'
+      
+      
+                  
+
+         
+              
+  == render 'shared/site_footer'    
+ 
+
+
+

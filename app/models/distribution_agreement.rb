@@ -3,7 +3,9 @@ class DistributionAgreement < ActiveRecord::Base
   belongs_to :account
   belongs_to :label
   
+  
   has_many :label_recordings
+  has_many :recordings,  :through => :label_recordings  
   
   after_commit :flush_cache
 
