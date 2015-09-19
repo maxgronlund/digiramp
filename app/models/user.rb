@@ -743,14 +743,28 @@ class User < ActiveRecord::Base
     personal_publisher.update(pro_affiliation_id: code)
   end
   
-  def personal_publisher_ipi_code() personal_publisher.ipi_code end
+  def personal_publisher_ipi_code
+    begin
+      personal_publisher.ipi_code 
+    rescue
+      if personal_publisher.nil?
+        setup_personal_publishing
+      end
+    end
+  
+  end
   def personal_publisher_ipi_code=( code)
     personal_publisher.update(ipi_code: code)
   end
   
   def personal_publisher
     #@publisher ||=  
-    Publisher.find_by(user_id: self.id, personal_publisher: true)
+    if pub = Publisher.find_by(user_id: self.id, personal_publisher: true)
+      return pub
+    else
+      setup_personal_publishing
+      return Publisher.find_by(user_id: self.id, personal_publisher: true)
+    end
   end
   
   def personal_publishing_agreement
