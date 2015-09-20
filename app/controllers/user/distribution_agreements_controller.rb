@@ -4,7 +4,7 @@ class User::DistributionAgreementsController < ApplicationController
   before_action :set_distribution_agreement, only: [:show, :edit, :update, :destroy]
   
   def show
-     
+    @documents = @distribution_agreement.documents
   end
 
   def edit

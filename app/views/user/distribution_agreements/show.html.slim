@@ -1,3 +1,4 @@
+- session[:return_to_special_url]         = request.url
 #wrapper
   .full-width-top
     == render 'shared/navigationbar', page: 'dashboard' 
@@ -48,12 +49,110 @@
             h4 Documents
           .col-sm-6
             .pull-right
-              = link_to '#' do
+              = link_to user_user_label_distribution_agreement_distribution_agreement_templates_path(@user, @label, @distribution_agreement) do
                 .btn.btn-default
                   i.fa.fa-plus&nbsp;Add legal document
+
+      - @documents.each do |document|
+
+        .digi-box
+          
+          .row
+            .col-sm-8
+              h4 = document.title
+              - if document.signed?
+              = document.body
+
+          
+                
+          .row
+            .col-sm-6
+              h4
+                - if document.signed?
+                  .label.label-default
+                    'Signed by all parties
+                  '&nbsp;
+                  - if document.executed?
+                    .label.label-success
+                      'Executed
+                  - else
+                    = link_to user_user_legal_document_path( @user, 
+                                                            document.uuid, 
+                                                            document: {status: 2}), 
+                                                            turboboost: true,
+                                                            method: 'PUT' do
+                       .btn.btn-primary.btn-xs
+                         i.fa.fa-exclamation-triangle&nbsp;Execute
+            .col-sm-6
+              .pull-right.pull-down-8
+                => link_to user_user_legal_document_path( @user, document.uuid, :format => 'pdf') do 
+                  .btn.btn-default.btn-xs
+                    i.fa.fa-file-pdf-o
+                    
+                = link_to user_user_legal_document_path( @user, document.uuid) do
+                    .btn.btn-default.btn-xs
+                      i.fa.fa-eye
+                      
+                - unless document.executed? || document.archived? ||  document.expired?
+                  => link_to user_user_legal_document_path( @user, document.uuid), data: { confirm: 'Are you sure?' } , 
+                                                          :method => :delete, 
+                                                          turboboost: true do
+                    .btn.btn-danger.btn-xs
+                      i.fa.fa-times
+                      
+                  => link_to edit_user_user_legal_document_path( @user, document.uuid) do
+                    .btn.btn-default.btn-xs
+                      i.fa.fa-pencil
+                      
+                  
+                  = link_to new_user_user_legal_document_legal_document_user_path(@user, document.uuid) do
+                    .btn.btn-default.btn-xs
+                      i.fa.fa-user-plus&nbsp;Add user
+                  /= link_to '#' do
+                  /  .btn.btn-default.btn-xs
+                  /    i.fa.fa-user-plus&nbsp;Add user
+                  /
+        
+          .sexy_line
+          .row
+            .col-sm-12
+              .table-responsive
+                table class="table table-hover"
+                  thead
+                    tr
+                      th User
+                      th Email
+                      th Role
+                      th Can edit
+                      th Should sign
+                      /th Status
+                  tbody
+                    - document.document_users.each do |document_user|
+                      tr
+                        td
+
+                          - if user = document_user.user                          
+                            = user.user_name
+                            br
+                          - unless document_user.digital_signature_id
+                            => link_to user_user_legal_document_legal_document_user_path(@user, document, document_user), data: { confirm: 'Are you sure?' } , 
+                                                            :method => :delete, 
+                                                            turboboost: true do
+                              .btn.btn-danger.btn-xs
+                                i.fa.fa-times
+                            = link_to 'Edit', edit_user_user_legal_document_legal_document_user_path(@user, document.uuid, document_user), class: 'btn btn-default btn-xs'
+                          - else
+                            h5
+                              .label.label-success
+                                'Signed
+                      
+                        td  = document_user.email
+                        td  = document_user.role
+                        td  = document_user.can_edit
+                        td  = document_user.should_sign
+                        /td  = document_user.status
+      
               
-      
-      
                   
 
          

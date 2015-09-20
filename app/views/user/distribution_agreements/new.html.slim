@@ -9,15 +9,33 @@
   
   #page-content-wrapper
     .container-fluid
+      
+      
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { labels: user_user_labels_path(@user),
+                                                               label: user_user_label_path(@user, @label)}}
+
+      
+          
+      
+      
+      
+      
+      
       == render 'shared/flash_message'
       .container-fluid
         .row
-          .col-sm-12
+          .col-sm-8
             .help
               .help-text
                 h2 New distribution agreement
               .help-button
                 == render 'admin/helps/help', identifier: 'new user distribution agreement'
+          .col-sm-4
+            .pull-right.pull-down-10
+              => link_to  user_user_label_path( @user, @label) do
+                  .btn.btn-default
+                    i.fa.fa-chevron-left
+                    '&nbsp;Back
       
       
       .sexy_line

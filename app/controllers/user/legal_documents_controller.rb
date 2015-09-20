@@ -4,7 +4,7 @@ class User::LegalDocumentsController < ApplicationController
     @account  = @user.account
     #@documents = @account.documents
     
-    @documents = @user.documents
+    @documents = @user.account.documents
   end
   
   def show
@@ -32,7 +32,10 @@ class User::LegalDocumentsController < ApplicationController
                                 body: @template.body, 
                                 text_content: @template.text_content,
                                 template_id: @template.id,
-                                tag: @template.tag)
+                                tag: @template.tag,
+                                account_id: @user.account.id,
+                                expires: false
+                                )
                                 
                                 
     else
@@ -44,7 +47,7 @@ class User::LegalDocumentsController < ApplicationController
   end
   
   def create
-
+    
     @document = Document.new(document_params)
     @document.uuid = UUIDTools::UUID.timestamp_create().to_s
     @document.save!
@@ -52,20 +55,13 @@ class User::LegalDocumentsController < ApplicationController
     
     if @document.template_id 
       if template = Document.find_by(id: @document.template_id)
-        
-        template.digital_signatures.each do |digital_signature|
-          signature = DigitalSignature.new( signable_id: @document.id,
-                                            signable_type: @document.class.name,
-                                            role: digital_signature.role
-                                            )
-          signature.save(validate: false)
-        end
-        
+        CopyMachine.create_document_users template, @document
       end
     end
+    
 
+    redirect_to_special_url user_user_legal_documents_path(@user)
 
-    redirect_to user_user_legal_documents_path(@user)
   end
   
   def edit
@@ -80,9 +76,11 @@ class User::LegalDocumentsController < ApplicationController
     
     if params[:document][:status]
       @document.executed!
-      redirect_to user_user_legal_documents_path(@user)
+      redirect_to_special_url user_user_legal_documents_path(@user)
+      #redirect_to user_user_legal_documents_path(@user)
     elsif @document.update(document_params)
-      redirect_to user_user_legal_documents_path(@user)
+      redirect_to_special_url user_user_legal_documents_path(@user)
+      #redirect_to user_user_legal_documents_path(@user)
     else
       render edit
     end
@@ -102,17 +100,17 @@ class User::LegalDocumentsController < ApplicationController
   private
   
   def document_params
-    params.require(:document).permit( :title, 
-                                      :document_type, 
-                                      :body, 
-                                      :file, 
-                                      :usage, 
-                                      :account_id, 
-                                      :text_content,
-                                      :template_id,
-                                      :tag,
-                                      :uuid,
-                                      :status) 
+    params.require(:document).permit!#( :title, 
+                                     # :document_type, 
+                                     # :body, 
+                                     # :file, 
+                                     # :usage, 
+                                     # :account_id, 
+                                     # :text_content,
+                                     # :template_id,
+                                     # :tag,
+                                     # :uuid,
+                                     # :status) 
     
   end
   

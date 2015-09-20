@@ -150,6 +150,16 @@ class ApplicationController < ActionController::Base
     end
   end
   
+  def redirect_to_special_url default_url
+    if  session[:return_to_special_url]
+      go_to = session[:return_to_special_url]
+       session[:return_to_special_url] = nil
+      redirect_to go_to
+    else
+      redirect_to default_url
+    end
+  end
+  
   #def there_is_access_to_the_account
   #  forbidden unless access_to_account
   #end

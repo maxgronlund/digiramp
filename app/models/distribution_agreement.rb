@@ -11,6 +11,9 @@ class DistributionAgreement < ActiveRecord::Base
   after_commit :flush_cache
 
 
+  def documents
+    Document.where(belongs_to_id: self.id, belongs_to_type: self.class.name)
+  end
   def original_label
     #ap 'original label'
     #ap "self.label_id: #{self.label_id}"

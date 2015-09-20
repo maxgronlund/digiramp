@@ -25,4 +25,5 @@
     .row
       .col-sm-12
         .pull-right
+          => link_to 'Cancel', user_user_label_path(@user, @label), class: 'btn btn-default'
           = f.submit 'Save', class: 'btn btn-primary'

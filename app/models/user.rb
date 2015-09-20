@@ -278,7 +278,8 @@ class User < ActiveRecord::Base
   end
   
   def get_documents
-    documents.publishing_agreements.where(status: [0, 1, 2])
+    self.documents
+    #documents.publishing_agreements.where(status: [0, 1, 2])
     # enum status: [ :draft, :execution_copy, :executed, :deleted ]
   end
   

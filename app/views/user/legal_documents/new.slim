@@ -31,9 +31,10 @@
         = simple_form_for [ @account, @document] ,
                :url => url_for(:action => 'create', 
                                :controller => 'legal_documents'), 
-                               :method => 'post',
-                               :turboboost => true do |f|
+                               :method => 'post' do |f|
           = f.hidden_field :template_id, value: @template.id if @template
+          /= f.hidden_field :belongs_to_id, value: @account.id
+          /= f.hidden_field :belongs_to_type, value: @account.class.name
           == render 'form', f: f
       
 

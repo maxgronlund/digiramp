@@ -11,12 +11,9 @@ class User::LegalDocumentUsersController < ApplicationController
     
     if @document_user  = DocumentUser.create(document_user_params)
       @document_user.assign_to_user
-      if go_to = session[:sign_document]
-        session[:sign_document] = nil
-        redirect_to go_to
-      else
-        redirect_to user_user_legal_documents_path(@user, @document.uuid)
-      end
+      
+      redirect_to_special_url user_user_legal_documents_path(@user, @document.uuid)
+      
     else
       render :new
     end
@@ -35,13 +32,9 @@ class User::LegalDocumentUsersController < ApplicationController
     @document_user  = DocumentUser.cached_find(params[:id])
     @document_user.update(document_user_params)
     @document_user.assign_to_user
-    if go_to = session[:sign_document]
-      session[:sign_document] = nil
-      redirect_to go_to
-    else
-      redirect_to user_user_legal_documents_path(@user, @document.uuid)
-    end
     
+    redirect_to_special_url user_user_legal_documents_path(@user, @document.uuid)
+
 
   end
 

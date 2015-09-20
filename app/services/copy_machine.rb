@@ -15,12 +15,34 @@ class CopyMachine
   
   # CopyMachine.copy_signature source_signature
   def self.copy_signature source_signature
-    
     signature            = source_signature.dup
     signature.uuid       = UUIDTools::UUID.timestamp_create().to_s
     signature.save
     signature
   end
+  
+  
+  # CopyMachine.create_document_users source_doc, dest_doc
+  def self.create_document_users source_doc, dest_doc
+    if digital_signatures = source_doc.digital_signatures
+      digital_signatures.each do |digital_signature|
+        document_user = DocumentUser.new(
+          document_id:    dest_doc.uuid,
+          account_id:     dest_doc.account_id,
+          can_edit:       true,
+          should_sign:    true,
+          role:           digital_signature.role
+        )
+        document_user.save(validate: false)
+      end
+    end
+    
+  end
+  
+  
+  
+  
+  
   
   #CopyMachine.setup_personal_publishing user
   def self.setup_personal_publishing user_id
