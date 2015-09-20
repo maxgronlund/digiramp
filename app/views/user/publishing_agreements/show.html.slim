@@ -61,7 +61,14 @@
         /  = simple_format blog_post.body
           
       .digi-box
-        h4 Documents
+        .row
+          .col-sm-6
+            h4 Documents
+          .col-sm-6
+            .pull-right.pull-down-6
+              = link_to user_user_publisher_publishing_agreement_publishing_agreement_templates_path(@user, @publisher, @publishing_agreement) do
+                .btn.btn-default
+                  i.fa.fa-plus&nbsp;Add legal document
         .table-responsive
           table class="table table-hover"
             thead

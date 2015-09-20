@@ -86,10 +86,6 @@ class CommentMailer < ApplicationMailer
     rescue Mandrill::Error => e
       Opbeat.capture_message("#{e.class} - #{e.message}")
     end
-    
-    
-    
-    
   end
   
   

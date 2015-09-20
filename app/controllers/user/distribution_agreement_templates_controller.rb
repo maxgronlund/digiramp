@@ -8,7 +8,7 @@ class User::DistributionAgreementTemplatesController < ApplicationController
   end
   
   def show
-    ap params
+   
     template = Document.cached_find(params[:id])
     
     doc = CopyMachine.copy_document( template )
@@ -20,10 +20,6 @@ class User::DistributionAgreementTemplatesController < ApplicationController
     )
     
     CopyMachine.create_document_users template, doc
-    
-    
-    
-    
     redirect_to user_user_label_distribution_agreement_path(@user, @label, @distribution_agreement)
    
   end

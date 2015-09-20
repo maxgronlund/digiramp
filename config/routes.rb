@@ -1,8 +1,6 @@
 Digiramp::Application.routes.draw do
 
 
-  
-
   resources :labels
  
   namespace :user do
@@ -930,6 +928,7 @@ Digiramp::Application.routes.draw do
       resources :publishers do
         resources :publishing_agreements do
           resources :publishing_agreement_users
+          resources :publishing_agreement_templates
         end
         resources :publishing_templates
       end
