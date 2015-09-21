@@ -102,9 +102,6 @@ class CommonWork < ActiveRecord::Base
   def is_registered?
 
     return true if ipis.count > 0
-    #self.recordings.each do |recording|
-    #  return true if recording.ipis_is_registered?
-    #end 
     false
   end
   

@@ -47,22 +47,22 @@
                     .btn.btn-default.btn-xs
                       i.fa.fa-pencil&nbsp;Edit
             
-      .row  
-        .col-sm-6
-          h4 Common work / Copyright 
-        .col-sm-6
-          .pull-right
-            => link_to edit_user_user_common_work_path( @user, @common_work ) do
-              .btn.btn-default
-                i.fa.fa-pencil
-                '&nbsp;Edit
-            = link_to "Add IP", new_user_user_common_work_common_work_ipi_path(@user, @common_work), class: 'btn btn-default' 
-            
-            - unless @common_work.is_registered?
-              =< link_to "I'm the publishing designee",user_user_publishing_designee_path(@user, @common_work.id),
-                                    turboboost: true, 
-                                    class: 'btn btn-warning'
-         
+      /.row  
+      /  .col-sm-6
+      /    h4 Common work / Copyright 
+      /  .col-sm-6
+      /    .pull-right
+      /      => link_to edit_user_user_common_work_path( @user, @common_work ) do
+      /        .btn.btn-default
+      /          i.fa.fa-pencil
+      /          '&nbsp;Edit
+      /      = link_to "Add IP", new_user_user_common_work_common_work_ipi_path(@user, @common_work), class: 'btn btn-default' 
+      /      
+      /      - unless @common_work.is_registered?
+      /        =< link_to "I'm the publishing designee",user_user_publishing_designee_path(@user, @common_work.id),
+      /                              turboboost: true, 
+      /                              class: 'btn btn-warning'
+      /   
       == render 'common_work_ipis', selected_id: -1
         
 

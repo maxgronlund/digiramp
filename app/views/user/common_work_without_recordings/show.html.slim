@@ -1,0 +1,68 @@
+
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'user' 
+  
+  
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'users/shared/sidebar', selected: 'recordings'
+  
+  #page-content-wrapper
+    .container-fluid
+      /= render 'common_work_rights'
+      /== render 'recordings/wizard_step', step: 5
+      .row
+        .col-sm-8
+          .help
+            .help-text
+              /h2 = @common_work.title
+              h2 Rights
+            .help-button
+              == render 'admin/helps/help', identifier: 'common work credits'
+        .col-sm-4
+          .pull-right
+            .pull-down-10
+              /=> link_to edit_user_recording_tag_path(@user, @recording) do
+              /  .btn.btn-default
+              /    i.fa.fa-chevron-left
+              /    '&nbsp;
+              /    'Back
+              /= link_to 'Export CSV', user_user_export_work_and_master_path(@user, @common_work, format: "csv"), class: 'btn btn-default'
+
+        
+      h4 = @common_work.title
+      .row
+        .col-sm-12
+          - blog      = Blog.cached_find('Common work rights')
+          - blog_post = BlogPost.cached_find('work has no recordings', blog)
+          .alert.alert-danger
+            h4 = blog_post.title
+            = blog_post.body
+            - if editor?
+              .row
+                .col-sm-12
+                  .pull-right
+                    = link_to edit_admin_blog_blog_post_path(blog, blog_post) do
+                      .btn.btn-default.btn-xs
+                        i.fa.fa-pencil&nbsp;Edit
+              
+      
+      
+      
+          
+
+      
+      == render '/user/common_works/common_work_ipis', selected_id: -1
+        
+
+      
+      
+      /- @common_work.recordings.each do |recording|
+      /  == render 'recording', recording: recording
+  
+      
+  == render 'shared/site_footer'  
+  
+  
+ 

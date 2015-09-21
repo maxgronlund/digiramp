@@ -1,6 +1,7 @@
 Digiramp::Application.routes.draw do
 
 
+
   resources :labels
  
   namespace :user do
@@ -803,6 +804,7 @@ Digiramp::Application.routes.draw do
       resources :confirm_ipis
       resources :creative_rights, only: [:index, :show, :destroy]
       resources :common_works do
+        
         resources :common_work_ipis
         resources :common_work_contracts
         resources :confirm_work_rights, only: [:index]
@@ -816,6 +818,7 @@ Digiramp::Application.routes.draw do
         
         #resources :please_clear_rights, only: [:index]
       end
+      resources :common_work_without_recordings, only: [:index, :show]
       resources :common_work_lyrics, only: [:edit, :update]
       resources :common_work_credits, only: [:edit, :update]
       resources :contracts
