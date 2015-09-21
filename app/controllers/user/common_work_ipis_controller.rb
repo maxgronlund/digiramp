@@ -15,8 +15,7 @@ class User::CommonWorkIpisController < ApplicationController
         
       end
     end
-   
-    #@publishing_agreements    = PublishingAgreement.where(email: @ipi.email)
+
   end
   
   def update
@@ -38,7 +37,7 @@ class User::CommonWorkIpisController < ApplicationController
   end
   
   def create
-
+    params[:common_work_ipi][:uuid] = UUIDTools::UUID.timestamp_create().to_s
     @common_work           = CommonWork.cached_find(params[:common_work_id])
     if @common_work_ipi    = CommonWorkIpi.create(common_work_ipi_params)
       @common_work_ipi.attach_to_ip

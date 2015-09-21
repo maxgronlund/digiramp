@@ -42,7 +42,7 @@
               br = @distribution_agreement.distributor.title
             .col-sm-6
               b Distribution fee
-              br = number_to_percentage(@distribution_agreement.distribution_fee, precision: 2)
+              br = number_to_percentage(@distribution_agreement.split, precision: 2)
       .digi-box
         .row
           .col-sm-6

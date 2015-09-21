@@ -53,12 +53,12 @@ class Shop::StripeTransfer < ActiveRecord::Base
  end
  
  def pay
-   # '===================================================================================='
-   # '--- pay ---'
+   '=================================== StripeTransfer================================================='
+   '--- pay ---'
    self.process!
    
    begin
-    Stripe::Transfer.create(
+    ap Stripe::Transfer.create(
       amount:                 self.amount,
       destination:            self.user.stripe_id,
       source_transaction:     self.source_transaction,

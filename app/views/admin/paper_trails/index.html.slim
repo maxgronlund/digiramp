@@ -1,0 +1,49 @@
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'home' 
+  
+  
+  .admin-account
+    #sidebar-wrapper
+      ul class="sidebar-nav"
+        == render 'admin/shared/sidebar', selected: 'engine'
+  
+  #page-content-wrapper
+    .container-fluid
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { "admin".to_sym => admin_index_path, }, current: ''}
+
+      .row
+        .col-sm-12
+          h2 Paper trails
+      
+
+          
+      .sexy_line
+
+      .admin
+        .admin-badges
+          .admin-badge-container
+            = link_to admin_paper_trails_orders_path do
+              .admin-badge
+                .title
+                  h4
+                    i.fa.clock-o
+                    '&nbsp;Orders
+                .body
+                  'List of order history
+
+                  
+
+        
+
+  
+  == render 'shared/site_footer'   
+  
+
+
+
+
+
+
+
+

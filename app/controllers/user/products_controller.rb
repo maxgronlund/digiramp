@@ -46,10 +46,14 @@ class User::ProductsController < ApplicationController
             ErrorNotification.post("User::ProductsController#new recording_id: #{params[:recording_id]} not found")
           end
         end
-        @shop_product = Shop::Product.new(price: 98, 
-                                          additional_info: additional_info,
-                                          for_sale: true,
-                                          show_in_shop: true)
+        
+        @shop_product = Shop::Product.new(
+          price: 98, 
+          additional_info: additional_info,
+          for_sale: true,
+          show_in_shop: true
+          #distribution_agreement_id: @user.personal_distribution_agreement.id
+        )
         
         get_documents
         
@@ -104,7 +108,7 @@ class User::ProductsController < ApplicationController
         
         # only aplies for recordings
         if @shop_product.distribution_agreement
-          @shop_product.distribution_agreement.configure_payment( @shop_product.price, @shop_product.recording)
+          @shop_product.distribution_agreement.configure_payment( @shop_product.price, @shop_product.recording.id)
         end
         
         format.html { redirect_to user_user_product_stakes_path(@user, @shop_product) }
@@ -130,7 +134,7 @@ class User::ProductsController < ApplicationController
         @shop_product.valid_for_sale!
         
         if @shop_product.distribution_agreement
-          @shop_product.distribution_agreement.configure_payment( @shop_product.price, @shop_product.recording)
+          @shop_product.distribution_agreement.configure_payment( @shop_product.price, @shop_product.recording.id)
         end
         
         #if @shop_product.productable_type == 'Recording'

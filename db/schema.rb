@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150919220425) do
+ActiveRecord::Schema.define(version: 20150921225031) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -273,6 +273,8 @@ ActiveRecord::Schema.define(version: 20150919220425) do
     t.integer  "accounts_version",                   default: 0
     t.string   "pro_affilications_uuid", limit: 255, default: "koda"
     t.integer  "orders_count",                       default: 1321
+    t.integer  "stripe_fee",                         default: 33
+    t.decimal  "digiramp_fee",                       default: 2.0
   end
 
   create_table "album_items", force: :cascade do |t|
@@ -1042,6 +1044,7 @@ ActiveRecord::Schema.define(version: 20150919220425) do
     t.string   "alias"
     t.string   "full_name"
     t.integer  "publishing_agreement_id"
+    t.uuid     "uuid"
   end
 
   add_index "common_work_ipis", ["common_work_id"], name: "index_common_work_ipis_on_common_work_id", using: :btree
@@ -1097,7 +1100,6 @@ ActiveRecord::Schema.define(version: 20150919220425) do
     t.string   "pro_work_id",            limit: 255, default: ""
     t.string   "pro_catalog",            limit: 255, default: ""
     t.boolean  "arrangement",                        default: false
-    t.integer  "royalty",                            default: 10
   end
 
   add_index "common_works", ["account_id"], name: "index_common_works_on_account_id", using: :btree
@@ -1403,13 +1405,13 @@ ActiveRecord::Schema.define(version: 20150919220425) do
     t.integer  "label_id"
     t.integer  "account_id"
     t.integer  "distributor_id"
-    t.integer  "royalty",                     default: 10
     t.datetime "created_at",                                 null: false
     t.datetime "updated_at",                                 null: false
-    t.decimal  "distribution_fee",            default: 25.0
+    t.decimal  "split",                       default: 50.0
     t.integer  "user_id"
     t.string   "title"
     t.uuid     "distribution_agreement_uuid"
+    t.uuid     "uuid"
   end
 
   add_index "distribution_agreements", ["account_id"], name: "index_distribution_agreements_on_account_id", using: :btree
@@ -1690,6 +1692,17 @@ ActiveRecord::Schema.define(version: 20150919220425) do
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
   end
+
+  create_table "gateway_payments", force: :cascade do |t|
+    t.uuid     "stake_id"
+    t.decimal  "fee"
+    t.string   "gateway"
+    t.integer  "amount"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "gateway_payments", ["stake_id"], name: "index_gateway_payments_on_stake_id", using: :btree
 
   create_table "genre_imports", force: :cascade do |t|
     t.string   "csv_file",   limit: 255
@@ -2686,12 +2699,13 @@ ActiveRecord::Schema.define(version: 20150919220425) do
     t.datetime "created_at",                         null: false
     t.datetime "updated_at",                         null: false
     t.uuid     "document_uuid"
-    t.decimal  "split",              default: 100.0
+    t.decimal  "split",              default: 50.0
     t.boolean  "personal_agreement", default: false
     t.boolean  "expires",            default: false
     t.date     "expiration_date"
     t.integer  "account_id"
     t.integer  "user_id"
+    t.uuid     "uuid"
   end
 
   add_index "publishing_agreements", ["account_id"], name: "index_publishing_agreements_on_account_id", using: :btree
@@ -3713,6 +3727,7 @@ ActiveRecord::Schema.define(version: 20150919220425) do
   add_foreign_key "distribution_agreements", "accounts", on_delete: :cascade
   add_foreign_key "distribution_agreements", "labels", on_delete: :cascade
   add_foreign_key "documents", "accounts", on_delete: :cascade
+  add_foreign_key "gateway_payments", "stakes", on_delete: :cascade
   add_foreign_key "import_batches", "accounts", on_delete: :cascade
   add_foreign_key "invoices", "accounts", on_delete: :cascade
   add_foreign_key "ipis", "ipis", on_delete: :cascade

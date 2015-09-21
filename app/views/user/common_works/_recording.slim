@@ -1,9 +1,14 @@
+.sexy_line
 .row
   .col-sm-6
     h4 Master / Recording
-  .col-sm-6 
-    
-.row
+  .col-sm-6.pull-down-6 
+    .pull-right
+      => link_to edit_user_recording_basic_path(@user, recording)
+        .btn.btn-default
+          i.fa.fa-pencil&nbsp;Edit
+      = link_to 'Add IP', new_user_user_recording_recording_ipi_path(@user, recording), class: 'btn btn-default'
+.row.pull-down-6
   .col-sm-12
     #digiWhams  class="/recordings/#{recording.id.to_s}"
       == render 'audio_player/show', recording: recording , description: true, target: ""
@@ -58,10 +63,7 @@
                         .btn.btn-success
                           i.fa.fa-shopping-cart&nbsp;Add to shop
                 
-            => link_to edit_user_recording_basic_path(@user, recording)
-              .btn.btn-default
-                i.fa.fa-pencil&nbsp;Edit
-            = link_to 'Add IP', new_user_user_recording_recording_ipi_path(@user, recording), class: 'btn btn-default'
+            
 
       
     .open-dialog

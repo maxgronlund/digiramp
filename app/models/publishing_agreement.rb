@@ -8,6 +8,9 @@ class PublishingAgreement < ActiveRecord::Base
   
   before_destroy :remove_relations
   
+  validates :split, :title, presence: true
+  validates :split, numericality: { greater_than_or_equal_to: 0, less_than_or_equal_to: 100 }
+  
   def remove_relations
     document.destroy
   end
@@ -18,7 +21,75 @@ class PublishingAgreement < ActiveRecord::Base
   #belongs_to :account, :through => :publisher
   #has_one :document
   after_commit :flush_cache
+  
+  
+  def configure_payment( royalty, price, recording_uuid )
 
+    begin
+      
+      amount_in_cent =  self.split * 0.01 * royalty
+      amount_in_pct  =  amount_in_cent /  price
+      
+      #ap "amount_in_cent: #{amount_in_cent}"
+      #ap "royalty; #{royalty}"
+      #ap "split: #{split}"
+      #
+    
+      if stake = Stake.find_by( 
+          account_id:  self.account_id,
+          asset_id:           recording_uuid,
+          asset_type:         'Recording',
+          ip_uuid:            self.uuid,
+          ip_type:            self.class.name
+        )
+        stake.update(
+          split:               amount_in_pct,
+          flat_rate_in_cent:   amount_in_cent.round,
+          currency:            'usd',
+          email:               self.publisher.email,
+          unassigned:          false,
+        )
+      else
+        stake = Stake.create(  
+          account_id:          self.account_id,
+          asset_id:            recording_uuid,
+          asset_type:          'Recording',
+          ip_uuid:             self.uuid,
+          ip_type:             self.class.name,
+          split:               amount_in_pct,
+          flat_rate_in_cent:   amount_in_cent.round,
+          currency:            'usd',
+          email:               self.publisher.email,
+          unassigned:          false
+        )
+      end
+      #ap stake
+      return royalty -  amount_in_cent
+    rescue => e
+      ErrorNotification.post_object 'PublishingAgreement#configure_payment', e
+      return 0
+    end
+  end
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
   def self.cached_find(id)
     Rails.cache.fetch([name, id]) { find(id) }
   end

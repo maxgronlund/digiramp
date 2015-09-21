@@ -1,0 +1,103 @@
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'dashboard' 
+  
+  
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'users/shared/sidebar', selected: 'dashboard'
+  
+  #page-content-wrapper
+    .container-fluid
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { 'Dashboard'.to_sym => user_user_control_panel_index_path(@user)}}
+      == render 'shared/flash_message'
+      .container-fluid
+        .row
+          .col-sm-6
+            .help
+              .help-text
+                h2 Commerce engine
+              .help-button
+                == render 'admin/helps/help', identifier: 'user commerce engine'
+          .col-sm-6
+            .pull-right.pull-down-10
+              = link_to  user_user_control_panel_index_path(@user) do
+                  .btn.btn-default
+                    i.fa.fa-chevron-left
+                    '&nbsp;Back
+          
+          
+      .sexy_line
+      
+      .row
+        .col-sm-12
+          .control-panel.pull-down-10
+            .control-panel-badge
+                    
+              - shop_link = @user.is_stripe_connected ? user_user_shop_admin_index_path(@user) : user_user_create_shop_index_path(@user)
+              = link_to  shop_link, id: 'shop-administration' do
+                .content
+                  .icon.icon-red
+                    i.fa.fa-shopping-cart
+                  .title
+                    h4 Shop administration
+                  .body
+                    'Manage your personal shop
+                    
+            .control-panel-badge
+              = link_to  user_user_payouts_path(@user) do
+                .content
+                  .icon.icon-red
+                    i.fa.fa-money
+                  .title
+                    h4 Payments
+                  .body
+                    'Transfers send to you
+                    
+            .control-panel-badge
+              = link_to  user_user_revenue_streams_path(@user) do
+                .content
+                  .icon.icon-red
+                    i.fa.fa-money
+                  .title
+                    h4 Revenue streams
+                  .body
+                    'Manage and redistribute income
+             
+                      
+            .control-panel-badge
+              = link_to  user_user_special_offer_index_path(@user) do
+                .content
+                  .icon.icon-green
+                    i.fa.fa-shopping-cart
+                    
+                  .title
+                    h4 Special offers
+                  .body
+                    'Products and servces only you can buy
+                  
+            .control-panel-badge
+              = link_to  user_user_purchases_path(@user) do
+                .content
+                  .icon.icon-green
+                    i.fa.fa-shopping-cart
+                    
+                  .title
+                    h4 Purchases
+                  .body
+                    'Coupons, services, downloads and othere resources you have bought
+                    
+
+                    
+ 
+
+      
+                  
+
+         
+              
+  == render 'shared/site_footer'    
+ 
+
+
+

@@ -39,7 +39,7 @@ class CommonWork < ActiveRecord::Base
   #has_many :user_credits, as: :ipiable
   #accepts_nested_attributes_for :ipis, allow_destroy: true
   accepts_nested_attributes_for :ipis, :reject_if => :all_blank, :allow_destroy => true
-  validates :royalty, numericality: { greater_than: 9 }
+  #validates :royalty, numericality: { greater_than: 9 }
   
   
   #has_many :activity_events, as: :activity_eventable
@@ -86,23 +86,31 @@ class CommonWork < ActiveRecord::Base
   
   def configure_publishers_payment( price, recording_uuid )
     
-    return -1 if price < self.royalty
-
     begin
+      raise 'Royalty greater than price' if price < self.royalty
       
-      self.ipis.each do |ipi|
-        ipi.configure_payment( self.royalty , price , recording_uuid, self.id )
+      self.common_work_ipis.each do |common_work_ipi|
+        common_work_ipi.configure_payment( self.royalty , price , recording_uuid, self.id )
       end
     rescue => e
       ErrorNotification.post_object 'CommonWork#configure_publishers_payment', e
+      
+      self.common_work_ipis.each do |common_work_ipi|
+        common_work_ipi.configure_payment( self.royalty , self.royalty , recording_uuid, self.id )
+      end
+      return 0.0
     end
-    price - self.royalty
+    price - royalty
   end
   
   def is_registered?
 
     return true if ipis.count > 0
     false
+  end
+  
+  def royalty
+    10.0
   end
   
   def is_cleared?

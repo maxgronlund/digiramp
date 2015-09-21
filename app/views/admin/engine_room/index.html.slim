@@ -54,6 +54,33 @@
                 .body
                   'People with super access
                   
+        /.admin-badges
+        /  / remove with
+        /  / rails d controller admin/user_with_two_accounts
+        /  .admin-badge-container
+        /    = link_to admin_user_with_two_accounts_path do
+        /      .admin-badge
+        /        .title
+        /          h4
+        /            i.fa.fa-file-image-o
+        /            '&nbsp;Double accounts
+        /        .body
+        /          '!Only for fixing april apr 2015 bug
+        /          
+        - if Rails.env.development?
+          .admin-badges
+            / remove with
+            / rails d controller admin/user_with_two_accounts
+            .admin-badge-container
+              = link_to admin_zapp_shop_path do
+                .admin-badge
+                  .title
+                    h4
+                      i.fa.fa-bolt
+                      '&nbsp;Zapp shopx
+                  .body
+                    '!Only enabled in development mode
+                  
         .admin-badges
           .admin-badge-container
             = link_to admin_set_default_avatars_path, remote: true do
@@ -75,21 +102,6 @@
                     '&nbsp;Update artwork
                 .body
                   '!Only for development
-                  
-        .admin-badges
-          / remove with
-          / rails d controller admin/user_with_two_accounts
-          .admin-badge-container
-            = link_to admin_user_with_two_accounts_path do
-              .admin-badge
-                .title
-                  h4
-                    i.fa.fa-file-image-o
-                    '&nbsp;Double accounts
-                .body
-                  '!Only for fixing april apr 2015 bug
-                  
-                  
                   
       /.row
       /  .col-sm-12

@@ -1,4 +1,3 @@
-      
 .digi-box
   .row  
     .col-sm-6
@@ -10,6 +9,11 @@
             i.fa.fa-pencil
             '&nbsp;Edit
         = link_to "Add IP", new_user_user_common_work_common_work_ipi_path(@user, @common_work), class: 'btn btn-default'
+        - unless @common_work.is_registered?
+          =< link_to "I'm the publishing designee",user_user_publishing_designee_path(@user, @common_work.id),
+                                turboboost: true, 
+                                class: 'btn btn-warning'
+        
   .row
     .col-sm-12
       .table-responsive
@@ -20,7 +24,7 @@
               th Legal name/ Email
               th Capacity
               th Publishing agreement
-              th Split
+              th Share
               th 
                 .pull-right
                   'Status
@@ -73,8 +77,8 @@
                                                                                publishing_agreement), 
                                                                                class: 'btn btn-default btn-xs'
                   td
-                    - if publishing_agreement
-                      = number_to_percentage(publishing_agreement.split, precision: 0)   
+                    
+                    = number_to_percentage(common_work_ipi.share, precision: 0)   
                   
                   td   
                     .pull-right

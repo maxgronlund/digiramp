@@ -4,9 +4,9 @@ class User::RecordingIpisController < ApplicationController
   def new
     @recording        = Recording.cached_find(params[:recording_id])
     @common_work      = @recording.get_common_work
-    @recording_ipi    = RecordingIpi.new( title:  "Please confirm your rights on #{@recording.title}",
-                      message: "If you confirm this request you can receive creatits and/ or direct payment for usage for the master #{@recording.title}")
-
+    @recording_ipi    = RecordingIpi.new
+      #title:  "Please confirm your rights on #{@recording.title}"                message: "If you confirm this request you can receive creatits and/ or direct payment for usage for the master #{@recording.title}")
+    @distribution_agreements  = @user.distribution_agreements
   end
   
   def create

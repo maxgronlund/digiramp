@@ -13,6 +13,7 @@
           = f.input :email
           = f.input :full_name
           = f.input :alias
+        = f.input :share, label: 'Share in %', hint: "All IP's share should add up to 100%"
           
         /= f.input :share, input_html: { style: "max-width:150px;" }, label: 'split'
         /= f.input :publishing_agreement

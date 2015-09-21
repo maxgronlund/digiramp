@@ -51,15 +51,21 @@ class RecordingIpi < ActiveRecord::Base
   #  
   #end
   
-  def configure_payment( price, rake , recording_uuid , label_id)
+  def configure_payment( price, rake, recording_uuid )
+    #ap "recording_ipi / configure_payment "
+    #ap "price: #{price}"
+    #ap "rake: #{rake}"
+    #ap "recording_uuid: #{recording_uuid}"
     
     if stakes = Stake.where(ip_uuid: self.uuid, ip_type: self.class.name)
       stakes.update_all(expired: true)
     end
     
     
-    share_after_publishers = rake / price.to_f
-    #ap share_after_publishers
+    amount_in_cent =  rake * self.share * 0.01
+    amount_in_pct  =  amount_in_cent /  price
+    
+
     begin
       
       if stake = Stake.find_by( account_id:         self.account_id,
@@ -70,8 +76,8 @@ class RecordingIpi < ActiveRecord::Base
                                )
                                
         stake.update(
-                     split:               self.share * share_after_publishers,
-                     flat_rate_in_cent:   0,
+                     split:               amount_in_pct,
+                     flat_rate_in_cent:   amount_in_cent,
                      currency:            'usd',
                      email:               self.user.email,
                      unassigned:          false,
@@ -84,8 +90,8 @@ class RecordingIpi < ActiveRecord::Base
                                asset_type:          'Recording',
                                ip_uuid:             self.uuid,
                                ip_type:             self.class.name,
-                               split:               self.share * share_after_publishers,
-                               flat_rate_in_cent:   0,
+                               split:               amount_in_pct,
+                               flat_rate_in_cent:   amount_in_cent,
                                currency:            'usd',
                                email:               self.user.email,
                                unassigned:          false,

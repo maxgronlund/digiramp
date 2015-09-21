@@ -185,10 +185,7 @@ class Account < ActiveRecord::Base
   def transfer_codes
   end
   
-  #def current_stripe_transfer
-  #  Shop::StripeTransfer.where(account_id: self.id, state: 'pending', stripe_errors: nil)
-  #                      .first_or_create(account_id: self.id )
-  #end
+
   
   def set_uuid
     self.title = self.title.strip

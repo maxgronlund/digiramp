@@ -20,6 +20,16 @@ class Admin < ActiveRecord::Base
     admin.orders_count
   end
   
+  def self.stripe_fee
+    admin = Admin.first_or_create
+    admin.stripe_fee
+  end
+  
+  def self.digiramp_fee
+    admin = Admin.first_or_create
+    admin.digiramp_fee
+  end
+  
 end
 
 

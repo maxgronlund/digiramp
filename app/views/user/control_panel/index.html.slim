@@ -189,49 +189,59 @@
                     'Your DigiRAMP plan
                     
             .control-panel-badge
-              - shop_link = @user.is_stripe_connected ? user_user_shop_admin_index_path(@user) : user_user_create_shop_index_path(@user)
-              = link_to  shop_link, id: 'shop-administration' do
-                .content
-                  .icon.icon-red
-                    i.fa.fa-shopping-cart
-                  .title
-                    h4 Shop administration
-                  .body
-                    'Manage your personal shop
-                    
-            .control-panel-badge
-              = link_to  user_user_revenue_streams_path(@user) do
+              
+              = link_to  user_user_commerce_index_path(@user), id: 'commerce' do
                 .content
                   .icon.icon-red
                     i.fa.fa-money
                   .title
-                    h4 Revenue streams
+                    h4 Commerce engine
                   .body
-                    'Manage and redistribute income
-             
-                      
-            .control-panel-badge
-              = link_to  user_user_special_offer_index_path(@user) do
-                .content
-                  .icon.icon-green
-                    i.fa.fa-shopping-cart
+                    'Management of micro transations, products and services
                     
-                  .title
-                    h4 Special offers
-                  .body
-                    'Products and servces only you can buy
-                    
-            .control-panel-badge
-              = link_to  user_user_purchases_path(@user) do
-                .content
-                  .icon.icon-green
-                    i.fa.fa-shopping-cart
-                    
-                  .title
-                    h4 Purchases
-                  .body
-                    'Coupons, services, downloads and othere resources you have bought
-                    
+              /- shop_link = @user.is_stripe_connected ? user_user_shop_admin_index_path(@user) : user_user_create_shop_index_path(@user)
+              /= link_to  shop_link, id: 'shop-administration' do
+              /  .content
+              /    .icon.icon-red
+              /      i.fa.fa-shopping-cart
+              /    .title
+              /      h4 Shop administration
+              /    .body
+              /      'Manage your personal shop
+              /      
+            /.control-panel-badge
+            /  = link_to  user_user_revenue_streams_path(@user) do
+            /    .content
+            /      .icon.icon-red
+            /        i.fa.fa-money
+            /      .title
+            /        h4 Revenue streams
+            /      .body
+            /        'Manage and redistribute income
+            / 
+            /          
+            /.control-panel-badge
+            /  = link_to  user_user_special_offer_index_path(@user) do
+            /    .content
+            /      .icon.icon-green
+            /        i.fa.fa-shopping-cart
+            /        
+            /      .title
+            /        h4 Special offers
+            /      .body
+            /        'Products and servces only you can buy
+            /        
+            /.control-panel-badge
+            /  = link_to  user_user_purchases_path(@user) do
+            /    .content
+            /      .icon.icon-green
+            /        i.fa.fa-shopping-cart
+            /        
+            /      .title
+            /        h4 Purchases
+            /      .body
+            /        'Coupons, services, downloads and othere resources you have bought
+            /        
             .control-panel-badge
               = link_to  user_user_creative_projects_path(@user) do
                 .content

@@ -24,28 +24,30 @@
       .digi-box
         .row
           .col-sm-12
-            = simple_form_for [:user, @user, @publisher, @publishing_agreement] do |f|
-
-              .row
-                .col-sm-6
-                  = f.input :title
-                .col-sm-6
-                  = f.input :split
-              .row
-                .col-sm-6
-                  = f.input :expires, 
-                            id: 'expires',
-                            label: false, 
-                            inline_label:  'Expires',
-                            :input_html => { class: 'icheck-me acceptance', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue"     }
-                  b Expiration date
-                  br
-                  = f.text_field :expiration_date, class: "form-control", 'data-date-format'.to_sym => "YYYY/MM/DD", id: 'datetimepicker5'
-              
-              .row
-                .col-sm-12
-                  .pull-right
-                    = f.submit 'Save', class: 'btn btn-primary'
+            = render 'form'
+            /= simple_form_for [:user, @user, @publisher, @publishing_agreement] do |f|
+            /
+            /  .row
+            /    .col-sm-6
+            /      = f.input :title
+            /    .col-sm-6
+            /      = f.input :split, placeholder: 'The publishers share', hint: 'The publishers share. the rest is shared between the ips'
+            /      = f.input :mechanical_royalty, hint: 'The amount send to the publisher for each sold recording. Minimum is 10 cent'
+            /  .row
+            /    .col-sm-6
+            /      = f.input :expires, 
+            /                id: 'expires',
+            /                label: false, 
+            /                inline_label:  'Expires',
+            /                :input_html => { class: 'icheck-me acceptance', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue"     }
+            /      b Expiration date
+            /      br
+            /      = f.text_field :expiration_date, class: "form-control", 'data-date-format'.to_sym => "YYYY/MM/DD", id: 'datetimepicker5'
+            /  
+            /  .row
+            /    .col-sm-12
+            /      .pull-right.pull-down-8
+            /        = f.submit 'Save', class: 'btn btn-primary'
             /= simple_form_for [ @user, @publisher, @document ] , :url => url_for(:action => 'update', :controller => 'publishing_agreements'), turboboost: true, :method => 'PUT' do |f|
             /  = f.error_notification
             /  .form-inputs

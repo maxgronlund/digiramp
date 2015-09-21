@@ -39,7 +39,7 @@ class LabelRecording < ActiveRecord::Base
       shop_products.each do |shop_product|
         if shop_product.distribution_agreement
           # go ahead and reconfigure all ips
-          shop_product.distribution_agreement.configure_payment( shop_product.price, shop_product.recording)
+          shop_product.distribution_agreement.configure_payment( shop_product.price, shop_product.recording.id)
           # check 
           shop_product.valid_for_sale!
           ap '------- end ----------'

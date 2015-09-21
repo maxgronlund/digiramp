@@ -52,40 +52,45 @@ class Ipi < ActiveRecord::Base
   #  return false
   #end
   
-  def configure_payment( royalty, price, recording_uuid, common_work_id )
+  def configure_payment( royalty, price, recording_uuid )
+    
     begin
-      amount_in_cent =  share * 0.01 * royalty
+      amount_in_cent =  royalty
       amount_in_pct  =  amount_in_cent /  price
-      amount_in_pct  *= 100.0
+      
+      #ap "amount_in_cent: #{amount_in_cent}"
+      #ap "royalty; #{royalty}"
 
-      if stake = Stake.find_by( account_id:         self.user.account.id,
-                                asset_id:           recording_uuid,
-                                asset_type:         'Recording',
-                                ip_uuid:            self.uuid,
-                                ip_type:            self.class.name
-                               )
+
+      if stake = Stake.find_by( 
+          account_id:         self.user.account.id,
+          asset_id:           recording_uuid,
+          asset_type:         'Recording',
+          ip_uuid:            self.uuid,
+          ip_type:            self.class.name
+        )
         stake.update(
-               split:               amount_in_pct,
-               flat_rate_in_cent:   0,
-               currency:            'usd',
-               email:               self.user.email,
-               unassigned:          false,
-               
-               )
+          split:               amount_in_pct,
+          flat_rate_in_cent:   amount_in_cent,
+          currency:            'usd',
+          email:               self.user.email,
+          unassigned:          false
+        )
       else
-        stake = Stake.create(  account_id:          self.user.account.id,
-                               asset_id:            recording_uuid,
-                               asset_type:          'Recording',
-                               ip_uuid:             self.uuid,
-                               ip_type:             self.class.name,
-                               split:               amount_in_pct,
-                               flat_rate_in_cent:   0,
-                               currency:            'usd',
-                               email:               self.user.email,
-                               unassigned:          false
-                            )
+        stake = Stake.create(  
+          account_id:          self.user.account.id,
+          asset_id:            recording_uuid,
+          asset_type:          'Recording',
+          ip_uuid:             self.uuid,
+          ip_type:             self.class.name,
+          split:               amount_in_pct,
+          flat_rate_in_cent:   amount_in_cent,
+          currency:            'usd',
+          email:               self.user.email,
+          unassigned:          false
+        )
       end
-
+      ap stake
     rescue => e
       ErrorNotification.post_object 'Ipi#configure_payment', e
     end

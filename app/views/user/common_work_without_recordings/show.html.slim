@@ -36,7 +36,7 @@
         .col-sm-12
           - blog      = Blog.cached_find('Common work rights')
           - blog_post = BlogPost.cached_find('work has no recordings', blog)
-          .alert.alert-danger
+          .alert.alert-info
             h4 = blog_post.title
             = blog_post.body
             - if editor?

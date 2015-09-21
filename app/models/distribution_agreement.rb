@@ -31,23 +31,34 @@ class DistributionAgreement < ActiveRecord::Base
   end
   
   def configure_payment( price, recording_id )
+    distribution_rake    = configure_publishers_payment( price, recording_id )
 
-    labels_rake               = configure_publishers_payment( price, recording_id )
     
     if self.original_label
-      self.label.configure_payment( price, labels_rake, recording_id, self.id )
+      self.label.configure_payment( 
+        price, 
+        distribution_rake, 
+        recording_id, 
+        self.id 
+      )
     else
-      distributors_rake           = labels_rake * self.distribution_fee * 0.01
-      #distributors_rake_in_pct    distributors_rake / price
       
-      self.distributor.configure_distribution_fee( price,    distributors_rake,                 recording_id, self.id )
-      self.label.configure_payment(                price,   (labels_rake - distributors_rake ) * 0.01, recording_id, self.id )
+      self.distributor.configure_distribution_payment( 
+        price,   
+        distributors_rake,               
+        recording_id, 
+        self.uuid 
+      )
+      self.label.configure_payment(             
+        price,   
+        distribution_rake - distributors_rake , 
+        recording_id, self.uuid 
+      )
     end
   end
   
   def connect_to_label
-    
-    ap "connect_to_label"
+
     if distributor_label = Label.find_by(uuid: distribution_agreement_uuid)
       self.update(distributor_id: distributor_label.id)
     else
@@ -70,15 +81,16 @@ class DistributionAgreement < ActiveRecord::Base
     def configure_publishers_payment( price, recording_id )
 
       begin 
-        recording   = Recording.cached_find(recording_id)
-        common_work = recording.common_work
-        labels_rake = common_work.configure_publishers_payment( price, recording.uuid )
+        recording       = Recording.cached_find(recording_id)
+        common_work     = recording.common_work
+        return common_work.configure_publishers_payment( price, recording.uuid )
       rescue => e
+        return price
         ErrorNotification.post_object 'DistributionAgreement#pay_publishers', e
       end
-      return labels_rake unless labels_rake == -1
-      price
+
     end
+  
 
     def flush_cache
       Rails.cache.delete([self.class.name, id])

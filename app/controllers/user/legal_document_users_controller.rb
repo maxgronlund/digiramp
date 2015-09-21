@@ -7,17 +7,17 @@ class User::LegalDocumentUsersController < ApplicationController
   end
 
   def create
-    @document       = Document.cached_find(params[:legal_document_id])
     
-    if @document_user  = DocumentUser.create(document_user_params)
+    begin
+      @document       = Document.cached_find(params[:legal_document_id])
+      @document_user  = DocumentUser.create(document_user_params)
       @document_user.assign_to_user
-      
       redirect_to_special_url user_user_legal_documents_path(@user, @document.uuid)
-      
-    else
+    rescue => e
+      ErrorNotification.post_object 'User::PublishingDesigneesController#find_or_create_common_work_ipi', e
       render :new
     end
-    
+
   end
 
   def edit
@@ -49,8 +49,6 @@ class User::LegalDocumentUsersController < ApplicationController
   private
   
   def document_user_params
-    if editor?
-      params.require(:document_user).permit!
-    end 
+    params.require(:document_user).permit!
   end   
 end

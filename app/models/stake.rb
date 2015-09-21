@@ -29,6 +29,7 @@ class Stake < ActiveRecord::Base
   before_destroy :remove_streams
   
   has_many :stripe_transfers, class_name: Shop::StripeTransfer
+  has_many :gateway_payments
 
   after_commit :flush_cache
   
@@ -42,16 +43,23 @@ class Stake < ActiveRecord::Base
   
   def generated_income
     # use payments
-    income = 0
-    self.stripe_transfers.each do |stripe_transfer|
-      income += stripe_transfer.amount
+    income = 0.0
+    fees   = 0.0
+    self.gateway_payments.each do |gateway_payment|
+      income += (gateway_payment.amount - gateway_payment.fee.round)
+      fees   += gateway_payment.fee.round
     end
+    #self.stripe_transfers.each do |stripe_transfer|
+    #  income += stripe_transfer.amount
+    #end
     #unit_price * units_sold
-    income * 0.01
+    #income 
+    #fees   
+    {fees: fees * 0.01, income: income * 0.01}
   end
   
   def units_sold
-    @units_sold ||= stripe_transfers.count
+   self.gateway_payments.count
   end
   
   def title
@@ -67,13 +75,19 @@ class Stake < ActiveRecord::Base
   end
   
 
-  def charge_succeeded order_item_id, amount, stripe_charge_id
-    ap 'Stake#charge_succeeded'
+  def charge_succeeded order_item_id, amount, stripe_charge_id, payment_fee
+    
+    GatewayPayment.create(
+      fee: payment_fee,
+      stake_id: self.id,
+      gateway: 'stripe',
+      amount: (amount.to_f * self.split * 0.01).to_i
+    )
     # take the cut
-    take_a_cut order_item_id, amount, stripe_charge_id
+    take_a_cut( order_item_id, amount, stripe_charge_id, payment_fee )
     
     # let other get their cut
-    let_other_get_their_cut order_item_id, amount, stripe_charge_id
+    let_other_get_their_cut( order_item_id, amount, stripe_charge_id, payment_fee)
 
   end
   
@@ -81,14 +95,38 @@ class Stake < ActiveRecord::Base
     Rails.cache.fetch([name, id]) { find(id) }
   end
   
+
+  
+  def title
+    begin
+      return self.asset.title
+    rescue => e
+      errored('Stake#description', e )
+    end
+    '500 na'
+  end
+  
+  def description
+    case self.ip_type
+    when 'RecordingIpi'
+      return  'Master royalty'
+    when 'Ipi'
+      return 'Mechanical royalty'
+    when 'PublishingAgreement'
+      return 'Publishing'
+    when 'DistributionAgreement'
+      return 'Distribution'
+    end
+  end
+  
   private 
   
   
   # optimize this . Cache in field
   def calculate_unit_price
-    ap 'calculate_unit_price'
-    ap self.asset_type
-    price = 0.0
+    #ap 'calculate_unit_price'
+    #ap self.asset_type
+    #price = 0.0
     case self.asset_type
     when 'Shop::Product'
       price = asset.price.to_f * 0.0001 * self.split if self.asset  
@@ -114,20 +152,28 @@ class Stake < ActiveRecord::Base
     attach_to_user
   end
   
-  def let_other_get_their_cut order_item_id, amount, stripe_charge_id
+  def let_other_get_their_cut order_item_id, amount, stripe_charge_id, payment_fee
 
     self.stakeholders.each do |stakeholder|
-      stakeholder.charge_succeeded order_item_id, amount, stripe_charge_id
+      stakeholder.charge_succeeded order_item_id, amount, stripe_charge_id, payment_fee
     end
   end
   
   # create a stripe transfer 
-  def take_a_cut order_item_id, amount, stripe_charge_id
-    ap 'Stake#take_a_cut'
+  def take_a_cut order_item_id, amount, stripe_charge_id, payment_fee
+    ap "------------Stake#take_a_cut: -----------------------------"
+    ap "amount: #{amount}"
+    ap "payment_fee: #{payment_fee}"
     begin
       order_item      = Shop::OrderItem.cached_find( order_item_id )
+      
+      amount          -= payment_fee
       amount          = (amount.to_f * self.split * 0.01)
-      application_fee = (amount * 0.019) + 0.5
+      
+      # digiramps cut
+      application_fee = (amount * 0.02).round 
+      
+      
 
       # tripy way to prevent the same transfer to run two times
       stripe_transfer = Shop::StripeTransfer
@@ -147,7 +193,8 @@ class Stake < ActiveRecord::Base
                             amount:               amount.to_i,
                             currency:             'usd',
                             stake_id:             self.id,
-                            application_fee:      application_fee.to_i
+                            application_fee:      application_fee.to_i,
+                            description:          order_item
                            )
       
       # stripe_transfer
@@ -163,9 +210,7 @@ class Stake < ActiveRecord::Base
       errored('Stake#transfer_to_stripe', e )
     end         
   end
-  private
-    
-    
+
 
   def flush_cache
     Rails.cache.delete([self.class.name, id])

@@ -5,6 +5,8 @@ class Shop::Order < ActiveRecord::Base
   include AASM
   include ErrorNotification
   
+  default_scope -> { order('created_at ASC') }
+  
   belongs_to :user
   #belongs_to :stripe_customer
   belongs_to :coupon
@@ -185,9 +187,13 @@ class Shop::Order < ActiveRecord::Base
   
   # the order is paid for, time to pay the stakeholders
   def charge_succeeded stripe_charge_id, amount
+    
+    fee = payment_fee_pr_order_item
+    ap "Order#payment_fee_pr_order_item: #{fee}"
+
     begin
       self.order_items.each do |order_item|
-        order_item.charge_succeeded( amount, stripe_charge_id) 
+        order_item.charge_succeeded( amount, stripe_charge_id, fee) 
       end
     rescue => error
       post_error "Order#create_transfers: #{error.inspect}"
@@ -195,6 +201,15 @@ class Shop::Order < ActiveRecord::Base
   end
 
   private 
+  
+  def payment_fee_pr_order_item
+    
+    # what is the payment fee total
+    payment_fee = Admin.stripe_fee.to_f
+    # what it the fee pr item
+    split_between = self.order_items ? self.order_items.count.to_f : 1.0
+    payment_fee / split_between
+  end
 
   def flush_cache
     Rails.cache.delete([self.class.name, id])

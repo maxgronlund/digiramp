@@ -71,6 +71,7 @@ class User < ActiveRecord::Base
   
   has_many :user_publishers
   has_many :publishers,       :through => :user_publishers 
+  has_many :distribution_agreements
   
   has_many :comments,        as: :commentable,          dependent: :destroy
   has_many :digital_signatures 
@@ -219,22 +220,9 @@ class User < ActiveRecord::Base
     signature
   end
   
-  def label
-    #begin
-      unless _label = Label.find_by(id: self.default_label_id )
-        _label = Label.create_label( self.account.id)
-      end
-      return _label
-    #rescue => e
-    #  ErrorNotification.post_object 'User#label', e
-    #  return nil
-    #end
-    
-  end
   
-  def publishing_agreements
-    PublishingAgreement.where(account_id: self.account.id)
-  end
+  
+  
   
   def next_up?
     self.user_configuration.next_up?
@@ -283,9 +271,7 @@ class User < ActiveRecord::Base
     # enum status: [ :draft, :execution_copy, :executed, :deleted ]
   end
   
-  def get_publishing_agreements
-    account.get_publishing_agreements
-  end
+  
   
   def liked_by user_id
     ItemLike.find_by(user_id: user_id, like_id: self.id, like_type: self.class.name)
@@ -777,6 +763,14 @@ class User < ActiveRecord::Base
     
   end
   
+  def publishing_agreements
+    PublishingAgreement.where(account_id: self.account.id)
+  end
+  
+  def get_publishing_agreements
+    account.get_publishing_agreements
+  end
+  
   def ipi
     if ipi = Ipi.where( user_id: self.id,  master_ipi: true).first
       return ipi
@@ -791,36 +785,23 @@ class User < ActiveRecord::Base
     end
   end
   
-  #def publishing
-  #  if @publisher = Publisher.find_by( user_id:             self.id,
-  #                                     personal_publisher: true
-  #                                   )
-  #  else
-  #    @publisher = Publisher.create( 
-  #                      user_id:                self.id,
-  #                      account_id:             self.account.id,
-  #                      email:                  self.email,
-  #                      legal_name:             self.user_name + ' Publishing',
-  #                      show_on_public_page:    false,
-  #                      personal_publisher:  true,
-  #                      description:            "Personal publisher for #{self.user_name}",
-  #                      ipi_code:               self.ipi_code
-  #                    )
-  #    self.copy_address_to(@publisher.address)
-  #
-  #    @publisher.confirmed! 
-  #  end
-  #  
-  #  
-  #  @publisher    
-  #end
-  #
-  #def publishing_agreement
-  #  @publishing_agreement  = PublishingAgreement.where(publisher_id: self.publishing.id)
-  #                              .first_or_create(publisher_id: self.publishing.id,
-  #                              title: self.user_name + ' self publishing')
-  #  
-  #end
+  def label
+    begin
+      unless _label = Label.find_by(id: self.default_label_id )
+        _label = Label.create_label( self.account.id)
+      end
+      return _label
+    rescue => e
+      ErrorNotification.post_object 'User#label', e
+      return nil
+    end
+  end
+  
+  def personal_distribution_agreement
+    label.default_distribution_agreement
+  end
+  
+  
   
   def legal_informations_completed?
     return false if self.address.first_name.blank?

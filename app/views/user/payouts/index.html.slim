@@ -10,12 +10,25 @@
   #page-content-wrapper
     .container-fluid
       == render 'shared/flash_message'
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { 'Dashboard'.to_sym => user_user_control_panel_index_path(@user),
+                                                              'Commerce engine'.to_sym => user_user_commerce_index_path(@user)}}
       .row
         .col-sm-6
-          h2 Payments
+          .help
+            .help-text
+              h2 Payments
+            .help-button
+              == render 'admin/helps/help', identifier: 'user payments'
         .col-sm-6
           .pull-right.pull-down-10
-            /= link_to 'Withdraw', user_user_withdraw_index_path(@user, withdraw: true), remote: true, class: 'btn btn-warning'
+            = link_to  user_user_commerce_index_path(@user) do
+                .btn.btn-default
+                  i.fa.fa-chevron-left
+                  '&nbsp;Back  
+                  
+                  
+                  
+
       .sexy_line
       .digi-box
         .table-responsive

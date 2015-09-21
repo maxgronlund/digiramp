@@ -236,7 +236,18 @@
                       li Stripe
                       li Plans
                       ll Paper trails
-                      
+                  
+            .admin-badges
+              .admin-badge-container
+                = link_to admin_paper_trails_index_path do
+                  .admin-badge
+                    .title
+                      h4
+                        i.fa.fa-users
+                        '&nbsp;Paper trails
+                    .body
+                      'History of changes
+                          
             .admin-badge-container
               = link_to admin_blacklist_domains_path do
                 .admin-badge

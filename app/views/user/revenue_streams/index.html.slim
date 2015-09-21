@@ -10,14 +10,22 @@
   #page-content-wrapper
     .container-fluid
       == render 'shared/flash_message'
-      == render 'shared/breadcrumbs', breadcrumbs: { links: { 'Dashboard'.to_sym =>user_user_control_panel_index_path(@user)}, current: ''}
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { 'Dashboard'.to_sym => user_user_control_panel_index_path(@user),
+                                                              'Commerce engine'.to_sym => user_user_commerce_index_path(@user)}}
       .row
-        .col-sm-12
+        .col-sm-6
           .help
             .help-text
               h2 Revenue streams
             .help-button
               == render 'admin/helps/help', identifier: 'user revenue streams'
+        .col-sm-6
+          .pull-right.pull-down-10
+            = link_to  user_user_commerce_index_path(@user) do
+                .btn.btn-default
+                  i.fa.fa-chevron-left
+                  '&nbsp;Back
+        
           
       .sexy_line
       .digi-box
@@ -26,31 +34,27 @@
             thead
               tr
                 /th
+                th Name
                 th Type
-                th Source
-                th Income in cent
-                /th Split in %
                 th Units sold
-                th Income
+                th Amount
+                th Total fees
+                /th Split in %
+                
+                th Total income
                 th
             tbody
               - @stakes.each do |stake|
-                
+                - generated_income = stake.generated_income
                 tr
-                  td
-                    - case stake.ip_type
-                    - when 'Ipi'
-                      'Work
-                    - when 'RecordingIpi'
-                      'Master
-                    - else
-                      = stake.ip_type
-                  
                   td = stake.title
-                  td = number_to_currency( stake.unit_price, precision: 2, locale: 'en')
-                  /td = number_to_percentage(stake.split, precision: 4) 
+                  td = stake.description
                   td = stake.units_sold
-                  th = number_to_currency( stake.generated_income, precision: 2, locale: 'en')
+                  td = number_to_currency( stake.flat_rate_in_cent, precision: 2, locale: 'en')
+                  /td = number_to_percentage(stake.split, precision: 4) 
+                  td = number_to_currency( generated_income[:fees], precision: 2, locale: 'en')
+                  th = number_to_currency( generated_income[:income], precision: 2, locale: 'en')
+                  
                   td
                     .pull-right
                       = link_to 'Details', user_user_stake_stripe_transfers_path(@user, stake), class: 'btn btn-default btn-xs'

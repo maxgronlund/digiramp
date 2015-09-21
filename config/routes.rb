@@ -2,6 +2,10 @@ Digiramp::Application.routes.draw do
 
 
 
+  
+
+  
+
   resources :labels
  
   namespace :user do
@@ -140,6 +144,12 @@ Digiramp::Application.routes.draw do
     resources :issue_events
     resources :legal_templates
     resources :page_styles
+
+    get 'paper_trails/index'
+    get 'paper_trails/orders'
+    get 'paper_trails/stakes'
+
+    
     resources :plans
     get 'repair_permissions'
     resources :raw_images
@@ -461,6 +471,7 @@ Digiramp::Application.routes.draw do
 
   get "support" => "supports#index",        :as => :support_index
   get "flush_cache" => "admin#flush_cache", :as => :admin_flush_cache
+  get "zapp_shop"   => "admin#zapp_shop",   :as => :admin_zapp_shop
   
   resources :supports, only: [:create]
   
@@ -828,6 +839,7 @@ Digiramp::Application.routes.draw do
         resources :creative_project_roles
         resources :creative_project_resources
       end
+      get 'commerce/index'
       
       #resources :work_rights, only: [:update]
       resources :cms_module, only: [:new]

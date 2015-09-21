@@ -30,4 +30,21 @@ class AdminController < ApplicationController
     FlushCacheWorker.perform_async()
     redirect_to :back
   end
+  
+  def zapp_shop
+    if Rails.env.development?
+      
+      RecordingDownload.destroy_all
+      Stake.destroy_all
+      Shop::OrderItem.destroy_all
+      Shop::StripeTransfer.destroy_all
+      Shop::Order.destroy_all
+      Shop::Product.destroy_all
+      
+      
+      
+      ap 'shebang!'
+    end
+    redirect_to :back
+  end
 end

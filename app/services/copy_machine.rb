@@ -112,11 +112,12 @@ class CopyMachine
   def self.setup_publishing_agreement(publisher_id, personal_agreement, title, user)
     PublishingAgreement.create(
       publisher_id:       publisher_id,
-      split:              100.0,
+      split:              50.0,
       title:              title,
       personal_agreement: personal_agreement,
       user_id:            user.id,
       account_id:         user.account.id, 
+      uuid: UUIDTools::UUID.timestamp_create().to_s
     )
   end
   

@@ -40,7 +40,7 @@ class User::PublishingAgreementsController < ApplicationController
   # POST /publishing_agreements
   # POST /publishing_agreements.json
   def create
-
+    params[:publishing_agreement][:uuid] = UUIDTools::UUID.timestamp_create().to_s
     @publishing_agreement = PublishingAgreement.new(publishing_agreement_params)
     
     respond_to do |format|
@@ -60,22 +60,7 @@ class User::PublishingAgreementsController < ApplicationController
     
     @publisher              = Publisher.cached_find(params[:publisher_id])
     @publishing_agreement   = PublishingAgreement.cached_find(params[:id])
-    
-                             
-    #title                   = params[:document][:title]
-    #body                    = params[:document][:body]
-    #text_content            = params[:document][:text_content]
-    #expires                 = params[:document][:expires]
-    #expiration_date         = params[:document][:expiration_date]
-    #
-    #
-    #@document.title            = title
-    #@document.body             = body
-    #@document.text_content     = text_content
-    #@document.expires          = expires
-    #@document.expiration_date  = expiration_date
-    #@document.document_type    = "Publishing agreement"
-    
+
     
     if @publishing_agreement.update(publishing_agreement_params)
       redirect_to user_user_publisher_publishing_agreement_path(@user, @publisher, @publishing_agreement)

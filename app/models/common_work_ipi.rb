@@ -3,12 +3,32 @@ class CommonWorkIpi < ActiveRecord::Base
   belongs_to :ipi
   belongs_to :publishing_agreement
   
-  validates_presence_of :email
+  validates_presence_of :email, :share
   validates_formatting_of :email, :using => :email
+  validates_with CommonWorkIpiValidator
   
   enum status: [ :pending, :accepted, :dismissed, :in_progress ]
   
   after_commit :flush_cache
+  
+  
+  def configure_payment( royalty, price, recording_uuid, common_work_id )
+    
+    
+    begin
+      # send money to the publisher
+      royalty_left = self.publishing_agreement.configure_payment( royalty, price, recording_uuid )
+      # pay the ip
+      self.ipi.configure_payment( royalty_left * share * 0.01 , price, recording_uuid )
+    rescue => e
+      ErrorNotification.post_object 'CommonWorkIpi#configure_payment', e
+    end
+   
+  end
+  
+
+  
+  
 
   def self.cached_find(id)
     Rails.cache.fetch([name, id]) { find(id) }

@@ -70,7 +70,7 @@
                         = link_to distributor.title, label_path(distributor), class: 'btn btn-default btn-xs'
                   td 
                     - unless distribution_agreement.original_label
-                      = number_to_percentage(distribution_agreement.distribution_fee, precision: 2)
+                      = number_to_percentage(distribution_agreement.split, precision: 2)
                   td = distribution_agreement.recordings.count
 
         
