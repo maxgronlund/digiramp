@@ -81,7 +81,7 @@ class Stake < ActiveRecord::Base
       fee: payment_fee,
       stake_id: self.id,
       gateway: 'stripe',
-      amount: (amount.to_f * self.split * 0.01).to_i
+      amount: (amount.to_f * self.split ).round
     )
     # take the cut
     take_a_cut( order_item_id, amount, stripe_charge_id, payment_fee )
@@ -168,11 +168,11 @@ class Stake < ActiveRecord::Base
       order_item      = Shop::OrderItem.cached_find( order_item_id )
       
       amount          -= payment_fee
-      amount          = (amount.to_f * self.split * 0.01)
+      amount          = (amount.to_f * self.split)
       
       # digiramps cut
       application_fee = (amount * 0.02).round 
-      
+      application_fee = 1 if application_fee == 0
       
 
       # tripy way to prevent the same transfer to run two times

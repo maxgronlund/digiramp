@@ -25,7 +25,7 @@ class Shop::OrderItem < ActiveRecord::Base
           # how many is there to pay for the payment fee
           payment_fee_slices = product.stakeholders.count
           
-          if master_ipis = stakeholders.where(ip_type: 'Ipi')
+          if master_ipis = stakeholders.where(ip_type: ['Ipi', 'PublishingAgreement'])
             pay_master_royalty( master_ipis, amount, stripe_charge_id )
             # ips should always get a fixed amount so they 
             # can't take part in paying the transaction fees

@@ -84,6 +84,7 @@ class CommonWork < ActiveRecord::Base
     end
   end
   
+  
   def configure_publishers_payment( price, recording_uuid )
     
     begin
