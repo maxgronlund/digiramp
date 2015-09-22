@@ -50,10 +50,10 @@
                   td = stake.title
                   td = stake.description
                   td = stake.units_sold
-                  td = number_to_currency( stake.flat_rate_in_cent, precision: 2, locale: 'en')
+                  td = number_to_currency( stake.flat_rate_in_cent * 0.01, precision: 2, locale: 'en')
                   /td = number_to_percentage(stake.split, precision: 4) 
-                  td = number_to_currency( generated_income[:fees], precision: 2, locale: 'en')
-                  th = number_to_currency( generated_income[:income], precision: 2, locale: 'en')
+                  td = number_to_currency( stake.fees * 0.01, precision: 2, locale: 'en')
+                  td = number_to_currency( stake.income * 0.01, precision: 2, locale: 'en')
                   
                   td
                     .pull-right

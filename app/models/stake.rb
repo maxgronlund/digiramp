@@ -41,21 +41,31 @@ class Stake < ActiveRecord::Base
     end
   end
   
-  def generated_income
-    # use payments
-    income = 0.0
-    fees   = 0.0
+
+  def update_income gateway_payment
+    income = 0
+    fees   = 0
+    #psql exesizee
     self.gateway_payments.each do |gateway_payment|
-      income += (gateway_payment.amount - gateway_payment.fee.round)
+      income += gateway_payment.amount
       fees   += gateway_payment.fee.round
+      ap income
+      ap fees
     end
-    #self.stripe_transfers.each do |stripe_transfer|
-    #  income += stripe_transfer.amount
-    #end
-    #unit_price * units_sold
-    #income 
-    #fees   
-    {fees: fees * 0.01, income: income * 0.01}
+    
+    self.update(
+      generated_income: income,
+      generated_fee: fees
+    )
+    ap self
+  end
+  
+  def fees
+    generated_fee
+  end
+  
+  def income
+    generated_income - generated_fee
   end
   
   def units_sold
@@ -75,22 +85,7 @@ class Stake < ActiveRecord::Base
   end
   
 
-  def charge_succeeded order_item_id, amount, stripe_charge_id, payment_fee
-    
-    GatewayPayment.create(
-      fee: payment_fee,
-      stake_id: self.id,
-      gateway: 'stripe',
-      amount: (amount.to_f * self.split ).round
-    )
-    # take the cut
-    take_a_cut( order_item_id, amount, stripe_charge_id, payment_fee )
-    
-    # let other get their cut
-    let_other_get_their_cut( order_item_id, amount, stripe_charge_id, payment_fee)
-
-  end
-  
+ 
   def self.cached_find(id)
     Rails.cache.fetch([name, id]) { find(id) }
   end
@@ -119,7 +114,97 @@ class Stake < ActiveRecord::Base
     end
   end
   
+  def charge_succeeded params
+  
+    begin
+      transfer_to_stakeholders_account params
+      transfer_to_shared_streams params
+    
+      # cache income and fees
+      #self.update(
+      #  generated_income: generated_income + gateway_payment.amount,
+      #  generated_fee:    generated_fee    + gateway_payment.fee.round
+      #)
+    rescue => e
+      post_error "Stake#charge_succeeded: #{e.inspect}"
+    end
+  end
+  
   private 
+
+  # create a stripe transfer 
+  def transfer_to_stakeholders_account params
+    
+    begin
+      order_item             = Shop::OrderItem.cached_find( params[:order_item_id] )
+      # sending transfers with same sender and recipient will fail
+      unless order_item.seller_account_id == order_item.buyer_account_id
+        
+        case self.ip_type
+        when "PublishingAgreement", "Ipi"
+          params[:amount]           = self.flat_rate_in_cent
+          params[:application_fee]  = 0
+        else
+          params[:amount]           = (self.flat_rate_in_cent - params[:payment_fee]).round.to_i
+          application_fee           = (params[:amount].to_f * 0.02 ).round.to_i 
+          application_fee           = 1 if( application_fee < 1 )
+          params[:application_fee]  = application_fee
+        end
+        send_micro_transaction params
+      end
+    
+    rescue => e
+      errored('Stake#transfer_to_stakeholders_account', e )
+    end         
+  end
+
+  def transfer_to_shared_streams params
+    begin
+      self.stakeholders.each do |stakeholder|
+        stakeholder.charge_succeeded params
+      end
+    rescue => e
+      errored('Stake#transfer_to_shared_streams', e )
+    end 
+  end
+  
+  def send_micro_transaction  params
+    ap 'send_micro_transaction'
+    ap params
+    
+    begin
+      # prevent the same transfer to run two times
+      stripe_transfer = Shop::StripeTransfer
+      .where(   
+        shop_order_id:        params[:order_id],
+        shop_order_item_id:   params[:order_item_id], 
+        account_id:           self.account_id,
+        user_id:              self.user_id,  
+        stake_id:             self.id
+      )
+      .first_or_create( 
+        shop_order_id:        params[:order_id],
+        shop_order_item_id:   params[:order_item_id], 
+        account_id:           self.account_id,
+        user_id:              self.user_id,  
+        stake_id:             self.id,  
+        source_transaction:   params[:stripe_charge_id],
+        destination:          self.account.user.stripe_id, 
+        #split:                self.split,
+        amount:               params[:amount],
+        currency:             'usd',
+        application_fee:      params[:application_fee]
+      )
+      #ap stripe_transfer
+      stripe_transfer.pay
+      #update_income gateway_payment if stripe_transfer.pay
+    rescue => e
+      errored('Stake#micro_transaction', e )
+    end 
+  end
+  
+  
+  
   
   
   # optimize this . Cache in field
@@ -127,21 +212,22 @@ class Stake < ActiveRecord::Base
     #ap 'calculate_unit_price'
     #ap self.asset_type
     #price = 0.0
-    case self.asset_type
-    when 'Shop::Product'
-      price = asset.price.to_f * 0.0001 * self.split if self.asset  
-    when 'Stake'
-      stake = Stake.cached_find(self.asset_id)
-      price = stake.unit_price * stake.split * 0.0001
-    when 'Recording'
-      if recording = Recording.find_by(uuid: self.asset_id)
-        if product = recording.product
-          price    = product.price * self.split * 0.0001
-        end
-      end
-      #price = asset
-    end
-    price
+    #case self.asset_type
+    #when 'Shop::Product'
+    #  price = asset.price.to_f * 0.0001 * self.split if self.asset  
+    #when 'Stake'
+    #  stake = Stake.cached_find(self.asset_id)
+    #  price = stake.unit_price * stake.split * 0.0001
+    #when 'Recording'
+    #  if recording = Recording.find_by(uuid: self.asset_id)
+    #    if product = recording.product
+    #      price    = product.price * self.split * 0.0001
+    #    end
+    #  end
+    #  #price = asset
+    #end
+    #price
+    123
   end
   
   def set_relations
@@ -152,64 +238,6 @@ class Stake < ActiveRecord::Base
     attach_to_user
   end
   
-  def let_other_get_their_cut order_item_id, amount, stripe_charge_id, payment_fee
-
-    self.stakeholders.each do |stakeholder|
-      stakeholder.charge_succeeded order_item_id, amount, stripe_charge_id, payment_fee
-    end
-  end
-  
-  # create a stripe transfer 
-  def take_a_cut order_item_id, amount, stripe_charge_id, payment_fee
-    ap "------------Stake#take_a_cut: -----------------------------"
-    ap "amount: #{amount}"
-    ap "payment_fee: #{payment_fee}"
-    begin
-      order_item      = Shop::OrderItem.cached_find( order_item_id )
-      
-      amount          -= payment_fee
-      amount          = (amount.to_f * self.split)
-      
-      # digiramps cut
-      application_fee = (amount * 0.02).round 
-      application_fee = 1 if application_fee == 0
-      
-
-      # tripy way to prevent the same transfer to run two times
-      stripe_transfer = Shop::StripeTransfer
-          .where( shop_order_id:        order_item.shop_order_id,
-                  shop_order_item_id:   order_item_id, 
-                  account_id:           self.account_id,
-                  user_id:              self.account.user_id,
-                  source_transaction:   stripe_charge_id,
-                  stake_id:             self.id
-                 )
-          .first_or_create( shop_order_id:        order_item.shop_order_id,
-                            shop_order_item_id:   order_item_id, 
-                            account_id:           self.account_id,
-                            user_id:              self.account.user_id,
-                            source_transaction:   stripe_charge_id,
-                            split:                self.split,
-                            amount:               amount.to_i,
-                            currency:             'usd',
-                            stake_id:             self.id,
-                            application_fee:      application_fee.to_i,
-                            description:          order_item
-                           )
-      
-      # stripe_transfer
-      
-      # mark as paid if the money already is on the right account
-      if order_item.seller_account_id == order_item.buyer_account_id
-        stripe_transfer.finis! 
-      else
-        stripe_transfer.pay
-      end
-
-    rescue => e
-      errored('Stake#transfer_to_stripe', e )
-    end         
-  end
 
 
   def flush_cache

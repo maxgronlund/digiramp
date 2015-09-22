@@ -86,6 +86,7 @@ class RecordingIpi < ActiveRecord::Base
                      )
       else
         stake = Stake.create(  account_id:          self.account_id,
+                               user_id:             self.user_id,
                                asset_id:            recording_uuid,
                                asset_type:          'Recording',
                                ip_uuid:             self.uuid,

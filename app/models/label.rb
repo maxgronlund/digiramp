@@ -103,6 +103,7 @@ class Label < ActiveRecord::Base
       else
         stake = Stake.create(  
           account_id:          self.account.id,
+          user_id:             self.user_id,
           asset_id:            recording.uuid,
           asset_type:          'Recording',
           ip_uuid:             distribution_agreement.uuid,

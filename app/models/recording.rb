@@ -224,7 +224,6 @@ class Recording < ActiveRecord::Base
 
     return false unless ipis_is_registered?
     recording_ipis.each do |recording_ipi|
-      ap "recording_ipi.accepted?: #{recording_ipi.status}"
       return false unless recording_ipi.accepted?
     end
     true

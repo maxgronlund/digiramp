@@ -38,9 +38,11 @@ class StripeChargeService
           order.order_content[:payment_source] = JSON.parse(stripe_payment_source.to_json).deep_symbolize_keys 
           order.order_content[:total_price]    = order.total_price
           
-          
 
-          order.charge_succeeded( stripe_object.id, stripe_object.amount )
+          order.charge_succeeded( 
+            amount:           stripe_object.amount,
+            stripe_charge_id: stripe_object.id
+          )
           order.save(validate: false)
           order.finish!
           

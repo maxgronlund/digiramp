@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150921225031) do
+ActiveRecord::Schema.define(version: 20150922111213) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1695,11 +1695,15 @@ ActiveRecord::Schema.define(version: 20150921225031) do
 
   create_table "gateway_payments", force: :cascade do |t|
     t.uuid     "stake_id"
-    t.decimal  "fee"
+    t.decimal  "payment_fee"
     t.string   "gateway"
     t.integer  "amount"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
+    t.string   "stripe_charge_id"
+    t.string   "order_id"
+    t.string   "order_item_id"
+    t.boolean  "no_payment_fee",   default: false
   end
 
   add_index "gateway_payments", ["stake_id"], name: "index_gateway_payments_on_stake_id", using: :btree
@@ -3224,6 +3228,9 @@ ActiveRecord::Schema.define(version: 20150921225031) do
     t.uuid     "ip_uuid"
     t.string   "ip_type"
     t.boolean  "expired",           default: false
+    t.integer  "generated_fee",     default: 0
+    t.integer  "generated_income",  default: 0
+    t.integer  "user_id"
   end
 
   add_index "stakes", ["asset_type", "asset_id"], name: "index_stakes_on_asset_type_and_asset_id", using: :btree

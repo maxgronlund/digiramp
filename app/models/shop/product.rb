@@ -226,7 +226,8 @@ class Shop::Product < ActiveRecord::Base
     if self.productable_type == 'Recording'
       #recording.update_stakes self
     else
-      Stake.create( account_id:            self.account_id, 
+      Stake.create( account_id:          self.account_id, 
+                    user_id:             self.user_id,
                     split:               100,
                     flat_rate_in_cent:   0,
                     currency:            'usd',

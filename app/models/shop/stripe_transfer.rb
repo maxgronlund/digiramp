@@ -7,16 +7,14 @@ class Shop::StripeTransfer < ActiveRecord::Base
   belongs_to :user
   belongs_to :account
   belongs_to :stake       
-  
-  
-  
-  include AASM
+  default_scope -> { order('created_at ASC') }
   
 
+  include AASM
+  
   def title
     self.order_item ? order_item.title : 'na'
   end
-  
 
  #aasm column: 'state', whiny_transitions: false do
  aasm column: 'state' do
@@ -53,42 +51,46 @@ class Shop::StripeTransfer < ActiveRecord::Base
  end
  
  def pay
-   '=================================== StripeTransfer================================================='
-   '--- pay ---'
+   set_description
    self.process!
    
    begin
-    ap Stripe::Transfer.create(
-      amount:                 self.amount,
-      destination:            self.user.stripe_id,
+    Stripe::Transfer.create(
+      amount:                 self.amount.round.to_i,
+      destination:            self.destination,
       source_transaction:     self.source_transaction,
       currency:               self.currency,
-      description:            get_description,
-      #metadata:               {'fees' => get_fees.to_s},
+      description:            self.description,
+      metadata:               {'description' => self.description},
       statement_descriptor:   'DigiRAMP Payment',
       application_fee:        self.application_fee
     )
     self.finis!
    rescue Stripe::StripeError => e
+    
      self.fail!
-     self.stripe_errors = e.message
+     self.update(stripe_errors: e.message)
      errored('Shop::StripeTransfer#pay', e )
+     return false
    end
-   self.save
+   true
  end
  
  private 
  
- def get_description
-   
-   if order_item && product = order_item.shop_product
-     self.description = order_item.quantity.to_s
-     self.description << ' x '
-     self.description << product.product_title
-   else
-    self.description = 'DigiRAMP Payment'
-   end
-   self.description
+ def set_description
+   begin
+     if order_item && product = order_item.shop_product
+       desc = order_item.quantity.to_s
+       desc << ' x '
+       desc << product.product_title
+     else
+       desc = 'DigiRAMP Payment'
+     end
+     update(description: desc)
+   rescue => e
+      errored('Shop::StripeTransfer#pay', e )
+   end 
  end
 
 

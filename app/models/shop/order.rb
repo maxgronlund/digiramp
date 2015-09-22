@@ -186,14 +186,13 @@ class Shop::Order < ActiveRecord::Base
   end
   
   # the order is paid for, time to pay the stakeholders
-  def charge_succeeded stripe_charge_id, amount
-    
-    fee = payment_fee_pr_order_item
-    ap "Order#payment_fee_pr_order_item: #{fee}"
+  def charge_succeeded params
 
+    params[:payment_fee]  = payment_fee_pr_order_item
+    params[:order_id]     = self.id
     begin
       self.order_items.each do |order_item|
-        order_item.charge_succeeded( amount, stripe_charge_id, fee) 
+        order_item.charge_succeeded params
       end
     rescue => error
       post_error "Order#create_transfers: #{error.inspect}"
@@ -203,7 +202,6 @@ class Shop::Order < ActiveRecord::Base
   private 
   
   def payment_fee_pr_order_item
-    
     # what is the payment fee total
     payment_fee = Admin.stripe_fee.to_f
     # what it the fee pr item
