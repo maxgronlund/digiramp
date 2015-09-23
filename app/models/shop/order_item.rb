@@ -16,45 +16,21 @@ class Shop::OrderItem < ActiveRecord::Base
   # transfer payment to all stakeholders
   # called when payments success
   def charge_succeeded params
-    #ap '----- OrderItem charge_succeeded -----'
-    #ap params
-    self.update(sold: true)
 
-    params[:order_item_id] = self.id
-    
     begin
-      product             = self.shop_product
-      stakes              = product.stakeholders
-      payment_fee_slices  = product.stakeholders.count
-      payment_fee         = params[:payment_fee] 
-       
-      if stakes = product.stakeholders.where(ip_type: ['Ipi', 'PublishingAgreement'])
-        params[:payment_fee] = 0
-        charge_stakes stakes, params
-        payment_fee_slices -= stakes.count
-      end
+      self.update(sold: true)
       
-      params[:payment_fee] = payment_fee / payment_fee_slices
+      params[:order_item_id] = self.id
+      product                = self.shop_product
       
-      if stakes = product.stakeholders.where.not(ip_type: ['Ipi', 'PublishingAgreement'] )
-        charge_stakes stakes, params
+      product.stakeholders.each  do |stake|
+        stake.charge_succeeded params
       end
 
     rescue => e
       post_error "OrderItem#charge_succeeded: #{e.inspect}"
     end
   end
-  
-  def charge_stakes stakes, params
-    begin
-      stakes.each do |stake|
-        stake.charge_succeeded params
-      end
-    rescue => e
-      post_error "OrderItem#charge_publishing_stakes: #{e.inspect}"
-    end
-  end
-
 
   def description
     return shop_product.additional_info if shop_product
@@ -97,7 +73,7 @@ class Shop::OrderItem < ActiveRecord::Base
   def buyer_account_id
     begin
       self.shop_order.buyer_account_id
-    rescue
+    rescue => e
       post_error "Shop::OrderItem id: #{self.id} buyer_account_id not found "
       User.system_user.account.id
     end

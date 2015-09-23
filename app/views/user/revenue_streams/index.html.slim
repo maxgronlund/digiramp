@@ -49,7 +49,7 @@
                 tr
                   td = stake.title
                   td = stake.description
-                  td = stake.units_sold
+                  td = stake.units
                   td = number_to_currency( stake.flat_rate_in_cent * 0.01, precision: 2, locale: 'en')
                   /td = number_to_percentage(stake.split, precision: 4) 
                   td = number_to_currency( stake.fees * 0.01, precision: 2, locale: 'en')

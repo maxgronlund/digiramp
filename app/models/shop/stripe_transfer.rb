@@ -67,7 +67,6 @@ class Shop::StripeTransfer < ActiveRecord::Base
     )
     self.finis!
    rescue Stripe::StripeError => e
-    
      self.fail!
      self.update(stripe_errors: e.message)
      errored('Shop::StripeTransfer#pay', e )

@@ -34,10 +34,14 @@
                                                                     turboboost: true, 
                                                                     :method => 'post' do |f|
             = f.hidden_field :account_id, value: @user.account.id
+            = f.hidden_field :user_id,    value: @user.id
             = f.hidden_field :asset_id, value:   @stake.id
             = f.hidden_field :asset_type, value: @stake.class.name
-            = f.hidden_field :flat_rate_in_cent, value: 0
-            = f.hidden_field :currency, value: 'usd'
+            = f.hidden_field :flat_rate_in_cent, value: @stake.flat_rate_in_cent
+            = f.hidden_field :currency,          value: @stake.currency
+            = f.hidden_field :ip_uuid,           value: @stake.ip_uuid
+            = f.hidden_field :ip_type,           value: @stake.ip_type
+            = f.hidden_field :expired,           value: @stake.expired
             = f.hidden_field :unassigned, value: true
             /= f.hidden_field :original_source, value: @stake.original_source
             .row

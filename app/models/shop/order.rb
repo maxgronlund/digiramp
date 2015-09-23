@@ -74,10 +74,7 @@ class Shop::Order < ActiveRecord::Base
       # '======================================================'
 
       self.update(charge_id: charge.id)
-      # '----------------- charge_id ----------------------------'
-      # self.charge_id
-      # '--------------------------------------------------------'
-      
+
     rescue Stripe::StripeError => e
       self.update_attributes(error: e.message)
       self.fail!
@@ -145,23 +142,23 @@ class Shop::Order < ActiveRecord::Base
   def store_order_lines
     
     begin
-    self.order_lines = []
-    self.order_items.each_with_index do |order_item, index|
-      if product = order_item.shop_product
-        
-        self.order_lines[index] = product.as_json.merge( "total_price"        => (order_item.quantity * product.price),
-                                                         "quantity"           => order_item.quantity,
-                                                         "shop_order_item_id" => order_item.id,
-                                                         "seller_info"        => order_item.seller_info)
-                                                         
-                                                         
-        product.update_stock
+      self.order_lines = []
+      self.order_items.each_with_index do |order_item, index|
+        if product = order_item.shop_product
+          
+          self.order_lines[index] = product.as_json.merge( "total_price"        => (order_item.quantity * product.price),
+                                                           "quantity"           => order_item.quantity,
+                                                           "shop_order_item_id" => order_item.id,
+                                                           "seller_info"        => order_item.seller_info)
+                                                           
+                                                           
+          product.update_stock
+        end
       end
+      save!
+    rescue => e
+      post_error "Order#store_order_lines #{e.message}"
     end
-    save!
-  rescue => e
-    post_error "Order#store_order_lines #{e.message}"
-  end
   end
 
   def require_shipping_address
@@ -188,7 +185,14 @@ class Shop::Order < ActiveRecord::Base
   # the order is paid for, time to pay the stakeholders
   def charge_succeeded params
 
-    params[:payment_fee]  = payment_fee_pr_order_item
+    ap 'Order#charge_succeeded'
+    ap params
+    ap split               = payment_fee_split
+    params[:stripe_fees]   *= split
+    params[:digiramp_fees] *= split
+    ap '----------------------'
+    ap params
+    
     params[:order_id]     = self.id
     begin
       self.order_items.each do |order_item|
@@ -201,12 +205,15 @@ class Shop::Order < ActiveRecord::Base
 
   private 
   
-  def payment_fee_pr_order_item
-    # what is the payment fee total
-    payment_fee = Admin.stripe_fee.to_f
+  def payment_fee_split 
     # what it the fee pr item
-    split_between = self.order_items ? self.order_items.count.to_f : 1.0
-    payment_fee / split_between
+    begin
+      raise 'there has to be at least one item on an order' if order_items.count.to_i == 0
+      1.0 / order_items.count
+    rescue => e
+      post_error "Order#payment_fee_pr_order_item #{e.message}"
+    end
+    return 1
   end
 
   def flush_cache

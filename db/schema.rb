@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150922111213) do
+ActiveRecord::Schema.define(version: 20150923163905) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1025,6 +1025,15 @@ ActiveRecord::Schema.define(version: 20150922111213) do
   add_index "comments", ["commentable_id", "commentable_type"], name: "index_comments_on_commentable_id_and_commentable_type", using: :btree
   add_index "comments", ["user_id"], name: "index_comments_on_user_id", using: :btree
 
+  create_table "commers_fees", force: :cascade do |t|
+    t.decimal  "digiramp_percentage_fee", default: 1.4
+    t.integer  "digiramp_flat_fee",       default: 1
+    t.decimal  "stripe_percentage_fee",   default: 2.9
+    t.integer  "stripe_flat_fee",         default: 30
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
+  end
+
   create_table "common_work_ipis", force: :cascade do |t|
     t.integer  "common_work_id"
     t.integer  "ipi_id"
@@ -1693,21 +1702,6 @@ ActiveRecord::Schema.define(version: 20150922111213) do
     t.datetime "updated_at",             null: false
   end
 
-  create_table "gateway_payments", force: :cascade do |t|
-    t.uuid     "stake_id"
-    t.decimal  "payment_fee"
-    t.string   "gateway"
-    t.integer  "amount"
-    t.datetime "created_at",                       null: false
-    t.datetime "updated_at",                       null: false
-    t.string   "stripe_charge_id"
-    t.string   "order_id"
-    t.string   "order_item_id"
-    t.boolean  "no_payment_fee",   default: false
-  end
-
-  add_index "gateway_payments", ["stake_id"], name: "index_gateway_payments_on_stake_id", using: :btree
-
   create_table "genre_imports", force: :cascade do |t|
     t.string   "csv_file",   limit: 255
     t.datetime "created_at"
@@ -1864,6 +1858,22 @@ ActiveRecord::Schema.define(version: 20150922111213) do
   end
 
   add_index "import_ipis", ["account_id"], name: "index_import_ipis_on_account_id", using: :btree
+
+  create_table "incomes", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "account_id"
+    t.uuid     "stake_id"
+    t.integer  "amount",             default: 0
+    t.integer  "application_fee",    default: 0
+    t.integer  "payment_fee",        default: 0
+    t.string   "source_transaction"
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
+  end
+
+  add_index "incomes", ["account_id"], name: "index_incomes_on_account_id", using: :btree
+  add_index "incomes", ["stake_id"], name: "index_incomes_on_stake_id", using: :btree
+  add_index "incomes", ["user_id"], name: "index_incomes_on_user_id", using: :btree
 
   create_table "instrument_tags", force: :cascade do |t|
     t.integer  "recording_id"
@@ -3153,7 +3163,7 @@ ActiveRecord::Schema.define(version: 20150922111213) do
     t.string   "uuid"
     t.boolean  "show_in_shop",               default: false
     t.integer  "productable_id"
-    t.string   "productable_type"
+    t.string   "productable_type",           default: "Shop::Product"
     t.integer  "views",                      default: 0
     t.string   "delivery_time",              default: "Two to four days"
     t.integer  "shipping_cost"
@@ -3187,7 +3197,7 @@ ActiveRecord::Schema.define(version: 20150922111213) do
     t.uuid     "stake_id"
     t.decimal  "split"
     t.date     "due_date"
-    t.integer  "amount"
+    t.integer  "amount",             default: 0
     t.datetime "created_at",                             null: false
     t.datetime "updated_at",                             null: false
     t.string   "destination"
@@ -3196,7 +3206,8 @@ ActiveRecord::Schema.define(version: 20150922111213) do
     t.string   "state",              default: "pending"
     t.string   "stripe_errors"
     t.string   "description"
-    t.integer  "application_fee"
+    t.integer  "application_fee",    default: 0
+    t.integer  "payment_fee",        default: 0
   end
 
   add_index "shop_stripe_transfers", ["account_id"], name: "index_shop_stripe_transfers_on_account_id", using: :btree
@@ -3231,6 +3242,7 @@ ActiveRecord::Schema.define(version: 20150922111213) do
     t.integer  "generated_fee",     default: 0
     t.integer  "generated_income",  default: 0
     t.integer  "user_id"
+    t.integer  "units_sold",        default: 0
   end
 
   add_index "stakes", ["asset_type", "asset_id"], name: "index_stakes_on_asset_type_and_asset_id", using: :btree
@@ -3734,8 +3746,8 @@ ActiveRecord::Schema.define(version: 20150922111213) do
   add_foreign_key "distribution_agreements", "accounts", on_delete: :cascade
   add_foreign_key "distribution_agreements", "labels", on_delete: :cascade
   add_foreign_key "documents", "accounts", on_delete: :cascade
-  add_foreign_key "gateway_payments", "stakes", on_delete: :cascade
   add_foreign_key "import_batches", "accounts", on_delete: :cascade
+  add_foreign_key "incomes", "stakes", on_delete: :cascade
   add_foreign_key "invoices", "accounts", on_delete: :cascade
   add_foreign_key "ipis", "ipis", on_delete: :cascade
   add_foreign_key "item_likes", "users", on_delete: :cascade

@@ -16,7 +16,7 @@ class Shop::Product < ActiveRecord::Base
   DOWNLOAD_CATEGORIES = ["Recording", "Protools project", "Logic project", "Individual tracks (remix pack)", "Sample pack", "Graphics"]
   
 
-  after_create :initialize_defaults
+  
   after_commit :flush_cache
   
   #has_and_belongs_to_many :order_items, :class_name => "Shop::OrderItem"
@@ -139,9 +139,13 @@ class Shop::Product < ActiveRecord::Base
   end
   
   def stakeholders
-    if recording
-      recording.stakes
-    end
+    case self.productable_type
+    when 'Recording'
+      return recording.stakes if recording
+    when "Shop::Product"
+      return Stake.where(asset_type: 'Shop::Product', asset_id:  self.id)
+    end 
+    nil
   end
 
   
@@ -194,10 +198,7 @@ class Shop::Product < ActiveRecord::Base
     end
      
   end
-  
-  
-  
-  
+
   def recording
     if self.productable_type == 'Recording'
       return Recording.cached_find(self.productable_id)
@@ -205,6 +206,35 @@ class Shop::Product < ActiveRecord::Base
     nil
   end
   
+  def configure_stakeholder
+    ap '--------------------------------------'
+    ap 'configure_stakeholder'
+    ap '--------------------------------------'
+    if self.productable_type == 'Recording'
+      #recording.update_stakes self
+    else
+      if stake = Stake.find_by(
+        asset_id:            self.id,
+        asset_type:          self.class.name 
+      )
+      else stake = Stake.create( 
+        asset_id:            self.id,
+        asset_type:          self.class.name 
+      )
+      end
+      stake.update(
+        account_id:          self.account_id, 
+        user_id:             self.user_id,
+        split:               100,
+        flat_rate_in_cent:   self.price,
+        currency:            'usd',
+        email:               self.account.user.email,
+        unassigned:          false,
+        asset_id:            self.id,
+        asset_type:          self.class.name
+      )
+    end
+  end
 
   private 
   
@@ -219,26 +249,7 @@ class Shop::Product < ActiveRecord::Base
   #end
 
   
-  def initialize_defaults
-    ap '--------------------------------------'
-    ap 'initialize_defaults'
-    ap '--------------------------------------'
-    if self.productable_type == 'Recording'
-      #recording.update_stakes self
-    else
-      Stake.create( account_id:          self.account_id, 
-                    user_id:             self.user_id,
-                    split:               100,
-                    flat_rate_in_cent:   0,
-                    currency:            'usd',
-                    email:               self.account.user.email,
-                    unassigned:          false,
-                    asset_id:            self.id,
-                    asset_type:          self.class.name
-                    #original_source:     self.title
-                   )
-    end
-  end
+  
   
 
   def flush_cache

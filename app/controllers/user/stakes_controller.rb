@@ -4,10 +4,11 @@ class User::StakesController < ApplicationController
   before_action :access_user
   
   def index
-
-    if recording = @shop_product.recording
-      @stakes =  recording.stakes
-    end
+    
+    @stakes =   @shop_product.stakeholders
+    #if recording = @shop_product.recording
+    #  @stakes =  recording.stakes
+    #end
   end
 
   def new
@@ -43,16 +44,16 @@ class User::StakesController < ApplicationController
   
   # Never trust parameters from the scary internet, only allow the white list through.
   def stake_params
-    params.require(:stake).permit(:account_id,
-                                  :split,
-                                  :flat_rate_in_cent,
-                                  :currency,
-                                  :email,
-                                  :unassigned,
-                                  :channel_uuid,
-                                  :asset_id,
-                                  :asset_type
-                                  )
+    params.require(:stake).permit!#(:account_id,
+                                  #:split,
+                                  #:flat_rate_in_cent,
+                                  #:currency,
+                                  #:email,
+                                  #:unassigned,
+                                  #:channel_uuid,
+                                  #:asset_id,
+                                  #:asset_type
+                                  #)
   end
 end
 

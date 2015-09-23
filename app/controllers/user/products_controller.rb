@@ -104,6 +104,7 @@ class User::ProductsController < ApplicationController
 
     respond_to do |format|
       if @shop_product.save
+        @shop_product.configure_stakeholder
         @shop_product.valid_for_sale!
         
         # only aplies for recordings
@@ -130,7 +131,7 @@ class User::ProductsController < ApplicationController
     
     respond_to do |format|
       if @shop_product.update(shop_product_params)
-        
+        @shop_product.configure_stakeholder
         @shop_product.valid_for_sale!
         
         if @shop_product.distribution_agreement

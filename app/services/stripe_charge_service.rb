@@ -38,10 +38,23 @@ class StripeChargeService
           order.order_content[:payment_source] = JSON.parse(stripe_payment_source.to_json).deep_symbolize_keys 
           order.order_content[:total_price]    = order.total_price
           
+          amount                            = stripe_object.amount
+          # Stripe fees
+          ammount_without_stripe_fees       = Admin.without_stripe_fees( amount )
+          stripe_fees                       = amount - ammount_without_stripe_fees
+          # DigiRAMP fees
+          ammount_without_digiramp_fees     = Admin.without_digiramp_fees( ammount_without_stripe_fees )
+          digiramp_fees                     = ammount_without_stripe_fees - ammount_without_digiramp_fees
+          # Percentage
+          all_fees_in_percent               = ammount_without_digiramp_fees / amount
 
           order.charge_succeeded( 
-            amount:           stripe_object.amount,
-            stripe_charge_id: stripe_object.id
+            ammount_without_stripe_fees:      ammount_without_stripe_fees,
+            stripe_fees:                      stripe_fees,
+            ammount_without_digiramp_fees:    ammount_without_digiramp_fees,
+            digiramp_fees:                    digiramp_fees,
+            all_fees_in_percent:              all_fees_in_percent,
+            stripe_charge_id:                 stripe_object.id
           )
           order.save(validate: false)
           order.finish!

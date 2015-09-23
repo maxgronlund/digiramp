@@ -20,17 +20,41 @@ class Admin < ActiveRecord::Base
     admin.orders_count
   end
   
-  def self.stripe_fee
-    admin = Admin.first_or_create
-    admin.stripe_fee
+  #def self.stripe_fee
+  #  admin = Admin.first_or_create
+  #  admin.stripe_fee
+  #end
+  #
+  #def self.digiramp_fee
+  #  admin = Admin.first_or_create
+  #  admin.digiramp_fee
+  #end
+  
+  def self.commers_fee
+    CommersFee.first_or_create
   end
   
-  def self.digiramp_fee
-    admin = Admin.first_or_create
-    admin.digiramp_fee
+  def self.application_percentate_fees
+    (commers_fee.stripe_percentage_fee + commers_fee.digiramp_percentage_fee) * 0.01
+  end
+  
+  def self.application_flat_fees
+    commers_fee.stripe_flat_fee + commers_fee.digiramp_flat_fee
+  end
+  
+  def self.without_stripe_fees amount
+    fee = amount * commers_fee.stripe_percentage_fee * 0.01
+    amount -= fee
+    amount - commers_fee.stripe_flat_fee
+  end
+  
+  def self.without_digiramp_fees amount
+    fee = amount * commers_fee.digiramp_percentage_fee * 0.01
+    amount -= fee
+    amount - commers_fee.digiramp_flat_fee
   end
   
 end
 
-
+# Admin.without_stripe_fees amount
 # Admin.get_invoice_nr
