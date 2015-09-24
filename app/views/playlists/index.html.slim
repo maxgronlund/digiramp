@@ -19,7 +19,7 @@
             .help-button
               == render 'admin/helps/help', identifier: 'user playlists'
 
-      .sexy_line
+      .pull-down-10
       .playlist-badges
         - if @user.permits? current_user  
           == render 'playlists/create_playlist'
