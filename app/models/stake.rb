@@ -145,6 +145,19 @@ class Stake < ActiveRecord::Base
     end
   end
   
+  def update_income params
+    ap 'Stake#update_income'
+    ap params
+    Income.create(
+      stake_id:             self.id,
+      user_id:              self.user_id,
+      account_id:           self.account_id,
+      amount:               params[:amount].round,
+      application_fee:      params[:application_fee].round,
+      source_transaction:   params[:stripe_charge_id]
+    )
+  end
+  
   
   private 
 
@@ -171,18 +184,7 @@ class Stake < ActiveRecord::Base
     end         
   end
   
-  def update_income params
-    ap 'Stake#update_income'
-    ap params
-    Income.create(
-      stake_id:             self.id,
-      user_id:              self.user_id,
-      account_id:           self.account_id,
-      amount:               params[:amount].round,
-      application_fee:      params[:application_fee].round,
-      source_transaction:   params[:stripe_charge_id]
-    )
-  end
+  
   
   
 
