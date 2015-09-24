@@ -15,17 +15,21 @@ class StripeChargeService
     
 
     events.subscribe 'charge.dispute.created' do |event|
-      ap '########################################################'
-      ap 'charge.dispute.created'
-      ap '########################################################'
+      if Rails.env.development?
+        ap '########################################################'
+        ap 'charge.dispute.created'
+        ap '########################################################'
+      end
       StripeMailer.admin_dispute_created(stripe_event: event.data.object).deliver_later
     end
     
   
     events.subscribe 'charge.succeeded' do |event|
-      ap '########################################################'
-      ap 'charge.succeeded'
-      ap '########################################################'
+      if Rails.env.development?
+        ap '########################################################'
+        ap 'charge.succeeded'
+        ap '########################################################'
+      end
 
       errored("Event: ", event)                         unless stripe_data            = event.data
       errored("Stripe object: ", stripe_data)           unless stripe_object          = stripe_data.object

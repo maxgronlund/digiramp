@@ -43,7 +43,7 @@ class Admin < ActiveRecord::Base
   end
   
   def self.without_stripe_fees amount
-    fee = amount * commers_fee.stripe_percentage_fee * 0.01
+    fee    = amount * commers_fee.stripe_percentage_fee * 0.01
     amount -= fee
     amount - commers_fee.stripe_flat_fee
   end

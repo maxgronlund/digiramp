@@ -185,13 +185,11 @@ class Shop::Order < ActiveRecord::Base
   # the order is paid for, time to pay the stakeholders
   def charge_succeeded params
 
-    ap 'Order#charge_succeeded'
-    ap params
-    ap split               = payment_fee_split
+
+    split               = payment_fee_split
     params[:stripe_fees]   *= split
     params[:digiramp_fees] *= split
-    ap '----------------------'
-    ap params
+
     
     params[:order_id]     = self.id
     begin

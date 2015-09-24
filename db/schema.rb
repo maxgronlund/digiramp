@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150923163905) do
+ActiveRecord::Schema.define(version: 20150924112619) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -3738,7 +3738,7 @@ ActiveRecord::Schema.define(version: 20150923163905) do
   add_foreign_key "clients", "accounts", on_delete: :cascade
   add_foreign_key "common_work_ipis", "common_works", on_delete: :cascade
   add_foreign_key "common_work_ipis", "ipis", on_delete: :cascade
-  add_foreign_key "common_work_ipis", "publishing_agreements"
+  add_foreign_key "common_work_ipis", "publishing_agreements", on_delete: :cascade
   add_foreign_key "common_works_imports", "accounts", on_delete: :cascade
   add_foreign_key "contracts", "accounts", on_delete: :cascade
   add_foreign_key "creative_projects", "accounts", on_delete: :cascade
@@ -3776,7 +3776,7 @@ ActiveRecord::Schema.define(version: 20150923163905) do
   add_foreign_key "recording_downloads", "shop_products"
   add_foreign_key "recording_downloads", "users", on_delete: :cascade
   add_foreign_key "recording_ipis", "accounts", on_delete: :cascade
-  add_foreign_key "recording_ipis", "distribution_agreements"
+  add_foreign_key "recording_ipis", "distribution_agreements", on_delete: :cascade
   add_foreign_key "recording_users", "recordings", on_delete: :cascade
   add_foreign_key "recording_views", "accounts", on_delete: :cascade
   add_foreign_key "representative_splits", "accounts"
