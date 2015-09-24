@@ -20,7 +20,7 @@
           - if super? || current_account_user.create_crm
             .pull-right
               = link_to new_account_account_project_path(@account) do
-                .btn.btn-primary
+                .btn.btn-info
                   i class="fa fa-plus-circle"
                   '&nbsp;
                   'New Project
@@ -115,7 +115,7 @@
 /                      td
 /                        .pull-right
 /                          = link_to edit_account_account_project_path(@account, project) do
-/                            .btn.btn-primary.btn-lg
+/                            .btn.btn-info.btn-lg
 /                              i class="fa fa-pencil"
 /                          '&nbsp;
 /                          = link_to account_account_project_path(@account, project), data: { confirm: 'Are you sure?' } , :method => :delete do

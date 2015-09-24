@@ -29,7 +29,7 @@
                                               :placeholder => 'Search for contacts', \
                                               value: params[:query], autofocus: true
                 .input-group-btn
-                  = f.submit 'Go', class: "btn btn-primary"
+                  = f.submit 'Go', class: "btn btn-info"
                   '&nbsp;
                   = link_to 'Show All', user_user_contacts_path( @user ), class: 'btn btn-default'
         

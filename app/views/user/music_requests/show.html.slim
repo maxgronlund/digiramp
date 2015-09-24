@@ -30,7 +30,7 @@
                                             :placeholder => 'Search for recordings you already uploaded', \
                                             value: params[:query], autofocus: true
               .input-group-btn
-                = f.submit 'Go', class: "btn btn-primary please_wait"
+                = f.submit 'Go', class: "btn btn-info please_wait"
                 '&nbsp;
                 = link_to 'Clear', user_recordings_path(@user), class: 'btn btn-default'
       .sexy_line
@@ -95,7 +95,7 @@
           /    - unless @opportunity.opportunity_users.where(user_id: current_user.id).first.nil?  
           /      = link_to opportunity_opportunity_music_request_submit_from_index_path(@opportunity, \
           /                                                                                    @music_request) do 
-          /        .btn.btn-primary.btn
+          /        .btn.btn-info.btn
           /          i class="fa fa-plus-circle"
           /          '&nbsp;Add Submission
           

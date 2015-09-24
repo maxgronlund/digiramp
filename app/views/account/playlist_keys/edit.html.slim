@@ -75,12 +75,12 @@
             .pull-right
               /-if @playlist_key.status == 'new'
               /  = f.hidden_field :status, value: 'send'
-              /  = f.submit 'Send Invitation', class: 'btn btn-primary btn-lg'
+              /  = f.submit 'Send Invitation', class: 'btn btn-info btn-lg'
               /-else
               /= f.hidden_field :status, value: 'updated'
               = link_to 'Cancel', account_account_playlist_path(@account, @playlist_key.playlist), class: 'btn btn-default btn-lg'
               '&nbsp;
-              = f.submit 'Save', class: 'btn btn-primary btn-lg'
+              = f.submit 'Save', class: 'btn btn-info btn-lg'
         .col-sm-3
           
     == render 'shared/back', locals: {link: account_account_playlist_path(@account, @playlist_key.playlist)}

@@ -18,7 +18,7 @@
       
         .col-sm-7
           .pull-right.pull-down-10
-            = link_to 'New template', new_admin_contract_path, class: 'btn btn-primary'
+            = link_to 'New template', new_admin_contract_path, class: 'btn btn-info'
             /= simple_form_for  [ @user ], :url => url_for(:action => 'index', \
             /                                              :controller => 'users'), \
             /                                              :method => 'get',
@@ -31,7 +31,7 @@
             /                                  :placeholder => 'Search for user', \
             /                                  value: params[:query]
             /    .input-group-btn
-            /      = f.submit 'Search', class: "btn btn-primary"
+            /      = f.submit 'Search', class: "btn btn-info"
             /      '&nbsp;
             /      = link_to 'Clear', admin_users_path, class: 'btn btn-default'        
             

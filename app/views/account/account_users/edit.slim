@@ -41,7 +41,7 @@
               .pull-right
                 = link_to 'Cancel', account_account_account_users_path(@account), class: 'btn btn-default'
                 '&nbsp;
-                = f.submit 'Update', class: 'btn btn-primary'
+                = f.submit 'Update', class: 'btn btn-info'
                    
               
   == render 'shared/site_footer'    
@@ -80,7 +80,7 @@
 /          /= f.hidden_field :user_id, value: @account_user.user_id
 /          == render 'form', f: f
 /          .pull-right
-/            =f.submit 'Update', class: 'btn btn-primary btn-lg'
+/            =f.submit 'Update', class: 'btn btn-info btn-lg'
 /          
 /        
 /    == render 'shared/back', locals: {link: account_account_account_users_path(@account)}      

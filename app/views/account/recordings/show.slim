@@ -26,7 +26,7 @@
       /    .pull-right
       /      .recording-navigation
       /        = link_to new_account_account_opportunity_path(@user.account) do
-      /          .btn.btn-primary
+      /          .btn.btn-info
       /            i.fa.fa-plus-circle
       /            '&nbsp;
       /            'Create Recording
@@ -36,7 +36,7 @@
         .col-sm-4
           .pull-right.pull-down-10
             => link_to 'Common work', account_account_common_work_path(@account, @recording.get_common_work), class: 'btn btn-default'
-            = link_to 'Edit', edit_account_account_common_work_recording_path(@account, @recording.get_common_work, @recording), class: 'btn btn-primary'
+            = link_to 'Edit', edit_account_account_common_work_recording_path(@account, @recording.get_common_work, @recording), class: 'btn btn-info'
           
       .sexy_line
       .row

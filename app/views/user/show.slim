@@ -29,7 +29,7 @@
                   i class="fa fa-eye"
               '&nbsp;
               = link_to edit_user_account_path(@user, @user.account.id) do
-                .btn.btn-primary.btn-lg
+                .btn.btn-info.btn-lg
                   i class="fa fa-pencil"
               
 
@@ -53,9 +53,9 @@
             = simple_format @user.profile
             .pull-right
               = link_to edit_user_path(@user) do
-                .btn.btn-primary.btn-lg
+                .btn.btn-info.btn-lg
                   i class="fa fa-pencil"
-              /= link_to 'Edit Profile', edit_user_path(@user), class: 'btn btn-primary btn-lg'
+              /= link_to 'Edit Profile', edit_user_path(@user), class: 'btn btn-info btn-lg'
             
                 
       .col-sm-6.pull-up-20
@@ -77,7 +77,7 @@
         == render 'users/shared/badge_button', locals: { \
                                                     blog_post: 'CATALOGS', \
                                                     link: user_user_catalogs_path(@user), \
-                                                    css_class: 'btn btn-primary', \
+                                                    css_class: 'btn btn-info', \
                                                     icon: 'fa fa-book' \
                                                   }
                                                   

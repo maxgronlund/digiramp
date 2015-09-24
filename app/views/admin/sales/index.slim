@@ -43,9 +43,9 @@
                   .pull-right
                     => link_to 'Show', admin_sale_path( shop_order ), class: 'btn btn-default btn-xs'
                     - if Rails.env == 'development'
-                      = link_to 'Stripe', "https://manage.stripe.com/test/payments/#{shop_order.charge_id}" , :target => "_blank", class: 'btn btn-primary btn-xs'
+                      = link_to 'Stripe', "https://manage.stripe.com/test/payments/#{shop_order.charge_id}" , :target => "_blank", class: 'btn btn-info btn-xs'
                     - else
-                      = link_to 'Stripe', "https://manage.stripe.com/payments/#{shop_order.charge_id}" , :target => "_blank", class: 'btn btn-primary btn-xs'
+                      = link_to 'Stripe', "https://manage.stripe.com/payments/#{shop_order.charge_id}" , :target => "_blank", class: 'btn btn-info btn-xs'
             
             /-@sales.each do |sale| 
             /  tr
@@ -58,9 +58,9 @@
             /      .pull-right
             /        => link_to 'Show', admin_sale_path( sale ), class: 'btn btn-default btn-xs'
             /        - if Rails.env == 'development'
-            /          = link_to 'Stripe', "https://manage.stripe.com/test/payments/#{sale.stripe_id}" , :target => "_blank", class: 'btn btn-primary btn-xs'
+            /          = link_to 'Stripe', "https://manage.stripe.com/test/payments/#{sale.stripe_id}" , :target => "_blank", class: 'btn btn-info btn-xs'
             /        - else
-            /          = link_to 'Stripe', "https://manage.stripe.com/payments/#{sale.stripe_id}" , :target => "_blank", class: 'btn btn-primary btn-xs'
+            /          = link_to 'Stripe', "https://manage.stripe.com/payments/#{sale.stripe_id}" , :target => "_blank", class: 'btn btn-info btn-xs'
             /
 
 

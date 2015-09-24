@@ -33,7 +33,7 @@
         .col-sm-6.pull-down-10
           .pull-right
             - if super?
-              = link_to 'New Forum', new_user_forum_path( current_user ), class: 'btn btn-primary'
+              = link_to 'New Forum', new_user_forum_path( current_user ), class: 'btn btn-info'
       .sexy_line
       - @forums.each do |forum|
         == render 'forums/show', forum: forum, read_more: true, delete_forum: true, show_heading: true

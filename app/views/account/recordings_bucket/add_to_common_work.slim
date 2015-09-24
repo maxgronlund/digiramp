@@ -29,7 +29,7 @@
           /.pull-right
           /  .recording-navigation
           /    = link_to new_account_account_opportunity_path(@user.account) do
-          /      .btn.btn-primary
+          /      .btn.btn-info
           /        i.fa.fa-plus-circle
           /        '&nbsp;
           /        'Create Opportunity
@@ -52,7 +52,7 @@
                                                 blog: blog, \
                                                 post: BlogPost.cached_find( "ADD TO EXISTING COMMON WORK" , blog ), \
                                                 link: select_common_work_account_account_recordings_bucket_index_path(@account, ids: @recording_ids), \
-                                                css_class: 'btn btn-primary', \
+                                                css_class: 'btn btn-info', \
                                                 icon: 'fa fa-music', \
                                                 id: 'documents' \
                                               }
@@ -166,7 +166,7 @@
 /                                              blog: blog, \
 /                                              post: BlogPost.cached_find( "ADD TO EXISTING COMMON WORK" , blog ), \
 /                                              link: select_common_work_account_account_recordings_bucket_index_path(@account, ids: @recording_ids), \
-/                                              css_class: 'btn btn-primary', \
+/                                              css_class: 'btn btn-info', \
 /                                              icon: 'fa fa-music', \
 /                                              id: 'documents' \
 /                                            }

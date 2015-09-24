@@ -6,4 +6,4 @@ div id="old_connection_#{connection.id}"
       - unless connection.dismissed
         = f.submit "Dismiss", class: 'btn btn-default btn-xs'
         '&nbsp;
-    = f.submit connection.approved ? 'Dismiss' : 'Accept', class: 'btn btn-primary btn-xs'
+    = f.submit connection.approved ? 'Dismiss' : 'Accept', class: 'btn btn-info btn-xs'

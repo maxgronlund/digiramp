@@ -18,7 +18,7 @@
     /    = @new_single_work.body
     /  -if super?
     /    .col-sm-6
-    /      = link_to 'Edit', edit_admin_blog_blog_post_path(@blog, @new_single_work), class: 'btn btn-primary btn-lg'
+    /      = link_to 'Edit', edit_admin_blog_blog_post_path(@blog, @new_single_work), class: 'btn btn-info btn-lg'
     /hr
     = simple_form_for [@account, @common_work], url: url_for(action: 'create', controller: 'single_work'), method: 'post' do |f|
       == render 'form', f: f

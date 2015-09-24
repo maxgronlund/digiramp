@@ -24,7 +24,7 @@
               b Delivered:
               =< @digiramp_email.updated_at.strftime("%Y-%m-%d")
             -else
-              = link_to 'Edit', edit_admin_email_group_digiramp_email_path(@email_group, @digiramp_email), class: 'btn btn-primary'
+              = link_to 'Edit', edit_admin_email_group_digiramp_email_path(@email_group, @digiramp_email), class: 'btn btn-info'
       .sexy_line
       == render 'admin/digiramp_emails/layouts/' + @digiramp_email.layout
 

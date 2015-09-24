@@ -18,7 +18,7 @@
         .col-sm-4
           .pull-right 
             = link_to edit_account_account_client_group_path(@account, @client_group) do
-              .btn.btn-primary
+              .btn.btn-info
                 i class="fa fa-pencil"
                 '&nbsp;
                 'Edit
@@ -30,7 +30,7 @@
           = form_tag account_account_client_group_import_client_emails_path(@account, @client_group) do 
             = text_area_tag :emails, nil, style: "width:100%; height:320px;", placeholder: 'i.e. john@doe.com, jane@doe.com'
             br
-            = submit_tag("Add", class: "btn btn-primary pull-right")
+            = submit_tag("Add", class: "btn btn-info pull-right")
         .col-sm-6
           .table-responsive
             table class="table table-hover"
@@ -102,7 +102,7 @@
 /            br
 /            .pull-right 
 /              = link_to edit_account_account_client_group_path(@account, @client_group) do
-/                .btn.btn-primary.btn-lg
+/                .btn.btn-info.btn-lg
 /                  i class="fa fa-pencil"
 /        .panel.panel-primary
 /          .panel-heading
@@ -136,7 +136,7 @@
 /              = text_area_tag :emails, nil, style: "width:100%; height:320px;", placeholder: 'i.e. john@doe.com, jane@doe.com'
 /              br
 /              br
-/              = submit_tag("Add", class: "btn btn-primary btn-lg pull-right")
+/              = submit_tag("Add", class: "btn btn-info btn-lg pull-right")
 /       
 /
               

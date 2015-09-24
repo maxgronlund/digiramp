@@ -24,9 +24,9 @@
                   
             - if user = @subscription.user
               - if Rails.env == 'development'
-                = link_to 'Stripe', "https://dashboard.stripe.com/test/customers/#{user.stripe_customer_id}", :target => "_blank" , class: 'btn btn-primary'
+                = link_to 'Stripe', "https://dashboard.stripe.com/test/customers/#{user.stripe_customer_id}", :target => "_blank" , class: 'btn btn-info'
               - else 
-                = link_to 'Stripe', "https://dashboard.stripe.com/customers/#{user.stripe_customer_id}", :target => "_blank" , class: 'btn btn-primary'
+                = link_to 'Stripe', "https://dashboard.stripe.com/customers/#{user.stripe_customer_id}", :target => "_blank" , class: 'btn btn-info'
                   
 
       .sexy_line

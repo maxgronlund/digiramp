@@ -31,7 +31,7 @@
                       td
                         - if preview = playlist.preview
                           = link_to account_account_playlist_preview_path(@account, preview ) do
-                           .btn.btn-primary.btn-lg
+                           .btn.btn-info.btn-lg
                              i class="fa fa-eye"
                              '&nbsp;
                              = playlist.title
@@ -46,7 +46,7 @@
                         .pull-right
                           - if current_account_user.update_playlist?
                             = link_to account_account_playlist_path(@account, playlist) do
-                              .btn.btn-primary.btn-lg
+                              .btn.btn-info.btn-lg
                                 i class="fa fa-pencil"
                           -if current_account_user.delete_playlist?
                             '&nbsp;

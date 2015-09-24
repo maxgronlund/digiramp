@@ -34,7 +34,7 @@
                                             
           
                 .input-group-btn
-                  = submit_tag 'Search', class: 'btn btn-primary'
+                  = submit_tag 'Search', class: 'btn btn-info'
                   '&nbsp;
                   = link_to 'Clear', catalog_account_catalog_find_common_work_in_collection_path(@account, @catalog), class: 'btn btn-default'
       
@@ -77,7 +77,7 @@
                           /  '&nbsp;
                           /-if current_account_user.update_common_work
                           /  = link_to edit_catalog_account_catalog_common_work_path(@account, @catalog, common_work) do
-                          /    .btn.btn-primary.btn-lg
+                          /    .btn.btn-info.btn-lg
                           /      i class="fa fa-pencil"
                           /  '&nbsp;
                           

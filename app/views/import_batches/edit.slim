@@ -25,7 +25,7 @@
               = f.input :csv_file, label: 'Recordings CSV File'
               hr
               .pull-right
-                = f.submit 'Save', class: 'btn btn-primary btn-lg'
+                = f.submit 'Save', class: 'btn btn-info btn-lg'
 
 -cache (['footer', Admin.cached_find(1).version]) do      
   =render 'shared/footer'

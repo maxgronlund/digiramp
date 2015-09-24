@@ -33,7 +33,7 @@
                                               :placeholder => 'Search for users', \
                                               value: params[:query]
                 .input-group-btn
-                  => submit_tag 'Go', class: "btn btn-primary"
+                  => submit_tag 'Go', class: "btn btn-info"
                   = link_to 'Clear', users_path( clear: 'clear'), class: 'btn btn-default'
       .sexy_line
       .endless-users

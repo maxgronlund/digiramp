@@ -91,7 +91,7 @@
 
         
             
-      .sexy_line
+      
       .row
         .col-sm-6
         .col-sm-6
@@ -114,9 +114,10 @@
                                               
 
                 .input-group-btn
-                  = f.submit 'Go', class: "btn btn-primary"
+                  = f.submit 'Go', class: "btn btn-info"
                   '&nbsp;
                   = link_to 'Clear', songs_path(clear: 'clear'), class: 'btn btn-default'
+      .pull-down-10
       .endless-pages
       == render 'songs/index', songs: @songs
       .add_songs

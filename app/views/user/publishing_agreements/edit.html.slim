@@ -47,7 +47,7 @@
             /  .row
             /    .col-sm-12
             /      .pull-right.pull-down-8
-            /        = f.submit 'Save', class: 'btn btn-primary'
+            /        = f.submit 'Save', class: 'btn btn-info'
             /= simple_form_for [ @user, @publisher, @document ] , :url => url_for(:action => 'update', :controller => 'publishing_agreements'), turboboost: true, :method => 'PUT' do |f|
             /  = f.error_notification
             /  .form-inputs

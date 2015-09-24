@@ -58,9 +58,9 @@ section id="home" class="homepage"
 
 
         .home-buttons
-          /= link_to signup_index_path, class: "btn btn-primary btn-lg wow slideInLeft animated" do
+          /= link_to signup_index_path, class: "btn btn-info btn-lg wow slideInLeft animated" do
           /  i.fa.fa-rocket &nbsp; Get Started
-          = link_to discover_index_path, class: "btn btn-primary btn-lg wow slideInLeft animated" do
+          = link_to discover_index_path, class: "btn btn-info btn-lg wow slideInLeft animated" do
             i.fa.fa-rocket &nbsp; Discover
           - if current_user
             = link_to user_path(current_user), class: "btn btn-default btn-lg wow slideInRight animated" do

@@ -17,10 +17,10 @@
                 h3 = params[:message]
                 br
                 - unless params[:success]
-                  = link_to 'Try again', unsubscribes_path(uuid: params[:uuid]), class: 'btn btn-primary'
+                  = link_to 'Try again', unsubscribes_path(uuid: params[:uuid]), class: 'btn btn-info'
               - else
                 - if current_user
-                  = link_to 'Unsubscribe', unsubscribe_path(params[:uuid]), method: :delete,  data: {confirm: 'Are you sure?'}, class: 'btn btn-primary'
+                  = link_to 'Unsubscribe', unsubscribe_path(params[:uuid]), method: :delete,  data: {confirm: 'Are you sure?'}, class: 'btn btn-info'
                 - else
                   = form_tag unsubscribe_path( params[:uuid] ), :method => 'get' do
                 
@@ -34,7 +34,7 @@
                                                   
                     br
                 
-                    = submit_tag 'Unsubscribe', class: 'btn btn-primary'
+                    = submit_tag 'Unsubscribe', class: 'btn btn-info'
                   
             
 

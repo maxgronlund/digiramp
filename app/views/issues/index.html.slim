@@ -37,7 +37,7 @@
                                               :placeholder => "Search", \
                                               value: params[:query], autofocus: true
                 .input-group-btn
-                  = f.submit 'Go', class: "btn btn-primary"
+                  = f.submit 'Go', class: "btn btn-info"
                   '&nbsp;
                   = link_to 'Clear', admin_issues_path, class: 'btn btn-default'
                   
@@ -45,7 +45,7 @@
       .row
         .col-sm-12
           .pull-right
-            = link_to 'Report an Issue', new_user_issue_path(current_user), class: 'btn btn-primary'
+            = link_to 'Report an Issue', new_user_issue_path(current_user), class: 'btn btn-info'
       .digi-box.pull-down-8
         .new-issues
         == render 'index', issues: @issues

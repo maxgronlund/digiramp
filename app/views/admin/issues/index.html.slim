@@ -36,7 +36,7 @@
                                             :placeholder => "Search", \
                                             value: params[:query], autofocus: true
               .input-group-btn
-                = f.submit 'Go', class: "btn btn-primary"
+                = f.submit 'Go', class: "btn btn-info"
                 '&nbsp;
                 = link_to 'Clear', admin_issues_path, class: 'btn btn-default'
 
@@ -76,7 +76,7 @@
 /                                                :placeholder => 'Search string', \
 /                                                value: params[:query]
 /                .col-sm-6
-/                  = submit_tag 'Search', class: 'btn btn-primary btn-lg'
+/                  = submit_tag 'Search', class: 'btn btn-info btn-lg'
 /                  '&nbsp;
 /                  = link_to 'Show All',admin_issues_path, class: 'btn btn-default btn-lg'
 /    
@@ -147,7 +147,7 @@
 /                              i class="fa fa-eye"
 /                          '&nbsp;   
 /                          = link_to edit_admin_issue_path( issue ) do
-/                            .btn.btn-primary.btn-lg
+/                            .btn.btn-info.btn-lg
 /                              i class="fa fa-pencil"
 /                          /-if super?
 /                          /  '&nbsp;

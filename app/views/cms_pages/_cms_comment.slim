@@ -13,7 +13,7 @@
       .row
         .col-sm-12
           .pull-right
-            = f.submit 'Post', class: 'btn btn-primary'
+            = f.submit 'Post', class: 'btn btn-info'
   br
   .rec-comments
     - @cms_page.comments.order('created_at desc').each do |comment|

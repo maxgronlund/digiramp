@@ -28,13 +28,13 @@
                   h4 &nbsp;
                   = simple_format blog_post.body
                   .pull-right
-                   = link_to 'Edit', edit_admin_blog_blog_post_path(development_log, blog_post), class: 'btn btn-primary btn-lg'
+                   = link_to 'Edit', edit_admin_blog_blog_post_path(development_log, blog_post), class: 'btn btn-info btn-lg'
               == render 'shared/line'
                   
     .row
       .col-sm-12
         .pull-right
-          = link_to 'New', new_admin_blog_blog_post_path(development_log), class: 'btn btn-primary btn-lg'
+          = link_to 'New', new_admin_blog_blog_post_path(development_log), class: 'btn btn-info btn-lg'
             
         
 

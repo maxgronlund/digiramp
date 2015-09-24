@@ -29,7 +29,7 @@
             
             .pull-right
               = link_to account_account_opportunity_opportunity_user_path(@account, @opportunity, opportunity_user) do
-                .btn.btn-xs.btn-primary
+                .btn.btn-xs.btn-info
                   'Submissions
                   '&nbsp;
                   = opportunity_user.music_submissions.size
@@ -43,6 +43,6 @@
     /      '&nbsp; Previous invitations
     /  '&nbsp;    
     /  = link_to new_account_account_opportunity_opportunity_invitation_path(@account, @opportunity) do
-    /    .btn.btn-primary.btn-xs
+    /    .btn.btn-info.btn-xs
     /      i class="fa fa-plus-circle"
     /      '&nbsp; Invite Providers

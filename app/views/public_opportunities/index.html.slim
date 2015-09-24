@@ -28,8 +28,8 @@
                                               :placeholder => 'Search for opportunities', \
                                               value: params[:query]
                 .input-group-btn
-                  = submit_tag 'Go', class: "btn btn-primary"
-                  /= f.submit 'Go', class: "btn btn-primary"
+                  = submit_tag 'Go', class: "btn btn-info"
+                  /= f.submit 'Go', class: "btn btn-info"
                   '&nbsp;
                   = link_to 'Clear', public_opportunities_path( clear: 'clear'), class: 'btn btn-default'
           

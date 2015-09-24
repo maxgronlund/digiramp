@@ -20,7 +20,7 @@
 
           -if super? || current_user.id == @user.id
             .pull-right
-              = link_to 'Edit', edit_user_issue_path(@user, @issue), class: 'btn btn-primary'
+              = link_to 'Edit', edit_user_issue_path(@user, @issue), class: 'btn btn-info'
               - if super?
                 =< link_to 'Admin', edit_admin_issue_path(@issue), class: 'btn btn-default'
       .sexy_line
@@ -56,7 +56,7 @@
             .col-sm-12
               hr
               .pull-right
-                = f.submit 'Save', class: 'btn btn-primary'
+                = f.submit 'Save', class: 'btn btn-info'
             
               
   == render 'shared/site_footer'    

@@ -92,7 +92,7 @@
       
       /=> f.submit 'Close', class: 'btn btn-default', data: { confirm: "Your changes will be saved and the wizard will close. Are you sure that's what you want?"  }
       /=> link_to 'Close', user_recording_path(@user, @recording), class: 'btn btn-default', data: { confirm: "Your changes will not be saved and the wizard will close. Are you sure that's what you want?"  }
-      = f.submit  'Save', class: 'btn btn-primary'
+      = f.submit  'Save', class: 'btn btn-info'
       coffee:
         $("form#recording_artwork").submit ->
           $(this).find('input[type=submit]').attr('disabled', 'disabled')

@@ -17,7 +17,7 @@
       
         .col-sm-7
           .pull-right.pull-down-10
-            = link_to 'New Term', new_admin_term_path, class: 'btn btn-primary'
+            = link_to 'New Term', new_admin_term_path, class: 'btn btn-info'
       .row
         .col-sm-5
         .col-sm-7
@@ -34,7 +34,7 @@
                                               :placeholder => 'Search for term', \
                                               value: params[:query], autofocus: true
                 .input-group-btn
-                  = f.submit 'Search', class: "btn btn-primary"
+                  = f.submit 'Search', class: "btn btn-info"
                   '&nbsp;
                   = link_to 'Clear', admin_terms_path, class: 'btn btn-default'        
             

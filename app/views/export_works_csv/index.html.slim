@@ -21,7 +21,7 @@
               = text_field_tag "query", "", :class => 'search-query form-control', :placeholder => 'Search string',  value: params[:query]
             .col-sm-6
               br
-              = submit_tag 'Search', class: 'btn btn-primary btn-lg'
+              = submit_tag 'Search', class: 'btn btn-info btn-lg'
               '&nbsp;
               = link_to 'Show All', account_export_works_csv_index_path(@account), class: 'btn btn-default btn-lg'
               
@@ -80,9 +80,9 @@
                 .row
                   .col-sm-12
                     .pull-right
-                      = link_to 'Export All Works', account_export_works_csv_index_path(@account, format: "csv"), class: 'btn btn-primary btn-lg'
+                      = link_to 'Export All Works', account_export_works_csv_index_path(@account, format: "csv"), class: 'btn btn-info btn-lg'
                       '&nbsp;
-                      = link_to 'Export Viewed Works', account_export_works_csv_index_path(@account, query: params[:query], format: "csv"), class: 'btn btn-primary btn-lg'
+                      = link_to 'Export Viewed Works', account_export_works_csv_index_path(@account, query: params[:query], format: "csv"), class: 'btn btn-info btn-lg'
                       
                       
                         

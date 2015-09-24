@@ -25,7 +25,7 @@
         .row
           .col-sm-12
             .pull-right
-              = link_to 'Edit', edit_admin_blog_blog_post_path(blog, blog_post), class: 'btn btn-primary'
+              = link_to 'Edit', edit_admin_blog_blog_post_path(blog, blog_post), class: 'btn btn-info'
         /.row
         /  .col-sm-6
         /    - blog_post = BlogPost.cached_find( "TERMS AND CONDITIONS" , blog )
@@ -33,7 +33,7 @@
         /                                        blog: blog, \
         /                                        post: blog_post, \
         /                                        link: edit_admin_blog_blog_post_path(blog, blog_post), \
-        /                                        css_class: 'btn btn-primary', \
+        /                                        css_class: 'btn btn-info', \
         /                                        icon: 'fa fa-gavel', \
         /                                        id: 'terms' \
         /                                      }

@@ -36,7 +36,7 @@
               - if super? || current_account_user.read_common_work_ipi
                 =< link_to "Work IPI's", account_account_common_work_common_work_ipis_path(@account, @common_work), class: 'btn btn-default'
               - if super? || current_account_user.update_common_work        
-                =< link_to 'Edit', edit_account_account_common_work_path(@account, @common_work), class: 'btn btn-primary'
+                =< link_to 'Edit', edit_account_account_common_work_path(@account, @common_work), class: 'btn btn-info'
 
       .sexy_line
       .row
@@ -196,7 +196,7 @@
 /        /    == render 'shared/badge_button', locals: { \
 /        /                                               blog_post: 'EDIT', \
 /        /                                               link: edit_account_work_path(@account, @common_work), \
-/        /                                               css_class: 'btn btn-primary', \
+/        /                                               css_class: 'btn btn-info', \
 /        /                                               icon: 'fa fa-pencil' \
 /        /                                             }
 /        /                                             

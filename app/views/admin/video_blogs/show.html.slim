@@ -1,4 +1,4 @@
-/ = link_to 'Edit', admin_video_blog_path(@video_blog), class: 'btn btn-primary'
+/ = link_to 'Edit', admin_video_blog_path(@video_blog), class: 'btn btn-info'
 #wrap
   .full-width-top
     == render 'admin/shared/navbar', page: 'blog'
@@ -34,7 +34,7 @@
                   br
                   .pull-right
                     =link_to edit_admin_video_blog_video_path(@video_blog, video), 'data-no-turbolink'=> true do
-                      .btn.btn-primary.btn-lg
+                      .btn.btn-info.btn-lg
                         i class="fa fa-pencil"
                     '&nbsp;
                     =link_to admin_video_blog_video_path(@video_blog, video), data: { confirm: 'Are you sure?' } , :method => :delete do

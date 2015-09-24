@@ -47,9 +47,9 @@
                     - if user = subscription.user
 
                     - if Rails.env == 'development'
-                      = link_to 'Stripe', "https://dashboard.stripe.com/test/customers/#{user.stripe_customer_id}", :target => "_blank" , class: 'btn btn-primary btn-xs'
+                      = link_to 'Stripe', "https://dashboard.stripe.com/test/customers/#{user.stripe_customer_id}", :target => "_blank" , class: 'btn btn-info btn-xs'
                     - else
-                      = link_to 'Stripe', "https://dashboard.stripe.com/customers/#{user.stripe_customer_id}", :target => "_blank" , class: 'btn btn-primary btn-xs'
+                      = link_to 'Stripe', "https://dashboard.stripe.com/customers/#{user.stripe_customer_id}", :target => "_blank" , class: 'btn btn-info btn-xs'
                     /https://dashboard.stripe.com/test/payments/ch_15vUn1DCWuUtTcRTs0mQb1YN
                 /td = sale.email 
                 //td = sale.guid 
@@ -59,7 +59,7 @@
                 /td 
                 /  .pull-right
                 /    => link_to 'Show', admin_sale_path( sale ), class: 'btn btn-default btn-xs'
-                /    = link_to 'Stripe', "https://manage.stripe.com/payments/#{sale.stripe_id}" , class: 'btn btn-primary btn-xs'
+                /    = link_to 'Stripe', "https://manage.stripe.com/payments/#{sale.stripe_id}" , class: 'btn btn-info btn-xs'
           
 
 

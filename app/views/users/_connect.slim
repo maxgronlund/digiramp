@@ -23,7 +23,7 @@
     
   - else
     = link_to new_connection_digalog_path(sender: current_user, receiver: user), remote: true do
-          .btn.btn-primary
+          .btn.btn-info
             i.fa.fa-refresh
             '&nbsp;Connect
     
@@ -31,7 +31,7 @@
     
     
     /= link_to "#", 'data-toggle'.to_sym => "modal", 'data-target'.to_sym => "#connect_modal_#{@user.id.to_s}" do
-    /  .btn.btn-primary.btn-xs
+    /  .btn.btn-info.btn-xs
     /    i.fa.fa-refresh
     /    '&nbsp;Connect  
     

@@ -19,7 +19,7 @@
 
           -if super? || current_user.id == @user.id
             .pull-right
-              = link_to 'Edit', edit_user_issue_path(@user, @issue), class: 'btn btn-primary'
+              = link_to 'Edit', edit_user_issue_path(@user, @issue), class: 'btn btn-info'
               - if super?
                 =< link_to 'Admin', edit_admin_issue_path(@issue), class: 'btn btn-default'
       .sexy_line
@@ -62,7 +62,7 @@
               .row
                .col-sm-12
                 .pull-right
-                  = f.submit 'Post', class: 'btn btn-primary'
+                  = f.submit 'Post', class: 'btn btn-info'
           .col-sm-6
             h4 Comments
             -comments = Comment.where(commentable_id: @issue.id, commentable_type: @issue.class.name)

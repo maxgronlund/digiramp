@@ -22,7 +22,7 @@
                 = text_field_tag "query", "", :class => 'search-query form-control', :placeholder => 'Search string', value: params[:query]
               .col-sm-6
 
-                = submit_tag 'Search', class: 'btn btn-primary btn-lg'
+                = submit_tag 'Search', class: 'btn btn-info btn-lg'
                 '&nbsp;
                 = link_to 'Show All',admin_video_blogs_path, class: 'btn btn-default btn-lg'
               br
@@ -58,7 +58,7 @@
                              i class='fa fa-eye'
                          '&nbsp;
                          = link_to edit_admin_video_blog_path(video_blog), 'data-no-turbolink'=> true do
-                           .btn.btn-primary.btn-lg
+                           .btn.btn-info.btn-lg
                              i class='fa fa-pencil'
                          '&nbsp;
                          = link_to  admin_video_blog_path(video_blog, page: params[:page]), data: { confirm: 'Are you sure?' } , :method => :delete do

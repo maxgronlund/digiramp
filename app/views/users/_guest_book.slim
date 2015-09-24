@@ -11,7 +11,7 @@
     .row
       .col-sm-12
         .pull-right
-          = f.submit 'Post', class: 'btn btn-primary'
+          = f.submit 'Post', class: 'btn btn-info'
 - else
   = simple_form_for [ Comment.new ], remote: true do |f|
     .row
@@ -25,9 +25,9 @@
     .row
       .col-sm-12
         .pull-right
-          /= f.submit 'Post', class: 'btn btn-primary'
+          /= f.submit 'Post', class: 'btn btn-info'
           = link_to new_become_member_path(user: @user.id), remote: true do
-            .btn.btn-primary
+            .btn.btn-info
               '&nbsp;Post
     
 

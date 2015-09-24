@@ -35,7 +35,7 @@
             - if current_user
               - if ( @user.id == current_user.id )|| super?
                 = link_to user_user_activities_path(@user) do
-                  .btn.btn-primary
+                  .btn.btn-info
                     i.fa.fa-history
                     '&nbsp;Activities
       .sexy_line
@@ -51,7 +51,7 @@
                                               :placeholder => 'Search for users', \
                                               value: params[:query]
                 .input-group-btn
-                  => submit_tag 'Go', class: "btn btn-primary"
+                  => submit_tag 'Go', class: "btn btn-info"
                   = link_to 'Clear', users_path( clear: 'clear'), class: 'btn btn-default'
       .pull-down-10
       .endless-users

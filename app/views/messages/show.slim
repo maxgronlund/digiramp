@@ -123,13 +123,13 @@
                   /  = f.hidden_field :approved, value: true
                   /  = link_to "Dismiss", '#', class: 'btn btn-default'
                   /  '&nbsp;
-                    /  = f.submit 'Accept invitation', class: 'btn btn-primary'
+                    /  = f.submit 'Accept invitation', class: 'btn btn-info'
               - else
                 .alert.alert-warning
                   '! Connection deleted
         
             - when 'Opportunity'
-              = link_to 'Show me the opportunity', opportunity_opportunity_path(@message.subjectable_id, opportunity_invitation: 'true', user_id: @user.id), class: 'btn btn-primary'
+              = link_to 'Show me the opportunity', opportunity_opportunity_path(@message.subjectable_id, opportunity_invitation: 'true', user_id: @user.id), class: 'btn btn-info'
             
             - when 'OpportunityUser'
               - if opportunity_user = OpportunityUser.cached_find( @message.subjectable_id ) rescue nil

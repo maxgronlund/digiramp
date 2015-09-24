@@ -23,9 +23,9 @@
                   '&nbsp;Back
 
             - if Rails.env == 'development'      
-              = link_to 'Stripe', "https://manage.stripe.com/test/payments/#{@shop_order.charge_id}", :target => "_blank" , class: 'btn btn-primary'
+              = link_to 'Stripe', "https://manage.stripe.com/test/payments/#{@shop_order.charge_id}", :target => "_blank" , class: 'btn btn-info'
             - else
-              = link_to 'Stripe', "https://manage.stripe.com/payments/#{@shop_order.charge_id}" , :target => "_blank", class: 'btn btn-primary'
+              = link_to 'Stripe', "https://manage.stripe.com/payments/#{@shop_order.charge_id}" , :target => "_blank", class: 'btn btn-info'
                   
 
       .sexy_line

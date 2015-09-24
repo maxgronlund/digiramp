@@ -25,7 +25,7 @@
                 = text_field_tag "query", "", :class => 'search-query form-control', :placeholder => 'Search string',  value: params[:query]
               .col-sm-4
                 
-                = submit_tag 'Search', class: 'btn btn-primary btn-lg'
+                = submit_tag 'Search', class: 'btn btn-info btn-lg'
                 '&nbsp;
                 = link_to 'Show All',account_works_path(@account), class: 'btn btn-default btn-lg'
                 
@@ -47,7 +47,7 @@
                             td = link_to common_work.title, account_work_path(@account, common_work), class: 'btn btn-default btn-lg'
                             td
                               .pull-right
-                                = link_to 'Select', '#',  class: 'btn btn-primary btn-lg'
+                                = link_to 'Select', '#',  class: 'btn btn-info btn-lg'
                      
                 
     

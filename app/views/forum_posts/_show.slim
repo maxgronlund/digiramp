@@ -58,7 +58,7 @@ div id="remove_forum_post_#{forum_post.id}"
 /      .pull-right
 /        - if current_user 
 /          - if current_user = forum_post.user || super?
-/            => link_to 'Edit', edit_forum_post_path( forum_post), class: 'btn btn-primary'
+/            => link_to 'Edit', edit_forum_post_path( forum_post), class: 'btn btn-info'
 /        == link_to 'Participate', forum_post_path, class: 'btn btn-default'
 /  
 /

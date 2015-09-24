@@ -22,7 +22,7 @@
               = text_field_tag "query", "", :class => 'search-query form-control', :placeholder => 'Search string',  value: params[:query]
             .col-sm-6
               br
-              = submit_tag 'Search', class: 'btn btn-primary btn-lg'
+              = submit_tag 'Search', class: 'btn btn-info btn-lg'
               '&nbsp;
               = link_to 'Show All',catalog_account_catalog_find_common_work_in_collection_path(@account, @catalog), class: 'btn btn-default btn-lg'
             
@@ -80,7 +80,7 @@
                             /  '&nbsp;
                             /-if current_account_user.update_common_work
                             /  = link_to edit_catalog_account_catalog_common_work_path(@account, @catalog, common_work) do
-                            /    .btn.btn-primary.btn-lg
+                            /    .btn.btn-info.btn-lg
                             /      i class="fa fa-pencil"
                             /  '&nbsp;
                             

@@ -32,7 +32,7 @@
                                               :placeholder => 'Search for moods', \
                                               value: params[:query], autofocus: true
                 .input-group-btn
-                  = f.submit 'Search', class: "btn btn-primary"
+                  = f.submit 'Search', class: "btn btn-info"
                   '&nbsp;
                   = link_to 'Clear', admin_genres_path, class: 'btn btn-default'        
       
@@ -44,7 +44,7 @@
             =< link_to 'Export CSV', admin_export_moods_path( format: "csv"), class: 'btn btn-default'
             =< link_to 'Import CSV', new_admin_moods_import_path, class: 'btn btn-default'
             =< link_to 'User Moods', admin_user_moods_path, class: 'btn btn-default'
-            =< link_to 'New', new_admin_mood_path, class: 'btn btn-primary'
+            =< link_to 'New', new_admin_mood_path, class: 'btn btn-info'
       .row
         .col-sm-12
           .digi-box

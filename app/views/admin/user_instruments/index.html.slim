@@ -24,7 +24,7 @@
     /        /      = text_field_tag "query", "", :class => 'search-query form-control', :placeholder => 'Search', value: params[:query]
     /        /    .col-sm-6
     /        /      br
-    /        /      = submit_tag 'Search', class: 'btn btn-primary btn-lg'
+    /        /      = submit_tag 'Search', class: 'btn btn-info btn-lg'
     /        /      '&nbsp;
     /        /      = link_to 'Show All', admin_genres_path, class: 'btn btn-default btn-lg'
     /        /  hr
@@ -48,7 +48,7 @@
                 td 
                   .pull-right
                     = link_to edit_admin_instrument_path(instrument) do
-                      .btn.btn-primary.btn-lg
+                      .btn.btn-info.btn-lg
                         i class="fa fa-pencil"
                     '&nbsp;
                     = link_to admin_instrument_path(instrument)  , data: { confirm: 'Are you sure?' } , method: :delete do

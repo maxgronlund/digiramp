@@ -35,7 +35,7 @@
                                               :placeholder => "Search #{@account.title}'s recordings", \
                                               value: params[:query], autofocus: true
                 .input-group-btn
-                  = f.submit 'Go', class: "btn btn-primary"
+                  = f.submit 'Go', class: "btn btn-info"
                   '&nbsp;
                   = link_to 'Clear', catalog_account_catalog_find_in_collections_path(@account, @catalog), class: 'btn btn-default'
             

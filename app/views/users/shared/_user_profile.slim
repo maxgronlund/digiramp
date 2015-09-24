@@ -11,7 +11,7 @@
         b = @user.user_name
         = simple_format @user.profile
         .pull-right
-          = link_to  edit_user_path( @user ), class: 'btn btn-primary btn-lg', id: 'edit_user_profile' do
+          = link_to  edit_user_path( @user ), class: 'btn btn-info btn-lg', id: 'edit_user_profile' do
             i class='fa fa-pencil'
         
     -if @user.administrator

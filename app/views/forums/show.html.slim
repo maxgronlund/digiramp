@@ -34,7 +34,7 @@
                 'Back
             - if ( current_user && @forum.user.id == current_user.id) || super? 
               = link_to edit_user_forum_path(@forum.user, @forum) do
-                .btn.btn-primary
+                .btn.btn-info
                   i.fa.fa-pencil
                   '&nbsp;Edit
       .sexy_line
@@ -93,7 +93,7 @@
                     .row  
                       .col-sm-12
                         .pull-right
-                          = f.submit 'Create', class: 'btn btn-primary'
+                          = f.submit 'Create', class: 'btn btn-info'
 
       
       

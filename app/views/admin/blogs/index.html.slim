@@ -30,7 +30,7 @@
                                               :placeholder => 'Search', \
                                               value: params[:query], autofocus: true
                 .input-group-btn
-                  = submit_tag 'Search', class: "btn btn-primary"
+                  = submit_tag 'Search', class: "btn btn-info"
                   '&nbsp;
                   = link_to 'Clear', admin_blogs_path, class: 'btn btn-default'           
       .sexy_line
@@ -106,7 +106,7 @@
 /                = text_field_tag "query", "", :class => 'search-query form-control', :placeholder => 'Search string', value: params[:query]
 /              .col-sm-6
 /
-/                = submit_tag 'Search', class: 'btn btn-primary btn-lg'
+/                = submit_tag 'Search', class: 'btn btn-info btn-lg'
 /                '&nbsp;
 /                = link_to 'Show All',admin_blogs_path, class: 'btn btn-default btn-lg'
 /              br
@@ -138,7 +138,7 @@
 /                               i class='fa fa-eye'
 /                           '&nbsp;
 /                           = link_to edit_admin_blog_path(blog) do
-/                             .btn.btn-primary.btn-lg
+/                             .btn.btn-info.btn-lg
 /                               i class='fa fa-pencil'
 /                           '&nbsp;
 /                           = link_to  admin_blog_path(blog, page: params[:page]), data: { confirm: 'Are you sure?' } , :method => :delete do

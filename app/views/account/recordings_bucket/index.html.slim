@@ -27,7 +27,7 @@
           - if super? || current_account_user.create_recording
             .pull-right.pull-down-10
               = link_to new_account_account_audio_file_path(@account) do
-                .btn.btn-primary
+                .btn.btn-info
                   i class="fa fa-plus-circle"
                   '&nbsp;
                   'Add more
@@ -50,7 +50,7 @@
                                               value: params[:query],
                                               autofocus: true
                 .input-group-btn
-                  = f.submit 'Search', class: "btn btn-primary"
+                  = f.submit 'Search', class: "btn btn-info"
                   '&nbsp;
                   = link_to 'Show All',account_account_recordings_bucket_index_path(@account), class: 'btn btn-default'
       
@@ -104,7 +104,7 @@
                                 .btn.btn-danger.btn-xs
                                   i class="fa fa-times"
                 .pull-right
-                  = submit_tag "Edit Checked", class: 'btn btn-primary'
+                  = submit_tag "Edit Checked", class: 'btn btn-info'
                                             
                            
             

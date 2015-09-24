@@ -14,7 +14,7 @@
 /          = simple_format blog_post.body
 /          - if super?
 /            .pull-right
-/              = link_to 'Edit', edit_admin_blog_blog_post_path(blog, blog_post), class: 'btn btn-primary btn-lg'
+/              = link_to 'Edit', edit_admin_blog_blog_post_path(blog, blog_post), class: 'btn btn-info btn-lg'
 /            
 /    
 /-cache (['footer', Admin.cached_find(1).version]) do      
@@ -29,5 +29,5 @@
     = simple_format blog_post.body
     - if super?
       .pull-right
-        = link_to 'Edit', edit_admin_blog_blog_post_path(blog, blog_post), class: 'btn btn-primary btn-lg'
+        = link_to 'Edit', edit_admin_blog_blog_post_path(blog, blog_post), class: 'btn btn-info btn-lg'
   == render 'shared/site_footer'    

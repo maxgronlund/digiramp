@@ -27,7 +27,7 @@
         .col-sm-4
           .pull-right
             = link_to @email_group.mail_list_subscribers.count.to_s + ' Recipients', admin_email_group_email_recipients_path(@email_group), class: 'btn btn-default'
-            =< link_to 'New email', new_admin_email_group_digiramp_email_path( @email_group), class: 'btn btn-primary'
+            =< link_to 'New email', new_admin_email_group_digiramp_email_path( @email_group), class: 'btn btn-info'
       .sexy_line
       .digi-box
               

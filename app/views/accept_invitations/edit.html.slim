@@ -16,7 +16,7 @@
             .row
               .col-sm-12
                 .pull-right
-                  = link_to 'OK', current_user, class: 'btn btn-primary'
+                  = link_to 'OK', current_user, class: 'btn btn-info'
           - elsif @status == 'logged in on other account'
             .alert.alert-danger
                b = @error
@@ -24,12 +24,12 @@
             .row
               .col-sm-12
                 .pull-right
-                  = link_to 'Log out', logout_path(params: params), class: 'btn btn-primary'
+                  = link_to 'Log out', logout_path(params: params), class: 'btn btn-info'
           - elsif @status == 'This invitation is no longer valid'
             h3 = @error
             .sexy_line
             .pull-right
-              = link_to 'OK', current_user ? current_user : root_path , class: 'btn btn-primary'
+              = link_to 'OK', current_user ? current_user : root_path , class: 'btn btn-info'
           -else
           
             h2 Welcome to DigiRAMP
@@ -55,7 +55,7 @@
               .row
                 .col-sm-12.pull-down-12
                   .pull-right
-                    = f.submit 'OK', class: 'btn btn-primary'
+                    = f.submit 'OK', class: 'btn btn-info'
             
           
           
@@ -104,7 +104,7 @@
 /          
 /            .pull-right
 /              br
-/              = f.submit 'OK', class: 'btn btn-primary'
+/              = f.submit 'OK', class: 'btn btn-info'
 /          
 /        
 /

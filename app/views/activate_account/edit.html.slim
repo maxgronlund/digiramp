@@ -17,11 +17,11 @@
               .col-sm-12
                 .pull-right
                   - if @status == 'logged in'
-                    = link_to 'OK', opportunity_opportunity_path(@opportunity), class: 'btn btn-primary'
+                    = link_to 'OK', opportunity_opportunity_path(@opportunity), class: 'btn btn-info'
                   - elsif @status == 'logged in on another account'
-                    = link_to 'Log out', logout_path(params: params), class: 'btn btn-primary'
+                    = link_to 'Log out', logout_path(params: params), class: 'btn btn-info'
                   - elsif @status == 'opportunity not valid'
-                    = link_to 'OK', current_user ? current_user : root_path , class: 'btn btn-primary'
+                    = link_to 'OK', current_user ? current_user : root_path , class: 'btn btn-info'
             
                 
         - else

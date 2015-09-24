@@ -62,7 +62,7 @@
               .pull-right
                 = link_to 'Cancel', account_account_opportunity_path(@account, @opportunity), class: 'btn btn-default'
                 '&nbsp;
-                = f.submit 'Send', class: 'btn btn-primary'
+                = f.submit 'Send', class: 'btn btn-info'
           
           /= f.hidden_field :user_id, value: @user.id
           /= f.hidden_field :account_id, value: @account.id
@@ -70,7 +70,7 @@
           /= f.input :emails, label: 'Invitees'
           /= f.input :subject
           /= f.input :body
-          /= f.submit 'Invite', class: 'btn btn-primary'
+          /= f.submit 'Invite', class: 'btn btn-info'
         
                  
               

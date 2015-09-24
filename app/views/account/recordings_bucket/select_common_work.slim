@@ -16,7 +16,7 @@
             = text_field_tag "query", "", :class => 'search-query form-control', :placeholder => 'Search string',  value: params[:query]
           .col-sm-6
             br
-            = submit_tag 'Search', class: 'btn btn-primary btn-lg'
+            = submit_tag 'Search', class: 'btn btn-info btn-lg'
             '&nbsp;
             = link_to 'Show All', select_common_work_account_account_recordings_bucket_index_path(@account), class: 'btn btn-default btn-lg'
             

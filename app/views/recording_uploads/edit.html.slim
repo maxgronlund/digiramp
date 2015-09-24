@@ -72,7 +72,7 @@
               .pull-right
                 
                 => link_to 'Cancel', user_recordings_path(@user), class: 'btn btn-default'
-                = f.submit 'Next', class: 'btn btn-primary btn-next', disabled: "disabled"
+                = f.submit 'Next', class: 'btn btn-info btn-next', disabled: "disabled"
                 coffee:
                   $("form#audio_files").submit ->
                     $(this).find('input[type=submit]').attr('disabled', 'disabled')
