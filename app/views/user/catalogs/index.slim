@@ -19,7 +19,7 @@
               h2 Catalogs
             .help-button
               == render 'admin/helps/help', identifier: 'user catalogs'
-      .sexy_line
+      .pull-down-10
       .catalog
         .catalog-badges
           - @catalogs.order(:title).each do |catalog|
