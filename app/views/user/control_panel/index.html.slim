@@ -139,9 +139,9 @@
                     i.fa.fa-at
                     
                   .title
-                    h4 Emails
+                    h4 Email administration
                   .body
-                    'Link aditional emails to your account. You can use this for copyrights
+                    'Link aditional emails to your account. Mails you receive from DigiRAMP
             
             .control-panel-badge
               = link_to  edit_user_social_link_path(@user) do
@@ -150,9 +150,9 @@
                     i.fa.fa-link
                     
                   .title
-                    h4 Social links
+                    h4 Social integration
                   .body
-                    'Links to your social accounts will be shown on your profile page
+                    'Links to your social accounts and authorizations to post
             
             /.control-panel-badge
             /  = link_to  edit_user_user_address_path(@user) do
@@ -264,128 +264,14 @@
                   .body
                     'Legal information, Rights, Splits, Licences, and more
                     
-            .control-panel-badge
-              = link_to  user_user_publishers_path(@user) do
-                .content
-                  .icon.icon-green
-                    i.fa.fa-truck
-                    
-                  .title
-                    h4 Publishing
-                  .body
-                    'Publishers used for rights management
-                    
-            .control-panel-badge
-              = link_to  user_user_labels_path(@user) do
-                .content
-                  .icon.icon-yellow
-                    i.fa.fa-book
-                    
-                  .title
-                    h4 Labels
-                  .body
-                    'Manage masters
-                    
-            /- if super?
-            /  = link_to 'SIGNATURE', accepting_signatures_path
-                    
-              /.control-panel-badge
-              /  = link_to  user_user_registrations_path(@user) do
-              /    .content
-              /      .icon.icon-red
-              /        i.fa.fa-money
-              /        
-              /      .title
-              /        h4 Invoices
-              /      .body
-              /        'Payments
-              /        
+            
+
                   
                       
                       
       .pull-down-10
        
-      .row
-        .col-sm-6
-          
-          .digi-box
-            h4 Emails
-            'Emails you will receive from DigiRAMP
-            .sexy_line
-            - if @email_groups
-              - @email_groups.each do |email_group|
-                b = email_group.title
-                
-                .pull-right
-                  - if MailListSubscriber.where(user_id: @user.id, email_group_id: email_group.id ).first
-                     .mail_subscribtion.toggle-light id="#{email_group.id}" data-toggle-on="true" user_id="#{@user.id}"
-                  - else
-                    .mail_subscribtion.toggle-light id="#{email_group.id}"  user_id="#{@user.id}"
-                    
-                .row
-                   .col-sm-12.pull-down-8
-                     = email_group.body
-                .sexy_line
 
-
-        
-        .col-sm-6
-          
-          .digi-box
-            h4 Authorization
-            'Linking your Digiramp account with your favorite social accounts let's you login and post directly from DigiRAMP
-            
-            
-            / facebook -------------------
-            .sexy_line
-            i.fa.fa-facebook-square 
-            '&nbsp;Facebook
-            .pull-right
-              - if authorization_provider = @user.authorization_providers.where(provider: 'facebook').first
-                .facebook-toggle.toggle-light  user_id="#{@user.id}"   data-toggle-on="true"  authorization_provider_id="#{authorization_provider.id}"
-              - else 
-                .facebook-toggle.toggle-light  user_id="#{@user.id}"
-            .sexy_line
-            
-            / twitter -------------------
-            i.fa.fa-twitter
-            '&nbsp;Twitter
-            .pull-right
-              - if authorization_provider = @user.authorization_providers.where(provider: 'twitter').first
-                .twitter-toggle.toggle-light  user_id="#{@user.id}"   data-toggle-on="true"  authorization_provider_id="#{authorization_provider.id}"
-              - else 
-                .twitter-toggle.toggle-light  user_id="#{@user.id}"
-            .sexy_line
-            
-            / linkedin -------------------
-            i.fa.fa-linkedin
-            '&nbsp;Linkedin
-            .pull-right
-              - if authorization_provider = @user.authorization_providers.where(provider: 'linkedin').first
-                .linkedin-toggle.toggle-light  user_id="#{@user.id}"   data-toggle-on="true"  authorization_provider_id="#{authorization_provider.id}"
-              - else 
-                .linkedin-toggle.toggle-light  user_id="#{@user.id}"
-            .sexy_line
-            
-            / google+  -------------------
-            i.fa.fa-google-plus-square
-            '&nbsp;Google+
-            .pull-right
-              - if authorization_provider = @user.authorization_providers.where(provider: 'gplus').first
-                .google-plus-toggle.toggle-light  user_id="#{@user.id}"   data-toggle-on="true"  authorization_provider_id="#{authorization_provider.id}"
-              - else 
-                .google-plus-toggle.toggle-light  user_id="#{@user.id}"
-            .sexy_line
-            
-            / google+  -------------------
-            i.fa.fa-cc-stripe
-            '&nbsp;Stripe
-            .pull-right
-              - if authorization_provider = @user.authorization_providers.where(provider: 'stripe_connect').first
-                .stripe-toggle.toggle-light  user_id="#{@user.id}"   data-toggle-on="true"  authorization_provider_id="#{authorization_provider.id}"
-              - else 
-                .stripe-toggle.toggle-light  user_id="#{@user.id}"
-            .sexy_line
       
       
                   

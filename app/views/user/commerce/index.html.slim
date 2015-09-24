@@ -87,7 +87,27 @@
                   .body
                     'Coupons, services, downloads and othere resources you have bought
                     
-
+            .control-panel-badge
+              = link_to  user_user_publishers_path(@user) do
+                .content
+                  .icon.icon-green
+                    i.fa.fa-truck
+                    
+                  .title
+                    h4 Publishing
+                  .body
+                    'Publishers used for rights management
+                    
+            .control-panel-badge
+              = link_to  user_user_labels_path(@user) do
+                .content
+                  .icon.icon-yellow
+                    i.fa.fa-book
+                    
+                  .title
+                    h4 Labels
+                  .body
+                    'Manage masters
                     
  
 

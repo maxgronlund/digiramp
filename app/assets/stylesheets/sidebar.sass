@@ -13,8 +13,13 @@
   padding-left: 180px 
 
 
-#sidebar-wrapper  
+#sidebar-wrapper
+  .sexy_line 
+    background: -webkit-gradient(linear, 0 0, 100% 0, from(rgb(0,73,101)), color-stop(0.5, rgb(136, 136, 136)), to(rgb(0,73,101)))
   
+  h4, .h4 
+    color: #E0E0E0
+    margin-bottom: 18px
   h5
     margin-bottom: 10px
     color: #D1D1D1
@@ -33,7 +38,7 @@
   -moz-transition: all 0.5s ease 
   -o-transition: all 0.5s ease 
   transition: all 0.5s ease 
-  background-color: #002F3F
+  background-color: #004965
   color: #C0C0C0
   
 
@@ -57,13 +62,13 @@
       width: 45px
       
     .tag-selected
-      background-color: #B1B1B1
+      background-color: #8CA0B4
       color: #FFF
       @include box-shadow(rgba(#666, 0.2) 0 0 3px 1px inset)
       
   .tag:hover 
-    background-color: #E3E3E3  
-    
+    background-color: #8CA0B4  
+    color: #FFF
   
   .static-content
     margin-left: 10px
@@ -150,7 +155,7 @@
         color: #103993
     .sidebar-selected 
       //background: rgba(200,200,200,0.2) 
-      background-color: #B1B1B1
+      background-color: #8CA0B4
       @include box-shadow(rgba(#666, 0.2) 0 0 3px 1px inset)
       a
         color: #FFF !important
@@ -167,11 +172,11 @@
       a  
         display: block 
         text-decoration: none 
-        color: #B9B9B9
+        color: #D3D3D3
       
       a:hover  
         text-decoration: none 
-        background-color: #E3E3E3
+        background-color: #8CA0B4
         
       a:active, a:focus  
         text-decoration: none 

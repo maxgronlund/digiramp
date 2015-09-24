@@ -28,18 +28,18 @@
       .row
         .col-sm-12
           .digi-box
-            - if authorization_provider = @user.authorization_providers.where(provider: 'stripe_connect').first
+            h4 Register with the payment gateway
+            - if authorization_provider = @user.authorization_providers.find_by(provider: 'stripe_connect')
               .alert.alert-info
                 'Your account is linked to stripe
             - else
-              = link_to 'Register shop', '/auth/stripe_connect', class: 'btn btn-primary'
+              = link_to 'Register shop', '/auth/stripe_connect', class: 'btn btn-success btn-lg'
+              .pull-down-16
+              'By registering your account, you agree to our
               br
-              
-              .terms-of-service
-                'By registering your account, you agree to our &mbsp;
-                => link_to 'Terms of Service', "/", taget:"_blank"
-                'and the
-                =< link_to 'Stripe Connected Account Agreement', "https://stripe.com/connect/account-terms", target: "_blank"
+              => link_to 'Terms of Service', "/", taget:"_blank"
+              '&nbsp;and the
+              =< link_to 'Stripe Connected Account Agreement', "https://stripe.com/connect/account-terms", target: "_blank"
               
         
         

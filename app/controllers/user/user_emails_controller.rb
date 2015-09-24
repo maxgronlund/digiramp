@@ -4,6 +4,7 @@ class User::UserEmailsController < ApplicationController
 
   def index
     @user_emails = @user.user_emails
+    @email_groups = EmailGroup.all
   end
 
 

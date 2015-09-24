@@ -17,21 +17,24 @@
           .help
             .help-text
               /h2 = @common_work.title
-              h2 Rights
+              h2 = @common_work.title
             .help-button
               == render 'admin/helps/help', identifier: 'common work credits'
         .col-sm-4
           .pull-right
             .pull-down-10
-              => link_to edit_user_recording_tag_path(@user, @recording) do
+              = link_to edit_user_recording_tag_path(@user, @recording) do
                 .btn.btn-default
                   i.fa.fa-chevron-left
                   '&nbsp;
                   'Back
+              - unless @user.is_stripe_connected 
+                =< link_to 'Enable payment gateway', user_user_create_shop_index_path(@user), class: 'btn btn-default'
+                
               /= link_to 'Export CSV', user_user_export_work_and_master_path(@user, @common_work, format: "csv"), class: 'btn btn-default'
 
         
-      h4 = @common_work.title
+      h4 
       .sexy_line
       - unless @common_work.is_registered?
         - blog      = Blog.cached_find('Common work rights')

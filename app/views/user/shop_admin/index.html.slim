@@ -32,7 +32,9 @@
                 .btn.btn-default
                   i.fa.fa-chevron-left
                   '&nbsp;Back
-            = link_to 'Add product', user_user_select_product_type_index_path(@user), class: 'btn btn-primary', id: 'new-product'
+            = link_to user_user_select_product_type_index_path(@user) do
+               .btn.btn-success id="new-product"
+                 i.fa.fa-plus&nbsp;Add product
             
       .sexy_line
       .digi-box  

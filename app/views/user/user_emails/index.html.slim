@@ -14,12 +14,17 @@
         .col-sm-6
           .help
             .help-text
-              h2 Additional emails
+              h2 Email administration
             .help-button
-              == render 'admin/helps/help', identifier: 'additional emails'
+              == render 'admin/helps/help', identifier: 'user email administration'
         .col-sm-6
           .pull-right.pull-down-10
-            = link_to 'Add email', new_user_user_user_email_path(@user), class: 'btn btn-primary'
+            => link_to user_user_control_panel_index_path(@user) do
+              .btn.btn-default
+                i.fa.fa-chevron-left
+                '&nbsp;Back
+      
+            
             
         
         
@@ -27,32 +32,64 @@
         
       
       .sexy_line
-      .digi-box
-
-        .table-responsive
-          table class="table table-hover"
-            thead
-              tr
-                th Email
-                th
-            tbody
-              tr
-                th Account email
-                td = @user.email
-                - @user_emails.each do |user_email|
+      .row
+        .col-sm-6
+          .digi-box
+            .row
+              .col-sm-6
+                h4 Emails linked to your account
+              .col-sm-6
+                .pull-right.pull-down-8
+                  = link_to new_user_user_user_email_path(@user) do 
+                      .btn.btn-success
+                        i.fa.fa-plus&nbsp;Add email
+            .table-responsive
+              table class="table table-hover"
+                thead
                   tr
-                    - if Publisher.where(email: user_email.email).first
-                      th Publisher email
-                      
-                    - else
-                      td
-                        => link_to user_user_user_email_path(@user, user_email), turboboost: true, data: {:confirm => 'Are you sure?'}, :method => :delete
-                          .btn.btn-danger.btn-xs
-                            i.fa.fa-times
-                        => link_to 'Edit', edit_user_user_user_email_path(@user, user_email), class: 'btn btn-default btn-xs'
-                    td = user_email.email
-                
+                    th Email
+                    th
+                tbody
+                  tr
+                    th Account email
+                    td = @user.email
+                    - @user_emails.each do |user_email|
+                      tr
+                        - if Publisher.where(email: user_email.email).first
+                          th Publisher email
+                          
+                        - else
+                          td
+                            => link_to user_user_user_email_path(@user, user_email), turboboost: true, data: {:confirm => 'Are you sure?'}, :method => :delete
+                              .btn.btn-danger.btn-xs
+                                i.fa.fa-times
+                            => link_to 'Edit', edit_user_user_user_email_path(@user, user_email), class: 'btn btn-default btn-xs'
+                        td = user_email.email
+          
+          
+          
+        .col-sm-6
+          .digi-box
+            h4 Emails
+            'Emails you will receive from DigiRAMP
+            .sexy_line
+            - if @email_groups
+              - @email_groups.each do |email_group|
+                b = email_group.title
             
+                .pull-right
+                  - if MailListSubscriber.where(user_id: @user.id, email_group_id: email_group.id ).first
+                     .mail_subscribtion.toggle-light id="#{email_group.id}" data-toggle-on="true" user_id="#{@user.id}"
+                  - else
+                    .mail_subscribtion.toggle-light id="#{email_group.id}"  user_id="#{@user.id}"
+            
+                .row
+                   .col-sm-12.pull-down-8
+                     = email_group.body
+                .sexy_line
+            
+            
+          
             
       
                  

@@ -16,7 +16,7 @@ class ApplicationController < ActionController::Base
   before_action :set_defaults
   
   def set_defaults
-    @body_color = "#DDDDDD"
+    @body_color = "#FFFFFF"
     #session[:return_url] = nil
   end
 
