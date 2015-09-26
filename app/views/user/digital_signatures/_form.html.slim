@@ -3,24 +3,24 @@
 
   .form-inputs
     = f.hidden_field :user_id    , value: @user.id
-    /= f.hidden_field :account_id , value: @user.account.id
 
-    /= f.input :image, hint: 'will be scaled to 360 X 100 pixels'
+    b 
+      '*600x100 pixels is best
+    .pull-down-6
     .fileinput.fileinput-new data-provides="fileinput"
       .fileinput-new.thumbnail style="width: 600px; height: 100px;"
         - if @digital_signature.image
           = image_tag @digital_signature.image_url(:image_600x100), size: '600x100'
         - else
           = image_tag 'default-cover.jpg'
-
       div.fileinput-preview.fileinput-exists.thumbnail style="max-width: 600px; max-height: 100px;"
       div
         span.btn.btn-default.btn-file
           span class="fileinput-new"
-            'Select Image
+            'Select Image from disk
           '&nbsp;
           span class="fileinput-exists"
-            'Change
+            'Select Image from disk
           = f.file_field :image
 
         '&nbsp;

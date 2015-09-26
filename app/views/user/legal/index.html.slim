@@ -100,7 +100,7 @@
 
                  
                 - if @user.digital_signature
-                  b Digital signature
+                  b Default signature
                   br
                   .pull-down-10
                     = image_tag @user.digital_signature.image_url(:image_300x50), class: 'img-thumbnail img-responsive'
@@ -113,9 +113,9 @@
 
                 .pull-down-12.pull-right
                   - if @user.digital_signatures.count > 0
-                    = link_to 'Select signature', user_user_digital_signatures_path(@user), class: 'btn btn-default btn-xs'
+                    = link_to 'Manage signatures', user_user_digital_signatures_path(@user), class: 'btn btn-default'
                   - else
-                    = link_to 'Create signature', new_user_user_digital_signature_path(@user), class: 'btn btn-default btn-xs'
+                    = link_to 'Manage signatures', new_user_user_digital_signature_path(@user), class: 'btn btn-default'
                 
                 
                 

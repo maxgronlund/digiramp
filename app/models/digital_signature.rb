@@ -6,6 +6,8 @@ class DigitalSignature < ActiveRecord::Base
 
   mount_uploader :image, SignatureUploader
   after_commit :flush_cache
+  
+  validates :image, presence: true
 
   def self.cached_find(id)
     Rails.cache.fetch([name, id]) { find(id) }

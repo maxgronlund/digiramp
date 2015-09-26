@@ -133,7 +133,8 @@
           = link_to login_new_path do
             i class="fa fa-sign-in"
             '&nbsp;Log in
-- if @user
+
+- if @user && (@user.cms_pages.where(show_in_menu: true).count > 0)
   == render 'shared/user_navigation_bar', section: @user, page: page
   .pull-down-34
     
