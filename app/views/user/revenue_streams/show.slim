@@ -26,8 +26,8 @@
                   i.fa.fa-chevron-left&nbsp;Back
                   
       = "Source id: #{@stake.channel_uuid} | Source title: #{@stake.title}"
-      .sexy_line
-      .digi-box
+      .pull-down-10
+      .digi-box 
         h4 Redistribute income stream  
         = simple_form_for [:user, @user, @stake, Stake.new(split: 10)], url: url_for( action: 'create', 
                                                                                   controller: 'user/revenue_streams'), 

@@ -3,7 +3,7 @@
     == render 'shared/navigationbar', page: 'account' 
        
   .container
-    
+    h2 Sign up
     .row
       .col-sm-3
 
@@ -14,7 +14,7 @@
         -else
           .digi-box
             ==render 'admin/shared/messages'
-            h2 Sign up
+            
             = simple_form_for [@user] do |f|
               - unless f.error_notification.blank?
                 = f.error_notification

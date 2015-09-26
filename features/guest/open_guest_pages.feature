@@ -10,7 +10,7 @@ As an guest I can see all public pages
     
     
     
-  #@javascript  
+  @javascript  
   Scenario: As a guest I can open all public pages
     When I'm on the "Public songs page"
     Then I can see "Recordings"

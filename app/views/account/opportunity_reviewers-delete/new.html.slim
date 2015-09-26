@@ -36,7 +36,7 @@
               
                   
       = @opportunity.title
-      .sexy_line
+      .pull-down-10
       .digi-box
         = simple_form_for [ :account, @account, @opportunity, @opportunity_evaluation], url: url_for(action: 'create', controller: 'opportunity_reviewers'), method: 'post' do |f|
           = f.hidden_field :user_id, value: @user.id

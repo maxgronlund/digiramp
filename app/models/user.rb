@@ -839,32 +839,6 @@ class User < ActiveRecord::Base
     Rails.cache.delete([self.class.name, auth_token])
   end
   
-  def self.create_a_new_account_for_the user
-    #return user.account if user.account
-    @account = Account.new(   title: user.user_name, 
-                              user_id: user.id, 
-                              expiration_date: Date.current()>>1,
-                              contact_email: user.email,
-                              visits: 1,
-                              account_type: 'Social',
-                              administrator_id: user.id,
-                              create_opportunities: false,
-                              read_opportunities: false
-                            )
-                            
-    # save the account without validation                        
-    @account.save(validate: false)    
-
-    AccessManager.add_users_to_new_account @account
-    
-    # store the account
-    user.current_account_id  = @account.id
-    
-    # save
-    user.save!
-   
-    @account
-  end
   
   def self.to_csv
     CSV.generate do |csv|
@@ -943,7 +917,8 @@ class User < ActiveRecord::Base
       user.add_token
       
       # create an account
-      create_a_new_account_for_the user
+      UserAssetsFactory.new user
+
       
       
       
@@ -1008,7 +983,7 @@ class User < ActiveRecord::Base
       new_user.add_token
       
       # create account
-      create_a_new_account_for_the new_user
+      UserAssetsFactory.new new_user
 
       # invite to existing new to catalog
       UserMailer.delay.invite_new_user_to_account( new_user.id , title, body )

@@ -9,7 +9,7 @@ As an member I can create custom pages and add content to them
     
     
     
-  #@javascript  
+  @javascript  
   Scenario: As a member can open pages from my controll panel
   
    #When I'm on the "User account settings page"

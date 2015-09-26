@@ -9,7 +9,7 @@ As an member I can create custom pages and add content to them
     
     
     
-  #@javascript  
+  @javascript  
   Scenario: As a member I create a custom page
     When I'm on the admin cms pages for the user with the email "user@digiramp.com"
     Then I clik on the link with the id "new-cms-page"

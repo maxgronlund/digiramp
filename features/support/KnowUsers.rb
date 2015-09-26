@@ -6,7 +6,7 @@ module KnowUsersHelper
     @user               = FactoryGirl.create(:user, user_name: name, email: email, password: password, role: role, slug: name.downcase.gsub(' ', '_'))
     @user.page_style_id = @page_style.id
     @user.save!
-    @account            = User.create_a_new_account_for_the( @user )
+    @account            = UserAssetsFactory.new @user
     @user
   end
   

@@ -36,6 +36,7 @@ class Account::OpportunityUsersController < ApplicationController
     forbidden unless current_account_user.update_opportunity
     @opportunity          = Opportunity.cached_find(params[:opportunity_id])
     @opportunity_user     = OpportunityUser.cached_find(params[:id])
+    @user                 = current_user
   end
   #
   ## POST /opportunities

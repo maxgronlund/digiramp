@@ -116,7 +116,7 @@ As an administrator i can se all the admin pages
     When I'm on the "New legal tag page"
     Then I can see "New legal tag"
     
-  #@javascript  
+  @javascript  
   Scenario: As an administrator i can open the sales pages
     When I'm on the "Sales page"
     Then I can see "Sales"

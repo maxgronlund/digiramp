@@ -33,7 +33,7 @@
               - if current_account_user.create_common_work_ipi
                 =< link_to 'New IP', new_account_account_common_work_common_work_ipi_path(@account, @common_work),\
                           class: 'btn btn-info'
-      .sexy_line
+      .pull-down-10
       h3 = @common_work.title
       = simple_form_for [@account, @common_work, @common_work_ip], :url => url_for(:action => 'update', :controller => 'common_work_ipis'), :method => 'put' do |f|
         = f.hidden_field :common_work_id, value: @common_work.id

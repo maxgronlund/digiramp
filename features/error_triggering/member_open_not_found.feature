@@ -10,7 +10,7 @@ As an member I open non existing pages and get decent errors
     
     
     
-  #@javascript  
+  @javascript  
   Scenario: As a member I can open not found pages
     When I'm on the "A not existing message"
     Then I can see "404 Page not found"

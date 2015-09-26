@@ -217,9 +217,12 @@ private
     begin
       if @user.save!
         DefaultAvararJob.perform_later @user.id
-        @account                        = User.create_a_new_account_for_the @user
-        @account.title                  = client.company if client.company.to_s != ''
-        @account.account_type           = 'Social'
+        UserAssetsFactory.new @user
+        
+        @account                        = @user.account
+        
+        #@account.title                  = client.company if client.company.to_s != ''
+        #@account.account_type           = 'Social'
         @account.contact_first_name     = @user.first_name
         @account.contact_last_name      = @user.last_name
         

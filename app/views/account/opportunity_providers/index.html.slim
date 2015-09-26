@@ -21,7 +21,7 @@
             .col-sm-12
               .help
                 .help-text
-                 h2 #{@account.title} <funky>Pro</funky>
+                 h2 = @account.title
                 .help-button
                   == render 'admin/helps/help', identifier: 'shared opportunity'
                   
@@ -44,7 +44,7 @@
                   'Invite more
       b Invited providers for:&nbsp;
       = @opportunity.title
-      .sexy_line
+      .pull-down-10
       .digi-box
         == render 'account/opportunities/providers'
       

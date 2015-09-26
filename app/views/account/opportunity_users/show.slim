@@ -16,7 +16,7 @@
       'Submissions by&nbsp;
       = @opportunity_user.user.user_name
         
-      .sexy_line  
+      .pull-down-10  
       .row
         .col-sm-6
           - @opportunity_user.music_submissions.order('stars desc').each do |music_submission|

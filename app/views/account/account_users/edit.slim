@@ -14,22 +14,23 @@
       == render 'shared/breadcrumbs', breadcrumbs: { links: { account: account_account_path(@account),\
                                                               users: account_account_account_users_path(@account)}, current:  ''}
       .row
-        .col-sm-6
+        .col-sm-8
           .help
             .help-text
-              h2 Account users permissions
+              h2 
+                b = @account_user.get_name
+                '&nbsp;Permissions
             .help-button
               == render 'admin/helps/help', identifier: 'edit account user permissions'
           
-        .col-sm-6
+        .col-sm-4
           .pull-right.pull-down-10
             = link_to  account_account_account_users_path(@account) do
                 .btn.btn-default
                   i.fa.fa-chevron-left
                   '&nbsp;Back
 
-      .sexy_line
-      h4 = @account_user.email
+      .pull-down-10
       .account_users.digi-box
         .row
           .col-sm-12
@@ -37,11 +38,12 @@
               /= f.hidden_field :account_id, value: @account.id
               /= f.hidden_field :user_id, value: @account_user.user_id
               == render 'form', f: f
-              .sexy_line
-              .pull-right
-                = link_to 'Cancel', account_account_account_users_path(@account), class: 'btn btn-default'
-                '&nbsp;
-                = f.submit 'Update', class: 'btn btn-info'
+              .row
+                .col-sm-12.pull-down-10
+                  .pull-right
+                    = link_to 'Cancel', account_account_account_users_path(@account), class: 'btn btn-default'
+                    '&nbsp;
+                    = f.submit 'Update', class: 'btn btn-info'
                    
               
   == render 'shared/site_footer'    

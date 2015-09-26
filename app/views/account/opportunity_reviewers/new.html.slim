@@ -37,8 +37,8 @@
               /      '&nbsp;Invite reviewer
               
                   
-      = @opportunity.title
-      .sexy_line
+      b = @opportunity.title
+      .pull-down-10
       .digi-box
         h4 New Reviewers
         = simple_form_for [ :account, @account, @opportunity, @opportunity_evaluation], url: url_for(action: 'create', controller: 'opportunity_reviewers'), method: 'post' do |f|

@@ -3,18 +3,18 @@
 Feature:
 As an administrator I can manage coupons
   
-  # @javascript 
+
   Background:
     Given I am logged in as administrator
     And there is a plan named "DigiRAMP Pro" linked to an account type named "DigiRAMP Pro"
 
     
-  # @javascript  
+  @javascript  
   Scenario: As an administrator i can view the coupon page
     When I'm on the "Admin coupons page"
     Then I can see "Coupons"
     
-  # @javascript  
+ @javascript  
   Scenario: As an administrator i create a new coupon 
     When I'm on the "Admin coupons page"
     Then I create a new coupon named "FREE-FUN"

@@ -9,7 +9,7 @@ def visit_page page
   #sleep(3)
   case page
   when "Front Page"
-    visit "/"
+    visit "/?landing_page=page_b"
   
   when "Admin page"
     visit "/admin"

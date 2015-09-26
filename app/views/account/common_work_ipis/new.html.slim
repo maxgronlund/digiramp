@@ -15,7 +15,7 @@
                                                               assets: account_assets_path(@account), \
                                                               }, current: 'register ip'}
       h4 New IPI
-      .sexy_line
+      .pull-down-10
       = simple_form_for [@account, @common_work, @common_work_ip], :url => url_for(:action => 'create', :controller => 'account/common_work_ipis'), :method => 'post' do |f|
         = f.hidden_field :common_work_id, value: @common_work.id
         == render 'form', f: f

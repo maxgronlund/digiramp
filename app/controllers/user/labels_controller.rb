@@ -22,6 +22,10 @@ class User::LabelsController < ApplicationController
     end
   end
   
+  def new
+    @label = Label.new
+  end
+  
   def destroy
     
   end

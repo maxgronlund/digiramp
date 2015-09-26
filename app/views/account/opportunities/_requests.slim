@@ -8,9 +8,11 @@
           = link_to 'Add request', new_account_account_opportunity_music_request_path(@account, @opportunity),
           class: 'btn btn-warning'
         - else
-          = link_to 'Add request', new_account_account_opportunity_music_request_path(@account, @opportunity),
-          class: 'btn btn-default'
-
+          = link_to  new_account_account_opportunity_music_request_path(@account, @opportunity) do
+            .btn.btn-info  
+              i.fa.fa-plus&nbsp;Add request
+                
+      .pull-down-10
 - @opportunity.music_requests.order('created_at asc').each_with_index do |music_request, index|
   == render 'account/music_requests/info', music_request: music_request
     

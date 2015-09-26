@@ -103,7 +103,8 @@
                   b Default signature
                   br
                   .pull-down-10
-                    = image_tag @user.digital_signature.image_url(:image_300x50), class: 'img-thumbnail img-responsive'
+                    = image_tag @user.digital_signature.image_url(:image_300x50), 
+                      class: 'img-thumbnail img-responsive'
                 - else
                   .alert.alert-warning
                     b = blog_post.title
@@ -113,10 +114,34 @@
 
                 .pull-down-12.pull-right
                   - if @user.digital_signatures.count > 0
-                    = link_to 'Manage signatures', user_user_digital_signatures_path(@user), class: 'btn btn-default'
+                    = link_to 'Manage signatures', user_user_digital_signatures_path(@user), 
+                      class: 'btn btn-default'
                   - else
-                    = link_to 'Manage signatures', new_user_user_digital_signature_path(@user), class: 'btn btn-default'
+                    = link_to 'Manage signatures', new_user_user_digital_signature_path(@user), 
+                      class: 'btn btn-default'
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+      .control-panel.pull-down-10
+      
+
+          
+        .control-panel-badge
+          = link_to  user_user_creative_rights_path(@user) do
+            .content
+              .icon.icon-red
+                i.fa.fa-gavel
                 
+              .title
+                h4 Creative rights
+              .body
+                'Manage rights for your assets
+         
                 
                 
               

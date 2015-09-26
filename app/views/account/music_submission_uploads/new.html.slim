@@ -16,8 +16,8 @@
       h3 = @music_request.title
       'Upload Recording
       == render 'shared/flash_message'
-      .sexy_line
-      br
+      .pull-down-10
+      
       = simple_form_for  [ @music_request, @recording ],  url:        url_for(:action => 'create', \
                                                           controller: 'account/music_submission_uploads'), \
                                                           method:     'post', \

@@ -17,8 +17,8 @@
     .container-fluid
       /== render 'admin/shared/messages'
       h2 Shipping address
-      .sexy_line
-      .digi-box 
+      .pull-down-10
+      .digi-box  
         == render 'form'
         /= simple_form_for [:shop, @address], :url => url_for(:action => 'create', :controller => '/shop/shipping_address'), turboboost: true, :method => 'post' do |f|
         /  = f.error_notification

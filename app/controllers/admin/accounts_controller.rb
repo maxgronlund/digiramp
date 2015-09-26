@@ -18,15 +18,10 @@ class Admin::AccountsController < ApplicationController
   end
   
   def new
-    
-    #user = User.cached_find(params[:user_id])
-    #User.create_a_new_account_for_the user
     redirect_to :back
   end
   
   def create
-    #User.create_a_new_account_for_the user
-    #redirect_to :back
   end
   
   def edit

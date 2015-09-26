@@ -35,7 +35,7 @@
 
         
       h4 
-      .sexy_line
+      .pull-down-12
       - unless @common_work.is_registered?
         - blog      = Blog.cached_find('Common work rights')
         - blog_post = BlogPost.cached_find('Work is not registered', blog)

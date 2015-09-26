@@ -12,7 +12,7 @@ As an member I can create custom pages and add content to them
     
     
     
-  #@javascript  
+  @javascript  
   Scenario: As an account user I can open pages from my controll panel
    When I'm on the "User account settings page"
    Then I can see "Account you have access to"
@@ -24,6 +24,7 @@ As an member I can create custom pages and add content to them
    When I'm on the account page for user with the email "user@digiramp.com"
    Then I can see "0 Recordings"
    Then I can see "0 Opportunities"
+   #Then Does it look right
    Then I can see "1 User"
    Then I can see "0 Works"
    Then I can see "0 Catalogs"

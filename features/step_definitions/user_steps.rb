@@ -10,7 +10,7 @@ Given(/^I am logged in$/) do
   fill_in 'sessions_email', with: 'hansen@digiramp.com'
   fill_in 'sessions_password', with: 'adminadmin'
   find_by_id('log_in_form_button').click
-  find('.all-users')
+  find('.cms-backdrop')
   #sleep(1)
 end
 
@@ -19,20 +19,21 @@ Given(/^I'm logged in as "(.*?)" with the password "(.*?)"$/) do |email, passwor
   fill_in 'sessions_email', with: email
   fill_in 'sessions_password', with: password
   find_by_id('log_in_form_button').click
-  visit "/?landing_page=page_a"
-  find('.all-users')
+  #visit "/?landing_page=page_a"
+  #find('.all-users')
+  find('.cms-backdrop')
 end
 
 Given(/^I am logged in as administrator$/) do
 
   find_or_create_user(  'Super Controller', 'hansen@digiramp.com', 'adminadmin', 'Super')
-  visit "/"
   visit "/login/new"
   fill_in 'sessions_email', with: 'hansen@digiramp.com'
   fill_in 'sessions_password', with: 'adminadmin'
   find_by_id('log_in_form_button').click
-  visit "/?landing_page=page_a"
-  find('.all-users')
+  #visit "/?landing_page=page_a"
+  #find('.all-users')
+  find('.cms-backdrop')
 end
 
 Given(/^there is a user with the email "(.*?)" and the password "(.*?)"$/) do |email, password|

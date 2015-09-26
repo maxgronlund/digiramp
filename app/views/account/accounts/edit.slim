@@ -14,14 +14,15 @@
         .col-sm-8
           .help
             .help-text
-              h2 #{@account.title}
+              h2 
+                b => @account.title
+                'Edit
         
             .help-button
               == render 'admin/helps/help', identifier: 'pro account'
 
       
-      .sexy_line
-      h4 Edit account
+      .pull-down-10
       .digi-box
         == render 'form'
                 

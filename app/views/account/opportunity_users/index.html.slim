@@ -18,8 +18,10 @@
         .col-sm-8
           .help
             .help-text
-             h2 = @opportunity.title
-             b Users
+             h2 
+               b Users&nbsp;
+               = @opportunity.title
+
             .help-button
               == render 'admin/helps/help', identifier: 'shared opportunity'
               
@@ -34,7 +36,7 @@
                     i.fa.fa-chevron-left
                     '&nbsp;Back
               
-      .sexy_line
+      .pull-down-10-10
       .digi-box
         = simple_form_for [ :account, @account, @opportunity, @opportunity_invitation], turboboost: true do |f|
           /= f.hidden_field :account_id, value: @account.id

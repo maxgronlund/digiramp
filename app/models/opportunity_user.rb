@@ -21,6 +21,11 @@ class OpportunityUser < ActiveRecord::Base
     Rails.cache.fetch([name, uuid]) { find_by(uuid: uuid) }
   end
   
+  def full_name
+    return self.user.full_name if self.user
+    'User missing'
+  end
+  
 private
   
   def flush_cache

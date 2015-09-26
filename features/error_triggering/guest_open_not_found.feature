@@ -9,7 +9,7 @@ As an guest I get decent errors on pages not found
     
     
     
-  #@javascript  
+  @javascript  
   Scenario: As a guest I can open not found pages
   
     When I'm on the "A not existing users recording page"

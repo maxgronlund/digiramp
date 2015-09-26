@@ -49,14 +49,10 @@
                           i.fa.fa-pencil
                     - else
                       '
-                  td
-                    - if ipi = common_work_ipi.ipi
-                      - if user = ipi.user
-                        = user.full_name
-                        br
-                        = user.email
-                      - else 
-                        = ipi.email
+                  td 
+                    = common_work_ipi.get_full_name
+                    br = common_work_ipi.get_email
+                    
                   td 
                     - if common_work_ipi.music
                       'Music

@@ -13,7 +13,7 @@
       == render 'shared/breadcrumbs', breadcrumbs: { links: { admin: admin_index_path }, current: ''}
       h2 Edit contract templates
 
-      .sexy_line
+      .pull-down-10
       .digi-box
         = simple_form_for [:admin, @contract ], :url => url_for(:action => 'update', 
                                                                                   :controller => '/admin/contracts'), 

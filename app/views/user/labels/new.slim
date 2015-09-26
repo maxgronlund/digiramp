@@ -16,29 +16,30 @@
           .col-sm-6
             .help
               .help-text
-                h2 Labels
+                h2 Create labels
               .help-button
                 == render 'admin/helps/help', identifier: 'user labels'
           .col-sm-6
             .pull-right.pull-down-10
-              = link_to new_user_user_label_path(@user) do
-                .btn.btn-default
-                  i.fa.fa-plus&nbsp;Add label
+              /= link_to new_user_user_label_path(@user) do
+              /  .btn.btn-default
+              /    i.fa.fa-plus&nbsp;Add label
       
       
       .pull-down-10
       .digi-box 
-        .table-responsive
-          table class="table table-hover"
-            thead
-              tr
-                th Title
-                
-            tbody
-              - @labels.to_a.each do |labelx|
-                tr
-                  td = link_to labelx.title, user_user_label_path(@user, labelx), class: 'btn btn-default btn-xs'
-      
+        
+      /  .table-responsive
+      /    table class="table table-hover"
+      /      thead
+      /        tr
+      /          th Title
+      /          
+      /      tbody
+      /        /- @labels.to_a.each do |labelx|
+      /        /  tr
+      /        /    td = link_to labelx.title, user_user_label_path(@user, labelx), class: 'btn btn-default btn-xs'
+      /
       
                   
 

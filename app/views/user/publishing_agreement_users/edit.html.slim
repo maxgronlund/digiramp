@@ -30,8 +30,8 @@
                   i.fa.fa-chevron-left
                   '&nbsp;Back
    
-      .sexy_line
-      .digi-box
+      .pull-down-10
+      .digi-box 
         = simple_form_for [ @user, @publisher, @publishing_agreement, @document_user], :url => url_for(:action => 'update', 
                                                                                       :controller => 'publishing_agreement_users'), 
                                                                                       turboboost: true, :method => 'PUT' do |f|

@@ -8,8 +8,8 @@
               a data-toggle="collapse" data-parent="#accordion" href="#collapse_#{account_user.id.to_s}"
                 .panel-heading
                   .panel-title
-                  
-                    = account_user.user.user_name
+                    
+                    = account_user.get_name
                     .pull-right
                       
                       - if account_user.administrates_account?
@@ -18,6 +18,9 @@
                         'Account Owner
                       - else
                         = account_user.role
+                      
+                      '&nbsp;
+                      i.fa.fa-bars
                       
                     
               div id="collapse_#{account_user.id.to_s}" class="panel-collapse collapse"   

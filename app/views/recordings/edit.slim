@@ -14,8 +14,8 @@
   #page-content-wrapper
     .container-fluid 
       h2 Edit recording
-      .sexy_line
-      .digi-box
+      .pull-down-10
+      .digi-box 
         = simple_form_for [@user, @recording],  :html => { :id => 'recording_artwork' } do |f|
           = transloadit :image_files_to_s3 
           = f.hidden_field :user_id, value: @user.id

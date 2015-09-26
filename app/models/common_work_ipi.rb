@@ -28,7 +28,25 @@ class CommonWorkIpi < ActiveRecord::Base
   
 
   
+  def get_full_name
+    if ipi = self.ipi
+      if user = ipi.user
+        return user.full_name
+      end
+    else
+      return  self.full_name
+    end
+  end
   
+  def get_email
+    if ipi = self.ipi
+      if user = ipi.user
+        return user.email
+      end
+    else
+      return  self.email
+    end
+  end
 
   def self.cached_find(id)
     Rails.cache.fetch([name, id]) { find(id) }

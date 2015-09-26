@@ -20,7 +20,7 @@
         .col-sm-4
           .pull-right.pull-down-10
             /= link_to 'New template', new_admin_legal_template_path, class: 'btn btn-default'
-      .sexy_line
+      .pull-down-10
       .digi-box
         = simple_form_for [ @document ] , :url => url_for(:action => 'create', :controller => 'admin/legal_templates'), turboboost: true, :method => 'post' do |f|
           == render 'form', f: f

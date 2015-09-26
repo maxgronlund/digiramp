@@ -16,7 +16,7 @@
                                                              }, current: '' }
                                                               
       h2 = @common_work.title
-      .sexy_line
+      .pull-down-10
       
       = simple_form_for [:account, @account, @common_work],  :html => { :id => 'common_work' } do |f|
         = transloadit :image_files_to_s3 

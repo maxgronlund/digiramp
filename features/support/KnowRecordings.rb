@@ -8,7 +8,7 @@ module KnowRecordingsHelper
     common_work = CommonWork.create(account_id: @recording.account_id, 
                                     title:      @recording.title, 
                                     lyrics:     @recording.lyrics)
-    #@account        = User.create_a_new_account_for_the @user
+    
     
   end
   

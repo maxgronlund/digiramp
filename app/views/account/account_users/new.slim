@@ -22,42 +22,39 @@
                 .btn.btn-default
                   i.fa.fa-chevron-left
                   '&nbsp;Back
-      .sexy_line
-      .account_users
-        =simple_form_for [:account, @account, @account_user] do |f|
-          .row
-            .col-sm-6
+      .pull-down-10
 
-              .digi-box
-                = f.hidden_field :account_id, value: @account.id
-                /= f.hidden_field :account_user_id, value: @account_user.id
-                = f.hidden_field :role, value: 'Administrator'
-                
-                = f.input :email, label: 'Send invitation to', placeholder: 'Email', autofocus: true
-                = f.input :invitation_title, label: 'Subject'
-                
-                
-                div id="toolbar" class="wysihtml5-toolbar"
-                  a data-wysihtml5-command="bold" Bold
-                  '&nbsp; 
-                  a data-wysihtml5-command="italic" Italic
-                  .pull-right
-                    a data-wysihtml5-action="change_view"  Html 
-                
-                =f.input :invitation_message, label: false, :input_html => {  style: "height: 280px;", placeholder: "Invitation message", id: 'wysihtml5_editor'}
-          .row
-            .col-sm-12
-            
+      = simple_form_for [:account, @account, @account_user] do |f|
+        .row
+          .col-sm-6
+            .digi-box
+              = f.hidden_field :account_id, value: @account.id
+              /= f.hidden_field :account_user_id, value: @account_user.id
+              = f.hidden_field :role, value: 'Administrator'
+              
+              = f.input :email, label: 'Send invitation to', placeholder: 'Email', autofocus: true
+              = f.input :invitation_title, label: 'Subject'
+              
+              
+              div id="toolbar" class="wysihtml5-toolbar"
+                a data-wysihtml5-command="bold" Bold
+                '&nbsp; 
+                a data-wysihtml5-command="italic" Italic
+                .pull-right
+                  a data-wysihtml5-action="change_view"  Html 
+              
+              =f.input :invitation_message, label: false, :input_html => {  style: "height: 280px;", placeholder: "Invitation message", id: 'wysihtml5_editor'}
+        .row
+          .col-sm-12
+            .digi-box
               h4 Permissions
-
-              .digi-box
-                == render 'form', f: f
-          .row
-            .col-sm-12
-              .pull-right
-                =f.submit 'Send', class: 'btn btn-info'
-            
-          
+              == render 'form', f: f
+              .row
+                .col-sm-12
+                  .pull-right
+                    =f.submit 'Send', class: 'btn btn-info'
+                
+              
       /== render 'shared/back', locals: {link: account_account_account_users_path(@account)}
       = link_to  account_account_account_users_path(@account) do
           .btn.btn-default

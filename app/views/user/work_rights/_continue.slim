@@ -1,12 +1,13 @@
 .old-wizard
   h2 = common_work.title
-  .sexy_line
+  .pull-down-10
 
   
                     
                     
-  h4 Add composer                  
+               
   .digi-box
+    h3 Add composer     
     = simple_form_for [:user, common_work, Ipi.new] , :url => url_for(:action => 'create', :controller => 'work_rights'), :method => 'post' do |f|
       = f.input :full_name, autofocus: true
   

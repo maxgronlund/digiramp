@@ -28,8 +28,8 @@
                   '&nbsp;Back
             
 
-      .sexy_line
-      .digi-box
+      .pull-down-10
+      .digi-box 
         = simple_form_for [ @user, @publisher, @document ] , :url => url_for(:action => 'create', :controller => 'publishing_templates'), turboboost: true, :method => 'POST' do |f|
           div style="max-width: 840px"
             = f.hidden_field :template_id, value: @template.id if @template

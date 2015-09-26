@@ -36,7 +36,7 @@ class AccountUser < ActiveRecord::Base
   # users invited
   scope :invited,           ->  { where.not( role: ['Catalog User', 'Super', 'Client', 'Account Owner', 'Administrator'])  }
   scope :non_catalog_users, ->  { where.not( role: 'Catalog User' )  }
-  
+  scope :counted,           ->  { where( role: ['Catalog User', 'Account User', 'Administrator', 'Account Owner'])  }
 
   def uuid
     self.user.uuid
@@ -292,13 +292,14 @@ class AccountUser < ActiveRecord::Base
   end
 
   def get_email
-    return user.email
+    return self.user.email if self.user
+    return self.email
   end
   
   def get_name
     return name       unless name.to_s == ''
     if user
-      return user.name  unless user.name.to_s == ''
+      return user.full_name  unless user.name.to_s == ''
       return user.email
     end
     return email
