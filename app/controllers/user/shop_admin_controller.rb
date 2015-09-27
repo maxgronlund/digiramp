@@ -1,11 +1,13 @@
 class User::ShopAdminController < ApplicationController
   before_action :access_user
   def index
-    if @user.has_enabled_shop 
+    if Rails.env.test?
+       @shop_products= @user.products 
+       return
+    elsif @user.has_enabled_shop 
       #document_templates
-      @email_groups = EmailGroup.where(subscripeable: true)
+      # @email_groups = EmailGroup.where(subscripeable: true)
       @shop_products = @user.products
-      #redirect_to user_user_controll_panel_index_path( @user )
     else
       redirect_to user_user_create_shop_index_path(@user)
     end

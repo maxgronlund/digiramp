@@ -42,16 +42,16 @@ class DistributionAgreement < ActiveRecord::Base
         self.id 
       )
     else
-      
+      #!!!
       self.distributor.configure_distribution_payment( 
         price,   
-        distributors_rake,               
+        distribution_rake,               
         recording_id, 
         self.uuid 
       )
       self.label.configure_payment(             
         price,   
-        distribution_rake - distributors_rake , 
+        distribution_rake , 
         recording_id, self.uuid 
       )
     end

@@ -1,15 +1,16 @@
 Given(/^I am logged in as a salesperson with the email "(.*?)"$/) do |email|
   user = FactoryGirl.create(:user, email: email , password: 'salesale', role: 'Customer', salesperson: true)
-  
   UserAssetsFactory.new user
-  
-  visit "/"
+  user      = get_user email
+  recording = find_or_create_recording(  user, 'Ohhhh my G' )
+  visit "/?landing_page=page_b"
   visit "/login/new"
   fill_in 'sessions_email', with: email
   fill_in 'sessions_password', with: 'salesale'
   find_by_id('log_in_form_button').click
-  visit "/?landing_page=page_a"
-  find('.all-users')
+  #find('.cms-backdrop')
+  
+  
   
   
 end

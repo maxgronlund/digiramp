@@ -18,7 +18,7 @@
               .help-text
                 h2 Create labels
               .help-button
-                == render 'admin/helps/help', identifier: 'user labels'
+                == render 'admin/helps/help', identifier: 'new user labels'
           .col-sm-6
             .pull-right.pull-down-10
               /= link_to new_user_user_label_path(@user) do
@@ -28,7 +28,39 @@
       
       .pull-down-10
       .digi-box 
-        
+        == render 'form'
+        /= simple_form_for [:user, @user, @label] do |f|
+        /  = f.error_notification
+        /  
+        /  = f.hidden_field :user   , value: @user.id
+        /  = f.hidden_field :account, value: @user.account_id
+        /  .form-inputs
+        /  
+        /    .row
+        /      .col-sm-6
+        /        = f.input :title
+        /        = f.input :body
+        /        = f.input :image
+        /      .col-sm-6
+        /        = f.simple_fields_for :address do |address_form|
+        /          = address_form.input :first_name
+        /          = address_form.input :middle_name
+        /          = address_form.input :last_name
+        /          = address_form.input :address_line_1
+        /          = address_form.input :address_line_2
+        /          = address_form.input :city
+        /          = address_form.input :state
+        /          = address_form.input :country
+        /          = address_form.input :zip_code
+        /      
+        /
+        /  .form-actions
+        /    = f.button :submit
+        /  
+        /  .row
+        /    .col-sm-12
+        /          .pull-right
+        /            = f.submit 'Save', class: 'btn btn-info'
       /  .table-responsive
       /    table class="table table-hover"
       /      thead

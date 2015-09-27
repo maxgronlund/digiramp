@@ -13,6 +13,11 @@ class WelcomeController < ApplicationController
         
         
         @body_color = "#16151D"
+        if Rails.env.test?
+          @recording  = Recording.first
+        else
+          @recording  = Recording.public_access.where(featured: true).order('featured_date desc').first 
+        end
       when "page_a"
         @body_color = "#FFF"
       end

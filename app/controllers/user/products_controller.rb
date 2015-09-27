@@ -112,7 +112,7 @@ class User::ProductsController < ApplicationController
           @shop_product.distribution_agreement.configure_payment( @shop_product.price, @shop_product.recording.id)
         end
         
-        format.html { redirect_to user_user_product_stakes_path(@user, @shop_product) }
+        format.html { redirect_to user_user_product_path(@user, @shop_product) }
         format.json { render :show, status: :created, location: @shop_product }
       else
         # '=========================== do what you have to do here ============================='

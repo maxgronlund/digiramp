@@ -1,7 +1,8 @@
-.row
+
   
-  = simple_form_for [:user, @user, @label]  do |f|
-    = f.error_notification
+= simple_form_for [:user, @user, @label]  do |f|
+  = f.error_notification
+  .row
     .col-sm-6
       .form-inputs
         = f.input :title
@@ -37,8 +38,22 @@
             'Remove
       
       = f.hidden_field :user_id, value: @user.id
-      = f.hidden_field :account_id, value: @user.account.id
+      = f.hidden_field :account_id, value: @user.account_id
+  .row
+    = f.simple_fields_for :address do |address_form|
+      .col-sm-6
+        /= address_form.input :first_name
+        /= address_form.input :middle_name
+        /= address_form.input :last_name
+        = address_form.input :address_line_1
+        = address_form.input :address_line_2
+      .col-sm-6
+        = address_form.input :city
+        = address_form.input :state
+        = address_form.input :country
+        = address_form.input :zip_code
     
+  .row
     .form-actions
       .col-sm-12
         .pull-right

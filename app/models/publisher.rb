@@ -26,7 +26,7 @@ class Publisher < ActiveRecord::Base
 
   
   validates_with PublisherValidator, fields: [:email] 
-  #validates :email, presence: true, uniqueness: true#
+  #validates :email, presence: true, uniqueness: true
   # all users can create publishers
   # sometime they create a user on behalf of someone else
   after_create :create_user_publisher

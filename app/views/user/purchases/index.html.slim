@@ -13,14 +13,22 @@
 
   #page-content-wrapper
     .container-fluid 
-      == render 'shared/breadcrumbs', breadcrumbs: { links: { 'Dashboard'.to_sym =>user_user_control_panel_index_path(@user)}, current: ''}
+      == render 'admin/shared/messages'
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { 'Dashboard'.to_sym => user_user_control_panel_index_path(@user),
+                                                              'Commerce engine'.to_sym => user_user_commerce_index_path(@user)}}
       .row
-        .col-sm-12
+        .col-sm-8
           .help
             .help-text
               h2 Purchases
             .help-button
               == render 'admin/helps/help', identifier: 'user purchases'
+        .col-sm-4
+          .pull-down-10.pull-right
+            => link_to  user_user_commerce_index_path(@user) do
+                .btn.btn-default
+                  i.fa.fa-chevron-left
+                  '&nbsp;Back
 
         
       .pull-down-10

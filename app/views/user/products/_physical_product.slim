@@ -19,7 +19,7 @@
               '&nbsp;Back
       
       
-.sexy_line
+.pull-down-10
 .digi-box  
   = simple_form_for [:user, @user, @shop_product], 
                     :url => url_for(:action => action, 
@@ -41,6 +41,11 @@
             .col-sm-6
               = f.input :price, label: 'Price in cent'
             .col-sm-6.pull-down-12
+              - if Rails.env.test?
+                = f.input :for_sale
+                = f.input :show_in_shop
+              - else
+              
               = f.input :for_sale,  :input_html => { class: 'icheck-me', 
                                                             'data-skin'.to_sym => "square", 
                                                             'data-color'.to_sym => "blue" }
@@ -50,7 +55,14 @@
                                                          'data-color'.to_sym => "blue" }
               
           = f.input :image, hint: 'Ratio 1:1'
-          = f.input :units_on_stock
+          .row
+            .col-sm-6
+              = f.input :units_on_stock, width: 14
+          .row
+            .col-sm-6
+              = f.input :delivery_time
+            .col-sm-6
+              = f.input :shipping_cost
               
           /= f.input :download_link
           = f.input :exclusive_offered_to_email, placeholder: 'email@someone-lucky.com'
@@ -100,5 +112,5 @@
       .row
         .col-sm-12
           .pull-right
-            = f.submit 'Save', class: 'btn btn-info'
+            = f.submit 'Save', class: 'btn btn-info', id: 'commit-form'
     

@@ -6,6 +6,6 @@ class PageStyle < ActiveRecord::Base
   validates_presence_of :bgcolor
   
   def self.deep_blue
-    PageStyle.where(css_tag: 'deep_blue').first_or_create(css_tag: 'deep_blue', title: 'Deep blue')
+    PageStyle.where(css_tag: 'deep_blue').first_or_create(css_tag: 'deep_blue', title: 'Deep blue', bgcolor: '#000')
   end
 end

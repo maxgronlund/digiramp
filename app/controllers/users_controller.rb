@@ -106,8 +106,9 @@ class UsersController < ApplicationController
     unless @user.page_style
       @user.save!
     end
-    @body_color =   @user.page_style.bgcolor
-    @image_url  =   @user.page_style.backdrop_image
+    
+    @body_color =   @user.page_style.bgcolor rescue '#FFF'
+    @image_url  =   @user.page_style.backdrop_image rescue '#FFF'
       
     #@image_url  = "https://digiramp.com/uploads/raw_image/image/24/music-enthusiasts.jpg"
     @hide_sidebar_toggle  = true

@@ -186,6 +186,10 @@ def visit_page page
     user = User.first
     visit "/user/users/#{user.slug}/shop_admin"
     
+  when "User commerce enginge page"
+    user = User.first
+    visit "/user/users/#{user.slug}/commerce/index"
+    
   when "User shop select product type page"
     user = User.first
     visit "/user/users/#{user.slug}/select_product_type"
@@ -210,11 +214,27 @@ def visit_page page
     user = User.first
     visit "/user/users/#{user.slug}/creative_projects"
     
-    
+  when "User commers enging page"
+    user = User.first
+    visit "/user/users/#{user.slug}/creative_projects"
     
   when "User creative projects page"
     user = User.first
     visit "/user/users/#{user.slug}/creative_projects"
+    
+  when "User revenue stream page"
+    user = User.first
+    visit "/user/users/#{user.slug}/revenue_streams"
+    
+    
+  when "User purchases page"
+    user = User.first
+    visit "/user/users/#{user.slug}/purchases"
+    
+    
+  when "User labels page"
+    user = User.first
+    visit "/user/users/#{user.slug}/labels"
     
     
     

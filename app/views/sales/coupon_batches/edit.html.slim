@@ -31,7 +31,7 @@
 
 
       .pull-down-10
-      .digi-box .uniq-codes
+      .digi-box.uniq-codes
         .row
           .col-sm-6
             h3 = @sales_coupon_batch.title
@@ -55,8 +55,9 @@
               == render 'mail_form'
             
             
-        .sexy_line
-        - if @sales_coupon_batch.coupons
+        .pull-down-10
+        - if coupons = @sales_coupon_batch.coupons
+
           .row
             .col-sm-12
              .table-responsive
@@ -71,7 +72,7 @@
                       th Redemed
                       th
                   tbody
-                    - @sales_coupon_batch.coupons.each do |coupon|
+                    - coupons.each do |coupon|
                       tr
                         td = coupon.stripe_id
                         - if coupon.amount_off

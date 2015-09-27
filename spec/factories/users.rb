@@ -32,6 +32,9 @@ FactoryGirl.define do
     #f.social_avatar Faker::Avatar.image
     f.salesperson false
     f.slug slug
+    f.page_style_id PageStyle.deep_blue.id
     
   end
+  
+
 end

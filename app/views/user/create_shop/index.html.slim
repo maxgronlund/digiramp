@@ -9,30 +9,32 @@
   
   #page-content-wrapper
     .container-fluid
-      == render 'shared/breadcrumbs', breadcrumbs: { links: { 'Dashboard'.to_sym =>user_user_control_panel_index_path(@user)}, current: ''}
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { 'Dashboard'.to_sym => user_user_control_panel_index_path(@user),
+                                                              'Commerce engine'.to_sym => user_user_commerce_index_path(@user)}, current: ''}
       .row
         .col-sm-6
           .help
             .help-text
-              h2 Create a personal shop
+              h2 Create a DigiRAMP shop
             .help-button
               == render 'admin/helps/help', identifier: 'user create shop'
         .col-sm-6
           .pull-right.pull-down-10
-            => link_to user_user_control_panel_index_path(@user) do
+            => link_to user_user_commerce_index_path(@user) do
               .btn.btn-default
                 i.fa.fa-chevron-left
                 '&nbsp;Back
       
-      .sexy_line
+      .pull-down-10
       .row
-        .col-sm-12
+        .col-sm-6
           .digi-box
-            h4 Register with the payment gateway
+            h4 Register payment gateway
             - if authorization_provider = @user.authorization_providers.find_by(provider: 'stripe_connect')
               .alert.alert-info
                 'Your account is linked to stripe
             - else
+              .pull-down-24
               = link_to 'Register shop', '/auth/stripe_connect', class: 'btn btn-success btn-lg'
               .pull-down-16
               'By registering your account, you agree to our

@@ -49,13 +49,16 @@ As an member I can create custom pages and add content to them
    Then I can see "Positions"
    
    When I'm on the "User emails page"
-   Then I can see "Additional emails"
+   Then I can see "Email administration"
    
    When I'm on the "New user email page"
    Then I can see "Add email"
    
+   When I'm on the "User commerce enginge page"
+   Then I can see "Commerce engine" 
+   
    When I'm on the "User shop admin page"
-   Then I can see "Create a personal shop"   
+   Then I can see "Shop administration"   
    
    When I'm on the "User shop select product type page"
    Then I can see "Select product type"
@@ -63,8 +66,21 @@ As an member I can create custom pages and add content to them
    When I'm on the "User special offers page"
    Then I can see "Special offers"
    
+   When I'm on the "User revenue stream page"
+   Then I can see "Revenue streams"
+   
+   When I'm on the "User purchases page"
+   Then I can see "Purchases"
+   
+
+   
+   When I'm on the "User labels page"
+   Then I can see "Labels"
+   
+   
+   
    When I'm on the "Edit user social links page"
-   Then I can see "Edit Social links"
+   Then I can see "Social integration"
    
    When I'm on the "Edit contact info page"
    Then I can see "Edit contact info"

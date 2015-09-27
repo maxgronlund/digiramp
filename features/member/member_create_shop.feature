@@ -11,9 +11,11 @@ As an member I can create a shop
   Scenario: As a member I can create my personal shop
     #When I'm on the admin shop pages for the user with the email "user@digiramp.com"
     When I'm on the "User account settings page"
+    Then I can see "Commerce engine"
+    Then I clik on the link with the id "commerce"
     Then I can see "Shop administration"
     Then I clik on the link with the id "shop-administration"
-    Then I can see "Create a personal shop"
+    Then I can see "Create a DigiRAMP shop"
     #Then I can see "Register your account"
     #Then I can see "DigiRAMP charges"
     #Then I can see "Terms of usage"

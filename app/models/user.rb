@@ -213,6 +213,9 @@ class User < ActiveRecord::Base
   has_many :distribution_agreements
   has_many :publishing_agreement
   
+  
+  def account_id() @account_id ||= self.account.id end
+  
   def digital_signature
     return nil if self.digital_signature_uuid.nil?
     signature = DigitalSignature.find_by(uuid: self.digital_signature_uuid)

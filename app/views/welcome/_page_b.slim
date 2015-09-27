@@ -50,12 +50,12 @@
           
         .row.pull-down-24
           .col-sm-12
-            
-            /#digiWhams  class="/recordings/#{@recordings.first.id.to_s}"
-            /  == render 'recordings/show', recording: @recordings.first
-            - recordings = []
-            - recordings << @recordings.first
-            == render 'recordings/index', recordings: recordings
+            #digiWhams  class="/recordings/#{@recording.id.to_s}"
+              == render 'show', recording: @recording
+            /- recordings = []
+            /- recordings << @recordings.first
+            /- unless recordings.size < 1
+            /  == render 'recordings/index', recordings: recordings
         
         
         .digi-box.pull-down-24

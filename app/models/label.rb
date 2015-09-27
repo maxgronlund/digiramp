@@ -1,7 +1,11 @@
 class Label < ActiveRecord::Base
   
+  has_one :address
+  accepts_nested_attributes_for :address
+  include AddressMix
+  
   mount_uploader :image, LogoUploader
-  validates :title, presence: true
+  validates :title, presence: true, uniqueness: true
   
   belongs_to :user
   belongs_to :account
