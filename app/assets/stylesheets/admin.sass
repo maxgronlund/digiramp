@@ -1,5 +1,6 @@
 @import "row_machine"
 @import "colors"
+@import "compass/css3/box-shadow"
 
 .sidebar
   margin-top: 42px
@@ -70,6 +71,7 @@
       a
         color: #888
       .admin-badge 
+        background-color: #ECEBEA
         .title
           min-height: 40px
           //@include panel-title-green
@@ -83,6 +85,9 @@
           position: relative
           padding: 10px
           min-height: 100px
+          
+      .admin-badge:hover
+        +box-shadow(#252F3F 1px 2px 1px)
 
       
      

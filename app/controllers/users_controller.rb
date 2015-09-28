@@ -153,7 +153,7 @@ class UsersController < ApplicationController
 
       UserAssetsFactory.new @user
       
-      @user.setup_personal_publishing
+      #@user.setup_personal_publishing
       # signout if you was signed in as another user
       cookies.delete(:auth_token)
       sign_in

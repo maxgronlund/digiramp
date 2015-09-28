@@ -134,7 +134,7 @@
             i class="fa fa-sign-in"
             '&nbsp;Log in
 
-- if @user && (@user.cms_pages.where(show_in_menu: true).count > 0)
+- if @user
   == render 'shared/user_navigation_bar', section: @user, page: page
   .pull-down-34
     

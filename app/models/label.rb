@@ -133,15 +133,15 @@ class Label < ActiveRecord::Base
     end
   end
 
-  def self.create_label account_id
-    account = Account.cached_find(account_id)
-    #begin
-      label = Label.create( user_id: account.user_id, account_id: account_id, title: "#{account.user.get_full_name}'s Label")
-      account.user.update(default_label_id: label.id)
-    #rescue => e
-    #  ErrorNotification.post_object 'Label#create_label', e
-    #end
-  end
+  #def self.create_label account_id
+  #  account = Account.cached_find(account_id)
+  #  #begin
+  #    label = Label.create( user_id: account.user_id, account_id: account_id, title: "#{account.user.get_full_name}'s Label")
+  #    account.user.update(default_label_id: label.id)
+  #  #rescue => e
+  #  #  ErrorNotification.post_object 'Label#create_label', e
+  #  #end
+  #end
 
   def self.cached_find(id)
     Rails.cache.fetch([name, id]) { find(id) }

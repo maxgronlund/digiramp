@@ -121,7 +121,7 @@ class Account < ActiveRecord::Base
   
   # clear memcache
   after_commit :flush_cache
-  after_create :create_label
+  
   
   
   # search against

@@ -10,70 +10,123 @@
   
   #page-content-wrapper
     .container-fluid
-      /= render 'common_work_rights'
-      == render 'recordings/wizard_step', step: 5
+      //= render 'common_work_rights'
+      /== render 'recordings/wizard_step', step: 5
       .row
-        .col-sm-8
+        .col-sm-7
           .help
             .help-text
               /h2 = @common_work.title
-              h2 = @common_work.title
+              h2 Copyrights
             .help-button
               == render 'admin/helps/help', identifier: 'common work credits'
-        .col-sm-4
-          .pull-right
-            .pull-down-10
-              = link_to edit_user_recording_tag_path(@user, @recording) do
-                .btn.btn-default
-                  i.fa.fa-chevron-left
-                  '&nbsp;
-                  'Back
-              - unless @user.is_stripe_connected 
-                =< link_to 'Enable payment gateway', user_user_create_shop_index_path(@user), class: 'btn btn-default'
-                
-              /= link_to 'Export CSV', user_user_export_work_and_master_path(@user, @common_work, format: "csv"), class: 'btn btn-default'
-
-        
-      h4 
-      .pull-down-12
-      - unless @common_work.is_registered?
-        - blog      = Blog.cached_find('Common work rights')
-        - blog_post = BlogPost.cached_find('Work is not registered', blog)
-        .alert.alert-info
-          h4 = blog_post.title
-          = blog_post.body
-          - if editor?
-            .row
-              .col-sm-12
-                .pull-right
-                  = link_to edit_admin_blog_blog_post_path(blog, blog_post) do
-                    .btn.btn-default.btn-xs
-                      i.fa.fa-pencil&nbsp;Edit
-            
-      /.row  
-      /  .col-sm-6
-      /    h4 Common work / Copyright 
-      /  .col-sm-6
+      /  .col-sm-5
       /    .pull-right
-      /      => link_to edit_user_user_common_work_path( @user, @common_work ) do
-      /        .btn.btn-default
-      /          i.fa.fa-pencil
-      /          '&nbsp;Edit
-      /      = link_to "Add IP", new_user_user_common_work_common_work_ipi_path(@user, @common_work), class: 'btn btn-default' 
-      /      
-      /      - unless @common_work.is_registered?
-      /        =< link_to "I'm the publishing designee",user_user_publishing_designee_path(@user, @common_work.id),
-      /                              turboboost: true, 
-      /                              class: 'btn btn-warning'
-      /   
+      /      .pull-down-10
+      /        = link_to edit_user_recording_tag_path(@user, @recording) do
+      /          .btn.btn-default
+      /            i.fa.fa-chevron-left
+      /            '&nbsp;
+      /            'Back
+      /        
+      /
+      /          
+      /        /= link_to 'Export CSV', user_user_export_work_and_master_path(@user, @common_work, format: "csv"), class: 'btn btn-default'
+      /
+      /  
+      / 
+      .pull-down-10
+      /- unless @common_work.is_registered?
+      /  - blog      = Blog.cached_find('Common work rights')
+      /  - blog_post = BlogPost.cached_find('Work is not registered', blog)
+      /  .digi-box
+      /    .row
+      /      .col-sm-8
+      /        h4 
+      /          = blog_post.title
+      /          - if editor?
+      /            = link_to edit_admin_blog_blog_post_path(blog, blog_post) do
+      /              '&nbsp;
+      /              i.fa.fa-pencil
+      /        = simple_format blog_post.body
+      /       
+      /      .col-sm-4
+      /        .pull-right
+      /          
+      /    /.row
+      /    /  .col-sm-12
+      /    /    .pull-right
+      /    /      = link_to "I own and control all publishing and master rights ",user_user_publishing_designee_path(@user, @common_work.id),
+      /    /                            turboboost: true, 
+      /    /                            data: {confirm: "By clicking OK you confirm that: 1) You are the only writer/composer/producer/performer on this recording. 2) There is no other publisher or label besides your own. 3) There are no other owners or contributors to any portion of this copyright or recording.4) There are no samples or parts of any other song or recoding in this work."},
+      /    /                            class: 'btn btn-warning'
+      /  .pull-down-10
+      /  
+      .pull-down-10  
+      .digi-box
+        .row
+          .col-sm-7
+            h4 = @common_work.title
+          .col-sm-5
+            .pull-right
+              = link_to edit_user_user_common_work_path( @user, @common_work ) do
+                .btn.btn-default
+                  i.fa.fa-pencil
+                  '&nbsp;Edit copyright
+        .pull-down-10          
+        .row
+          .col-sm-3
+              b Alternative titles
+              br = simple_format @common_work.alternative_titles
+          .col-sm-3
+            b ISWC code
+            br = @common_work.iswc_code
+          .col-sm-3
+            b Registration origin
+            br  = @common_work.registration_origin
+            br
+            b Registration date
+            br  = @common_work.registration_date
+          .col-sm-3
+            b Arrangement of public domain work
+            br = @common_work.arrangement ? 'Yes' : 'No'
+        
+      = @common_work.iswc_code
       == render 'common_work_ipis', selected_id: -1
         
 
       
-      
-      - @common_work.recordings.each do |recording|
-        == render 'recording', recording: recording
-  
+      .pull-down-20
+      .digi-box
+        h4 Masters / Recordings
+        .table-responsive
+          table class="table table-hover"
+            thead
+              tr
+                th Title
+                th IPI Code
+                th Capacity
+                th PRO
+                th
+            tbody
+              - @common_work.recordings.each do |recording|
+                tr
+                  td = recording.title
+        /div id="delete_recording_#{recording.id.to_s}"
+        /  #digiWhams  class="/recordings/#{recording.id.to_s}"
+        /    == render 'audio_player/show', recording: recording , description: true, target: '' 
+        /    /== render 'recordings/recording_with_icons', recording: recording,
+        /    /                                             info: true,
+        /    /                                             add_to_playlist: false, 
+        /    /                                             remove_from_playlist: false, 
+        /    /                                             edit: true, 
+        /    /                                             delete: false,
+        /    /                                             description: true,
+        /    /                                             share: false,
+        /    /                                             target: "",
+        /    /                                             music_request_link: false,
+        /    /                                             remove_from_request: false
+        /    /
       
   == render 'shared/site_footer'  
   

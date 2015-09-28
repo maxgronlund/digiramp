@@ -1,4 +1,4 @@
-# cucumber features/sales/create_special_coupon.feature:17 -r features
+# cucumber features/sales/create_special_coupon.feature:22 -r features
 
 Feature:
 As an salesperson I can make special offers to customers and sell them coupons

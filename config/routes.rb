@@ -2,10 +2,6 @@ Digiramp::Application.routes.draw do
 
 
 
-  
-
-  
-
   resources :labels
  
   namespace :user do
@@ -961,6 +957,7 @@ Digiramp::Application.routes.draw do
         resources :recording_users
         resources :recording_confirmations, only: [:new, :update]
       end
+      resources :recording_rights
       resources :recording_confirmations, only: [:update]
       resources :recording_basics, only: [:edit, :update]
       resources :recording_personas, only: [:edit, :update]

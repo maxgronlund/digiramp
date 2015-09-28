@@ -214,7 +214,8 @@ class User < ActiveRecord::Base
   has_many :publishing_agreement
   
   
-  def account_id() @account_id ||= self.account.id end
+  #def account_id() @account_id ||= self.account.id end
+  def account_id() self.account.id end
   
   def digital_signature
     return nil if self.digital_signature_uuid.nil?
@@ -451,7 +452,7 @@ class User < ActiveRecord::Base
     end
     
     if shop_products = Shop::Product.where(user_id: self.id)
-      shop_products.update_all(user_id: nil, account_id: nil)
+      shop_products.update_all(user_id: nil, account_id: nil, document_id: nil)
     end
     
     if self.stripe_transfers
@@ -718,9 +719,9 @@ class User < ActiveRecord::Base
   end
   
   
-  def setup_personal_publishing
-    CopyMachine.setup_personal_publishing self.id
-  end
+  #def setup_personal_publishing
+  #  CopyMachine.setup_personal_publishing self.id
+  #end
   
   def pro_affiliation() 
     
@@ -735,31 +736,31 @@ class User < ActiveRecord::Base
   
   def personal_publisher_ipi_code
     begin
-      personal_publisher.ipi_code 
-    rescue
-      if personal_publisher.nil?
-        setup_personal_publishing
-      end
+      return personal_publisher.ipi_code 
+    rescue => e
+      ErrorNotification.post_object 'User#personal_publisher_ipi_code', e
     end
-  
+    nil
   end
+  
   def personal_publisher_ipi_code=( code)
     personal_publisher.update(ipi_code: code)
   end
   
   def personal_publisher
+    @personal_publisher ||= Publisher.find_by(user_id: self.id, personal_publisher: true)
     #@publisher ||=  
-    if pub = Publisher.find_by(user_id: self.id, personal_publisher: true)
-      return pub
-    else
-      setup_personal_publishing
-      return Publisher.find_by(user_id: self.id, personal_publisher: true)
-    end
+    #if pub = Publisher.find_by(user_id: self.id, personal_publisher: true)
+    #  return pub
+    #else
+    #  #setup_personal_publishing
+    #  return Publisher.find_by(user_id: self.id, personal_publisher: true)
+    #end
   end
   
   def personal_publishing_agreement
     #@personal_publishing_agreement ||= 
-    PublishingAgreement.find_by(personal_agreement: true, publisher_id: personal_publisher.id)
+    @personal_publishing_agreement ||= PublishingAgreement.find_by(personal_agreement: true, publisher_id: personal_publisher.id)
   end
   
   def publishing_agreement_document

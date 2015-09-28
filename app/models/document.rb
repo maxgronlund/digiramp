@@ -61,6 +61,48 @@ class Document < ActiveRecord::Base
     
   end
   
+  #def self.self_distribution
+  #  Document.where(uuid: "38e2814a-45ce-11e5-b8b5-d43d7eecec4d")
+  #  .first_or_create(
+  #    title: "Self Distribution",
+  #    document_type: "Template",
+  #    body: "You represent and warrant that you are free to enter into and abide by the \r\nterms of this Agreement and that you are the sole owner of the master recordings embodying the following compositions",
+  #    text_content: "DISTRIBUTION AGREEMENT",
+  #    tag: "Distribution",
+  #    uuid: "38e2814a-45ce-11e5-b8b5-d43d7eecec4d",
+  #  )
+  #end
+  #
+  #def self.self_publishing
+  #  Document.where(uuid: '5dcab336-5dd6-11e5-88f3-d43d7eecec4d')
+  #  .first_or_create(
+  #    title: "Self publishing",
+  #    document_type: "Template",
+  #    body: "Self publishing ( I validate i'm my own rightful publisher )",
+  #    text_content: "Self publishing ( I validate i'm my own rightful publisher )",
+  #    tag: "Publishing",
+  #    uuid: "5dcab336-5dd6-11e5-88f3-d43d7eecec4d",
+  #  )
+  #end
+  #
+  #
+  #
+  #
+  #
+  #def self.mp3_term_of_usage
+  #  Document.where(uuid: "38e2fddc-45ce-11e5-b8b5-d43d7eecec4d")
+  #  .first_or_create(
+  #    title: "Term of usage for a mp3 file bought in the shop",
+  #    document_type: "Template",
+  #    body: "You what you can use a mp3 for",
+  #    text_content: "MP3 usage agreement",
+  #    account_id: 380,
+  #    file_size: 0,
+  #    tag: "Recording",
+  #    uuid: "38e2fddc-45ce-11e5-b8b5-d43d7eecec4d",
+  #  )
+  #end
+  
  
   
 private

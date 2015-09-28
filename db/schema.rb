@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150924112619) do
+ActiveRecord::Schema.define(version: 20150927210609) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -3241,7 +3241,7 @@ ActiveRecord::Schema.define(version: 20150924112619) do
     t.boolean  "expired",           default: false
     t.integer  "generated_fee",     default: 0
     t.integer  "generated_income",  default: 0
-    t.integer  "user_id"
+    t.integer  "user_id",           default: 0
     t.integer  "units_sold",        default: 0
   end
 
@@ -3786,7 +3786,6 @@ ActiveRecord::Schema.define(version: 20150924112619) do
   add_foreign_key "shop_order_items", "shop_products"
   add_foreign_key "shop_orders", "users"
   add_foreign_key "shop_products", "accounts"
-  add_foreign_key "shop_products", "documents"
   add_foreign_key "shop_products", "label_recordings", on_delete: :cascade
   add_foreign_key "shop_products", "users"
   add_foreign_key "shop_stripe_transfers", "accounts"

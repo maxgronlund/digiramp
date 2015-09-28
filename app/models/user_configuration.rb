@@ -22,6 +22,7 @@ class UserConfiguration < ActiveRecord::Base
   
   #user.next_up?
   def next_up?
+    
     #self.update(configured: false)
     #return 'done' if self.configured
     return 'done' if self.done?
@@ -68,6 +69,7 @@ class UserConfiguration < ActiveRecord::Base
         return 'register_a_publisher'  if user.user_publishers.count  == 0
       end
       
+      
       unless self.upload_recordings_later           
         return 'upload_recordings'    if user.recordings.count          == 0 
       end
@@ -79,16 +81,14 @@ class UserConfiguration < ActiveRecord::Base
       end
       
       unless enable_shop_later
-        if Rails.env.production?
-          return 'enable_shop'                  unless  user.has_enabled_shop
-        end
+        return 'enable_shop'                  unless  user.has_enabled_shop
       end
       
-      unless add_a_recording_to_the_shop_later
-        if user.has_enabled_shop
-          return 'add_a_recording_to_the_shop'  if user.products.on_sale.where(category: 'recording').count == 0
-        end
-      end
+      #unless add_a_recording_to_the_shop_later
+      #  if user.has_enabled_shop
+      #    return 'add_a_recording_to_the_shop'  if user.products.on_sale.where(category: 'recording').count == 0
+      #  end
+      #end
       
     end
     
@@ -105,9 +105,7 @@ class UserConfiguration < ActiveRecord::Base
       end
       
       unless enable_shop_later
-        if Rails.env.production?
-          return 'enable_shop'                  unless  user.has_enabled_shop
-        end
+        return 'enable_shop'                  unless  user.has_enabled_shop
       end
       
       unless add_physical_product_later
@@ -184,6 +182,11 @@ class UserConfiguration < ActiveRecord::Base
       unless add_digital_signature_later
         return 'add_digital_signature' unless !user.digital_signature_uuid.nil?
       end
+      
+      unless enable_shop_later
+        return 'enable_shop'                  unless  user.has_enabled_shop
+      end
+      
     end
     
     if self.i_want_to_collaborate

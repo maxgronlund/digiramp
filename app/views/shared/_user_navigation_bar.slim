@@ -7,52 +7,14 @@ nav.navbar.nav-user
       span.icon-bar
       span.icon-bar
       span.icon-bar
-    
-    /- if @user && current_user
-    /  - unless current_user.id == @user.id
-    /    .navigation-avatar
-    /      = link_to user_path( @user), class: 'navbar-brand' do
-    /        = image_tag @user.image_url(:avatar_32x32)
-    /- elsif @user
-    /    .navigation-avatar
-    /      = link_to user_path( @user), class: 'navbar-brand' do
-    /        = image_tag @user.image_url(:avatar_32x32)
-    /
-    
-        /'&nbsp;
-        /= current_user.user_name
-    /a.navbar-brand href="#"  Brand
-  /! Collect the nav links, forms, and other content for toggling
+
   .collapse.navbar-collapse id="user_navigation_bar" 
     ul.nav.navbar-nav
-      - if @user
-        - @user.cms_pages.where(show_in_menu: true).each do |cms_page|
-          li class="#{'active' if cms_page.title == page}"
-            = link_to user_cms_page_path(cms_page.user, cms_page) do
-              = cms_page.title
-              /span.sr-only (current)
-    /  /li
-    /  /  = link_to user_path(@user) do
-    /  /    i.fa.fa-headphones
-    /  /    '&nbsp;Activities
-    /  /li.dropdown
-    /  /  a.dropdown-toggle aria-expanded="false" data-toggle="dropdown" href="#" role="button" 
-    /  /    | Dropdown
-    /  /    span.caret
-    /  /  ul.dropdown-menu role="menu" 
-    /  /    li
-    /  /      a href="#"  Action
-    /  /    li
-    /  /      a href="#"  Another action
-    /  /    li
-    /  /      a href="#"  Something else here
-    /  /    li.divider
-    /  /    li
-    /  /      a href="#"  Separated link
-    /  /    li.divider
-    /  /    li
-    /  /      a href="#"  One more separated link
-    /  /
+      - @user.cms_pages.where(show_in_menu: true).each do |cms_page|
+        li class="#{'active' if cms_page.title == page}"
+          = link_to user_cms_page_path(cms_page.user, cms_page) do
+            = cms_page.title
+      
     ul.nav.navbar-nav.navbar-right
       
       - if current_user 

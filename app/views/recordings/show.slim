@@ -36,6 +36,23 @@
       
   #page-content-wrapper
     .container-fluid
+      -if @recording.user.manage? current_user
+        - unless @recording.common_work.is_registered?
+          - blog = Blog.cached_find('Recording')
+          - blog_post = BlogPost.cached_find('No copyrights registered', blog)
+          .alert.alert-warning
+            h3 
+              = blog_post.title
+              - if editor?
+                = link_to edit_admin_blog_blog_post_path( blog, blog_post) do
+                  '&nbsp;
+                  i.fa.fa-pencil
+           
+            = simple_format blog_post.body
+            .row
+              .col-sm-12
+                .pull-right
+                  = link_to 'Register copyrights', edit_user_user_common_work_path(@user, @recording.common_work), class: 'btn btn-success'
       /= debug url_for( user_user_path( user: @user) )
       #digiWhams  class="/recordings/#{@recording.id.to_s}"
         == render 'recordings/recording_with_icons', recording: @recording, 
