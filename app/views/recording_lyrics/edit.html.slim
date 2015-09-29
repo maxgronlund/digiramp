@@ -16,13 +16,15 @@
       
       == render 'recordings/wizard_step', step: 3
       .row
-        .col-sm-6
+        .col-sm-9
           .help
             .help-text
-              h2 Lyrics
+              h2 
+                b Lyrics&nbsp;
+                = @recording.title
             .help-button
               == render 'admin/helps/help', identifier: 'recording lyrics'
-        .col-sm-6
+        .col-sm-3
           .pull-right
             .recording-navigation
               => link_to edit_user_recording_basic_path(@user, @recording) do
@@ -36,8 +38,7 @@
                   'Skip
                   '&nbsp;
                   i.fa.fa-chevron-right
-      .sexy_line
-      h4 = @recording.title
+      .pull-down-10
       .digi-box
         = simple_form_for  [@user, @recording ], turboboost: true , :url => url_for(:action => 'update', :controller => 'recording_lyrics'), 
                                                  :method => 'put' do |f|

@@ -15,7 +15,7 @@
     .container-fluid   
       .row
         .col-sm-6   
-          h3 Upload Recording
+          h3 Replace recording
         .col-sm-6
           .pull-right
             .recording-navigation
@@ -27,19 +27,17 @@
       == render 'shared/flash_message'
       .sexy_line
       h4 = @recording.title
-      .digi-box
-        = simple_form_for [@user, @recording], url: url_for(:action => 'update', :controller => 'recording_uploads'), 
-                                                 html: { :id => 'audio_files' }, 
-                                                 method: 'put' do |f|
-          .row
-            .col-sm-8.col-lg-6
+      .row
+        .col-sm-8.col-lg-6
+          .digi-box
+            = simple_form_for [@user, @recording], url: url_for(:action => 'update', :controller => 'recording_uploads'), 
+                                                     html: { :id => 'audio_files' }, 
+                                                     method: 'put' do |f|
+              
               = transloadit :recording_with_thumbs 
               
               = f.hidden_field :user_id, value: @user.id
-              
-              
-              
-              
+
               .fileinput.fileinput-new.input-group data-provides="fileinput"
                 .form-control data-trigger="fileinput"
                   i.glyphicon.glyphicon-file.fileinput-exists
@@ -69,16 +67,18 @@
                         label: false, 
                         inline_label:  raw( "*I Have <a href=#{terms_and_conditions_path}>Read and Agree</a>  to The Terms and Conditions"),
                         :input_html => { class: 'icheck-me acceptance', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue"     }
-              .pull-right
-                
-                => link_to 'Cancel', user_recordings_path(@user), class: 'btn btn-default'
-                = f.submit 'Next', class: 'btn btn-info btn-next', disabled: "disabled"
-                coffee:
-                  $("form#audio_files").submit ->
-                    $(this).find('input[type=submit]').attr('disabled', 'disabled')
-                    $(this).find('input[type=submit]').val "Uploading, please wait ..."
-            
-
+              
+              .row
+                .col-sm-12
+                  .pull-right
+                    => link_to 'Cancel', user_recordings_path(@user), class: 'btn btn-default'
+                    = f.submit 'Next', class: 'btn btn-info btn-next', disabled: "disabled"
+                    coffee:
+                      $("form#audio_files").submit ->
+                        $(this).find('input[type=submit]').attr('disabled', 'disabled')
+                        $(this).find('input[type=submit]').val "Uploading, please wait ..."
+                  
+                  
             
 
         

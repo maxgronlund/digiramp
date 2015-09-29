@@ -16,8 +16,8 @@
           .help
             .help-text
               h2 
+                b Edit&nbsp;
                 = @cms_page.title
-                ': layout
             .help-button
               == render 'admin/helps/help', identifier: 'edit user page layout'
               
@@ -32,48 +32,8 @@
            
             
       .pull-down-10
-      .digi-box 
-        = simple_form_for [:user, @user, @cms_page], turboboost: true do |f|
-          = f.hidden_field :user_id, value: @user.id
-          .row
-            .col-sm-6
-              = f.input :title, autofocus: true
-              = f.input :layout, collection: CmsPage::LAYOUTS
-              = f.input :hide_sidebar,  :input_html => { class: 'icheck-me', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue"     }  
-              = f.input :show_in_menu,  :input_html => { class: 'icheck-me', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue"     }  
-              
-            .col-sm-6
-              = f.input :theme, collection: CmsPage::THEMES, include_blank: false
-              /.row
-              /  .col-sm-6
-              /    = f.input :background_color
-              /  .col-sm-6
-              /    = f.input :text_color
+      == render 'user/cms_pages/form'
         
-          .row
-            .col-sm-12
-              .pull-right
-                = f.submit 'Update', class: 'btn btn-info'
-      .digi-layouts
-        h4 Previews
-        .row
-          .col-xs-3
-            h5 Alabama
-            = image_tag 'https://digiramp.com/uploads/raw_image/image/16/alabama.jpg'
-          .col-xs-3
-            h5 Alaska
-            = image_tag 'https://digiramp.com/uploads/raw_image/image/17/alaska.jpg'
-          .col-xs-3
-            h5 Arizona
-            = image_tag 'https://digiramp.com/uploads/raw_image/image/18/arizona.jpg'
-          .col-xs-3
-            h5 Arkansas
-            = image_tag 'https://digiramp.com/uploads/raw_image/image/19/arkansas.jpg'
-        .row
-          .col-xs-3
-            h5 California
-            = image_tag 'https://digiramp.com/uploads/raw_image/image/23/california.jpg'
-            
             
         
         

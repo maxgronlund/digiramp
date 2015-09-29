@@ -1,7 +1,5 @@
 Digiramp::Application.routes.draw do
 
-
-
   resources :labels
  
   namespace :user do
@@ -987,6 +985,7 @@ Digiramp::Application.routes.draw do
     end
     # end of user/user namespace
     resources :user_addresses
+    
   end
   
   resources :users do
@@ -1015,6 +1014,7 @@ Digiramp::Application.routes.draw do
     resources :received_messages, only: [:index]
     resources :replies
     resources :unread_messages, only: [:index, :new]
+    resources :user_likes
     resources :send_messages, only: [:index]
     #resources :recording_basics, only: [:edit, :update]
     #resources :recording_personas, only: [:edit, :update]

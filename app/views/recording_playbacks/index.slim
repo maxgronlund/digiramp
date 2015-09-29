@@ -13,8 +13,10 @@
 
   #page-content-wrapper
     .container-fluid 
-      h2 Playbacks
-      .sexy_line
+      h2 
+        b Users who listened to&nbsp;
+        = @recording.title
+      .pull-down-10
       #digiWhams  class="/recordings/#{@recording.id.to_s}"
         == render 'recordings/show', recording: @recording
       h4 Registered users who listened to this recording

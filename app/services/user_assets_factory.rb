@@ -141,7 +141,7 @@ class UserAssetsFactory
       document_type: "Template",
       body: "You what you can use a mp3 for",
       text_content: "MP3 usage agreement",
-      account_id: 380,
+      account_id: User.system_user.account_id,
       file_size: 0,
       tag: "Recording",
       uuid: "38e2fddc-45ce-11e5-b8b5-d43d7eecec4d",

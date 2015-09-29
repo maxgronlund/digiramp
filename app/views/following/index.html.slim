@@ -5,7 +5,7 @@
   
   #sidebar-wrapper
     ul class="sidebar-nav"
-      == render 'users/shared/sidebar', selected: 'following'
+      == render 'users/shared/sidebar', selected: 'followed'
       - unless current_user
         .sidebar
           .sexy_line
@@ -22,26 +22,21 @@
   
   #page-content-wrapper
     .container-fluid
-      .row
-        .col-sm-5
-          .help
-            .help-text
-              h2 Following
-            .help-button
-              == render 'admin/helps/help', identifier: 'users an user is following'
-          
-        .col-sm-7.pull-down-10
-          .pull-right
-            - if current_user
-              - if ( @user.id == current_user.id )|| super?
-                = link_to user_user_activities_path(@user) do
-                  .btn.btn-info
-                    i.fa.fa-history
-                    '&nbsp;Activities
+      h2 
+        b Users followed by&nbsp;
+        = @user.user_name
       
+      /.col-sm-7.pull-down-10
+      /  .pull-right
+      /    - if current_user
+      /      - if ( @user.id == current_user.id )|| super?
+      /        = link_to user_user_activities_path(@user) do
+      /          .btn.btn-info
+      /            i.fa.fa-history
+      /            '&nbsp;Activities
+      /
       .row
-        .col-sm-6
-        .col-sm-6
+        .col-sm-12
           .pull-right
             = form_tag("/users/#{@user.slug}/following/", method: "get", remote: true) do |f|
               .input-group
@@ -60,11 +55,12 @@
             == render 'users/index', users: @users
             .add_users
         
-
-      .add_pagination
-      == render 'users/paggination', users: @users
+      .row
+        .col-sm-12
+          .add_pagination
+          == render 'users/paggination', users: @users
       
    
   == render 'shared/site_footer'    
  
-/== render 'user/connections/modal', modal_id: "connect_modal_#{@user.id.to_s}", recipient: @user, subjectable: @user  
+

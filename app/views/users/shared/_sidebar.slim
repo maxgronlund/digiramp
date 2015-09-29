@@ -27,11 +27,11 @@
         
     li class="#{'sidebar-selected' if selected == 'likes'}"
       = link_to user_likes_path(@user) do
-        i.fa.fa-thumbs-up
+        i.fa.fa-headphones
         '&nbsp;
         = @user.likes.count
         '&nbsp;
-        'Liking  
+        'Liked rec. 
         
     li class="#{'sidebar-selected' if selected == 'followers'}"
       = link_to user_followers_path(@user, clear: 'clear') do
@@ -39,12 +39,20 @@
         '&nbsp;
         = pluralize(@user.followers.count, 'Follower')  
         
-    li class="#{'sidebar-selected' if selected == 'following'}"
+    li class="#{'sidebar-selected' if selected == 'followed'}"
       = link_to user_following_index_path(@user, clear: 'clear') do
         i class="fa fa-users"
         '&nbsp;
         'Following
         = @user.followed_users.count 
+    
+    li class="#{'sidebar-selected' if selected == 'liked_users'}"
+      = link_to user_user_likes_path(@user) do
+        i class="fa fa-heart red-heart"
+        '&nbsp;
+        = @user.liked_users_count
+        '&nbsp;Liked users
+        
     
     li class="#{'sidebar-selected' if selected == 'playlists'}"
       = link_to user_playlists_path(@user) do

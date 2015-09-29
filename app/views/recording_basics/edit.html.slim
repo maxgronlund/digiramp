@@ -13,26 +13,27 @@
       /== render 'admin/shared/messages'
       == render 'recordings/wizard_step', step: 1
       .row
-        .col-sm-6
+        .col-sm-9
           .help
             .help-text
-              h2 Edit basic information
+              h2 
+                b Edit&nbsp;
+                = @recording.title
             .help-button
               == render 'admin/helps/help', identifier: 'recording basic'
-        .col-sm-6
+        .col-sm-3
           .pull-right
             .recording-navigation
-              => link_to user_recording_path(@user, @recording) do
-                .btn.btn-default
-                  i.fa.fa-times
-                  '&nbsp;Cancel
+              /=> link_to user_recording_path(@user, @recording) do
+              /  .btn.btn-default
+              /    i.fa.fa-times
+              /    '&nbsp;Cancel
                   
               = link_to edit_user_recording_lyric_path(@user, @recording) do
                 .btn.btn-default
                   '&nbsp;Skip
                   i.fa.fa-chevron-right
       .pull-down-10
-      h4 = @recording.title
       .digi-box
    
 

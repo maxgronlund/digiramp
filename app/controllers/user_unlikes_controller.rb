@@ -5,5 +5,6 @@ class UserUnlikesController < ApplicationController
       item_like.destroy
     end
     @user.update_user_likes
+    current_user.update_liked_users_count
   end
 end

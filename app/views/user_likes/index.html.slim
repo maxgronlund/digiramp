@@ -5,7 +5,7 @@
   
   #sidebar-wrapper
     ul class="sidebar-nav"
-      == render 'users/shared/sidebar', selected: 'followers'
+      == render 'users/shared/sidebar', selected: 'liked_users'
       - unless current_user
         .sidebar
           .sexy_line
@@ -16,13 +16,13 @@
   #page-content-wrapper
     .container-fluid
       h2 
-        b Users following&nbsp;
+        b Users liked by&nbsp;
         = @user.user_name
            
       .row   
         .col-sm-12.pull-down-10
           .pull-right
-            = form_tag("/users/#{@user.slug}/followers/", method: "get", remote: true) do |f|
+            = form_tag("/users/#{@user.slug}/user_likes/", method: "get", remote: true) do |f|
               .input-group
                 span class="input-group-addon"
                   i class= 'fa fa-search'
@@ -31,7 +31,7 @@
                                               value: params[:query]
                 .input-group-btn
                   => submit_tag 'Go', class: "btn btn-info"
-                  = link_to 'Clear', users_path( clear: 'clear'), class: 'btn btn-default'
+                  = link_to 'Clear', user_user_likes_path( clear: 'clear'), class: 'btn btn-default'
       .row
         .col-sm-12
           .pull-down-10
@@ -41,7 +41,8 @@
                 == render 'users/index', users: @users
                 .add_users
             
-          
+      .row
+        .col-sm-12
           .add_pagination
           == render 'users/paggination', users: @users
           

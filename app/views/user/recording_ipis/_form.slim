@@ -7,7 +7,6 @@
     = f.hidden_field :recording_id, value: @recording.id
     .row
       .col-sm-6
-        h4 IP Info
         = f.input :email, hint: 'If you are the IP add the email you are using for DigiRAMP', placeholder: "IP's email",autofocus:  true
         = f.input :name,    label: 'Full name', 
                             placeholder: 'Optional',
@@ -56,7 +55,7 @@
 
 - if recording_ipis = @recording.recording_ipis
   .digi-box
-    h4 All Ip's
+    h4 All contributors
     .table-responsive
       table class="table table-hover"
         thead

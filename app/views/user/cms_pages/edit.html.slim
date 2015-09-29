@@ -19,7 +19,9 @@
             .col-sm-6
               .help
                 .help-text
-                  h2 = @cms_page.title
+                  h2 
+                    b Edit&nbsp;
+                    = @cms_page.title
                 .help-button
                   == render 'admin/helps/help', identifier: 'edit user page'
             .col-sm-6
@@ -32,14 +34,8 @@
                   
                   => link_to 'Preview', user_cms_page_path(@user, @cms_page), class: 'btn btn-default'
                   
-                  = link_to 'Edit page layout', edit_user_user_cms_page_layout_path(@user, @cms_page), class: 'btn btn-default'
-                  
-          
-            
-            
-            
-          .sexy_line
-          /== render "user/cms_pages/themes/#{@cms_page.theme.downcase}"
+                  = link_to 'Layout', edit_user_user_cms_page_layout_path(@user, @cms_page), class: 'btn btn-default'
+
           == render "user/cms_pages/layouts/#{@cms_page.layout.downcase}"
               
                                                                        
@@ -63,8 +59,9 @@
           .row
             .col-sm-6
               .help
-                .help-text
-                  'Edit page
+                h2 
+                  b Edit&nbsp;
+                  = @cms_page.title
                 .help-button
                   == render 'admin/helps/help', identifier: 'edit user page'
                   
@@ -78,13 +75,9 @@
                 
                 => link_to 'Preview', user_cms_page_path(@user, @cms_page), class: 'btn btn-default'
                 
-                = link_to 'Edit layout', edit_user_user_cms_page_layout_path(@user, @cms_page), class: 'btn btn-info', id: 'edit-layout'
+                = link_to 'Layout', edit_user_user_cms_page_layout_path(@user, @cms_page), class: 'btn btn-info', id: 'edit-layout'
                 
-          
-          .sexy_line
-          
-          h4 Edit modules
-        /== render "user/cms_pages/themes/#{@cms_page.theme.downcase}"
+
         == render "user/cms_pages/layouts/#{@cms_page.layout.downcase}"
            
                    

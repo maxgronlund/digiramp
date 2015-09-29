@@ -116,6 +116,13 @@
                 
               .user-stat-data
                 h4 = @user.recordings.count
+          
+          = link_to user_likes_path(@user) do
+            .user-stat-row
+              .user-stat-title
+                h4 
+                  i.fa.fa-headphones
+                  '&nbsp;Liked recordings
             
           = link_to user_followers_path(@user, clear: 'clear') do
             .user-stat-row
@@ -142,13 +149,16 @@
                 
               .user-stat-data
                 h4 = @user.followed_users.count
-          
-          = link_to user_likes_path(@user) do
+                  
+          = link_to user_user_likes_path(@user, clear: 'clear') do
             .user-stat-row
               .user-stat-title
                 h4 
-                  i.fa.fa-thumbs-up
-                  '&nbsp;Liking
+                  i.fa.fa-heart.red-heart
+                  '&nbsp;Liked users
+                
+              .user-stat-data
+                h4 = @user.liked_users_count
                 
               .user-stat-data
                 h4 = @user.likes.count
@@ -223,12 +233,12 @@
                     '&nbsp;
                     'Profile settings
                     
-                = link_to user_user_cms_pages_path(@user) do
-                  .btn.btn-default
-                    i class="fa fa-plus"
-                    '&nbsp;
-                    'Add page
-                    
+                /= link_to user_user_cms_pages_path(@user) do
+                /  .btn.btn-default
+                /    i class="fa fa-plus"
+                /    '&nbsp;
+                /    'Add page
+                /    
                     
                 /cms_pages
               - if current_user.id != @user.id 

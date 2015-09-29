@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150927210609) do
+ActiveRecord::Schema.define(version: 20150929082152) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -3528,6 +3528,7 @@ ActiveRecord::Schema.define(version: 20150927210609) do
     t.string   "ipi_code"
     t.uuid     "digital_signature_uuid"
     t.integer  "default_label_id"
+    t.integer  "liked_users_count",                      default: 0
   end
 
   add_index "users", ["default_cms_page_id"], name: "index_users_on_default_cms_page_id", using: :btree

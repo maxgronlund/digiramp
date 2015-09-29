@@ -12,14 +12,17 @@
       /= render 'common_work_rights'
       == render 'recordings/wizard_step', step: 5
       .row
-        .col-sm-7
+        .col-sm-9
           .help
             .help-text
               /h2 = @common_work.title
-              h2℗ Sound recording copyright
+              / h2℗ Sound recording copyright
+              h2 
+                b Contributors&nbsp;
+                = @recording.title
             .help-button
-              == render 'admin/helps/help', identifier: 'recording contributors'
-        .col-sm-5
+              == render 'admin/helps/help', identifier: 'sound recording copyright'
+        .col-sm-3
           .pull-right
             .pull-down-10
               = link_to edit_user_recording_tag_path(@user, @recording) do
@@ -27,96 +30,94 @@
                   i.fa.fa-chevron-left
                   '&nbsp;
                   'Back
+                  
+              /=< link_to edit_user_recording_basic_path(@user, @recording)
+              /  .btn.btn-info
+              /    i.fa.fa-pencil&nbsp;Edit recording
               
 
                 
               /= link_to 'Export CSV', user_user_export_work_and_master_path(@user, @common_work, format: "csv"), class: 'btn btn-default'
 
-        
        
       .pull-down-10
-        .row
-          .col-sm-12
-            #digiWhams  class="/recordings/#{@recording.id.to_s}"   
-              == render 'audio_player/show', recording: @recording , description: true, target: ""
-              .recording-credits
-                .row
-                  .col-sm-6
-                    h4 Contributors
-                  .col-sm-6
-                    .pull-right.pull-down-10
-              
-                      =< link_to new_user_user_recording_recording_ipi_path(@user, @recording) do
-                           .btn.btn-default
-                             i.fa.fa-user-plus&nbsp;Add contributor
-      
-                .table-responsive
-                  table class="table table-hover"
-                    thead
-                      tr
-                        th
-                        th Legal name / Email
-                        th Capacity
-                        th Contributors share
-                        th 
-                          .pull-right
-                            'Status
-                
-                    tbody
-                      - @recording.recording_ipis.order(:id).each do |recording_ipi|
-                        tr
-                          td 
-                            /div class="recording-ipi-info-dialog-#{recording_ipi.id.to_s}"
-                            => link_to user_user_recording_recording_ipi_path( @user, @recording, recording_ipi), 
-                                data: {:confirm => 'Are you sure?'}, 
-                                turboboost: true,
-                                method: :delete do
-                              .btn.btn-danger.btn-xs
-                                i.fa.fa-times
-                            => link_to edit_user_user_recording_recording_ipi_path( @user, @recording, recording_ipi) do
-                              .btn.btn-default.btn-xs
-                                i.fa.fa-pencil
-        
-                  
-                  
-                          td 
-                            = recording_ipi.name
-                            br = recording_ipi.email
-                          td = recording_ipi.role
-                          td = number_to_percentage(recording_ipi.share, precision: 2)
-                  
-                          td
-                            .pull-right
-                              div class="recording-confirmation-button-#{recording_ipi.id.to_s}"
-                              == render 'user/recording_ipis/confirmation_button', user: @user, recording: @recording, recording_ipi: recording_ipi
-                  
+      .row
+        .col-sm-12
+          /#digiWhams  class="/recordings/#{@recording.id.to_s}"   
+          /  == render 'audio_player/show', recording: @recording , description: true, target: ""
+          /  .pull-down-4
+          /  .sexy_line
+          .digi-box
+            .row
+              .col-sm-6
+                h4 Contributors
+              .col-sm-6
+                .pull-right.pull-down-6
+                  = link_to new_user_user_recording_recording_ipi_path(@user, @recording) do
+                      .btn.btn-success
+                        i.fa.fa-user-plus&nbsp;Add contributor
 
-                
-                .row
-                  .col-sm-12
-                    .pull-right
-                      - if !@user.is_stripe_connected  && @recording.is_cleared?
-                        = link_to 'Enable payment gateway', user_user_create_shop_index_path(@user), class: 'btn btn-success'
-                
-                      - if @user.is_stripe_connected && @recording.is_cleared?
-                        - if product = @recording.product
-                          =< link_to edit_user_user_product_path(@user, product ) do
-                                  .btn.btn-success
-                                    i.fa.fa-shopping-cart&nbsp;Edit in shop
-                        - else
-                          =< link_to new_user_user_product_path(@user, category: 'recording', recording_id: @recording.id) do
-                                  .btn.btn-success
-                                    i.fa.fa-shopping-cart&nbsp;Add to shop
-                
-                      =< link_to edit_user_recording_basic_path(@user, @recording)
-                        .btn.btn-default
-                          i.fa.fa-pencil&nbsp;Edit recording
-            
-              
-            
-
+                  - if @recording.recording_ipis.count < 1
+                    =< link_to "I'm the only contributor", '#', class: 'btn btn-warning'
       
-            .open-dialog
+            .table-responsive
+              table class="table table-hover"
+                thead
+                  tr
+                    th
+                    th Legal name / Email
+                    th Capacity
+                    th Contributors share
+                    th 
+                      .pull-right
+                        'Status
+            
+                tbody
+                  - @recording.recording_ipis.order(:id).each do |recording_ipi|
+                    tr
+                      td 
+                        /div class="recording-ipi-info-dialog-#{recording_ipi.id.to_s}"
+                        => link_to user_user_recording_recording_ipi_path( @user, @recording, recording_ipi), 
+                            data: {:confirm => 'Are you sure?'}, 
+                            turboboost: true,
+                            method: :delete do
+                          .btn.btn-danger.btn-xs
+                            i.fa.fa-times
+                        => link_to edit_user_user_recording_recording_ipi_path( @user, @recording, recording_ipi) do
+                          .btn.btn-default.btn-xs
+                            i.fa.fa-pencil
+      
+              
+              
+                      td 
+                        = recording_ipi.name
+                        br = recording_ipi.email
+                      td = recording_ipi.role
+                      td = number_to_percentage(recording_ipi.share, precision: 2)
+              
+                      td
+                        .pull-right
+                          div class="recording-confirmation-button-#{recording_ipi.id.to_s}"
+                          == render 'user/recording_ipis/confirmation_button', user: @user, recording: @recording, recording_ipi: recording_ipi
+              
+
+            
+            .row
+              .col-sm-12
+                .pull-right
+                  - if !@user.is_stripe_connected  && @recording.is_cleared?
+                    = link_to 'Enable payment gateway', user_user_create_shop_index_path(@user), class: 'btn btn-success'
+            
+                  - if @user.is_stripe_connected && @recording.is_cleared?
+                    - if product = @recording.product
+                      =< link_to edit_user_user_product_path(@user, product ) do
+                              .btn.btn-success
+                                i.fa.fa-shopping-cart&nbsp;Edit in shop
+                    - else
+                      =< link_to new_user_user_product_path(@user, category: 'recording', recording_id: @recording.id) do
+                              .btn.btn-success
+                                i.fa.fa-shopping-cart&nbsp;Add to shop
+
   
       
   == render 'shared/site_footer'  

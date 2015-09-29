@@ -275,16 +275,29 @@ class User < ActiveRecord::Base
     # enum status: [ :draft, :execution_copy, :executed, :deleted ]
   end
   
-  
+  def liked_users
+    user_ids = self.item_likes.where(like_type: 'User').pluck(:id)
+    User.order(:id).where(id: user_ids).public_profiles
+  end
+
   
   def liked_by user_id
     ItemLike.find_by(user_id: user_id, like_id: self.id, like_type: self.class.name)
   end
   
   def update_user_likes
-    #self.user_likes = ItemLike.where(like_id: self.id, like_type: self.class.name).count
+    # how many has liked this user
+     # how many has this user liked
     self.update(user_likes: ItemLike.where(like_id: self.id, like_type: self.class.name).count)
-    #self.save(validate: false)
+  end
+  
+  def update_liked_users_count
+    # how many has liked this user
+     # how many has this user liked
+    self.update(
+      liked_users_count: liked_users.count)
+    ap '=================================================='
+    ap self.liked_users_count
   end
   
   #def user_likes 

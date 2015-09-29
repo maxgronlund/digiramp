@@ -1,24 +1,29 @@
 = transloadit :image_files_to_s3 
 .row
   .col-sm-6
-    - if super?
-      = f.input :featured,  :input_html => { class: 'icheck-me', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue"     }
-    = f.input :title, autofocus:  true
-    b Original file:
-    =< recording.original_file_name
-    br
-    => link_to recording.download_url2 do
-      .btn.btn-default
-        i.fa.fa-cloud-download
-        '&nbsp;Download
+    = f.input :title
     
-    = link_to edit_user_recording_upload_path(user, recording) do
-       .btn.btn-default
-         i.fa.fa-cloud-upload
-         '&nbsp;Reaplace
-         
+    /b Original file:
+    /=< recording.original_file_name
+    /.pull-down-8
+    /=> link_to recording.download_url2 do
+    /  .btn.btn-default
+    /    i.fa.fa-cloud-download
+    /    '&nbsp;Download
+    .row
+      .col-sm-6
+        b Sound file
+        .pull-down-6
+        = link_to edit_user_recording_upload_path(user, recording) do
+           .btn.btn-default
+             'Select from disk
+           
+      .col-sm-6
+        = f.input :position
     .row.pull-down-8
       .col-sm-6
+        b Artwork
+        .pull-down-6
         .fileinput.fileinput-new data-provides="fileinput"
           .fileinput-new.thumbnail style="width: 100px; height: 100px;"
             - if recording.cover_art
@@ -30,23 +35,27 @@
           div
             span.btn.btn-default.btn-file
               span class="fileinput-new"
-                'Change image
+                'Select from disk
               '&nbsp;
               span class="fileinput-exists"
-                'Change
+                'Select from disk
               = f.file_field :cover_art, multiple: false
         
             '&nbsp;
             a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput"
-              'Remove
-      .col-sm-6.pull-down-8
-        = f.input :position
-    br
-    br
+              'Remove 
+      .col-sm-6
+        - if editor?
+          b Editors only
+          .pull-down-6
+          .alert.alert-warning
+            = f.input :featured,  :input_html => { class: 'icheck-me', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue"     }
+        
+    .pull-down-4
     = f.input :sounds_like, :input_html => {  style: "height: 80px;", placeholder: "Beethoven, Elvis, Louis Armstrong"}
-   
+    
   .col-sm-6
- 
+    = f.input :isrc_code, label: 'ISRC', hint: 'International Standard Recording Code', placeholder: 'Optional'
     = f.input :privacy, collection: Recording::PRIVACY, include_blank: false,  label: 'Privacy', hint: 'Select who has access to this recording'
 
     = f.input :comment, :input_html => {  style: "height: 80px;", 
@@ -73,25 +82,16 @@
             $('#textarea_feedback').html(text_remaining + ' characters remaining');
           }
       });
-      
 
-    
-    
-
-    
 
     = f.input :downlodable, label: 'Downloadable', \
                             hint: 'Enabling this will allow the recording to be downloaded for free',  \
                             :input_html => { class: 'icheck-me', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue"     }
     
-    /= f.hidden_field :next_step, value: 'next_step', id: 'next_step'
-
+    
 .row
   .col-sm-12
     .pull-right  
-      
-      /=> f.submit 'Close', class: 'btn btn-default', data: { confirm: "Your changes will be saved and the wizard will close. Are you sure that's what you want?"  }
-      /=> link_to 'Close', user_recording_path(@user, @recording), class: 'btn btn-default', data: { confirm: "Your changes will not be saved and the wizard will close. Are you sure that's what you want?"  }
       = f.submit  'Save', class: 'btn btn-info'
       coffee:
         $("form#recording_artwork").submit ->

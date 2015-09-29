@@ -9,8 +9,10 @@
   
   #page-content-wrapper
     .container-fluid 
-      h2 The following liked this recording
-      .sexy_line
+      h2 
+        b Users liking&nbsp;
+        = @recording.title
+      .pull-down-10
       #digiWhams  class="/recordings/#{@recording.id.to_s}"
         == render 'recordings/show', recording: @recording
 

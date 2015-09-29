@@ -15,14 +15,16 @@
     .container-fluid 
       == render 'recordings/wizard_step', step: 4
       .row
-        .col-sm-6
+        .col-sm-9
           .help
             .help-text
-              h2 Tags
+              h2 
+                b Tags&nbsp;
+                = @recording.title
             .help-button
               == render 'admin/helps/help', identifier: 'recording tags'
           
-        .col-sm-6
+        .col-sm-3
           .pull-right
             .recording-navigation
               => link_to edit_user_recording_lyric_path(@user, @recording) do
@@ -47,8 +49,7 @@
               /    '&nbsp;
               /    i.fa.fa-chevron-right
               
-      .sexy_line
-      h4 = @recording.title
+      .pull-down-10
       .digi-box
         = simple_form_for  [@user, @recording ], turboboost: true, :url => url_for(:action => 'update', :controller => 'recording_tags'), 
                                                  :method => 'put' do |f|

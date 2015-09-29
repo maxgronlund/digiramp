@@ -8,26 +8,22 @@ class RecordingIpi < ActiveRecord::Base
   
   enum status: [ :pending, :confirmed, :accepted, :dismissed, :in_progress ]
   
-  ROLES  = [ "Administrator",
-             "Owner",
-             "Artist",
-             "Performers",
-             "Producer",
-             "Executive Producer",
-             "Arranger",
-             "Mixer",
-             "Musician",
-             "Vocalist",
-             "Orchestrator",
-             "Engineer",
-             "Labels",
-             "Production Companies",
-             "Recording Studio",
-             "Participant",
-             "Sound Recording Copyright",
-             "Representative",
-             "Other"
-           ]
+  ROLES  = [ 
+    "Artist",
+    "Performers",
+    "Producer",
+    "Executive Producer",
+    "Arranger",
+    "Mixer",
+    "Musician",
+    "Vocalist",
+    "Orchestrator",
+    "Engineer",
+    "Labels",
+    "Production Companies",
+    "Recording Studio",
+    "Other"
+  ]
 
   after_commit :flush_cache
 
