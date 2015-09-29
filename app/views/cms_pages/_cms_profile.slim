@@ -123,6 +123,8 @@
                 h4 
                   i.fa.fa-headphones
                   '&nbsp;Liked recordings
+              .user-stat-data
+                h4 = @user.likes.count
             
           = link_to user_followers_path(@user, clear: 'clear') do
             .user-stat-row
@@ -159,9 +161,6 @@
                 
               .user-stat-data
                 h4 = @user.liked_users_count
-                
-              .user-stat-data
-                h4 = @user.likes.count
           
           = link_to user_playlists_path(@user) do
             .user-stat-row
