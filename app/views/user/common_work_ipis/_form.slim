@@ -6,39 +6,46 @@
     .row
       .col-sm-6
         - if @common_work_ipi_user
-          b Full name
-          br = @common_work_ipi_user.full_name
-          br
+          = f.input :email,  :input_html => {disabled: 'disabled'}, label: 'Email (updated by user)'
+          = f.input :full_name,  :input_html => {disabled: 'disabled'}, label: 'Full name (updated by user)'
+          = f.input :alias,  :input_html => {disabled: 'disabled'}, label: 'Alias (updated by user)'
+          /= @common_work_ipi_user.full_name
+          
         - else
           = f.input :email
           = f.input :full_name
           = f.input :alias
-        = f.input :share, label: 'Share in %', hint: "All IP's share should add up to 100%"
+        = f.input :share, label: 'Share in %', hint: "All creators's share should add up to 100%"
           
         /= f.input :share, input_html: { style: "max-width:150px;" }, label: 'split'
         /= f.input :publishing_agreement
+        
+        
+      .col-sm-6
+        = f.input :publisher_info, label: 'Publisher', placeholder: 'Publishers email', hint: 'Leave blank if you are self publishing'
         .chosen-label
           b Publishing agreement
           br
           .pull-down-6
           = f.input :publishing_agreement_id, 
                     collection: @publishing_agreements,
-                    include_blank: false,
+                    include_blank: true,
                     label: false,
                     input_html: { class: 'chosen-select', 'data-placeholder'.to_sym => "Distribution agreement" }
-        = f.input :show_on_recordings,    :as => :boolean,  :input_html => { class: 'icheck-me', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue"     } 
-      .col-sm-6
         b Roles
-        br
         .row
           .col-sm-6
             = f.input :music,    :as => :boolean,  :input_html => { class: 'icheck-me', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue"     }   , label: 'Music'
-            = f.input :lyric,      :as => :boolean,  :input_html => { class: 'icheck-me', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue"     }  , label: 'Lyric'
+            = f.input :lyric,    :as => :boolean,  :input_html => { class: 'icheck-me', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue"     }  , label: 'Lyric'
           .col-sm-6
             = f.input :melody,       :as => :boolean,  :input_html => { class: 'icheck-me', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue"     }   , label: 'Melody'
             = f.input :arrangement, :as => :boolean,  :input_html => { class: 'icheck-me', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue"     }   , label: 'Arrangement'
-            
         = f.input :notes
+        = f.input :show_on_recordings,    
+                  :as => :boolean,  
+                  :label => 'Show roles and nodes on recordings',
+                  :input_html => { class: 'icheck-me', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue"     } 
+        
     
     .row
       .col-sm-12.pull-down-10
@@ -47,63 +54,53 @@
           /= f.submit 'Save and get confirmation', class: 'btn btn-default'
       
 
-== render 'user/common_works/common_work_ipis', selected_id: @common_work_ipi.id
-/.digi-box
-/  .table-responsive
-/    table class="table table-hover"
-/      thead
-/        tr
-/          th
-/          th Legal name/ Email
-/          th Capacity
-/          /th Publisher('s)
-/          th Split
-/          /th 
-/          /  .pull-right
-/          /    'Status
-/  
-/      tbody
-/        - @common_work.common_work_ipis.each do |common_work_ipi|
-/          tr
-/            td
-/              => link_to user_user_common_work_common_work_ipi_path(@user, @common_work, common_work_ipi),
-/                                                        turboboost: true,
-/                                                        data: { confirm: 'Are you sure?' }, 
-/                                                        method: :delete do
-/                                        .btn.btn-danger.btn-xs
-/                                          i.fa.fa-times
-/              = link_to edit_user_user_common_work_common_work_ipi_path(@user, @common_work, common_work_ipi) do
-/                .btn.btn-default.btn-xs
-/                  i.fa.fa-pencil
-/            td
-/              - if ipi = common_work_ipi.ipi
-/                - if user = ipi.user
-/                  = user.full_name
-/                  br
-/                  = user.email
-/                - else 
-/                  = ipi.email
-/            td 
-/              - if common_work_ipi.music
-/                'Music
-/                br
-/              - if common_work_ipi.lyric
-/                'Lyric
-/                br
-/              - if common_work_ipi.melody
-/                'Melody
-/                br
-/              - if common_work_ipi.arrangement
-/                'Arrangement
-/            td = number_to_percentage(common_work_ipi.share, precision: 0)   
-/            
-/            /td   
-/            /  .pull-right
-/            /    div class="confirmation-button-#{common_work_ipi.id.to_s}"
-/            /      == render 'common_works/common_work_ipi_buttons', user: @user, common_work: @common_work, common_work_ipi: common_work_ipi
-/                  
-/                
+
+    
+/== render 'user/common_works/common_work_ipis', selected_id: @common_work_ipi.id
+.digi-box
+  h4 Other contributors
+  .table-responsive
+    table class="table table-hover"
+      thead
+        tr
+          th Name/ Email
+          th Roles
+          th Share in %
+
+      tbody
+        - @common_work.common_work_ipis.where.not(id: @common_work_ipi.id).each do |common_work_ipi|
+          
+          tr
+            
+            td
+              - if ipi = common_work_ipi.ipi
+                - if user = ipi.user
+                  = user.full_name
+                  br
+                  = user.email
+                - else 
+                  = ipi.email
+            td 
+              - if common_work_ipi.music
+                'Music
+                br
+              - if common_work_ipi.lyric
+                'Lyric
+                br
+              - if common_work_ipi.melody
+                'Melody
+                br
+              - if common_work_ipi.arrangement
+                'Arrangement
+            td = number_to_percentage(common_work_ipi.share, precision: 0)   
+            
+            /td   
+            /  .pull-right
+            /    div class="confirmation-button-#{common_work_ipi.id.to_s}"
+            /      == render 'common_works/common_work_ipi_buttons', user: @user, common_work: @common_work, common_work_ipi: common_work_ipi
+                  
                 
+               
                 
                 
                 

@@ -29,7 +29,7 @@ class User::DistributionAgreementTemplatesController < ApplicationController
   def get_parrents
     @distribution_agreement = DistributionAgreement.cached_find(params[:distribution_agreement_id])
     @label = Label.cached_find(params[:label_id])
-    @documents = Document.templates.where(tag: 'Distribution')
+    @documents = Document.templates.where(tag: 'Recording agreement')
   end
   
   

@@ -130,37 +130,7 @@ class Ipi < ActiveRecord::Base
       return user.account
     end
   end
-  
-  #def update_relations
-  #  add_uuid
-  #  attach_to_user
-  #  #attach_user_credits
-  #end
-  #
-  #def attach_user_credits
-    
-    #if self.user
-    #  user_credit = UserCredit
-    #  .where(ipiable_type: self.class.name, ipiable_id: self.id, user_id: self.user_id)
-    #  .first_or_create(title: self.common_work.title, ipiable_type: self.class.name, ipiable_id: self.id, user_id: self.user_id)
-    #
-    #  user_credit.confirmation               = self.confirmation
-    #  user_credit.show_credit_on_recordings  = self.show_credit_on_recordings
-    #  user_credit.save!
-    #end
-  #end
-  
-  
-  #def remove_user_credits
-  #  begin
-  #    #UserCredit.wher(ipiable_type: self.common_work.class.name, ipiable_id: self.common_work_id, user_id: self.user_id)
-  #  rescue
-  #  end
-  #end
-  
 
-  
-  
   
   def send_confirmation_request
     attach_to_user

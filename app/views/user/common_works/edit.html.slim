@@ -10,8 +10,8 @@
   #page-content-wrapper
     .container-fluid
       == render 'shared/breadcrumbs', breadcrumbs: { links: { 'Dashboard'.to_sym => user_user_control_panel_index_path(@user),
-                                                              legal: user_user_legal_index_path(@user),
-                                                              'Common work'.to_sym => user_user_common_work_path( @user, @common_work)}}
+                                                               legal: user_user_legal_index_path(@user),
+                                                               'common works'.to_sym => user_user_creative_rights_path(@user)} }
       
       
       
@@ -51,7 +51,7 @@
               
               /= f.hidden_field :recording_id, value: @recording.id
               
-              = f.input :arrangement, label: 'Arrangement of public domain work',  :input_html => { class: 'icheck-me', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue"     }
+              
 
                
               = f.input :title, :input_html => {  style: " width: 100%;", placeholder: "Title"}
@@ -67,7 +67,7 @@
               
               .row.pull-down-10
                 .col-sm-6
-                  = f.input :iswc_code, label: 'ISWC Code',:input_html => {  placeholder: "ISWC Code"}
+                  = f.input :iswc_code, label: 'ISWC Code',:input_html => {  placeholder: "International Standard Musical Work Code"}
                 .col-sm-6
                   = f.input :surveyed_work
               .row
@@ -77,19 +77,22 @@
                   = f.input :work_status
               .row
                 .col-sm-6
-                  = f.input :ascap_award_winner
+                  /= f.input :ascap_award_winner
                 .col-sm-6
                   = f.input :work_type
+              .row
+                .col-sm-12
+                  = f.input :arrangement, label: 'Arrangement of public domain work',  :input_html => { class: 'icheck-me', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue"     }
               /.row
               /  .col-sm-6
               /     = f.input :bmi_work_id
               /  .col-sm-6
               /    = f.input :bmi_catalog
-              .row
-                .col-sm-6
-                  = f.input :registration_origin
-                .col-sm-6
-                  = f.input :registration_date
+              /.row
+              /  .col-sm-6
+              /    = f.input :registration_origin, hint: 'fo'
+              /  .col-sm-6
+              /    = f.input :registration_date
                   
                   
               /.row

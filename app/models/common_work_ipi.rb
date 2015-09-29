@@ -26,7 +26,13 @@ class CommonWorkIpi < ActiveRecord::Base
    
   end
   
-
+  def publisher_info=(par)
+    
+  end
+  
+  def publisher_info() 
+       
+  end
   
   def get_full_name
     if ipi = self.ipi

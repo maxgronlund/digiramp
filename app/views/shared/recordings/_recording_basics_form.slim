@@ -45,6 +45,9 @@
             a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput"
               'Remove 
       .col-sm-6
+        = f.input :downlodable, label: 'Downloadable', \
+                                hint: 'Enabling this will allow the recording to be downloaded for free',  \
+                                :input_html => { class: 'icheck-me', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue"     }
         - if editor?
           b Editors only
           .pull-down-6
@@ -84,9 +87,7 @@
       });
 
 
-    = f.input :downlodable, label: 'Downloadable', \
-                            hint: 'Enabling this will allow the recording to be downloaded for free',  \
-                            :input_html => { class: 'icheck-me', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue"     }
+   
     
     
 .row

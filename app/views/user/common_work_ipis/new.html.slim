@@ -15,7 +15,9 @@
         .col-sm-6
           .help
             .help-text
-              h2 Interested party
+              h2 
+                b Add creator to&nbsp;
+                = @common_work.title
             .help-button
               == render 'admin/helps/help', identifier: 'new ip on a common work'
         .col-sm-6
@@ -25,8 +27,7 @@
                 i.fa.fa-chevron-left
                 '&nbsp;Back
 
-      .sexy_line
-      h4 = @common_work.title
+      .pull-down-10
 
       == render 'form'
       

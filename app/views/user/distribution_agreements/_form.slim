@@ -6,7 +6,7 @@
     = f.hidden_field :distributor_id, value: @label.id
     = f.hidden_field :label_id, value: @label.id
     = f.input :title
-    = f.input :split, hint: 'Distributors fee in percent'
+    = f.input :split, label: 'Labels fee in percentage', hint: 'The remainder is distributed to contributors'
     - if @distribution_agreement.original_label
       .alert.alert-info
         'Only fill the following fields if this agreement is for redistribution by another label

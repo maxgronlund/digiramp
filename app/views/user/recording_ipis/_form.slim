@@ -28,7 +28,8 @@
                     label: false,
                     input_html: { class: 'chosen-select', 'data-placeholder'.to_sym => "Distribution agreement" }
         
-        
+          span class="help-block" 
+            'Contributors agrement with the label
         
   
       .col-sm-6
@@ -62,7 +63,7 @@
           tr
             th Legal name/ Email
             th Capacity
-            th Split
+            /th Split
     
     
         tbody
@@ -74,7 +75,7 @@
               td = recording_ipi.role
                 
               
-              td = number_to_percentage(recording_ipi.share, precision: 0)    
+              /td = number_to_percentage(recording_ipi.share, precision: 0)    
               
 /= debug @user.user_name
 /= debug @recording.title
