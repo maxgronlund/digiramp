@@ -18,19 +18,21 @@ class User::CommonWorksController < ApplicationController
     end
 
 
-    if @recording.nil?
-      redirect_to user_user_common_work_without_recording_path(@user, @common_work)
-    elsif
-      @no_ips     = @common_work.ipis.count + @recording.recording_ipis.count == 0
-      blog        = Blog.cached_find('Common Work Ipi')
-      @no_ipis_text = BlogPost.cached_find('No Ipis' , blog)
+    #if @recording.nil?
+    #  redirect_to user_user_common_work_without_recording_path(@user, @common_work)
+    #elsif
+
+    #@no_ips     = @common_work.ipis.to_i.count + @recording.recording_ipis.to_i.count == 0
+
+    blog        = Blog.cached_find('Common Work Ipi')
+    @no_ipis_text = BlogPost.cached_find('No Ipis' , blog)
+    
+    @upload_existing_contracts  = BlogPost.cached_find('Upload existing documents' , blog)
+    @add_ipis                   = BlogPost.cached_find("Add IPI's" , blog)
+    @im_the_only_ip             = BlogPost.cached_find("I'm the only IP" , blog)
+    
       
-      @upload_existing_contracts  = BlogPost.cached_find('Upload existing documents' , blog)
-      @add_ipis                   = BlogPost.cached_find("Add IPI's" , blog)
-      @im_the_only_ip             = BlogPost.cached_find("I'm the only IP" , blog)
-      
-        
-    end
+    #end
       
   end
 

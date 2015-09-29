@@ -10,58 +10,64 @@
   
   #page-content-wrapper
     .container-fluid
-      //= render 'common_work_rights'
-      /== render 'recordings/wizard_step', step: 5
+      /== render 'shared/breadcrumbs', breadcrumbs: { links: { 'Dashboard'.to_sym => user_user_control_panel_index_path(@user),
+      /                                                        'common work'.to_sym => user_user_common_work_path(@user, @common_work) }}
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { 'Dashboard'.to_sym => user_user_control_panel_index_path(@user),
+                                                               legal: user_user_legal_index_path(@user),
+                                                               works: user_user_creative_rights_path(@user)} }
       .row
         .col-sm-7
           .help
             .help-text
               /h2 = @common_work.title
-              h2 Copyrights
+              h2 
+               b © Copyright for&nbsp;
+               = @common_work.title
             .help-button
               == render 'admin/helps/help', identifier: 'common work credits'
-      /  .col-sm-5
-      /    .pull-right
-      /      .pull-down-10
-      /        = link_to edit_user_recording_tag_path(@user, @recording) do
-      /          .btn.btn-default
-      /            i.fa.fa-chevron-left
-      /            '&nbsp;
-      /            'Back
-      /        
-      /
+        .col-sm-5
+          .pull-right
+            .pull-down-10
+              = link_to edit_user_user_common_work_lyric_path(@user, @common_work) do
+                .btn.btn-default
+                  i.fa.fa-chevron-left
+                  '&nbsp;
+                  'Back
+              
+      
       /          
       /        /= link_to 'Export CSV', user_user_export_work_and_master_path(@user, @common_work, format: "csv"), class: 'btn btn-default'
       /
       /  
       / 
       .pull-down-10
-      /- unless @common_work.is_registered?
-      /  - blog      = Blog.cached_find('Common work rights')
-      /  - blog_post = BlogPost.cached_find('Work is not registered', blog)
-      /  .digi-box
-      /    .row
-      /      .col-sm-8
-      /        h4 
-      /          = blog_post.title
-      /          - if editor?
-      /            = link_to edit_admin_blog_blog_post_path(blog, blog_post) do
-      /              '&nbsp;
-      /              i.fa.fa-pencil
-      /        = simple_format blog_post.body
-      /       
-      /      .col-sm-4
-      /        .pull-right
-      /          
-      /    /.row
-      /    /  .col-sm-12
-      /    /    .pull-right
-      /    /      = link_to "I own and control all publishing and master rights ",user_user_publishing_designee_path(@user, @common_work.id),
-      /    /                            turboboost: true, 
-      /    /                            data: {confirm: "By clicking OK you confirm that: 1) You are the only writer/composer/producer/performer on this recording. 2) There is no other publisher or label besides your own. 3) There are no other owners or contributors to any portion of this copyright or recording.4) There are no samples or parts of any other song or recoding in this work."},
-      /    /                            class: 'btn btn-warning'
-      /  .pull-down-10
-      /  
+      == render 'user/common_works/wizard_step', step: 3
+      - unless @common_work.is_registered?
+        - blog      = Blog.cached_find('Common work rights')
+        - blog_post = BlogPost.cached_find('Work is not registered', blog)
+        .digi-box
+          .row
+            .col-sm-8
+              h4 
+                = blog_post.title
+                - if editor?
+                  = link_to edit_admin_blog_blog_post_path(blog, blog_post) do
+                    '&nbsp;
+                    i.fa.fa-pencil
+              = simple_format blog_post.body
+             
+            .col-sm-4
+              .pull-right
+                
+          .row
+            .col-sm-12
+              .pull-right
+                = link_to "I own and control all publishing and master rights ",user_user_publishing_designee_path(@user, @common_work.id),
+                                      turboboost: true, 
+                                      data: {confirm: "By clicking OK you confirm that: 1) You are the only writer/composer/producer/performer on this recording. 2) There is no other publisher or label besides your own. 3) There are no other owners or contributors to any portion of this copyright or recording.4) There are no samples or parts of any other song or recoding in this work."},
+                                      class: 'btn btn-warning'
+        .pull-down-10
+        
       .pull-down-10  
       .digi-box
         .row
@@ -72,7 +78,7 @@
               = link_to edit_user_user_common_work_path( @user, @common_work ) do
                 .btn.btn-default
                   i.fa.fa-pencil
-                  '&nbsp;Edit copyright
+                  '&nbsp;Edit
         .pull-down-10          
         .row
           .col-sm-3
@@ -98,20 +104,47 @@
       
       .pull-down-20
       .digi-box
-        h4 Masters / Recordings
+        .row
+          .col-sm-6
+            h4 Masters / Recordings
+          .col-sm-6
+            .pull-right
+              = link_to '#' do
+                .btn.btn-default
+                  i.fa.fa-plus&nbsp;Add master
         .table-responsive
           table class="table table-hover"
             thead
               tr
-                th Title
-                th IPI Code
-                th Capacity
-                th PRO
                 th
+                th Title
+                th Artist
+                th ISRC
+                th Contributors
+                th
+                  .pull-right
+                    'Status
             tbody
               - @common_work.recordings.each do |recording|
                 tr
-                  td = recording.title
+                  td style="width: 64px;"
+                    => link_to '#' do
+                      .btn.btn-danger.btn-xs
+                        i.fa.fa-times
+                    = link_to edit_user_recording_basic_path(@user, recording) do
+                      .btn.btn-default.btn-xs
+                        i.fa.fa-pencil
+                  td = link_to recording.title, user_recording_path(@user, recording), class: 'btn btn-default btn-xs'
+                  td = recording.artist
+                  td = recording.isrc_code
+                  td
+                    - recording.recording_ipis.each do |recording_ipi|
+                        = recording_ipi.name
+                  td
+                    .pull-right
+                      - recording.recording_ipis.each do |recording_ipi|
+                          = recording_ipi.status
+                    
         /div id="delete_recording_#{recording.id.to_s}"
         /  #digiWhams  class="/recordings/#{recording.id.to_s}"
         /    == render 'audio_player/show', recording: recording , description: true, target: '' 

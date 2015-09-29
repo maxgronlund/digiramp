@@ -1,5 +1,5 @@
 .digi-box
-  = simple_form_for [:user, @user, @common_work, @common_work_ipi] do |f|
+  = simple_form_for [:user, @user, @common_work, @common_work_ipi], turboboost: true do |f|
     = f.hidden_field :common_work_id, value: @common_work.id
     = f.error_notification
     

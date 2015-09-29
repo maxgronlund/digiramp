@@ -12,7 +12,7 @@
       /= render 'common_work_rights'
       == render 'recordings/wizard_step', step: 5
       .row
-        .col-sm-9
+        .col-sm-8
           .help
             .help-text
               /h2 = @common_work.title
@@ -22,7 +22,7 @@
                 = @recording.title
             .help-button
               == render 'admin/helps/help', identifier: 'sound recording copyright'
-        .col-sm-3
+        .col-sm-4
           .pull-right
             .pull-down-10
               = link_to edit_user_recording_tag_path(@user, @recording) do
@@ -30,6 +30,11 @@
                   i.fa.fa-chevron-left
                   '&nbsp;
                   'Back
+              =< link_to edit_user_user_common_work_path(@user, @recording.common_work) do
+                .btn.btn-default
+                  i.fa.fa-copyright
+                  '&nbsp;
+                  'Work rights
                   
               /=< link_to edit_user_recording_basic_path(@user, @recording)
               /  .btn.btn-info
@@ -53,12 +58,25 @@
                 h4 Contributors
               .col-sm-6
                 .pull-right.pull-down-6
-                  = link_to new_user_user_recording_recording_ipi_path(@user, @recording) do
-                      .btn.btn-success
-                        i.fa.fa-user-plus&nbsp;Add contributor
+                  div style="display: inline-block;"
+                    = link_to new_user_user_recording_recording_ipi_path(@user, @recording) do
+                        .btn.btn-default
+                          i.fa.fa-user-plus&nbsp;Add contributor
+                  
+                  div  style="display: inline-block;"
+                    - if @recording.recording_ipis.count < 1
+                      =< simple_form_for [ :user, @user, @recording, RecordingIpi.new ], turboboost: true do |f|
+                        = f.hidden_field :recording_id, value: @recording.id
+                        = f.hidden_field :email, value: @user.email
+                        = f.hidden_field :role, value: 'Other'
+                        = f.hidden_field :share, value: 100
+                        = f.hidden_field :distribution_agreement_id, value:  @user.personal_distribution_agreement.id
+                        /= f.hidden_field :status, value: '1'
+                        = f.submit "I'm the only contributor", class: 'btn btn-warning' 
 
-                  - if @recording.recording_ipis.count < 1
-                    =< link_to "I'm the only contributor", '#', class: 'btn btn-warning'
+                    
+                    
+                    /=< link_to "I'm the only contributor", '#', class: 'btn btn-warning'
       
             .table-responsive
               table class="table table-hover"

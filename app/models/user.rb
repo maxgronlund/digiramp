@@ -797,7 +797,7 @@ class User < ActiveRecord::Base
         master_ipi: true,
         ipi_code: self.ipi_code
       )
-      user.copy_address_to( _ipi.address )
+      self.copy_address_to( _ipi.address )
       return _ipi
     end
   end

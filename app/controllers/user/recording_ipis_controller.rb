@@ -25,12 +25,16 @@ class User::RecordingIpisController < ApplicationController
     params[:recording_ipi][:uuid]                         =  UUIDTools::UUID.timestamp_create().to_s
 
     @recording        = Recording.cached_find(params[:recording_id])
-    @common_work      = @recording.get_common_work
+    #@common_work      = @recording.get_common_work
     
     
     if @recording_ipi = RecordingIpi.create(recording_ipi_params)
-      @recording_ipi.send_confirmation_request if  params[:commit] == 'Save and send message'
-      redirect_to user_user_common_work_path(@user, @common_work)
+      if  params[:commit] == 'Save and send message'
+        @recording_ipi.send_confirmation_request 
+      elsif params[:commit] == "I'm the only contributor"
+        @recording_ipi.accepted!
+      end
+      redirect_to user_user_recording_right_path(@user, @recording)
     else
       ErrorNotification.post_object( "RecordingIpisController#create", @recording_ipi )
       render :new
@@ -86,8 +90,8 @@ class User::RecordingIpisController < ApplicationController
     @recording_ipi     = RecordingIpi.cached_find(params[:id])
     @recording_ipi.destroy
     @recording        = Recording.cached_find(params[:recording_id])
-    @common_work      = @recording.get_common_work
-    redirect_to user_user_common_work_path(@user, @common_work)
+    #@common_work      = @recording.get_common_work
+    redirect_to user_user_recording_right_path(@user, @recording)
   end
   
 
