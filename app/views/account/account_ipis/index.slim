@@ -24,38 +24,36 @@
                 '&nbsp;
                 'Add IPI code
           
-      .pull-down-10
-
-      .digi-box  
-        .table-responsive
-          table class="table table-hover"
-            thead
+      .pull-down-10 
+      .table-responsive
+        table class="table table-hover"
+          thead
+            tr
+              th Title
+              th IPI Code
+              th Capacity
+              th PRO
+              th
+          tbody                    
+            - @account.atached_ipi_codes.each do |ipi_code|
               tr
-                th Title
-                th IPI Code
-                th Capacity
-                th PRO
-                th
-            tbody                    
-              - @account.atached_ipi_codes.each do |ipi_code|
-                tr
-                  td = link_to ipi_code.title, account_account_account_ipi_path(@account, ipi_code), class: 'btn btn-default'
-                  td = ipi_code.ipi_code
-                  td = ipi_code.role
-                  td = ipi_code.pro
-                  td
-                    .pull-right
-                      = link_to edit_account_account_account_ipi_path( @account, ipi_code ) do
-                        .btn.btn-default
-                          i class="fa fa-pencil"
-                          '&nbsp;Edit
-                      '&nbsp; 
-                      = link_to account_account_account_ipi_path( @account, ipi_code ), data: { confirm: 'Are you sure?' } , 
-                                                                                        turboboost: true, 
-                                                                                        :method => :delete do
-                        .btn.btn-danger
-                          i class="fa fa-times"
-
+                td = link_to ipi_code.title, account_account_account_ipi_path(@account, ipi_code), class: 'btn btn-default'
+                td = ipi_code.ipi_code
+                td = ipi_code.role
+                td = ipi_code.pro
+                td
+                  .pull-right
+                    = link_to edit_account_account_account_ipi_path( @account, ipi_code ) do
+                      .btn.btn-default
+                        i class="fa fa-pencil"
+                        '&nbsp;Edit
+                    '&nbsp; 
+                    = link_to account_account_account_ipi_path( @account, ipi_code ), data: { confirm: 'Are you sure?' } , 
+                                                                                      turboboost: true, 
+                                                                                      :method => :delete do
+                      .btn.btn-danger
+                        i class="fa fa-times"
+      
                     
 
               

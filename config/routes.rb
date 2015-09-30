@@ -1,5 +1,7 @@
 Digiramp::Application.routes.draw do
 
+
+
   resources :labels
  
   namespace :user do
@@ -801,6 +803,7 @@ Digiramp::Application.routes.draw do
       
       #get "shop"         => "shop#index",     :as => :user_user_shop_index
       #resources :shop, only: [:index]
+      resources :common_work_recordings, only: [:show]
       resources :create_shop, only: [:index] 
       resources :coupon_batches, only: [:show]
       resources :accept_recording_ipis

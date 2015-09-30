@@ -21,7 +21,7 @@
             .help-text
               /h2 = @common_work.title
               h2 
-               b Creators on&nbsp;
+               b © Creators on&nbsp;
                = @common_work.title
             .help-button
               == render 'admin/helps/help', identifier: 'common work credits'
@@ -33,10 +33,13 @@
                   i.fa.fa-chevron-left
                   '&nbsp;
                   'Back
-
-              =< link_to new_user_user_common_work_common_work_ipi_path(@user, @common_work) do
+              =< link_to user_user_common_work_recording_path(@user, @common_work) do
                 .btn.btn-default
-                  i.fa.fa-user-plus&nbsp;Add creator
+                  i.fa.fa-headphones
+                  '&nbsp;
+                  'Masters
+
+              
               
       
       /          
@@ -102,84 +105,88 @@
       /      br = @common_work.arrangement ? 'Yes' : 'No'
       /  
 
-      .digi-box
-        .row
-          .col-sm-12
-            .table-responsive
-              table class="table table-hover"
-                thead
+
+      .row
+        .col-sm-6
+          h4 Creators split
+        .col-sm-6
+          .pull-right
+            =< link_to new_user_user_common_work_common_work_ipi_path(@user, @common_work) do
+              .btn.btn-default
+                i.fa.fa-user-plus&nbsp;Add creator
+      .row.pull-down-10
+        .col-sm-12
+          .table-responsive
+            table class="table table-hover"
+              thead
+                tr
+                  th
+                  th Name/ email
+                  th Roles
+                  th Publisher
+                  th Creators share
+                  th 
+                    .pull-right
+                      'Status
+      
+              tbody
+                - @common_work.common_work_ipis.each do |common_work_ipi|
+                  - publishing_agreement = common_work_ipi.publishing_agreement
                   tr
-                    th
-                    th Legal name/ Email
-                    th Roles
-                    th Publisher
-                    th Creators share
-                    th 
-                      .pull-right
-                        'Status
-      
-                tbody
-                  - @common_work.common_work_ipis.each do |common_work_ipi|
-                    - publishing_agreement = common_work_ipi.publishing_agreement
-                
-                    tr
-                      td  style="width: 64px;"
-                
-                        - unless params[:id].to_i == common_work_ipi.id
-                          => link_to user_user_common_work_common_work_ipi_path(@user, @common_work, common_work_ipi),
-                                                                    turboboost: true,
-                                                                    data: { confirm: 'Are you sure?' }, 
-                                                                    method: :delete do
-                                                    .btn.btn-danger.btn-xs
-                                                      i.fa.fa-times
-                          = link_to edit_user_user_common_work_common_work_ipi_path(@user, @common_work, common_work_ipi) do
-                            .btn.btn-default.btn-xs
-                              i.fa.fa-pencil
-                        - else
-                          '
-                      td 
-                        = common_work_ipi.get_full_name
-                        br = common_work_ipi.get_email
-                    
-                      td 
-                        - if common_work_ipi.music
-                          'Music
-                          br
-                        - if common_work_ipi.lyric
-                          'Lyric
-                          br
-                        - if common_work_ipi.melody
-                          'Melody
-                          br
-                        - if common_work_ipi.arrangement
-                          'Arrangement
-                      td
-                         - if publishing_agreement
-                           - if publisher = publishing_agreement.publisher
-                              = publisher.legal_name
-                              br
-                           /= link_to publishing_agreement.title, 
-                           /          user_user_publisher_publishing_agreement_path(@user, 
-                           /                                                        publisher, 
-                           /                                                        publishing_agreement), 
-                           /                                                        class: 'btn btn-default btn-xs'
-                    
-                      td
-                    
-                        = number_to_percentage(common_work_ipi.share, precision: 0)   
+                    td  style="width: 64px;"
+                      => link_to user_user_common_work_common_work_ipi_path(@user, @common_work, common_work_ipi),
+                                                                turboboost: true,
+                                                                data: { confirm: 'Are you sure?' }, 
+                                                                method: :delete do
+                                                .btn.btn-danger.btn-xs
+                                                  i.fa.fa-times
+                      = link_to edit_user_user_common_work_common_work_ipi_path(@user, @common_work, common_work_ipi) do
+                        .btn.btn-default.btn-xs
+                          i.fa.fa-pencil
+
+                    td 
+                      = common_work_ipi.get_full_name
+                      br = common_work_ipi.get_email
                   
-                      td   
-                        .pull-right
-                          div class="confirmation-button-#{common_work_ipi.id.to_s}"
-                            == render 'user/common_works/common_work_ipi_buttons', user: @user, common_work: @common_work, common_work_ipi: common_work_ipi
+                    td 
+                      - if common_work_ipi.music
+                        'Music
+                        br
+                      - if common_work_ipi.lyric
+                        'Lyric
+                        br
+                      - if common_work_ipi.melody
+                        'Melody
+                        br
+                      - if common_work_ipi.arrangement
+                        'Arrangement
+                    td
+                       - if publishing_agreement
+                         - if publisher = publishing_agreement.publisher
+                            = publisher.legal_name
+                            br
+                         /= link_to publishing_agreement.title, 
+                         /          user_user_publisher_publishing_agreement_path(@user, 
+                         /                                                        publisher, 
+                         /                                                        publishing_agreement), 
+                         /                                                        class: 'btn btn-default btn-xs'
+                  
+                    td
+                  
+                      = number_to_percentage(common_work_ipi.share, precision: 0)   
                 
+                    td   
+                      .pull-right
+                        div class="confirmation-button-#{common_work_ipi.id.to_s}"
+                          == render 'user/common_works/common_work_ipi_buttons', user: @user, common_work: @common_work, common_work_ipi: common_work_ipi
+              
 
 
 
 
 
       
-        
+      
 
       
       /.pull-down-10

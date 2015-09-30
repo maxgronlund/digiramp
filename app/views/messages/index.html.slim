@@ -13,43 +13,40 @@
         .col-sm-12
           .help
             .help-text
-              h2 Message center
+              h2 All messages
             .help-button
               == render 'admin/helps/help', identifier: 'user messages'
           
       .pull-down-10
-      .messages
-      .digi-box
-        - if params[:connection_id]
-          - connection = Connection.find(params[:connection_id])
-          - if connection.is_active || super?
-            - if  user = connection.connected_to_user( @user )
-              .row
-                .col-sm-8
-                  h4 All messages between you and #{user.user_name}
-                .col-sm-4
-                  .pull-right.pull-down-10
-                    = link_to new_message_digalog_path(sender: current_user, 
-                                                       receiver: user, 
-                                                       title: '', 
-                                                       subjectable_id: current_user.id, 
-                                                       subjectable_type: 'User'), remote: true do
-                        .btn.btn-info
-                          i.fa.fa-envelope
-                          '&nbsp;New message
-                                                         
+      - if params[:connection_id]
+        - connection = Connection.find(params[:connection_id])
+        - if connection.is_active || super?
+          - if  user = connection.connected_to_user( @user )
+            .row
+              .col-sm-8
+                h4 All messages between you and #{user.user_name}
+              .col-sm-4
+                .pull-right.pull-down-10
+                  = link_to new_message_digalog_path(sender: current_user, 
+                                                     receiver: user, 
+                                                     title: '', 
+                                                     subjectable_id: current_user.id, 
+                                                     subjectable_type: 'User'), remote: true do
+                      .btn.btn-info
+                        i.fa.fa-envelope
+                        '&nbsp;New message
+                                                       
 
-                  
-        - else
-          h4 All messages
-        .pull-down-10
-        .table-responsive
-          table class="table table-hover" id="messages"
-            tbody
-              - @messages.each do |message|
-                == render 'messages/message', message: message
-              
-      .row
+                
+      
+      .pull-down-10
+      .table-responsive
+        table class="table table-hover" id="messages"
+          tbody
+            - @messages.each do |message|
+              == render 'messages/message', message: message
+            
+      .row.pull-down-10
         .col-sm-12
           .pull-right
             == paginate(@messages)      

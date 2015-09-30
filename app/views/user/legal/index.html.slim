@@ -23,8 +23,8 @@
           .pull-right.pull-down-10
             = link_to 'Edit', user_user_legal_informations_path(@user), :class => "btn btn-default"
 
-      = render 'user/shared/legal_navigation'
-      .digi-box
+      /= render 'user/shared/legal_navigation'
+      .digi-boxs
         
         .table-responsive
           table.table.table-bordered
@@ -141,6 +141,32 @@
                 h4 Works
               .body
                 'Manage rights for your assets
+      
+
+          
+        .control-panel-badge
+          = link_to  user_user_ipis_path(@user) do
+            .content
+              .icon.icon-blue
+                i.fa.fa-user
+                
+              .title
+                h4 Creations
+              .body
+                'Works where you are registered as a creator / IP
+      
+
+          
+        .control-panel-badge
+          = link_to  user_user_legal_documents_path(@user) do
+            .content
+              .icon.icon-blue
+                i.fa.fa-file
+                
+              .title
+                h4 Documents
+              .body
+                'Legal documents related to you
          
                 
                 

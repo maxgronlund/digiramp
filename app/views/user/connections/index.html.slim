@@ -17,31 +17,28 @@
             .help-button
               == render 'admin/helps/help', identifier: 'user messages'
       .pull-down-10
-      .messages
+      .table-responsive
+        table class="table table-hover endless-pages"
+          thead
+            tr
+              th Name
+              th Status
+              th Date
+              th Messages
+              th Manage
       
-      .digi-box
-        .table-responsive
-          table class="table table-hover endless-pages"
-            thead
-              tr
-                th Name
-                th Status
-                th Date
-                th Messages
-                th Manage
-        
-            tbody
-              - @connections.each do |connection|
-                == render 'user/connections/connection', user: @user, connection: connection
+          tbody
+            - @connections.each do |connection|
+              == render 'user/connections/connection', user: @user, connection: connection
+            
+            
+      
               
-              
-        
-                
-        .row
-          .col-sm-12
-            .pull-right
-              == paginate(@connections)
-                 
+      .row
+        .col-sm-12
+          .pull-right
+            == paginate(@connections)
+               
               
   == render 'shared/site_footer'    
  

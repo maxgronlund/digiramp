@@ -10,119 +10,121 @@
   
   #page-content-wrapper
     .container-fluid
-      == render 'shared/breadcrumbs', breadcrumbs: { links: { 'Dashboard'.to_sym => user_user_control_panel_index_path(@user)}}
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { 'Dashboard'.to_sym => user_user_control_panel_index_path(@user),
+                                                              legal: user_user_legal_index_path(@user)}}
       
       
       
       .row
-        .col-sm-6
+        .col-sm-9
           .help
             .help-text
-              h2 IP's
+              h2 
+                b Creations by&nbsp;
+                = @user.full_name
             .help-button
               == render 'admin/helps/help', identifier: 'common work credits'
    
-        .col-sm-6
+        .col-sm-3
           .pull-right.pull-down-10
             = link_to user_user_control_panel_index_path(@user ) do
               .btn.btn-default
                 i.fa.fa-chevron-left
                 '&nbsp;Back
       
-      = render 'user/shared/legal_navigation'
-      .digi-box
-        h4 Works
-        .table-responsive
-          table class="table table-hover"
-            thead
+      /= render 'user/shared/legal_navigation'
+      .pull-down-10
+      .table-responsive
+        table class="table table-hover"
+          thead
+            tr
+              th
+              th Status
+              /th IPI Code
+              th Work
+              th Roles
+              th Share
+              /th PRO
+              th
+          tbody
+            - @user.ipis.each do |ipi|
               tr
-                /th
-                th Status
-                /th IPI Code
-                th Work
-                th Roles
-                th Share
-                /th PRO
-                th
-            tbody
-              - @ipis.each do |ipi|
-                tr
-                  /td 
-                  /  = link_to user_user_ipi_path(@user, ipi) do
-                  /      .btn.btn-default.btn-xs
-                  /        i.fa.fa-eye&nbsp;Show
-                  /  = link_to edit_user_user_user_ipi_path(@user, ipi) do
-                  /      .btn.btn-default.btn-xs
-                  /        i.fa.fa-pencil
-                  td
-                    /= ipi.status
-                    - case ipi.status
-                    - when 'pending'
-                      .label.label-warning
-                        'Please confirm
-                    - when 'accepted'
-                      .label.label-success
-                        'Confirmed
-                  /td 
-                  /  - if ipi.ipi_code
-                  /    = ipi.ipi_code
-                  /  - else
-                  /    .label.label-default
-                  /      'na
-                  td = ipi.work_title
-                  /td 
-                  /  -if pro_affiliation = ipi.pro_affiliation
-                  /    = pro_affiliation.title
-                  td
-                    /'&nbsp;
-                    - if ipi.music
-                      'Music
-                      br
-                    - if ipi.lyric
-                      'Lyric
-                      br
-                    - if ipi.melody
-                      'Melody
-                      br
-                    - if ipi.arrangement
-                      'Arrangement
-                    
-                    
-                  td = ipi.share
-      .digi-box
-        h4 Masters
-        .table-responsive
-          table class="table table-hover"
-            thead
-              tr
-                /th 
-                th Status
-                th Master
-                th Role
-                th Share
-                th
-            tbody
-              - @user.recording_ipis.to_a.each do |recording_ipi|
-                tr
-                  td 
-                    - case recording_ipi.status
-                    - when 'pending'
-                      .label.label-warning
-                        'Please confirm
-                    - when 'accepted'
-                      .label.label-success
-                        'Confirmed
+                td 
+                  = link_to user_user_ipi_path(@user, ipi) do
+                      .btn.btn-default.btn-xs
+                        i.fa.fa-eye&nbsp;Show
+                /  = link_to edit_user_user_user_ipi_path(@user, ipi) do
+                /      .btn.btn-default.btn-xs
+                /        i.fa.fa-pencil
+                td
+                  /= ipi.status
+                  - case ipi.status
+                  - when 'pending'
+                    .label.label-warning
+                      'Please confirm
+                  - when 'accepted'
+                    .label.label-success
+                      'Confirmed
+                /td 
+                /  - if ipi.ipi_code
+                /    = ipi.ipi_code
+                /  - else
+                /    .label.label-default
+                /      'na
+                td = ipi.work_title
+                /td 
+                /  -if pro_affiliation = ipi.pro_affiliation
+                /    = pro_affiliation.title
+                td
+                  /'&nbsp;
+                  - if ipi.music
+                    'Music
                     br
-                    = recording_ipi.status
-                  td 
-                    - if recording = recording_ipi.recording
-                      = recording.title
-
-                  td = recording_ipi.role
-                  td = number_to_percentage(recording_ipi.share, precision: 2)
-              /== render "user/ipis/#{user_credit.ipiable_type.underscore}", user_credit: user_credit
-              /.sexy_line
-        
+                  - if ipi.lyric
+                    'Lyric
+                    br
+                  - if ipi.melody
+                    'Melody
+                    br
+                  - if ipi.arrangement
+                    'Arrangement
+                  
+                  
+                td = ipi.share
+      /.digi-box
+      /  h4 Masters
+      /  .table-responsive
+      /    table class="table table-hover"
+      /      thead
+      /        tr
+      /          /th 
+      /          th Status
+      /          th Master
+      /          th Role
+      /          th Share
+      /          th
+      /      tbody
+      /        - @user.recording_ipis.to_a.each do |recording_ipi|
+      /          tr
+      /            td 
+      /              - case recording_ipi.status
+      /              - when 'pending'
+      /                .label.label-warning
+      /                  'Please confirm
+      /              - when 'accepted'
+      /                .label.label-success
+      /                  'Confirmed
+      /              br
+      /              = recording_ipi.status
+      /            td 
+      /              - if recording = recording_ipi.recording
+      /                = recording.title
+      /
+      /            td = recording_ipi.role
+      /            td = number_to_percentage(recording_ipi.share, precision: 2)
+      /        /== render "user/ipis/#{user_credit.ipiable_type.underscore}", user_credit: user_credit
+      /        /.sexy_line
+      /  
             
         
   == render 'shared/site_footer'

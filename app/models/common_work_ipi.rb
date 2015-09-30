@@ -37,7 +37,8 @@ class CommonWorkIpi < ActiveRecord::Base
   def get_full_name
     if ipi = self.ipi
       if user = ipi.user
-        return user.full_name
+        return user.full_name if user.full_name != ' '
+        return user.user_name
       end
     else
       return  self.full_name

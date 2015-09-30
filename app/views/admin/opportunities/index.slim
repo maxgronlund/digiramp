@@ -33,13 +33,13 @@
                   '&nbsp;
                   = link_to 'Clear', admin_opportunities_path, class: 'btn btn-default'        
             
-      .sexy_line
+      .pull-down-10
       - blog   = Blog.cached_find('Opportunities')
       .row
         .col-sm-12
           .pull-right
             = link_to 'Edit invitation mails', admin_blog_path(blog), class: 'btn btn-default'
-      .digi-box.pull-down-4
+      .pull-down-4
         .table-responsive
           table class="table table-hover"
             thead

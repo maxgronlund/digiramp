@@ -1,0 +1,101 @@
+
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'user' 
+  
+  
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'users/shared/sidebar', selected: 'recordings'
+  
+  #page-content-wrapper
+    .container-fluid
+      /== render 'shared/breadcrumbs', breadcrumbs: { links: { 'Dashboard'.to_sym => user_user_control_panel_index_path(@user),
+      /                                                        'common work'.to_sym => user_user_common_work_path(@user, @common_work) }}
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { 'Dashboard'.to_sym => user_user_control_panel_index_path(@user),
+                                                               legal: user_user_legal_index_path(@user),
+                                                               'common works'.to_sym => user_user_creative_rights_path(@user)} }
+      .row
+        .col-sm-7
+          .help
+            .help-text
+              /h2 = @common_work.title
+              h2 
+               b Masters for&nbsp;
+               = @common_work.title
+            .help-button
+              == render 'admin/helps/help', identifier: 'common work credits'
+        .col-sm-5
+          .pull-right
+            .pull-down-10
+              = link_to user_user_common_work_path(@user, @common_work) do
+                .btn.btn-default
+                  i.fa.fa-chevron-left
+                  '&nbsp;
+                  'Common work
+
+      
+      .pull-down-10
+      == render 'user/common_works/wizard_step', step: 4
+      .row
+        .col-sm-6
+          h4 Masters / Recordings
+        .col-sm-6
+          .pull-right
+            = link_to '#' do
+              .btn.btn-default
+                i.fa.fa-plus&nbsp;Add master
+      .pull-down-10
+      .table-responsive
+        table class="table table-hover"
+          thead
+            tr
+              th
+              th Title
+              th Artist
+              th ISRC
+              th Contributors
+              th
+                .pull-right
+                  'Status
+          tbody
+            - @common_work.recordings.each do |recording|
+              tr
+                td style="width: 64px;"
+                  => link_to '#' do
+                    .btn.btn-danger.btn-xs
+                      i.fa.fa-times
+                  = link_to edit_user_recording_basic_path(@user, recording) do
+                    .btn.btn-default.btn-xs
+                      i.fa.fa-pencil
+                td = link_to recording.title, user_recording_path(@user, recording), class: 'btn btn-default btn-xs'
+                td = recording.artist
+                td = recording.isrc_code
+                td
+                  - recording.recording_ipis.each do |recording_ipi|
+                      = recording_ipi.name
+                td
+                  .pull-right
+                    - recording.recording_ipis.each do |recording_ipi|
+                        = recording_ipi.status
+                  
+      /  /div id="delete_recording_#{recording.id.to_s}"
+      /  /  #digiWhams  class="/recordings/#{recording.id.to_s}"
+      /  /    == render 'audio_player/show', recording: recording , description: true, target: '' 
+      /  /    /== render 'recordings/recording_with_icons', recording: recording,
+      /  /    /                                             info: true,
+      /  /    /                                             add_to_playlist: false, 
+      /  /    /                                             remove_from_playlist: false, 
+      /  /    /                                             edit: true, 
+      /  /    /                                             delete: false,
+      /  /    /                                             description: true,
+      /  /    /                                             share: false,
+      /  /    /                                             target: "",
+      /  /    /                                             music_request_link: false,
+      /  /    /                                             remove_from_request: false
+      /  /    /
+      /
+  == render 'shared/site_footer'  
+  
+  
+ 

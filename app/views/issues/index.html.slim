@@ -41,12 +41,12 @@
                   '&nbsp;
                   = link_to 'Clear', admin_issues_path, class: 'btn btn-default'
                   
-      .sexy_line
+      .pull-down-10
       .row
         .col-sm-12
           .pull-right
             = link_to 'Report an Issue', new_user_issue_path(current_user), class: 'btn btn-info'
-      .digi-box.pull-down-8
+      .pull-down-8
         .new-issues
         == render 'index', issues: @issues
                           

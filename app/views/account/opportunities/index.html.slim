@@ -33,63 +33,63 @@
                   .btn.btn-default
                     i.fa.fa-plus-circle&nbsp;New opportunity
       .pull-down-10
-      .digi-box
-        .table-responsive
-          table class="table table-hover"
-            thead
-              tr
-                th 
-                th
-                th Deadline
-                th Requests
-                th Submissions
-                th Budget
-        
-        
-            tbody
-              - @opportunities.each do |opportunity|
-                tr id="delete_opportunity_#{opportunity.id.to_s}"
-                  td
-                    -if current_account_user.delete_opportunity
-                      = link_to account_account_opportunity_path(@account, opportunity), method: :delete, \
-                                                                                          turboboost: true, \
-                                                                                          data: {confirm: 'Are you sure?'} do
-                        .btn.btn-danger.btn-xs
-                          i.fa.fa-times
-                    -else
-                      .btn.btn-danger.btn-xs.disabled
+
+      .table-responsive
+        table class="table table-hover"
+          thead
+            tr
+              th 
+              th
+              th Deadline
+              th Requests
+              th Submissions
+              th Budget
+      
+      
+          tbody
+            - @opportunities.each do |opportunity|
+              tr id="delete_opportunity_#{opportunity.id.to_s}"
+                td
+                  -if current_account_user.delete_opportunity
+                    = link_to account_account_opportunity_path(@account, opportunity), method: :delete, \
+                                                                                        turboboost: true, \
+                                                                                        data: {confirm: 'Are you sure?'} do
+                      .btn.btn-danger.btn-xs
                         i.fa.fa-times
-                
-                    
-                    -if current_account_user.delete_opportunity
-                      = link_to edit_account_account_opportunity_path(@account, opportunity) do
-                        .btn.btn-default.btn-xs
-                          i.fa.fa-pencil
-                    -else
-                      .btn.btn-default.btn-xs.disabled
-                        i.fa.fa-pencil
-                    
-                    = link_to account_account_opportunity_path(@account, opportunity) do
-                       .btn.btn-default.btn-xs
-                         i.fa.fa-eye
-                         '&nbsp;
-                         = opportunity.title
+                  -else
+                    .btn.btn-danger.btn-xs.disabled
+                      i.fa.fa-times
+              
                   
-                  td
-                    - unless opportunity.public_opportunity
-                      i.fa.fa-envelope
-                      '&nbsp;By invitation
-                  td 
-                    - if opportunity.deadline && opportunity.deadline < Date.current
-                      .expired
-                        i class="fa fa-exclamation-circle"
-                        '&nbsp;
-                        = opportunity.deadline
-                    - else
+                  -if current_account_user.delete_opportunity
+                    = link_to edit_account_account_opportunity_path(@account, opportunity) do
+                      .btn.btn-default.btn-xs
+                        i.fa.fa-pencil
+                  -else
+                    .btn.btn-default.btn-xs.disabled
+                      i.fa.fa-pencil
+                  
+                  = link_to account_account_opportunity_path(@account, opportunity) do
+                     .btn.btn-default.btn-xs
+                       i.fa.fa-eye
+                       '&nbsp;
+                       = opportunity.title
+                
+                td
+                  - unless opportunity.public_opportunity
+                    i.fa.fa-envelope
+                    '&nbsp;By invitation
+                td 
+                  - if opportunity.deadline && opportunity.deadline < Date.current
+                    .expired
+                      i class="fa fa-exclamation-circle"
+                      '&nbsp;
                       = opportunity.deadline
-                  td = opportunity.music_requests.count
-                  td = opportunity.submissions.count
-                  td = opportunity.budget
+                  - else
+                    = opportunity.deadline
+                td = opportunity.music_requests.count
+                td = opportunity.submissions.count
+                td = opportunity.budget
                   
 
         

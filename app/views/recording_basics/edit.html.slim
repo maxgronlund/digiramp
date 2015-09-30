@@ -35,13 +35,15 @@
                   i.fa.fa-chevron-right
       .pull-down-10
       .digi-box
-   
-
         = simple_form_for  [@user, @recording ], url: url_for(:action => 'update', :controller => 'recording_basics'), 
                                                  html: { :id => 'recording_artwork' }, 
                                                  method: 'put' do |f|
         
-          == render 'shared/recordings/recording_basics_form', f: f, user: @user, recording: @recording                                       
+          == render 'shared/recordings/recording_basics_form', f: f, user: @user, recording: @recording  
+      
+      = link_to user_user_common_work_path(@user, @recording.common_work) do
+          .btn.btn-default
+            i.fa.fa-copyright&nbsp;Common work
          
         
   == render 'shared/site_footer'  

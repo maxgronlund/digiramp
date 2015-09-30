@@ -45,7 +45,9 @@
            
            == render 'shared/recordings/recording_lyrics_form', f: f
 
-      
+      = link_to user_user_common_work_path(@user, @recording.common_work) do
+          .btn.btn-default
+            i.fa.fa-copyright&nbsp;Common work      
         
   == render 'shared/site_footer'  
 == render 'shared/init_wysiwyg5'

@@ -1,5 +1,5 @@
-- session[:return_url]         = request.url
-- blog      = Blog.cached_find('User ipis')
+/- session[:return_url]         = request.url
+/- blog      = Blog.cached_find('User ipis')
 #wrapper
   .full-width-top
     == render 'shared/navigationbar', page: 'settings' 
@@ -11,109 +11,108 @@
   
   #page-content-wrapper
     .container-fluid
-      == render 'shared/breadcrumbs', breadcrumbs: { links: { 'Dashboard'.to_sym => user_user_control_panel_index_path(@user),
-                                                              'legal'.to_sym => user_user_legal_index_path(@user),
-                                                              'ipis'.to_sym => user_user_ipis_path(@user) }}
+      /== render 'shared/breadcrumbs', breadcrumbs: { links: { 'Dashboard'.to_sym => user_user_control_panel_index_path(@user),
+      /                                                        'legal'.to_sym => user_user_legal_index_path(@user),
+      /                                                        'ipis'.to_sym => user_user_ipis_path(@user) }}
       .row
         .col-sm-6
           .help
             .help-text
               h2 = @ipi.get_full_name
-              h4 = @common_work.title
+              /h4 = @common_work.title
             .help-button
-              == render 'admin/helps/help', identifier: 'user common work ip'
+              == render 'admin/helps/help', identifier: 'user ipi'
         .col-sm-6
           .pull-right.pull-down-10
                                                                 
-            = link_to user_user_ipis_path(@user ) do
-              .btn.btn-default
-                i.fa.fa-chevron-left
-                '&nbsp;Back
-            - if @user.id == @ipi.user_id
-              =< link_to 'Add agreement', 
-                new_user_user_common_work_ipi_ipi_publisher_path(@user, 
-                                                                @common_work, 
-                                                                @ipi), class: 'btn btn-default'
+           / = link_to user_user_ipis_path(@user ) do
+           /   .btn.btn-default
+           /     i.fa.fa-chevron-left
+           /     '&nbsp;Back
+           / - if @user.id == @ipi.user_id
+           /   =< link_to 'Add agreement', 
+           /     new_user_user_common_work_ipi_ipi_publisher_path(@user, 
+           /                                                     @common_work, 
+           /                                                     @ipi), class: 'btn btn-default'
              
       .pull-down-10
-      .digi-box 
-        .table-responsive
-          table class="table table-hover"
-            thead
-              tr
-                th Capacity
-                th Email
-                th Split
-            tbody
-              tr
-                td
-                   - if @ipi.music
-                     'Music
-                     br
-                   - if @ipi.lyric
-                     'Lyric
-                     br
-                   - if @ipi.melody
-                     'Melody
-                     br
-                   - if @ipi.arrangement
-                     'Arrangement
-                td
-                  - if user = @ipi.user
-                    = user.email
-                  - else
-                    = @ipi.email
-                td = number_to_percentage(@ipi.share,  precision: 2)
-                  
-        .row  
-          .col-sm-12
-            .pull-right
-              .ipi-status
-              == render 'status', ipi: @ipi
-
-                
-      
-
-
-      - if @ipi.users_publishing_agreements.any?
-        
-        == render 'publishing_agreements'
-      - else
-        .row
-          .col-sm-6
-            .digi-box
-              - blog_post = BlogPost.cached_find( "I'm the publishing designee" , blog )
-              h4 = blog_post.title
-              = blog_post.body
-              .row
-                .col-sm-12
-                  .pull-rights
-                    = simple_form_for [:user, @user,  @ipi_publishing_agreement ], turboboost: true do |f|
-                      = f.hidden_field :ipi_id, value: @ipi.id
-                      = f.hidden_field :publishing_agreement_id, value: @user.publishing_agreement.id
-                      = f.submit 'Confirm', class: 'btn btn-default'
-                    /= debug @user.publishing_agreement
-                    /:ipi_publishing_agreements
-                    /= link_to "Confirm", user_user_publisher_path( @ipi.user, @user.publishing, ipi_id: @ipi.id), 
-                    /                    class: 'btn btn-default', data: {confirm: 'By clicking this button you confirm you have the legal rights to publish this work'}
-                    /
-              
-          .col-sm-6
-            .digi-box
-              - blog_post = BlogPost.cached_find( "I have publisher" , blog )
-              h4 = blog_post.title
-              = blog_post.body
-          
-              .row
-                .col-sm-12
-                  .pull-right
-                    = link_to 'Configure', '#', class: 'btn btn-default'
-              
-            
-    
-   
-  == render 'shared/site_footer'   
-  
+      .table-responsive
+        table class="table table-hover"
+          thead
+            tr
+              th Capacity
+              th Email
+              th Split
+          tbody
+            tr
+              td
+                 - if @ipi.music
+                   'Music
+                   br
+                 - if @ipi.lyric
+                   'Lyric
+                   br
+                 - if @ipi.melody
+                   'Melody
+                   br
+                 - if @ipi.arrangement
+                   'Arrangement
+              td
+                - if user = @ipi.user
+                  = user.email
+                - else
+                  = @ipi.email
+              td = number_to_percentage(@ipi.share,  precision: 2)
+/                
+/        .row  
+/          .col-sm-12
+/            .pull-right
+/              .ipi-status
+/              == render 'status', ipi: @ipi
+/
+/                
+/      
+/
+/
+/      /- if @ipi.users_publishing_agreements.any?
+/      /  
+/      /  == render 'publishing_agreements'
+/      /- else
+/      /  .row
+/      /    .col-sm-6
+/      /      .digi-box
+/      /        - blog_post = BlogPost.cached_find( "I'm the publishing designee" , blog )
+/      /        h4 = blog_post.title
+/      /        = blog_post.body
+/      /        .row
+/      /          .col-sm-12
+/      /            .pull-rights
+/      /              /= simple_form_for [:user, @user,  @ipi_publishing_agreement ], turboboost: true do |f|
+/      /              /  = f.hidden_field :ipi_id, value: @ipi.id
+/      /              /  = f.hidden_field :publishing_agreement_id, value: @user.publishing_agreement.id
+/      /              /  = f.submit 'Confirm', class: 'btn btn-default'
+/      /              /= debug @user.publishing_agreement
+/      /              /:ipi_publishing_agreements
+/      /              /= link_to "Confirm", user_user_publisher_path( @ipi.user, @user.publishing, ipi_id: @ipi.id), 
+/      /              /                    class: 'btn btn-default', data: {confirm: 'By clicking this button you confirm you have the legal rights to publish this work'}
+/      /              /
+/      /        
+/      /    /.col-sm-6
+/      /    /  .digi-box
+/      /    /    - blog_post = BlogPost.cached_find( "I have publisher" , blog )
+/      /    /    h4 = blog_post.title
+/      /    /    = blog_post.body
+/      /    /
+/      /    /    .row
+/      /    /      .col-sm-12
+/      /    /        .pull-right
+/      /    /          = link_to 'Configure', '#', class: 'btn btn-default'
+/      /    /    
+/      /      
+/    
+/   
+/  == render 'shared/site_footer'   
+/  
 
 
 

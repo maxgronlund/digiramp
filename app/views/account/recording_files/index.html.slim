@@ -54,34 +54,33 @@
       
       .row.pull-down-10
         .col-sm-12
-          .digi-box
-            .table-responsive
-              table class="table table-hover"
-                thead
+          .table-responsive
+            table class="table table-hover"
+              thead
+                tr
+                  th Name
+                  th Size
+                  th Download
+                  th 
+                  
+              tbody
+                - @files.each do |file|
                   tr
-                    th Name
-                    th Size
-                    th Download
-                    th 
-                    
-                tbody
-                  - @files.each do |file|
-                    tr
-                      td = File.basename(file.file_url)
-                      td
-                        =  number_to_human_size(file.file_size.to_i) 
-                      td 
-                        = link_to  file.file_url do
-                          .btn.btn-default.btn-xs
-                            i.fa.fa-cloud-download
-                            '&nbsp;Right clink and select save
-                      td 
-                        .pull-right
-                          = link_to account_account_attachment_path(@account, file, return_url: request.url), data: { confirm: 'Are you sure?' }, turboboost: true , :method => :delete do
-                            .btn.btn-danger.btn-xs
-                              i.fa.fa-times
-                        
-               
+                    td = File.basename(file.file_url)
+                    td
+                      =  number_to_human_size(file.file_size.to_i) 
+                    td 
+                      = link_to  file.file_url do
+                        .btn.btn-default.btn-xs
+                          i.fa.fa-cloud-download
+                          '&nbsp;Right clink and select save
+                    td 
+                      .pull-right
+                        = link_to account_account_attachment_path(@account, file, return_url: request.url), data: { confirm: 'Are you sure?' }, turboboost: true , :method => :delete do
+                          .btn.btn-danger.btn-xs
+                            i.fa.fa-times
+                      
+             
                
       
   == render 'shared/site_footer'

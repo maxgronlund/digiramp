@@ -26,43 +26,42 @@
                   'New Project
           
       .pull-down-10
-      .digi-box
-        .table-responsive
-          table class="table table-hover"
-            thead
+      .table-responsive
+        table class="table table-hover"
+          thead
+            tr
+              th Name
+              th Deadline
+              th Stadus
+              th Assigned To
+              th Tasks
+              th
+          tbody
+            - @projects.each do |project|
+              
               tr
-                th Name
-                th Deadline
-                th Stadus
-                th Assigned To
-                th Tasks
-                th
-            tbody
-              - @projects.each do |project|
-                
-                tr
-                  td = link_to project.title, account_account_project_path(@account, project), class: 'btn btn-default'
-                  td = project.deadline
-                  td = project.stage
-                  td 
-                    - if user = project.user
-                      = link_to user_path user do
-                        = image_tag user.image_url(:avatar_32x32)
-                        '&nbsp;
-                        = user.user_name 
-                  td = project.project_tasks.count
-                  td
-                    .pull-right
-                      = link_to edit_account_account_project_path(@account, project) do
-                        .btn.btn-default
-                          i.fa.fa-pencil
-                          '&nbsp;
-                          'Edit
+                td = link_to project.title, account_account_project_path(@account, project), class: 'btn btn-default'
+                td = project.deadline
+                td = project.stage
+                td 
+                  - if user = project.user
+                    = link_to user_path user do
+                      = image_tag user.image_url(:avatar_32x32)
                       '&nbsp;
-                      = link_to account_account_project_path(@account, project), data: { confirm: 'Are you sure?' },turboboost: true , :method => :delete do
-                        .btn.btn-danger
-                          i.fa.fa-times
-          
+                      = user.user_name 
+                td = project.project_tasks.count
+                td
+                  .pull-right
+                    = link_to edit_account_account_project_path(@account, project) do
+                      .btn.btn-default
+                        i.fa.fa-pencil
+                        '&nbsp;
+                        'Edit
+                    '&nbsp;
+                    = link_to account_account_project_path(@account, project), data: { confirm: 'Are you sure?' },turboboost: true , :method => :delete do
+                      .btn.btn-danger
+                        i.fa.fa-times
+        
               
                    
               

@@ -28,73 +28,71 @@
       .pull-down-10
       .row
         .col-sm-12
-          .digi-box
-            
-            - if super? || current_account_user.read_catalog
-              .table-responsive
-                table class="table table-hover"
-                  thead
-                    tr
-                      th Title
-                      th Works
-                      th Recordings
-                      th Assets
-                      th Users
-                      th  
-                  tbody
-                    - @account.catalogs.each do |catalog|
-                      tr id="delete_catalog_#{catalog.id.to_s}"
-                        td 
-                          = link_to catalog.title, catalog_account_catalog_path(@account, catalog), class: 'btn btn-default btn-xs'
-                        td 
-                          - if super? || current_account_user.read_common_work?
-                            = link_to catalog_account_catalog_common_works_path(@account, catalog) do
-                              .btn.btn-default.btn-xs
-                                i.fa.fa-music
-                                =< pluralize( catalog.common_works.count, 'Works')
-                            =
-                        
-                        td 
-                          - if super? || current_account_user.read_recording?
-                            = link_to catalog_account_catalog_recordings_path(@account, catalog) do
-                              .btn.btn-default.btn-xs
-                                i.fa.fa-headphones
-                                =< pluralize( catalog.recordings.count, 'Recording')
-                               
-                        td 
-                          - if super? || current_account_user.read_user?
-                            = link_to catalog_account_catalog_assets_path(@account, catalog) do
-                              .btn.btn-default.btn-xs
-                                i.fa.fa-folder-o
-                                =< pluralize( catalog.documents.count, 'Assets')
-                               
-                        td 
-                          - if super? || current_account_user.read_user?
-                            = link_to catalog_account_catalog_catalog_users_path(@account, catalog) do
-                              .btn.btn-default.btn-xs
-                                i.fa.fa-users
-                                =< pluralize(catalog.catalog_users.count, 'User')
-                                /=< pluralize( catalog.catalog_users.count, 'User')
-                          
+          - if super? || current_account_user.read_catalog
+            .table-responsive
+              table class="table table-hover"
+                thead
+                  tr
+                    th Title
+                    th Works
+                    th Recordings
+                    th Assets
+                    th Users
+                    th  
+                tbody
+                  - @account.catalogs.each do |catalog|
+                    tr id="delete_catalog_#{catalog.id.to_s}"
+                      td 
+                        = link_to catalog.title, catalog_account_catalog_path(@account, catalog), class: 'btn btn-default btn-xs'
+                      td 
+                        - if super? || current_account_user.read_common_work?
+                          = link_to catalog_account_catalog_common_works_path(@account, catalog) do
+                            .btn.btn-default.btn-xs
+                              i.fa.fa-music
+                              =< pluralize( catalog.common_works.count, 'Works')
                           =
-                        td
-                          .pull-right
-                            - if super? || current_account_user.update_catalog?
-                              = link_to edit_account_account_catalog_path( @account, catalog) do
-                                .btn.btn-default.btn-xs
-                                  i class="fa fa-pencil"
-                            
-                            - if super? || current_account_user.delete_catalog?
-                              =< link_to account_account_catalog_path( @account, catalog), 
-                                                                      turboboost: true , 
-                                                                      data: { confirm: 'Are you sure?' } , 
-                                                                      method: :delete do
-                                .btn.btn-danger.btn-xs.please_wait
-                                  i.fa.fa-times
-                              
-                      /= debug catalog
+                      
+                      td 
+                        - if super? || current_account_user.read_recording?
+                          = link_to catalog_account_catalog_recordings_path(@account, catalog) do
+                            .btn.btn-default.btn-xs
+                              i.fa.fa-headphones
+                              =< pluralize( catalog.recordings.count, 'Recording')
+                             
+                      td 
+                        - if super? || current_account_user.read_user?
+                          = link_to catalog_account_catalog_assets_path(@account, catalog) do
+                            .btn.btn-default.btn-xs
+                              i.fa.fa-folder-o
+                              =< pluralize( catalog.documents.count, 'Assets')
+                             
+                      td 
+                        - if super? || current_account_user.read_user?
+                          = link_to catalog_account_catalog_catalog_users_path(@account, catalog) do
+                            .btn.btn-default.btn-xs
+                              i.fa.fa-users
+                              =< pluralize(catalog.catalog_users.count, 'User')
+                              /=< pluralize( catalog.catalog_users.count, 'User')
+                        
+                        
+                      td
+                        .pull-right
+                          - if super? || current_account_user.update_catalog?
+                            = link_to edit_account_account_catalog_path( @account, catalog) do
+                              .btn.btn-default.btn-xs
+                                i class="fa fa-pencil"
                           
-                   
+                          - if super? || current_account_user.delete_catalog?
+                            =< link_to account_account_catalog_path( @account, catalog), 
+                                                                    turboboost: true , 
+                                                                    data: { confirm: 'Are you sure?' } , 
+                                                                    method: :delete do
+                              .btn.btn-danger.btn-xs.please_wait
+                                i.fa.fa-times
+                            
+                    /= debug catalog
+                        
+                 
               
   == render 'shared/site_footer'    
  

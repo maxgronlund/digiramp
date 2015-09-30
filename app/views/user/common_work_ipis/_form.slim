@@ -2,8 +2,8 @@
   .alert.alert-info
     .row
       .col-sm-6
-        h4 Contributor is connected
-        'This contributor has been connected to a DigiRAMP user. Email. Name and Alias are taken from that users profile
+        h4 Creator is connected
+        'This creator has been connected to a DigiRAMP user. Email. Name and Alias are taken from that users profile
     
       .col-sm-6
         b Email:&nbsp;
@@ -34,10 +34,11 @@
             == render 'shared/popover', identifier: 'This field will link the income stream to a DigiRAMP user'
             .pull-down-6
             = f.input :email, label: false
-            b Publishers email
-            == render 'shared/popover', identifier: 'This fiel is used notify the a publisher so an agreement can be attached'
+            b Full name
+            == render 'shared/popover', identifier: 'The contributors real name ( as used in a Production agreement )'
             .pull-down-6
-            = f.input :publisher_info, label: false, placeholder: 'i.e. publishing@sony.com', hint: 'Leave blank if you are self publishing'
+            = f.input :full_name, label: false
+            
             /.chosen-label
             /  b Publishing agreement
             /  br
@@ -48,18 +49,19 @@
             /            label: false,
             /            input_html: { class: 'chosen-select', 'data-placeholder'.to_sym => "Distribution agreement" }
           .col-sm-6
-            b Full name
-            == render 'shared/popover', identifier: 'The contributors real name ( as used in a Production agreement )'
-            .pull-down-6
-            = f.input :full_name, label: false
-
+           
             b Alias
             == render 'shared/popover', identifier: 'The contributors artist name as shown on recordings'
             .pull-down-6
             = f.input :alias, label: false
+            
+            /b Publishers email
+            /== render 'shared/popover', identifier: 'This fiel is used notify the a publisher so an agreement can be attached'
+            /.pull-down-6
+            /= f.input :publisher_info, label: false, placeholder: 'i.e. publishing@sony.com', hint: 'Leave blank if you are self publishing'
       .row
         .col-sm-6
-          b Share in %
+          b Creators share in %
           == render 'shared/popover', identifier: 'Share of the income between contributors ( often defined in a Production agreement )'
           .pull-down-6
           = f.input :share, label: false, input_html: { style: "max-width:150px;" }, hint: "All creators's share should add up to 100%"
@@ -81,7 +83,9 @@
           = f.input :show_on_recordings,    
                     :as => :boolean,  
                     :label => 'Show roles and notes on recordings',
-                    :input_html => { class: 'icheck-me', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue"     } 
+                    :input_html => { class: 'icheck-me', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue"     }
+          
+          
           
     .form-actions
       .row
@@ -94,49 +98,49 @@
 
     
 /== render 'user/common_works/common_work_ipis', selected_id: @common_work_ipi.id
-.digi-box
-  h4 Other creators
-  .table-responsive
-    table class="table table-hover"
-      thead
-        tr
-          th Name/ Email
-          th Roles
-          th Share in %
 
-      tbody
-        - @common_work.common_work_ipis.where.not(id: @common_work_ipi.id).each do |common_work_ipi|
+h4 Other creators
+.table-responsive
+  table class="table table-hover"
+    thead
+      tr
+        th Name/ Email
+        th Roles
+        th Share in %
+
+    tbody
+      - @common_work.common_work_ipis.where.not(id: @common_work_ipi.id).each do |common_work_ipi|
+        
+        tr
           
-          tr
-            
-            td
-              - if ipi = common_work_ipi.ipi
-                - if user = ipi.user
-                  = user.full_name
-                  br
-                  = user.email
-                - else 
-                  = ipi.email
-            td 
-              - if common_work_ipi.music
-                'Music
+          td
+            - if ipi = common_work_ipi.ipi
+              - if user = ipi.user
+                = user.full_name
                 br
-              - if common_work_ipi.lyric
-                'Lyric
-                br
-              - if common_work_ipi.melody
-                'Melody
-                br
-              - if common_work_ipi.arrangement
-                'Arrangement
-            td = number_to_percentage(common_work_ipi.share, precision: 0)   
-            
-            /td   
-            /  .pull-right
-            /    div class="confirmation-button-#{common_work_ipi.id.to_s}"
-            /      == render 'common_works/common_work_ipi_buttons', user: @user, common_work: @common_work, common_work_ipi: common_work_ipi
-                  
+                = user.email
+              - else 
+                = ipi.email
+          td 
+            - if common_work_ipi.music
+              'Music
+              br
+            - if common_work_ipi.lyric
+              'Lyric
+              br
+            - if common_work_ipi.melody
+              'Melody
+              br
+            - if common_work_ipi.arrangement
+              'Arrangement
+          td = number_to_percentage(common_work_ipi.share, precision: 0)   
+          
+          /td   
+          /  .pull-right
+          /    div class="confirmation-button-#{common_work_ipi.id.to_s}"
+          /      == render 'common_works/common_work_ipi_buttons', user: @user, common_work: @common_work, common_work_ipi: common_work_ipi
                 
+              
                
                 
                 

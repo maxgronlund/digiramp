@@ -13,26 +13,22 @@
         .col-sm-12
           .help
             .help-text
-              h2 Message center
+              h2 Send messages
             .help-button
               == render 'admin/helps/help', identifier: 'user messages'
           
       .pull-down-10
-      .messages
-      .digi-box
-        h4 Send messages
-        table
-          .table-responsive
-            table class="table table-hover"
-              tbody
-                - @send_massages.each do |message|
-                  == render 'messages/message', message: message
-          
-        .row
-          .col-sm-12
-            .pull-right
-              == paginate(@send_massages) 
-        
+      .table-responsive
+        table class="table table-hover"
+          tbody
+            - @send_massages.each do |message|
+              == render 'messages/message', message: message
+      
+      .row.pull-down-10
+        .col-sm-12
+          .pull-right
+            == paginate(@send_massages) 
+      
                 
   == render 'shared/site_footer'    
  
