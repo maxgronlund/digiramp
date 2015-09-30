@@ -27,10 +27,9 @@ class Label < ActiveRecord::Base
       if @distribution_agreement = DistributionAgreement.find_by(id: self.default_distribution_agreement_id)
       else
         @distribution_agreement = DistributionAgreement.create(
-        :label_id => self.id,
+                             :label_id => self.id,
                            :account_id => self.account_id,
                        :distributor_id => self.id,
-                              :royalty => 10,
                                 :split => 100,
                               :user_id => self.user_id,
                                 :title => "#{self.user.full_name} distribution agreement",
