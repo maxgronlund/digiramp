@@ -1,10 +1,23 @@
-=< link_to '(?)', '#', id: "#{id}",
-                'data-content'.to_sym => "#{body}"
+- blog = Blog.cached_find('tool tips')
+- blog_post = BlogPost.cached_find( identifier , blog)
 
+=< link_to '(?)', '#', id: "#{blog_post.id}",
+                'data-content'.to_sym => "#{ blog_post.teaser }"
 
+- if editor?
+  =< link_to edit_admin_blog_blog_post_path(blog, blog_post) do
+    i.fa.fa-pencil
+    
+
+  
 javascript:
-  $("##{id}").popover({container: 'body',
+  $("##{blog_post.id}").popover({container: 'body',
                         toggle: 'popover',
                         placement: 'top',
                         trigger: 'hover'})
 br
+
+/ usage example
+/ b *Distribution agreement
+/ == render 'shared/popover', identifier: 'Select the distribution agreement this recording is sold under'
+/ .pull-down-6

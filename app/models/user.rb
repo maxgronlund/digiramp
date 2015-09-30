@@ -789,15 +789,21 @@ class User < ActiveRecord::Base
   end
   
   def ipi
-    if ipi = Ipi.where( user_id: self.id,  master_ipi: true).first
+    if ipi = Ipi.find_by( user_id: self.id,  master_ipi: true)
       return ipi
     else
-      _ipi = Ipi.create(
-        user_id: self.id, 
+      ap ' create a new ip in the factory'
+      _ipi = Ipi.new(
+        user_id:    self.id, 
         master_ipi: true,
-        ipi_code: self.ipi_code
+        ipi_code:   self.ipi_code,
+        uuid:       UUIDTools::UUID.timestamp_create().to_s,
+        email:      self.email,
+        full_name:  self.full_name
       )
+      _ipi.save!
       self.copy_address_to( _ipi.address )
+
       return _ipi
     end
   end

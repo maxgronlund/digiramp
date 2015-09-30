@@ -1,5 +1,4 @@
 = simple_form_for [:user, @user, @cms_banner] do |f|
-
   .row
     .col-sm-6
       = f.hidden_field :position, as: :integer ,  input_html: { value: @cms_banner.cms_section.position }

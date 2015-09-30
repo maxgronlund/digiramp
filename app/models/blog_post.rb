@@ -32,7 +32,11 @@ class BlogPost < ActiveRecord::Base
   
   def self.cached_find(identifier , blog)
     Rails.cache.fetch([name, identifier , blog.id]) { BlogPost.where(identifier: identifier, blog_id: blog.id)\
-                                                             .first_or_create(identifier: identifier, blog_id: blog.id, title: identifier, body: '') }
+                                                             .first_or_create(identifier: identifier, 
+                                                             blog_id: blog.id, 
+                                                             title: identifier, 
+                                                             body: identifier,
+                                                             teaser: identifier) }
   end
   
 private

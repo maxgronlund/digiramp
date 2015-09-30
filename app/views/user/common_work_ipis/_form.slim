@@ -1,57 +1,94 @@
+- if @common_work_ipi_user
+  .alert.alert-info
+    .row
+      .col-sm-6
+        h4 Contributor is connected
+        'This contributor has been connected to a DigiRAMP user. Email. Name and Alias are taken from that users profile
+    
+      .col-sm-6
+        b Email:&nbsp;
+        = @common_work_ipi_user.email
+        .pull-down-10
+        b Full name:&nbsp;
+        = @common_work_ipi_user.full_name
+        .pull-down-10
+        b Alias / Artist name:&nbsp;
+        = @common_work_ipi_user.user_name
+        /= f.input :full_name,  :input_html => {disabled: 'disabled'}, label: 'Full name (updated by user)'
+        /= f.input :alias,  :input_html => {disabled: 'disabled'}, label: 'Alias (updated by user)'
+        /= @common_work_ipi_user.full_name
 .digi-box
   = simple_form_for [:user, @user, @common_work, @common_work_ipi], turboboost: true do |f|
     = f.hidden_field :common_work_id, value: @common_work.id
     = f.error_notification
+    .form-inputs
+
     
-    .row
-      .col-sm-6
-        - if @common_work_ipi_user
-          = f.input :email,  :input_html => {disabled: 'disabled'}, label: 'Email (updated by user)'
-          = f.input :full_name,  :input_html => {disabled: 'disabled'}, label: 'Full name (updated by user)'
-          = f.input :alias,  :input_html => {disabled: 'disabled'}, label: 'Alias (updated by user)'
-          /= @common_work_ipi_user.full_name
-          
-        - else
-          = f.input :email
-          = f.input :full_name
-          = f.input :alias
-        = f.input :share, label: 'Share in %', hint: "All creators's share should add up to 100%"
-          
-        /= f.input :share, input_html: { style: "max-width:150px;" }, label: 'split'
-        /= f.input :publishing_agreement
+      .row
         
-        
-      .col-sm-6
-        = f.input :publisher_info, label: 'Publisher', placeholder: 'Publishers email', hint: 'Leave blank if you are self publishing'
-        .chosen-label
-          b Publishing agreement
-          br
+            
+        - unless @common_work_ipi_user
+          .col-sm-6
+            b 
+              '*Email 
+            == render 'shared/popover', identifier: 'This field will link the income stream to a DigiRAMP user'
+            .pull-down-6
+            = f.input :email, label: false
+            b Publishers email
+            == render 'shared/popover', identifier: 'This fiel is used notify the a publisher so an agreement can be attached'
+            .pull-down-6
+            = f.input :publisher_info, label: false, placeholder: 'i.e. publishing@sony.com', hint: 'Leave blank if you are self publishing'
+            /.chosen-label
+            /  b Publishing agreement
+            /  br
+            /  .pull-down-6
+            /  = f.input :publishing_agreement_id, 
+            /            collection: @publishing_agreements,
+            /            include_blank: true,
+            /            label: false,
+            /            input_html: { class: 'chosen-select', 'data-placeholder'.to_sym => "Distribution agreement" }
+          .col-sm-6
+            b Full name
+            == render 'shared/popover', identifier: 'The contributors real name ( as used in a Production agreement )'
+            .pull-down-6
+            = f.input :full_name, label: false
+
+            b Alias
+            == render 'shared/popover', identifier: 'The contributors artist name as shown on recordings'
+            .pull-down-6
+            = f.input :alias, label: false
+      .row
+        .col-sm-6
+          b Share in %
+          == render 'shared/popover', identifier: 'Share of the income between contributors ( often defined in a Production agreement )'
           .pull-down-6
-          = f.input :publishing_agreement_id, 
-                    collection: @publishing_agreements,
-                    include_blank: true,
-                    label: false,
-                    input_html: { class: 'chosen-select', 'data-placeholder'.to_sym => "Distribution agreement" }
-        b Roles
-        .row
-          .col-sm-6
-            = f.input :music,    :as => :boolean,  :input_html => { class: 'icheck-me', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue"     }   , label: 'Music'
-            = f.input :lyric,    :as => :boolean,  :input_html => { class: 'icheck-me', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue"     }  , label: 'Lyric'
-          .col-sm-6
-            = f.input :melody,       :as => :boolean,  :input_html => { class: 'icheck-me', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue"     }   , label: 'Melody'
-            = f.input :arrangement, :as => :boolean,  :input_html => { class: 'icheck-me', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue"     }   , label: 'Arrangement'
-        = f.input :notes
-        = f.input :show_on_recordings,    
-                  :as => :boolean,  
-                  :label => 'Show roles and notes on recordings',
-                  :input_html => { class: 'icheck-me', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue"     } 
-        
-    
-    .row
-      .col-sm-12.pull-down-10
-        .pull-right
-          = f.submit 'Save', class: 'btn btn-default'
-          /= f.submit 'Save and get confirmation', class: 'btn btn-default'
+          = f.input :share, label: false, input_html: { style: "max-width:150px;" }, hint: "All creators's share should add up to 100%"
+
+          /= f.input :share, input_html: { style: "max-width:150px;" }, label: 'split'
+          /= f.input :publishing_agreement
+          
+          
+        .col-sm-6
+          b Roles
+          .row
+            .col-sm-6
+              = f.input :music,    :as => :boolean,  :input_html => { class: 'icheck-me', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue"     }   , label: 'Music'
+              = f.input :lyric,    :as => :boolean,  :input_html => { class: 'icheck-me', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue"     }  , label: 'Lyric'
+            .col-sm-6
+              = f.input :melody,       :as => :boolean,  :input_html => { class: 'icheck-me', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue"     }   , label: 'Melody'
+              = f.input :arrangement, :as => :boolean,  :input_html => { class: 'icheck-me', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue"     }   , label: 'Arrangement'
+          = f.input :notes
+          = f.input :show_on_recordings,    
+                    :as => :boolean,  
+                    :label => 'Show roles and notes on recordings',
+                    :input_html => { class: 'icheck-me', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue"     } 
+          
+    .form-actions
+      .row
+        .col-sm-12.pull-down-10
+          .pull-right
+            = f.submit 'Save', class: 'btn btn-info'
+            /= f.submit 'Save and get confirmation', class: 'btn btn-default'
       
 
 

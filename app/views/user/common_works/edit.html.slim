@@ -16,7 +16,7 @@
       
       
       .row
-        .col-sm-6
+        .col-sm-9
           .help
             .help-text
               
@@ -27,7 +27,7 @@
             .help-button
               == render 'admin/helps/help', identifier: 'common work basic'
 
-        .col-sm-6
+        .col-sm-3
           .pull-right
             .recording-navigation
               /=> link_to user_user_common_work_path( @user, @common_work ) do
@@ -67,7 +67,10 @@
               
               .row.pull-down-10
                 .col-sm-6
-                  = f.input :iswc_code, label: 'ISWC Code',:input_html => {  placeholder: "International Standard Musical Work Code"}
+                  b
+                    'ISWC Code
+                  == render 'shared/popover', identifier: 'International Standard Musical Work Code'
+                  = f.input :iswc_code, label: false,:input_html => {  placeholder: "International Standard Musical Work Code"}
                 .col-sm-6
                   = f.input :surveyed_work
               .row

@@ -133,6 +133,7 @@ class Ipi < ActiveRecord::Base
 
   
   def send_confirmation_request
+    # move this to common_work_ipi
     attach_to_user
     send_confirmation_email
     send_confirmation_notification

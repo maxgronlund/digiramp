@@ -34,12 +34,23 @@
                   = address_form.input :first_name
                   = address_form.input :middle_name
                   = address_form.input :last_name
-                  = f.input :phone_number 
-                  = f.input :personal_publisher_ipi_code
+                  
+                  
+                  b Personal publishers IPI code
+                  == render 'shared/popover', identifier: 'Your Personal publishers IPI code (Interested party information) is a unique identifying number assigned by the CISAC database'
+                  .pull-down-6
+                  = f.input :personal_publisher_ipi_code, label: false
+                  
+                  b IPI code
+                  == render 'shared/popover', identifier: 'Tiyr IPI code (Interested party information) is a unique identifying number assigned by the CISAC database'
+                  .pull-down-6
+                  = f.input :ipi_code, label: false
+                  
                   = f.input :pro_affiliation, collection: ProAffiliation.order(:title), value_method: :id, include_blank: true, label: 'Performance Rights Organization'
                   
                   
                 .col-sm-6
+                  = f.input :phone_number 
                   = address_form.input :address_line_1
                   = address_form.input :address_line_2
                   .row

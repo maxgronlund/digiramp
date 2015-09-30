@@ -13,7 +13,7 @@
                                                               legal: user_user_legal_index_path(@user),
                                                               'common work'.to_sym => user_user_common_work_path(@user, @common_work) }}
       .row
-        .col-sm-6
+        .col-sm-9
           .help
             .help-text
               h2 
@@ -21,7 +21,7 @@
                 = @common_work.title
             .help-button
               == render 'admin/helps/help', identifier: 'edit ip on a common work'
-        .col-sm-6
+        .col-sm-3
           .pull-right.pull-down-10
             = link_to user_user_common_work_path(@user, @common_work ) do
               .btn.btn-default
