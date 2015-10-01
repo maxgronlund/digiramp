@@ -152,7 +152,6 @@ class UserAssetsFactory
       ipi_id:       @ipi.id,
       publishing_agreement_id: @publishing_agreement.id
     )
-  )
   end
   
   def create_mp3_term_of_usage
