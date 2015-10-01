@@ -70,34 +70,33 @@
     .container-fluid
       h2 Labels
       .pull-down-10
-      .digi-box  
-        .table-responsive
-          table class="table table-hover"
-            thead
+      .table-responsive
+        table class="table table-hover"
+          thead
+            tr
+              
+              th Title
+              th Recordings
+              /th Body
+              /th Image
+          
+              /th
+              /th
+              /th
+          
+          tbody
+            - @labels.each do |label|
               tr
-                
-                th Title
-                th Recordings
-                /th Body
-                /th Image
-            
-                /th
-                /th
-                /th
-            
-            tbody
-              - @labels.each do |label|
-                tr
-                  td 
-                    => link_to image_tag(label.image_url(:default)), label
-                    = link_to label.title, label, class: 'btn btn-default btn-xs'
-                  td = label.recordings.count
-                  /td = label.body
-                  /td = label.image
-                  /td = link_to 'Show', label
-                  /td = link_to 'Edit', edit_label_path(label)
-                  /td = link_to 'Destroy', label, data: {:confirm => 'Are you sure?'}, :method => :delete
-            
+                td 
+                  => link_to image_tag(label.image_url(:default)), label
+                  = link_to label.title, label, class: 'btn btn-default btn-xs'
+                td = label.recordings.count
+                /td = label.body
+                /td = label.image
+                /td = link_to 'Show', label
+                /td = link_to 'Edit', edit_label_path(label)
+                /td = link_to 'Destroy', label, data: {:confirm => 'Are you sure?'}, :method => :delete
+          
       br    
       == paginate(@labels)
       /= link_to 'New Label', new_label_path

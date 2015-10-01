@@ -8,10 +8,10 @@ class PublisherValidator < ActiveModel::Validator
       end
     end
     
-    if publisher = Publisher.find_by(email: record.email.downcase)
-      error_message = "The email is used by another publisher!"
-      record.errors[:email] << error_message 
-    end
+    #if publisher = Publisher.find_by(email: record.email.downcase)
+    #  error_message = "The email is used by another publisher!"
+    #  record.errors[:email] << error_message 
+    #end
     
     #if record.i_am_my_own_publisher
     #  if user && (user.account.id != record.account_id)
