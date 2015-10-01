@@ -24,7 +24,7 @@
         /= f.input :alias,  :input_html => {disabled: 'disabled'}, label: 'Alias (updated by user)'
         /= @common_work_ipi_user.full_name
 .digi-box
-  = simple_form_for [:user, @user, @common_work, @common_work_ipi], turboboost: true do |f|
+  = simple_form_for [:user, @user, @common_work, @common_work_ipi] do |f|
     = f.hidden_field :common_work_id, value: @common_work.id
     = f.error_notification
     .form-inputs

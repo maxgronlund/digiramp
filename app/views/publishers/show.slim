@@ -45,63 +45,63 @@
                   .connect-buttons
                   == render 'users/connect',    user: user, size: ''
         
-      .digi-box
-        .table-responsive
-          table.table.table-bordered
-            tr
-              td
-                b Legal name
-                br = @publisher.legal_name
-              td
-              td
-          
-            tr
-              td
-                b IP Number
-                br = @publisher.ipi_code
-              
+
+      .table-responsive
+        table.table.table-bordered
+          tr
+            td
+              b Legal name
+              br = @publisher.legal_name
+            td
+            td
+        
+          tr
+            td
+              b IP Number
+              br = @publisher.ipi_code
             
-              td
-                b Phone number
-                br = @publisher.phone_number
-              
-              td
-                  
-            tr
-              td
-                b Address
-                - unless @publisher.address_line_1.blank?
-                  br
-                  = @publisher.address_line_1
-        
-                - unless @publisher.address_line_2.blank?
-                  br
-                  = @publisher.address_line_2
-        
-                - unless @publisher.city.blank?
-                  br
-                  = @publisher.city
-        
-                - unless @publisher.zip_code.blank?
-                  br
-                  = @publisher.zip_code
-        
-                - unless @user.country.blank?
-                  br
-                  = @user.country
           
-              td
-                /b Publishing
-                /table
-                /  - @user.publishers.each do |publisher|
-                /    tr
-                /    
-                /      td = publisher.legal_name
-                /      td = publisher.ipi_code
-                /    
-                /    
-              td
-                        
+            td
+              b Phone number
+              br = @publisher.phone_number
+            
+            td
+                
+          tr
+            td
+              b Address
+              - unless @publisher.address_line_1.blank?
+                br
+                = @publisher.address_line_1
+      
+              - unless @publisher.address_line_2.blank?
+                br
+                = @publisher.address_line_2
+      
+              - unless @publisher.city.blank?
+                br
+                = @publisher.city
+      
+              - unless @publisher.zip_code.blank?
+                br
+                = @publisher.zip_code
+      
+              - unless @publisher.country.blank?
+                br
+                = @publisher.country
+        
+            td
+              /b Publishing
+              /table
+              /  - @user.publishers.each do |publisher|
+              /    tr
+              /    
+              /      td = publisher.legal_name
+              /      td = publisher.ipi_code
+              /    
+              /    
+            td
+                      
       
 
   == render 'shared/site_footer'    

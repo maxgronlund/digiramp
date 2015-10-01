@@ -105,9 +105,7 @@ class CommonWork < ActiveRecord::Base
   end
   
   def is_registered?
-
-    return true if ipis.count > 0
-    false
+    return true if common_work_ipis.count > 0
   end
   
   def royalty
@@ -115,12 +113,12 @@ class CommonWork < ActiveRecord::Base
   end
   
   def is_cleared?
-
-    return false if ipis.count == 0
-    self.ipis.each do |ipi|
-      return false unless (ipi.accepted?)
-    end
-    true
+    total_share == 100.0
+    #return false if common_work_ipis.count == 0
+    #self.common_work_ipis.each do |common_work_ipi|
+    #  return false unless (common_work_ipi.ipi.nil?)
+    #end
+    #true
   end
   
   def user_id
@@ -213,11 +211,7 @@ class CommonWork < ActiveRecord::Base
   end
   
   def total_share
-    ipi_share = 0.0
-    self.ipis.each do |ipi|
-      ipi_share += ipi.share.to_f
-    end
-    ipi_share
+    common_work_ipis.sum(:share)
   end
   
   def attache_ipis_true recording_id

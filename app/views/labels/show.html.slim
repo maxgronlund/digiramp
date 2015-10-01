@@ -76,20 +76,20 @@
             = @label.body
           .col-sm-6
             = image_tag @label.image_url(:size_270x270)
-      .digi-box
-        .table-responsive
-          table class="table table-hover"
-            thead
+
+      .table-responsive
+        table class="table table-hover"
+          thead
+            tr
+              th Recordings
+              /th IPI Code
+              /th Capacity
+              /th PRO
+              /th
+          tbody
+            - @label.recordings.each do |recording|
               tr
-                th Recordings
-                /th IPI Code
-                /th Capacity
-                /th PRO
-                /th
-            tbody
-              - @label.recordings.each do |recording|
-                tr
-                  td = link_to recording.title, user_recording_path(recording.user, recording), class: 'btn btn-default btn-xs'
+                td = link_to recording.title, user_recording_path(recording.user, recording), class: 'btn btn-default btn-xs'
         /p
         /  strong User:
         /  = @label.user
