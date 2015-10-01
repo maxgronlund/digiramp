@@ -3,7 +3,6 @@
 class UserAssetsFactory
   
   def initialize user
-    ap 'initialize'
     @user = user
     create_account
     create_label
