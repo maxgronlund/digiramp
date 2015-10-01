@@ -9,20 +9,36 @@
   
   #page-content-wrapper
     .container-fluid
-      == render 'shared/breadcrumbs', breadcrumbs: { links: { 'Dashboard'.to_sym => user_user_control_panel_index_path(@user) } }
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { 'Dashboard'.to_sym => user_user_control_panel_index_path(@user),
+                                                     legal: user_user_legal_index_path(@user),
+                                                     documents: user_user_legal_documents_path( @user )} }
       == render 'shared/flash_message'
-      h2 = @document.title
-
-        .col-sm-4
+      .row
+        .col-sm-9
+          .help
+            .help-text
+              h2 
+                b Show document&nbsp;
+                = @document.title
+              
+            .help-button
+              == render 'admin/helps/help', identifier: 'new legal document'
+        .col-sm-3
           .pull-right.pull-down-10
+            = link_to  user_user_legal_documents_path(@user) do
+                .btn.btn-default
+                  i.fa.fa-chevron-left
+                  '&nbsp;Back
+      
 
 
-      = render 'user/shared/legal_navigation'
-      .digi-box.pull-down-6
+
+      /= render 'user/shared/legal_navigation'
+      .pull-down-10
         .row
           .col-sm-12 
             = simple_format @document.text_content
-        .sexy_line
+        .pull-down-10
         .row
           - @document.document_users.each do |document_user|
             .col-sm-6
@@ -45,11 +61,7 @@
                 br
                 
                
-      /.digi-box 
-      /  h4 Used on
-      /  .row
-      /    .col-sm-12
-      /
+
 
       
                   

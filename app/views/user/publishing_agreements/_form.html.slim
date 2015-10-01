@@ -1,28 +1,43 @@
-= simple_form_for [:user, @user, @publisher, @publishing_agreement] do |f|
+.digi-box
+  = simple_form_for [:user, @user, @publisher, @publishing_agreement] do |f|
+    = f.hidden_field :user_id, value: @user.id
+    = f.hidden_field :account_id, value: @user.account_id
+    = f.hidden_field :publisher_id, value: @publisher.id   
+    .row
+      .col-sm-12
+        = f.input :title, hint: "Replace 'xxx' with a name"
+        
+    .row
+      .col-sm-6
+        b 
+          'Split
+        == render 'shared/popover', identifier: 'The publishers share. the rest is send to the creator'
+        .pull-down-6
+        div style="width: 120px;"
+          = f.input :split, placeholder: 'Publishers share', label: false
+        
 
-  .row
-    .col-sm-6
-      = f.input :title
-      = f.input :split, placeholder: 'The publishers share', hint: 'The publishers share. the rest is shared between the ips'
-      
-
-    .col-sm-6.pull-down-10
-      = f.input :expires, 
-                id: 'expires',
-                label: false, 
-                inline_label:  'Expires',
-                :input_html => { class: 'icheck-me acceptance', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue"     }
-      .pull-down-10
-      b Expiration date
-      .pull-down-8
-      = f.text_field :expiration_date, class: "form-control", 'data-date-format'.to_sym => "YYYY/MM/DD", id: 'datetimepicker5'
+      .col-sm-6
+        .row
+          .col-sm-6
+            = f.input :expires, 
+                      id: 'expires',
+                      label: false, 
+                      inline_label:  'Expires',
+                      :input_html => { class: 'icheck-me acceptance', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue"     }
+            
+          .col-sm-6  
+            b Expiration date
+            .pull-down-8
+            div style="width: 120px;"
+              = f.text_field :expiration_date, class: "form-control", 'data-date-format'.to_sym => "YYYY/MM/DD", id: 'datetimepicker5'
+            
+    .row
+      .col-sm-12
+        .pull-right.pull-down-8
+          = f.submit 'Save', class: 'btn btn-info'
   
-  .row
-    .col-sm-12
-      .pull-right.pull-down-8
-        = f.submit 'Save', class: 'btn btn-info'
-
-
+  
 
 
 

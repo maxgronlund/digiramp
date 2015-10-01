@@ -9,20 +9,27 @@
   
   #page-content-wrapper
     .container-fluid
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { 'Dashboard'.to_sym => user_user_control_panel_index_path(@user),
+                                                     legal: user_user_legal_index_path(@user),
+                                                     documents: user_user_legal_documents_path( @user )} }
       == render 'shared/flash_message'
       .row
-        .col-sm-8
+        .col-sm-9
           .help
             .help-text
-              h2 Edit documents
+              h2 
+                b Edit document
               
             .help-button
               == render 'admin/helps/help', identifier: 'new legal document'
-        .col-sm-4
+        .col-sm-3
           .pull-right.pull-down-10
+            = link_to  user_user_legal_documents_path(@user) do
+                .btn.btn-default
+                  i.fa.fa-chevron-left
+                  '&nbsp;Back
 
-
-      = render 'user/shared/legal_navigation'
+      /= render 'user/shared/legal_navigation'
       .digi-box
         = simple_form_for [ @user, @document] , :url => url_for(:action => 'update', :controller => 'legal_documents'), turboboost: true, :method => 'PUT' do |f|
           == render 'form', f: f

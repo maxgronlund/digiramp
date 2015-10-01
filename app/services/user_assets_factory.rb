@@ -9,9 +9,11 @@ class UserAssetsFactory
     create_label
     create_distribution_agreement
     create_distribution_agreement_document
+    create_ipi
     create_publisher
     create_publishing_agreement
     create_publishing_agreement_document
+    create_ipi_publisher
     create_mp3_term_of_usage
   end
 
@@ -84,17 +86,27 @@ class UserAssetsFactory
     CopyMachine.create_document_users template, doc
     
   end
+  
+  def create_ipi
+    @ipi = Ipi.create(
+      user_id:    @user.id, 
+      master_ipi: true,
+      uuid:       UUIDTools::UUID.timestamp_create().to_s,
+      email:      @user.email,
+      full_name:  @user.full_name
+    )
+  end
 
 
   def create_publisher
     @publisher = Publisher.create(
-                   user_id: @user.id,
-                   account_id: @account.id,
-                   legal_name: "#{@user.user_name} publishing",
-                   email:      @user.email,
-                   personal_publisher: true,
-                   show_on_public_page: false 
-                 )
+      user_id: @user.id,
+      account_id: @account.id,
+      legal_name: "#{@user.user_name} publishing",
+      email:      @user.email,
+      personal_publisher: true,
+      show_on_public_page: false 
+    )
     @publisher.confirmed!
   end
   
@@ -124,14 +136,23 @@ class UserAssetsFactory
     doc       = CopyMachine.copy_document( template )
     
     doc.update( 
-        :belongs_to_id    => @publishing_agreement.id,
-        :belongs_to_type  => @publishing_agreement.class.name,
-        :account_id       => @account.id,
-        :template_id      => template.id,
-        title:            template.title.gsub(' COPY', ''),
-        expires: false
+      :belongs_to_id    => @publishing_agreement.id,
+      :belongs_to_type  => @publishing_agreement.class.name,
+      :account_id       => @account.id,
+      :template_id      => template.id,
+      title:            template.title.gsub(' COPY', ''),
+      expires: false
     )
     CopyMachine.create_document_users template, doc
+  end
+  
+  def create_ipi_publisher
+    IpiPublisher.create(
+      publisher_id: @publisher.id,
+      ipi_id:       @ipi.id,
+      publishing_agreement_id: @publishing_agreement.id
+    )
+  )
   end
   
   def create_mp3_term_of_usage
@@ -149,12 +170,12 @@ class UserAssetsFactory
     doc       = CopyMachine.copy_document( template )
     
     doc.update( 
-        :belongs_to_id    => @account.id,
-        :belongs_to_type  => @account.class.name,
-        :account_id       => @account.id,
-        :template_id      => template.id,
-        title:            template.title.gsub(' COPY', ''),
-        expires: false
+      :belongs_to_id    => @account.id,
+      :belongs_to_type  => @account.class.name,
+      :account_id       => @account.id,
+      :template_id      => template.id,
+      title:            template.title.gsub(' COPY', ''),
+      expires: false
     )
     CopyMachine.create_document_users template, doc
   end

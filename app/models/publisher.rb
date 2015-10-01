@@ -12,6 +12,12 @@ class Publisher < ActiveRecord::Base
   
   has_many :user_publishers, dependent: :destroy
   has_many :users,   :through => :user_publishers 
+  
+  has_many :ipi_publishers
+  has_many :ipis,   :through => :ipi_publishers 
+  has_many :common_work_ipis
+  
+  
   has_many :publishing_agreements
   
   belongs_to :account
@@ -31,6 +37,12 @@ class Publisher < ActiveRecord::Base
   # sometime they create a user on behalf of someone else
   after_create :create_user_publisher
   after_commit :flush_cache
+  
+  before_destroy :reset_common_work_ipis
+  
+  def reset_common_work_ipis
+    common_work_ipis.update_all(publisher_id: nil)
+  end
   
   def personal_publishing_document
     

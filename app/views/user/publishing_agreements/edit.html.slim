@@ -21,10 +21,7 @@
               == render 'admin/helps/help', identifier: 'user edit publishing agreement'
 
       .pull-down-10
-      .digi-box 
-        .row
-          .col-sm-12
-            = render 'form'
+      = render 'form'
             /= simple_form_for [:user, @user, @publisher, @publishing_agreement] do |f|
             /
             /  .row

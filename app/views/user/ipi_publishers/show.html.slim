@@ -1,2 +1,11 @@
-h1 User::IpiPublishers#show
-p Find me in app/views/user/ipi_publishers/show.html.slim
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'settings' 
+  
+  
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'users/shared/sidebar', selected: 'control panel'
+  
+  #page-content-wrapper
+    .container-fluid

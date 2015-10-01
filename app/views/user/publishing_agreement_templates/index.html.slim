@@ -34,39 +34,40 @@
                     i.fa.fa-chevron-left
                     '&nbsp;Back
               
-      .pull-down-10
-      .digi-box 
-        .table-responsive
-          table class="table table-hover"
-            thead
-              tr
-                th style="width: 76px;"
-                th 
-                  'Title/ Description
-                th Signatures
-            tbody
-              - @documents.each do |document|
-                tr
-                  td
-                    => link_to user_user_publisher_publishing_agreement_publishing_agreement_template_path(\
-                                      @user, 
-                                      @publisher, 
-                                      @publishing_agreement, 
-                                      document.uuid) do
-                      .btn.btn-default.btn-xs
-                        'Select
-                         
-                  td  
-                    .div style="max-width: 480px;"
-                      b = document.title
-                      br = simple_format document.body
-                  td 
-                    - document.digital_signatures.each do |digital_signature|
-                      b style="text-transform: uppercase;" 
-                        = digital_signature.role
-                        br
-                    
               
+              
+      .pull-down-10
+      .table-responsive
+        table class="table table-hover"
+          thead
+            tr
+              th style="width: 76px;"
+              th 
+                'Title/ Description
+              th Signatures
+          tbody
+            - @documents.each do |document|
+              tr
+                td
+                  => link_to user_user_publisher_publishing_agreement_publishing_agreement_template_path(\
+                                    @user, 
+                                    @publisher, 
+                                    @publishing_agreement, 
+                                    document.uuid) do
+                    .btn.btn-default.btn-xs
+                      'Select
+                       
+                td  
+                  .div style="max-width: 480px;"
+                    b = document.title
+                    br = simple_format document.body
+                td 
+                  - document.digital_signatures.each do |digital_signature|
+                    b style="text-transform: uppercase;" 
+                      = digital_signature.role
+                      br
+                  
+            
 
       
 

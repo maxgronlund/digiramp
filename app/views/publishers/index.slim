@@ -24,24 +24,23 @@
             
             
       .pull-down-10
-      .digi-box 
-        .table-responsive
-          table class="table table-hover"
-            thead
+      .table-responsive
+        table class="table table-hover"
+          thead
+            tr
+              th Legal name
+              th 
+              
+          tbody
+            - @publishers.each do |publisher|
               tr
-                th Legal name
-                th 
-                
-            tbody
-              - @publishers.each do |publisher|
-                tr
-                  td = link_to publisher.legal_name, publisher, class: 'btn btn-default btn-xs'
-                  td 
-                    .pull-right
-                      = link_to '#' do
-                        .btn.btn-default.btn-xs
-                          i.fa.fa-envelope&nbsp;Contact
-                        
+                td = link_to publisher.legal_name, publisher, class: 'btn btn-default btn-xs'
+                td 
+                  .pull-right
+                    = link_to '#' do
+                      .btn.btn-default.btn-xs
+                        i.fa.fa-envelope&nbsp;Contact
+                      
       
 
   == render 'shared/site_footer'    

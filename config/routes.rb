@@ -2,6 +2,9 @@ Digiramp::Application.routes.draw do
 
 
 
+  
+
+
   resources :labels
  
   namespace :user do
@@ -817,15 +820,17 @@ Digiramp::Application.routes.draw do
         resources :common_work_contracts
         resources :confirm_work_rights, only: [:index]
         resources :creative_rights
-        resources :ipis do
-          resources :ipi_publishers
-        end
+        #resources :ipis do
+        #  resources :ipi_publishers
+        #end
         resources :ipi_confirmations
         resources :accept_ipis, only: [:update]
         resources :request_ipi_confirmations
         
         #resources :please_clear_rights, only: [:index]
       end
+      resources :common_work_ipis, only: [:index] 
+      resources :common_work_ipi_publishers, only: [:edit, :update]         
       resources :common_work_without_recordings, only: [:index, :show]
       resources :common_work_lyrics, only: [:edit, :update]
       resources :common_work_credits, only: [:edit, :update]
@@ -938,7 +943,14 @@ Digiramp::Application.routes.draw do
       resources :select_product_type, only: [:index] 
       resources :special_offer, only: [:index] 
       resources :publishers do
+        resources :ipi_publishers
         resources :publishing_agreements do
+          
+          
+          resources :publishing_agreement_documents, except: [:index]
+          
+          
+          
           resources :publishing_agreement_users
           resources :publishing_agreement_templates
         end

@@ -1,0 +1,102 @@
+/= debug @user_credits
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'settings' 
+  
+  
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'users/shared/sidebar', selected: 'settings'
+  
+  #page-content-wrapper
+    .container-fluid
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { 'Dashboard'.to_sym => user_user_control_panel_index_path(@user),
+                                                              creations: user_user_common_work_ipis_path(@user)}}
+      
+      
+      
+      .row
+        .col-sm-9
+          .help
+            .help-text
+              h2 
+                b Set publisher for&nbsp;
+                = @user.full_name
+              h4 
+                b On the common work&nbsp;
+                = @common_work_ipi.common_work.title
+            .help-button
+              == render 'admin/helps/help', identifier: 'common work credits'
+   
+        .col-sm-3
+          .pull-right.pull-down-10
+            = link_to user_user_common_work_ipis_path(@user ) do
+              .btn.btn-default
+                i.fa.fa-chevron-left
+                '&nbsp;Back
+      
+      /= render 'user/shared/legal_navigation'
+      .pull-down-10
+      .alert.alert-info
+
+        .row
+          .col-sm-6
+            b You are accredited for
+            br
+            - if @common_work_ipi.music
+              '- Music
+              br
+            - if @common_work_ipi.lyric
+              '- Lyric
+              br
+            - if @common_work_ipi.melody
+              '- Melody
+              br
+            - if @common_work_ipi.arrangement
+              '- Arrangement
+          .col-sm-6
+            b Notes
+            br
+            = @common_work_ipi.notes
+      .pull-down-10
+      .row
+        .col-sm-6
+          .digi-box
+            = simple_form_for [:user, @user, @common_work_ipi], :url => url_for(:action => 'update', :controller => 'common_work_ipi_publishers'), turboboost: true, :method => 'put' do |f|
+              
+              /b Publishers email
+              /== render 'shared/popover', identifier: 'This fiel is used notify the a publisher so an agreement can be attached'
+              /.pull-down-6
+              /= f.input :ipi_publisher_id
+              /= debug @ipi_publishers
+              
+              
+              b 
+                'Publishers
+              == render 'shared/popover', identifier: 'Select the distribution for your contribution to this work'
+              .chosen-label.pull-down-6
+                = f.input :ipi_publisher_id, 
+                          collection: @ipi_publishers,
+                          include_blank: false,
+                          label: false,
+                          input_html: { class: 'chosen-select', 'data-placeholder'.to_sym => "Distribution agreement" }
+                          
+                          
+                          
+              .row
+                .col-sm-12
+                  .pull-right
+                    = f.submit 'Confirm', class: 'btn btn-info'
+     
+  == render 'shared/site_footer'
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  

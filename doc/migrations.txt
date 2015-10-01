@@ -11,6 +11,8 @@ rails g migration AddSignatureRefToDocumentUsers digital_signature:references
 
 rails g migration AddDistributionAgreementRefToRecordingIpis distribution_agreement:references
 
+rails g migration AddPublisherRefToCommonWorkIpis publisher:references
+
 add_reference :shop_products, :productable, index: true, polymorphic: true
 
 add_foreign_key "account_features", "plans", on_delete: :cascade

@@ -6,13 +6,16 @@ class PublishingAgreement < ActiveRecord::Base
   has_many :ipi_publishing_agreements
   has_many :ipis, through: :ipi_publishing_agreements
   
+  has_many :ipi_publishers
+  has_many :ipis,   :through => :ipi_publishers 
+  
   before_destroy :remove_relations
   
   validates :split, :title, presence: true
   validates :split, numericality: { greater_than_or_equal_to: 0, less_than_or_equal_to: 100 }
   
   def remove_relations
-    document.destroy
+    document.destroy if document
   end
   
   #validates :email , presence: true

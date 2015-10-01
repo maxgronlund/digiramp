@@ -3,10 +3,10 @@ class User::PublishingAgreementsController < ApplicationController
   before_action :access_user
   # GET /publishing_agreements
   # GET /publishing_agreements.json
-  #def index
-  #  
-  #  @publishing_agreements = PublishingAgreement.all
-  #end
+  def index
+    @publisher            = Publisher.cached_find(params[:publisher_id])
+    @publishing_agreements = @publisher.publishing_agreements
+  end
 
   # GET /publishing_agreements/1
   # GET /publishing_agreements/1.json
@@ -24,7 +24,7 @@ class User::PublishingAgreementsController < ApplicationController
     end
     
     @publisher            = Publisher.cached_find(params[:publisher_id])
-    @publishing_agreement = PublishingAgreement.new
+    @publishing_agreement = PublishingAgreement.new(title: "Between #{@publisher.legal_name } and xxx")
     
   end
 
@@ -40,12 +40,14 @@ class User::PublishingAgreementsController < ApplicationController
   # POST /publishing_agreements
   # POST /publishing_agreements.json
   def create
+
+    @publisher            = Publisher.cached_find(params[:publisher_id])
     params[:publishing_agreement][:uuid] = UUIDTools::UUID.timestamp_create().to_s
-    @publishing_agreement = PublishingAgreement.new(publishing_agreement_params)
-    
+    @publishing_agreement  = PublishingAgreement.new(publishing_agreement_params)
+     
     respond_to do |format|
       if @publishing_agreement.save
-        format.html { redirect_to user_user_publisher_path(@user, @publishing_agreement.publisher), info: 'Publishing deal was successfully created.' }
+        format.html { redirect_to user_user_publisher_publishing_agreements_path( @user, @publisher), info: 'Publishing deal was successfully created.' }
         format.json { render :show, status: :created, location: @publishing_agreement }
       else
         format.html { render :new }
@@ -63,7 +65,7 @@ class User::PublishingAgreementsController < ApplicationController
 
     
     if @publishing_agreement.update(publishing_agreement_params)
-      redirect_to user_user_publisher_publishing_agreement_path(@user, @publisher, @publishing_agreement)
+      redirect_to user_user_publisher_publishing_agreements_path( @user, @publisher)
     else
       flash[:danger] = "Something went wrong" 
       render :edit

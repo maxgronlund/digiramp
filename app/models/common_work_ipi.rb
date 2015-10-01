@@ -2,6 +2,8 @@ class CommonWorkIpi < ActiveRecord::Base
   belongs_to :common_work
   belongs_to :ipi
   belongs_to :publishing_agreement
+  belongs_to :publisher
+  belongs_to :ipi_publisher
   
   validates_presence_of :email, :share
   validates_formatting_of :email, :using => :email
@@ -64,16 +66,18 @@ class CommonWorkIpi < ActiveRecord::Base
     return if self.ipi
     
     if user = User.find_by(email: self.email)
-      #ap user
-
-        
       self.ipi_id = user.ipi.id
       self.save(validate: false)
       self.accepted!
-      ap '================ IPI =========================='
-      ap self.ipi
-      
 
+    end
+  end
+
+ 
+  def publishers
+    if ipi
+      publisher_ids = IpiPublisher.where(ipi_id: self.ipi_id).pluck(:publisher_id)
+      Publisher.where(id: publisher_ids)
     end
   end
   

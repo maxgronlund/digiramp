@@ -14,46 +14,45 @@
       == render 'shared/breadcrumbs', breadcrumbs: { links: { 'Dashboard'.to_sym => user_user_control_panel_index_path(@user),
                                                                publisher: user_user_publisher_path(@user, @publisher)}}
       .row
-        .col-sm-6
+        .col-sm-9
           .help
             .help-text
-              h2 New publishing agreement
+              h2
+                b New publishing agreement by&nbsp;
+                = @publisher.legal_name
             .help-button
               == render 'admin/helps/help', identifier: 'user new publishing agreement'
-
-      .sexy_line
-      .row
-        .col-sm-6
-          .digi-box
-            = render 'form'
-            /= simple_form_for [:user, @user, @publisher, @publishing_agreement], turboboost: true do |f|
-            /  = f.error_notification
-            /
-            /  .form-inputs
-            /    = f.hidden_field :publisher_id, value: @publisher.id
-            /    = f.hidden_field :personal_agreemen, value: false
-            /    - if @document
-            /      = f.hidden_field :document_id, value: @document.id
-            /      
-            /      
-            /    = f.input :title, hint: "Make a descriptive name so it's easy to find this agreement" 
-            /    /= f.input :email, hint: "Receipients email" 
-            /    
-            /    /.chosen-label
-            /    /  = f.input :document_id, 
-            /    /            collection: @documents,
-            /    /            include_blank: true,
-            /    /            label: false,
-            /    /            input_html: { class: 'chosen-select', 'data-placeholder'.to_sym => "Select from legal documents..." }
-            /    /
-            /  .row
-            /    .col-sm-12
-            /      .pull-right
-            /        .form-actions
-            /          = f.submit 'Save', class: 'btn btn-default'
-            /
-            /
-            /== render 'form'
+        .col-sm-3
+      .pull-down-10
+      = render 'form'
+      /= simple_form_for [:user, @user, @publisher, @publishing_agreement], turboboost: true do |f|
+      /  = f.error_notification
+      /
+      /  .form-inputs
+      /    = f.hidden_field :publisher_id, value: @publisher.id
+      /    = f.hidden_field :personal_agreemen, value: false
+      /    - if @document
+      /      = f.hidden_field :document_id, value: @document.id
+      /      
+      /      
+      /    = f.input :title, hint: "Make a descriptive name so it's easy to find this agreement" 
+      /    /= f.input :email, hint: "Receipients email" 
+      /    
+      /    /.chosen-label
+      /    /  = f.input :document_id, 
+      /    /            collection: @documents,
+      /    /            include_blank: true,
+      /    /            label: false,
+      /    /            input_html: { class: 'chosen-select', 'data-placeholder'.to_sym => "Select from legal documents..." }
+      /    /
+      /  .row
+      /    .col-sm-12
+      /      .pull-right
+      /        .form-actions
+      /          = f.submit 'Save', class: 'btn btn-default'
+      /
+      /
+      /== render 'form'
       
                   
 

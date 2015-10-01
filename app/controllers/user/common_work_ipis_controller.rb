@@ -2,17 +2,17 @@ class User::CommonWorkIpisController < ApplicationController
   before_action :access_user
   
   def index
+    @common_work_ipis        = @user.common_work_ipis
   end
 
   def edit
     @common_work              = CommonWork.cached_find(params[:common_work_id])
     @common_work_ipi          = CommonWorkIpi.cached_find(params[:id])
-    @publishing_agreements    = @user.publishing_agreements
+    #@publishing_agreements    = @user.publishing_agreements
     
     if ipi = @common_work_ipi.ipi
       if user = ipi.user
         @common_work_ipi_user = user
-        
       end
     end
 
@@ -37,7 +37,9 @@ class User::CommonWorkIpisController < ApplicationController
   end
   
   def create
+    params[:common_work_ipi][:publishers_email].downcase! if params[:common_work_ipi][:publishers_email]
     params[:common_work_ipi][:uuid] = UUIDTools::UUID.timestamp_create().to_s
+
     @common_work           = CommonWork.cached_find(params[:common_work_id])
     if @common_work_ipi    = CommonWorkIpi.create(common_work_ipi_params)
       @common_work_ipi.attach_to_ip

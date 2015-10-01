@@ -57,134 +57,218 @@
             /- unless recordings.size < 1
             /  == render 'recordings/index', recordings: recordings
         
-        
-        .digi-box.pull-down-24
+        .pull-down-24
+        .row
+          .front-page-box
+            .row
+              .col-sm-4
+                h4
+                  i.fa.fa-check.green-font&nbsp;
+                  'Share & sell music
+                  br
+                  i.fa.fa-check.green-font&nbsp;
+                  'Be your own label
+                  br
+                  i.fa.fa-check.green-font&nbsp;
+                  'Get more fans & gigs
+              .col-sm-4
+                h4
+                  i.fa.fa-check.green-font&nbsp;
+                  'License work quickly, easily
+                  br
+                  i.fa.fa-check.green-font&nbsp;
+                  'Manage artists & catalogs
+                  br
+                  i.fa.fa-check.green-font&nbsp;
+                  'Network privately
+              .col-sm-4
+                h4
+                  i.fa.fa-check.green-font&nbsp;
+                  'Best way to support artists
+                  br
+                  i.fa.fa-check.green-font&nbsp;
+                  'Free. Listen & discover great music
+                  br
+                  i.fa.fa-check.green-font&nbsp;
+                  'Connect with artists
+                  br
+                  
           
-          .row
-            .col-sm-4
-              h4
-                i.fa.fa-check.green-font&nbsp;
-                'Share & sell music
-                br
-                i.fa.fa-check.green-font&nbsp;
-                'Be your own label
-                br
-                i.fa.fa-check.green-font&nbsp;
-                'Get more fans & gigs
-            .col-sm-4
-              h4
-                i.fa.fa-check.green-font&nbsp;
-                'License work quickly, easily
-                br
-                i.fa.fa-check.green-font&nbsp;
-                'Manage artists & catalogs
-                br
-                i.fa.fa-check.green-font&nbsp;
-                'Network privately
-            .col-sm-4
-              h4
-                i.fa.fa-check.green-font&nbsp;
-                'Best way to support artists
-                br
-                i.fa.fa-check.green-font&nbsp;
-                'Free. Listen & discover great music
-                br
-                i.fa.fa-check.green-font&nbsp;
-                'Connect with artists
-                br
-                
-        
-          == render 'create_account'
+            == render 'create_account'
+            .pull-down-16
           
-        .row.full-width-color.pull-down-24
+        .row.full-width-color.pull-up-10
           h3 Opportunities
-          /.col-sm-12.pull-down-12
-        
-        
-          
         .row
-          .col-sm-12
-            .digibox
-              .opportunity
-                .new_opportunities 
+          .front-page-box
+            .row
+              .col-sm-12
+              
+                .opportunity
                   == render 'public_opportunities/index'
-          .col-am-12
-            .digi-box
-              == render 'create_account'
-          
-        
-        .row.full-width-color.pull-down-24
-          h3 Features
-          
-        
-        
-        .digi-box
-          
-          .row
-            .col-sm-4
-              h4
-                i.fa.fa-check.green-font&nbsp;
-                'High quality audio
-                br
-                i.fa.fa-check.green-font&nbsp;
-                'Custom profile & store
-                br
-                i.fa.fa-check.green-font&nbsp;
-                'Playlists
-                br
-                i.fa.fa-check.green-font&nbsp;
-                'Sell music & merch
-            .col-sm-4
-              h4
-                i.fa.fa-check.green-font&nbsp;
-                'Catalogs
-                br
-                i.fa.fa-check.green-font&nbsp;
-                'Special offers
-                br
-                i.fa.fa-check.green-font&nbsp;
-                'Community
-                br
-                i.fa.fa-check.green-font&nbsp;
-                'Collaboration
-                br
-                i.fa.fa-check.green-font&nbsp;
-                'Projects
-            .col-sm-4
-              h4
-                i.fa.fa-check.green-font&nbsp;
-                'Publishing
-                br
-                i.fa.fa-check.green-font&nbsp;
-                'Licenses
-                br
-                i.fa.fa-check.green-font&nbsp;
-                'Rights management
-                br
-                i.fa.fa-check.green-font&nbsp;
-                'Splits
-                br
-                i.fa.fa-check.green-font&nbsp;
-                'Reports
-          == render 'create_account'
-          
-        .row.full-width-color.pull-down-24.text-align-center
-          h3 Our story   
-        .row
-          .col-sm-12
-            .digi-box
-              .text-align-center
-                h3 Founder & CEO Peter Rafelson
-              .row
-                .col-sm-2
-                .col-sm-8
-                  #welcome-videos.pull-down-24.
-                    iframe src="https://www.youtube.com/embed/lOCJL2M3IzM" width="1280" height="720" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen
-  
-              == render 'create_account'
-        .row.pull-down-68
-          .col-sm-12
 
-    '&nbsp;
-  == render 'shared/site_footer'
+                .pull-down-16
+                == render 'create_account'
+                .pull-down-16
+              
+              
+            
+        .row.full-width-color.pull-up-10
+          h3 Features
+        .row
+          .front-page-box
+
+            .row
+              .col-sm-4
+                h4
+                  i.fa.fa-check.green-font&nbsp;
+                  'High quality audio
+                  br
+                  i.fa.fa-check.green-font&nbsp;
+                  'Custom profile & store
+                  br
+                  i.fa.fa-check.green-font&nbsp;
+                  'Playlists
+                  br
+                  i.fa.fa-check.green-font&nbsp;
+                  'Sell music & merch
+              .col-sm-4
+                h4
+                  i.fa.fa-check.green-font&nbsp;
+                  'Catalogs
+                  br
+                  i.fa.fa-check.green-font&nbsp;
+                  'Special offers
+                  br
+                  i.fa.fa-check.green-font&nbsp;
+                  'Community
+                  br
+                  i.fa.fa-check.green-font&nbsp;
+                  'Collaboration
+                  br
+                  i.fa.fa-check.green-font&nbsp;
+                  'Projects
+              .col-sm-4
+                h4
+                  i.fa.fa-check.green-font&nbsp;
+                  'Publishing
+                  br
+                  i.fa.fa-check.green-font&nbsp;
+                  'Licenses
+                  br
+                  i.fa.fa-check.green-font&nbsp;
+                  'Rights management
+                  br
+                  i.fa.fa-check.green-font&nbsp;
+                  'Splits
+                  br
+                  i.fa.fa-check.green-font&nbsp;
+                  'Reports
+            == render 'create_account'
+            .pull-down-16
+          
+          
+          
         
+        
+        
+        
+        
+        
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+        
+        .row.full-width-color.pull-up-10
+          h3 Our story
+        .row
+          .front-page-box
+   
+            .row
+              .col-sm-12
+                .text-align-center
+                  h3 Founder & CEO Peter Rafelson
+                .row
+                  .col-sm-2
+                  .col-sm-8
+                    #welcome-videos.pull-down-24.
+                      iframe src="https://www.youtube.com/embed/lOCJL2M3IzM" width="1280" height="720" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen
+            
+                == render 'create_account'
+                .pull-down-16
+         
+         
+            
+        .row.full-width-color.pull-up-10
+          h3 Industry Pro's
+        .row
+          .front-page-box
+            .row.pull-down-16
+              .col-sm-2
+              .col-sm-8
+                .media
+                  .media-left
+                    = link_to image_tag("https://digiramp.s3.amazonaws.com/uploads/user/image/50/avatar_184x184_Lynn_Fainchtein.jpg"), 'https://digiramp.com/users/lynn-fainchtein'
+                  .media-body
+                    h4.media-heading "They always deliver."
+                    '"DigiRAMP has been wonderful in helping to provide music for my projects."
+                    .pull-down-16
+                    = link_to 'Lynn Fainchtein', 'https://digiramp.com/users/lynn-fainchtein'
+                    '&nbsp;Music Supervisor, HBO, The Butler, Babel
+              .col-sm-2
+            .row.pull-down-16
+              .col-sm-2
+              .col-sm-8
+                .media
+                  .media-left
+                    = link_to image_tag("https://digiramp.s3.amazonaws.com/uploads/user/image/1139/avatar_184x184_Screen_Shot_2015-07-21_at_11.15.13_AM.jpg"), 'https://digiramp.com/users/kirotechnics'
+                  .media-body
+                    h4.media-heading "A revolutionary stride for the music world."
+                    '"The networking capabilities are wonderful and protecting artists rights at the same time."
+                    .pull-down-16
+                    = link_to 'Kirotechnics', 'https://digiramp.com/users/kirotechnics'
+                    '&nbsp;Artist, musician
+                    
+              .col-sm-2
+            .row.pull-down-16
+              .col-sm-2
+              .col-sm-8
+                .media
+                  .media-left
+                    = link_to image_tag("https://digiramp.s3.amazonaws.com/uploads/user/image/356/avatar_184x184_djlw1-800x800.jpg"), 'https://digiramp.com/users/dj-lynnwood'
+                  .media-body
+                    h4.media-heading "Finally everyone can share music and revenues fairly."
+                    '"In my business, music rights is everything. DJ’s have never had a legal way to easily use other artists’ tracks and still make a living. DigiRAMP solves a huge problem."
+                    .pull-down-16
+                    = link_to 'DJ Lynnwood', 'https://digiramp.com/users/dj-lynnwood'
+                    '&nbsp;DJ, Producer & Radio Personality
+              .col-sm-2
+        
+            .row.pull-down-16
+              
+              .col-sm-2
+              .col-sm-8
+                .sexy_line
+                h2 
+                  'DigiRAMP
+                  br 
+                  br
+                  
+            
+
+
+
+          
+    
+
+  == render 'shared/site_footer'

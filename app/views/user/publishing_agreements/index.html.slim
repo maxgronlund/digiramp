@@ -1,25 +1,152 @@
-h1 Listing publishing_agreements
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'settings' 
+  
+  
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'users/shared/sidebar', selected: 'control panel'
+  
+  #page-content-wrapper
+    .container-fluid
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { 'Dashboard'.to_sym =>user_user_control_panel_index_path(@user),
+                                                              'publishers'.to_sym => user_user_publishers_path(@user)} }
+      == render 'shared/flash_message'
+      .row
+        .col-sm-9
+          .help
+            .help-text
+              h2 
+                b Agreements for&nbsp;
+                = @publisher.legal_name
 
-table
-  thead
-    tr
-      th Publisher
-      th Title
-      th Document
-      th
-      th
-      th
+            .help-button
+              == render 'admin/helps/help', identifier: 'user publisher agreements'
+        .col-sm-3
+          .pull-right.pull-down-10
+            = link_to  user_user_publishers_path(@user) do
+                .btn.btn-default
+                  i.fa.fa-chevron-left
+                  '&nbsp;Back
 
-  tbody
-    - @publishing_agreements.each do |publishing_agreement|
-      tr
-        td = publishing_agreement.publisher
-        td = publishing_agreement.title
-        td = publishing_agreement.document
-        td = link_to 'Show', publishing_agreement
-        td = link_to 'Edit', edit_publishing_agreement_path(publishing_agreement)
-        td = link_to 'Destroy', publishing_agreement, data: {:confirm => 'Are you sure?'}, :method => :delete
+            
 
-br
+      .pull-down-10
+        .row
+          .col-sm-12
+            .pull-right
+              = link_to 'New agreement', new_user_user_publisher_publishing_agreement_path(@user, @publisher), class: 'btn btn-default'
+      .pull-down
+      .table-responsive
+        table class="table table-hover"
+          thead
+            tr
+              th Title
+              th Expiration date
+            
+              th 
+                .pull-right
+                  'Documents
+             
+          tbody
+            - @publishing_agreements.each do |publishing_agreement|
+              tr
+                td 
+                  = link_to user_user_publisher_publishing_agreement_path(@user, @publisher, publishing_agreement) do
+                        .btn.btn-default.btn-xs
+                          i.fa.fa-file&nbsp;
+                          = publishing_agreement.title
+                
+                td 
+                   - if publishing_agreement.expires
+                     = publishing_agreement.expiration_date
+                   - else
+                     'no
+                td
+                td 
+                  .pull-right
+                    = publishing_agreement.documents.count
+            
+              
+  == render 'shared/site_footer'    
+ 
 
-= link_to 'New Publishing deal', new_publishing_agreement_path
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/h1 Listing publishing_agreements
+/
+/table
+/  thead
+/    tr
+/      th Publisher
+/      th Title
+/      th Document
+/      th
+/      th
+/      th
+/
+/  tbody
+/    - @publishing_agreements.each do |publishing_agreement|
+/      tr
+/        td = publishing_agreement.publisher.id
+/        /td = publishing_agreement.title
+/        /td = publishing_agreement.document
+/        /td = link_to 'Show', publishing_agreement
+/        /td = link_to 'Edit', edit_publishing_agreement_path(publishing_agreement)
+/        /td = link_to 'Destroy', publishing_agreement, data: {:confirm => 'Are you sure?'}, :method => :delete
+/
+/br
+/
+/= link_to 'New Publishing deal', new_publishing_agreement_path

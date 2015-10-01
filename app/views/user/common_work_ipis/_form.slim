@@ -14,6 +14,12 @@
         .pull-down-10
         b Alias / Artist name:&nbsp;
         = @common_work_ipi_user.user_name
+        - if publisher = @common_work_ipi.publisher
+          .pull-down-10
+          b Publisher:&nbsp;
+          = publisher.legal_name
+        - else
+          b !Publisher not assigned
         /= f.input :full_name,  :input_html => {disabled: 'disabled'}, label: 'Full name (updated by user)'
         /= f.input :alias,  :input_html => {disabled: 'disabled'}, label: 'Alias (updated by user)'
         /= @common_work_ipi_user.full_name
@@ -35,19 +41,10 @@
             .pull-down-6
             = f.input :email, label: false
             b Full name
-            == render 'shared/popover', identifier: 'The contributors real name ( as used in a Production agreement )'
+            == render 'shared/popover', identifier: 'The creators real name '
             .pull-down-6
             = f.input :full_name, label: false
             
-            /.chosen-label
-            /  b Publishing agreement
-            /  br
-            /  .pull-down-6
-            /  = f.input :publishing_agreement_id, 
-            /            collection: @publishing_agreements,
-            /            include_blank: true,
-            /            label: false,
-            /            input_html: { class: 'chosen-select', 'data-placeholder'.to_sym => "Distribution agreement" }
           .col-sm-6
            
             b Alias
@@ -55,20 +52,15 @@
             .pull-down-6
             = f.input :alias, label: false
             
-            /b Publishers email
-            /== render 'shared/popover', identifier: 'This fiel is used notify the a publisher so an agreement can be attached'
-            /.pull-down-6
-            /= f.input :publisher_info, label: false, placeholder: 'i.e. publishing@sony.com', hint: 'Leave blank if you are self publishing'
+           
       .row
         .col-sm-6
           b Creators share in %
-          == render 'shared/popover', identifier: 'Share of the income between contributors ( often defined in a Production agreement )'
+          == render 'shared/popover', identifier: 'Share of the income between creators ( often defined in a song writer agreement )'
           .pull-down-6
           = f.input :share, label: false, input_html: { style: "max-width:150px;" }, hint: "All creators's share should add up to 100%"
 
-          /= f.input :share, input_html: { style: "max-width:150px;" }, label: 'split'
-          /= f.input :publishing_agreement
-          
+       
           
         .col-sm-6
           b Roles
@@ -99,8 +91,9 @@
     
 /== render 'user/common_works/common_work_ipis', selected_id: @common_work_ipi.id
 
-h4 Other creators
 .table-responsive
+
+  h4 Other creators
   table class="table table-hover"
     thead
       tr

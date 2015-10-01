@@ -81,6 +81,7 @@ class User < ActiveRecord::Base
   has_many :subscriptions
   has_many :recording_ipis
   has_many :client_invitation
+ 
   
 
   serialize :crop_params, Hash
@@ -118,6 +119,7 @@ class User < ActiveRecord::Base
   has_many :projects
   
   has_many :ipis
+  has_many :common_work_ipis , through: :ipis
   has_many :user_credits, dependent: :destroy
   has_many :issues,       dependent: :destroy
   
@@ -789,23 +791,29 @@ class User < ActiveRecord::Base
   end
   
   def ipi
-    if ipi = Ipi.find_by( user_id: self.id,  master_ipi: true)
-      return ipi
-    else
-      ap ' create a new ip in the factory'
-      _ipi = Ipi.new(
-        user_id:    self.id, 
-        master_ipi: true,
-        ipi_code:   self.ipi_code,
-        uuid:       UUIDTools::UUID.timestamp_create().to_s,
-        email:      self.email,
-        full_name:  self.full_name
-      )
-      _ipi.save!
-      self.copy_address_to( _ipi.address )
-
-      return _ipi
-    end
+    Ipi.find_by( user_id: self.id,  master_ipi: true)
+    #if ipi = Ipi.find_by( user_id: self.id,  master_ipi: true)
+    #  return ipi
+    #else
+    #  begin
+    #    _ipi = Ipi.new(
+    #      user_id:    self.id, 
+    #      master_ipi: true,
+    #      ipi_code:   self.ipi_code,
+    #      uuid:       UUIDTools::UUID.timestamp_create().to_s,
+    #      email:      self.email,
+    #      full_name:  self.full_name
+    #    )
+    #    
+    #    _ipi.save!
+    #  rescue
+    #    ErrorNotification.post_object 'User#ipi', e
+    #    return nil
+    #  end
+    #  self.copy_address_to( _ipi.address )
+    #
+    #  return _ipi
+    #end
   end
   
   def label

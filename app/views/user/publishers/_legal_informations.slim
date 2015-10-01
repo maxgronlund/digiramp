@@ -1,87 +1,83 @@
-.digi-box
-  .row
-    .col-sm-6
+
+.row
+  .col-sm-6
+    
+    .table-responsive
       h4 Legal information
-      .table-responsive
-        table class="table table-hover"
-          tbody
-            tr
-              th 
-                .pull-right
-                  'Email:
-              td = @publisher.email
-            tr
-              th 
-                .pull-right
-                  'Phone number:
-              td = @publisher.phone_number
-            tr
-              th 
-                .pull-right
-                  'IPI code:
-              td = @publisher.ipi_code
-            tr
-              th 
-                .pull-right
-                  'CAE code:
-              td = @publisher.cae_code
-            tr
-              th 
-                .pull-right 
-                  'Pro Affiliation:
-              td 
-                - if pro_affiliation = @publisher.pro_affiliation
-                  = pro_affiliation.title
-            tr  
-              th 
-                .pull-right
-                  'Status:
-              td 
-                - if @publisher.confirmed?
-                  .label.label-success
-                    = @publisher.status
-                -else
-                  .label.label-info
-                    = @publisher.status
+      table class="table table-hover"
+        tbody
+          tr
+            th 
+              .pull-right
+                'Email:
+            td = @publisher.email
+          tr
+            th 
+              .pull-right
+                'Phone number:
+            td = @publisher.phone_number
+          tr
+            th 
+              .pull-right
+                'IPI code:
+            td = @publisher.ipi_code
+          tr
+            th 
+              .pull-right
+                'CAE code:
+            td = @publisher.cae_code
+          tr
+            th 
+              .pull-right 
+                'Pro Affiliation:
+            td 
+              - if pro_affiliation = @publisher.pro_affiliation
+                = pro_affiliation.title
+          tr
+            td
+              .pull-right 
+                '&nbsp;
+            td &nbsp;
+    
       
-        
-    .col-sm-6
-      = render 'shared/address', address: @publisher.address
+  .col-sm-6
+    = render 'shared/address', address: @publisher.address
+   
+    .table-responsive
       h4 Address
-      .table-responsive
-        table class="table table-hover"
-          tbody
-            tr
-              th 
-                .pull-right
-                  'Address line 1:
-              td = @publisher.address_line_1
-            tr
-              th 
-                .pull-right
-                  'Address line 2:
-              td = @publisher.address_line_2 
-            tr
-              th 
-                .pull-right
-                  'City:
-              td = @publisher.city 
-            tr
-              th 
-                .pull-right
-                  'Zip code:
-              td = @publisher.zip_code 
-            tr
-              th 
-                .pull-right
-                  'State:
-              td = @publisher.state 
-            tr
-              th 
-                .pull-right
-                  'Country:
-              td = @publisher.country 
-              
+      table class="table table-hover"
+        tbody
+          tr
+            th 
+              .pull-right
+                'Address line 1:
+            td = @publisher.address_line_1
+          tr
+            th 
+              .pull-right
+                'Address line 2:
+            td = @publisher.address_line_2 
+          tr
+            th 
+              .pull-right
+                'City:
+            td = @publisher.city 
+          tr
+            th 
+              .pull-right
+                'Zip code:
+            td = @publisher.zip_code 
+          tr
+            th 
+              .pull-right
+                'State:
+            td = @publisher.state 
+          tr
+            th 
+              .pull-right
+                'Country:
+            td = @publisher.country 
+            
   /.row
   /  .col-sm-12
   /

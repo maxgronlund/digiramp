@@ -34,37 +34,36 @@
       .pull-down-10
       .row
         .col-sm-6
-          .digi-box
+          .table-responsive
             .row
-              .col-sm-6
+              .col-sm-8
                 h4 Emails linked to your account
-              .col-sm-6
+              .col-sm-4
                 .pull-right.pull-down-8
                   = link_to new_user_user_user_email_path(@user) do 
                       .btn.btn-success
                         i.fa.fa-plus&nbsp;Add email
-            .table-responsive
-              table class="table table-hover"
-                thead
-                  tr
-                    th Email
-                    th
-                tbody
-                  tr
-                    th Account email
-                    td = @user.email
-                    - @user_emails.each do |user_email|
-                      tr
-                        - if Publisher.where(email: user_email.email).first
-                          th Publisher email
-                          
-                        - else
-                          td
-                            => link_to user_user_user_email_path(@user, user_email), turboboost: true, data: {:confirm => 'Are you sure?'}, :method => :delete
-                              .btn.btn-danger.btn-xs
-                                i.fa.fa-times
-                            => link_to 'Edit', edit_user_user_user_email_path(@user, user_email), class: 'btn btn-default btn-xs'
-                        td = user_email.email
+            table class="table table-hover"
+              thead
+                tr
+                  th Email
+                  th
+              tbody
+                tr
+                  th Account email
+                  td = @user.email
+                  - @user_emails.each do |user_email|
+                    tr
+                      - if Publisher.where(email: user_email.email).first
+                        th Publisher email
+                        
+                      - else
+                        td
+                          => link_to user_user_user_email_path(@user, user_email), turboboost: true, data: {:confirm => 'Are you sure?'}, :method => :delete
+                            .btn.btn-danger.btn-xs
+                              i.fa.fa-times
+                          => link_to 'Edit', edit_user_user_user_email_path(@user, user_email), class: 'btn btn-default btn-xs'
+                      td = user_email.email
           
           
           

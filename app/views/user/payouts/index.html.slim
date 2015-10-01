@@ -30,50 +30,49 @@
                   
 
       .pull-down-10
-      .digi-box 
-        .table-responsive
-          /= debug @stripe_transfers
-          table class="table table-hover"
-            thead
-              tr
-                /th
-                /th Type
-                th Date
-                th Source
-                th Amount
-                th Status
-                /th Amount
-                /th Income
-                /th
-            tbody
-              - @stripe_transfers.each do |stripe_transfer|
-                - unless stripe_transfer.state == 'errored' && !super?
-                  tr
-                    td = l stripe_transfer.created_at, format: :date
-                    td = stripe_transfer.stake.title
-                    td = number_to_currency( stripe_transfer.amount * 0.01, precision: 4, locale: 'en')
-                    td 
-                      - case stripe_transfer.state
-                      - when 'pending'
-                        'Pending
-                      - when 'finished'
-                        'Paid
-                      - when 'errored'
-                        '! Error
-                      - when 'processing'
-                        'Processing
-                    /td = number_to_percentage(stake.split, precision: 0) 
-                    /td = number_to_currency( stake.unit_price, precision: 4, locale: 'en')
-                    /th = number_to_currency( stake.generated_income, precision: 4, locale: 'en')
-                    /td
-                    /  .pull-right
-                    /    = link_to user_user_revenue_stream_path(@user, stake) do
-                    /      .btn.btn-default.btn-xs
-                    /        i.fa.fa-share&nbsp;Share
-                  
+      .table-responsive
+        /= debug @stripe_transfers
+        table class="table table-hover"
+          thead
+            tr
+              /th
+              /th Type
+              th Date
+              th Source
+              th Amount
+              th Status
+              /th Amount
+              /th Income
+              /th
+          tbody
+            - @stripe_transfers.each do |stripe_transfer|
+              - unless stripe_transfer.state == 'errored' && !super?
+                tr
+                  td = l stripe_transfer.created_at, format: :date
+                  td = stripe_transfer.stake.title
+                  td = number_to_currency( stripe_transfer.amount * 0.01, precision: 4, locale: 'en')
+                  td 
+                    - case stripe_transfer.state
+                    - when 'pending'
+                      'Pending
+                    - when 'finished'
+                      'Paid
+                    - when 'errored'
+                      '! Error
+                    - when 'processing'
+                      'Processing
+                  /td = number_to_percentage(stake.split, precision: 0) 
+                  /td = number_to_currency( stake.unit_price, precision: 4, locale: 'en')
+                  /th = number_to_currency( stake.generated_income, precision: 4, locale: 'en')
+                  /td
+                  /  .pull-right
+                  /    = link_to user_user_revenue_stream_path(@user, stake) do
+                  /      .btn.btn-default.btn-xs
+                  /        i.fa.fa-share&nbsp;Share
+                
       
 
-         
+       
               
   == render 'shared/site_footer'    
  

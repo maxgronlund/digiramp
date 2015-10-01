@@ -32,6 +32,9 @@ class Ipi < ActiveRecord::Base
   #after_update :attach_user_credits
   #before_destroy :remove_user_credits
   
+  has_many :ipi_publishers
+  has_many :ipis,   :through => :ipi_publishers 
+  
   
   
   after_commit :flush_cache
@@ -101,6 +104,8 @@ class Ipi < ActiveRecord::Base
     return true if self.user && self.user.publishers
     false
   end
+  
+  
   
   def users_publishing_agreements
     #return nil unless user

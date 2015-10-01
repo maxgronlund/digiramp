@@ -76,35 +76,6 @@
        
         
       .pull-down-10  
-      /.digi-box
-      /  .row
-      /    .col-sm-7
-      /      h4 Common work
-      /    .col-sm-5
-      /      .pull-right
-      /        = link_to edit_user_user_common_work_path( @user, @common_work ) do
-      /          .btn.btn-default
-      /            i.fa.fa-pencil
-      /            '&nbsp;Edit
-      /  .pull-down-10          
-      /  .row
-      /    .col-sm-3
-      /        b Alternative titles
-      /        br = simple_format @common_work.alternative_titles
-      /    .col-sm-3
-      /      b ISWC code
-      /      br = @common_work.iswc_code
-      /    /.col-sm-3
-      /    /  b Registration origin
-      /    /  br  = @common_work.registration_origin
-      /    /  br
-      /    /  b Registration date
-      /    /  br  = @common_work.registration_date
-      /    .col-sm-3
-      /      b Arrangement of public domain work
-      /      br = @common_work.arrangement ? 'Yes' : 'No'
-      /  
-
 
       .row
         .col-sm-6
@@ -161,15 +132,9 @@
                       - if common_work_ipi.arrangement
                         'Arrangement
                     td
-                       - if publishing_agreement
-                         - if publisher = publishing_agreement.publisher
-                            = publisher.legal_name
-                            br
-                         /= link_to publishing_agreement.title, 
-                         /          user_user_publisher_publishing_agreement_path(@user, 
-                         /                                                        publisher, 
-                         /                                                        publishing_agreement), 
-                         /                                                        class: 'btn btn-default btn-xs'
+                      - if common_work_ipi.publisher
+                        = common_work_ipi.publisher.legal_name
+
                   
                     td
                   
