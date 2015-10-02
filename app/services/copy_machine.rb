@@ -4,6 +4,7 @@ class CopyMachine
   
   # CopyMachine.copy_document source
   def self.copy_document source_doc
+    return nil if source_doc.nil?
     doc               = source_doc.dup
     doc.title         = source_doc.title + ' COPY'
     doc.uuid          = UUIDTools::UUID.timestamp_create().to_s
@@ -120,16 +121,25 @@ class CopyMachine
   
   def self.setup_publishing_documents( publisher, uuid, publishing_agreement )
 
-    template  = Document.find_by(uuid: uuid)
+    template  = Document.where(uuid: uuid)
+    .first_or_create(
+      uuid:               uuid,
+      title:              'Artist publicity agreement',
+      body:               'ARTIST PUBLICITY AGREEMENT',
+      text_content:       'This Agreement shall be effective as of the date set forth herein...',
+      expires:            false,
+      tag:                'Publishing',
+      document_type:      'Template'
+    )
     doc       = CopyMachine.copy_document( template )
     
     doc.update( 
-        :belongs_to_id    => publishing_agreement.id,
-        :belongs_to_type  => publishing_agreement.class.name,
-        :account_id       => publishing_agreement.account_id,
-        :template_id      => template.id,
-        title:            template.title.gsub(' COPY', ''),
-        expires: false
+        belongs_to_id:      publishing_agreement.id,
+        belongs_to_type:    publishing_agreement.class.name,
+        account_id:         publishing_agreement.account_id,
+        template_id:        template.id,
+        title:              template.title.gsub("COPY", "- #{doc.id}"),
+        expires:            false
     )
     
     template.digital_signatures.each do |digital_signature|

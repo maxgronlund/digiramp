@@ -9,9 +9,9 @@
   
   #page-content-wrapper
     .container-fluid
-      == render 'shared/breadcrumbs', breadcrumbs: { links: { labels: user_user_labels_path(@user),
-                                                               label: user_user_label_path(@user, @publisher),
-                                                               'distribution agreement'.to_sym => user_user_label_distribution_agreement_path(@user, 
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { publishers: user_user_publishers_path(@user),
+                                                               publisher: user_user_publisher_path(@user, @publisher),
+                                                               'publishing agreement'.to_sym => user_user_publisher_publishing_agreement_path(@user, 
                                                                        @publisher, 
                                                                        @publishing_agreement)}}
       == render 'shared/flash_message'
@@ -27,7 +27,7 @@
       
           .col-sm-4
             .pull-right.pull-down-10
-              => link_to  user_user_label_distribution_agreement_path(@user, 
+              => link_to  user_user_publisher_publishing_agreement_path( @user, 
                                                                        @publisher, 
                                                                        @publishing_agreement) do
                   .btn.btn-default

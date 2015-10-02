@@ -1,12 +1,12 @@
-- session[:sign_document]         = request.url
+/- session[:sign_document]         = request.url
+- session[:return_to_special_url]         = request.url
 #wrapper
   .full-width-top
-    == render 'shared/navigationbar', page: 'settings' 
-  
+    == render 'shared/navigationbar', page: 'dashboard' 
   
   #sidebar-wrapper
     ul class="sidebar-nav"
-      == render 'users/shared/sidebar', selected: 'control panel'
+      == render 'users/shared/sidebar', selected: 'dashboard'
   
   #page-content-wrapper
     .container-fluid
@@ -29,102 +29,62 @@
                   i.fa.fa-chevron-left
                   '&nbsp;Back
             
-            = link_to new_user_user_legal_document_legal_document_user_path(@user, @document.uuid) do
-              .btn.btn-default
-                i.fa.fa-user-plus&nbsp;Add user
+            
            
             
             
 
       .pull-down-10
-      .table-responsive
-        h4 Signatures
-        table class="table table-hover"
-          thead
-            tr
-              th Full Name / Email
-              th Role
-              th Date
-              th Signature
-              th
-          tbody
-            - @document.document_users.each do |document_user|
-              tr
-                - if user = document_user.user
-                 
-                   td 
-                     - if user
-                       = user.full_name
-                       br
-                       = user.email
-                     - else 
-                       = document_user.email
-                     - if( user && document_user.digital_signature_id.nil? )
-                      .pull-down-8
-                        = link_to user_user_sign_document_path(@user, document_user.id),
-                            data: { confirm: 'Are you sure?' } , 
-                            turboboost: true, 
-                            :method => :delete do
-                          .btn.btn-danger.btn-xs
-                            i.fa.fa-times&nbsp;Remove
-                     
-                   td = document_user.role
-                   td 
-                     - if document_user.digital_signature_id
-                       = document_user.signed_on
-                   td
-                     - if user && user.digital_signature
-                       .pull-down-10
-                         = image_tag user.digital_signature.image_url(:image_300x50), class: 'img-thumbnail img-responsive'
-                     - elsif user
-                       .alert.alert-warning.pull-down-18
-                        'Not signed
-                    
-                     - else
-                       .alert.alert-warning.pull-down-18
-                         'Not assigned to an user
-                       
-                   td
-                     .pull-right.pull-down-24
-                       - if document_user.digital_signature
-                         .btn.btn-success disabled="disabled"
-                           'Signed
-                       - elsif( user && user.id == @user.id )
-                         - if @user.digital_signature
-                            = link_to 'Sign document', user_user_sign_document_path(@user, document_user.id), 
-                                              method: 'PUT', 
-                                              data: { confirm: 'By clicking this button you confirm'},
-                                              class: 'btn btn-success'
-                         - else
-                           = link_to 'Upload signature', new_user_user_digital_signature_path(@user), class: 'btn btn-default'
-                       - else
-                        = link_to 'Send reminder', user_user_sign_document_path(@user, document_user.id, reminder: 'true'), 
-                                              method: 'PUT', 
-                                              class: 'btn btn-default'
-                         
-                
-                - else
-                  / there is no user added to this document_user
-                  th
-                    span.yellow-text 
-                      i.fa.fa-exclamation-triangle
-                    = link_to  edit_user_user_legal_document_legal_document_user_path(@user, @document.uuid, document_user) do
-                      .btn.btn-default.btn-xs
-                        i.fa.fa-user-plus&nbsp;Assign user
-                        
-                  th = document_user.role
-                  th = document_user.email
-                  th
-                    .alert.alert-warning
-                      'User not signed up
-                  th 
-                    .pull-right
-                      = link_to 'Send reminder', user_user_sign_document_path(@user, document_user.id, reminder: 'true'), 
-                                             method: 'PUT', 
-                                             class: 'btn btn-default'
-                  
+      .row
+        .col-sm-12 
+          = simple_format @document.text_content
+      .pull-down-10
+      .row
+        - @document.document_users.each do |document_user|
+          /= debug document_user
+          .col-sm-6
+            - if document_user.digital_signature
+              br
+              .pull-down-8
+              = "#{document_user.signed_on}"
+              br
+              'ACCEPTED AND AGREED TO BY:
+              =  image_tag document_user.digital_signature.image_url(:image_300x50), class: 'img-responsive'
 
+              
+            - elsif document_user.user == @user
+              br
+              .pull-down-8
+              = Date.today.to_s
+              br
+              'ACCEPTED AND AGREED TO BY:
+              br
+              - if @user.digital_signature
+                 = link_to "CONFIRM AND SIGN THE DOCUMENT AS #{@user.get_full_name.upcase}", user_user_sign_document_path(@user, document_user.id), 
+                                   method: 'PUT', 
+                                   data: { confirm: 'By confirming this dialog you are validating this document with your signature'},
+                                   class: 'btn btn-success'
+              - else
+                = link_to 'Upload signature', new_user_user_digital_signature_path(@user), class: 'btn btn-default' 
+
+                
+            - else
+              br
+              .pull-down-8
+              = Date.today.to_s
+              br
+              'ACCEPTED AND AGREED TO BY:
+              br
+              .alert.alert-info
+                i SIGNATURE PENDING
+              
+            h4 
+            .uppercase
+              i = document_user.full_name
+              '&nbsp;:&nbsp;
+              = document_user.role  
       
+
   == render 'shared/site_footer'    
  
 

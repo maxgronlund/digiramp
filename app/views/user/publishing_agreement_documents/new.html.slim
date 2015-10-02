@@ -1,2 +1,58 @@
-h1 User::PublishingAgreementDocuments#new
-p Find me in app/views/user/publishing_agreement_documents/new.html.slim
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'dashboard' 
+  
+  
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'users/shared/sidebar', selected: 'dashboard'
+  
+  #page-content-wrapper
+    .container-fluid
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { publisher: user_user_label_path(@user, @publisher),
+                                                              'publishing agreement'.to_sym => user_user_publisher_publishing_agreement_path(@user, 
+                                                                       @publisher, 
+                                                                       @publishing_agreement)}}
+      == render 'shared/flash_message'
+      .container-fluid
+        .row
+          .col-sm-8
+            .help
+              .help-text
+                h2 
+                  b Upload document to&nbsp;
+                  br= @publishing_agreement.title
+                
+              .help-button
+                == render 'admin/helps/help', identifier: 'user distribution agreement templates'
+      
+          .col-sm-4
+            .pull-right.pull-down-10
+              => link_to  user_user_publisher_publishing_agreement_path( @user, 
+                                                                       @publisher, 
+                                                                       @publishing_agreement) do
+                  .btn.btn-default
+                    i.fa.fa-chevron-left
+                    '&nbsp;Back
+              
+              
+              
+      .pull-down-10
+      .digi-box
+        = simple_form_for [:user, @user, @publisher, @publishing_agreement, Document.new ], url: url_for(action: 'create', controller: 'publishing_agreement_documents'), method: 'post' do |f|
+          = f.hidden_field :account_id, value: @user.account_id
+          
+          = f.input :title
+          = f.input :file
+        
+        
+          = f.submit 'Save', class: 'btn btn-default'
+            
+
+      
+
+                  
+
+         
+              
+  == render 'shared/site_footer'    

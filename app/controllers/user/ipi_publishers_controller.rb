@@ -14,8 +14,8 @@ class User::IpiPublishersController < ApplicationController
   end
 
   def new
-    @publisher = Publisher.cached_find(params[:publisher_id])
-    @ipi_publisher = IpiPublisher.new
+    @publisher      = Publisher.cached_find(params[:publisher_id])
+    @ipi_publisher  = IpiPublisher.new
     @publishing_agreements = @publisher.publishing_agreements
     #ap params
     #@common_work  = CommonWork.cached_find(params[:common_work_id])

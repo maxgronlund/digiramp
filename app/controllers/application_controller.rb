@@ -61,7 +61,6 @@ class ApplicationController < ActionController::Base
   end
   helper_method :current_account_user
   
-  
   # update within a month 02/06/2015
   def current_catalog_user
     @catalog_users ||= get_catalog_user

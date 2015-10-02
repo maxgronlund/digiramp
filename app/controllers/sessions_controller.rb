@@ -128,7 +128,7 @@ class SessionsController < ApplicationController
     elsif params[:redirect_to_accept_invitation]
       redirect_to params[:redirect_to_accept_invitation]
     else
-      redirect_to root_url, notice: "Logged out!"
+      redirect_to root_url
     end
   end
   

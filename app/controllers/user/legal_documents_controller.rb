@@ -2,9 +2,23 @@ class User::LegalDocumentsController < ApplicationController
   before_action :access_user
   def index
     @account  = @user.account
-    #@documents = @account.documents
     
-    @documents = @user.account.documents
+    #document_ids = @user.document_users.map {|document_user| document_user.document_id }
+    #document_ids += @account.documents.map  {|document| document.id }
+    #document_ids.uniq!
+    #document_ids.compact
+    #
+    #@documents = Document.where(id: document_ids).order('created_at desc')
+    
+    @documents = @user.document_users.map {|document_user| document_user.document }
+    @documents += @account.documents.map  {|document| document }
+    @documents.uniq!
+    @documents.compact
+    
+    
+    
+
+    #@documents = @user.account.documents
   end
   
   def show

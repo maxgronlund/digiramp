@@ -1,15 +1,14 @@
 #wrapper
   .full-width-top
-    == render 'shared/navigationbar', page: 'settings' 
-  
+    == render 'shared/navigationbar', page: 'dashboard' 
   
   #sidebar-wrapper
     ul class="sidebar-nav"
-      == render 'users/shared/sidebar', selected: 'control panel'
+      == render 'users/shared/sidebar', selected: 'dashboard'
   
   #page-content-wrapper
     .container-fluid
-      == render 'shared/breadcrumbs', breadcrumbs: { links: { 'Dashboard'.to_sym => user_user_control_panel_index_path(@user) } }
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { dashboard: user_user_control_panel_index_path(@user) } }
       == render 'shared/flash_message'
       .row
         .col-sm-6
@@ -19,6 +18,13 @@
               
             .help-button
               == render 'admin/helps/help', identifier: 'edit document user'
+        .col-sm-6
+          .pull-right.pull-down-10
+            - if session[:return_to_special_url]
+              = link_to  session[:return_to_special_url] do
+                  .btn.btn-default
+                    i.fa.fa-chevron-left
+                    '&nbsp;Back
         /.col-sm-6
         /  .pull-right.pull-down-10
         /
@@ -33,37 +39,37 @@
         /    /  .btn.btn-default
         /    /    'New document
         /
-      = render 'user/shared/legal_navigation'
+      /= render 'user/shared/legal_navigation'
       .pull-down-10
-      .sexy_line
       .row
-        .col-sm-6
+        .col-sm-8
           .digi-box
             = simple_form_for [ @user, @document, @document_user], :url => url_for(:action => 'update', 
                                                                                           :controller => 'legal_document_users'), 
                                                                                           turboboost: true, :method => 'PUT' do |f|
               
-              = f.error_notification
-              .form-inputs
-                = f.hidden_field :document_id, value: @document.uuid
-                .row
-                  .col-sm-6
-                    = f.input :can_edit,  :input_html => { class: 'icheck-me', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue"     }  
-                  .col-sm-6
-                    = f.input :should_sign,  :input_html => { class: 'icheck-me', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue"     }  
-                .row
-                  .col-sm-6
-                    = f.input :email
-                  .col-sm-6
-                    = f.input :legal_name
-                = f.input :role
-              .form-actions
-                .row
-                  .col-sm-12
-                    .pull-right
-                      = f.submit 'Save', class: 'btn btn-default'
-              
-              
+              == render 'form', f: f
+              /= f.error_notification
+              /.form-inputs
+              /  = f.hidden_field :document_id, value: @document.uuid
+              /  .row
+              /    .col-sm-6
+              /      = f.input :can_edit,  :input_html => { class: 'icheck-me', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue"     }  
+              /    .col-sm-6
+              /      = f.input :should_sign,  :input_html => { class: 'icheck-me', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue"     }  
+              /  .row
+              /    .col-sm-6
+              /      = f.input :email
+              /    .col-sm-6
+              /      = f.input :legal_name
+              /  = f.input :role
+              /.form-actions
+              /  .row
+              /    .col-sm-12
+              /      .pull-right
+              /        = f.submit 'Save', class: 'btn btn-default'
+              /
+              /
               
         
 

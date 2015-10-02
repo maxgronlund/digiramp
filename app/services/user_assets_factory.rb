@@ -14,6 +14,7 @@ class UserAssetsFactory
     create_publishing_agreement_document
     create_ipi_publisher
     create_mp3_term_of_usage
+    capture_unsigned_documents
   end
 
   
@@ -176,6 +177,13 @@ class UserAssetsFactory
       expires: false
     )
     CopyMachine.create_document_users template, doc
+  end
+  
+  def capture_unsigned_documents
+    if document_users = DocumentUser.where(email: @user.email)
+      document_users.update_all(user_id: @user.id, account_id: @user.account_id)
+      @user.update(has_unsigned_documents: true)
+    end
   end
   
   

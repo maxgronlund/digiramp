@@ -1,0 +1,101 @@
+- if current_document_user = document.document_users.where(user_id: @user.id).first
+  - if current_user_can_edit = current_document_user.can_edit
+- else
+  - current_user_can_edit = false
+
+.table-responsive
+  .row
+    .col-sm-6
+      h4 
+        b = document.title
+      - if ( @user != document.user )
+        .alert.alert-info 
+          'Controlled by:&nbsp;
+          = document.controller_by
+    .col-sm-6
+      .pull-right.pull-down-8
+        
+        => link_to user_user_legal_document_path( user, document.uuid, :format => 'pdf') do 
+          .btn.btn-default.btn-xs
+            i.fa.fa-file-pdf-o
+        
+        = link_to user_user_legal_document_path( user, document.uuid) do
+            .btn.btn-default.btn-xs
+              i.fa.fa-eye
+        
+        - unless document.executed? || document.archived? ||  document.expired?
+          - if ( @user == document.user )
+            => link_to user_user_legal_document_path( user, document.uuid), data: { confirm: 'Are you sure?' } , 
+                                                    :method => :delete, 
+                                                    turboboost: true do
+              .btn.btn-danger.btn-xs
+                i.fa.fa-times
+            => link_to new_user_user_legal_document_legal_document_user_path(user, document.uuid) do
+              .btn.btn-default.btn-xs
+                i.fa.fa-user-plus&nbsp;Add user
+            
+          - if ( @user == document.user ) || current_user_can_edit
+            = link_to edit_user_user_legal_document_path( user, document.uuid) do
+              .btn.btn-default.btn-xs
+                i.fa.fa-pencil
+            
+         
+              
+                
+  table class="table table-hover"
+    thead
+      tr
+        th Partie
+        th Email
+        th Role
+        th Can edit
+        /th Should sign
+        th
+        /th Status
+    tbody
+      - document.document_users.each do |document_user|
+        tr
+          td 
+            = document_user.full_name 
+                                     
+            .pull-down-6
+            - unless document_user.digital_signature_id
+              - if ( @user == document.user )
+                => link_to user_user_legal_document_legal_document_user_path(user, document, document_user), data: { confirm: 'Are you sure?' } , 
+                                                :method => :delete, 
+                                                turboboost: true do
+                  .btn.btn-danger.btn-xs
+                    i.fa.fa-times
+                = link_to 'Edit', edit_user_user_legal_document_legal_document_user_path(user, document.uuid, document_user), class: 'btn btn-default btn-xs'
+               
+            
+          td  = document_user.email
+          td  = document_user.role
+          td  
+             - if document_user.can_edit
+               h5
+                 .label.label-success
+                   i.fa.fa-check
+          /td  = document_user.should_sign
+          th
+            .pull-right
+              - if document_user.digital_signature_id
+                h5
+                  .label.label-success
+                    'Signed
+              - elsif document_user.should_sign && (document_user.user == user)
+                = link_to 'Sign document', user_user_sign_document_path(@user, document.uuid), class: 'btn btn-success btn-xs'
+              - elsif document_user.should_sign && document_user.user
+                h5
+                  .label.label-danger
+                    'Unsigned
+              - elsif document_user.user.nil?
+                h5
+                  .label.label-warning
+                    'No user
+                    
+                
+              
+                
+          /td  = document_user.status
+              

@@ -1,5 +1,5 @@
 div style="max-width: 840px"
-  = f.hidden_field :account_id, value: @account.id
+  
   = f.hidden_field :document_type, value: 'Legal'
   /= f.input :tag, collection: @legal_tags, include_blank: false, value_method: :title
   = f.input :title

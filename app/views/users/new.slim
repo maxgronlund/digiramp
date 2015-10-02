@@ -3,10 +3,8 @@
     == render 'shared/navigationbar', page: 'account' 
        
   .container
-    h2 Sign up
     .row
       .col-sm-3
-
       .col-sm-6
         - if current_user
           .alert.alert-info
@@ -37,7 +35,7 @@
                           $(this).find('input[type=submit]').attr('disabled', 'disabled')
                           $(this).find('input[type=submit]').val "Updating, please wait ..."
               
-              .row
+              .row.pull-down-6
                 .col-sm-12
                   .sexy_line
                   == render 'users/shared/social_signup'

@@ -27,6 +27,12 @@ class DocumentUser < ActiveRecord::Base
     end
     
   end
+  
+  def full_name
+    
+    return user.get_full_name if user
+    'not assigned'
+  end
 
   private 
   

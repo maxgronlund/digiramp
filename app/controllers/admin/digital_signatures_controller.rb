@@ -8,7 +8,6 @@ class Admin::DigitalSignaturesController < ApplicationController
       
     when 'Save and exit'
       @digital_signature.save(validate: false)
-      
       redirect_to admin_legal_templates_path
     when 'Save and add next'
       @digital_signature.save(validate: false)

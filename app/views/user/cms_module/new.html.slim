@@ -10,7 +10,7 @@
   #page-content-wrapper
     .container-fluid
       h2 Select module
-      .sexy_line
+      .pull-down-10
       .row
         .col-sm-6
           .digi-box
@@ -25,7 +25,7 @@
                   .col-sm-12
                     .pull-right
                       => link_to 'Cancel', edit_user_user_cms_page_path(@user, @cms_page),  class: 'btn btn-default'
-                      = f.submit 'Next',  class: 'btn btn-default'
+                      = f.submit 'Next',  class: 'btn btn-default', id: 'next'
                 
       .cms_section_preview   
       == render '/cms_modules/activities'   

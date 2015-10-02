@@ -1,0 +1,75 @@
+/- session[:sign_document]         = request.url
+- session[:return_to_special_url]         = request.url
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'dashboard' 
+  
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'users/shared/sidebar', selected: 'dashboard'
+  
+  #page-content-wrapper
+    .container-fluid
+      /== render 'shared/breadcrumbs', breadcrumbs: { links: { 'Dashboard'.to_sym => user_user_control_panel_index_path(@user), 
+      /                                                        'legal'.to_sym => user_user_legal_documents_path(@user)} }
+      == render 'shared/flash_message'
+      .row
+        .col-sm-12
+          .help
+            .help-text
+              h2 
+                b Unsigned documents for&nbsp;
+                = @user.get_full_name
+            .help-button
+              == render 'admin/helps/help', identifier: 'unsigned document'
+
+     
+            
+
+      .pull-down-10
+      .table-responsive
+        table class="table table-hover"
+          thead
+            tr
+              th title
+              th Role
+              th Date
+              th Controled by
+              th Signatures
+              th
+          tbody
+            - @documents.each do |document|
+              - unless document.nil?
+                tr
+                  td 
+                    b = document.title
+                    .pull-down-6
+                    = link_to 'Sign document', user_user_sign_document_path(@user, document.uuid), class: 'btn btn-success btn-xs'
+                    /= link_to document.title, user_user_unsigned_document_path( @user, document), class: 'btn btn-default btn.xs'
+                  td  
+                    - document.document_users.where(user_id: @user.id).each do |document_user|
+                      = document_user.role
+                  td = document.date
+                  td 
+                    -if user = document.user
+                      = user.full_name
+                     
+                  td
+                    table
+                      - document.document_users.where.not(user_id: nil).where(should_sign: true).each do |document_user|
+                        tr
+                          td 
+                            => document_user.full_name
+                            '&nbsp;
+                          td
+                            '/&nbsp;
+                            = document_user.role
+                            
+                
+                  
+
+      
+  == render 'shared/site_footer'    
+ 
+
+

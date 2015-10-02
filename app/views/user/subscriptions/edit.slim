@@ -1,11 +1,10 @@
 #wrapper
   .full-width-top
-    == render 'shared/navigationbar', page: 'settings' 
-  
+    == render 'shared/navigationbar', page: 'dashboard' 
   
   #sidebar-wrapper
     ul class="sidebar-nav"
-      == render 'users/shared/sidebar', selected: 'control panel'
+      == render 'users/shared/sidebar', selected: 'dashboard'
   
   #page-content-wrapper
     .container-fluid

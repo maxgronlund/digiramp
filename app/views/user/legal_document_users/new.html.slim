@@ -1,11 +1,10 @@
 #wrapper
   .full-width-top
-    == render 'shared/navigationbar', page: 'settings' 
-  
+    == render 'shared/navigationbar', page: 'dashboard' 
   
   #sidebar-wrapper
     ul class="sidebar-nav"
-      == render 'users/shared/sidebar', selected: 'control panel'
+      == render 'users/shared/sidebar', selected: 'dashboard'
   
   #page-content-wrapper
     .container-fluid
@@ -25,40 +24,47 @@
               == render 'admin/helps/help', identifier: 'new document user'
         .col-sm-3
           .pull-right.pull-down-10
-            = link_to  user_user_legal_documents_path(@user) do
-                .btn.btn-default
-                  i.fa.fa-chevron-left
-                  '&nbsp;Back
+            - if session[:return_to_special_url]
+              = link_to  session[:return_to_special_url] do
+                  .btn.btn-default
+                    i.fa.fa-chevron-left
+                    '&nbsp;Back
+            - else
+              = link_to  user_user_legal_documents_path(@user) do
+                  .btn.btn-default
+                    i.fa.fa-chevron-left
+                    '&nbsp;Back
           
       /= render 'user/shared/legal_navigation'
       .row
-        .col-sm-12
+        .col-sm-8
           .digi-box
             = simple_form_for [ @user, @document, @document_user], :url => url_for(:action => 'create', 
                                                                                           :controller => 'legal_document_users'), 
                                                                                           turboboost: true, :method => 'POST' do |f|
               
-              = f.error_notification
-              
-              .form-inputs
-                = f.hidden_field :document_id, value: @document.uuid
-                .row
-                  .col-sm-6
-                    = f.input :email
-                    = f.input :can_edit,  :input_html => { class: 'icheck-me', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue"     }  
-                    = f.input :should_sign,  :input_html => { class: 'icheck-me', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue"     }  
-                  .col-sm-6
-                    = f.input :legal_name
-                    = f.input :role
-                
-                    
-                
-              .form-actions
-                .row
-                  .col-sm-12
-                    .pull-right
-                      = f.submit 'Save', class: 'btn btn-info'
-              
+              == render 'form', f: f
+              /= f.error_notification
+              /
+              /.form-inputs
+              /  = f.hidden_field :document_id, value: @document.uuid
+              /  .row
+              /    .col-sm-6
+              /      = f.input :email
+              /      = f.input :can_edit,  :input_html => { class: 'icheck-me', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue"     }  
+              /      = f.input :should_sign,  :input_html => { class: 'icheck-me', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue"     }  
+              /    .col-sm-6
+              /      = f.input :legal_name
+              /      = f.input :role
+              /  
+              /      
+              /  
+              /.form-actions
+              /  .row
+              /    .col-sm-12
+              /      .pull-right
+              /        = f.submit 'Save', class: 'btn btn-info'
+              /
               
               
           

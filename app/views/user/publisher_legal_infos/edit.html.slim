@@ -1,11 +1,10 @@
 #wrapper
   .full-width-top
-    == render 'shared/navigationbar', page: 'settings' 
-  
+    == render 'shared/navigationbar', page: 'dashboard' 
   
   #sidebar-wrapper
     ul class="sidebar-nav"
-      == render 'users/shared/sidebar', selected: 'control panel'
+      == render 'users/shared/sidebar', selected: 'dashboard'
   
   #page-content-wrapper
     .container-fluid
@@ -13,14 +12,15 @@
                                                               'publishers'.to_sym => user_user_publishers_path(@user)} }
       == render 'shared/flash_message'
       .row
-        .col-sm-6
+        .col-sm-9
           .help
             .help-text
-              h2 Edit publisher
-              
+              h2 
+                b Edit legal info for&nbsp;
+                = @publisher.legal_name
             .help-button
               == render 'admin/helps/help', identifier: 'user publisher address'
-        .col-sm-6
+        .col-sm-3
           .pull-right.pull-down-10
             = link_to  user_user_publisher_path(@user, @publisher) do
                 .btn.btn-default
@@ -66,10 +66,19 @@
                 
               .col-sm-6
                 = f.input :phone_number, placeholder: 'Optional'
-                = f.input :ipi_code, placeholder: 'Optional'
+                b 
+                 'IPI Code
+                == render 'shared/popover', identifier: 'IPI (Interested party information) is a unique identifying number assigned by the CISAC database to each Interested Party in collective rights management. It is used worldwide by more than 120 countries and three million right holders.'
+                .pull-down-6
+                = f.input :ipi_code, placeholder: 'Optional', label: false
                   
-                = f.input :cae_code, placeholder: 'Optional'
-                = f.input :pro_affiliation_id, collection: ProAffiliation.order(:title), value_method: :id, include_blank: true, label: 'Performance Rights Organization',
+                /= f.input :cae_code, placeholder: 'Optional'
+                
+                b 
+                 'Performance Rights Organization
+                == render 'shared/popover', identifier: 'Provides intermediary functions, particularly collection of royalties, between copyright holders and parties who wish to use copyrighted works publicly in locations such as shopping and dining venues.'
+                .pull-down-6
+                = f.input :pro_affiliation_id, collection: ProAffiliation.order(:title), value_method: :id, include_blank: true, label: false,
                             hint: 'Optional. Only fill this if you are registered as a publisher with a PRO'
                 
                 
@@ -79,7 +88,7 @@
             .row
               .col-sm-12
                 .pull-right
-                  = f.submit 'Save', class: 'btn btn-info'
+                  = f.submit 'Save', class: 'btn btn-info', id: 'save'
         
                   
 

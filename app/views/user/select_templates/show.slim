@@ -1,0 +1,64 @@
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'dashboard' 
+  
+  
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'users/shared/sidebar', selected: 'dashboard'
+  
+  #page-content-wrapper
+    .container-fluid
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { 'Dashboard'.to_sym => user_user_control_panel_index_path(@user),
+                                                               legal: user_user_legal_index_path(@user),
+                                                               documents: user_user_legal_documents_path(@user)} }
+      == render 'shared/flash_message'
+      .row
+        .col-sm-8
+          .help
+            .help-text
+              h2 
+                b Preview template
+              
+            .help-button
+              == render 'admin/helps/help', identifier: 'legal documents'
+        .col-sm-4
+          .pull-right.pull-down-10
+            => link_to  user_user_select_templates_path(@user) do
+                .btn.btn-default
+                  i.fa.fa-chevron-left
+                  '&nbsp;Back
+            = link_to user_user_select_template_path( @user, @document.uuid) do
+              .btn.btn-success
+                i.fa.fa-check&nbsp;Select
+                
+                
+                
+      .sexy_line          
+      .pull-down-10
+        .row
+          .col-sm-12 
+            h4 = @document.title
+            = simple_format @document.text_content
+        .pull-down-10
+        .row
+          - @document.digital_signatures.each do |digital_signature|
+            .col-sm-6
+              br
+              .pull-down-8
+              'ACCEPTED AND AGREED TO BY:
+              = "Date: #{Date.today.to_s}"
+              = image_tag 'fallback/image_300x50_signature.png'
+              
+              .uppercase
+                = digital_signature.role
+              br
+      
+
+      
+
+                  
+
+         
+              
+  == render 'shared/site_footer'    

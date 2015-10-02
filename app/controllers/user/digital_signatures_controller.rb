@@ -40,18 +40,16 @@ class User::DigitalSignaturesController < ApplicationController
     params[:digital_signature][:uuid] = UUIDTools::UUID.timestamp_create().to_s
     @digital_signature = DigitalSignature.new(digital_signature_params)
 
-    respond_to do |format|
-      if @digital_signature.save
-        unless @user.digital_signature
-          @user.update(digital_signature_uuid: @digital_signature.uuid) 
-        end
-        format.html { redirect_to user_user_digital_signatures_path(@user), notice: 'Digital signature was successfully created.' }
-        format.json { render :show, status: :created, location: @digital_signature }
-      else
-        format.html { render :new }
-        format.json { render json: @digital_signature.errors, status: :unprocessable_entity }
+
+    if @digital_signature.save
+      unless @user.digital_signature
+        @user.update(digital_signature_uuid: @digital_signature.uuid) 
       end
+      redirect_to_special_url( user_user_digital_signatures_path(@user) ) 
+    else
+      render :new 
     end
+
   end
 
   # DELETE /digital_signatures/1

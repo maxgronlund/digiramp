@@ -9,14 +9,11 @@
   
   #page-content-wrapper
     .container-fluid
-      /= render 'common_work_rights'
       == render 'recordings/wizard_step', step: 5
       .row
         .col-sm-8
           .help
             .help-text
-              /h2 = @common_work.title
-              / h2℗ Sound recording copyright
               h2 
                 b ℗ Contributors&nbsp;
                 = @recording.title
@@ -35,24 +32,11 @@
                   i.fa.fa-copyright
                   '&nbsp;
                   'Common work
-                  
-              /=< link_to edit_user_recording_basic_path(@user, @recording)
-              /  .btn.btn-info
-              /    i.fa.fa-pencil&nbsp;Edit recording
-              
 
-                
-              /= link_to 'Export CSV', user_user_export_work_and_master_path(@user, @common_work, format: "csv"), class: 'btn btn-default'
 
-       
-      .pull-down-10
       .row
         .col-sm-12
-          /#digiWhams  class="/recordings/#{@recording.id.to_s}"   
-          /  == render 'audio_player/show', recording: @recording , description: true, target: ""
-          /  .pull-down-4
-          /  .sexy_line
-          
+
           .row
             .col-sm-12
               .pull-right.pull-down-6
@@ -70,12 +54,8 @@
                         = f.hidden_field :role, value: 'Other'
                         = f.hidden_field :share, value: 100
                         = f.hidden_field :distribution_agreement_id, value:  @user.personal_distribution_agreement.id
-                        /= f.hidden_field :status, value: '1'
                         = f.submit "I'm the only contributor", class: 'btn btn-warning' 
 
-                  
-                  
-                  /=< link_to "I'm the only contributor", '#', class: 'btn btn-warning'
           .pull-down-10
           .table-responsive
             table class="table table-hover"
@@ -93,7 +73,6 @@
                 - @recording.recording_ipis.order(:id).each do |recording_ipi|
                   tr
                     td 
-                      /div class="recording-ipi-info-dialog-#{recording_ipi.id.to_s}"
                       => link_to user_user_recording_recording_ipi_path( @user, @recording, recording_ipi), 
                           data: {:confirm => 'Are you sure?'}, 
                           turboboost: true,
@@ -103,9 +82,6 @@
                       => link_to edit_user_user_recording_recording_ipi_path( @user, @recording, recording_ipi) do
                         .btn.btn-default.btn-xs
                           i.fa.fa-pencil
-      
-            
-            
                     td 
                       = recording_ipi.name
                       br = recording_ipi.email
@@ -119,8 +95,12 @@
             
 
           
-          .row
-            .col-sm-12
+          .row.pull-down-10
+            .col-sm-6
+              = link_to user_user_common_work_path(@user, @recording.common_work) do
+                  .btn.btn-default
+                    i.fa.fa-copyright&nbsp;Common work
+            .col-sm-6
               .pull-right
                 - if !@user.is_stripe_connected  && @recording.is_cleared?
                   = link_to 'Enable payment gateway', user_user_create_shop_index_path(@user), class: 'btn btn-success'
@@ -134,10 +114,8 @@
                     =< link_to new_user_user_product_path(@user, category: 'recording', recording_id: @recording.id) do
                             .btn.btn-success
                               i.fa.fa-shopping-cart&nbsp;Add to shop
-      .pull-down-10
-      = link_to user_user_common_work_path(@user, @recording.common_work) do
-          .btn.btn-default
-            i.fa.fa-copyright&nbsp;Common work  
+      
+      
       
   == render 'shared/site_footer'  
   

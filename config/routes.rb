@@ -5,6 +5,7 @@ Digiramp::Application.routes.draw do
   
 
 
+ 
   resources :labels
  
   namespace :user do
@@ -990,6 +991,7 @@ Digiramp::Application.routes.draw do
       resources :stakes do
         resources :stripe_transfers, only: [:index]
       end
+      resources :unsigned_documents
       resources :user_configurations
       resources :user_emails
       resources :user_positions, only: [:index]

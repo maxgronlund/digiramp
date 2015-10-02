@@ -141,7 +141,7 @@ class User < ActiveRecord::Base
   before_destroy  :sanitize_relations
   
   
-  has_many :emails, dependent: :destroy
+  #has_many :emails, dependent: :destroy
   
   # statistic on playbacks
   has_many :playbacks
@@ -226,7 +226,10 @@ class User < ActiveRecord::Base
     signature
   end
   
-  
+  def emails
+    mails = self.user_emails.map { |mail| mail.email  }
+    mails << self.email
+  end
   
   
   

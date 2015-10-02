@@ -58,7 +58,12 @@
     = f.input :sounds_like, :input_html => {  style: "height: 80px;", placeholder: "Beethoven, Elvis, Louis Armstrong"}
     
   .col-sm-6
-    = f.input :isrc_code, label: 'ISRC', hint: 'International Standard Recording Code', placeholder: 'Optional'
+  
+    b 
+    'ISRC 
+    == render 'shared/popover', identifier: 'An ISRC identifies a particular recording, not the work (composition and lyrical content) itself. Therefore, different recordings, edits, and remixes of the same work should each have their own ISRC.'
+    .pull-down-6
+    = f.input :isrc_code, label: false, hint: 'International Standard Recording Code', placeholder: 'Optional'
     = f.input :privacy, collection: Recording::PRIVACY, include_blank: false,  label: 'Privacy', hint: 'Select who has access to this recording'
 
     = f.input :comment, :input_html => {  style: "height: 80px;", 

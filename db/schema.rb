@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151001140558) do
+ActiveRecord::Schema.define(version: 20151002182243) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1478,6 +1478,8 @@ ActiveRecord::Schema.define(version: 20151001140558) do
     t.date     "expiration_date"
     t.integer  "belongs_to_id"
     t.string   "belongs_to_type"
+    t.string   "content_type"
+    t.string   "date"
   end
 
   add_index "documents", ["account_id"], name: "index_documents_on_account_id", using: :btree
@@ -3549,6 +3551,7 @@ ActiveRecord::Schema.define(version: 20151001140558) do
     t.uuid     "digital_signature_uuid"
     t.integer  "default_label_id"
     t.integer  "liked_users_count",                      default: 0
+    t.boolean  "has_unsigned_documents"
   end
 
   add_index "users", ["default_cms_page_id"], name: "index_users_on_default_cms_page_id", using: :btree

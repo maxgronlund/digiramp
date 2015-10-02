@@ -1,16 +1,16 @@
 #wrapper
   .full-width-top
-    == render 'shared/navigationbar', page: 'settings' 
-  
+    == render 'shared/navigationbar', page: 'dashboard' 
   
   #sidebar-wrapper
     ul class="sidebar-nav"
-      == render 'users/shared/sidebar', selected: 'control panel'
+      == render 'users/shared/sidebar', selected: 'dashboard'
   
   #page-content-wrapper
     .container-fluid
-      == render 'shared/breadcrumbs', breadcrumbs: { links: { 'Dashboard'.to_sym =>user_user_control_panel_index_path(@user),
-                                                              'publishers'.to_sym => user_user_publishers_path(@user)} }
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { dashboard: user_user_control_panel_index_path(@user),
+                                                              publishers: user_user_publishers_path(@user),
+                                                              publisher: user_user_publisher_path(@user, @publisher)} }
       == render 'shared/flash_message'
       .row
         .col-sm-9
@@ -24,7 +24,7 @@
               == render 'admin/helps/help', identifier: 'user publisher agreements'
         .col-sm-3
           .pull-right.pull-down-10
-            = link_to  user_user_publishers_path(@user) do
+            = link_to  user_user_publisher_path(@user, @publisher) do
                 .btn.btn-default
                   i.fa.fa-chevron-left
                   '&nbsp;Back

@@ -1,0 +1,19 @@
+= f.error_notification
+.form-inputs
+  = f.hidden_field :document_id, value: @document.uuid
+  .row
+    .col-sm-6
+      = f.input :can_edit,  :input_html => { class: 'icheck-me', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue"     }  
+    .col-sm-6
+      = f.input :should_sign,  :input_html => { class: 'icheck-me', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue"     }  
+  .row
+    .col-sm-6
+      = f.input :email
+    .col-sm-6
+      = f.input :legal_name
+  = f.input :role
+.form-actions
+  .row
+    .col-sm-12
+      .pull-right
+        = f.submit 'Save', class: 'btn btn-info'

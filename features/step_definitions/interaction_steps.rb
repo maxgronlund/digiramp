@@ -36,9 +36,9 @@ end
 #  page.execute_script('window.scrollTo(0,200000)')
 #end
 #
-#Then(/^I select "(.*?)" from "(.*?)"$/) do |select, from|
-#  select select, :from => from
-#end
+Then(/^I select "(.*?)" from "(.*?)"$/) do |select, from|
+  select select, :from => from
+end
 #
 #Then(/^I'm filling "(.*?)" with "(.*?)"$/) do |placeholder, content|
 #  fill_in placeholder, with: content
@@ -63,9 +63,7 @@ Then(/^I'm filling the "(.*?)" in the wysiwyg5 with "(.*?)"$/) do |input_id, con
 end
 
 
-Then(/^Does it look right\?$/) do
-  ask('does that look right?')
-end
+
 #
 Then(/^I'm enabling the checkbox "(.*?)"$/) do |checkbox|
   check(checkbox)
