@@ -59,11 +59,10 @@ class User::PublishingAgreementsController < ApplicationController
   # PATCH/PUT /publishing_agreements/1
   # PATCH/PUT /publishing_agreements/1.json
   def update
-    
+
     @publisher              = Publisher.cached_find(params[:publisher_id])
     @publishing_agreement   = PublishingAgreement.cached_find(params[:id])
 
-    
     if @publishing_agreement.update(publishing_agreement_params)
       redirect_to user_user_publisher_publishing_agreements_path( @user, @publisher)
     else

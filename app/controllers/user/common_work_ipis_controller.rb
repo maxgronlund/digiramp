@@ -2,7 +2,7 @@ class User::CommonWorkIpisController < ApplicationController
   before_action :access_user
   
   def index
-    @common_work_ipis        = @user.common_work_ipis
+    @common_work_ipis        = @user.common_work_ipis.order(:created_at)
   end
 
   def edit

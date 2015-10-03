@@ -22,7 +22,7 @@
               h2 Upload recording
             .help-button
               == render 'admin/helps/help', identifier: 'user upload recording'
-      .sexy_line 
+      .pull-down-10 
       = simple_form_for [@user, @recording],  :html => { :id => 'audio_files' }  do |f|
         = render 'shared/recordings/form_content', f: f, user: @user, cancel_path: user_recordings_path(@user), account: @user.account
 

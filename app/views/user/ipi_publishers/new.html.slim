@@ -47,8 +47,8 @@
               
               
               b
-                '* Publishing agreements
-              /= f.collection_select :publishing_agreement_ids, @publishing_agreements, :id, :title, {}, {multiple: true} 
+                '* Revenue stream
+              == render 'shared/popover', identifier: 'The revenue stream defines your share as a publisher, you can add as many streams as you want'
               .chosen-label
                 = f.input :publishing_agreement_id, 
                           collection: @publishing_agreements,

@@ -7,14 +7,17 @@ class User::CommonWorkIpiPublishersController < ApplicationController
   end
 
   def update
-
+    
     @common_work_ipi = CommonWorkIpi.cached_find(params[:id])
     @common_work_ipi.update(common_work_ipi_params)
     
     
     
     if ipi_publisher = @common_work_ipi.ipi_publisher
-      @common_work_ipi.update(publisher_id: ipi_publisher.publisher_id)
+      @common_work_ipi.update(
+        publisher_id: ipi_publisher.publisher_id,
+        publishing_agreement_id: ipi_publisher.publishing_agreement_id 
+      )
     end
     redirect_to user_user_common_work_ipis_path(@user)
   end

@@ -12,11 +12,15 @@
     /    '&nbsp;Download
     .row
       .col-sm-6
-        b Sound file
+        b Original file name:
+        .pull-down-6
+        = recording.original_file_name
         .pull-down-6
         = link_to edit_user_recording_upload_path(user, recording) do
            .btn.btn-default
              'Select from disk
+        .pull-down-10
+        
            
       .col-sm-6
         = f.input :position

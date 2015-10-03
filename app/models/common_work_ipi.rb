@@ -28,12 +28,11 @@ class CommonWorkIpi < ActiveRecord::Base
    
   end
   
-  def publisher_info=(par)
+  def publisher_split
+    if publishing_agreement
+      return publishing_agreement.split
+    end
     
-  end
-  
-  def publisher_info() 
-       
   end
   
   def get_full_name

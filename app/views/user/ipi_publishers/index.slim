@@ -42,12 +42,12 @@
         table class="table table-hover"
           thead
             tr
-              th 
+              th style="width: 70px;"
               th Email
               th Works
               th User
-              th Publishers split 
-              /th Manage
+              th Split 
+              th Revenue stream
           tbody
             - @publisher.ipi_publishers.each do |ipi_publisher|
               - if user = ipi_publisher.user
@@ -83,11 +83,11 @@
                     - else
                       .alert.alert-danger
                         'Connect to revenue strem
-                  /td 
-                  /  - if publishing_agreement
-                  /    = link_to user_user_publisher_publishing_agreement_path(@user, @publisher, publishing_agreement)
-                  /          .btn.btn-default.btn-xs
-                  /            i.fa.fa-pencil&nbsp;Edit
+                  td 
+                    - if publishing_agreement
+                      = link_to user_user_publisher_publishing_agreement_path(@user, @publisher, publishing_agreement)
+                            .btn.btn-default.btn-xs
+                              i.fa.fa-eye&nbsp;Show
               - else      
                 tr
                   td
@@ -111,11 +111,11 @@
                   
                   td 
                   
-                  /td 
-                  /   - if publishing_agreement
-                  /     = link_to user_user_publisher_publishing_agreement_path(@user, @publisher, publishing_agreement)
-                  /           .btn.btn-default.btn-xs
-                  /             i.fa.fa-pencil&nbsp;Edit
+                  td 
+                     - if publishing_agreement
+                       = link_to user_user_publisher_publishing_agreement_path(@user, @publisher, publishing_agreement)
+                             .btn.btn-default.btn-xs
+                               i.fa.fa-eye&nbsp;Show
                       
                      /= link_to user_user_publisher_ipi_publisher_path(@user, @publisher, ipi_publisher), class: 'btn btn-default btn-xs'
                     

@@ -20,8 +20,8 @@
           .help
             .help-text
               h2 
-                b Creations by&nbsp;
-                = @user.full_name
+                b Assign publishers to creations by&nbsp;
+                
             .help-button
               == render 'admin/helps/help', identifier: 'common work credits'
    
@@ -33,6 +33,7 @@
                 '&nbsp;Back
       
       /= render 'user/shared/legal_navigation'
+      h2 = @user.full_name
       .pull-down-10
       .table-responsive
         table class="table table-hover"
@@ -40,8 +41,9 @@
             tr
               th Work
               th Roles
-              th Creators share
+              th Song split
               th Publisher
+              th Publishers share
               th
           tbody
             - @common_work_ipis.each do |common_work_ipi|
@@ -68,6 +70,11 @@
                 td 
                   - if publisher =  common_work_ipi.publisher
                     = publisher.legal_name
+                    
+                td 
+                  - if publisher =  common_work_ipi.publisher
+                    /= debug common_work_ipi.ipi_publisher.publishing_agreement.split
+                    = number_to_percentage(common_work_ipi.publisher_split, precision: 2) 
                 td  
                   .pull-right
                     = link_to edit_user_user_common_work_ipi_publisher_path(@user, common_work_ipi) do
