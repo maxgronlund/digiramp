@@ -16,8 +16,8 @@
           .help
             .help-text
               h2 
-                b Edit legal info for&nbsp;
-                = @publisher.legal_name
+                b Edit legal info for:&nbsp;
+                
             .help-button
               == render 'admin/helps/help', identifier: 'user publisher address'
         .col-sm-3
@@ -27,6 +27,7 @@
                   i.fa.fa-chevron-left
                   '&nbsp;Back
 
+      h2 = @publisher.legal_name
       .pull-down-10
       .digi-box 
         = simple_form_for [:user, @user, @publisher] do |f|
@@ -37,7 +38,7 @@
             .row
               .col-sm-6
                 = f.input :legal_name, label: 'Company name'
-                = f.input :email, hint: 'Use your own email if you are your own publisher'
+                = f.input :email, hint: 'This email is used to link creators to the publisher'
                 /= f.input :personal_publisher, label: "I'm my own publisher", :input_html => { class: 'icheck-me acceptance', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue"     } 
                 /span class="help-block" 
                 /  'Check this if you have your own publishing company or want to create one

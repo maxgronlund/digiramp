@@ -10,14 +10,23 @@
     .container-fluid
       == render 'shared/flash_message'
       == render 'shared/breadcrumbs', breadcrumbs: { links: { 'Dashboard'.to_sym => user_user_control_panel_index_path(@user),
+                                                               publishers: user_user_publishers_path(@user),
                                                                publisher: user_user_publisher_path(@user, @publisher)}}
       .row
-        .col-sm-6
+        .col-sm-9
           .help
             .help-text
-              h2 Edit publishing agreement
+              h2 
+                b Edit revenue stream for:&nbsp;
+                = @publishing_agreement.title
             .help-button
               == render 'admin/helps/help', identifier: 'user edit publishing agreement'
+        .col-sm-3
+          .pull-right.pull-down-10
+            => link_to  user_user_publisher_publishing_agreements_path(@user, @publisher) do
+                .btn.btn-default
+                  i.fa.fa-chevron-left
+                  '&nbsp;Back
 
       .pull-down-10
       = render 'form'

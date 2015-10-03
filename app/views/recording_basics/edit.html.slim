@@ -10,15 +10,16 @@
 
   #page-content-wrapper
     .container-fluid 
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { user:    @user,
+                                                              recordings: user_recordings_path(@user)}}
       /== render 'admin/shared/messages'
-      == render 'recordings/wizard_step', step: 1
       .row
         .col-sm-9
           .help
             .help-text
               h2 
-                b Edit&nbsp;
-                = @recording.title
+                b ℗ Edit master&nbsp;
+                br = @recording.title
             .help-button
               == render 'admin/helps/help', identifier: 'recording basic'
         .col-sm-3
@@ -33,7 +34,7 @@
                 .btn.btn-default
                   '&nbsp;Skip
                   i.fa.fa-chevron-right
-      .pull-down-10
+      == render 'recordings/wizard_step', step: 1
       .digi-box
         = simple_form_for  [@user, @recording ], url: url_for(:action => 'update', :controller => 'recording_basics'), 
                                                  html: { :id => 'recording_artwork' }, 
@@ -41,9 +42,9 @@
         
           == render 'shared/recordings/recording_basics_form', f: f, user: @user, recording: @recording  
       
-      = link_to user_user_common_work_path(@user, @recording.common_work) do
-          .btn.btn-default
-            i.fa.fa-copyright&nbsp;Common work
+      /= link_to user_user_common_work_path(@user, @recording.common_work) do
+      /    .btn.btn-default
+      /      i.fa.fa-copyright&nbsp;Common work
          
         
   == render 'shared/site_footer'  

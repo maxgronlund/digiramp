@@ -1,0 +1,114 @@
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'dashboard' 
+  
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'users/shared/sidebar', selected: 'dashboard'
+  
+  #page-content-wrapper
+    .container-fluid
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { dashboard: user_user_control_panel_index_path(@user),
+                                                             legal: user_user_legal_index_path(@user)} }
+      == render 'shared/flash_message'
+      .row
+        .col-sm-6
+          .help
+            .help-text
+              h2 Masters / recordings
+              
+            .help-button
+              == render 'admin/helps/help', identifier: 'user master recordings'
+        .col-sm-6
+          .pull-right.pull-down-10
+            = link_to new_user_recording_path(current_user) do
+               .btn.btn-warning
+                 i.fa.fa-cloud-upload
+                 '&nbsp;Upload recording
+
+
+
+      .row
+        .col-sm-6
+        .col-sm-6
+          .search-recording
+            = simple_form_for :recording, :url => url_for(:action => 'index', 
+                                                          :controller => 'user/admin_masters'), 
+                                                          :method => 'get',
+                                                          turboboost: true do |f|
+            
+              
+
+              .input-group
+                span class="input-group-addon"
+                  i class= 'fa fa-search'
+                = text_field_tag "query", "", :class => 'search-query form-control',
+                                              :placeholder => 'Search',
+                                              value: params[:query]
+                                              
+
+                .input-group-btn
+                  = f.submit 'Go', class: "btn btn-info"
+                  '&nbsp;
+                  = link_to 'Clear', user_user_admin_masters_path(@user), class: 'btn btn-default'
+      .table-responsive
+        table class="table table-hover"
+          thead
+            tr
+              th
+              th Title
+              th Artist
+              th Common work
+              /th Clearance
+              /
+              /th 
+              /  i.fa.fa-headphones
+              /  '&nbsp;Master
+              /
+              /th 
+              /  .pull-right
+              /    'Clearance
+              //th
+      
+          tbody
+            
+            - @recordings.each do |recording|
+              tr
+                td 
+                  => link_to user_recording_path(@user, recording) do
+                          .btn.btn-default.btn-xs
+                            i.fa.fa-info-circle
+                  => link_to user_user_admin_master_path(@user, recording), 
+                                              data: {:confirm => 'Are you sure?'}, 
+                                              turboboost: true, 
+                                              method: :delete do
+                                    .btn.btn-danger.btn-xs
+                                      i.fa.fa-times
+                                                
+                  => link_to edit_user_recording_basic_path(@user, recording) do
+                        .btn.btn-default.btn-xs  
+                          i.fa.fa-pencil
+                  
+                  = link_to recording.title, user_user_admin_master_path(@user, recording), class: 'btn btn-default btn-xs'
+                  
+                td = recording.artist
+                td 
+                   - if common_work = recording.common_work
+                     = link_to edit_user_user_common_work_path(@user, common_work) do
+                        .btn.btn-default.btn-xs
+                          i.fa.fa-copyright&nbsp;
+                          = common_work.title
+
+
+
+      
+      
+                  
+
+         
+              
+  == render 'shared/site_footer'    
+ 
+
+
+

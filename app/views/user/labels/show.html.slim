@@ -35,43 +35,44 @@
                 .btn.btn-info
                   i.fa.fa-pencil&nbsp;Edit
       .pull-down-10
-      .digi-box 
+
+        
+      .table-responsive
         .row
           .col-sm-6
-            h4 Recording agreements
+            h4 Distribution agreements
           .col-sm-6
             .pull-right.pull-down-6
-              = link_to "New recording agreemen", new_user_user_label_distribution_agreement_path(@user, @label), class: 'btn btn-default'
-        .table-responsive
-          table class="table table-hover"
-            thead
+              = link_to "New distribution agreement", new_user_user_label_distribution_agreement_path(@user, @label), class: 'btn btn-default'
+        table class="table table-hover"
+          thead
+            tr
+              th Title
+              /th Distributor
+              th Distribution fee 
+              th Recordings
+          tbody
+            - @label.distribution_agreements.each do |distribution_agreement|
               tr
-                th Title
-                th Distributor
-                th Distribution fee 
-                th Recordings
-            tbody
-              - @label.distribution_agreements.each do |distribution_agreement|
-                tr
-                  td
-                    => link_to user_user_label_distribution_agreement_path(@user, @label, distribution_agreement), 
-                                        data:  { confirm: 'Are you sure?' }, 
-                                        method: :delete,
-                                        turboboost: true  do
-                      .btn.btn-danger.btn-xs
-                        i.fa.fa-times
-                    => link_to edit_user_user_label_distribution_agreement_path(@user, @label, distribution_agreement) do
-                      .btn.btn-default.btn-xs
-                        i.fa.fa-pencil
-                    = link_to distribution_agreement.title, user_user_label_distribution_agreement_path(@user, @label, distribution_agreement), class: 'btn btn-default btn-xs'
-                  td
-                    - unless distribution_agreement.original_label
-                      - if  distributor = distribution_agreement.distributor
-                        = link_to distributor.title, label_path(distributor), class: 'btn btn-default btn-xs'
-                  td 
-                    - unless distribution_agreement.original_label
-                      = number_to_percentage(distribution_agreement.split, precision: 2)
-                  td = distribution_agreement.recordings.count
+                td
+                  => link_to user_user_label_distribution_agreement_path(@user, @label, distribution_agreement), 
+                                      data:  { confirm: 'Are you sure?' }, 
+                                      method: :delete,
+                                      turboboost: true  do
+                    .btn.btn-danger.btn-xs
+                      i.fa.fa-times
+                  => link_to edit_user_user_label_distribution_agreement_path(@user, @label, distribution_agreement) do
+                    .btn.btn-default.btn-xs
+                      i.fa.fa-pencil
+                  = link_to distribution_agreement.title, user_user_label_distribution_agreement_path(@user, @label, distribution_agreement), class: 'btn btn-default btn-xs'
+                /td
+                /  - unless distribution_agreement.original_label
+                /    - if  distributor = distribution_agreement.distributor
+                /      = link_to distributor.title, label_path(distributor), class: 'btn btn-default btn-xs'
+                td 
+                  - unless distribution_agreement.original_label
+                    = number_to_percentage(distribution_agreement.split, precision: 2)
+                td = distribution_agreement.recordings.count
 
         
       /.digi-box  

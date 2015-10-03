@@ -2,17 +2,18 @@
 /= debug @user_credits
 #wrapper
   .full-width-top
-    == render 'shared/navigationbar', page: 'settings' 
+    == render 'shared/navigationbar', page: 'dashboard' 
   
   
   #sidebar-wrapper
     ul class="sidebar-nav"
-      == render 'users/shared/sidebar', selected: 'settings'
+      == render 'users/shared/sidebar', selected: 'dashboard'
   
   #page-content-wrapper
     .container-fluid
       == render 'shared/breadcrumbs', breadcrumbs: { links: { 'Dashboard'.to_sym => user_user_control_panel_index_path(@user),
                                                               'Recording'.to_sym => user_user_common_work_path(@user, @common_work) }, current: ''}
+      
       .row
         .col-sm-6
           .help
@@ -26,6 +27,7 @@
               .btn.btn-default
                 i.fa.fa-chevron-left
                 '&nbsp;Back
+      == render 'recordings/wizard_step', step: 5
       .pull-down-10
       
       == render 'form'

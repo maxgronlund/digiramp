@@ -1,68 +1,77 @@
 
-.row
-  .col-sm-12
+ul class="wizard-steps"
+  li  style="min-width: 25%; max-width: 25%;" class="#{'active' if step == 1 }"
+    'Basic
+  li  style="min-width: 25%; max-width: 25%;" class="#{'active' if step == 2 }"
+    'Lyrics
+  li  style="min-width: 25%; max-width: 25%;" class="#{'active' if step == 3 }"
+    '℗ Creators
+  li  style="min-width: 25%; max-width: 25%;" class="#{'active' if step == 4 }"
+    '© Masters
+  
 
-    .wizard-steps
-      ul class="wizard-steps"
-      	li data-target="#step1" class="#{'active' if step == 1 } #{'complete' if step > 1 }" style="min-width: 25%; max-width: 25%;"
-          span
-            .step  
-              -if step == 1 
-                '1
-              -else
-                i.fa.fa-check
-          span.title 
-            i.fa.fa-pencil
-            '&nbsp;Basic
-    
-      
-      	li data-target="#step2" class="#{'active' if step == 2 } #{'complete' if step > 2 }"  style="min-width: 25%; max-width: 25%;"
-      		span
-            .step  
-              -if step <= 2 
-                '2
-              -else
-                i.fa.fa-check
-      		span.title 
-            i.fa.fa-comment
-            '&nbsp;Lyrics
-    
-      
-      	li data-target="#step3" class="#{'active' if step == 3 } #{'complete' if step > 3 }"  style="min-width: 25%; max-width: 25%;"
-      		span
-            .step  
-              -if step <= 3 
-                '3
-              -else
-                i.fa.fa-check
-      		span.title 
-            i.fa.fa-users
-            '&nbsp;Creators ©
-    
-      
-      	li data-target="#step4" class="#{'active' if step == 4 } #{'complete' if step > 4 }"  style="min-width: 25%; max-width: 25%;"
-      		span
-            .step  
-              -if step <= 4 
-                '4
-              -else
-                i.fa.fa-check
-      		span.title 
-            i.fa.fa-headphones
-            '&nbsp;Masters ℗
-    
-      
-      	/li data-target="#step3" class="#{'active' if step == 3 } #{'complete' if step > 3 }"  style="min-width: 25%; max-width: 25%;"
-      	/	span
-        /    .step  
-        /      -if step <= 3 
-        /        '3
-        /      -else
-        /        i.fa.fa-check
-      	/	span.title 
-        /    i.fa.fa-users
-        /    '&nbsp;Credits
-    
+    /ul class="nav nav-pills"
+    /  li class="active" role="presentation" style="min-width: 25%; max-width: 25%;"
+    /    'Basic
+    /  li role="presentation" style="min-width: 25%; max-width: 25%;"
+    /    'Lyric
+    /  li role="presentation" style="min-width: 25%; max-width: 25%;"
+    /    'Creators
+/.ro/w
+/  .col-sm-12
+/
+/    .wizard-steps
+/      ul class="wizard-steps"
+/      	li data-target="#step1" class="#{'active' if step == 1 } #{'complete' if step > 1 }" style="min-width: 25%; max-width: 25%;"
+/          span
+/            .step  
+/              -if step == 1 
+/                '1
+/              -else
+/                i.fa.fa-check
+/          span.title 
+/            i.fa.fa-pencil
+/            '&nbsp;Basic
+/    
+/      
+/      	li data-target="#step2" class="#{'active' if step == 2 } #{'complete' if step > 2 }"  style="min-width: 25%; max-width: 25%;"
+/      		span
+/            .step  
+/              -if step <= 2 
+/                '2
+/              -else
+/                i.fa.fa-check
+/      		span.title 
+/            i.fa.fa-comment
+/            '&nbsp;Lyrics
+/    
+/      
+/      	li data-target="#step3" class="#{'active' if step == 3 } #{'complete' if step > 3 }"  style="min-width: 25%; max-width: 25%;"
+/      		span
+/            .step  
+/              -if step <= 3 
+/                '3
+/              -else
+/                i.fa.fa-check
+/      		span.title 
+/            i.fa.fa-users
+/            '&nbsp;Creators ©
+/    
+/      
+/      	li data-target="#step4" class="#{'active' if step == 4 } #{'complete' if step > 4 }"  style="min-width: 25%; max-width: 25%;"
+/      		span
+/            .step  
+/              -if step <= 4 
+/                '4
+/              -else
+/                i.fa.fa-check
+/      		span.title 
+/            i.fa.fa-headphones
+/            '&nbsp;Masters ℗
+/    
+/      
+/
+/    
       
 .row
   .col-sm-12

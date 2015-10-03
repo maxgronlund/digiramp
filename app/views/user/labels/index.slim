@@ -27,17 +27,16 @@
       
       
       .pull-down-10
-      .digi-box 
-        .table-responsive
-          table class="table table-hover"
-            thead
+      .table-responsive
+        table class="table table-hover"
+          thead
+            tr
+              th Title
+              
+          tbody
+            - @labels.to_a.each do |labelx|
               tr
-                th Title
-                
-            tbody
-              - @labels.to_a.each do |labelx|
-                tr
-                  td = link_to labelx.title, user_user_label_path(@user, labelx), class: 'btn btn-default btn-xs'
+                td = link_to labelx.title, user_user_label_path(@user, labelx), class: 'btn btn-default btn-xs'
       
       
                   

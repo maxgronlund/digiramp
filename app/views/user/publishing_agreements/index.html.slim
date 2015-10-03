@@ -17,8 +17,8 @@
           .help
             .help-text
               h2 
-                b Agreements for&nbsp;
-                = @publisher.legal_name
+                b Revenue streams for&nbsp;
+                
 
             .help-button
               == render 'admin/helps/help', identifier: 'user publisher agreements'
@@ -30,42 +30,45 @@
                   '&nbsp;Back
 
             
+      
+      
+      .row
+        .col-sm-9
+          h2 = @publisher.legal_name
+        .col-sm-3.pull-down-10  
+          .pull-right
+            = link_to 'New revenue stream', new_user_user_publisher_publishing_agreement_path(@user, @publisher), class: 'btn btn-default'
 
-      .pull-down-10
-        .row
-          .col-sm-12
-            .pull-right
-              = link_to 'New agreement', new_user_user_publisher_publishing_agreement_path(@user, @publisher), class: 'btn btn-default'
-      .pull-down
       .table-responsive
         table class="table table-hover"
           thead
             tr
               th Title
               th Expiration date
-            
-              th 
-                .pull-right
-                  'Documents
+              th Split
+              th Creators
+              th Documents
              
           tbody
             - @publishing_agreements.each do |publishing_agreement|
               tr
-                td 
-                  = link_to user_user_publisher_publishing_agreement_path(@user, @publisher, publishing_agreement) do
-                        .btn.btn-default.btn-xs
-                          i.fa.fa-file&nbsp;
-                          = publishing_agreement.title
-                
+                td
+                  => link_to edit_user_user_publisher_publishing_agreement_path(@user, @publisher, publishing_agreement)
+                    .btn.btn-default.btn-xs
+                      i.fa.fa-pencil
+                  = publishing_agreement.title
                 td 
                    - if publishing_agreement.expires
                      = publishing_agreement.expiration_date
                    - else
                      'no
+                td = number_to_percentage(publishing_agreement.split, precision: 2)
                 td
-                td 
-                  .pull-right
-                    = publishing_agreement.documents.count
+                td
+                   = link_to user_user_publisher_publishing_agreement_path(@user, @publisher, publishing_agreement) do
+                         .btn.btn-default.btn-xs
+                           i.fa.fa-file&nbsp;Documents
+                           
             
               
   == render 'shared/site_footer'    

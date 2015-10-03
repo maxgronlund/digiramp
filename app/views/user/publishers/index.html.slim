@@ -43,10 +43,12 @@
           tbody
             - @publishers.each do |publisher|
               tr
-                td
+                td style="width: 70px;"
                   
                   -if (publisher.account_id == @user.account.id) || publisher.pending?
-                    = link_to 'Edit', edit_user_user_publisher_legal_info_path(publisher.user, publisher), id: "edit-publisher-#{publisher.id}",class: 'btn btn-default btn-xs'
+                    => link_to edit_user_user_publisher_legal_info_path(publisher.user, publisher), id: "edit-publisher-#{publisher.id}"
+                        .btn.btn-default.btn-xs
+                          i.fa.fa-pencil
                     
                     - if publisher.personal_publisher  
                       .btn.btn-danger.btn-xs disabled="disabled"

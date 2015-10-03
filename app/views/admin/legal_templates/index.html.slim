@@ -27,52 +27,51 @@
             = link_to 'Legal tags', admin_legal_tags_path, class: 'btn btn-default'
 
       .pull-down-10
-      .digi-box
-        .table-responsive
-          table class="table table-hover"
-            thead
+      .table-responsive
+        table class="table table-hover"
+          thead
+            tr
+              th
+              th Title/ Description
+              th Tag
+              th Default signatures
+          tbody
+            - @documents.each do |document|
               tr
-                th
-                th Title/ Description
-                th Tag
-                th Default signatures
-            tbody
-              - @documents.each do |document|
-                tr
-                  td style="min-width: 100px"
-                    => link_to admin_legal_template_path(document.uuid), 
-                          id: "delete-#{document.title.downcase.gsub(' ', '-')}" , 
-                          data: {:confirm => 'Are you sure?'}, 
-                          turboboost: true, 
-                          :method => :delete do
-                      .btn.btn-danger.btn-xs
-                        i.fa.fa-times
-                        
-                    => link_to admin_legal_template_path(document.uuid, :format => 'pdf') do 
-                      .btn.btn-default.btn-xs
-                        i.fa.fa-file-pdf-o
+                td style="min-width: 100px"
+                  => link_to admin_legal_template_path(document.uuid), 
+                        id: "delete-#{document.title.downcase.gsub(' ', '-')}" , 
+                        data: {:confirm => 'Are you sure?'}, 
+                        turboboost: true, 
+                        :method => :delete do
+                    .btn.btn-danger.btn-xs
+                      i.fa.fa-times
                       
-                    = link_to edit_admin_legal_template_path( document.uuid), id: "edit-#{document.title.downcase.gsub(' ', '-')}" do
-                      .btn.btn-default.btn-xs
-                        i.fa.fa-pencil
+                  => link_to admin_legal_template_path(document.uuid, :format => 'pdf') do 
+                    .btn.btn-default.btn-xs
+                      i.fa.fa-file-pdf-o
                     
-                        
-                  td 
-                    .div style="max-width: 480px"
-                      h5 =  document.title
-                      = simple_format document.body
-                   
-                  td =  document.tag
-                  td 
-                    - document.digital_signatures.each do |digital_signature|
-                      b style="text-transform: uppercase;" 
-                        = digital_signature.role
-                      br
+                  = link_to edit_admin_legal_template_path( document.uuid), id: "edit-#{document.title.downcase.gsub(' ', '-')}" do
+                    .btn.btn-default.btn-xs
+                      i.fa.fa-pencil
+                  
+                      
+                td 
+                  .div style="max-width: 480px"
+                    h5 =  document.title
+                    = simple_format document.body
+                 
+                td =  document.tag
+                td 
+                  - document.digital_signatures.each do |digital_signature|
+                    b style="text-transform: uppercase;" 
+                      = digital_signature.role
+                    br
    
-                    .pull-right
-                      => link_to admin_legal_template_path(document.uuid) do 
-                        .btn.btn-default.btn-xs
-                          i.fa.fa-pencil&nbsp;Signatures
+                  .pull-right
+                    => link_to admin_legal_template_path(document.uuid) do 
+                      .btn.btn-default.btn-xs
+                        i.fa.fa-pencil&nbsp;Signatures
 
           
           

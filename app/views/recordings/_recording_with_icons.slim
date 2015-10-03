@@ -59,13 +59,13 @@
           = link_to edit_user_recording_basic_path(recording.user, recording), \
                     class: "btn btn-default"  do
             i class="fa fa-pencil"
-  
+      
           
         - if remove_from_playlist
           = link_to remove_from_playlist_path( @playlist, recording: recording), method: :delete, remote: true, \
                     class: "btn btn-default"  do
             i class="fa fa-times"
-  
+      
           
         - if delete
           = link_to user_recording_path(current_user, recording, public: true), \
@@ -80,12 +80,12 @@
                     remote: true, \
                     class: "btn btn-info"  do
             i class="fa fa-plus-circle"
+      
   
-  
-        - if shop_product = recording.for_sale_in_shop?
-          = link_to shop_product_path( shop_product.id ),class: "btn btn-default" do
-            i.fa.fa-shopping-cart
-            
+      - if shop_product = recording.for_sale_in_shop?
+        = link_to shop_product_path( shop_product.id ),class: "btn btn-default" do
+          i.fa.fa-shopping-cart
+          
     .hidden-xs.btn-group-xs
       / -------------------------------------------------------------------
       / normal size
@@ -150,10 +150,10 @@
   
 
         
-        - if common_work = recording.get_common_work and ((recording.user_id == current_user.id ) || super?)
-          = link_to edit_user_user_common_work_path( recording.user, common_work), 
-                    class: "btn btn-default"  do
-            i class="fa fa-copyright"  
+        /- if common_work = recording.get_common_work and ((recording.user_id == current_user.id ) || super?)
+        /  = link_to edit_user_user_common_work_path( recording.user, common_work), 
+        /            class: "btn btn-default"  do
+        /    i class="fa fa-copyright"  
       -else
         = link_to login_new_path(recording_id: recording.id),  
                   target: target,
@@ -195,14 +195,14 @@
           = link_to edit_user_recording_basic_path(recording.user, recording), \
                     class: "btn btn-default"  do
             i class="fa fa-pencil"
-  
+      
         
         - if remove_from_playlist
           = link_to remove_from_playlist_path( @playlist, recording: recording), method: :delete, remote: true, \
                     class: "btn btn-default"  do
             i class="fa fa-times"
-  
-  
+      
+      
         
         - if delete
           = link_to user_recording_path(recording.user, recording, public: true), \
@@ -212,7 +212,7 @@
                     class: "btn btn-default"  do
             i class="fa fa-trash"
             
-  
+      
           = link_to user_user_recording_transfer_path( recording.user, recording), \
                     class: "btn btn-default"  do
             i class="fa fa-rocket"

@@ -14,25 +14,25 @@
                                                                labels: user_user_labels_path(@user),
                                                                label: user_user_label_path(@user, @label)}}
       == render 'shared/flash_message'
-      .container-fluid
-        .row
-          .col-sm-8
-            .help
-              .help-text
-                h2 = @distribution_agreement.title
-                
-              .help-button
-                == render 'admin/helps/help', identifier: 'user labels'
+
+      .row
+        .col-sm-8
+          .help
+            .help-text
+              h2 = @distribution_agreement.title
+              
+            .help-button
+              == render 'admin/helps/help', identifier: 'user labels'
       
-          .col-sm-4
-            .pull-right.pull-down-10
-              => link_to  user_user_label_path(@user, @label) do
-                  .btn.btn-default
-                    i.fa.fa-chevron-left
-                    '&nbsp;Back
-              = link_to edit_user_user_label_distribution_agreement_path(@user, @label, @distribution_agreement) do
-                .btn.btn-info
-                  i.fa.fa-pencil&nbsp;Edit
+        .col-sm-4
+          .pull-right.pull-down-10
+            => link_to  user_user_label_path(@user, @label) do
+                .btn.btn-default
+                  i.fa.fa-chevron-left
+                  '&nbsp;Back
+            = link_to edit_user_user_label_distribution_agreement_path(@user, @label, @distribution_agreement) do
+              .btn.btn-info
+                i.fa.fa-pencil&nbsp;Edit
       .pull-down-10
       - unless @distribution_agreement.original_label
         .digi-box
@@ -113,44 +113,42 @@
                   /    i.fa.fa-user-plus&nbsp;Add user
                   /
         
-          .sexy_line
-          .row
-            .col-sm-12
-              .table-responsive
-                table class="table table-hover"
-                  thead
-                    tr
-                      th User
-                      th Email
-                      th Role
-                      th Can edit
-                      th Should sign
-                      /th Status
-                  tbody
-                    - document.document_users.each do |document_user|
-                      tr
-                        td
+          
+        .table-responsive
+          table class="table table-hover"
+            thead
+              tr
+                th User
+                th Email
+                th Role
+                th Can edit
+                th Should sign
+                /th Status
+            tbody
+              - document.document_users.each do |document_user|
+                tr
+                  td
 
-                          - if user = document_user.user                          
-                            = user.user_name
-                            br
-                          - unless document_user.digital_signature_id
-                            => link_to user_user_legal_document_legal_document_user_path(@user, document, document_user), data: { confirm: 'Are you sure?' } , 
-                                                            :method => :delete, 
-                                                            turboboost: true do
-                              .btn.btn-danger.btn-xs
-                                i.fa.fa-times
-                            = link_to 'Edit', edit_user_user_legal_document_legal_document_user_path(@user, document.uuid, document_user), class: 'btn btn-default btn-xs'
-                          - else
-                            h5
-                              .label.label-success
-                                'Signed
-                      
-                        td  = document_user.email
-                        td  = document_user.role
-                        td  = document_user.can_edit
-                        td  = document_user.should_sign
-                        /td  = document_user.status
+                    - if user = document_user.user                          
+                      = user.user_name
+                      br
+                    - unless document_user.digital_signature_id
+                      => link_to user_user_legal_document_legal_document_user_path(@user, document, document_user), data: { confirm: 'Are you sure?' } , 
+                                                      :method => :delete, 
+                                                      turboboost: true do
+                        .btn.btn-danger.btn-xs
+                          i.fa.fa-times
+                      = link_to 'Edit', edit_user_user_legal_document_legal_document_user_path(@user, document.uuid, document_user), class: 'btn btn-default btn-xs'
+                    - else
+                      h5
+                        .label.label-success
+                          'Signed
+                
+                  td  = document_user.email
+                  td  = document_user.role
+                  td  = document_user.can_edit
+                  td  = document_user.should_sign
+                  /td  = document_user.status
       
               
                   

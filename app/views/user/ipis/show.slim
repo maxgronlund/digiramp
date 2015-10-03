@@ -2,12 +2,12 @@
 /- blog      = Blog.cached_find('User ipis')
 #wrapper
   .full-width-top
-    == render 'shared/navigationbar', page: 'settings' 
+    == render 'shared/navigationbar', page: 'dashboard' 
   
   
   #sidebar-wrapper
     ul class="sidebar-nav"
-      == render 'users/shared/sidebar', selected: 'settings'
+      == render 'users/shared/sidebar', selected: 'dashboard'
   
   #page-content-wrapper
     .container-fluid

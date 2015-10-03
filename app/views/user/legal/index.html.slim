@@ -8,7 +8,7 @@
   
   #page-content-wrapper
     .container-fluid
-      == render 'shared/breadcrumbs', breadcrumbs: { links: { 'Dashboard'.to_sym => user_user_control_panel_index_path(@user) } }
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { dashboard: user_user_control_panel_index_path(@user) } }
       == render 'shared/flash_message'
       .row
         .col-sm-6
@@ -166,6 +166,33 @@
                 h4 Documents
               .body
                 'Legal documents related to you
+      
+
+          
+        .control-panel-badge
+          = link_to  user_user_unsigned_documents_path(@user) do
+            .content
+              .icon.icon-blue
+                i.fa.fa-pencil
+                
+              .title
+                h4 Pending documents
+              .body
+                'Legal documents waiting for you to sign
+      
+
+          
+        .control-panel-badge
+          = link_to  user_user_admin_masters_path(@user) do
+            .content
+              .icon.icon-blue
+                i.fa.fa-headphones
+                
+              .title
+                h4 Masters
+              .body
+                'Edit and administrate resordings
+         
          
                 
                 

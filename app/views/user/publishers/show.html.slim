@@ -12,15 +12,13 @@
                                                               'publishers'.to_sym => user_user_publishers_path(@user)} }
       == render 'shared/flash_message'
       .row
-        .col-sm-6
+        .col-sm-9
           .help
             .help-text
               h2 = @publisher.legal_name
-              - if @publisher.personal_publisher
-                b Personal publisher 
             .help-button
               == render 'admin/helps/help', identifier: 'user publisher'
-        .col-sm-6
+        .col-sm-3
           .pull-right.pull-down-10
             = link_to  user_user_publishers_path(@user) do
                 .btn.btn-default
@@ -41,14 +39,14 @@
       .row
         .col-sm-12
           .pull-right
+            = link_to user_user_publisher_publishing_agreements_path(@user, @publisher)
+              .btn.btn-info
+                i.fa.fa-money
+                  '&nbsp;Revenue streams
             =< link_to user_user_publisher_ipi_publishers_path(@user, @publisher) 
               .btn.btn-default
                 i.fa.fa-users
                   '&nbsp;Creators
-            =< link_to user_user_publisher_publishing_agreements_path(@user, @publisher)
-              .btn.btn-default
-                i.fa.fa-file
-                  '&nbsp;Agreements
             
               
       /.table-responsive.pull-down-10

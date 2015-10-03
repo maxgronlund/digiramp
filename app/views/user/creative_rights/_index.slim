@@ -26,9 +26,10 @@
             - @common_works.each do |common_work|
               tr
                 td 
-                  = link_to  user_user_common_work_path(@user, common_work) do
+                  => link_to  edit_user_user_common_work_path(@user, common_work) do
                                         .btn.btn-default.btn-xs
-                                          = common_work.title
+                                          i.fa.fa-pencil
+                  = common_work.title
                 td = number_to_percentage(common_work.total_share, precision: 1) 
 
                 td

@@ -9,14 +9,15 @@
   
   #page-content-wrapper
     .container-fluid
-      == render 'recordings/wizard_step', step: 5
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { user:    @user,
+                                                              recordings: user_recordings_path(@user)}}
       .row
         .col-sm-8
           .help
             .help-text
               h2 
-                b ℗ Contributors&nbsp;
-                = @recording.title
+                b ℗ Contributors on the master
+                br = @recording.title
             .help-button
               == render 'admin/helps/help', identifier: 'sound recording copyright'
         .col-sm-4
@@ -27,95 +28,94 @@
                   i.fa.fa-chevron-left
                   '&nbsp;
                   'Back
-              =< link_to edit_user_user_common_work_path(@user, @recording.common_work) do
-                .btn.btn-default
-                  i.fa.fa-copyright
-                  '&nbsp;
-                  'Common work
+              /=< link_to edit_user_user_common_work_path(@user, @recording.common_work) do
+              /  .btn.btn-default
+              /    i.fa.fa-copyright
+              /    '&nbsp;
+              /    'Common work
 
 
-      .row
+
+      == render 'recordings/wizard_step', step: 5
+      .table-responsive
+        .row
+          .col-sm-12
+            .pull-right.pull-down-6
+              div style="display: inline-block;"
+                = link_to new_user_user_recording_recording_ipi_path(@user, @recording) do
+                    .btn.btn-default
+                      i.fa.fa-user-plus&nbsp;Add contributor
+            
+              div  style="display: inline-block;"
+                - if current_user.id == @recording.user_id
+                  - if @recording.recording_ipis.count < 1
+                    =< simple_form_for [ :user, @user, @recording, RecordingIpi.new ], turboboost: true do |f|
+                      = f.hidden_field :recording_id, value: @recording.id
+                      = f.hidden_field :email, value: @user.email
+                      = f.hidden_field :role, value: 'Other'
+                      = f.hidden_field :share, value: 100
+                      = f.hidden_field :distribution_agreement_id, value:  @user.personal_distribution_agreement.id
+                      = f.submit "I'm the only contributor", class: 'btn btn-warning'
+        table class="table table-hover"
+          thead
+            tr
+              th style="max-width: 64px;"
+              th Legal name / Email
+              th Capacity
+              th Arists split
+              th 
+                .pull-right
+                  'Status
+      
+          tbody
+            - @recording.recording_ipis.order(:id).each do |recording_ipi|
+              tr
+                td 
+                  => link_to user_user_recording_recording_ipi_path( @user, @recording, recording_ipi), 
+                      data: {:confirm => 'Are you sure?'}, 
+                      turboboost: true,
+                      method: :delete do
+                    .btn.btn-danger.btn-xs
+                      i.fa.fa-times
+                  => link_to edit_user_user_recording_recording_ipi_path( @user, @recording, recording_ipi) do
+                    .btn.btn-default.btn-xs
+                      i.fa.fa-pencil
+                td 
+                  = recording_ipi.name
+                  br = recording_ipi.email
+                td = recording_ipi.role
+               
+                td = number_to_percentage(recording_ipi.share, precision: 2)
+        
+                td
+                  .pull-right
+                    div class="recording-confirmation-button-#{recording_ipi.id.to_s}"
+                    == render 'user/recording_ipis/confirmation_button', user: @user, recording: @recording, recording_ipi: recording_ipi
+        
+
+      
+      .row.pull-down-10
         .col-sm-12
-
-          .row
-            .col-sm-12
-              .pull-right.pull-down-6
-                div style="display: inline-block;"
-                  = link_to new_user_user_recording_recording_ipi_path(@user, @recording) do
-                      .btn.btn-default
-                        i.fa.fa-user-plus&nbsp;Add contributor
-                
-                div  style="display: inline-block;"
-                  - if current_user.id == @recording.user_id
-                    - if @recording.recording_ipis.count < 1
-                      =< simple_form_for [ :user, @user, @recording, RecordingIpi.new ], turboboost: true do |f|
-                        = f.hidden_field :recording_id, value: @recording.id
-                        = f.hidden_field :email, value: @user.email
-                        = f.hidden_field :role, value: 'Other'
-                        = f.hidden_field :share, value: 100
-                        = f.hidden_field :distribution_agreement_id, value:  @user.personal_distribution_agreement.id
-                        = f.submit "I'm the only contributor", class: 'btn btn-warning' 
-
-          .pull-down-10
-          .table-responsive
-            table class="table table-hover"
-              thead
-                tr
-                  th
-                  th Legal name / Email
-                  th Capacity
-                  th Contributors share
-                  th 
-                    .pull-right
-                      'Status
-          
-              tbody
-                - @recording.recording_ipis.order(:id).each do |recording_ipi|
-                  tr
-                    td 
-                      => link_to user_user_recording_recording_ipi_path( @user, @recording, recording_ipi), 
-                          data: {:confirm => 'Are you sure?'}, 
-                          turboboost: true,
-                          method: :delete do
-                        .btn.btn-danger.btn-xs
-                          i.fa.fa-times
-                      => link_to edit_user_user_recording_recording_ipi_path( @user, @recording, recording_ipi) do
-                        .btn.btn-default.btn-xs
-                          i.fa.fa-pencil
-                    td 
-                      = recording_ipi.name
-                      br = recording_ipi.email
-                    td = recording_ipi.role
-                    td = number_to_percentage(recording_ipi.share, precision: 2)
-            
-                    td
-                      .pull-right
-                        div class="recording-confirmation-button-#{recording_ipi.id.to_s}"
-                        == render 'user/recording_ipis/confirmation_button', user: @user, recording: @recording, recording_ipi: recording_ipi
-            
-
-          
-          .row.pull-down-10
-            .col-sm-6
-              = link_to user_user_common_work_path(@user, @recording.common_work) do
-                  .btn.btn-default
-                    i.fa.fa-copyright&nbsp;Common work
-            .col-sm-6
-              .pull-right
-                - if !@user.is_stripe_connected  && @recording.is_cleared?
-                  = link_to 'Enable payment gateway', user_user_create_shop_index_path(@user), class: 'btn btn-success'
-          
-                - if @user.is_stripe_connected && @recording.is_cleared?
-                  - if product = @recording.product
-                    =< link_to edit_user_user_product_path(@user, product ) do
-                            .btn.btn-success
-                              i.fa.fa-shopping-cart&nbsp;Edit in shop
-                  - else
-                    =< link_to new_user_user_product_path(@user, category: 'recording', recording_id: @recording.id) do
-                            .btn.btn-success
-                              i.fa.fa-shopping-cart&nbsp;Add to shop
-      
-      
+          .pull-right
+            = link_to edit_user_user_common_work_path(@user, @recording.common_work) do
+                .btn.btn-success
+                  i.fa.fa-copyright&nbsp;Common work
+        /.col-sm-6
+        /  .pull-right
+        /    - if !@user.is_stripe_connected  && @recording.is_cleared?
+        /      = link_to 'Enable payment gateway', user_user_create_shop_index_path(@user), class: 'btn btn-success'
+        /
+        /    - if @user.is_stripe_connected && @recording.is_cleared?
+        /      - if product = @recording.product
+        /        =< link_to edit_user_user_product_path(@user, product ) do
+        /                .btn.btn-success
+        /                  i.fa.fa-shopping-cart&nbsp;Edit in shop
+        /      - else
+        /        =< link_to new_user_user_product_path(@user, category: 'recording', recording_id: @recording.id) do
+        /                .btn.btn-success
+        /                  i.fa.fa-shopping-cart&nbsp;Add to shop
+        /
+        /
       
   == render 'shared/site_footer'  
   

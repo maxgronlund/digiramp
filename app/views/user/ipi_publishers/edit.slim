@@ -1,11 +1,11 @@
 #wrapper
   .full-width-top
-    == render 'shared/navigationbar', page: 'settings' 
+    == render 'shared/navigationbar', page: 'dashboard' 
   
   
   #sidebar-wrapper
     ul class="sidebar-nav"
-      == render 'users/shared/sidebar', selected: 'settings'
+      == render 'users/shared/sidebar', selected: 'dashboard'
   
   #page-content-wrapper
     .container-fluid
@@ -18,7 +18,7 @@
           .help
             .help-text
               h2 
-                b Edit agreement for&nbsp;
+                b Edit revenue stream for&nbsp;
                 = @publisher.legal_name
                 '&nbsp;and&nbsp;
                 
@@ -34,20 +34,22 @@
             
   
       .pull-down-10
-      .digi-box
-
-        .row
-          .col-sm-6
+      
+      .row
+        .col-sm-6
+          .digi-box
             = simple_form_for [:user, @user, @publisher, @ipi_publisher], turboboost: true do |f|
               - if user = @ipi_publisher.user
                 .alert.alert-info
                   b This creator is linked to the DigiRAMP user
-                  br = user.get_full_name
-                  br = user.email
+                  .pull-down-4
+                  = "Full name: #{user.get_full_name}"
+                  .pull-down-4
+                  = "Email    : #{user.email}"
               - else
                 b 
                   '*Email
-                == render 'shared/popover', identifier: 'The email used to link this agreement to a persona '
+                == render 'shared/popover', identifier: 'A revenue stream takes the publishers split and sent the remainding to the creator '
                 .pull-down-6
                 = f.input :email, label: false
               
@@ -56,8 +58,8 @@
               
               
               b 
-                '*Creators publishing agreement
-              == render 'shared/popover', identifier: 'Select the agreement that is used for this persona'
+                '*Revenue stream
+              == render 'shared/popover', identifier: 'Select the revenue stream for this creator'
               .chosen-label.pull-down-6
                 = f.input :publishing_agreement_id, 
                           collection: @publishing_agreements,
@@ -69,9 +71,9 @@
                 .col-sm-12
                   .pull-right
                     = f.submit 'Save', class: 'btn btn-info'
-                                                                  
-                                                                  
-  
+                                                                    
+                                                                    
+            
   
 
 

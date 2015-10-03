@@ -1,19 +1,32 @@
-#wrap
+#wrapper
   .full-width-top
-    == render 'shared/navigationbar', page: 'account' 
-       
-  .container
-    .row
-      .col-sm-3
-      .col-sm-6
-        - if current_user
-          .alert.alert-info
-            h4 Seems like you'r already signed up and signed in
-        -else
+    == render 'shared/navigationbar', page: 'home' 
+  
+
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'users/shared/sidebar', selected: 'recordings'
+
+  #page-content-wrapper
+    .container-fluid  
+      ==render 'admin/shared/messages'
+      .row
+        .col-sm-6   
+          h3 Sign up
+        .col-sm-6
+          .pull-right
+            .recording-navigation
+              => link_to root_path do
+                .btn.btn-default
+                  i.fa.fa-chevron-left
+                  '&nbsp;
+                  'Back
+                  
+      .pull-down-10
+      .row
+        .col-sm-6
           .digi-box
-            ==render 'admin/shared/messages'
-            
-            = simple_form_for [@user] do |f|
+            = simple_form_for [User.new] do |f|
               - unless f.error_notification.blank?
                 = f.error_notification
             
@@ -29,7 +42,7 @@
                 .row.pull-down-10
                   .col-sm-12
                     .pull-right
-                      = f.submit 'Save', class: 'btn btn-info', id: 'commit-form'
+                      = f.submit 'Sign up', class: 'btn btn-info', id: 'commit-form'
                       coffee:
                         $("form#new_user").submit ->
                           $(this).find('input[type=submit]').attr('disabled', 'disabled')
@@ -39,15 +52,68 @@
                 .col-sm-12
                   .sexy_line
                   == render 'users/shared/social_signup'
-                  
-          
-          
-  == render 'shared/site_footer'
 
 
 
-
-
+/#wrapper
+/  .full-width-top
+/    /== render 'shared/navigationbar', page: 'home' 
+/  
+/
+/  #sidebar-wrapper
+/    ul class="sidebar-nav"
+/      /== render 'users/shared/sidebar', selected: 'recordings'
+/
+/  #page-content-wrapper
+/    .container-fluid  
+/      ==render 'admin/shared/messages'
+/      .row
+/        .col-sm-6   
+/          h3 Login
+/        .col-sm-6
+/          .pull-right
+/            .recording-navigation
+/              => link_to root_path do
+/                .btn.btn-default
+/                  i.fa.fa-chevron-left
+/                  '&nbsp;
+/                  'Back
+/                  
+/      .pull-down-10
+/          
+/       = simple_form_for [@user] do |f|
+/         - unless f.error_notification.blank?
+/           = f.error_notification
+/       
+/         .form-inputs
+/           = f.input :user_name, label: 'Display Name',  hint: 'This name will be displayed on the profile.', autofocus: true
+/           = f.input :email
+/           = f.input :password
+/           = f.input :password_confirmation
+/           - if Rails.env.production?
+/             = recaptcha_tags
+/       
+/         .form-actions
+/           .row.pull-down-10
+/             .col-sm-12
+/               .pull-right
+/                 = f.submit 'Save', class: 'btn btn-info', id: 'commit-form'
+/                 coffee:
+/                   $("form#new_user").submit ->
+/                     $(this).find('input[type=submit]').attr('disabled', 'disabled')
+/                     $(this).find('input[type=submit]').val "Updating, please wait ..."
+/         
+/         .row.pull-down-6
+/           .col-sm-12
+/             .sexy_line
+/             == render 'users/shared/social_signup'
+/             
+/        
+/          
+/  == render 'shared/site_footer'
+/
+/
+/
 
 
 

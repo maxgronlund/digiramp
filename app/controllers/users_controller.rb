@@ -129,7 +129,19 @@ class UsersController < ApplicationController
   end
 
   def new
-    @user = User.new
+    #redirect_to user_path(current_user) if current_user
+    #if params[:recording_id]
+    #  session[:share_recording_id] = params[:recording_id]
+    #else
+    #  session[:share_recording_id] = nil
+    #end
+    #@user = User.new
+    redirect_to user_path(current_user) if current_user
+    if params[:recording_id]
+      session[:share_recording_id] = params[:recording_id]
+    else
+      session[:share_recording_id] = nil
+    end
   end
 
   def edit

@@ -24,7 +24,7 @@ class User::PublishingAgreementsController < ApplicationController
     end
     
     @publisher            = Publisher.cached_find(params[:publisher_id])
-    @publishing_agreement = PublishingAgreement.new(title: "Between #{@publisher.legal_name } and xxx")
+    @publishing_agreement = PublishingAgreement.new
     
   end
 

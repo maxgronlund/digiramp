@@ -1,11 +1,5 @@
 Digiramp::Application.routes.draw do
 
-
-
-  
-
-
- 
   resources :labels
  
   namespace :user do
@@ -782,12 +776,14 @@ Digiramp::Application.routes.draw do
     resources :checking_accounts
     resources :social_links, only: [:edit, :update]
     
+    
     #resources :common_work_lyrics
     resources :users do
       
       resources :accounts, only: [:index]
       resources :add_contacts_by_emails, only: [:create]
       #resources :deleted_messages, only: [:index, :update, :destroy]
+      resources :admin_masters
       resources :digital_signatures
       resources :downloads, only: [:index]
       

@@ -13,15 +13,15 @@
 
   #page-content-wrapper
     .container-fluid 
-      
-      == render 'recordings/wizard_step', step: 3
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { user:    @user,
+                                                              recordings: user_recordings_path(@user)}}
       .row
         .col-sm-9
           .help
             .help-text
               h2 
-                b Lyrics&nbsp;
-                = @recording.title
+                b ℗ Lyrics for the master
+                br = @recording.title
             .help-button
               == render 'admin/helps/help', identifier: 'recording lyrics'
         .col-sm-3
@@ -38,16 +38,17 @@
                   'Skip
                   '&nbsp;
                   i.fa.fa-chevron-right
-      .pull-down-10
+
+      == render 'recordings/wizard_step', step: 3
       .digi-box
         = simple_form_for  [@user, @recording ], turboboost: true , :url => url_for(:action => 'update', :controller => 'recording_lyrics'), 
                                                  :method => 'put' do |f|
            
            == render 'shared/recordings/recording_lyrics_form', f: f
 
-      = link_to user_user_common_work_path(@user, @recording.common_work) do
-          .btn.btn-default
-            i.fa.fa-copyright&nbsp;Common work      
+      /= link_to user_user_common_work_path(@user, @recording.common_work) do
+      /    .btn.btn-default
+      /      i.fa.fa-copyright&nbsp;Common work      
         
   == render 'shared/site_footer'  
 == render 'shared/init_wysiwyg5'

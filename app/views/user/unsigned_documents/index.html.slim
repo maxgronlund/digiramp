@@ -10,16 +10,16 @@
   
   #page-content-wrapper
     .container-fluid
-      /== render 'shared/breadcrumbs', breadcrumbs: { links: { 'Dashboard'.to_sym => user_user_control_panel_index_path(@user), 
-      /                                                        'legal'.to_sym => user_user_legal_documents_path(@user)} }
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { dashboard: user_user_control_panel_index_path(@user), 
+                                                              legal: user_user_legal_documents_path(@user)} }
       == render 'shared/flash_message'
       .row
         .col-sm-12
           .help
             .help-text
               h2 
-                b Unsigned documents for&nbsp;
-                = @user.get_full_name
+                b Pending documents for&nbsp;
+                br = @user.get_full_name
             .help-button
               == render 'admin/helps/help', identifier: 'unsigned document'
 

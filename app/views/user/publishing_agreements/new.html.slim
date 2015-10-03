@@ -17,11 +17,17 @@
           .help
             .help-text
               h2
-                b New publishing agreement by&nbsp;
-                = @publisher.legal_name
+                b New revenue stream for:&nbsp;
+                
             .help-button
               == render 'admin/helps/help', identifier: 'user new publishing agreement'
         .col-sm-3
+          .pull-right.pull-down-10
+            => link_to  user_user_publisher_publishing_agreements_path(@user, @publisher) do
+                .btn.btn-default
+                  i.fa.fa-chevron-left
+                  '&nbsp;Back
+      h2 = @publisher.legal_name
       .pull-down-10
       = render 'form'
       /= simple_form_for [:user, @user, @publisher, @publishing_agreement], turboboost: true do |f|

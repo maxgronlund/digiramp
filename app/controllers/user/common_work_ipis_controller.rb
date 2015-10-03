@@ -32,7 +32,7 @@ class User::CommonWorkIpisController < ApplicationController
 
   def new
     @common_work        = CommonWork.cached_find(params[:common_work_id])
-    @common_work_ipi    = CommonWorkIpi.new
+    @common_work_ipi    = CommonWorkIpi.new(share: 0)
     @publishing_agreements = @user.publishing_agreements
   end
   

@@ -17,8 +17,8 @@
           .help
             .help-text
               h2
-                b Creators published by&nbsp;
-                = @publisher.legal_name
+                b Creators published by:
+                
 
             .help-button
               == render 'admin/helps/help', identifier: 'creators published by publisher'
@@ -29,8 +29,10 @@
                   i.fa.fa-chevron-left
                   '&nbsp;Back
 
-      .row.pull-down-10
-        .col-sm-12
+      .row
+        .col-sm-9
+          h2 = @publisher.legal_name
+        .col-sm-3.pull-down-10
           .pull-right
             = link_to new_user_user_publisher_ipi_publisher_path(@user, @publisher) do
               .btn.btn-default
@@ -44,75 +46,77 @@
               th Email
               th Works
               th User
-              th
-              th 
-                .pull-right
-                  'Agreement
+              th Publishers split 
+              /th Manage
           tbody
             - @publisher.ipi_publishers.each do |ipi_publisher|
               - if user = ipi_publisher.user
+                - publishing_agreement = ipi_publisher.publishing_agreement
                 tr
-                   td
-                     
-                     => link_to user_user_publisher_ipi_publisher_path(@user, @publisher, ipi_publisher), 
-                       method: :delete,
-                       data: {confirm: 'Are you sure?'},
-                       turboboost: true do
-                         .btn.btn-danger.btn-xs
-                           i.fa.fa-times
-                     => link_to edit_user_user_publisher_ipi_publisher_path(@user, @publisher, ipi_publisher)
-                         .btn.btn-default.btn-xs
-                           i.fa.fa-pencil
-                   td = user.email
-                   td 
-                     => link_to user_user_publisher_ipi_publisher_path(@user, @publisher, ipi_publisher)
-                               .btn.btn-default.btn-xs
-                                 i.fa.fa-copyright&nbsp;Works
-                     
-                   
-                   td 
-                     = link_to user do
-                       .btn.btn-default.btn-xs
-                         i.fa.fa-user&nbsp;
-                         = user.get_full_name
-                   td 
-                     .pull-right
-                        - if publishing_agreement = ipi_publisher.publishing_agreement
-                          = link_to user_user_publisher_publishing_agreement_path(@user, @publisher, publishing_agreement)
-                                .btn.btn-default.btn-xs
-                                  i.fa.fa-file&nbsp;
-                                  = publishing_agreement.title
+                  td
+                    
+                    => link_to user_user_publisher_ipi_publisher_path(@user, @publisher, ipi_publisher), 
+                      method: :delete,
+                      data: {confirm: 'Are you sure?'},
+                      turboboost: true do
+                        .btn.btn-danger.btn-xs
+                          i.fa.fa-times
+                    => link_to edit_user_user_publisher_ipi_publisher_path(@user, @publisher, ipi_publisher)
+                        .btn.btn-default.btn-xs
+                          i.fa.fa-pencil
+                  td = user.email
+                  td 
+                    => link_to user_user_publisher_ipi_publisher_path(@user, @publisher, ipi_publisher)
+                              .btn.btn-default.btn-xs
+                                i.fa.fa-copyright&nbsp;Works
+                    
+                  
+                  td 
+                    = link_to user do
+                      .btn.btn-default.btn-xs
+                        i.fa.fa-user&nbsp;
+                        = user.get_full_name
+                  
+                  td
+                    - if publishing_agreement
+                      = number_to_percentage(publishing_agreement.split, precision: 2)
+                    - else
+                      .alert.alert-danger
+                        'Connect to revenue strem
+                  /td 
+                  /  - if publishing_agreement
+                  /    = link_to user_user_publisher_publishing_agreement_path(@user, @publisher, publishing_agreement)
+                  /          .btn.btn-default.btn-xs
+                  /            i.fa.fa-pencil&nbsp;Edit
               - else      
                 tr
-                   td
-                     => link_to user_user_publisher_ipi_publisher_path(@user, @publisher, ipi_publisher), 
-                       method: :delete,
-                       data: {confirm: 'Are you sure?'},
-                       turboboost: true do
-                         .btn.btn-danger.btn-xs
-                           i.fa.fa-times 
-                     => link_to edit_user_user_publisher_ipi_publisher_path(@user, @publisher, ipi_publisher)
-                         .btn.btn-default.btn-xs
-                           i.fa.fa-pencil
-                           
-                   td = ipi_publisher.email
-                   td 
-                     = link_to user_user_publisher_ipi_publisher_path(@user, @publisher, ipi_publisher)
-                           .btn.btn-default.btn-xs
-                             i.fa.fa-copyright&nbsp;Show
-                               
-                   /td = link_to 'Resend confirmation email', '#', class: 'btn btn-default btn-xs'
-                   
-                   td 
-                   td
-                   td 
-                     .pull-right
-                        - if publishing_agreement = ipi_publisher.publishing_agreement
-                          = link_to user_user_publisher_publishing_agreement_path(@user, @publisher, publishing_agreement)
-                                .btn.btn-default.btn-xs
-                                  i.fa.fa-file&nbsp;
-                                  = publishing_agreement.title
-                     
+                  td
+                    => link_to user_user_publisher_ipi_publisher_path(@user, @publisher, ipi_publisher), 
+                      method: :delete,
+                      data: {confirm: 'Are you sure?'},
+                      turboboost: true do
+                        .btn.btn-danger.btn-xs
+                          i.fa.fa-times 
+                    => link_to edit_user_user_publisher_ipi_publisher_path(@user, @publisher, ipi_publisher)
+                        .btn.btn-default.btn-xs
+                          i.fa.fa-pencil
+                          
+                  td = ipi_publisher.email
+                  td 
+                    = link_to user_user_publisher_ipi_publisher_path(@user, @publisher, ipi_publisher)
+                          .btn.btn-default.btn-xs
+                            i.fa.fa-copyright&nbsp;Show
+                              
+                  /td = link_to 'Resend confirmation email', '#', class: 'btn btn-default btn-xs'
+                  
+                  td 
+                  
+                  /td 
+                  /   - if publishing_agreement
+                  /     = link_to user_user_publisher_publishing_agreement_path(@user, @publisher, publishing_agreement)
+                  /           .btn.btn-default.btn-xs
+                  /             i.fa.fa-pencil&nbsp;Edit
+                      
                      /= link_to user_user_publisher_ipi_publisher_path(@user, @publisher, ipi_publisher), class: 'btn btn-default btn-xs'
                     
       /.row.pull-down-10
