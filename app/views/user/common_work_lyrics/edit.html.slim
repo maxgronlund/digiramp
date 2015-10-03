@@ -49,7 +49,7 @@
       .pull-down-10
       == render 'user/common_works/wizard_step', step: 2
       .row
-        .col-sm-12
+        .col-sm-8
           .digi-box
             = simple_form_for [ @common_work.account.user, @common_work], 
                                 turboboost: true,
@@ -63,7 +63,7 @@
                 .pull-right
                   a data-wysihtml5-action="change_view"  Html 
               
-              =f.input :lyrics, label: false, :input_html => {  style: "height: 549px;", placeholder: "Lyrics", id: 'wysihtml5_editor'}, autofocus: true
+              =f.input :lyrics, label: false, :input_html => {  style: "height: 360px;", placeholder: "Lyrics", id: 'wysihtml5_editor'}
                   
               .row
                 .col-sm-12

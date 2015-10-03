@@ -71,7 +71,7 @@ class RecordingBasicsController < ApplicationController
     if @recording.privacy == 'Only people I choose'
       redirect_to user_user_recording_recording_users_path(@user, @recording)
     else
-      redirect_to edit_user_recording_lyric_path( @user, @recording )
+      redirect_to edit_user_recording_tag_path( @user, @recording )
     end
 
   end

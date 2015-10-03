@@ -30,7 +30,8 @@
               /    i.fa.fa-times
               /    '&nbsp;Cancel
                   
-              = link_to edit_user_recording_lyric_path(@user, @recording) do
+              /= link_to edit_user_recording_lyric_path(@user, @recording) do
+              = link_to edit_user_recording_tag_path(@user, @recording) do
                 .btn.btn-default
                   '&nbsp;Skip
                   i.fa.fa-chevron-right

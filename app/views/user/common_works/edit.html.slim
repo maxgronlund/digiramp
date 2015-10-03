@@ -48,78 +48,22 @@
         = simple_form_for [ :user, @common_work.account.user, @common_work], turboboost: true do |f|
           .row
             .col-sm-6
-              
-              /= f.hidden_field :recording_id, value: @recording.id
-              
-              
-
-               
               = f.input :title, :input_html => {  style: " width: 100%;", placeholder: "Title"}
-              = f.input :alternative_titles, :input_html => {  style: "height: 60px;", placeholder: "Alternative Titles"}
               = f.input :description, :input_html => {  style: "height: 120px;", placeholder: "Description"}
-              
-              
-                  
-                  
-            
+
 
             .col-sm-6
-              
-              .row.pull-down-10
-                .col-sm-6
-                  b
-                    'ISWC Code
-                  == render 'shared/popover', identifier: 'International Standard Musical Work Code'
-                  = f.input :iswc_code, label: false,:input_html => {  placeholder: "International Standard Musical Work Code"}
-                .col-sm-6
-                  = f.input :surveyed_work
-              .row
-                .col-sm-6
-                  = f.input :last_distribution
-                .col-sm-6
-                  = f.input :work_status
-              .row
-                .col-sm-6
-                  /= f.input :ascap_award_winner
-                .col-sm-6
-                  = f.input :work_type
-              .row
-                .col-sm-12
-                  = f.input :arrangement, label: 'Arrangement of public domain work',  :input_html => { class: 'icheck-me', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue"     }
-              /.row
-              /  .col-sm-6
-              /     = f.input :bmi_work_id
-              /  .col-sm-6
-              /    = f.input :bmi_catalog
-              /.row
-              /  .col-sm-6
-              /    = f.input :registration_origin, hint: 'fo'
-              /  .col-sm-6
-              /    = f.input :registration_date
-                  
-                  
-              /.row
-              /  .col-sm-6
-              /    
-              /    = f.input :pro_catalog
-              /  .col-sm-6
-              /    = f.input :pro_work_id
-                  
-                  
-              /.row
-              /  .col-sm-6
-              /     
-              /     = f.input :submitter_work_id
-              /  .col-sm-6
-              /    
-             
-              /= f.input :arrangement, label: 'Arrangement of public domain work'
-              /= f.input :genre
-              
-              
-              
-              
-              
+              = f.input :alternative_titles, :input_html => {  style: "height: 60px;", placeholder: "Alternative Titles"}
+              .pull-down-10
+
+              b
+                'ISWC Code
+              == render 'shared/popover', identifier: 'International Standard Musical Work Code'
+              = f.input :iswc_code, label: false,:input_html => {  placeholder: "International Standard Musical Work Code"}
+              .pull-down-10
+              == render 'shared/popover', identifier: 'Arrangement of public domain work'
+              = f.input :arrangement, label: 'Arrangement of public domain work',  :input_html => { class: 'icheck-me', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue"     }
+
           .row
             .col-sm-12
               .pull-right

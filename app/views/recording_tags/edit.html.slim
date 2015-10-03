@@ -20,7 +20,7 @@
           .help
             .help-text
               h2 
-                b ℗ Tags for the master
+                b ℗ Metadata for the master
                 br = @recording.title
             .help-button
               == render 'admin/helps/help', identifier: 'recording tags'
@@ -28,7 +28,7 @@
         .col-sm-3
           .pull-right
             .recording-navigation
-              => link_to edit_user_recording_lyric_path(@user, @recording) do
+              => link_to edit_user_recording_basic_path(@user, @recording) do
                 .btn.btn-default
                   i.fa.fa-chevron-left
                   '&nbsp;
