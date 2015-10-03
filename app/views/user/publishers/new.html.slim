@@ -39,7 +39,11 @@
                 = f.hidden_field :user_id, value: @user.id
                 = f.hidden_field :personal_publisher, value: false
         
-                = f.input :email, :hint => "Publishers email"
+                /b 
+                / '*Distribution agreement
+                /== render 'shared/popover', identifier: 'Select the distribution agreement this recording is sold under'
+                /.pull-down-6
+                /= f.input :ipi_code, label: false, :hint => "Leve blank if you don't know"
         
                 - unless @publisher.personal_publisher
                   = f.input :show_on_public_page, input_html: { class: 'icheck-me acceptance', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue" }
@@ -47,6 +51,7 @@
                   span.help-block Make this publisher avaliable to the public
 
               .col-sm-6
+                = f.input :email, :hint => "Publishers email"
                 = f.input :legal_name, :hint => "Publishers legal name"
           .form-actions
             .row

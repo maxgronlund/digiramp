@@ -8,7 +8,8 @@
   
   #page-content-wrapper
     .container-fluid
-      == render 'shared/breadcrumbs', breadcrumbs: { links: { 'Dashboard'.to_sym => user_user_control_panel_index_path(@user) } }
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { dashboard: user_user_control_panel_index_path(@user),
+                                                             legal: user_user_legal_index_path(@user)} }
       == render 'shared/flash_message'
       .row
         .col-sm-6
@@ -19,7 +20,7 @@
             .help-button
               == render 'admin/helps/help', identifier: 'user legal information'
 
-      = render 'user/shared/legal_navigation'
+      /= render 'user/shared/legal_navigation'
       .digi-box
         = simple_form_for [:user, @user], turboboost: true do |f|
           
@@ -35,12 +36,12 @@
                   = address_form.input :last_name
                   
                   
-                  b Personal publishers IPI code
-                  == render 'shared/popover', identifier: 'Your Personal publishers IPI code (Interested party information) is a unique identifying number assigned by the CISAC database'
-                  .pull-down-6
-                  = f.input :personal_publisher_ipi_code, label: false
+                  /b Personal publishers IPI code
+                  /== render 'shared/popover', identifier: 'Your Personal publishers IPI code (Interested party information) is a unique identifying number assigned by the CISAC database'
+                  /.pull-down-6
+                  /= f.input :personal_publisher_ipi_code, label: false
                   
-                  b IPI code
+                  b Personal IPI code
                   == render 'shared/popover', identifier: 'Tiyr IPI code (Interested party information) is a unique identifying number assigned by the CISAC database'
                   .pull-down-6
                   = f.input :ipi_code, label: false
@@ -69,7 +70,48 @@
                     = f.submit 'Save', class: 'btn btn-info'
                 
             
-            
+
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
                   
 
          

@@ -21,7 +21,7 @@
             .help-text
               h2 
                 b Assign publishers to creations by&nbsp;
-                
+                br = @user.full_name
             .help-button
               == render 'admin/helps/help', identifier: 'common work credits'
    
@@ -32,9 +32,7 @@
                 i.fa.fa-chevron-left
                 '&nbsp;Back
       
-      /= render 'user/shared/legal_navigation'
-      h2 = @user.full_name
-      .pull-down-10
+
       .table-responsive
         table class="table table-hover"
           thead

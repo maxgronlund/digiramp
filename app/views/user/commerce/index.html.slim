@@ -37,7 +37,7 @@
               - shop_link = @user.is_stripe_connected ? user_user_shop_admin_index_path(@user) : user_user_create_shop_index_path(@user)
               = link_to  shop_link, id: 'shop-administration' do
                 .content
-                  .icon.icon-red
+                  .icon.icon-blue
                     i.fa.fa-shopping-cart
                   .title
                     h4 Shop administration
@@ -47,7 +47,7 @@
             .control-panel-badge
               = link_to  user_user_payouts_path(@user) do
                 .content
-                  .icon.icon-red
+                  .icon.icon-blue
                     i.fa.fa-money
                   .title
                     h4 Payments
@@ -57,7 +57,7 @@
             .control-panel-badge
               = link_to  user_user_revenue_streams_path(@user) do
                 .content
-                  .icon.icon-red
+                  .icon.icon-blue
                     i.fa.fa-money
                   .title
                     h4 Revenue streams
@@ -68,7 +68,7 @@
             .control-panel-badge
               = link_to  user_user_special_offer_index_path(@user) do
                 .content
-                  .icon.icon-green
+                  .icon.icon-blue
                     i.fa.fa-shopping-cart
                     
                   .title
@@ -79,7 +79,7 @@
             .control-panel-badge
               = link_to  user_user_purchases_path(@user) do
                 .content
-                  .icon.icon-green
+                  .icon.icon-blue
                     i.fa.fa-shopping-cart
                     
                   .title
@@ -90,18 +90,18 @@
             .control-panel-badge
               = link_to  user_user_publishers_path(@user) do
                 .content
-                  .icon.icon-green
+                  .icon.icon-blue
                     i.fa.fa-truck
                     
                   .title
                     h4 Publishing
                   .body
-                    'Publishers used for rights management
+                    'Works I publish on behalf of creators
                     
             .control-panel-badge
               = link_to  user_user_labels_path(@user) do
                 .content
-                  .icon.icon-yellow
+                  .icon.icon-blue
                     i.fa.fa-book
                     
                   .title

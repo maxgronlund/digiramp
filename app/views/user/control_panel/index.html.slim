@@ -15,7 +15,8 @@
           .col-sm-12
             .help
               .help-text
-                h2 Dashboard
+                h2 
+                  b Dashboard
               .help-button
                 == render 'admin/helps/help', identifier: 'user dashboard'
       
@@ -30,10 +31,10 @@
               = link_to user_user_contacts_path(@user), id: 'user_contacts' do
                 .content
                   .icon-box
-                    .icon.icon-green
+                    .icon.icon-blue
                       i.fa.fa-list-ul
                     
-                  .title.title-green
+                  .title
                     h4 
                       'Contacts
                       br
@@ -67,7 +68,7 @@
             .control-panel-badge
               = link_to user_user_catalogs_path(@user) do
                 .content
-                  .icon.icon-dr-blue
+                  .icon.icon-blue
                     i.fa.fa-book
                     
                   .title
@@ -76,7 +77,7 @@
             .control-panel-badge
               = link_to user_user_campaigns_path(@user) do
                 .content
-                  .icon.icon-yellow
+                  .icon.icon-blue
                     i.fa.fa-envelope
                     
                   .title
@@ -87,7 +88,7 @@
             .control-panel-badge
               = link_to  user_user_cms_pages_path(@user) do
                 .content
-                  .icon.icon-purpel
+                  .icon.icon-blue
                     i.fa.fa-share-alt
                     
                   .title
@@ -124,7 +125,7 @@
             .control-panel-badge
               = link_to  user_user_user_positions_path(@user) do
                 .content
-                  .icon.icon-dr-blue
+                  .icon.icon-blue
                     i.fa.fa-university
                     
                   .title
@@ -135,7 +136,7 @@
             .control-panel-badge
               = link_to  user_user_user_emails_path(@user) do
                 .content
-                  .icon.icon-gray
+                  .icon.icon-blue
                     i.fa.fa-at
                     
                   .title
@@ -168,7 +169,7 @@
             .control-panel-badge
               = link_to  user_user_accounts_path(@user) do
                 .content
-                  .icon.icon-purpel
+                  .icon.icon-blue
                     i.fa.fa-home
                     
                   .title
@@ -180,7 +181,7 @@
             .control-panel-badge
               = link_to  user_user_subscriptions_path(@user) do
                 .content
-                  .icon.icon-dr-blue
+                  .icon.icon-blue
                     i.fa.fa-trophy
                     
                   .title
@@ -192,7 +193,7 @@
               
               = link_to  user_user_commerce_index_path(@user), id: 'commerce' do
                 .content
-                  .icon.icon-red
+                  .icon.icon-blue
                     i.fa.fa-money
                   .title
                     h4 Commerce engine
@@ -245,7 +246,7 @@
             .control-panel-badge
               = link_to  user_user_creative_projects_path(@user) do
                 .content
-                  .icon.icon-dr-blue
+                  .icon.icon-blue
                     i.fa.fa-exchange
                     
                   .title
@@ -256,7 +257,7 @@
             .control-panel-badge
               = link_to  user_user_legal_index_path(@user) do
                 .content
-                  .icon.icon-red
+                  .icon.icon-blue
                     i.fa.fa-gavel
                     
                   .title
