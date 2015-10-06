@@ -29,7 +29,7 @@
                   i class= 'fa fa-search'
                 = text_field_tag "query", "", :class => 'search-query form-control', \
                                               :placeholder => 'Search for opportunities', \
-                                              value: params[:query], autofocus: true
+                                              value: params[:query]
                 .input-group-btn
                   = f.submit 'Go', class: "btn btn-info"
                   '&nbsp;
