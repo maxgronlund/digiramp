@@ -14,7 +14,7 @@
       
       .products.pull-down-10
         - @products.each do |product|
-          == render 'shop/products/shared/badge', product: product, link_to_product: user_product_path(@user, product)
+          == render 'shop/products/shared/badge', product: product, link_to_product: user_product_path(product.user, product)
         /- @products.find_in_batches( batch_size: 4) do |product|
         /  /== render 'shop/products/shared/badge', product: product, link_to_product: user_product_path(@user, product)
         /  .row
