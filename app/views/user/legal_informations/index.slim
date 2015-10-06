@@ -19,6 +19,12 @@
               
             .help-button
               == render 'admin/helps/help', identifier: 'user legal information'
+        .col-sm-6
+          .pull-right.pull-down-10
+            => link_to  user_user_legal_index_path(@user) do
+                  .btn.btn-default
+                    i.fa.fa-chevron-left
+                    '&nbsp;Back
 
       /= render 'user/shared/legal_navigation'
       .digi-box
@@ -44,9 +50,15 @@
                   b Personal IPI code
                   == render 'shared/popover', identifier: 'Tiyr IPI code (Interested party information) is a unique identifying number assigned by the CISAC database'
                   .pull-down-6
-                  = f.input :ipi_code, label: false
+                  = f.input :ipi_code, label: false, placeholder: 'Optional', hint: "Leave blank if you don't know"
                   
-                  = f.input :pro_affiliation, collection: ProAffiliation.order(:title), value_method: :id, include_blank: true, label: 'Performance Rights Organization'
+                  = f.input \
+                    :pro_affiliation, 
+                    collection: ProAffiliation.order(:title), 
+                    value_method: :id, 
+                    include_blank: true, 
+                    label: 'Performance Rights Organization',
+                    hint: "Leave blank if you don't know"
                   
                   
                 .col-sm-6

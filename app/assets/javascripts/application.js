@@ -75,6 +75,7 @@
 // require jquery.tokeninput
 //= require chosen-jquery
 //= require chosen-init
+//= require user/personal_publishers
 // require opengraph
 
 

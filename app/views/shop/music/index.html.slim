@@ -1,0 +1,67 @@
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'shop' 
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'shop/shared/sidebar', selected: 'music'
+  
+  #page-content-wrapper
+    .container-fluid
+      
+      h2 
+        b Music Shop
+      = render 'music_navigation', step: 1
+      
+      .products.pull-down-10
+        - @products.each do |product|
+          == render 'shop/products/shared/badge', product: product, link_to_product: user_product_path(@user, product)
+        /- @products.find_in_batches( batch_size: 4) do |product|
+        /  /== render 'shop/products/shared/badge', product: product, link_to_product: user_product_path(@user, product)
+        /  .row
+        /    .col-sm-2
+        /      = link_to user_product_path(@user, product[0]), id: "#{product[0].title.gsub(' ','_').downcase}" do
+        /        = image_tag product[0].get_shop_art(:thumb_470x470), class: 'img-responsive'
+        /    .col-sm-2
+        /      = link_to user_product_path(@user, product[1]), id: "#{product[1].title.gsub(' ','_').downcase}" do
+        /        = image_tag product[1].get_shop_art(:thumb_470x470), class: 'img-responsive'
+        /    .col-sm-2
+        /      = link_to user_product_path(@user, product[2]), id: "#{product[2].title.gsub(' ','_').downcase}" do
+        /        = image_tag product[2].get_shop_art(:thumb_470x470), class: 'img-responsive'
+        /    .col-sm-2
+        /      = link_to user_product_path(@user, product[3]), id: "#{product[3].title.gsub(' ','_').downcase}" do
+        /        = image_tag product[3].get_shop_art(:thumb_470x470), class: 'img-responsive'
+        /  
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+/= link_to link_to_product, id: "#{product.title.gsub(' ','_').downcase}" do
+/  .product-image
+/    /= image_tag( product.image_url :thumb_300x300)
+/    = image_tag product.get_shop_art(:thumb_300x300)
+/    .product-category
+/      => number_to_currency(product.price * 0.01, locale: :en, procision: 2)
+/      /= product.category.gsub('-', ' ').capitalize
+/
+/    - if product.category == 'physical-product' && product.units_on_stock.to_i < 99
+/      .units-on-stock
+/        'Units on stock:&nbsp#{product.units_on_stock}
+/
+/
+/
+/  /.product-category
+/  /  = product.category
+/  .product-title
+/    = truncate(product.title, length: 76)
+/    /= word_wrap(product.title, line_width: 8)
+/  .product-info
+/    = word_wrap(product.additional_info.to_s)

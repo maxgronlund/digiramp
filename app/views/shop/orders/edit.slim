@@ -15,6 +15,9 @@
   
   #page-content-wrapper
     .container-fluid
+      h2
+        b Checkout&nbsp;
+        'Payment
       .digi-box
         h4 = number_to_currency(@shop_order.total_price * 0.01, locale: :en, pression: 2)
         .row

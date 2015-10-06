@@ -102,11 +102,12 @@ class UserAssetsFactory
     @publisher = Publisher.create(
       user_id: @user.id,
       account_id: @account.id,
-      legal_name: "#{@user.user_name} publishing",
+      legal_name: "#{@user.user_name} Publishing",
       email:      @user.email,
       personal_publisher: true,
       show_on_public_page: false 
     )
+    @user.update(personal_publisher_id: @publisher.id)
     @publisher.confirmed!
   end
   
@@ -115,7 +116,7 @@ class UserAssetsFactory
     @publishing_agreement = PublishingAgreement.create(
       publisher_id:       @publisher.id,
       split:              50.0,
-      title:              "Self publishing for #{@user.user_name}",
+      title:              "Publishing agreement for #{@user.user_name}",
       personal_agreement: true,
       user_id:            @user.id,
       account_id:         @account.id, 

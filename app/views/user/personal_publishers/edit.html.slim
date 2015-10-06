@@ -1,0 +1,104 @@
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'dashboard' 
+  
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'users/shared/sidebar', selected: 'dashboard'
+  
+  #page-content-wrapper
+    .container-fluid
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { dashboard: user_user_control_panel_index_path(@user),
+                                                              legal: user_user_legal_index_path(@user)} }
+      == render 'shared/flash_message'
+      .row
+        .col-sm-6
+          .help
+            .help-text
+              h2 
+                b Configure publishing for
+                br = @user.get_full_name
+              
+            .help-button
+              == render 'admin/helps/help', identifier: 'user legal information'
+        .col-sm-6
+          .pull-right.pull-down-10
+            => link_to  user_user_legal_index_path(@user) do
+                  .btn.btn-default
+                    i.fa.fa-chevron-left
+                    '&nbsp;Back
+
+      .pull-down-10
+      
+      .row
+        .col-sm-6
+          .digi-box
+            = simple_form_for [:user, @user ], turboboost: true, url: url_for(action: 'update', controller: '/user/personal_publishers'), method: 'put' do |f|
+              = f.error_notification
+            
+              .form-inputs
+                == render 'shared/flash_message'
+          
+                = f.input :personal_publishing_status, collection: Publisher::PUBLISHING_TYPE, include_blank: false
+                
+                div id="personal_publishing_status" style="display: #{'none;' unless @user.personal_publishing_status == 'I have an exclusive publisher'};"
+                  = f.input :exclusive_publishers_email
+                  
+                
+                #personal_publishing style="display: #{'none;' unless @user.personal_publishing_status == 'I own and control my own publishing' }"
+                  .alert.alert-info
+                    'I have no publisher and control and administate my own publishing
+                
+                #many_publishers style="display: #{'none;' unless @user.personal_publishing_status == 'I have many publishers' }"
+                  .alert.alert-info
+                    'I have many publishers and want to control my publishing individually on each work
+                
+                #publishing_administrated style="display: #{'none;' unless @user.personal_publishing_status == 'I have an administrator' }"
+                  = f.input :publishing_administrators_email
+                  .alert.alert-info
+                    'I have an administrator taking care of all my publishing
+                  
+                
+                
+               
+                
+                .row
+                  .col-sm-12
+                    .pull-right
+                      = f.submit 'Save', class: 'btn btn-info'
+  
+              
+  == render 'shared/site_footer'    
+  
+  
+coffee:
+  $('#user_personal_publishing_status').change ->
+    if $('option:selected').val() == 'I own and control my own publishing'
+      $('#personal_publishing_status').css("display", "none")
+      $('#personal_publishing').css("display", "inline")
+      $('#many_publishers').css("display", "none")
+      $('#publishing_administrated').css("display", "none")
+      
+      
+      
+    else if $('option:selected').val() == 'I have an exclusive publisher'
+      $('#personal_publishing_status').css("display", "inline")
+      $('#personal_publishing').css("display", "none")
+      $('#many_publishers').css("display", "none")
+      $('#publishing_administrated').css("display", "none")
+      
+    else if $('option:selected').val() == 'I have many publishers'
+      $('#personal_publishing_status').css("display", "none")
+      $('#personal_publishing').css("display", "none")
+      $('#many_publishers').css("display", "inline")
+      $('#publishing_administrated').css("display", "none")
+      
+    else if $('option:selected').val() == 'I have an administrator'
+      $('#personal_publishing_status').css("display", "none")
+      $('#personal_publishing').css("display", "none")
+      $('#many_publishers').css("display", "none")
+      $('#publishing_administrated').css("display", "inline")
+ 
+
+
+

@@ -6,6 +6,7 @@ ready = ->
     $.getScript("/cms_modules/" + $('option:selected').val() ) 
 
     return
+
   
 
 

@@ -4,20 +4,21 @@
 /= link_to 'New Product', new_user_user_product_path(@user)
 #wrapper
   .full-width-top
-    == render 'shared/navigationbar', page: 'home' 
+    == render 'shared/navigationbar', page: 'shop' 
   
   
   #sidebar-wrapper
     ul class="sidebar-nav"
-      == render 'shop/shared/sidebar', selected: 'products'   
+      == render 'shop/shared/sidebar', selected: ''   
 
     
   
   
   #page-content-wrapper
     .container-fluid
-      h2 Marketplace
-      .sexy_line
+      h2 
+        b Shop
+      .pull-down-10
       .products
         - @products.each do |product|
           == render 'shop/products/shared/badge', product: product, link_to_product: shop_product_path(product)

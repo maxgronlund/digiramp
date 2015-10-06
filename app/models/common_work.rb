@@ -86,12 +86,14 @@ class CommonWork < ActiveRecord::Base
   
   
   def configure_publishers_payment( price, recording_uuid )
-    
+    ap '=========================================='
+    ap 'configure_publishers_payment'
+    ap self
     begin
       raise 'Royalty greater than price' if price < self.royalty
       
       self.common_work_ipis.each do |common_work_ipi|
-        common_work_ipi.configure_payment( self.royalty , price , recording_uuid, self.id )
+        common_work_ipi.configure_payment( self.royalty , price , recording_uuid,  self.id )
       end
     rescue => e
       ErrorNotification.post_object 'CommonWork#configure_publishers_payment', e

@@ -766,59 +766,33 @@ class User < ActiveRecord::Base
   end
   
   def personal_publisher
-    @personal_publisher ||= Publisher.find_by(user_id: self.id, personal_publisher: true)
-    #@publisher ||=  
-    #if pub = Publisher.find_by(user_id: self.id, personal_publisher: true)
-    #  return pub
-    #else
-    #  #setup_personal_publishing
-    #  return Publisher.find_by(user_id: self.id, personal_publisher: true)
-    #end
+    @personal_publisher ||= Publisher.find_by( user_id: self.id, id: self.personal_publisher_id)
   end
   
   def personal_publishing_agreement
-    #@personal_publishing_agreement ||= 
     @personal_publishing_agreement ||= PublishingAgreement.find_by(personal_agreement: true, publisher_id: personal_publisher.id)
   end
   
-  def publishing_agreement_document
-    
-  end
+  #def publishing_administrator_email()  personal_publisher.administrator_email end
+  #def publishing_administrator_email=(administrator_email)
+  #  administrator = User.get_by_email(administrator_email) 
+  #  personal_publisher.update(
+  #    publishing_administrator_email: administrator_email,
+  #    publishing_administrator_user_id: administrator.id
+  #  )
+  #end
   
-  def publishing_agreements
-    PublishingAgreement.where(account_id: self.account.id)
-  end
+  def publishing_administrator() User.cached_find( personal_publisher.publishing_administrator_user_id ) end
+
   
-  def get_publishing_agreements
-    account.get_publishing_agreements
-  end
   
-  def ipi
-    Ipi.find_by( user_id: self.id,  master_ipi: true)
-    #if ipi = Ipi.find_by( user_id: self.id,  master_ipi: true)
-    #  return ipi
-    #else
-    #  begin
-    #    _ipi = Ipi.new(
-    #      user_id:    self.id, 
-    #      master_ipi: true,
-    #      ipi_code:   self.ipi_code,
-    #      uuid:       UUIDTools::UUID.timestamp_create().to_s,
-    #      email:      self.email,
-    #      full_name:  self.full_name
-    #    )
-    #    
-    #    _ipi.save!
-    #  rescue
-    #    ErrorNotification.post_object 'User#ipi', e
-    #    return nil
-    #  end
-    #  self.copy_address_to( _ipi.address )
-    #
-    #  return _ipi
-    #end
-  end
   
+  def publishing_agreement_document() end
+  def publishing_agreements() PublishingAgreement.where(account_id: self.account.id) end
+  def get_publishing_agreements() account.get_publishing_agreements end
+  def ipi() Ipi.find_by( user_id: self.id,  master_ipi: true) end
+  
+ 
   def label
     begin
       unless _label = Label.find_by(id: self.default_label_id )
@@ -831,9 +805,7 @@ class User < ActiveRecord::Base
     end
   end
   
-  def personal_distribution_agreement
-    label.default_distribution_agreement
-  end
+  def personal_distribution_agreement() label.default_distribution_agreement end
   
   
   

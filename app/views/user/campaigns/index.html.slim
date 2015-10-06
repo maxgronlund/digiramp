@@ -25,29 +25,28 @@
         
       
       .pull-down-10
-      .users.digi-box
-        .table-responsive
-          table class="table table-hover"
-            thead
-              tr
-                th Title
-                th Status
+      .table-responsive
+        table class="table table-hover"
+          thead
+            tr
+              th Title
+              th Status
 
 
-            tbody
-              - @campaigns.each do |campaign|
-                tr id="delete_campaign_#{campaign.id}"
-                  td 
-                    => link_to  user_user_campaign_path(@user, campaign), data: {:confirm => 'Are you sure?'}, :method => :delete do
-                      .btn.btn-danger.btn-xs
-                        i.fa.fa-times
-                        
-                    => link_to edit_user_user_campaign_path( @user, campaign) do
-                      .btn.btn-default.btn-xs
-                        i.fa.fa-pencil
-                        '&nbsp;Edit
-                    = link_to campaign.title, user_user_campaign_path(@user, campaign), class: 'btn btn-default btn-xs'
-                  td = campaign.status
+          tbody
+            - @campaigns.each do |campaign|
+              tr id="delete_campaign_#{campaign.id}"
+                td 
+                  => link_to  user_user_campaign_path(@user, campaign), data: {:confirm => 'Are you sure?'}, :method => :delete do
+                    .btn.btn-danger.btn-xs
+                      i.fa.fa-times
+                      
+                  => link_to edit_user_user_campaign_path( @user, campaign) do
+                    .btn.btn-default.btn-xs
+                      i.fa.fa-pencil
+                      '&nbsp;Edit
+                  = link_to campaign.title, user_user_campaign_path(@user, campaign), class: 'btn btn-default btn-xs'
+                td = campaign.status
 
             
 

@@ -1,37 +1,64 @@
 
 .sidebar 
-
-  li class="#{'sidebar-selected' if selected == 'basket'}"
-    = link_to  shop_order_path(@shop_order), id: 'sidebar-basket' do
-      i.fa.fa-shopping-cart
+  .basket
+    li class="#{'sidebar-selected' if selected == 'basket'}" 
+      = link_to  shop_order_path(@shop_order), id: 'sidebar-basket' do
+        i.fa.fa-shopping-cart
+        '&nbsp;
+        'Basket
+    
+    
+  li class="#{'sidebar-selected' if selected == 'music'}"
+    = link_to shop_music_index_path do
+      i class="fa fa-headphones"
       '&nbsp;
-      'Basket
-  li class="#{'sidebar-selected' if selected == 'payment'}"
-    - if @shop_order.require_shipping_address
-        = link_to  new_shop_order_shipping_address_path(@shop_order), id: 'checkout' do
-          i.fa.fa-gift
-          '&nbsp;
-          = pluralize(@shop_order.items_count, 'Item')
-          div
-            i.fa.fa-credit-card
-            '&nbsp;
-            = number_to_currency(@shop_order.total_price * 0.01, locale: :en, precission: 2)
+      'Music  
+  
+  li class="#{'sidebar-selected' if selected == 'products'}"
+    = link_to shop_product_sales_path do
+      i class="fa fa-gift"
+      '&nbsp;
+      'Products
 
-    - else
-      <div data-no-turbolink>
-        = link_to  edit_shop_order_path(@shop_order), id: 'checkout' do
-          i.fa.fa-gift
-          '&nbsp;
-          = pluralize(@shop_order.items_count, 'Item')
-          div
-            i.fa.fa-credit-card
-            '&nbsp;
-            = number_to_currency(@shop_order.total_price * 0.01, locale: :en, precission: 2)
-      </div>
-          
-
-        
-
+  / 
+  /  li class="#{'sidebar-selected' if selected == 'payment'}"
+  /    
+  /    - if @shop_order.require_shipping_address
+  /       
+  /        = link_to  new_shop_order_shipping_address_path(@shop_order), id: 'checkout' do
+  /
+  /          i.fa.fa-money
+  /          '&nbsp;
+  /          'Checkout
+  /          div
+  /            i.fa.fa-gift
+  /            '&nbsp;
+  /            = pluralize(@shop_order.items_count, 'Item')
+  /          div
+  /            i.fa.fa-credit-card
+  /            '&nbsp;
+  /            = number_to_currency(@shop_order.total_price * 0.01, locale: :en, precission: 2)
+  /    
+  /    - else
+  /      <div data-no-turbolink>
+  /        = link_to  edit_shop_order_path(@shop_order), id: 'checkout' do
+  /          i.fa.fa-money
+  /          '&nbsp;
+  /          'Checkout
+  /          div
+  /            i.fa.fa-gift
+  /            '&nbsp;
+  /            = pluralize(@shop_order.items_count, 'Item')
+  /          div
+  /            i.fa.fa-credit-card
+  /            '&nbsp;
+  /            = number_to_currency(@shop_order.total_price * 0.01, locale: :en, precission: 2)
+  /      </div>
+  /    
+  /          
+      
+       
+      
       
       
       

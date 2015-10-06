@@ -28,10 +28,24 @@ class User::PublishingDesigneesController < ApplicationController
       )
       @user.copy_address_to( @ipi.address )            
       @ipi.accepted! 
-    end  
+    end 
+    
   end
   
   def find_or_create_common_work_ipi
+    
+    
+     ap "@common_work.id; #{@common_work.id}"
+     ap "@ipi.id #{@ipi.id}"
+     ap "@user.personal_publishing_agreement.id #{@user.personal_publishing_agreement.id}"
+
+    
+    
+    
+    
+    
+    
+    
     begin
       if @common_work_ipi = CommonWorkIpi.find_by(
           common_work_id:           @common_work.id,

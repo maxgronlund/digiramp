@@ -20,116 +20,119 @@
               == render 'admin/helps/help', identifier: 'user legal information'
         .col-sm-6
           .pull-right.pull-down-10
-            = link_to 'Edit', user_user_legal_informations_path(@user), :class => "btn btn-default"
-
-      /= render 'user/shared/legal_navigation'
-      .digi-boxs
-        
-        .table-responsive
-          table.table.table-bordered
-            tr
-              td
-                  b First name
-                  br = @user.first_name
-            
-              td
-                b Middle name
-                br = @user.middle_name
-            
-              td
-                b Last name
-                br = @user.last_name
-            tr
-              td
-                b IPI code
-                br = @user.ipi_code
-              td
-                b Email
-                br = @user.email
-              
-              td
-                b Phone number
-                br = @user.phone_number
+            => link_to  user_user_control_panel_index_path(@user) do
+                  .btn.btn-default
+                    i.fa.fa-chevron-left
+                    '&nbsp;Back
                     
-            tr
-              td
-                b Address
-                - unless @user.address_line_1.blank?
-                  br
-                  = @user.address_line_1
+            = link_to 'Edit', user_user_legal_informations_path(@user), :class => "btn btn-success"
 
-                - unless @user.address_line_2.blank?
-                  br
-                  = @user.address_line_2
 
-                - unless @user.city.blank?
-                  br
-                  = @user.city
-
-                - unless @user.zip_code.blank?
-                  br
-                  = @user.zip_code
-
-                - unless @user.country.blank?
-                  br
-                  = @user.country
+      .table-responsive
+        table.table.table-bordered
+          tr
+            td
+                b First name
+                br = @user.first_name
+          
+            td
+              b Middle name
+              br = @user.middle_name
+          
+            td
+              b Last name
+              br = @user.last_name
+          tr
+            td
+              b IPI code
+              br = @user.ipi_code
+            td
+              b Email
+              br = @user.email
             
-              td
-                b Publishing
-                - @user.publishers.each do |publisher|  
-                  .sexy_line  
-                  = publisher.legal_name
-                  - if ipi_code = publisher.ipi_code
-                    br
-                    = "IPI CODE: #{ipi_code}"
+            td
+              b Phone number
+              br = @user.phone_number
+                  
+          tr
+            td
+              b Address
+              - unless @user.address_line_1.blank?
+                br
+                = @user.address_line_1
+
+              - unless @user.address_line_2.blank?
+                br
+                = @user.address_line_2
+
+              - unless @user.city.blank?
+                br
+                = @user.city
+
+              - unless @user.zip_code.blank?
+                br
+                = @user.zip_code
+
+              - unless @user.country.blank?
+                br
+                = @user.country
+          
+            td
+              b Publishing
+              - @user.publishers.each do |publisher|  
+                .sexy_line  
+                = publisher.legal_name
+                - if ipi_code = publisher.ipi_code
+                  br
+                  = "IPI CODE: #{ipi_code}"
+                  
+                - if pro_affiliation = publisher.pro_affiliation
+                  br
+                  = "PRO: #{pro_affiliation.title}"
+                  
                     
-                  - if pro_affiliation = publisher.pro_affiliation
-                    br
-                    = "PRO: #{pro_affiliation.title}"
-                    
+            td
+              - blog = Blog.cached_find('Legal information')
+              - blog_post             = BlogPost.cached_find( 'add digital signature' , blog )
+              - if editor?
+                .pull-right
+                  = link_to edit_admin_blog_blog_post_path(blog, blog_post) do
+                    .btn.btn-default.btn-xs
+                      i.fa.fa-pencil
+
+               
+              - if @user.digital_signature
+                b Default signature
+                br
+                .pull-down-10
+                  = image_tag @user.digital_signature.image_url(:image_300x50), 
+                    class: 'img-thumbnail img-responsive'
+              - else
+                .alert.alert-warning
+                  b = blog_post.title
+                  = simple_format blog_post.body
+                  
                       
-              td
-                - blog = Blog.cached_find('Legal information')
-                - blog_post             = BlogPost.cached_find( 'add digital signature' , blog )
-                - if editor?
-                  .pull-right
-                    = link_to edit_admin_blog_blog_post_path(blog, blog_post) do
-                      .btn.btn-default.btn-xs
-                        i.fa.fa-pencil
 
-                 
-                - if @user.digital_signature
-                  b Default signature
-                  br
-                  .pull-down-10
-                    = image_tag @user.digital_signature.image_url(:image_300x50), 
-                      class: 'img-thumbnail img-responsive'
+              .pull-down-12.pull-right
+                - if @user.digital_signatures.count > 0
+                  = link_to 'Manage signatures', user_user_digital_signatures_path(@user), 
+                    class: 'btn btn-default'
                 - else
-                  .alert.alert-warning
-                    b = blog_post.title
-                    = simple_format blog_post.body
-                    
-                        
-
-                .pull-down-12.pull-right
-                  - if @user.digital_signatures.count > 0
-                    = link_to 'Manage signatures', user_user_digital_signatures_path(@user), 
-                      class: 'btn btn-default'
-                  - else
-                    = link_to 'Manage signatures', new_user_user_digital_signature_path(@user), 
-                      class: 'btn btn-default'
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
+                  = link_to 'Manage signatures', new_user_user_digital_signature_path(@user), 
+                    class: 'btn btn-default'
+                      
+                      
+                      
+                      
+                      
+                      
+                      
+                      
       .control-panel.pull-down-10
       
 
-          
+        
         .control-panel-badge
           = link_to  user_user_creative_rights_path(@user) do
             .content
@@ -140,8 +143,8 @@
                 h4 Works
               .body
                 'Manage rights for your assets
-      
-
+        
+        
           
         .control-panel-badge
           = link_to  user_user_common_work_ipis_path(@user) do
@@ -153,8 +156,8 @@
                 h4 Creations
               .body
                 'Works where you are registered as a creator / IP
-      
-
+        
+        
           
         .control-panel-badge
           = link_to  user_user_legal_documents_path(@user) do
@@ -166,8 +169,8 @@
                 h4 Documents
               .body
                 'Legal documents related to you
-      
-
+        
+        
           
         .control-panel-badge
           = link_to  user_user_unsigned_documents_path(@user) do
@@ -179,8 +182,8 @@
                 h4 Pending documents
               .body
                 'Legal documents waiting for you to sign
-      
-
+        
+        
           
         .control-panel-badge
           = link_to  user_user_admin_masters_path(@user) do
@@ -192,11 +195,11 @@
                 h4 Masters
               .body
                 'Edit and administrate resordings
-      
-
+        
+        
           
         .control-panel-badge
-          = link_to  user_user_admin_masters_path(@user) do
+          = link_to  user_user_personal_publishers_path(@user) do
             .content
               .icon.icon-blue
                 i.fa.fa-truck
@@ -207,9 +210,9 @@
                 'Publishing of my works
                 'Co-Publisher / Exclusive / Non exclusive
          
-         
-                
-                
+       
+              
+              
               
 
 

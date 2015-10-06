@@ -1,7 +1,7 @@
 class Publisher < ActiveRecord::Base
   has_paper_trail
   enum status: [ :pending, :confirmed, :declined ]
-  
+  PUBLISHING_TYPE = ['I own and control my own publishing', 'I have an exclusive publisher', 'I have many publishers', 'I have an administrator' ]
   
   default_scope -> { order('created_at ASC') }
   #scope :first, -> { order("created_at").first }

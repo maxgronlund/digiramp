@@ -1,5 +1,9 @@
 Digiramp::Application.routes.draw do
 
+
+
+
+
   resources :labels
  
   namespace :user do
@@ -38,9 +42,7 @@ Digiramp::Application.routes.draw do
 
   resources :terms, only: [:show]
   
-  namespace :shop do
-    resources :stripe_transfers
-  end
+
 
 
   resources :addresses
@@ -72,6 +74,10 @@ Digiramp::Application.routes.draw do
     resources :products 
     resources :shop_order_items
     get 'shop/index'
+
+    resources :stripe_transfers
+    resources :music, only: [:index]
+    resources :product_sales, only: [:index]
   end
 
   get "sales"         => "sales/dashboard#index",     :as => :sales_dashboard_index
@@ -769,13 +775,15 @@ Digiramp::Application.routes.draw do
     end
   end
   
+  
+  
   #=================== USER =========================
   namespace :user do
     
     resources :shop, only: [:index, :show]
     resources :checking_accounts
     resources :social_links, only: [:edit, :update]
-    
+    resources :personal_publishers, only: [:show]
     
     #resources :common_work_lyrics
     resources :users do
@@ -939,6 +947,7 @@ Digiramp::Application.routes.draw do
       resources :shop_admin, only: [:index] 
       resources :select_product_type, only: [:index] 
       resources :special_offer, only: [:index] 
+      resources :personal_publishers
       resources :publishers do
         resources :ipi_publishers
         resources :publishing_agreements do
@@ -997,6 +1006,7 @@ Digiramp::Application.routes.draw do
 
     end
     # end of user/user namespace
+    
     resources :user_addresses
     
   end

@@ -178,14 +178,15 @@ class Shop::Product < ActiveRecord::Base
   end
   
   def valid_for_sale!
-    #ap '---------------------- Valid for sale ----------------'
+    ap '---------------------- Valid for sale ----------------'
+    ap self.category
+    ap connected_to_stripe
     #ap self.category
-    #ap connected_to_stripe
     begin 
       case self.category
      
       when 'recording'
-        ap recording.is_cleared?
+        ap recording.is_cleared? && connected_to_stripe
         self.update( valid_for_sale: (recording.is_cleared? && connected_to_stripe) )
       when 'physical-product'
         self.update(valid_for_sale: (self.units_on_stock > 0) && connected_to_stripe)

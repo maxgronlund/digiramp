@@ -10,8 +10,8 @@
         
         = f.input :email, :hint => "Publishers email"
         
-        - unless @publisher.personal_publisher
-          = f.input :show_on_public_page, input_html: { class: 'icheck-me acceptance', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue" }
+        /- unless @publisher.personal_publisher
+        = f.input :show_on_public_page, input_html: { class: 'icheck-me acceptance', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue" }
           
           span.help-block Make this publisher avaliable to the public
         /= f.input :personal_publisher, :input_html => { class: 'icheck-me acceptance', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue"     } 

@@ -37,62 +37,61 @@
                  i.fa.fa-plus&nbsp;Add product
             
       .pull-down-10
-      .digi-box   
-        .table-responsive
-          table class="table table-hover"
-            thead
-              tr
-                th Title
-                /th Body
-                /th Additionl info
-                /th Image
-                th Price
-                /th User
-                /th Account
-                /th Download link
-                th Valid for sale
-                th Units
-                th Category
-                th
-                /th
-                /th
+      .table-responsive
+        table class="table table-hover"
+          thead
+            tr
+              th Title
+              /th Body
+              /th Additionl info
+              /th Image
+              th Price
+              /th User
+              /th Account
+              /th Download link
+              th Valid for sale
+              th Units
+              th Category
+              th
+              /th
+              /th
 
-            tbody
-              - @shop_products.each do |product|
-                tr
-                  td 
-                    = truncate(product.title, length: 48)  
-                  /td = product.body
-                  /td = product.additional_info
-                  /td = product.image
-                  td = number_to_currency(product.price * 0.01, locale: :en, precision: 2)
-                  /td = product.user
-                  /td = product.account
-                  /td = product.download_link
-                  td = product.valid_for_sale
-                  th
-                    - case product.category
-                    - when 'physical-product'
-                      - units = product.units_on_stock
-                      - if units < 1
-                        .label.label-danger
-                          'Out of stock
-                      - else
-                        .label.label-success
-                          = units
-                  td = product.category.gsub('-', ' ').capitalize
-                  td 
-                    .pull-right
-                      => link_to 'Status', user_user_product_path(@user, product), class: 'btn btn-default btn-xs'
-                      => link_to 'Edit',  edit_user_user_product_path(@user, product), class: 'btn btn-default btn-xs'
-                      => link_to 'Stakeholders',  user_user_product_stakes_path(@user, product), class: 'btn btn-default btn-xs'
-                      = link_to user_user_product_path(@user, product), 
-                                                        class: 'btn btn-danger btn-xs', 
-                                                        data: {:confirm => 'Are you sure?'}, 
-                                                        turboboost: true,
-                                                        :method => :delete do
-                          i.fa.fa-times
-                                                        
+          tbody
+            - @shop_products.each do |product|
+              tr
+                td 
+                  = truncate(product.title, length: 48)  
+                /td = product.body
+                /td = product.additional_info
+                /td = product.image
+                td = number_to_currency(product.price * 0.01, locale: :en, precision: 2)
+                /td = product.user
+                /td = product.account
+                /td = product.download_link
+                td = product.valid_for_sale
+                th
+                  - case product.category
+                  - when 'physical-product'
+                    - units = product.units_on_stock
+                    - if units < 1
+                      .label.label-danger
+                        'Out of stock
+                    - else
+                      .label.label-success
+                        = units
+                td = product.category.gsub('-', ' ').capitalize
+                td 
+                  .pull-right
+                    => link_to 'Status', user_user_product_path(@user, product), class: 'btn btn-default btn-xs'
+                    => link_to 'Edit',  edit_user_user_product_path(@user, product), class: 'btn btn-default btn-xs'
+                    => link_to 'Stakeholders',  user_user_product_stakes_path(@user, product), class: 'btn btn-default btn-xs'
+                    = link_to user_user_product_path(@user, product), 
+                                                      class: 'btn btn-danger btn-xs', 
+                                                      data: {:confirm => 'Are you sure?'}, 
+                                                      turboboost: true,
+                                                      :method => :delete do
+                        i.fa.fa-times
+                                                      
 
       
      

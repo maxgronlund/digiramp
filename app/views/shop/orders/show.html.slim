@@ -16,18 +16,21 @@
   #page-content-wrapper
     .container-fluid
       == render 'admin/shared/messages'
-      .digi-box  
+      h2 Basket
+      .pull-down-10 
         .table-responsive
           table class="table table-hover"
             thead
               tr
-                td
+                
                 th Title
                 th Price
-                th Units
+                th style="width: 160px;"
+                  'Units
                 th 
-                th Total
                 th
+                th Total
+                
             tbody    
               - @shop_order.order_items.order('created_at asc').each do |order_item|
                 - if product = order_item.shop_product
@@ -42,6 +45,7 @@
                         - if product.units_on_stock == 1
                           '1
                         - else
+                         
                           = simple_form_for  [ :shop, order_item], turboboost: true do |f|
                             - unless f.error_notification.blank?
                               .alert.alert-danger
@@ -52,9 +56,10 @@
                               = f.hidden_field :shop_order_id,   value: @shop_order.id
                               = f.hidden_field :shop_product_id, value: order_item.shop_product_id
                               /= f.hidden_field :user_id, value: @user.id
-                              = f.input :quantity, label: false
-                              
-                              = f.submit 'update', class: 'btn btn-info'
+                              .input-group
+                                = f.input :quantity, label: false, input_html: { min: 1} 
+                                span class="input-group-btn"
+                                  = f.submit 'update', class: 'btn btn-info'
                             
                       - else
                         '1
@@ -62,12 +67,12 @@
                     
                      
                     td
-                    th = link_to shop_shop_order_item_path(order_item), data: { confirm: 'Are you sure?' } , 
+                    td = link_to shop_shop_order_item_path(order_item), data: { confirm: 'Are you sure?' } , 
                                                                                               turboboost: true, 
                                                                                               :method => :delete do
                         .btn.btn-default
                           'Remove
-                    th = number_to_currency(product.price * order_item.quantity * 0.01, locale: :en, precision: 2)
+                    td = number_to_currency(product.price * order_item.quantity * 0.01, locale: :en, precision: 2)
                     
               tr
                 th Total
@@ -75,18 +80,17 @@
                 td
                 td
                 td
-                td
                 th = number_to_currency(@shop_order.total_price * 0.01, locale: :en, precision: 2) 
                   
-        .row
+        .row.pull-down-10
           .col-sm-12
             .pull-right
               - if @shop_order.require_shipping_address
                 => link_to new_shop_order_shipping_address_path(@shop_order), id: 'checkout-button' do
-                  .btn.btn-success
+                  .btn.btn-warning.btn-lg
                     'Checkout
               
               - else
                 => link_to edit_shop_order_path(@shop_order), id: 'checkout-button' , 'data-no-turbolink'=>'true' do
-                  .btn.btn-success
+                  .btn.btn-warning.btn-lg
                     'Checkout

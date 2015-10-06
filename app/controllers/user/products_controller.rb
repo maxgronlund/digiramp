@@ -97,13 +97,13 @@ class User::ProductsController < ApplicationController
   # POST /shop/products
   # POST /shop/products.json
   def create
-
+    ap params
     params[:shop_product][:connected_to_stripe] = @user.is_stripe_connected
 
     @shop_product = Shop::Product.new(shop_product_params)
 
     respond_to do |format|
-      if @shop_product.save
+      if @shop_product.save!
         @shop_product.configure_stakeholder
         @shop_product.valid_for_sale!
         
@@ -116,6 +116,7 @@ class User::ProductsController < ApplicationController
         format.json { render :show, status: :created, location: @shop_product }
       else
         # '=========================== do what you have to do here ============================='
+        @category = 'recording' 
         format.html { render :new, category: 'recording' }
         format.json { render json: @shop_product.errors, status: :unprocessable_entity }
       end
