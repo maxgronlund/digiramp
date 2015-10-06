@@ -16,7 +16,9 @@
         .col-sm-8
           .help
             .help-text
-              h2 Transfers for
+              h2 
+                b Transfers for&nbsp;
+                = @stake.title
             .help-button
               == render 'admin/helps/help', identifier: 'user revenue streams'
         .col-sm-4
@@ -26,26 +28,25 @@
                   i.fa.fa-chevron-left
                   '&nbsp;Back
           
-      .pull-down-10
-      .digi-box 
-        .table-responsive
-          table class="table table-hover"
-            thead
+      .pull-down-10 
+      .table-responsive
+        table class="table table-hover"
+          thead
+            tr
+              th description
+              th Source transaction
+              th State
+              th Application fee
+              th amount
+          tbody
+            - @stripe_transfers.each do |stripe_transfer|
               tr
-                th description
-                th Source transaction
-                th State
-                th Application fee
-                th amount
-            tbody
-              - @stripe_transfers.each do |stripe_transfer|
-                tr
-                  td = stripe_transfer.description
-                  td = stripe_transfer.source_transaction
-                  td = stripe_transfer.state
-                  td = number_to_currency(stripe_transfer.application_fee * 0.01, locale: :en, precision: 2)    
-                  td = number_to_currency(stripe_transfer.amount * 0.01, locale: :en, precision: 2)   
-                    
+                td = stripe_transfer.description
+                td = stripe_transfer.source_transaction
+                td = stripe_transfer.state
+                td = number_to_currency(stripe_transfer.application_fee * 0.01, locale: :en, precision: 2)    
+                td = number_to_currency(stripe_transfer.amount * 0.01, locale: :en, precision: 2)   
+                  
             
       
 

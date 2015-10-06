@@ -28,47 +28,47 @@
         
           
       .pull-down-10
-      .digi-box 
-        .table-responsive
-          table class="table table-hover"
-            thead
+
+      .table-responsive
+        table class="table table-hover"
+          thead
+            tr
+              /th
+              th Name
+              th Type
+              th Units sold
+              th Amount
+              th Total fees
+              /th Split in %
+              
+              th Total income
+              th
+          tbody
+            - @stakes.each do |stake|
+              - generated_income = stake.generated_income
               tr
-                /th
-                th Name
-                th Type
-                th Units sold
-                th Amount
-                th Total fees
-                /th Split in %
+                td = stake.title
+                td = stake.description
+                td = stake.units
+                td = number_to_currency( stake.flat_rate_in_cent * 0.01, precision: 2, locale: 'en')
+                /td = number_to_percentage(stake.split, precision: 4) 
+                td = number_to_currency( stake.fees * 0.01, precision: 2, locale: 'en')
+                td = number_to_currency( stake.income * 0.01, precision: 2, locale: 'en')
                 
-                th Total income
-                th
-            tbody
-              - @stakes.each do |stake|
-                - generated_income = stake.generated_income
-                tr
-                  td = stake.title
-                  td = stake.description
-                  td = stake.units
-                  td = number_to_currency( stake.flat_rate_in_cent * 0.01, precision: 2, locale: 'en')
-                  /td = number_to_percentage(stake.split, precision: 4) 
-                  td = number_to_currency( stake.fees * 0.01, precision: 2, locale: 'en')
-                  td = number_to_currency( stake.income * 0.01, precision: 2, locale: 'en')
-                  
-                  td
-                    .pull-right
-                      = link_to 'Details', user_user_stake_stripe_transfers_path(@user, stake), class: 'btn btn-default btn-xs'
-                      = link_to user_user_revenue_stream_path(@user, stake) do
-                        .btn.btn-default.btn-xs
-                          i.fa.fa-share&nbsp;Share
-                      /- if super?
-                      /  = link_to user_user_stake_path(@user, stake), 
-                      /                             data: { confirm: 'Are you sure?' } , 
-                      /                             turboboost: true, 
-                      /                             :method => :delete do
-                      /       .btn.btn-danger.btn-xs
-                      /         i.fa.fa-times
-                      /
+                td
+                  .pull-right
+                    = link_to 'Details', user_user_stake_stripe_transfers_path(@user, stake), class: 'btn btn-default btn-xs'
+                    = link_to user_user_revenue_stream_path(@user, stake) do
+                      .btn.btn-default.btn-xs
+                        i.fa.fa-share&nbsp;Share
+                    /- if super?
+                    /  = link_to user_user_stake_path(@user, stake), 
+                    /                             data: { confirm: 'Are you sure?' } , 
+                    /                             turboboost: true, 
+                    /                             :method => :delete do
+                    /       .btn.btn-danger.btn-xs
+                    /         i.fa.fa-times
+                    /
       
 
          
