@@ -23,64 +23,63 @@
               = link_to 'New project', new_user_user_creative_project_path(@user), class: 'btn btn-info'
 
       .pull-down-10
-      .digi-box
-        .table-responsive
-          table class="table table-hover"
-            thead
-              tr
-                th Title
-                /th Description
-                /th User
-                /th Account
-                th Public project
-                /th Roles
-                /th Composition
-                /th Recordings
-                /th Performance
-                /th Production
-                /th Financial services
-                /th Publishing
-                /th Remixing
-                /th Video
-                th Deadline
-                th
-                
-        
-            tbody
-              - @creative_projects.each do |creative_project|
-                tr
-                  
-                  td 
-                    - if current_user && creative_project.user_id == current_user.id
-                      = link_to creative_project.title, user_user_creative_project_creative_project_dashboards_path(creative_project.user, creative_project) , class: 'btn btn-default'
-                    - else
-                      = link_to creative_project.title, creative_project , class: 'btn btn-default'
-                      
-                  /td = simple_format creative_project.description
-                  /td = creative_project.user.user_name
-                  /td = creative_project.account
-                  td 
-                    - if creative_project.public_project
-                      '√
-                  /td 
-                    
-                  td = creative_project.deadline
-                    
-                      
-                  td 
-                    - if @user.manage?(current_user)
-                      .pull-right
-                        => link_to 'Edit', edit_user_user_creative_project_path(creative_project.user, creative_project), class: 'btn btn-default'
-                        = link_to user_user_creative_project_path(creative_project.user, creative_project), turboboost: true, data: {:confirm => 'Are you sure?'}, :method => :delete do
-                          .btn.btn-danger
-                            i.fa.fa-times
-                      
-      
-            
-                        
-            
-                 
+      .table-responsive
+        table class="table table-hover"
+          thead
+            tr
+              th Title
+              /th Description
+              /th User
+              /th Account
+              th Public project
+              /th Roles
+              /th Composition
+              /th Recordings
+              /th Performance
+              /th Production
+              /th Financial services
+              /th Publishing
+              /th Remixing
+              /th Video
+              th Deadline
+              th
               
+      
+          tbody
+            - @creative_projects.each do |creative_project|
+              tr
+                
+                td 
+                  - if current_user && creative_project.user_id == current_user.id
+                    = link_to creative_project.title, user_user_creative_project_creative_project_dashboards_path(creative_project.user, creative_project) , class: 'btn btn-default'
+                  - else
+                    = link_to creative_project.title, creative_project , class: 'btn btn-default'
+                    
+                /td = simple_format creative_project.description
+                /td = creative_project.user.user_name
+                /td = creative_project.account
+                td 
+                  - if creative_project.public_project
+                    '√
+                /td 
+                  
+                td = creative_project.deadline
+                  
+                    
+                td 
+                  - if @user.manage?(current_user)
+                    .pull-right
+                      => link_to 'Edit', edit_user_user_creative_project_path(creative_project.user, creative_project), class: 'btn btn-default'
+                      = link_to user_user_creative_project_path(creative_project.user, creative_project), turboboost: true, data: {:confirm => 'Are you sure?'}, :method => :delete do
+                        .btn.btn-danger
+                          i.fa.fa-times
+                    
+      
+          
+                      
+          
+               
+            
   == render 'shared/site_footer'    
  
  
