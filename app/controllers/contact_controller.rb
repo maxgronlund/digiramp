@@ -2,6 +2,7 @@ class ContactController < ApplicationController
   
   def index
     @contact = Contact.new()
+    @user = current_user
   end
   
   def create

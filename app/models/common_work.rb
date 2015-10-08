@@ -86,9 +86,9 @@ class CommonWork < ActiveRecord::Base
   
   
   def configure_publishers_payment( price, recording_uuid )
-    ap '=========================================='
-    ap 'configure_publishers_payment'
-    ap self
+    #ap '=========================================='
+    #ap 'configure_publishers_payment'
+    #ap self
     begin
       raise 'Royalty greater than price' if price < self.royalty
       
