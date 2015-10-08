@@ -11,7 +11,7 @@ class CmsPagesController < ApplicationController
   # GET /cms_pages/1.json
   protect_from_forgery :except => :show
   def show
-    ap '-------------------- fo'
+    return not_found unless @user
     @body_color = "#15141C"
     @image_url  = "https://digiramp.com/uploads/raw_image/image/24/music-enthusiasts.jpg"
     
