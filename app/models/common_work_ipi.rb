@@ -63,10 +63,10 @@ class CommonWorkIpi < ActiveRecord::Base
   end
 
   def attach_to_ip
-    ap self.ipi
+    
     return if self.ipi
     
-    if user = User.get_by_email(email: self.email)
+    if user = User.get_by_email(self.email)
       self.ipi_id = user.ipi.id
       self.save(validate: false)
       # temp !!!
