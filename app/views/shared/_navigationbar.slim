@@ -45,7 +45,7 @@
         = link_to songs_path(clear: 'clear') do
           i.fa.fa-headphones
           '&nbsp;
-          'Recordings
+          'Music
       li class="#{page == 'users' ? 'active' : ''}"
         = link_to users_path(clear: 'clear') do
           i.fa.fa-users
@@ -72,11 +72,16 @@
 
     ul class="nav navbar-nav navbar-right"
       - if current_user
+        /li class="#{page == 'news' ? 'active' : ''}"
+        /  = link_to news_index_path do
+        /    i class="fa fa-bullhorn"
+        /    '&nbsp;News
+        /
+        /
         li class="#{page == 'news' ? 'active' : ''}"
-          = link_to news_index_path do
-            i class="fa fa-bullhorn"
-            '&nbsp;News
-      
+          = link_to contact_index_path do
+            'Contact
+        
         
         li class="dropdown"
           /<a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <span class="caret"></span></a>
@@ -120,10 +125,14 @@
  
     
       - else
-        li
-          = link_to news_index_path do
-              i class="fa fa-bullhorn"
-              '&nbsp;News 
+
+        li class="#{page == 'news' ? 'active' : ''}"
+          = link_to contact_index_path do
+            'Contact
+        /li
+        /  = link_to news_index_path do
+        /      i class="fa fa-bullhorn"
+        /      '&nbsp;News 
             
         li
           .sign-up
@@ -131,8 +140,7 @@
               'Sign up
         li 
           = link_to login_new_path do
-            i class="fa fa-sign-in"
-            '&nbsp;Log in
+            'Log in
 
 - if @user
   == render 'shared/user_navigation_bar', section: @user, page: page

@@ -1,0 +1,50 @@
+- blog      = Blog.cached_find('About')
+- blog_post = BlogPost.cached_find('About DigiRAMP', blog)
+
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'home' 
+  
+  
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'users/shared/sidebar', selected: 'contact'
+  
+  #page-content-wrapper
+    .container-fluid
+      .row
+        .col-sm-6
+          h2 = blog_post.title
+          .digi-box
+            
+            
+            = simple_format blog_post.body
+            - if editor?
+              .row
+                .col-sm-12
+                  .pull-right
+                    = link_to edit_admin_blog_blog_post_path(blog, blog_post) do
+                      .btn.btn-default.btn-xs
+                        i.fa.fa-pencil
+                    
+        
+        .col-sm-6
+          h2 Contact
+          .digi-box
+            = simple_form_for [ @contact ], :url => url_for(:action => 'create', :controller => 'supports'), :method => 'post' do |f|
+              
+              = f.input :email, placeholder: 'you@email.com', autofocus: true
+              
+              = f.input :title, placeholder: 'Subject', label: 'Subject'
+              = f.input :body, label: 'Message', :input_html => {  style: "height: 284px;", placeholder: "Write your message here"}
+              = f.hidden_field :contact_subject, value: 'support ticket'
+              .row
+                .col-sm-12
+                  .pull-right
+                    = f.submit 'Send', class: 'btn btn-info'
+        
+            
+                 
+              
+  == render 'shared/site_footer'    
+ 

@@ -4,6 +4,8 @@ Digiramp::Application.routes.draw do
 
 
 
+  get 'contact/index'
+
   resources :labels
  
   namespace :user do
@@ -37,14 +39,11 @@ Digiramp::Application.routes.draw do
   get 'recording_rights/new'
 
   get 'terms/show'
-
+  
   resources :playlist_emails
 
   resources :terms, only: [:show]
   
-
-
-
   resources :addresses
 
   
@@ -52,7 +51,7 @@ Digiramp::Application.routes.draw do
   namespace :stripe do
     resources :success
   end
-
+  get "contact"         => "contact#index",     :as => :contact
   namespace :api do
     post 'sendgrid_hook/update'
     post 'mandrill_hook/update'

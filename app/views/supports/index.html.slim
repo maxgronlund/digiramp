@@ -1,3 +1,6 @@
+- blog      = Blog.cached_find('About')
+- blog_post = BlogPost.cached_find('About DigiRAMP', blog)
+
 #wrapper
   .full-width-top
     == render 'shared/navigationbar', page: 'home' 
@@ -9,26 +12,24 @@
   
   #page-content-wrapper
     .container-fluid
-      ==render 'admin/shared/messages'
-      h2 Support
-
-      .sexy_line
       .row
-        /- if current_user
-        /  .col-sm-6
-        /    h4 Found an issue?
-        /    
-        /    .digi-box
-        /      'DigiRAMP is not doing as you expect? Please click on the button below and see if the issue is found before
-        /      .row
-        /        .col-sm-12
-        /          .pull-right.pull-down-12
-        /            = link_to user_issues_path(current_user) do
-        /              .btn.btn-default
-        /                i class="fa fa-bug"
-        /                '&nbsp;
-        /                'Go to issues
         .col-sm-6
+          h2 = blog_post.title
+          .digi-box
+            
+            
+            = simple_format blog_post.body
+            - if editor?
+              .row
+                .col-sm-12
+                  .pull-right
+                    = link_to edit_admin_blog_blog_post_path(blog, blog_post) do
+                      .btn.btn-default.btn-xs
+                        i.fa.fa-pencil
+                    
+        
+        .col-sm-6
+          h2 Contact
           .digi-box
             = simple_form_for [ @contact ], :url => url_for(:action => 'create', :controller => 'supports'), :method => 'post' do |f|
               
@@ -41,8 +42,7 @@
                 .col-sm-12
                   .pull-right
                     = f.submit 'Send', class: 'btn btn-info'
-            
-
+        
             
                  
               
