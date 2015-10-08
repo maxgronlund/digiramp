@@ -31,7 +31,7 @@
         .col-sm-6
           h2 Contact
           .digi-box
-            = simple_form_for [ @contact ], :url => url_for(:action => 'create', :controller => 'supports'), :method => 'post' do |f|
+            = simple_form_for [ @contact ], :url => url_for(:action => 'create', :controller => 'contact'), :method => 'post' do |f|
               
               = f.input :email, placeholder: 'you@email.com', autofocus: true
               

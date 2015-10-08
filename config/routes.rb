@@ -52,6 +52,7 @@ Digiramp::Application.routes.draw do
     resources :success
   end
   get "contact"         => "contact#index",     :as => :contact
+  post "contact"        => "contact#create"
   namespace :api do
     post 'sendgrid_hook/update'
     post 'mandrill_hook/update'
