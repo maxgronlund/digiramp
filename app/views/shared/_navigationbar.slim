@@ -43,30 +43,30 @@
       
       li class="#{page == 'songs' ? 'active' : ''}"
         = link_to songs_path(clear: 'clear') do
-          i.fa.fa-headphones
-          '&nbsp;
+          /i.fa.fa-headphones
+          /'&nbsp;
           'Music
       li class="#{page == 'users' ? 'active' : ''}"
         = link_to users_path(clear: 'clear') do
-          i.fa.fa-users
-          '&nbsp;
+          /i.fa.fa-users
+          /'&nbsp;
           'People
           
       li class="#{page == 'opportunities' ? 'active' : ''}"
         - if current_user
           = link_to user_user_opportunities_path(current_user) do
-            i.fa.fa-money
-            '&nbsp;
+            /i.fa.fa-money
+            /'&nbsp;
             'Opportunities
         - else
           = link_to public_opportunities_path do
-            i.fa.fa-money
-            '&nbsp;
+            /i.fa.fa-money
+            /'&nbsp;
             'Opportunities
       li class="#{page == 'shop' ? 'active' : ''}"
         = link_to shop_shop_index_path do
-          i.fa.fa-shopping-cart
-          '&nbsp;
+          /i.fa.fa-shopping-cart
+          /'&nbsp;
           'Shop
     
 
