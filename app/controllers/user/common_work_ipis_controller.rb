@@ -53,6 +53,7 @@ class User::CommonWorkIpisController < ApplicationController
   end
   
   def destroy
+    ap 'destroy'
     @common_work           = CommonWork.cached_find(params[:common_work_id])
     @common_work_ipi          = CommonWorkIpi.cached_find(params[:id])
     @common_work_ipi.destroy
