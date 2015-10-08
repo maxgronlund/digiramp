@@ -67,10 +67,12 @@ class CommonWorkIpi < ActiveRecord::Base
     return if self.ipi
     
     if user = User.get_by_email(self.email)
-      self.ipi_id = user.ipi.id
-      self.save(validate: false)
-      # temp !!!
-      self.accepted!
+      if user_ipi = user.ipi
+        self.ipi_id = user_ipi.ipi.id
+        self.save(validate: false)
+        # temp !!!
+        self.accepted!
+      end
     end
   end
 
