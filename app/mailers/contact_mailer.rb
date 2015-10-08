@@ -13,7 +13,7 @@ class ContactMailer < ApplicationMailer
     email     = contact.email
     title     = contact.title
     body      = contact.body
-    
+    #link      = url_for( controller: 'contact', action: 'index', user_id: user_id, id: issue_id)
 
     begin
       template_name = "contact-request-received"
@@ -41,7 +41,6 @@ class ContactMailer < ApplicationMailer
       mandril_client.messages.send_template template_name, template_content, message
       #Opbeat.capture_message("Contact received: #{link}")
       SlackService.contact_request_received() #if Rails.env.production?
-      ap '=========================================== send ================================'
     rescue Mandrill::Error => e
       Opbeat.capture_message("#{e.class} - #{e.message}")
     end

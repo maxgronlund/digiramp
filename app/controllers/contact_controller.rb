@@ -1,10 +1,10 @@
 class ContactController < ApplicationController
+  
   def index
     @contact = Contact.new()
   end
   
   def create
-    
     if EmailSanitizer.validate( params[:contact][:email])
       flash[:info] = "Message send: We will come back to you asap." 
       @contact = Contact.create(contact_params)
@@ -20,6 +20,6 @@ class ContactController < ApplicationController
   end
   private
   def contact_params
-    params.require(:contact).permit(:email, :title, :body)
+    params.require(:contact).permit(:email, :title, :body, :contact_subject)
   end
 end

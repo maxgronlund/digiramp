@@ -1,0 +1,33 @@
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'admin' 
+  
+  .admin-account
+    #sidebar-wrapper
+      ul class="sidebar-nav"
+        == render 'admin/shared/sidebar', selected: 'admin'
+
+  
+  #page-content-wrapper
+    .container-fluid
+      h2 Contact request
+          
+            
+            
+      .pull-down-10          
+      .row
+        .col-sm-12
+          .digi-box
+            - @contacts.each do |contact|
+             h6 = contact.contact_subject
+             b = contact.title
+             br
+             i = l contact.created_at, format: :date
+             = simple_format contact.body
+             br
+             = contact.email
+             .sexy_line
+        
+                 
+              
+  == render 'shared/site_footer'  

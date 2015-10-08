@@ -1,9 +1,6 @@
 Digiramp::Application.routes.draw do
 
 
-
-
-
   get 'contact/index'
 
   resources :labels
