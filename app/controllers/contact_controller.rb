@@ -6,7 +6,7 @@ class ContactController < ApplicationController
   
   def create
     if EmailSanitizer.validate( params[:contact][:email])
-      flash[:info] = "Message send: We will come back to you asap." 
+      flash[:info] = "Contact request send: We will come back to you asap." 
       @contact = Contact.create(contact_params)
       ContactMailer.delay.contace_received(@contact.id)   
       redirect_to contact_index_path

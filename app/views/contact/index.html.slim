@@ -12,6 +12,7 @@
   
   #page-content-wrapper
     .container-fluid
+      
       .row
         .col-sm-6
           h2 = blog_post.title
@@ -29,10 +30,13 @@
                     
         
         .col-sm-6
+          ==render 'admin/shared/messages'
           h2 Contact
           .digi-box
             = simple_form_for [ @contact ], :url => url_for(:action => 'create', :controller => 'contact'), :method => 'post' do |f|
-              
+              - unless f.error_notification.blank?
+                = f.error_notification
+                
               = f.input :email, placeholder: 'you@email.com', autofocus: true
               
               = f.input :title, placeholder: 'Subject', label: 'Subject'
