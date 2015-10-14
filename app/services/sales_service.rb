@@ -143,7 +143,7 @@ class SalesService
   
   
   
-  # Check if all common_work_ips are valid 
+  # Check if all common_work_ips are valid
   def validate_common_work_ipis common_work
     validated_common_work_ipis = []
     status = 'ok'
