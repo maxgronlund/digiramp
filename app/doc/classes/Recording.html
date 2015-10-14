@@ -1,0 +1,2966 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>Recording</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../css/github.css" type="text/css" media="screen" />
+<script src="../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            <span class="type">Class</span> 
+            Recording 
+            
+                <span class="parent">&lt; 
+                    
+                    ActiveRecord::Base
+                    
+                </span>
+            
+        </h1>
+        <ul class="files">
+            
+            <li><a href="../files/models/recording_rb.html">models/recording.rb</a></li>
+            
+        </ul>
+    </div>
+    <div id="bodyContent">
+        <div id="content">
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+    <!-- Method ref -->
+    <div class="sectiontitle">Methods</div>
+    <dl class="methods">
+      
+        <dt>A</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-c-account_bucket_search">account_bucket_search</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-c-account_search">account_search</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-i-artworks">artworks</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-i-attach_to_common_work">attach_to_common_work</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>B</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-build_permissions">build_permissions</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>C</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-c-cached_find">cached_find</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-c-catalogs_search">catalogs_search</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-i-check_default_image">check_default_image</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-i-confirm_ipi">confirm_ipi</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-i-confirm_ipis">confirm_ipis</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>D</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-docs">docs</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-i-download_url">download_url</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-i-download_url2">download_url2</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-i-duration_string">duration_string</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>E</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-extract_genres">extract_genres</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-i-extract_instruments">extract_instruments</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-i-extract_metadata">extract_metadata</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-i-extract_moods">extract_moods</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>F</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-c-find_in_collection">find_in_collection</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-i-for_sale_in_shop-3F">for_sale_in_shop?</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>G</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-genre_tags_as_csv_string">genre_tags_as_csv_string</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-i-get_artwork">get_artwork</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-i-get_comment">get_comment</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-i-get_common_work">get_common_work</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-i-get_cover_art">get_cover_art</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-i-get_cover_thumb">get_cover_thumb</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-i-get_shop_art">get_shop_art</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>H</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-has_artists-3F">has_artists?</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-i-has_meta_data-3F">has_meta_data?</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>I</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-c-import_csv">import_csv</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-i-in_good_condition-3F">in_good_condition?</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-i-instruments_tags_as_csv_string">instruments_tags_as_csv_string</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-i-ipis_is_registered-3F">ipis_is_registered?</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-i-is_cleared-3F">is_cleared?</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>M</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-master_is_cleared-3F">master_is_cleared?</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-i-moods_tags_as_csv_string">moods_tags_as_csv_string</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-i-mount_common_work">mount_common_work</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>N</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-next_step">next_step</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-i-notify_followers">notify_followers</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>P</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-playlist">playlist</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-i-product">product</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>R</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-c-recordings_search">recordings_search</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-i-remove_from_collections">remove_from_collections</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>S</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-c-search_all">search_all</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-c-search_from_ids">search_from_ids</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-c-search_recordings">search_recordings</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-i-stakes">stakes</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>T</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-c-to_csv">to_csv</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-i-total_share">total_share</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-i-transfer_commonwork">transfer_commonwork</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>U</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-uniqify_fields">uniqify_fields</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-i-update_completeness">update_completeness</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-i-update_thumbs">update_thumbs</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-i-user_credits">user_credits</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>V</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-validate_splits">validate_splits</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>W</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-widget_snippet">widget_snippet</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>Z</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-zip">zip</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+    </dl>
+  
+
+  
+    <!-- Includes -->
+    <div class="sectiontitle">Included Modules</div>
+    <ul>
+      
+        <li>
+          
+            PublicActivity::Common
+          
+        </li>
+      
+        <li>
+          
+            <a href="ErrorNotification.html">
+              ErrorNotification
+            </a>
+          
+        </li>
+      
+        <li>
+          
+            PgSearch
+          
+        </li>
+      
+    </ul>
+  
+
+
+
+  
+
+    
+
+    
+
+    
+      <!-- Section constants -->
+      <div class="sectiontitle">Constants</div>
+      <table border='0' cellpadding='5'>
+        
+          <tr valign='top'>
+            <td class="attr-name">VOCAL</td>
+            <td>=</td>
+            <td class="attr-value">[ &quot;Female&quot;, &quot;Male&quot;, &quot;Female &amp; Male&quot;, &quot;Urban&quot;, &quot;Rap&quot;, &quot;Choir&quot;, &quot;Child&quot;, &quot;Spoken&quot;, &quot;Instrumental&quot; ]</td>
+          </tr>
+          
+            <tr valign='top'>
+              <td>&nbsp;</td>
+              <td colspan="2" class="attr-desc"></td>
+            </tr>
+          
+        
+          <tr valign='top'>
+            <td class="attr-name">TEMPO</td>
+            <td>=</td>
+            <td class="attr-value">[ &quot;Fast&quot;, &quot;Laid Back&quot;, &quot;Steady Rock&quot;, &quot;Medium&quot;, &quot;Medium-Up&quot;, &quot;Ballad&quot;, &quot;Brisk&quot;, &quot;Up&quot;, &quot;Slowly&quot;, &quot;Up Beat&quot; ]</td>
+          </tr>
+          
+            <tr valign='top'>
+              <td>&nbsp;</td>
+              <td colspan="2" class="attr-desc"></td>
+            </tr>
+          
+        
+          <tr valign='top'>
+            <td class="attr-name">PRIVACY</td>
+            <td>=</td>
+            <td class="attr-value">[ &quot;Anyone&quot;, &quot;Only me&quot;, &quot;Only people I choose&quot;]</td>
+          </tr>
+          
+            <tr valign='top'>
+              <td>&nbsp;</td>
+              <td colspan="2" class="attr-desc"><p><a href="Recording.html#PRIVACY">PRIVACY</a> = [ “Anyone”, “Only me”, “Only
+people I choose”, &#39;Only people I invite to my account&#39;]</p></td>
+            </tr>
+          
+        
+          <tr valign='top'>
+            <td class="attr-name">VOCAL_HASH</td>
+            <td>=</td>
+            <td class="attr-value">[]</td>
+          </tr>
+          
+            <tr valign='top'>
+              <td>&nbsp;</td>
+              <td colspan="2" class="attr-desc"><p><a href="Recording.html#PRIVACY">PRIVACY</a> = [ “Anyone”, “Only me”]</p></td>
+            </tr>
+          
+        
+      </table>
+    
+
+
+    
+      <!-- Section attributes -->
+      <div class="sectiontitle">Attributes</div>
+      <table border='0' cellpadding='5'>
+        
+          <tr valign='top'>
+            <td class='attr-rw'>
+              [RW]
+            </td>
+            <td class='attr-name'>add_to_catalogs</td>
+            <td class='attr-desc'><p>virtual parameter for CommonWorksController#new_recording form</p></td>
+          </tr>
+        
+      </table>
+    
+
+
+    <!-- Methods -->
+    
+      <div class="sectiontitle">Class Public methods</div>
+      
+        <div class="method">
+          <div class="title method-title" id="method-c-account_bucket_search">
+            
+              <b>account_bucket_search</b>(account, query)
+            
+            <a href="../classes/Recording.html#method-c-account_bucket_search" name="method-c-account_bucket_search" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-c-account_bucket_search_source')" id="l_method-c-account_bucket_search_source">show</a>
+                
+              </p>
+              <div id="method-c-account_bucket_search_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/recording.rb, line 418</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">self</span>.<span class="ruby-identifier">account_bucket_search</span>(<span class="ruby-identifier">account</span>, <span class="ruby-identifier">query</span>)
+  <span class="ruby-identifier">recordings</span> = <span class="ruby-identifier">account</span>.<span class="ruby-identifier">recordings</span>.<span class="ruby-identifier">bucket</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">query</span>.<span class="ruby-identifier">present?</span>
+   <span class="ruby-identifier">recordings</span> = <span class="ruby-identifier">recordings</span>.<span class="ruby-identifier">search</span>(<span class="ruby-identifier">query</span>)
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-identifier">recordings</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-c-account_search">
+            
+              <b>account_search</b>(account, query)
+            
+            <a href="../classes/Recording.html#method-c-account_search" name="method-c-account_search" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-c-account_search_source')" id="l_method-c-account_search_source">show</a>
+                
+              </p>
+              <div id="method-c-account_search_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/recording.rb, line 444</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">self</span>.<span class="ruby-identifier">account_search</span>(<span class="ruby-identifier">account</span>, <span class="ruby-identifier">query</span>)
+  <span class="ruby-identifier">recordings</span> = <span class="ruby-identifier">account</span>.<span class="ruby-identifier">recordings</span>.<span class="ruby-identifier">not_in_bucket</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">query</span>.<span class="ruby-identifier">present?</span>
+   <span class="ruby-identifier">recordings</span> = <span class="ruby-identifier">recordings</span>.<span class="ruby-identifier">search</span>(<span class="ruby-identifier">query</span>)
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-identifier">recordings</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-c-cached_find">
+            
+              <b>cached_find</b>(id)
+            
+            <a href="../classes/Recording.html#method-c-cached_find" name="method-c-cached_find" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-c-cached_find_source')" id="l_method-c-cached_find_source">show</a>
+                
+              </p>
+              <div id="method-c-cached_find_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/recording.rb, line 501</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">self</span>.<span class="ruby-identifier">cached_find</span>(<span class="ruby-identifier">id</span>)
+  <span class="ruby-constant">Rails</span>.<span class="ruby-identifier">cache</span>.<span class="ruby-identifier">fetch</span>([<span class="ruby-identifier">name</span>, <span class="ruby-identifier">id</span>]) { <span class="ruby-identifier">where</span>(<span class="ruby-identifier">id</span><span class="ruby-operator">:</span> <span class="ruby-identifier">id</span>).<span class="ruby-identifier">first</span> }
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-c-catalogs_search">
+            
+              <b>catalogs_search</b>(recordings, query)
+            
+            <a href="../classes/Recording.html#method-c-catalogs_search" name="method-c-catalogs_search" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-c-catalogs_search_source')" id="l_method-c-catalogs_search_source">show</a>
+                
+              </p>
+              <div id="method-c-catalogs_search_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/recording.rb, line 452</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">self</span>.<span class="ruby-identifier">catalogs_search</span>(<span class="ruby-identifier">recordings</span>, <span class="ruby-identifier">query</span>)
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">query</span>.<span class="ruby-identifier">present?</span>
+   <span class="ruby-identifier">recordings</span> = <span class="ruby-identifier">recordings</span>.<span class="ruby-identifier">search</span>(<span class="ruby-identifier">query</span>)
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-identifier">recordings</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-c-find_in_collection">
+            
+              <b>find_in_collection</b>(catalog, account, query)
+            
+            <a href="../classes/Recording.html#method-c-find_in_collection" name="method-c-find_in_collection" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-c-find_in_collection_source')" id="l_method-c-find_in_collection_source">show</a>
+                
+              </p>
+              <div id="method-c-find_in_collection_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/recording.rb, line 407</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">self</span>.<span class="ruby-identifier">find_in_collection</span>(<span class="ruby-identifier">catalog</span>, <span class="ruby-identifier">account</span>, <span class="ruby-identifier">query</span>)
+  
+  <span class="ruby-identifier">recording_ids</span> = <span class="ruby-identifier">account</span>.<span class="ruby-identifier">recording_ids</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">catalog</span>.<span class="ruby-identifier">recording_ids</span>
+  <span class="ruby-identifier">recordings</span>    = <span class="ruby-constant">Recording</span>.<span class="ruby-identifier">where</span>(<span class="ruby-identifier">id</span><span class="ruby-operator">:</span> <span class="ruby-identifier">recording_ids</span>)
+
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">query</span>.<span class="ruby-identifier">present?</span>
+   <span class="ruby-identifier">recordings</span> = <span class="ruby-identifier">recordings</span>.<span class="ruby-identifier">search</span>(<span class="ruby-identifier">query</span>)
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-identifier">recordings</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-c-import_csv">
+            
+              <b>import_csv</b>(csv_file)
+            
+            <a href="../classes/Recording.html#method-c-import_csv" name="method-c-import_csv" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-c-import_csv_source')" id="l_method-c-import_csv_source">show</a>
+                
+              </p>
+              <div id="method-c-import_csv_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/recording.rb, line 511</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">self</span>.<span class="ruby-identifier">import_csv</span>(<span class="ruby-identifier">csv_file</span>)
+  <span class="ruby-constant">RecordingCsvImporter</span>.<span class="ruby-identifier">process</span> <span class="ruby-identifier">recording</span>, <span class="ruby-identifier">csv_file</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-c-recordings_search">
+            
+              <b>recordings_search</b>(recordings, query)
+            
+            <a href="../classes/Recording.html#method-c-recordings_search" name="method-c-recordings_search" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-c-recordings_search_source')" id="l_method-c-recordings_search_source">show</a>
+                
+              </p>
+              <div id="method-c-recordings_search_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/recording.rb, line 459</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">self</span>.<span class="ruby-identifier">recordings_search</span>(<span class="ruby-identifier">recordings</span>, <span class="ruby-identifier">query</span>)
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">query</span>.<span class="ruby-identifier">present?</span>
+   <span class="ruby-keyword">return</span> <span class="ruby-identifier">recordings</span>.<span class="ruby-identifier">search</span>(<span class="ruby-identifier">query</span>)
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-identifier">recordings</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-c-search_all">
+            
+              <b>search_all</b>(query)
+            
+            <a href="../classes/Recording.html#method-c-search_all" name="method-c-search_all" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-c-search_all_source')" id="l_method-c-search_all_source">show</a>
+                
+              </p>
+              <div id="method-c-search_all_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/recording.rb, line 426</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">self</span>.<span class="ruby-identifier">search_all</span>(<span class="ruby-identifier">query</span>)
+  
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">query</span>.<span class="ruby-identifier">present?</span>
+   <span class="ruby-identifier">recordings</span> = <span class="ruby-constant">Recording</span>.<span class="ruby-identifier">search</span>(<span class="ruby-identifier">query</span>)
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-constant">Recording</span>.<span class="ruby-identifier">all</span>
+  <span class="ruby-keyword">end</span>
+  
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-c-search_from_ids">
+            
+              <b>search_from_ids</b>(recording_ids, query)
+            
+            <a href="../classes/Recording.html#method-c-search_from_ids" name="method-c-search_from_ids" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-c-search_from_ids_source')" id="l_method-c-search_from_ids_source">show</a>
+                
+              </p>
+              <div id="method-c-search_from_ids_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/recording.rb, line 436</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">self</span>.<span class="ruby-identifier">search_from_ids</span>(<span class="ruby-identifier">recording_ids</span>, <span class="ruby-identifier">query</span>)
+  <span class="ruby-identifier">recordings</span> = <span class="ruby-constant">Recording</span>.<span class="ruby-identifier">where</span>(<span class="ruby-identifier">id</span><span class="ruby-operator">:</span> <span class="ruby-identifier">recording_ids</span>)
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">query</span>.<span class="ruby-identifier">present?</span>
+   <span class="ruby-identifier">recordings</span> = <span class="ruby-identifier">recordings</span>.<span class="ruby-identifier">search</span>(<span class="ruby-identifier">query</span>)
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-identifier">recordings</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-c-search_recordings">
+            
+              <b>search_recordings</b>( query)
+            
+            <a href="../classes/Recording.html#method-c-search_recordings" name="method-c-search_recordings" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-c-search_recordings_source')" id="l_method-c-search_recordings_source">show</a>
+                
+              </p>
+              <div id="method-c-search_recordings_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/recording.rb, line 466</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">self</span>.<span class="ruby-identifier">search_recordings</span>( <span class="ruby-identifier">query</span>)
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">query</span>.<span class="ruby-identifier">present?</span>
+   <span class="ruby-keyword">return</span> <span class="ruby-identifier">search</span>(<span class="ruby-identifier">query</span>)
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-keyword">return</span> <span class="ruby-identifier">all</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-c-to_csv">
+            
+              <b>to_csv</b>()
+            
+            <a href="../classes/Recording.html#method-c-to_csv" name="method-c-to_csv" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-c-to_csv_source')" id="l_method-c-to_csv_source">show</a>
+                
+              </p>
+              <div id="method-c-to_csv_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/recording.rb, line 506</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">self</span>.<span class="ruby-identifier">to_csv</span>
+  <span class="ruby-constant">RecordingCsvParser</span>.<span class="ruby-identifier">process</span>( <span class="ruby-identifier">all</span> )
+
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+                  
+      <div class="sectiontitle">Instance Public methods</div>
+      
+        <div class="method">
+          <div class="title method-title" id="method-i-artworks">
+            
+              <b>artworks</b>()
+            
+            <a href="../classes/Recording.html#method-i-artworks" name="method-i-artworks" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-artworks_source')" id="l_method-i-artworks_source">show</a>
+                
+              </p>
+              <div id="method-i-artworks_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/recording.rb, line 383</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">artworks</span>
+  <span class="ruby-identifier">artwork_ids</span> = <span class="ruby-constant">RecordingItem</span>.<span class="ruby-identifier">where</span>(<span class="ruby-identifier">recording_id</span><span class="ruby-operator">:</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">id</span>, 
+                                    <span class="ruby-identifier">itemable_type</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;Artwork&#39;</span>).<span class="ruby-identifier">pluck</span>(<span class="ruby-value">:itemable_id</span>)
+                                    
+  <span class="ruby-constant">Artwork</span>.<span class="ruby-identifier">where</span>(<span class="ruby-identifier">id</span><span class="ruby-operator">:</span> <span class="ruby-identifier">artwork_ids</span> )
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-attach_to_common_work">
+            
+              <b>attach_to_common_work</b>()
+            
+            <a href="../classes/Recording.html#method-i-attach_to_common_work" name="method-i-attach_to_common_work" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-attach_to_common_work_source')" id="l_method-i-attach_to_common_work_source">show</a>
+                
+              </p>
+              <div id="method-i-attach_to_common_work_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/recording.rb, line 525</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">attach_to_common_work</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">common_work</span>
+    <span class="ruby-constant">CommonWork</span>.<span class="ruby-identifier">attach</span> <span class="ruby-keyword">self</span>, <span class="ruby-keyword">self</span>.<span class="ruby-identifier">account_id</span>, <span class="ruby-keyword">self</span>.<span class="ruby-identifier">user</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">common_work</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-build_permissions">
+            
+              <b>build_permissions</b>()
+            
+            <a href="../classes/Recording.html#method-i-build_permissions" name="method-i-build_permissions" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-build_permissions_source')" id="l_method-i-build_permissions_source">show</a>
+                
+              </p>
+              <div id="method-i-build_permissions_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/recording.rb, line 483</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">build_permissions</span>
+
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-check_default_image">
+            
+              <b>check_default_image</b>()
+            
+            <a href="../classes/Recording.html#method-i-check_default_image" name="method-i-check_default_image" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-check_default_image_source')" id="l_method-i-check_default_image_source">show</a>
+                
+              </p>
+              <div id="method-i-check_default_image_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/recording.rb, line 289</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">check_default_image</span>
+  <span class="ruby-comment">#unless File.exist?(Rails.root.join(&#39;public&#39; +  self.default_cover_art.to_s))</span>
+  <span class="ruby-keyword">if</span>(<span class="ruby-keyword">self</span>.<span class="ruby-identifier">cover_art</span>.<span class="ruby-identifier">to_s</span> <span class="ruby-operator">==</span> <span class="ruby-string">&quot;&quot;</span> <span class="ruby-operator">||</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">cover_art</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-string">&#39;recording/default_cover_art&#39;</span>))
+    <span class="ruby-identifier">prng</span>      = <span class="ruby-constant">Random</span>.<span class="ruby-identifier">new</span>
+    <span class="ruby-identifier">random_id</span> =  <span class="ruby-identifier">prng</span>.<span class="ruby-identifier">rand</span>(<span class="ruby-number">12</span>)
+  
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">random_id</span> <span class="ruby-operator">&lt;</span> <span class="ruby-number">10</span>
+      <span class="ruby-identifier">random_id</span> = <span class="ruby-string">&#39;0&#39;</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">random_id</span>.<span class="ruby-identifier">to_s</span> 
+    <span class="ruby-keyword">end</span>
+    <span class="ruby-keyword">self</span>.<span class="ruby-identifier">default_cover_art</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">open</span>(<span class="ruby-constant">Rails</span>.<span class="ruby-identifier">root</span>.<span class="ruby-identifier">join</span>(<span class="ruby-string">&#39;app&#39;</span>, <span class="ruby-string">&#39;assets&#39;</span>, <span class="ruby-string">&#39;images&#39;</span>, <span class="ruby-node">&quot;recording-fallbacks/recording_#{random_id.to_s}.jpg&quot;</span>))
+    <span class="ruby-keyword">self</span>.<span class="ruby-identifier">default_cover_art</span>.<span class="ruby-identifier">recreate_versions!</span>
+    <span class="ruby-keyword">self</span>.<span class="ruby-identifier">save!</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-confirm_ipi">
+            
+              <b>confirm_ipi</b>(recording_ipi)
+            
+            <a href="../classes/Recording.html#method-i-confirm_ipi" name="method-i-confirm_ipi" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-confirm_ipi_source')" id="l_method-i-confirm_ipi_source">show</a>
+                
+              </p>
+              <div id="method-i-confirm_ipi_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/recording.rb, line 352</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">confirm_ipi</span> <span class="ruby-identifier">recording_ipi</span>
+
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-confirm_ipis">
+            
+              <b>confirm_ipis</b>()
+            
+            <a href="../classes/Recording.html#method-i-confirm_ipis" name="method-i-confirm_ipis" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-confirm_ipis_source')" id="l_method-i-confirm_ipis_source">show</a>
+                
+              </p>
+              <div id="method-i-confirm_ipis_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/recording.rb, line 343</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">confirm_ipis</span>
+
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">recording_ipis</span>.<span class="ruby-identifier">where</span>(<span class="ruby-identifier">confirmed</span><span class="ruby-operator">:</span> <span class="ruby-keyword">false</span>).<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">recording_ipi</span><span class="ruby-operator">|</span>
+    <span class="ruby-keyword">unless</span> <span class="ruby-identifier">recording_ipi</span>.<span class="ruby-identifier">email</span>  <span class="ruby-operator">==</span> <span class="ruby-string">&#39;&#39;</span>
+      <span class="ruby-identifier">confirm_ipi</span> <span class="ruby-identifier">recording_ipi</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-docs">
+            
+              <b>docs</b>()
+            
+            <a href="../classes/Recording.html#method-i-docs" name="method-i-docs" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-docs_source')" id="l_method-i-docs_source">show</a>
+                
+              </p>
+              <div id="method-i-docs_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/recording.rb, line 379</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">docs</span>
+  <span class="ruby-constant">Document</span>.<span class="ruby-identifier">where</span>(<span class="ruby-identifier">documentable_id</span><span class="ruby-operator">:</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">id</span>, <span class="ruby-identifier">documentable_type</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;Recording&#39;</span>)
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-download_url">
+            
+              <b>download_url</b>(style = nil, expires_in = 90.minutes)
+            
+            <a href="../classes/Recording.html#method-i-download_url" name="method-i-download_url" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              <p>add this to environment variables read from yaml file</p>
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-download_url_source')" id="l_method-i-download_url_source">show</a>
+                
+              </p>
+              <div id="method-i-download_url_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/recording.rb, line 592</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">download_url</span>(<span class="ruby-identifier">style</span> = <span class="ruby-keyword">nil</span>, <span class="ruby-identifier">expires_in</span> = <span class="ruby-number">90</span>.<span class="ruby-identifier">minutes</span>)
+  
+  <span class="ruby-identifier">s3</span> = <span class="ruby-constant">Aws</span><span class="ruby-operator">::</span><span class="ruby-constant">S3</span><span class="ruby-operator">::</span><span class="ruby-constant">Resource</span>.<span class="ruby-identifier">new</span>
+
+  <span class="ruby-identifier">secure_url</span> = <span class="ruby-keyword">self</span>.<span class="ruby-identifier">mp3</span>
+  
+  <span class="ruby-keyword">unless</span> <span class="ruby-constant">Rails</span>.<span class="ruby-identifier">env</span>.<span class="ruby-identifier">test?</span>
+    <span class="ruby-keyword">begin</span>
+      <span class="ruby-keyword">if</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">mp3</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-string">&quot;https://s3-us-west-1.amazonaws.com/digiramp/&quot;</span>)
+        <span class="ruby-identifier">secure_url</span> = <span class="ruby-keyword">self</span>.<span class="ruby-identifier">mp3</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-string">&#39;https://s3-us-west-1.amazonaws.com/digiramp/&#39;</span>, <span class="ruby-string">&#39;&#39;</span>)
+      <span class="ruby-keyword">else</span>
+        <span class="ruby-identifier">secure_url</span> = <span class="ruby-keyword">self</span>.<span class="ruby-identifier">mp3</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-string">&#39;https://digiramp.s3.amazonaws.com/&#39;</span>, <span class="ruby-string">&#39;&#39;</span>)
+      <span class="ruby-keyword">end</span>
+      
+      <span class="ruby-identifier">bucket</span>      = <span class="ruby-identifier">s3</span>.<span class="ruby-identifier">bucket</span>(<span class="ruby-constant">Rails</span>.<span class="ruby-identifier">application</span>.<span class="ruby-identifier">secrets</span>.<span class="ruby-identifier">aws_s3_bucket</span>)
+      <span class="ruby-identifier">s3_obj</span>      = <span class="ruby-identifier">bucket</span>.<span class="ruby-identifier">object</span>(<span class="ruby-identifier">secure_url</span>)
+      <span class="ruby-identifier">secure_url</span>  = <span class="ruby-identifier">s3_obj</span>.<span class="ruby-identifier">presigned_url</span>(<span class="ruby-value">:get</span>, <span class="ruby-identifier">expires_in</span><span class="ruby-operator">:</span> <span class="ruby-number">600</span>)
+    <span class="ruby-keyword">rescue</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
+
+      <span class="ruby-identifier">secure_url</span> = <span class="ruby-keyword">self</span>.<span class="ruby-identifier">mp3</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-identifier">secure_url</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-download_url2">
+            
+              <b>download_url2</b>()
+            
+            <a href="../classes/Recording.html#method-i-download_url2" name="method-i-download_url2" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              <p>example from <a
+href="http://docs.aws.amazon.com/sdkforruby/api/index.html">docs.aws.amazon.com/sdkforruby/api/index.html</a></p>
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-download_url2_source')" id="l_method-i-download_url2_source">show</a>
+                
+              </p>
+              <div id="method-i-download_url2_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/recording.rb, line 618</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">download_url2</span>
+  <span class="ruby-identifier">s3</span> = <span class="ruby-constant">Aws</span><span class="ruby-operator">::</span><span class="ruby-constant">S3</span><span class="ruby-operator">::</span><span class="ruby-constant">Resource</span>.<span class="ruby-identifier">new</span>
+  <span class="ruby-identifier">secure_url</span> = <span class="ruby-keyword">self</span>.<span class="ruby-identifier">mp3</span>
+
+  <span class="ruby-keyword">begin</span>
+    <span class="ruby-keyword">if</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">mp3</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-string">&quot;https://s3-us-west-1.amazonaws.com/digiramp/&quot;</span>)
+      <span class="ruby-identifier">secure_url</span> = <span class="ruby-keyword">self</span>.<span class="ruby-identifier">mp3</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-string">&#39;https://s3-us-west-1.amazonaws.com/digiramp/&#39;</span>, <span class="ruby-string">&#39;&#39;</span>)
+    <span class="ruby-keyword">else</span>
+      <span class="ruby-identifier">secure_url</span> = <span class="ruby-keyword">self</span>.<span class="ruby-identifier">mp3</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-string">&#39;https://digiramp.s3.amazonaws.com/&#39;</span>, <span class="ruby-string">&#39;&#39;</span>)
+    <span class="ruby-keyword">end</span>
+    <span class="ruby-identifier">bucket</span>      = <span class="ruby-identifier">s3</span>.<span class="ruby-identifier">bucket</span>(<span class="ruby-constant">Rails</span>.<span class="ruby-identifier">application</span>.<span class="ruby-identifier">secrets</span>.<span class="ruby-identifier">aws_s3_bucket</span>)
+    <span class="ruby-identifier">s3_obj</span>      =  <span class="ruby-identifier">bucket</span>.<span class="ruby-identifier">object</span>(<span class="ruby-identifier">secure_url</span>)
+    <span class="ruby-identifier">filename</span>    = <span class="ruby-keyword">self</span>.<span class="ruby-identifier">title</span>.<span class="ruby-identifier">downcase</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-string">&#39; &#39;</span>, <span class="ruby-string">&#39;-&#39;</span>) <span class="ruby-operator">+</span> <span class="ruby-string">&#39;.mp3&#39;</span>
+    <span class="ruby-identifier">secure_url</span>  = <span class="ruby-identifier">s3_obj</span>.<span class="ruby-identifier">presigned_url</span>(<span class="ruby-value">:get</span>, <span class="ruby-identifier">expires_in</span><span class="ruby-operator">:</span> <span class="ruby-number">600</span>,<span class="ruby-identifier">response_content_disposition</span><span class="ruby-operator">:</span> <span class="ruby-node">&quot;attachment; filename=&#39;#{filename}&#39;&quot;</span>)
+  <span class="ruby-keyword">rescue</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
+    <span class="ruby-identifier">ap</span> <span class="ruby-identifier">e</span>.<span class="ruby-identifier">inspect</span>
+    <span class="ruby-identifier">secure_url</span> = <span class="ruby-keyword">self</span>.<span class="ruby-identifier">mp3</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-identifier">secure_url</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-duration_string">
+            
+              <b>duration_string</b>()
+            
+            <a href="../classes/Recording.html#method-i-duration_string" name="method-i-duration_string" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-duration_string_source')" id="l_method-i-duration_string_source">show</a>
+                
+              </p>
+              <div id="method-i-duration_string_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/recording.rb, line 492</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">duration_string</span>
+  <span class="ruby-identifier">hours</span>   = (<span class="ruby-keyword">self</span>.<span class="ruby-identifier">duration</span> <span class="ruby-operator">/</span> <span class="ruby-number">3600</span>).<span class="ruby-identifier">to_i</span>
+  <span class="ruby-identifier">minutes</span> = (<span class="ruby-keyword">self</span>.<span class="ruby-identifier">duration</span> <span class="ruby-operator">/</span> <span class="ruby-number">60</span>).<span class="ruby-identifier">to_i</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">hours</span>
+  <span class="ruby-identifier">seconds</span> = <span class="ruby-keyword">self</span>.<span class="ruby-identifier">duration</span>.<span class="ruby-identifier">to_i</span> <span class="ruby-operator">-</span> (<span class="ruby-identifier">minutes</span> <span class="ruby-operator">*</span> <span class="ruby-number">60</span>)
+  <span class="ruby-identifier">msec</span>    = (<span class="ruby-keyword">self</span>.<span class="ruby-identifier">duration</span> <span class="ruby-operator">*</span> <span class="ruby-number">100</span>).<span class="ruby-identifier">to_i</span> <span class="ruby-operator">-</span> (<span class="ruby-keyword">self</span>.<span class="ruby-identifier">duration</span>.<span class="ruby-identifier">to_i</span> <span class="ruby-operator">*</span> <span class="ruby-number">100</span>)
+  <span class="ruby-identifier">timeString</span> = <span class="ruby-identifier">convertToTwoDigitString</span>(<span class="ruby-identifier">minutes</span>) <span class="ruby-operator">+</span> <span class="ruby-string">&#39;:&#39;</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">convertToTwoDigitString</span>(<span class="ruby-identifier">seconds</span>) <span class="ruby-operator">+</span> <span class="ruby-string">&#39;:&#39;</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">convertToTwoDigitString</span>(<span class="ruby-identifier">msec</span>)
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">timeString</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-extract_genres">
+            
+              <b>extract_genres</b>()
+            
+            <a href="../classes/Recording.html#method-i-extract_genres" name="method-i-extract_genres" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              <p>update the genre</p>
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-extract_genres_source')" id="l_method-i-extract_genres_source">show</a>
+                
+              </p>
+              <div id="method-i-extract_genres_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/recording.rb, line 533</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">extract_genres</span>
+  <span class="ruby-constant">GenreExtracter</span>.<span class="ruby-identifier">process</span> <span class="ruby-keyword">self</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-extract_instruments">
+            
+              <b>extract_instruments</b>()
+            
+            <a href="../classes/Recording.html#method-i-extract_instruments" name="method-i-extract_instruments" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              <p>update instruments</p>
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-extract_instruments_source')" id="l_method-i-extract_instruments_source">show</a>
+                
+              </p>
+              <div id="method-i-extract_instruments_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/recording.rb, line 538</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">extract_instruments</span> 
+  <span class="ruby-constant">InstrumentExtracter</span>.<span class="ruby-identifier">process</span> <span class="ruby-keyword">self</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-extract_metadata">
+            
+              <b>extract_metadata</b>()
+            
+            <a href="../classes/Recording.html#method-i-extract_metadata" name="method-i-extract_metadata" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-extract_metadata_source')" id="l_method-i-extract_metadata_source">show</a>
+                
+              </p>
+              <div id="method-i-extract_metadata_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/recording.rb, line 487</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">extract_metadata</span>
+  <span class="ruby-constant">RecordingExtractMetadata</span>.<span class="ruby-identifier">extract</span> <span class="ruby-keyword">self</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-extract_moods">
+            
+              <b>extract_moods</b>()
+            
+            <a href="../classes/Recording.html#method-i-extract_moods" name="method-i-extract_moods" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-extract_moods_source')" id="l_method-i-extract_moods_source">show</a>
+                
+              </p>
+              <div id="method-i-extract_moods_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/recording.rb, line 542</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">extract_moods</span>
+  <span class="ruby-constant">MoodExtracter</span>.<span class="ruby-identifier">process</span> <span class="ruby-keyword">self</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-for_sale_in_shop-3F">
+            
+              <b>for_sale_in_shop?</b>()
+            
+            <a href="../classes/Recording.html#method-i-for_sale_in_shop-3F" name="method-i-for_sale_in_shop-3F" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-for_sale_in_shop-3F_source')" id="l_method-i-for_sale_in_shop-3F_source">show</a>
+                
+              </p>
+              <div id="method-i-for_sale_in_shop-3F_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/recording.rb, line 248</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">for_sale_in_shop?</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span> <span class="ruby-keyword">unless</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">is_cleared?</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">product_in_shop</span> = <span class="ruby-identifier">product</span>
+    <span class="ruby-keyword">return</span> <span class="ruby-identifier">product_in_shop</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">product_in_shop</span>.<span class="ruby-identifier">for_sale</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">nil</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-genre_tags_as_csv_string">
+            
+              <b>genre_tags_as_csv_string</b>()
+            
+            <a href="../classes/Recording.html#method-i-genre_tags_as_csv_string" name="method-i-genre_tags_as_csv_string" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-genre_tags_as_csv_string_source')" id="l_method-i-genre_tags_as_csv_string_source">show</a>
+                
+              </p>
+              <div id="method-i-genre_tags_as_csv_string_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/recording.rb, line 548</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">genre_tags_as_csv_string</span>
+  <span class="ruby-identifier">comma_seperated_genre_tags</span> = <span class="ruby-string">&#39;&#39;</span>
+  <span class="ruby-identifier">genre_tags</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">genre_tag</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">comma_seperated_genre_tags</span> <span class="ruby-operator">+=</span> <span class="ruby-identifier">genre_tag</span>.<span class="ruby-identifier">genre</span>.<span class="ruby-identifier">title</span>
+    <span class="ruby-identifier">comma_seperated_genre_tags</span> <span class="ruby-operator">+=</span> <span class="ruby-string">&#39;, &#39;</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-comment"># remove last &#39;,&#39;</span>
+  <span class="ruby-identifier">comma_seperated_genre_tags</span>.<span class="ruby-identifier">rstrip</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-regexp">/\W\z/</span>, <span class="ruby-string">&#39;&#39;</span>) 
+
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-get_artwork">
+            
+              <b>get_artwork</b>()
+            
+            <a href="../classes/Recording.html#method-i-get_artwork" name="method-i-get_artwork" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-get_artwork_source')" id="l_method-i-get_artwork_source">show</a>
+                
+              </p>
+              <div id="method-i-get_artwork_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/recording.rb, line 304</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">get_artwork</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">cover_art</span>.<span class="ruby-identifier">blank?</span> <span class="ruby-operator">?</span>  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">default_cover_art_url</span>(<span class="ruby-value">:size_184x184</span> ) <span class="ruby-operator">:</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">cover_art</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-get_comment">
+            
+              <b>get_comment</b>()
+            
+            <a href="../classes/Recording.html#method-i-get_comment" name="method-i-get_comment" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-get_comment_source')" id="l_method-i-get_comment_source">show</a>
+                
+              </p>
+              <div id="method-i-get_comment_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/recording.rb, line 520</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">get_comment</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">comment</span> <span class="ruby-keyword">unless</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">comment</span>.<span class="ruby-identifier">to_s</span> <span class="ruby-operator">==</span> <span class="ruby-string">&#39;&#39;</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-string">&#39;Provided by DigiRAMP&#39;</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-get_common_work">
+            
+              <b>get_common_work</b>()
+            
+            <a href="../classes/Recording.html#method-i-get_common_work" name="method-i-get_common_work" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-get_common_work_source')" id="l_method-i-get_common_work_source">show</a>
+                
+              </p>
+              <div id="method-i-get_common_work_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/recording.rb, line 240</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">get_common_work</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">common_work</span> <span class="ruby-operator">?</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">common_work</span> <span class="ruby-operator">:</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">mount_common_work</span> 
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-get_cover_art">
+            
+              <b>get_cover_art</b>()
+            
+            <a href="../classes/Recording.html#method-i-get_cover_art" name="method-i-get_cover_art" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-get_cover_art_source')" id="l_method-i-get_cover_art_source">show</a>
+                
+              </p>
+              <div id="method-i-get_cover_art_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/recording.rb, line 335</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">get_cover_art</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">cover_art</span>.<span class="ruby-identifier">blank?</span> <span class="ruby-operator">?</span>  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">default_cover_art_url</span>(<span class="ruby-value">:size_184x184</span> ) <span class="ruby-operator">:</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">cover_art</span> 
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-get_cover_thumb">
+            
+              <b>get_cover_thumb</b>()
+            
+            <a href="../classes/Recording.html#method-i-get_cover_thumb" name="method-i-get_cover_thumb" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-get_cover_thumb_source')" id="l_method-i-get_cover_thumb_source">show</a>
+                
+              </p>
+              <div id="method-i-get_cover_thumb_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/recording.rb, line 339</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">get_cover_thumb</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">cover_art</span>.<span class="ruby-identifier">blank?</span> <span class="ruby-operator">?</span>  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">default_cover_art_url</span>(<span class="ruby-value">:size_62x62</span> ) <span class="ruby-operator">:</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">cover_art</span> 
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-get_shop_art">
+            
+              <b>get_shop_art</b>()
+            
+            <a href="../classes/Recording.html#method-i-get_shop_art" name="method-i-get_shop_art" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-get_shop_art_source')" id="l_method-i-get_shop_art_source">show</a>
+                
+              </p>
+              <div id="method-i-get_shop_art_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/recording.rb, line 331</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">get_shop_art</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">cover_art</span>.<span class="ruby-identifier">blank?</span> <span class="ruby-operator">?</span>  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">default_cover_art_url</span>(<span class="ruby-value">:size_184x184</span> ) <span class="ruby-operator">:</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">cover_art</span> 
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-has_artists-3F">
+            
+              <b>has_artists?</b>()
+            
+            <a href="../classes/Recording.html#method-i-has_artists-3F" name="method-i-has_artists-3F" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-has_artists-3F_source')" id="l_method-i-has_artists-3F_source">show</a>
+                
+              </p>
+              <div id="method-i-has_artists-3F_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/recording.rb, line 398</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">has_artists?</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">true</span> <span class="ruby-keyword">unless</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">composer</span>   <span class="ruby-operator">==</span> <span class="ruby-string">&#39;&#39;</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">true</span> <span class="ruby-keyword">unless</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">artist</span>     <span class="ruby-operator">==</span> <span class="ruby-string">&#39;&#39;</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">true</span> <span class="ruby-keyword">unless</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">band</span>       <span class="ruby-operator">==</span> <span class="ruby-string">&#39;&#39;</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">true</span> <span class="ruby-keyword">unless</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">performer</span>  <span class="ruby-operator">==</span> <span class="ruby-string">&#39;&#39;</span>
+  <span class="ruby-keyword">false</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-has_meta_data-3F">
+            
+              <b>has_meta_data?</b>()
+            
+            <a href="../classes/Recording.html#method-i-has_meta_data-3F" name="method-i-has_meta_data-3F" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-has_meta_data-3F_source')" id="l_method-i-has_meta_data-3F_source">show</a>
+                
+              </p>
+              <div id="method-i-has_meta_data-3F_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/recording.rb, line 391</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">has_meta_data?</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">true</span> <span class="ruby-keyword">unless</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">genre</span>       <span class="ruby-operator">==</span> <span class="ruby-string">&#39;&#39;</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">true</span> <span class="ruby-keyword">unless</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">mood</span>        <span class="ruby-operator">==</span> <span class="ruby-string">&#39;&#39;</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">true</span> <span class="ruby-keyword">unless</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">instruments</span> <span class="ruby-operator">==</span> <span class="ruby-string">&#39;&#39;</span>
+  <span class="ruby-keyword">false</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-in_good_condition-3F">
+            
+              <b>in_good_condition?</b>()
+            
+            <a href="../classes/Recording.html#method-i-in_good_condition-3F" name="method-i-in_good_condition-3F" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-in_good_condition-3F_source')" id="l_method-i-in_good_condition-3F_source">show</a>
+                
+              </p>
+              <div id="method-i-in_good_condition-3F_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/recording.rb, line 479</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">in_good_condition?</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">completeness_in_pct</span> <span class="ruby-operator">&gt;</span> <span class="ruby-number">30</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-instruments_tags_as_csv_string">
+            
+              <b>instruments_tags_as_csv_string</b>()
+            
+            <a href="../classes/Recording.html#method-i-instruments_tags_as_csv_string" name="method-i-instruments_tags_as_csv_string" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-instruments_tags_as_csv_string_source')" id="l_method-i-instruments_tags_as_csv_string_source">show</a>
+                
+              </p>
+              <div id="method-i-instruments_tags_as_csv_string_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/recording.rb, line 560</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">instruments_tags_as_csv_string</span>
+  <span class="ruby-identifier">comma_seperated_instruments_tags</span> = <span class="ruby-string">&#39;&#39;</span>
+  <span class="ruby-identifier">instrument_tags</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">instrument_tag</span><span class="ruby-operator">|</span>
+    <span class="ruby-keyword">begin</span>
+      <span class="ruby-identifier">comma_seperated_instruments_tags</span> <span class="ruby-operator">+=</span> <span class="ruby-identifier">instrument_tag</span>.<span class="ruby-identifier">instrument</span>.<span class="ruby-identifier">title</span>
+      <span class="ruby-identifier">comma_seperated_instruments_tags</span> <span class="ruby-operator">+=</span> <span class="ruby-string">&#39;, &#39;</span>
+    <span class="ruby-keyword">rescue</span>
+      <span class="ruby-identifier">instrument_tag</span>.<span class="ruby-identifier">destroy</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-identifier">comma_seperated_instruments_tags</span>.<span class="ruby-identifier">rstrip</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-regexp">/\W\z/</span>, <span class="ruby-string">&#39;&#39;</span>) 
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-ipis_is_registered-3F">
+            
+              <b>ipis_is_registered?</b>()
+            
+            <a href="../classes/Recording.html#method-i-ipis_is_registered-3F" name="method-i-ipis_is_registered-3F" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-ipis_is_registered-3F_source')" id="l_method-i-ipis_is_registered-3F_source">show</a>
+                
+              </p>
+              <div id="method-i-ipis_is_registered-3F_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/recording.rb, line 235</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">ipis_is_registered?</span>
+  <span class="ruby-identifier">recording_ipis</span>.<span class="ruby-identifier">count</span> <span class="ruby-operator">&gt;</span> <span class="ruby-number">0</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-is_cleared-3F">
+            
+              <b>is_cleared?</b>()
+            
+            <a href="../classes/Recording.html#method-i-is_cleared-3F" name="method-i-is_cleared-3F" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              <p>def update_stakes</p>
+
+<pre><code>#begin
+#  if shop_products = Shop::Product.where(productable_id: self.id,  productable_type: self.class.name)
+#     shop_products.update_all(title: self.title)
+#  end
+#rescue =&gt; e
+#  post_error &quot;Recording#update_stakes #{e.message}&quot;
+#end
+</code></pre>
+
+<p>end</p>
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-is_cleared-3F_source')" id="l_method-i-is_cleared-3F_source">show</a>
+                
+              </p>
+              <div id="method-i-is_cleared-3F_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/recording.rb, line 214</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">is_cleared?</span>
+  <span class="ruby-comment">#ap &quot;get_common_work.is_cleared?: #{get_common_work.is_cleared?}&quot;</span>
+  <span class="ruby-identifier">ap</span> <span class="ruby-node">&quot;master_is_cleared?: #{master_is_cleared?}&quot;</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">get_common_work</span>.<span class="ruby-identifier">is_cleared?</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">master_is_cleared?</span>
+  
+  <span class="ruby-keyword">true</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-master_is_cleared-3F">
+            
+              <b>master_is_cleared?</b>()
+            
+            <a href="../classes/Recording.html#method-i-master_is_cleared-3F" name="method-i-master_is_cleared-3F" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-master_is_cleared-3F_source')" id="l_method-i-master_is_cleared-3F_source">show</a>
+                
+              </p>
+              <div id="method-i-master_is_cleared-3F_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/recording.rb, line 223</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">master_is_cleared?</span>
+  
+  <span class="ruby-identifier">ap</span> <span class="ruby-node">&quot;ipis_is_registered?: #{ipis_is_registered?}&quot;</span>
+
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">ipis_is_registered?</span>
+  <span class="ruby-identifier">recording_ipis</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">recording_ipi</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">ap</span> <span class="ruby-node">&quot;recording_ipi.accepted?: #{recording_ipi.accepted?}&quot;</span>
+    <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">recording_ipi</span>.<span class="ruby-identifier">accepted?</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">true</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-moods_tags_as_csv_string">
+            
+              <b>moods_tags_as_csv_string</b>()
+            
+            <a href="../classes/Recording.html#method-i-moods_tags_as_csv_string" name="method-i-moods_tags_as_csv_string" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-moods_tags_as_csv_string_source')" id="l_method-i-moods_tags_as_csv_string_source">show</a>
+                
+              </p>
+              <div id="method-i-moods_tags_as_csv_string_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/recording.rb, line 574</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">moods_tags_as_csv_string</span>
+  <span class="ruby-identifier">comma_seperated_moods_tags</span> = <span class="ruby-string">&#39;&#39;</span>
+  <span class="ruby-identifier">mood_tags</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">mood_tag</span><span class="ruby-operator">|</span>
+    <span class="ruby-keyword">begin</span>
+      <span class="ruby-identifier">comma_seperated_moods_tags</span> <span class="ruby-operator">+=</span> <span class="ruby-identifier">mood_tag</span>.<span class="ruby-identifier">mood</span>.<span class="ruby-identifier">title</span>
+      <span class="ruby-identifier">comma_seperated_moods_tags</span> <span class="ruby-operator">+=</span> <span class="ruby-string">&#39;, &#39;</span>
+    <span class="ruby-keyword">rescue</span>
+      <span class="ruby-identifier">mood_tag</span>.<span class="ruby-identifier">destroy</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-identifier">comma_seperated_moods_tags</span>.<span class="ruby-identifier">rstrip</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-regexp">/\W\z/</span>, <span class="ruby-string">&#39;&#39;</span>) 
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-mount_common_work">
+            
+              <b>mount_common_work</b>()
+            
+            <a href="../classes/Recording.html#method-i-mount_common_work" name="method-i-mount_common_work" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-mount_common_work_source')" id="l_method-i-mount_common_work_source">show</a>
+                
+              </p>
+              <div id="method-i-mount_common_work_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/recording.rb, line 318</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">mount_common_work</span>
+  <span class="ruby-keyword">unless</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">common_work</span>
+    <span class="ruby-identifier">common_work</span> = <span class="ruby-constant">CommonWork</span>.<span class="ruby-identifier">create</span>( <span class="ruby-identifier">account_id</span><span class="ruby-operator">:</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">account_id</span>, 
+                                     <span class="ruby-identifier">title</span><span class="ruby-operator">:</span>      <span class="ruby-keyword">self</span>.<span class="ruby-identifier">title</span>, 
+                                     <span class="ruby-identifier">lyrics</span><span class="ruby-operator">:</span>     <span class="ruby-keyword">self</span>.<span class="ruby-identifier">lyrics</span>)
+            
+    <span class="ruby-keyword">self</span>.<span class="ruby-identifier">common_work_id</span> = <span class="ruby-identifier">common_work</span>.<span class="ruby-identifier">id</span>
+    <span class="ruby-keyword">self</span>.<span class="ruby-identifier">save</span>(<span class="ruby-identifier">validate</span><span class="ruby-operator">:</span> <span class="ruby-keyword">false</span>)
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-identifier">common_work</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-next_step">
+            
+              <b>next_step</b>()
+            
+            <a href="../classes/Recording.html#method-i-next_step" name="method-i-next_step" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-next_step_source')" id="l_method-i-next_step_source">show</a>
+                
+              </p>
+              <div id="method-i-next_step_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/recording.rb, line 515</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">next_step</span>
+  
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-notify_followers">
+            
+              <b>notify_followers</b>()
+            
+            <a href="../classes/Recording.html#method-i-notify_followers" name="method-i-notify_followers" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-notify_followers_source')" id="l_method-i-notify_followers_source">show</a>
+                
+              </p>
+              <div id="method-i-notify_followers_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/recording.rb, line 282</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">notify_followers</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">privacy</span> <span class="ruby-operator">==</span> <span class="ruby-string">&#39;Anyone&#39;</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-constant">Rails</span>.<span class="ruby-identifier">env</span>.<span class="ruby-identifier">production?</span>
+    <span class="ruby-constant">FollowerMailer</span>.<span class="ruby-identifier">delay_for</span>(<span class="ruby-number">40</span>.<span class="ruby-identifier">minutes</span>).<span class="ruby-identifier">recording_uploaded</span>( <span class="ruby-keyword">self</span>.<span class="ruby-identifier">id</span> )
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-playlist">
+            
+              <b>playlist</b>()
+            
+            <a href="../classes/Recording.html#method-i-playlist" name="method-i-playlist" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-playlist_source')" id="l_method-i-playlist_source">show</a>
+                
+              </p>
+              <div id="method-i-playlist_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/recording.rb, line 376</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">playlist</span> 
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-product">
+            
+              <b>product</b>()
+            
+            <a href="../classes/Recording.html#method-i-product" name="method-i-product" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-product_source')" id="l_method-i-product_source">show</a>
+                
+              </p>
+              <div id="method-i-product_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/recording.rb, line 244</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">product</span>
+  <span class="ruby-constant">Shop</span><span class="ruby-operator">::</span><span class="ruby-constant">Product</span>.<span class="ruby-identifier">find_by</span>(<span class="ruby-identifier">productable_id</span><span class="ruby-operator">:</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">id</span>, <span class="ruby-identifier">productable_type</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;Recording&#39;</span>)
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-remove_from_collections">
+            
+              <b>remove_from_collections</b>()
+            
+            <a href="../classes/Recording.html#method-i-remove_from_collections" name="method-i-remove_from_collections" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-remove_from_collections_source')" id="l_method-i-remove_from_collections_source">show</a>
+                
+              </p>
+              <div id="method-i-remove_from_collections_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/recording.rb, line 697</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">remove_from_collections</span>
+  <span class="ruby-identifier">update_uuids</span>
+  <span class="ruby-identifier">remove_from_catalogs</span>
+  <span class="ruby-identifier">remove_from_albums</span>
+  <span class="ruby-identifier">count_stats_down</span>
+  <span class="ruby-identifier">remove_from_submissions</span>
+  <span class="ruby-identifier">remove_from_playlists</span>
+  <span class="ruby-identifier">remove_share_on_facebooks</span>
+  <span class="ruby-identifier">remove_from_follower_events</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-stakes">
+            
+              <b>stakes</b>()
+            
+            <a href="../classes/Recording.html#method-i-stakes" name="method-i-stakes" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-stakes_source')" id="l_method-i-stakes_source">show</a>
+                
+              </p>
+              <div id="method-i-stakes_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/recording.rb, line 139</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">stakes</span>
+  <span class="ruby-constant">Stake</span>.<span class="ruby-identifier">where</span>(<span class="ruby-identifier">asset_type</span><span class="ruby-operator">:</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">name</span>,<span class="ruby-identifier">asset_id</span><span class="ruby-operator">:</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">uuid</span> )
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-total_share">
+            
+              <b>total_share</b>()
+            
+            <a href="../classes/Recording.html#method-i-total_share" name="method-i-total_share" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-total_share_source')" id="l_method-i-total_share_source">show</a>
+                
+              </p>
+              <div id="method-i-total_share_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/recording.rb, line 368</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">total_share</span>
+  <span class="ruby-identifier">share</span> = <span class="ruby-number">0.0</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">recording_ipis</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">recording_ipi</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">share</span> <span class="ruby-operator">+=</span> <span class="ruby-identifier">recording_ipi</span>.<span class="ruby-identifier">share</span>.<span class="ruby-identifier">to_f</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-identifier">share</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-transfer_commonwork">
+            
+              <b>transfer_commonwork</b>()
+            
+            <a href="../classes/Recording.html#method-i-transfer_commonwork" name="method-i-transfer_commonwork" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-transfer_commonwork_source')" id="l_method-i-transfer_commonwork_source">show</a>
+                
+              </p>
+              <div id="method-i-transfer_commonwork_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/recording.rb, line 648</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">transfer_commonwork</span>
+
+  <span class="ruby-keyword">if</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">account_id</span> <span class="ruby-operator">!=</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">common_work</span>.<span class="ruby-identifier">account_id</span>
+    
+    <span class="ruby-identifier">common_work_copy</span> = <span class="ruby-keyword">self</span>.<span class="ruby-identifier">account</span>.<span class="ruby-identifier">common_works</span>.<span class="ruby-identifier">where</span>(<span class="ruby-identifier">uuid</span><span class="ruby-operator">:</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">common_work</span>.<span class="ruby-identifier">uuid</span>)
+                                 .<span class="ruby-identifier">first_or_create</span>(
+                                    <span class="ruby-identifier">title</span><span class="ruby-operator">:</span>                               <span class="ruby-keyword">self</span>.<span class="ruby-identifier">common_work</span>.<span class="ruby-identifier">title</span>,
+                                    <span class="ruby-identifier">iswc_code</span><span class="ruby-operator">:</span>                           <span class="ruby-keyword">self</span>.<span class="ruby-identifier">common_work</span>.<span class="ruby-identifier">iswc_code</span>,                      
+                                    <span class="ruby-identifier">ascap_work_id</span><span class="ruby-operator">:</span>                       <span class="ruby-keyword">self</span>.<span class="ruby-identifier">common_work</span>.<span class="ruby-identifier">ascap_work_id</span>,
+                                    <span class="ruby-identifier">account_id</span><span class="ruby-operator">:</span>                          <span class="ruby-keyword">self</span>.<span class="ruby-identifier">account_id</span>,
+                                    <span class="ruby-identifier">common_works_import_id</span><span class="ruby-operator">:</span>              <span class="ruby-keyword">nil</span>,
+                                    <span class="ruby-identifier">audio_file</span><span class="ruby-operator">:</span>                          <span class="ruby-keyword">nil</span>,
+                                    <span class="ruby-identifier">content_type</span><span class="ruby-operator">:</span>                        <span class="ruby-keyword">self</span>.<span class="ruby-identifier">common_work</span>.<span class="ruby-identifier">content_type</span>,
+                                    <span class="ruby-identifier">description</span><span class="ruby-operator">:</span>                         <span class="ruby-keyword">self</span>.<span class="ruby-identifier">common_work</span>.<span class="ruby-identifier">description</span>,
+                                    <span class="ruby-identifier">alternative_titles</span><span class="ruby-operator">:</span>                  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">common_work</span>.<span class="ruby-identifier">alternative_titles</span>,
+                                    <span class="ruby-identifier">recording_preview_id</span><span class="ruby-operator">:</span>                <span class="ruby-keyword">nil</span>,
+                                    <span class="ruby-identifier">step</span><span class="ruby-operator">:</span>                                <span class="ruby-keyword">self</span>.<span class="ruby-identifier">common_work</span>.<span class="ruby-identifier">step</span>,                             
+                                    <span class="ruby-identifier">lyrics</span><span class="ruby-operator">:</span>                              <span class="ruby-keyword">self</span>.<span class="ruby-identifier">common_work</span>.<span class="ruby-identifier">lyrics</span>,
+                                    <span class="ruby-identifier">catalog_id</span><span class="ruby-operator">:</span>                          <span class="ruby-keyword">self</span>.<span class="ruby-identifier">common_work</span>.<span class="ruby-identifier">catalog_id</span>,
+                                    <span class="ruby-identifier">uuid</span><span class="ruby-operator">:</span>                                <span class="ruby-keyword">self</span>.<span class="ruby-identifier">common_work</span>.<span class="ruby-identifier">uuid</span>,
+                                    <span class="ruby-identifier">completeness</span><span class="ruby-operator">:</span>                        <span class="ruby-keyword">self</span>.<span class="ruby-identifier">common_work</span>.<span class="ruby-identifier">completeness</span>,
+                                    <span class="ruby-identifier">artwork</span><span class="ruby-operator">:</span>                             <span class="ruby-keyword">nil</span>,
+                                    <span class="ruby-identifier">pro</span><span class="ruby-operator">:</span>                                 <span class="ruby-keyword">self</span>.<span class="ruby-identifier">common_work</span>.<span class="ruby-identifier">pro</span>,
+                                    <span class="ruby-identifier">surveyed_work</span><span class="ruby-operator">:</span>                       <span class="ruby-keyword">self</span>.<span class="ruby-identifier">common_work</span>.<span class="ruby-identifier">surveyed_work</span>,
+                                    <span class="ruby-identifier">last_distribution</span><span class="ruby-operator">:</span>                   <span class="ruby-keyword">self</span>.<span class="ruby-identifier">common_work</span>.<span class="ruby-identifier">last_distribution</span>,
+                                    <span class="ruby-identifier">work_status</span><span class="ruby-operator">:</span>                         <span class="ruby-keyword">self</span>.<span class="ruby-identifier">common_work</span>.<span class="ruby-identifier">work_status</span>,
+                                    <span class="ruby-identifier">ascap_award_winner</span><span class="ruby-operator">:</span>                  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">common_work</span>.<span class="ruby-identifier">ascap_award_winner</span>,
+                                    <span class="ruby-identifier">work_type</span><span class="ruby-operator">:</span>                           <span class="ruby-keyword">self</span>.<span class="ruby-identifier">common_work</span>.<span class="ruby-identifier">work_type</span>,
+                                    <span class="ruby-identifier">composite_type</span><span class="ruby-operator">:</span>                      <span class="ruby-keyword">self</span>.<span class="ruby-identifier">common_work</span>.<span class="ruby-identifier">composite_type</span>,
+                                    <span class="ruby-identifier">arrangement</span><span class="ruby-operator">:</span>                         <span class="ruby-keyword">self</span>.<span class="ruby-identifier">common_work</span>.<span class="ruby-identifier">arrangement</span>,
+                                    <span class="ruby-identifier">genre</span><span class="ruby-operator">:</span>                               <span class="ruby-keyword">self</span>.<span class="ruby-identifier">common_work</span>.<span class="ruby-identifier">genre</span>,
+                                    <span class="ruby-identifier">submitter_work_id</span><span class="ruby-operator">:</span>                   <span class="ruby-keyword">self</span>.<span class="ruby-identifier">common_work</span>.<span class="ruby-identifier">submitter_work_id</span>,
+                                    <span class="ruby-identifier">registration_date</span><span class="ruby-operator">:</span>                   <span class="ruby-keyword">self</span>.<span class="ruby-identifier">common_work</span>.<span class="ruby-identifier">registration_date</span>,                
+                                    <span class="ruby-identifier">bmi_work_id</span><span class="ruby-operator">:</span>                         <span class="ruby-keyword">self</span>.<span class="ruby-identifier">common_work</span>.<span class="ruby-identifier">bmi_work_id</span>,                      
+                                    <span class="ruby-identifier">bmi_catalog</span><span class="ruby-operator">:</span>                         <span class="ruby-keyword">self</span>.<span class="ruby-identifier">common_work</span>.<span class="ruby-identifier">bmi_catalog</span>,                      
+                                    <span class="ruby-identifier">registration_origin</span><span class="ruby-operator">:</span>                 <span class="ruby-keyword">self</span>.<span class="ruby-identifier">common_work</span>.<span class="ruby-identifier">registration_origin</span>,              
+                                    <span class="ruby-identifier">pro_work_id</span><span class="ruby-operator">:</span>                         <span class="ruby-keyword">self</span>.<span class="ruby-identifier">common_work</span>.<span class="ruby-identifier">pro_work_id</span>,                      
+                                    <span class="ruby-identifier">pro_catalog</span><span class="ruby-operator">:</span>                         <span class="ruby-keyword">self</span>.<span class="ruby-identifier">common_work</span>.<span class="ruby-identifier">pro_catalog</span>
+                                    )
+  
+  
+  <span class="ruby-identifier">common_work_copy</span>.<span class="ruby-identifier">copy_ipis_from</span>( <span class="ruby-keyword">self</span>.<span class="ruby-identifier">common_work</span> )
+  
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">common_work_id</span> = <span class="ruby-identifier">common_work_copy</span>.<span class="ruby-identifier">id</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">save!</span>
+  <span class="ruby-keyword">end</span>
+  
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-uniqify_fields">
+            
+              <b>uniqify_fields</b>()
+            
+            <a href="../classes/Recording.html#method-i-uniqify_fields" name="method-i-uniqify_fields" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-uniqify_fields_source')" id="l_method-i-uniqify_fields_source">show</a>
+                
+              </p>
+              <div id="method-i-uniqify_fields_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/recording.rb, line 271</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">uniqify_fields</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">uniq_title</span>              = <span class="ruby-keyword">self</span>.<span class="ruby-identifier">title</span>.<span class="ruby-identifier">to_uniq</span>
+  <span class="ruby-keyword">begin</span>
+    <span class="ruby-keyword">self</span>.<span class="ruby-identifier">uniq_position</span>         = <span class="ruby-keyword">self</span>.<span class="ruby-identifier">position</span>.<span class="ruby-identifier">to_uniq</span>
+  <span class="ruby-keyword">rescue</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">uniq_playbacks_count</span>    = <span class="ruby-keyword">self</span>.<span class="ruby-identifier">playbacks_count</span>.<span class="ruby-identifier">to_uniq</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">uniq_likes_count</span>        = <span class="ruby-keyword">self</span>.<span class="ruby-identifier">likes_count</span>.<span class="ruby-identifier">to_uniq</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">uuid</span> = <span class="ruby-constant">UUIDTools</span><span class="ruby-operator">::</span><span class="ruby-constant">UUID</span>.<span class="ruby-identifier">timestamp_create</span>().<span class="ruby-identifier">to_s</span> <span class="ruby-keyword">if</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">uuid</span>.<span class="ruby-identifier">nil?</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-update_completeness">
+            
+              <b>update_completeness</b>()
+            
+            <a href="../classes/Recording.html#method-i-update_completeness" name="method-i-update_completeness" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              <p>remove disk_number, disk_count, track_count, available_date</p>
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-update_completeness_source')" id="l_method-i-update_completeness_source">show</a>
+                
+              </p>
+              <div id="method-i-update_completeness_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/recording.rb, line 475</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">update_completeness</span>
+  <span class="ruby-constant">RecordingCompleteness</span>.<span class="ruby-identifier">update</span> <span class="ruby-keyword">self</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-update_thumbs">
+            
+              <b>update_thumbs</b>()
+            
+            <a href="../classes/Recording.html#method-i-update_thumbs" name="method-i-update_thumbs" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              <p>for some reason this is not working forget about it until elastic
+transcoding is implemented</p>
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-update_thumbs_source')" id="l_method-i-update_thumbs_source">show</a>
+                
+              </p>
+              <div id="method-i-update_thumbs_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/recording.rb, line 310</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">update_thumbs</span>
+  <span class="ruby-constant">File</span>.<span class="ruby-identifier">open</span>(<span class="ruby-keyword">self</span>.<span class="ruby-identifier">cover_art</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">f</span><span class="ruby-operator">|</span>
+    <span class="ruby-keyword">self</span>.<span class="ruby-identifier">default_cover_art</span> = <span class="ruby-identifier">f</span>
+    <span class="ruby-keyword">self</span>.<span class="ruby-identifier">default_cover_art</span>.<span class="ruby-identifier">recreate_versions!</span>
+    <span class="ruby-keyword">self</span>.<span class="ruby-identifier">save!</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-user_credits">
+            
+              <b>user_credits</b>()
+            
+            <a href="../classes/Recording.html#method-i-user_credits" name="method-i-user_credits" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-user_credits_source')" id="l_method-i-user_credits_source">show</a>
+                
+              </p>
+              <div id="method-i-user_credits_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/recording.rb, line 356</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">user_credits</span>
+  <span class="ruby-comment">#begin</span>
+  <span class="ruby-comment">#  self.common_work.user_credits + UserCredit.where(ipiable_id: recording_ipi_ids, </span>
+  <span class="ruby-comment">#                                                   ipiable_type: &#39;RecordingIpi&#39;, </span>
+  <span class="ruby-comment">#                                                   show_credit_on_recordings: true, </span>
+  <span class="ruby-comment">#                                                   confirmation: &quot;Accepted&quot;)</span>
+  <span class="ruby-comment">#rescue</span>
+  <span class="ruby-comment">#  </span>
+  <span class="ruby-comment">#  ErrorNotification.post &quot;Recording#user_credits: recording_id: #{self.id}&quot;</span>
+  <span class="ruby-comment">#end</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-validate_splits">
+            
+              <b>validate_splits</b>()
+            
+            <a href="../classes/Recording.html#method-i-validate_splits" name="method-i-validate_splits" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              <p>def stakes</p>
+
+<pre><code>stks =  Stake.where( asset_id: self.id,             asset_type: &#39;Recording&#39; )
+stks += Stake.where( asset_id: self.common_work_id, asset_type: &#39;CommonWork&#39;)
+</code></pre>
+
+<p>end</p>
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-validate_splits_source')" id="l_method-i-validate_splits_source">show</a>
+                
+              </p>
+              <div id="method-i-validate_splits_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/recording.rb, line 263</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">validate_splits</span>
+  <span class="ruby-comment">#total = 0.0</span>
+  <span class="ruby-comment">#self.stakes.each do |stake|</span>
+  <span class="ruby-comment">#  total += stake.split_in_percent</span>
+  <span class="ruby-comment">#end</span>
+  <span class="ruby-comment">#return total == 1.0</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-widget_snippet">
+            
+              <b>widget_snippet</b>(widget_url)
+            
+            <a href="../classes/Recording.html#method-i-widget_snippet" name="method-i-widget_snippet" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-widget_snippet_source')" id="l_method-i-widget_snippet_source">show</a>
+                
+              </p>
+              <div id="method-i-widget_snippet_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/recording.rb, line 640</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">widget_snippet</span> <span class="ruby-identifier">widget_url</span>
+  <span class="ruby-node">&quot;&lt;iframe width=&#39;100%&#39; height=&#39;166&#39; src=&#39;#{widget_url}&#39; frameborder=&#39;0&#39; allowfullscreen&gt;&lt;/iframe&gt;&quot;</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-zip">
+            
+              <b>zip</b>()
+            
+            <a href="../classes/Recording.html#method-i-zip" name="method-i-zip" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-zip_source')" id="l_method-i-zip_source">show</a>
+                
+              </p>
+              <div id="method-i-zip_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/recording.rb, line 644</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">zip</span>
+ 
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+                    </div>
+
+    </div>
+  </body>
+</html>    

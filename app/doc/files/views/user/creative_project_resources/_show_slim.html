@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>_show.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            _show.slim
+        </h1>
+        <ul class="files">
+            <li>views/user/creative_project_resources/_show.slim</li>
+            <li>Last modified: 2015-07-05 15:22:06 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>.digi-box</p>
+
+<pre><code>.row
+  .col-sm-12
+    h3 = creative_project_resource.title
+
+    /b File name
+    /br
+    /- basename  = File.basename(creative_project_resource.file_url)
+    /- extname   = File.extname(creative_project_resource.file_url)
+    /- if  extname == &quot;.mp3&quot; || \
+    /      extname == &quot;.mp4&quot; || \  
+    /      extname == &quot;.ogg&quot; || \
+    /      extname == &quot;.wav&quot;
+    /  .inlineplayer-init
+    /  ul.graphic
+    /    li
+    /      a.sm2_link.sm2_paused href=&quot;#{creative_project_resource.file_url}&quot;  #{basename}
+    /- else
+    /  = basename
+.row.pull-down-8
+  .col-sm-8
+    b Description
+    br
+    = simple_format creative_project_resource.description
+  .col-sm-4
+    b File name
+    br
+    = File.basename(creative_project_resource.file_url) if creative_project_resource.file_url
+    .sexy_line
+    - if user = creative_project_resource.user
+      b Uploaded by
+      br
+      = link_to user.user_name, user_user_creative_project_creative_project_user_path( @user, @creative_project, creative_project_resource.creative_project_user )
+
+    .sexy_line
+    b File size
+    br
+     =  number_to_human_size(creative_project_resource.file_size.to_i) 
+
+.sexy_line  
+.row.pull-down-8
+  .col-sm-6
+
+    =&gt; link_to  creative_project_resource.file_url do
+       .btn.btn-default
+         i.fa.fa-cloud-download
+         &#39;&amp;nbsp;Right clink and select save
+  .col-sm-6
+    .pull-right
+      - if show
+        =&gt; link_to &#39;Show&#39;, user_user_creative_project_creative_project_resource_path( @user, \
+                                                                              @creative_project,creative_project_resource \
+                                                                            ), class: &#39;btn btn-default&#39;
+      =&gt; link_to &#39;Edit&#39;, edit_user_user_creative_project_creative_project_resource_path( @user, \
+                                                                            @creative_project,creative_project_resource \
+                                                                          ), class: &#39;btn btn-default&#39;
+      = link_to user_user_creative_project_creative_project_resource_path( @user, \
+                                                                            @creative_project,creative_project_resource \
+                                                                          ), data: { confirm: &#39;Are you sure?&#39; }, turboboost: true , :method =&gt; :delete do
+        .btn.btn-danger
+          i.fa.fa-times</code></pre>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>_ipi_fields.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            _ipi_fields.slim
+        </h1>
+        <ul class="files">
+            <li>views/user/common_work_credits/_ipi_fields.slim</li>
+            <li>Last modified: 2015-07-05 15:22:06 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>.nested-fields</p>
+
+<pre><code>.digi-box
+  .row
+    .col-sm-12
+      = f.input :show_credit_on_recordings,  :input_html =&gt; { class: &#39;icheck-me&#39;, &#39;data-skin&#39;.to_sym =&gt; &quot;square&quot;, &#39;data-color&#39;.to_sym =&gt; &quot;blue&quot;     }  
+  .row
+    .col-sm-8
+      .row
+        .col-sm-6
+          = f.input :full_name
+
+        .col-sm-6
+          = f.input :email
+      .row
+        .col-sm-3
+          = f.input :writer,                :as =&gt; :boolean
+          /= f.input :writer, label: &#39;Hide my profile&#39;,  :input_html =&gt; { class: &#39;icheck-me&#39;, &#39;data-skin&#39;.to_sym =&gt; &quot;square&quot;, &#39;data-color&#39;.to_sym =&gt; &quot;blue&quot;     }  
+        .col-sm-3
+          = f.input :composer,              :as =&gt; :boolean
+        .col-sm-3
+          = f.input :original_publisher,    :as =&gt; :boolean
+        .col-sm-3
+          = f.input :administrator,         :as =&gt; :boolean
+
+      .row
+        .col-sm-8
+
+          - uuid =  (f.input :id).to_s.split(&#39;id=&quot;&#39;).last
+          - uuid =  uuid.split(&#39;&quot; /&gt;&lt;/div&gt;&#39;).first
+
+      div id=&quot;#{uuid}&quot; class=&quot;panel-collapse collapse&quot;
+        .row
+          .col-sm-3
+             = f.input :mech_owned
+          .col-sm-3
+             = f.input :mech_collected
+          .col-sm-3
+             = f.input :perf_owned
+          .col-sm-3
+             = f.input :perf_collected
+        .row
+          .col-sm-6
+            = f.input :ipi_code
+          .col-sm-6
+            = f.input :territory
+        .row
+          .col-sm-6
+            = f.input :phone_number
+            /= f.input :notes, :input_html =&gt; {  style: &quot;height: 108px;&quot;, placeholder: &quot;Notes&quot;}
+          .col-sm-6
+            /= f.association :pro_affiliation, label: &#39;Performance Rights Organization&#39;
+            = f.input :pro_affiliation_id, collection: ProAffiliation.order(:title), value_method: :id, include_blank: true, label: &#39;Performance Rights Organization&#39;
+        .row
+          .col-sm-6
+            = f.input :address, :input_html =&gt; {  style: &quot;height: 108px;&quot;, placeholder: &quot;Address&quot;}
+          .col-sm-6
+            = f.input :notes, :input_html =&gt; {  style: &quot;height: 108px;&quot;, placeholder: &quot;Notes&quot;}
+
+    .col-sm-4
+      .work_ip_share
+        = f.input :share, label: &#39;Share %&#39;
+      .row
+        .col-sm-12
+          .pull-right
+
+            =&gt; link_to &#39;Advanced&#39;, &quot;##{uuid}&quot;, &#39;data-toggle&#39;.to_sym =&gt; &#39;collapse&#39;, &#39;data-parent&#39;.to_sym =&gt; &#39;#accordion&#39;, class: &#39;btn btn-default&#39;
+              /a data-toggle=&quot;collapse&quot; data-parent=&quot;#accordion&quot; href=&quot;##{uuid}&quot;
+              /  &#39;Advanced
+            = link_to_remove_association &quot;Remove&quot;, f  , class: &#39;btn btn-default&#39;</code></pre>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

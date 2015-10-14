@@ -1,0 +1,688 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>Stake</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../css/github.css" type="text/css" media="screen" />
+<script src="../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            <span class="type">Class</span> 
+            Stake 
+            
+                <span class="parent">&lt; 
+                    
+                    ActiveRecord::Base
+                    
+                </span>
+            
+        </h1>
+        <ul class="files">
+            
+            <li><a href="../files/models/stake_rb.html">models/stake.rb</a></li>
+            
+        </ul>
+    </div>
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>is attached to an shop item</p>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+    <!-- Method ref -->
+    <div class="sectiontitle">Methods</div>
+    <dl class="methods">
+      
+        <dt>A</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-asset">asset</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>C</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-c-cached_find">cached_find</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-i-charge_succeeded">charge_succeeded</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>D</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-description">description</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>F</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-fees">fees</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>I</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-income">income</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>S</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-stakeholders">stakeholders</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>T</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-title">title</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>U</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-unit_price">unit_price</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-i-units">units</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-i-update_income">update_income</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+    </dl>
+  
+
+  
+    <!-- Includes -->
+    <div class="sectiontitle">Included Modules</div>
+    <ul>
+      
+        <li>
+          
+            <a href="ErrorNotification.html">
+              ErrorNotification
+            </a>
+          
+        </li>
+      
+    </ul>
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+    
+      <div class="sectiontitle">Class Public methods</div>
+      
+        <div class="method">
+          <div class="title method-title" id="method-c-cached_find">
+            
+              <b>cached_find</b>(id)
+            
+            <a href="../classes/Stake.html#method-c-cached_find" name="method-c-cached_find" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-c-cached_find_source')" id="l_method-c-cached_find_source">show</a>
+                
+              </p>
+              <div id="method-c-cached_find_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/stake.rb, line 85</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">self</span>.<span class="ruby-identifier">cached_find</span>(<span class="ruby-identifier">id</span>)
+  <span class="ruby-constant">Rails</span>.<span class="ruby-identifier">cache</span>.<span class="ruby-identifier">fetch</span>([<span class="ruby-identifier">name</span>, <span class="ruby-identifier">id</span>]) { <span class="ruby-identifier">find</span>(<span class="ruby-identifier">id</span>) }
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+                  
+      <div class="sectiontitle">Instance Public methods</div>
+      
+        <div class="method">
+          <div class="title method-title" id="method-i-asset">
+            
+              <b>asset</b>()
+            
+            <a href="../classes/Stake.html#method-i-asset" name="method-i-asset" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-asset_source')" id="l_method-i-asset_source">show</a>
+                
+              </p>
+              <div id="method-i-asset_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/stake.rb, line 36</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">asset</span>
+  <span class="ruby-keyword">case</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">asset_type</span>
+    
+  <span class="ruby-keyword">when</span> <span class="ruby-string">&#39;Recording&#39;</span>
+    <span class="ruby-keyword">return</span> <span class="ruby-constant">Recording</span>.<span class="ruby-identifier">find_by</span>(<span class="ruby-identifier">uuid</span><span class="ruby-operator">:</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">asset_id</span>)
+  <span class="ruby-keyword">when</span> <span class="ruby-string">&#39;Shop::Product&#39;</span>
+    <span class="ruby-keyword">return</span> <span class="ruby-constant">Shop</span><span class="ruby-operator">::</span><span class="ruby-constant">Product</span>.<span class="ruby-identifier">cached_find</span>(<span class="ruby-keyword">self</span>.<span class="ruby-identifier">asset_id</span>)
+  <span class="ruby-keyword">when</span> <span class="ruby-string">&#39;RecordingIpi&#39;</span>
+    <span class="ruby-keyword">return</span> <span class="ruby-constant">RecordingIpi</span>.<span class="ruby-identifier">find_by</span>(<span class="ruby-identifier">uuid</span><span class="ruby-operator">:</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">asset_id</span>)
+  <span class="ruby-keyword">when</span> <span class="ruby-string">&quot;DistributionAgreement&quot;</span>
+    <span class="ruby-keyword">return</span> <span class="ruby-constant">DistributionAgreement</span>.<span class="ruby-identifier">find_by</span>(<span class="ruby-identifier">uuid</span><span class="ruby-operator">:</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">asset_id</span>)
+  <span class="ruby-keyword">when</span> <span class="ruby-string">&quot;PublishingAgreement&quot;</span>
+    <span class="ruby-keyword">return</span> <span class="ruby-constant">PublishingAgreement</span>.<span class="ruby-identifier">cached_find</span>(<span class="ruby-keyword">self</span>.<span class="ruby-identifier">asset_id</span>)
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-charge_succeeded">
+            
+              <b>charge_succeeded</b>(params)
+            
+            <a href="../classes/Stake.html#method-i-charge_succeeded" name="method-i-charge_succeeded" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-charge_succeeded_source')" id="l_method-i-charge_succeeded_source">show</a>
+                
+              </p>
+              <div id="method-i-charge_succeeded_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/stake.rb, line 137</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">charge_succeeded</span> <span class="ruby-identifier">params</span>
+  <span class="ruby-identifier">ap</span> <span class="ruby-string">&#39;Stake#charge_succeeded&#39;</span>
+  <span class="ruby-identifier">ap</span> <span class="ruby-identifier">params</span>
+  <span class="ruby-keyword">begin</span>
+    <span class="ruby-identifier">transfer_to_stakeholders_account</span> <span class="ruby-identifier">params</span>
+    <span class="ruby-identifier">transfer_to_streams</span> <span class="ruby-identifier">params</span>
+  <span class="ruby-keyword">rescue</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
+    <span class="ruby-identifier">post_error</span> <span class="ruby-node">&quot;Stake#charge_succeeded: #{e.inspect}&quot;</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-description">
+            
+              <b>description</b>()
+            
+            <a href="../classes/Stake.html#method-i-description" name="method-i-description" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-description_source')" id="l_method-i-description_source">show</a>
+                
+              </p>
+              <div id="method-i-description_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/stake.rb, line 101</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">description</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">ip_type</span>
+    <span class="ruby-keyword">case</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">ip_type</span>
+    <span class="ruby-keyword">when</span> <span class="ruby-string">&#39;RecordingIpi&#39;</span>
+      <span class="ruby-keyword">return</span>  <span class="ruby-string">&#39;Master royalty&#39;</span>
+    <span class="ruby-keyword">when</span> <span class="ruby-string">&#39;Ipi&#39;</span>
+      <span class="ruby-keyword">return</span> <span class="ruby-string">&#39;Mechanical royalty&#39;</span>
+    <span class="ruby-keyword">when</span> <span class="ruby-string">&#39;PublishingAgreement&#39;</span>
+      <span class="ruby-keyword">return</span> <span class="ruby-string">&#39;Publishing&#39;</span>
+    <span class="ruby-keyword">when</span> <span class="ruby-string">&#39;DistributionAgreement&#39;</span>
+      <span class="ruby-keyword">return</span> <span class="ruby-string">&#39;Distribution&#39;</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-keyword">case</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">asset_type</span>
+    <span class="ruby-keyword">when</span> <span class="ruby-string">&#39;Shop::Product&#39;</span>
+      <span class="ruby-keyword">return</span> <span class="ruby-string">&#39;Physical product&#39;</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-string">&#39;na&#39;</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-fees">
+            
+              <b>fees</b>()
+            
+            <a href="../classes/Stake.html#method-i-fees" name="method-i-fees" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-fees_source')" id="l_method-i-fees_source">show</a>
+                
+              </p>
+              <div id="method-i-fees_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/stake.rb, line 122</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">fees</span> 
+  <span class="ruby-identifier">total</span> = <span class="ruby-constant">Income</span>.<span class="ruby-identifier">where</span>( <span class="ruby-identifier">stake_id</span><span class="ruby-operator">:</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">id</span> ).<span class="ruby-identifier">sum</span> <span class="ruby-value">:application_fee</span>
+  <span class="ruby-identifier">total</span> <span class="ruby-operator">+=</span> <span class="ruby-constant">Income</span>.<span class="ruby-identifier">where</span>( <span class="ruby-identifier">stake_id</span><span class="ruby-operator">:</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">id</span> ).<span class="ruby-identifier">sum</span> <span class="ruby-value">:payment_fee</span>
+  <span class="ruby-operator">-</span> <span class="ruby-identifier">total</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-income">
+            
+              <b>income</b>()
+            
+            <a href="../classes/Stake.html#method-i-income" name="method-i-income" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-income_source')" id="l_method-i-income_source">show</a>
+                
+              </p>
+              <div id="method-i-income_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/stake.rb, line 128</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">income</span>
+  <span class="ruby-constant">Income</span>.<span class="ruby-identifier">where</span>( <span class="ruby-identifier">stake_id</span><span class="ruby-operator">:</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">id</span> ).<span class="ruby-identifier">sum</span> <span class="ruby-value">:amount</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-stakeholders">
+            
+              <b>stakeholders</b>()
+            
+            <a href="../classes/Stake.html#method-i-stakeholders" name="method-i-stakeholders" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-stakeholders_source')" id="l_method-i-stakeholders_source">show</a>
+                
+              </p>
+              <div id="method-i-stakeholders_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/stake.rb, line 79</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">stakeholders</span>
+  <span class="ruby-constant">Stake</span>.<span class="ruby-identifier">where</span>(<span class="ruby-identifier">asset_type</span><span class="ruby-operator">:</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">name</span>, <span class="ruby-identifier">asset_id</span><span class="ruby-operator">:</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">id</span>)
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-title">
+            
+              <b>title</b>()
+            
+            <a href="../classes/Stake.html#method-i-title" name="method-i-title" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              <p>def <a href="Stake.html#method-i-update_income">#update_income</a></p>
+
+<pre><code>income = 0
+fees   = 0
+#psql exesizee
+self.stripe_transfers.each do |stripe_transfer|
+  income += stripe_transfer.amount
+  fees   += stripe_transfer.payment_fee + stripe_transfer.application_fee
+end
+
+self.update(
+  generated_income: income,
+  generated_fee: fees
+)
+ap self
+</code></pre>
+
+<p>end</p>
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-title_source')" id="l_method-i-title_source">show</a>
+                
+              </p>
+              <div id="method-i-title_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/stake.rb, line 71</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">title</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">asset</span> <span class="ruby-operator">?</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">asset</span>.<span class="ruby-identifier">title</span> <span class="ruby-operator">:</span> <span class="ruby-string">&#39;na&#39;</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-unit_price">
+            
+              <b>unit_price</b>()
+            
+            <a href="../classes/Stake.html#method-i-unit_price" name="method-i-unit_price" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-unit_price_source')" id="l_method-i-unit_price_source">show</a>
+                
+              </p>
+              <div id="method-i-unit_price_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/stake.rb, line 75</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">unit_price</span>
+  <span class="ruby-ivar">@unit_price</span> <span class="ruby-operator">||=</span> <span class="ruby-identifier">calculate_unit_price</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-units">
+            
+              <b>units</b>()
+            
+            <a href="../classes/Stake.html#method-i-units" name="method-i-units" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-units_source')" id="l_method-i-units_source">show</a>
+                
+              </p>
+              <div id="method-i-units_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/stake.rb, line 132</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">units</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">incomes</span>.<span class="ruby-identifier">count</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-update_income">
+            
+              <b>update_income</b>(params)
+            
+            <a href="../classes/Stake.html#method-i-update_income" name="method-i-update_income" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-update_income_source')" id="l_method-i-update_income_source">show</a>
+                
+              </p>
+              <div id="method-i-update_income_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/stake.rb, line 148</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">update_income</span> <span class="ruby-identifier">params</span>
+  <span class="ruby-identifier">ap</span> <span class="ruby-string">&#39;Stake#update_income&#39;</span>
+  <span class="ruby-identifier">ap</span> <span class="ruby-identifier">params</span>
+  <span class="ruby-constant">Income</span>.<span class="ruby-identifier">create</span>(
+    <span class="ruby-identifier">stake_id</span><span class="ruby-operator">:</span>             <span class="ruby-keyword">self</span>.<span class="ruby-identifier">id</span>,
+    <span class="ruby-identifier">user_id</span><span class="ruby-operator">:</span>              <span class="ruby-keyword">self</span>.<span class="ruby-identifier">user_id</span>,
+    <span class="ruby-identifier">account_id</span><span class="ruby-operator">:</span>           <span class="ruby-keyword">self</span>.<span class="ruby-identifier">account_id</span>,
+    <span class="ruby-identifier">amount</span><span class="ruby-operator">:</span>               <span class="ruby-identifier">params</span>[<span class="ruby-value">:amount</span>].<span class="ruby-identifier">round</span>,
+    <span class="ruby-identifier">application_fee</span><span class="ruby-operator">:</span>      <span class="ruby-identifier">params</span>[<span class="ruby-value">:application_fee</span>].<span class="ruby-identifier">round</span>,
+    <span class="ruby-identifier">source_transaction</span><span class="ruby-operator">:</span>   <span class="ruby-identifier">params</span>[<span class="ruby-value">:stripe_charge_id</span>]
+  )
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+                    </div>
+
+    </div>
+  </body>
+</html>    

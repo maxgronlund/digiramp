@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>show.html.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            show.html.slim
+        </h1>
+        <ul class="files">
+            <li>views/account/playlists/show.html.slim</li>
+            <li>Last modified: 2015-09-24 20:35:34 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>/div class=“playlist_id” id=“#{@playlist.id}”</p>
+
+<p>wrap</p>
+
+<pre><code>div class=&quot;#{&#39;profile&#39; if account_owner?}&quot;
+  .full-width-top
+    == render &#39;admin/shared/navbar&#39;, page: &#39;account&#39; 
+/-cache([ @account.id, @account.works_uuid, params]) do  
+.do   
+  .container
+
+    /==render &#39;admin/shared/messages&#39;
+    == render &#39;shared/breadcrumbs&#39;, breadcrumbs: { links: {@account.title.to_sym =&gt; account_path(@account),
+                                                           dashboard: account_account_path(@account),\
+                                                           playlists: account_account_playlists_path(@account) \
+                                                           }, current:  @playlist.title}
+
+    == render &#39;shared/page_title_text&#39;, locals: {title: @playlist.title, body: &#39;&#39;, insert: &#39;edit&#39;}
+    - blog = Blog.cached_find(&#39;PLAYLISTS&#39;)
+    .row
+      -if current_account_user.update_playlist?
+        .col-sm-6
+          == render &#39;shared/badge&#39;, locals: {  \
+                                              blog: blog, \
+                                              post: BlogPost.cached_find( &quot;KEYS&quot; , blog ), \
+                                              link: account_account_playlist_playlist_keys_path(@account, @playlist), \
+                                              css_class: &#39;btn btn-default&#39;, \
+                                              icon: &#39;fa fa-key&#39; \
+                                            }
+
+          == render &#39;shared/badge&#39;, locals: {  \
+                                              blog: blog, \
+                                              post: BlogPost.cached_find( &quot;TRACKS&quot; , blog ), \
+                                              link: account_account_playlist_playlist_tracks_path(@account, @playlist), \
+                                              css_class: &#39;btn btn-success&#39;, \
+                                              icon: &#39;fa fa-plus-circle&#39; \
+                                            }
+
+        .col-sm-6
+          == render &#39;shared/badge&#39;, locals: {  \
+                                              blog: blog, \
+                                              post: BlogPost.cached_find( &quot;WIDGETS&quot; , blog ), \
+                                              link: account_account_recordings_path(@account), \
+                                              css_class: &#39;btn btn-info&#39;, \
+                                              icon: &#39;fa fa-share-alt&#39;, \
+                                              id: &#39;widgets&#39; \
+                                            }
+
+  == render &#39;shared/back&#39;, locals: {link: account_account_playlists_path(@account)}</code></pre>
+
+<p>-cache ([&#39;footer&#39;, <a
+href="../../../../classes/Admin.html#method-c-cached_find">Admin.cached_find</a>.version])
+do</p>
+
+<pre><code>=render &#39;shared/footer&#39;</code></pre>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>edit.html.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            edit.html.slim
+        </h1>
+        <ul class="files">
+            <li>views/user/publisher_legal_infos/edit.html.slim</li>
+            <li>Last modified: 2015-10-03 09:00:24 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>wrapper</p>
+
+<pre><code>.full-width-top
+  == render &#39;shared/navigationbar&#39;, page: &#39;dashboard&#39; 
+
+#sidebar-wrapper
+  ul class=&quot;sidebar-nav&quot;
+    == render &#39;users/shared/sidebar&#39;, selected: &#39;dashboard&#39;
+
+#page-content-wrapper
+  .container-fluid
+    == render &#39;shared/breadcrumbs&#39;, breadcrumbs: { links: { &#39;Dashboard&#39;.to_sym =&gt;user_user_control_panel_index_path(@user),
+                                                            &#39;publishers&#39;.to_sym =&gt; user_user_publishers_path(@user)} }
+    == render &#39;shared/flash_message&#39;
+    .row
+      .col-sm-9
+        .help
+          .help-text
+            h2 
+              b Edit legal info for:&amp;nbsp;
+
+          .help-button
+            == render &#39;admin/helps/help&#39;, identifier: &#39;user publisher address&#39;
+      .col-sm-3
+        .pull-right.pull-down-10
+          = link_to  user_user_publisher_path(@user, @publisher) do
+              .btn.btn-default
+                i.fa.fa-chevron-left
+                &#39;&amp;nbsp;Back
+
+    h2 = @publisher.legal_name
+    .pull-down-10
+    .digi-box 
+      = simple_form_for [:user, @user, @publisher] do |f|
+        = f.error_notification
+        = f.hidden_field :user_id, value: @user.id
+        = f.hidden_field :account_id, value: @user.account.id
+        .form-inputs
+          .row
+            .col-sm-6
+              = f.input :legal_name, label: &#39;Company name&#39;
+              = f.input :email, hint: &#39;This email is used to link creators to the publisher&#39;
+              /= f.input :personal_publisher, label: &quot;I&#39;m my own publisher&quot;, :input_html =&gt; { class: &#39;icheck-me acceptance&#39;, &#39;data-skin&#39;.to_sym =&gt; &quot;square&quot;, &#39;data-color&#39;.to_sym =&gt; &quot;blue&quot;     } 
+              /span class=&quot;help-block&quot; 
+              /  &#39;Check this if you have your own publishing company or want to create one
+              / - unless @publisher.personal_publisher
+              = f.input :show_on_public_page, 
+                        input_html: { class: &#39;icheck-me acceptance&#39;, 
+                                              &#39;data-skin&#39;.to_sym =&gt; &quot;square&quot;, 
+                                              &#39;data-color&#39;.to_sym =&gt; &quot;blue&quot; }, 
+                        hint: &#39;Your contact info will not be exposed&#39;
+
+              = f.simple_fields_for :address do |address_form|
+                = address_form.input :address_line_1
+                = address_form.input :address_line_2
+                .row
+                  .col-sm-6
+                    = address_form.input :city
+                  .col-sm-6
+                    = address_form.input :zip_code
+                .row
+                  .col-sm-6
+                    = address_form.input :country
+                  .col-sm-6
+                    = address_form.input :state
+
+            .col-sm-6
+              = f.input :phone_number, placeholder: &#39;Optional&#39;
+              b 
+               &#39;IPI Code
+              == render &#39;shared/popover&#39;, identifier: &#39;IPI (Interested party information) is a unique identifying number assigned by the CISAC database to each Interested Party in collective rights management. It is used worldwide by more than 120 countries and three million right holders.&#39;
+              .pull-down-6
+              = f.input :ipi_code, placeholder: &#39;Optional&#39;, label: false
+
+              /= f.input :cae_code, placeholder: &#39;Optional&#39;
+
+              b 
+               &#39;Performance Rights Organization
+              == render &#39;shared/popover&#39;, identifier: &#39;Provides intermediary functions, particularly collection of royalties, between copyright holders and parties who wish to use copyrighted works publicly in locations such as shopping and dining venues.&#39;
+              .pull-down-6
+              = f.input :pro_affiliation_id, collection: ProAffiliation.order(:title), value_method: :id, include_blank: true, label: false,
+                          hint: &#39;Optional. Only fill this if you are registered as a publisher with a PRO&#39;
+
+        .form-actions
+          .row
+            .col-sm-12
+              .pull-right
+                = f.submit &#39;Save&#39;, class: &#39;btn btn-info&#39;, id: &#39;save&#39;
+
+== render &#39;shared/site_footer&#39;</code></pre>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

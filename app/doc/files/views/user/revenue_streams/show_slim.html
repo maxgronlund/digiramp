@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>show.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            show.slim
+        </h1>
+        <ul class="files">
+            <li>views/user/revenue_streams/show.slim</li>
+            <li>Last modified: 2015-09-26 13:39:51 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>wrapper</p>
+
+<pre><code>.full-width-top
+  == render &#39;shared/navigationbar&#39;, page: &#39;dashboard&#39; 
+
+#sidebar-wrapper
+  ul class=&quot;sidebar-nav&quot;
+    == render &#39;users/shared/sidebar&#39;, selected: &#39;dashboard&#39;
+
+#page-content-wrapper
+  .container-fluid
+    == render &#39;shared/flash_message&#39;
+    == render &#39;shared/breadcrumbs&#39;, breadcrumbs: { links: { &#39;Dashboard&#39;.to_sym =&gt;user_user_control_panel_index_path(@user),
+                                                            &#39;Revenue streams&#39;.to_sym =&gt; user_user_revenue_streams_path(@user)}, current: &#39;&#39;}
+    .row
+      .col-sm-6
+        .help
+          .help-text
+            h2 Revenue stream
+          .help-button
+            == render &#39;admin/helps/help&#39;, identifier: &#39;user revenue stream&#39;
+      .col-sm-6
+        .pull-right.pull-down-10
+          = link_to  user_user_revenue_streams_path(@user) do
+              .btn.btn-default
+                i.fa.fa-chevron-left&amp;nbsp;Back
+
+    = &quot;Source id: #{@stake.channel_uuid} | Source title: #{@stake.title}&quot;
+    .pull-down-10
+    .digi-box 
+      h4 Redistribute income stream  
+      = simple_form_for [:user, @user, @stake, Stake.new(split: 10)], url: url_for( action: &#39;create&#39;, 
+                                                                                controller: &#39;user/revenue_streams&#39;), 
+                                                                  turboboost: true, 
+                                                                  :method =&gt; &#39;post&#39; do |f|
+          = f.hidden_field :account_id, value: @user.account.id
+          = f.hidden_field :user_id,    value: @user.id
+          = f.hidden_field :asset_id, value:   @stake.id
+          = f.hidden_field :asset_type, value: @stake.class.name
+          = f.hidden_field :flat_rate_in_cent, value: @stake.flat_rate_in_cent
+          = f.hidden_field :currency,          value: @stake.currency
+          = f.hidden_field :ip_uuid,           value: @stake.ip_uuid
+          = f.hidden_field :ip_type,           value: @stake.ip_type
+          = f.hidden_field :expired,           value: @stake.expired
+          = f.hidden_field :unassigned, value: true
+          /= f.hidden_field :original_source, value: @stake.original_source
+          .row
+            .col-sm-6
+              = f.input :email
+
+            .col-sm-6
+              = f.input :split, input_html: {min: &quot;1&quot;, max: &quot;100&quot;}
+          .row
+            .col-sm-12
+              .pull-right
+                  = f.submit &#39;Save&#39;, class: &#39;btn btn-default&#39;
+    .digi-box
+      h4 Recipients
+
+      .table-responsive
+        table class=&quot;table table-hover&quot;
+          thead
+            tr
+              th
+              th Email
+              th Split
+              th Connected
+          tbody
+            - @stake.stakeholders.each do |stakeholder|
+              tr
+                td = link_to user_user_revenue_stream_path(@user, stakeholder, stake_id: @stake.id), 
+                                              data: { confirm: &#39;Are you sure?&#39; } , 
+                                              turboboost: true, 
+                                              :method =&gt; :delete do
+                        .btn.btn-danger.btn-xs
+                          i.fa.fa-times
+                td = stakeholder.email
+                td = stakeholder.split
+                td = stakeholder.account_id ? &#39;Yes&#39;: &#39;No&#39;
+
+      /.table-responsive
+      /  table class=&quot;table table-hover&quot;
+      /    thead
+      /      tr
+      /        /th
+      /        th Type
+      /        th Source
+      /        th Stream ID
+      /        th
+      /    tbody
+      /      - @stakes.each do |stake|
+      /        tr
+      /          /td = link_to user_user_product_stake_path(@user, @shop_product, stakeholder), 
+      /          /                              data: { confirm: &#39;Are you sure?&#39; } , 
+      /          /                              turboboost: true, 
+      /          /                              :method =&gt; :delete do
+      /          /        .btn.btn-danger.btn-xs
+      /          /          i.fa.fa-times
+      /          td = stake.asset_type
+      /          td = stake.income_source
+      /          td = stake.channel_uuid
+      /          td
+      /            .pull-right
+      /              .btn.btn-default.btn-xs
+      /                i.fa.fa-share&amp;nbsp;Share
+      /
+      /
+
+== render &#39;shared/site_footer&#39;</code></pre>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

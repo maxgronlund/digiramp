@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>DefaultContent</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../css/github.css" type="text/css" media="screen" />
+<script src="../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            <span class="type">Class</span> 
+            DefaultContent 
+            
+                <span class="parent">&lt; 
+                    
+                    Object
+                    
+                </span>
+            
+        </h1>
+        <ul class="files">
+            
+            <li><a href="../files/services/default_content_rb.html">services/default_content.rb</a></li>
+            
+        </ul>
+    </div>
+    <div id="bodyContent">
+        <div id="content">
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+    <!-- Method ref -->
+    <div class="sectiontitle">Methods</div>
+    <dl class="methods">
+      
+        <dt>B</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-c-build_default_legal_templates">build_default_legal_templates</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-c-build_default_tags">build_default_tags</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+    </dl>
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+    
+      <div class="sectiontitle">Class Public methods</div>
+      
+        <div class="method">
+          <div class="title method-title" id="method-c-build_default_legal_templates">
+            
+              <b>build_default_legal_templates</b>()
+            
+            <a href="../classes/DefaultContent.html#method-c-build_default_legal_templates" name="method-c-build_default_legal_templates" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-c-build_default_legal_templates_source')" id="l_method-c-build_default_legal_templates_source">show</a>
+                
+              </p>
+              <div id="method-c-build_default_legal_templates_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File services/default_content.rb, line 4</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">self</span>.<span class="ruby-identifier">build_default_legal_templates</span>
+  
+  
+  <span class="ruby-constant">Document</span>.<span class="ruby-identifier">where</span>( <span class="ruby-identifier">title</span><span class="ruby-operator">:</span>          <span class="ruby-string">&#39;MP3 for personal usage&#39;</span>, 
+                  <span class="ruby-identifier">body</span><span class="ruby-operator">:</span>           <span class="ruby-string">&#39;Term of usage for a mp3 file bought in the shop&#39;</span>, 
+                  <span class="ruby-identifier">text_content</span><span class="ruby-operator">:</span>   <span class="ruby-string">&#39;please fill in&#39;</span>,
+                  <span class="ruby-identifier">tag</span><span class="ruby-operator">:</span>            <span class="ruby-string">&#39;Recording&#39;</span>,
+                  <span class="ruby-identifier">document_type</span><span class="ruby-operator">:</span>  <span class="ruby-string">&#39;Template&#39;</span>)
+          .<span class="ruby-identifier">first_or_create</span>( <span class="ruby-identifier">title</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;MP3 for personal usage&#39;</span>, 
+                  <span class="ruby-identifier">body</span><span class="ruby-operator">:</span>           <span class="ruby-string">&#39;Term of usage for a mp3 file bought in the shop&#39;</span>, 
+                  <span class="ruby-identifier">text_content</span><span class="ruby-operator">:</span>   <span class="ruby-string">&#39;please fill in&#39;</span>,
+                  <span class="ruby-identifier">tag</span><span class="ruby-operator">:</span>            <span class="ruby-string">&#39;Recording&#39;</span>,
+                  <span class="ruby-identifier">document_type</span><span class="ruby-operator">:</span>  <span class="ruby-string">&#39;Template&#39;</span>)
+                  
+  
+   <span class="ruby-constant">Document</span>.<span class="ruby-identifier">where</span>( <span class="ruby-identifier">title</span><span class="ruby-operator">:</span>         <span class="ruby-string">&#39;Physical product&#39;</span>, 
+                  <span class="ruby-identifier">body</span><span class="ruby-operator">:</span>           <span class="ruby-string">&#39;Term of usage for a physical product bought in the shop&#39;</span>, 
+                  <span class="ruby-identifier">text_content</span><span class="ruby-operator">:</span>   <span class="ruby-string">&#39;please fill in&#39;</span>,
+                  <span class="ruby-identifier">tag</span><span class="ruby-operator">:</span>            <span class="ruby-string">&#39;Product&#39;</span>,
+                  <span class="ruby-identifier">document_type</span><span class="ruby-operator">:</span>  <span class="ruby-string">&#39;Template&#39;</span>)
+          .<span class="ruby-identifier">first_or_create</span>( <span class="ruby-identifier">title</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;Physical product&#39;</span>, 
+                  <span class="ruby-identifier">body</span><span class="ruby-operator">:</span>           <span class="ruby-string">&#39;Term of usage for a physical product bought in the shop&#39;</span>, 
+                  <span class="ruby-identifier">text_content</span><span class="ruby-operator">:</span>   <span class="ruby-string">&#39;please fill in&#39;</span>,
+                  <span class="ruby-identifier">tag</span><span class="ruby-operator">:</span>            <span class="ruby-string">&#39;Product&#39;</span>,
+                  <span class="ruby-identifier">document_type</span><span class="ruby-operator">:</span>  <span class="ruby-string">&#39;Template&#39;</span>)
+                  
+  
+   <span class="ruby-constant">Document</span>.<span class="ruby-identifier">where</span>( <span class="ruby-identifier">title</span><span class="ruby-operator">:</span>         <span class="ruby-string">&#39;Service&#39;</span>, 
+                  <span class="ruby-identifier">body</span><span class="ruby-operator">:</span>           <span class="ruby-string">&#39;Term of usage for a service bought in the shop&#39;</span>, 
+                  <span class="ruby-identifier">text_content</span><span class="ruby-operator">:</span>   <span class="ruby-string">&#39;please fill in&#39;</span>,
+                  <span class="ruby-identifier">tag</span><span class="ruby-operator">:</span>            <span class="ruby-string">&#39;Service&#39;</span>,
+                  <span class="ruby-identifier">document_type</span><span class="ruby-operator">:</span>  <span class="ruby-string">&#39;Template&#39;</span>)
+          .<span class="ruby-identifier">first_or_create</span>( <span class="ruby-identifier">title</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;Service&#39;</span>, 
+                  <span class="ruby-identifier">body</span><span class="ruby-operator">:</span>           <span class="ruby-string">&#39;Term of usage for a service bought in the shop&#39;</span>, 
+                  <span class="ruby-identifier">text_content</span><span class="ruby-operator">:</span>   <span class="ruby-string">&#39;please fill in&#39;</span>,
+                  <span class="ruby-identifier">tag</span><span class="ruby-operator">:</span>            <span class="ruby-string">&#39;Service&#39;</span>,
+                  <span class="ruby-identifier">document_type</span><span class="ruby-operator">:</span>  <span class="ruby-string">&#39;Template&#39;</span>)
+                  
+  
+   <span class="ruby-constant">Document</span>.<span class="ruby-identifier">where</span>( <span class="ruby-identifier">title</span><span class="ruby-operator">:</span>         <span class="ruby-string">&#39;Streaming&#39;</span>, 
+                  <span class="ruby-identifier">body</span><span class="ruby-operator">:</span>           <span class="ruby-string">&#39;Term of usage for a streaming bought in the shop&#39;</span>, 
+                  <span class="ruby-identifier">text_content</span><span class="ruby-operator">:</span>   <span class="ruby-string">&#39;please fill in&#39;</span>,
+                  <span class="ruby-identifier">tag</span><span class="ruby-operator">:</span>            <span class="ruby-string">&#39;Service&#39;</span>,
+                  <span class="ruby-identifier">document_type</span><span class="ruby-operator">:</span>  <span class="ruby-string">&#39;Template&#39;</span>)
+          .<span class="ruby-identifier">first_or_create</span>( <span class="ruby-identifier">title</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;Streaming&#39;</span>, 
+                  <span class="ruby-identifier">body</span><span class="ruby-operator">:</span>           <span class="ruby-string">&#39;Term of usage for a streaming bought in the shop&#39;</span>, 
+                  <span class="ruby-identifier">text_content</span><span class="ruby-operator">:</span>   <span class="ruby-string">&#39;please fill in&#39;</span>,
+                  <span class="ruby-identifier">tag</span><span class="ruby-operator">:</span>            <span class="ruby-string">&#39;Service&#39;</span>,
+                  <span class="ruby-identifier">document_type</span><span class="ruby-operator">:</span>  <span class="ruby-string">&#39;Template&#39;</span>)
+                  
+  
+  
+                  
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-c-build_default_tags">
+            
+              <b>build_default_tags</b>()
+            
+            <a href="../classes/DefaultContent.html#method-c-build_default_tags" name="method-c-build_default_tags" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-c-build_default_tags_source')" id="l_method-c-build_default_tags_source">show</a>
+                
+              </p>
+              <div id="method-c-build_default_tags_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File services/default_content.rb, line 59</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">self</span>.<span class="ruby-identifier">build_default_tags</span>
+  <span class="ruby-constant">Admin</span><span class="ruby-operator">::</span><span class="ruby-constant">LegalTag</span>.<span class="ruby-identifier">where</span>(<span class="ruby-identifier">title</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;Recording&#39;</span>, <span class="ruby-identifier">body</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;Sale and licences for recordings&#39;</span>)
+                 .<span class="ruby-identifier">first_or_create</span>(<span class="ruby-identifier">title</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;Recording&#39;</span>, <span class="ruby-identifier">body</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;Sale and licences for recordings&#39;</span>)
+  <span class="ruby-constant">Admin</span><span class="ruby-operator">::</span><span class="ruby-constant">LegalTag</span>.<span class="ruby-identifier">where</span>(<span class="ruby-identifier">title</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;Physical product&#39;</span>, <span class="ruby-identifier">body</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;Sale and licences for physical products&#39;</span>)
+                 .<span class="ruby-identifier">first_or_create</span>(<span class="ruby-identifier">title</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;Physical product&#39;</span>, <span class="ruby-identifier">body</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;Sale and licences for physical products&#39;</span>)
+  <span class="ruby-constant">Admin</span><span class="ruby-operator">::</span><span class="ruby-constant">LegalTag</span>.<span class="ruby-identifier">where</span>(<span class="ruby-identifier">title</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;Service&#39;</span>, <span class="ruby-identifier">body</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;Terms for sale of services&#39;</span>)
+                 .<span class="ruby-identifier">first_or_create</span>(<span class="ruby-identifier">title</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;Service&#39;</span>, <span class="ruby-identifier">body</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;Sale of services&#39;</span>)
+  <span class="ruby-constant">Admin</span><span class="ruby-operator">::</span><span class="ruby-constant">LegalTag</span>.<span class="ruby-identifier">where</span>(<span class="ruby-identifier">title</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;Streaming&#39;</span>, <span class="ruby-identifier">body</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;Terms for usage of streaming&#39;</span>)
+                 .<span class="ruby-identifier">first_or_create</span>(<span class="ruby-identifier">title</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;Streaming&#39;</span>, <span class="ruby-identifier">body</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;Terms for usage of streaming&#39;</span>)
+                 
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+                        </div>
+
+    </div>
+  </body>
+</html>    

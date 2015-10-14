@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>CreativeProjectRole</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../css/github.css" type="text/css" media="screen" />
+<script src="../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            <span class="type">Class</span> 
+            CreativeProjectRole 
+            
+                <span class="parent">&lt; 
+                    
+                    ActiveRecord::Base
+                    
+                </span>
+            
+        </h1>
+        <ul class="files">
+            
+            <li><a href="../files/models/creative_project_role_rb.html">models/creative_project_role.rb</a></li>
+            
+        </ul>
+    </div>
+    <div id="bodyContent">
+        <div id="content">
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+    <!-- Method ref -->
+    <div class="sectiontitle">Methods</div>
+    <dl class="methods">
+      
+        <dt>A</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-aproved_creative_project_user">aproved_creative_project_user</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>C</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-c-cached_find">cached_find</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>T</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-taken-3F">taken?</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+    </dl>
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+      <!-- Section constants -->
+      <div class="sectiontitle">Constants</div>
+      <table border='0' cellpadding='5'>
+        
+          <tr valign='top'>
+            <td class="attr-name">INSTRUMENTS</td>
+            <td>=</td>
+            <td class="attr-value">[ &#39;Keyboard&#39;, 
+&#39;Guitar&#39;, 
+&#39;Drums&#39;, 
+&#39;Percussion&#39;, 
+&#39;Bass&#39;, 
+&#39;Saxophone &#39;, 
+&#39;Trumpet&#39;, 
+&#39;Trombone&#39;, 
+&#39;Flute&#39;, 
+&#39;Clarinet&#39;,
+&#39;Other&#39;
+]</td>
+          </tr>
+          
+            <tr valign='top'>
+              <td>&nbsp;</td>
+              <td colspan="2" class="attr-desc"></td>
+            </tr>
+          
+        
+          <tr valign='top'>
+            <td class="attr-name">VOCALS</td>
+            <td>=</td>
+            <td class="attr-value">[ &#39;Female&#39;, 
+&#39;Male&#39;, 
+&#39;Boy&#39;, 
+&#39;Girl&#39;, 
+&#39;Female rapper&#39;,
+&#39;Male rapper&#39;,
+&#39;Bass&#39;, 
+&#39;Bariton &#39;, 
+&#39;Tenor&#39;, 
+&#39;Alt&#39;, 
+&#39;Sopran&#39;,
+&#39;Speaker&#39;,
+&#39;Male Speaker&#39;,
+&#39;Female Speaker&#39;,
+&#39;Other&#39;
+]</td>
+          </tr>
+          
+            <tr valign='top'>
+              <td>&nbsp;</td>
+              <td colspan="2" class="attr-desc"></td>
+            </tr>
+          
+        
+      </table>
+    
+
+
+    
+
+
+    <!-- Methods -->
+    
+      <div class="sectiontitle">Class Public methods</div>
+      
+        <div class="method">
+          <div class="title method-title" id="method-c-cached_find">
+            
+              <b>cached_find</b>(id)
+            
+            <a href="../classes/CreativeProjectRole.html#method-c-cached_find" name="method-c-cached_find" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-c-cached_find_source')" id="l_method-c-cached_find_source">show</a>
+                
+              </p>
+              <div id="method-c-cached_find_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/creative_project_role.rb, line 40</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">self</span>.<span class="ruby-identifier">cached_find</span>(<span class="ruby-identifier">id</span>)
+  <span class="ruby-constant">Rails</span>.<span class="ruby-identifier">cache</span>.<span class="ruby-identifier">fetch</span>([<span class="ruby-identifier">name</span>, <span class="ruby-identifier">id</span>]) { <span class="ruby-identifier">find</span>(<span class="ruby-identifier">id</span>) }
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+                  
+      <div class="sectiontitle">Instance Public methods</div>
+      
+        <div class="method">
+          <div class="title method-title" id="method-i-aproved_creative_project_user">
+            
+              <b>aproved_creative_project_user</b>()
+            
+            <a href="../classes/CreativeProjectRole.html#method-i-aproved_creative_project_user" name="method-i-aproved_creative_project_user" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-aproved_creative_project_user_source')" id="l_method-i-aproved_creative_project_user_source">show</a>
+                
+              </p>
+              <div id="method-i-aproved_creative_project_user_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/creative_project_role.rb, line 44</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">aproved_creative_project_user</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">true</span> <span class="ruby-keyword">if</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">creative_project_users</span>.<span class="ruby-identifier">where</span>(<span class="ruby-identifier">approved_by_project_manager</span><span class="ruby-operator">:</span> <span class="ruby-keyword">true</span>, <span class="ruby-identifier">approved_by_user</span><span class="ruby-operator">:</span> <span class="ruby-keyword">true</span>).<span class="ruby-identifier">first</span>
+  <span class="ruby-keyword">false</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-taken-3F">
+            
+              <b>taken?</b>()
+            
+            <a href="../classes/CreativeProjectRole.html#method-i-taken-3F" name="method-i-taken-3F" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-taken-3F_source')" id="l_method-i-taken-3F_source">show</a>
+                
+              </p>
+              <div id="method-i-taken-3F_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/creative_project_role.rb, line 49</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">taken?</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">true</span> <span class="ruby-keyword">if</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">creative_project_users</span>.<span class="ruby-identifier">where</span>(<span class="ruby-identifier">approved_by_project_manager</span><span class="ruby-operator">:</span> <span class="ruby-keyword">true</span>, <span class="ruby-identifier">approved_by_user</span><span class="ruby-operator">:</span> <span class="ruby-keyword">true</span>).<span class="ruby-identifier">first</span>
+  <span class="ruby-keyword">false</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+                    </div>
+
+    </div>
+  </body>
+</html>    

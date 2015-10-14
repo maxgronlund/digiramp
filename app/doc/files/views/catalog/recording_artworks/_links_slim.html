@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>_links.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            _links.slim
+        </h1>
+        <ul class="files">
+            <li>views/catalog/recording_artworks/_links.slim</li>
+            <li>Last modified: 2015-07-05 15:22:06 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>.pull-right</p>
+
+<pre><code>br
+= link_to catalog_account_catalog_artwork_path(@account, @catalog, artwork) do
+  .btn.btn-info.btn-lg
+    i class=&quot;fa fa-info-circle&quot;
+&#39;&amp;nbsp;
+= link_to catalog_account_catalog_recording_artwork_path(@account, @catalog, artwork ), remote: true , :method =&gt; :delete do
+  .btn.btn-warning.btn-lg
+    i class=&quot;fa fa-minus-circle&quot;
+
+&#39;&amp;nbsp;
+/ Clicking on this button 
+/ will add the artwork to th erecordings artwork
+= link_to catalog_account_catalog_recording_use_artwork_path(@account, @catalog, @recording, artwork_id: artwork.id), method: :post, remote: true do
+  .btn.btn-success.btn-lg
+    i class=&quot;fa fa-plus&quot;
+    &#39;&amp;nbsp;Use</code></pre>
+
+<p>/catalog/accounts/6/catalogs/45/recordings/571/recording_artworks</p>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

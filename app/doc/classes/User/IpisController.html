@@ -1,0 +1,503 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>User::IpisController</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../css/github.css" type="text/css" media="screen" />
+<script src="../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            <span class="type">Class</span> 
+            User::IpisController 
+            
+                <span class="parent">&lt; 
+                    
+                    <a href="../ApplicationController.html">ApplicationController</a>
+                    
+                </span>
+            
+        </h1>
+        <ul class="files">
+            
+            <li><a href="../../files/controllers/user/ipis_controller_rb.html">controllers/user/ipis_controller.rb</a></li>
+            
+        </ul>
+    </div>
+    <div id="bodyContent">
+        <div id="content">
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+    <!-- Method ref -->
+    <div class="sectiontitle">Methods</div>
+    <dl class="methods">
+      
+        <dt>C</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-create">create</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>D</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-destroy">destroy</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>E</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-edit">edit</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>I</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-index">index</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>N</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-new">new</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>S</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-show">show</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>U</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-update">update</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+    </dl>
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+        
+      <div class="sectiontitle">Instance Public methods</div>
+      
+        <div class="method">
+          <div class="title method-title" id="method-i-create">
+            
+              <b>create</b>()
+            
+            <a href="../../classes/User/IpisController.html#method-i-create" name="method-i-create" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-create_source')" id="l_method-i-create_source">show</a>
+                
+              </p>
+              <div id="method-i-create_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File controllers/user/ipis_controller.rb, line 25</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">create</span>
+ 
+  <span class="ruby-ivar">@common_work</span> = <span class="ruby-constant">CommonWork</span>.<span class="ruby-identifier">cached_find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:common_work_id</span>])
+  <span class="ruby-identifier">params</span>[<span class="ruby-value">:ipi</span>][<span class="ruby-value">:uuid</span>]   = <span class="ruby-constant">UUIDTools</span><span class="ruby-operator">::</span><span class="ruby-constant">UUID</span>.<span class="ruby-identifier">timestamp_create</span>().<span class="ruby-identifier">to_s</span>
+  <span class="ruby-identifier">params</span>[<span class="ruby-value">:ipi</span>][<span class="ruby-value">:email</span>]  = <span class="ruby-constant">EmailSanitizer</span>.<span class="ruby-identifier">saintize</span>( <span class="ruby-identifier">params</span>[<span class="ruby-value">:ipi</span>][<span class="ruby-value">:email</span>] )
+  <span class="ruby-identifier">params</span>[<span class="ruby-value">:ipi</span>][<span class="ruby-value">:status</span>] = <span class="ruby-number">0</span>
+  <span class="ruby-ivar">@ipi</span> = <span class="ruby-constant">Ipi</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">ipi_params</span>)
+  
+  <span class="ruby-identifier">respond_to</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span>
+    <span class="ruby-keyword">if</span> <span class="ruby-ivar">@ipi</span>.<span class="ruby-identifier">save</span>
+      
+      <span class="ruby-comment"># make sure all ips get a fair share</span>
+      <span class="ruby-ivar">@common_work</span>.<span class="ruby-identifier">update_publishers_payment</span>
+      
+      <span class="ruby-identifier">format</span>.<span class="ruby-identifier">html</span> { 
+        <span class="ruby-keyword">if</span> <span class="ruby-ivar">@ipi</span>.<span class="ruby-identifier">is_published?</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-ivar">@ipi</span>.<span class="ruby-identifier">user</span> <span class="ruby-operator">&amp;&amp;</span> (<span class="ruby-ivar">@ipi</span>.<span class="ruby-identifier">user_id</span> <span class="ruby-operator">==</span> <span class="ruby-ivar">@user</span>.<span class="ruby-identifier">id</span>)
+          <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">new_user_user_common_work_ipi_ipi_publisher_path</span>(<span class="ruby-ivar">@user</span>,  <span class="ruby-ivar">@common_work</span>, <span class="ruby-ivar">@ipi</span>)
+        <span class="ruby-keyword">else</span>
+          <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">user_user_common_work_path</span>(<span class="ruby-ivar">@user</span>, <span class="ruby-ivar">@common_work</span>) 
+        <span class="ruby-keyword">end</span>
+        <span class="ruby-comment">#if params[:commit] == &quot;Save and add next&quot;</span>
+        <span class="ruby-comment">#  redirect_to new_user_user_common_work_ipi_path(@user, @common_work) </span>
+        <span class="ruby-comment">#  </span>
+        <span class="ruby-comment">#else</span>
+        <span class="ruby-comment">#  redirect_to user_user_common_work_path(@user, @common_work) </span>
+        <span class="ruby-comment">#end</span>
+      }
+      <span class="ruby-identifier">format</span>.<span class="ruby-identifier">json</span> { <span class="ruby-identifier">render</span> <span class="ruby-value">:show</span>, <span class="ruby-identifier">status</span><span class="ruby-operator">:</span> <span class="ruby-value">:created</span>, <span class="ruby-identifier">location</span><span class="ruby-operator">:</span> <span class="ruby-ivar">@ipi</span> }
+    <span class="ruby-keyword">else</span>
+      <span class="ruby-identifier">format</span>.<span class="ruby-identifier">html</span> { <span class="ruby-identifier">render</span> <span class="ruby-value">:new</span> }
+      <span class="ruby-identifier">format</span>.<span class="ruby-identifier">json</span> { <span class="ruby-identifier">render</span> <span class="ruby-identifier">json</span><span class="ruby-operator">:</span> <span class="ruby-ivar">@ipi</span>.<span class="ruby-identifier">errors</span>, <span class="ruby-identifier">status</span><span class="ruby-operator">:</span> <span class="ruby-value">:unprocessable_entity</span> }
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-destroy">
+            
+              <b>destroy</b>()
+            
+            <a href="../../classes/User/IpisController.html#method-i-destroy" name="method-i-destroy" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-destroy_source')" id="l_method-i-destroy_source">show</a>
+                
+              </p>
+              <div id="method-i-destroy_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File controllers/user/ipis_controller.rb, line 104</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">destroy</span>
+  <span class="ruby-ivar">@ipi</span>         = <span class="ruby-constant">Ipi</span>.<span class="ruby-identifier">cached_find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
+  <span class="ruby-ivar">@ipi</span>.<span class="ruby-identifier">destroy</span>
+  <span class="ruby-ivar">@common_work</span> = <span class="ruby-constant">CommonWork</span>.<span class="ruby-identifier">cached_find</span>(<span class="ruby-ivar">@ipi</span>.<span class="ruby-identifier">common_work_id</span>)
+  <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">user_user_common_work_path</span>(<span class="ruby-ivar">@user</span>, <span class="ruby-ivar">@common_work</span>)
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-edit">
+            
+              <b>edit</b>()
+            
+            <a href="../../classes/User/IpisController.html#method-i-edit" name="method-i-edit" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-edit_source')" id="l_method-i-edit_source">show</a>
+                
+              </p>
+              <div id="method-i-edit_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File controllers/user/ipis_controller.rb, line 62</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">edit</span>
+   <span class="ruby-ivar">@ipi</span>                   = <span class="ruby-constant">Ipi</span>.<span class="ruby-identifier">cached_find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
+   <span class="ruby-ivar">@common_work</span>           = <span class="ruby-constant">CommonWork</span>.<span class="ruby-identifier">cached_find</span>(<span class="ruby-ivar">@ipi</span>.<span class="ruby-identifier">common_work_id</span>)
+   <span class="ruby-ivar">@publishing_agreements</span> = <span class="ruby-constant">PublishingAgreement</span>.<span class="ruby-identifier">where</span>(<span class="ruby-identifier">email</span><span class="ruby-operator">:</span> <span class="ruby-ivar">@ipi</span>.<span class="ruby-identifier">email</span>)
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-index">
+            
+              <b>index</b>()
+            
+            <a href="../../classes/User/IpisController.html#method-i-index" name="method-i-index" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-index_source')" id="l_method-i-index_source">show</a>
+                
+              </p>
+              <div id="method-i-index_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File controllers/user/ipis_controller.rb, line 5</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">index</span>
+  <span class="ruby-ivar">@ipis</span> = <span class="ruby-ivar">@user</span>.<span class="ruby-identifier">ipis</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-new">
+            
+              <b>new</b>()
+            
+            <a href="../../classes/User/IpisController.html#method-i-new" name="method-i-new" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-new_source')" id="l_method-i-new_source">show</a>
+                
+              </p>
+              <div id="method-i-new_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File controllers/user/ipis_controller.rb, line 16</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">new</span>
+  <span class="ruby-ivar">@ipi</span>          = <span class="ruby-constant">Ipi</span>.<span class="ruby-identifier">new</span>
+  <span class="ruby-ivar">@common_work</span>  = <span class="ruby-constant">CommonWork</span>.<span class="ruby-identifier">cached_find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:common_work_id</span>])
+  
+  <span class="ruby-comment">#@ipi.title    = &quot;Please confirm your rights on #{@common_work.title}&quot;</span>
+  <span class="ruby-comment">#@ipi.message  = &quot;Hi \nI would like you to confirm you share and rights on #{@common_work.title} as:\n#{@ipi.roles_as_string} \n\n--#{@user.user_name}&quot;</span>
+  <span class="ruby-comment">#render nothing: true</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-show">
+            
+              <b>show</b>()
+            
+            <a href="../../classes/User/IpisController.html#method-i-show" name="method-i-show" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-show_source')" id="l_method-i-show_source">show</a>
+                
+              </p>
+              <div id="method-i-show_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File controllers/user/ipis_controller.rb, line 9</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">show</span>
+  <span class="ruby-ivar">@ipi</span>                              = <span class="ruby-constant">Ipi</span>.<span class="ruby-identifier">cached_find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
+  <span class="ruby-comment">#@ipi_publishing_agreement         = IpiPublishingAgreement.new</span>
+  <span class="ruby-comment">#not_found( params )  unless ( @common_work = @ipi.common_work ) &amp;&amp; ( account = @common_work.account ) &amp;&amp; ( @requester = account.user )</span>
+
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-update">
+            
+              <b>update</b>()
+            
+            <a href="../../classes/User/IpisController.html#method-i-update" name="method-i-update" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-update_source')" id="l_method-i-update_source">show</a>
+                
+              </p>
+              <div id="method-i-update_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File controllers/user/ipis_controller.rb, line 68</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">update</span>
+  <span class="ruby-ivar">@ipi</span>          = <span class="ruby-constant">Ipi</span>.<span class="ruby-identifier">cached_find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
+  <span class="ruby-ivar">@common_work</span>  = <span class="ruby-constant">CommonWork</span>.<span class="ruby-identifier">cached_find</span>(<span class="ruby-ivar">@ipi</span>.<span class="ruby-identifier">common_work_id</span>)
+  
+  <span class="ruby-keyword">if</span> <span class="ruby-ivar">@ipi</span>.<span class="ruby-identifier">update</span>(<span class="ruby-identifier">ipi_params</span>)
+    <span class="ruby-ivar">@ipi</span>.<span class="ruby-identifier">attach_to_user</span>
+    
+    <span class="ruby-keyword">if</span> <span class="ruby-ivar">@ipi</span>.<span class="ruby-identifier">user_id</span> <span class="ruby-operator">==</span> <span class="ruby-ivar">@user</span>.<span class="ruby-identifier">id</span>
+      <span class="ruby-comment">#ap &#39;hey confirm this&#39;</span>
+      <span class="ruby-ivar">@ipi</span>.<span class="ruby-identifier">update</span>(<span class="ruby-identifier">confirmation</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;Confirmed&#39;</span>)
+      <span class="ruby-ivar">@ipi</span>.<span class="ruby-identifier">accepted!</span>
+    <span class="ruby-keyword">end</span>
+
+    <span class="ruby-comment"># make sure all ips get a fair share</span>
+    <span class="ruby-ivar">@common_work</span>.<span class="ruby-identifier">update_publishers_payment</span>
+    
+    
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:commit</span>] <span class="ruby-operator">==</span> <span class="ruby-string">&#39;Save and send message&#39;</span>
+      <span class="ruby-ivar">@ipi</span>.<span class="ruby-identifier">send_confirmation_request</span> 
+      <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">user_user_common_work_path</span>(<span class="ruby-ivar">@user</span>, <span class="ruby-ivar">@common_work</span>)
+      <span class="ruby-comment">#redirect_to new_user_user_common_work_ipi_path(@user, @common_work)</span>
+    <span class="ruby-comment">#elsif params[:commit] == &quot;Update&quot;</span>
+    <span class="ruby-comment">#  #redirect_to session[:go_to_after_update_ipi]</span>
+    <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:commit</span>] <span class="ruby-operator">==</span> <span class="ruby-string">&quot;Save&quot;</span>
+      <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">user_user_common_work_path</span>(<span class="ruby-ivar">@user</span>, <span class="ruby-ivar">@common_work</span>)
+      <span class="ruby-comment">#redirect_to new_user_user_common_work_ipi_path(@user, @common_work)</span>
+    <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:commit</span>] <span class="ruby-operator">==</span> <span class="ruby-string">&quot;Send&quot;</span>
+      <span class="ruby-ivar">@ipi</span>.<span class="ruby-identifier">send_confirmation_request</span> 
+    <span class="ruby-keyword">end</span>
+    
+     
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">render</span> <span class="ruby-value">:edit</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+                    </div>
+
+    </div>
+  </body>
+</html>    

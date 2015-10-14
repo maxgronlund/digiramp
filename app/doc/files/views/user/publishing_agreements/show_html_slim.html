@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>show.html.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            show.html.slim
+        </h1>
+        <ul class="files">
+            <li>views/user/publishing_agreements/show.html.slim</li>
+            <li>Last modified: 2015-10-03 14:56:15 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      <ul><li>
+<p>document = @publishing_agreement.document</p>
+</li></ul>
+
+<p>wrapper</p>
+
+<pre><code>.full-width-top
+  == render &#39;shared/navigationbar&#39;, page: &#39;dashboard&#39; 
+
+#sidebar-wrapper
+  ul class=&quot;sidebar-nav&quot;
+    == render &#39;users/shared/sidebar&#39;, selected: &#39;dashboard&#39;
+
+#page-content-wrapper
+  .container-fluid
+    == render &#39;shared/breadcrumbs&#39;, breadcrumbs: { links: { publishers: user_user_publishers_path(@user),
+                                                            publisher: user_user_publisher_path(@user, @publisher),
+                                                            &#39;revenue streams&#39;.to_sym =&gt; user_user_publisher_publishing_agreements_path(@user, @publisher)}}
+    == render &#39;shared/flash_message&#39;
+    .row
+      .col-sm-9
+        .help
+          .help-text
+
+            h2
+              b Documents for revenue stream:&amp;nbsp;
+          .help-button
+            == render &#39;admin/helps/help&#39;, identifier: &#39;user publishing documents&#39;
+      .col-sm-3
+        .pull-right.pull-down-10
+          =&gt; link_to  user_user_publisher_publishing_agreements_path(@user, @publisher) do
+              .btn.btn-default
+                i.fa.fa-chevron-left
+                &#39;&amp;nbsp;Back
+          /= link_to edit_user_user_publisher_publishing_agreement_path(@user, @publisher, @publishing_agreement) do
+          /  .btn.btn-default
+          /    i.fa.fa-pencil&amp;nbsp;Edit agreement
+    .row
+      .col-sm-12
+        h2 = @publishing_agreement.title 
+
+    /.pull-down-10
+    /.digi-box 
+    /  .row
+    /    .col-sm-3
+    /      b Publishers share
+    /      br = number_to_percentage(@publishing_agreement.split, precision: 2)
+    /    .col-sm-3
+    /      b IPS share
+    /      br = number_to_percentage(@publishing_agreement.split - 100.0 , precision: 2)
+    /    .col-sm-3
+    / 
+    /      - if @publishing_agreement.expires
+    /        b Expires
+    /        br = @publishing_agreement.expiration_date
+    /
+    /    
+
+    .table-responsive
+      .row.pull-down-10
+        .col-sm-12
+          .pull-right
+            =&gt; link_to new_user_user_publisher_publishing_agreement_publishing_agreement_document_path(@user, @publisher, @publishing_agreement) do
+                  .btn.btn-default
+                    &#39;Upload document 
+            = link_to user_user_publisher_publishing_agreement_publishing_agreement_templates_path(@user, @publisher, @publishing_agreement) do
+              .btn.btn-default
+                &#39;New from template
+
+      table class=&quot;table table-hover&quot;
+        thead
+          tr
+            th
+            th Title
+            th Status
+            th Expires
+            th 
+
+        tbody
+          - @publishing_agreement.documents.each do |document|
+            tr
+              - if document.file_url
+                td
+                  - case document.content_type
+
+                  - when &#39;application/pdf&#39;
+                    = link_to document.file_url
+                      .btn.btn-default.btn-xs
+                        i.fa.fa-file-pdf-o
+                    =&lt; link_to document.download_url
+                      .btn.btn-default.btn-xs
+                        i.fa.fa-download
+                  - else
+                    = link_to document.file_url
+                      .btn.btn-default.btn-xs
+                        i.fa.fa-download
+
+                td 
+                  b = document.title
+
+                td   
+                td
+
+              - else
+                - document_signed = document.signed?
+                td style=&quot;min-width: 100px&quot;
+                    = link_to edit_user_user_legal_document_path(@user, document.uuid) do
+                          .btn.btn-default.btn-xs
+                            i.fa.fa-pencil
+                    =&lt; link_to user_user_legal_document_path(@user, document.uuid, :format =&gt; &#39;pdf&#39;) do 
+                      .btn.btn-default.btn-xs
+                        i.fa.fa-file-pdf-o
+                    =&lt; link_to user_user_legal_document_path(@user, document.uuid) do 
+                      .btn.btn-default.btn-xs
+                        i.fa.fa-eye
+                    - unless document_signed
+                      br
+                      .pull-down-6
+                        = link_to &#39;Manage Signatures&#39;, user_user_sign_document_path(@user, document.uuid), class: &#39;btn btn-success btn-xs&#39;
+                td 
+                  .div style=&quot;max-width: 480px&quot;
+                    b =  document.title
+                    br = simple_format document.body
+
+                td 
+                  /.label.label-default
+                  /  = document.status 
+                  /.br
+                  h4
+                    - if document_signed
+                      .label.label-info
+                        &#39;Signed
+                      /= link_to &#39;Execute&#39;,&#39;#&#39;, class: &#39;btn btn-default btn-xs&#39;
+                    - else
+                      .alert.alert-warning
+                        &#39;Document not signed
+
+                td 
+                   - if document.expires
+                     = l document.expiration_date, format: :date
+                   - else
+                     &#39;No
+
+                /=td = document.document_users.count
+
+    /.digi-box
+    /  h4 IPs
+    /  .table-responsive
+    /    table class=&quot;table table-hover&quot;
+    /      thead
+    /        tr
+    /          th Full name
+    /          th PRO
+    /          th Roles
+    /          th Works
+    /          
+    /      tbody
+    /        - @publishing_agreement.ipis.each do |common_work_ipi|
+    /          tr
+    /            td 
+    /              = common_work_ipi.full_name
+    /              br = common_work_ipi.email
+    /            td 
+    /              - if pro = common_work_ipi.pro_affiliation
+    /                = pro.title
+    /            td
+    /              - if common_work_ipi.music
+    /                &#39;Music
+    /                br
+    /              - if common_work_ipi.lyric
+    /                &#39;Lyric
+    /                br
+    /              - if common_work_ipi.melody
+    /                &#39;Melody
+    /                br
+    /              - if common_work_ipi.arrangement
+    /                &#39;Arrangement
+    /            td 
+    /              - if common_works = CommonWorkIpi.where(publishing_agreement_id: @publishing_agreement.id)
+    /                - common_works.each do |common_work_ipi|
+    /                  - if common_work = common_work_ipi.common_work
+    /                    = link_to common_work.title, user_user_common_work_path(@user, common_work), class: &#39;btn btn-default btn-xs&#39;
+    /                    .pull-down-6
+    /                    
+    / 
+  == render &#39;shared/init_wysiwyg5&#39;         
+== render &#39;shared/site_footer&#39;</code></pre>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

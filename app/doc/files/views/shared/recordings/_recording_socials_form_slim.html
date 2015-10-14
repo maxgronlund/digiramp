@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>_recording_socials_form.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            _recording_socials_form.slim
+        </h1>
+        <ul class="files">
+            <li>views/shared/recordings/_recording_socials_form.slim</li>
+            <li>Last modified: 2015-09-24 20:35:34 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>/.row /  .col-sm-6 /    /= f.hidden_field :next_step, value:
+&#39;next_step&#39;, id: &#39;next_step&#39; /    = f.input :artist,
+:input_html =&gt; {  style: “height: 80px;”, placeholder: “Artist”} / 
+.col-sm-6 /    = f.input :performer, :input_html =&gt; {  style: “height:
+80px;”, placeholder: “Performer”} /.row /  .col-sm-6 /    = f.input
+:composer, :input_html =&gt; {  style: “height: 80px;”, placeholder:
+“Composer”} /  .col-sm-6 /    = f.input :band, :input_html =&gt; {  style:
+“height: 80px;”, placeholder: “Band”} /.row /  /.col-sm-6 /  /  = f.input
+:bpm /  /  /= f.hidden_field :next_step, value: &#39;next_step&#39;, id:
+&#39;next_step&#39; /  / /  .col-sm-6 /    = f.input :tempo,   collection:
+Recording::TEMPO / /.row /  .col-sm-6 /    = f.input :mood, hint:
+&#39;Comma seperated list&#39;, :input_html =&gt; {  placeholder: “i.e.
+Happy, Uplifting, Scary, Action”} /  .col-sm-6 /    = f.input :genre, hint:
+&#39;Comma seperated list&#39;, :input_html =&gt; {  placeholder: “i.e.
+Pop, Cinimatic, Hip-Hop, Christmas”} /.row /  .col-sm-6 /    = f.input
+:instruments, hint: &#39;Comma seperated list&#39;, :input_html =&gt; { 
+placeholder: “i.e. Drums, Banjo, Choir, Electric Guitar”}</p>
+
+<p>h4 Settings for Facebook p Image p text .sexy_line h4 Settings for Twitter
+p image p text .sexy_line h4 Settings for Google+ p image p text .sexy_line
+h4 Settings for Linkedin p image p text .sexy_line h4 Settings for
+instagram p image p text .sexy_line h4 Settings for pinterest p image p
+text</p>
+
+<p>.row</p>
+
+<pre><code>.col-sm-12
+  .pull-right    
+    /= f.button :submit,&#39;Close&#39;, class: &#39;btn btn-default&#39;, id: &#39;done&#39;, data: { confirm: &quot;Your changes will be saved and the wizard will close. Are you sure that&#39;s what you want?&quot;  }
+    /&#39;&amp;nbsp; 
+    /= link_to &#39;Skip&#39;, edit_user_recording_persona_path(@user, @recording), class: &#39;btn btn-default&#39;
+    =&gt; link_to &#39;Close&#39;, user_recording_path(@user, @recording), class: &#39;btn btn-default&#39;, data: { confirm: &quot;Your changes will not be saved and the wizard will close. Are you sure that&#39;s what you want?&quot;  }
+    = f.submit &#39;Save&#39;, class: &#39;btn btn-info&#39;</code></pre>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

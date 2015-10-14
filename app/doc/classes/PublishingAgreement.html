@@ -1,0 +1,379 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>PublishingAgreement</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../css/github.css" type="text/css" media="screen" />
+<script src="../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            <span class="type">Class</span> 
+            PublishingAgreement 
+            
+                <span class="parent">&lt; 
+                    
+                    ActiveRecord::Base
+                    
+                </span>
+            
+        </h1>
+        <ul class="files">
+            
+            <li><a href="../files/models/publishing_agreement_rb.html">models/publishing_agreement.rb</a></li>
+            
+        </ul>
+    </div>
+    <div id="bodyContent">
+        <div id="content">
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+    <!-- Method ref -->
+    <div class="sectiontitle">Methods</div>
+    <dl class="methods">
+      
+        <dt>C</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-c-cached_find">cached_find</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-i-configure_payment">configure_payment</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>D</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-document">document</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-i-documents">documents</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>R</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-remove_relations">remove_relations</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+    </dl>
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+    
+      <div class="sectiontitle">Class Public methods</div>
+      
+        <div class="method">
+          <div class="title method-title" id="method-c-cached_find">
+            
+              <b>cached_find</b>(id)
+            
+            <a href="../classes/PublishingAgreement.html#method-c-cached_find" name="method-c-cached_find" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-c-cached_find_source')" id="l_method-c-cached_find_source">show</a>
+                
+              </p>
+              <div id="method-c-cached_find_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/publishing_agreement.rb, line 97</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">self</span>.<span class="ruby-identifier">cached_find</span>(<span class="ruby-identifier">id</span>)
+  <span class="ruby-constant">Rails</span>.<span class="ruby-identifier">cache</span>.<span class="ruby-identifier">fetch</span>([<span class="ruby-identifier">name</span>, <span class="ruby-identifier">id</span>]) { <span class="ruby-identifier">find</span>(<span class="ruby-identifier">id</span>) }
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+                  
+      <div class="sectiontitle">Instance Public methods</div>
+      
+        <div class="method">
+          <div class="title method-title" id="method-i-configure_payment">
+            
+              <b>configure_payment</b>( royalty, price, recording_uuid )
+            
+            <a href="../classes/PublishingAgreement.html#method-i-configure_payment" name="method-i-configure_payment" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-configure_payment_source')" id="l_method-i-configure_payment_source">show</a>
+                
+              </p>
+              <div id="method-i-configure_payment_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/publishing_agreement.rb, line 29</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">configure_payment</span>( <span class="ruby-identifier">royalty</span>, <span class="ruby-identifier">price</span>, <span class="ruby-identifier">recording_uuid</span> )
+
+  <span class="ruby-keyword">begin</span>
+    
+    <span class="ruby-identifier">amount_in_cent</span> =  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">split</span> <span class="ruby-operator">*</span> <span class="ruby-number">0.01</span> <span class="ruby-operator">*</span> <span class="ruby-identifier">royalty</span>
+    <span class="ruby-identifier">amount_in_pct</span>  =  <span class="ruby-identifier">amount_in_cent</span> <span class="ruby-operator">/</span>  <span class="ruby-identifier">price</span>
+    
+    <span class="ruby-comment">#ap &quot;amount_in_cent: #{amount_in_cent}&quot;</span>
+    <span class="ruby-comment">#ap &quot;royalty; #{royalty}&quot;</span>
+    <span class="ruby-comment">#ap &quot;split: #{split}&quot;</span>
+    <span class="ruby-comment">#</span>
+  
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">stake</span> = <span class="ruby-constant">Stake</span>.<span class="ruby-identifier">find_by</span>( 
+        <span class="ruby-identifier">account_id</span><span class="ruby-operator">:</span>  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">account_id</span>,
+        <span class="ruby-identifier">asset_id</span><span class="ruby-operator">:</span>           <span class="ruby-identifier">recording_uuid</span>,
+        <span class="ruby-identifier">asset_type</span><span class="ruby-operator">:</span>         <span class="ruby-string">&#39;Recording&#39;</span>,
+        <span class="ruby-identifier">ip_uuid</span><span class="ruby-operator">:</span>            <span class="ruby-keyword">self</span>.<span class="ruby-identifier">uuid</span>,
+        <span class="ruby-identifier">ip_type</span><span class="ruby-operator">:</span>            <span class="ruby-keyword">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">name</span>
+      )
+      <span class="ruby-identifier">stake</span>.<span class="ruby-identifier">update</span>(
+        <span class="ruby-identifier">split</span><span class="ruby-operator">:</span>               <span class="ruby-identifier">amount_in_pct</span>,
+        <span class="ruby-identifier">flat_rate_in_cent</span><span class="ruby-operator">:</span>   <span class="ruby-identifier">amount_in_cent</span>.<span class="ruby-identifier">round</span>,
+        <span class="ruby-identifier">currency</span><span class="ruby-operator">:</span>            <span class="ruby-string">&#39;usd&#39;</span>,
+        <span class="ruby-identifier">email</span><span class="ruby-operator">:</span>               <span class="ruby-keyword">self</span>.<span class="ruby-identifier">publisher</span>.<span class="ruby-identifier">email</span>,
+        <span class="ruby-identifier">unassigned</span><span class="ruby-operator">:</span>          <span class="ruby-keyword">false</span>,
+      )
+    <span class="ruby-keyword">else</span>
+      <span class="ruby-identifier">stake</span> = <span class="ruby-constant">Stake</span>.<span class="ruby-identifier">create</span>(  
+        <span class="ruby-identifier">account_id</span><span class="ruby-operator">:</span>          <span class="ruby-keyword">self</span>.<span class="ruby-identifier">account_id</span>,
+        <span class="ruby-identifier">user_id</span><span class="ruby-operator">:</span>             <span class="ruby-keyword">self</span>.<span class="ruby-identifier">user_id</span>,
+        <span class="ruby-identifier">asset_id</span><span class="ruby-operator">:</span>            <span class="ruby-identifier">recording_uuid</span>,
+        <span class="ruby-identifier">asset_type</span><span class="ruby-operator">:</span>          <span class="ruby-string">&#39;Recording&#39;</span>,
+        <span class="ruby-identifier">ip_uuid</span><span class="ruby-operator">:</span>             <span class="ruby-keyword">self</span>.<span class="ruby-identifier">uuid</span>,
+        <span class="ruby-identifier">ip_type</span><span class="ruby-operator">:</span>             <span class="ruby-keyword">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">name</span>,
+        <span class="ruby-identifier">split</span><span class="ruby-operator">:</span>               <span class="ruby-identifier">amount_in_pct</span>,
+        <span class="ruby-identifier">flat_rate_in_cent</span><span class="ruby-operator">:</span>   <span class="ruby-identifier">amount_in_cent</span>.<span class="ruby-identifier">round</span>,
+        <span class="ruby-identifier">currency</span><span class="ruby-operator">:</span>            <span class="ruby-string">&#39;usd&#39;</span>,
+        <span class="ruby-identifier">email</span><span class="ruby-operator">:</span>               <span class="ruby-keyword">self</span>.<span class="ruby-identifier">publisher</span>.<span class="ruby-identifier">email</span>,
+        <span class="ruby-identifier">unassigned</span><span class="ruby-operator">:</span>          <span class="ruby-keyword">false</span>
+      )
+    <span class="ruby-keyword">end</span>
+    <span class="ruby-comment">#ap stake</span>
+    <span class="ruby-keyword">return</span> <span class="ruby-identifier">royalty</span> <span class="ruby-operator">-</span>  <span class="ruby-identifier">amount_in_cent</span>
+  <span class="ruby-keyword">rescue</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
+    <span class="ruby-constant">ErrorNotification</span>.<span class="ruby-identifier">post_object</span> <span class="ruby-string">&#39;PublishingAgreement#configure_payment&#39;</span>, <span class="ruby-identifier">e</span>
+    <span class="ruby-keyword">return</span> <span class="ruby-number">0</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-document">
+            
+              <b>document</b>()
+            
+            <a href="../classes/PublishingAgreement.html#method-i-document" name="method-i-document" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-document_source')" id="l_method-i-document_source">show</a>
+                
+              </p>
+              <div id="method-i-document_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/publishing_agreement.rb, line 105</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">document</span>
+  <span class="ruby-constant">Document</span>.<span class="ruby-identifier">cached_find</span>(<span class="ruby-keyword">self</span>.<span class="ruby-identifier">document_uuid</span>)
+  <span class="ruby-comment">#if document = Document.cached_find(self.document_id)</span>
+  <span class="ruby-comment">#  document.update(document_type: &#39;Publishing agreement&#39;)</span>
+  <span class="ruby-comment">#  return document</span>
+  <span class="ruby-comment">#else</span>
+  <span class="ruby-comment">#  document = Document.create( title: &#39;Publishing agreement&#39;,</span>
+  <span class="ruby-comment">#                              body: &#39;Publishing agreement&#39;,</span>
+  <span class="ruby-comment">#                              text_content: &#39;Publishing agreement&#39;,</span>
+  <span class="ruby-comment">#                              account_id: self.publisher.account_id,</span>
+  <span class="ruby-comment">#                              document_type: &#39;Publishing agreement&#39;,</span>
+  <span class="ruby-comment">#                              uuid: UUIDTools::UUID.timestamp_create().to_s</span>
+  <span class="ruby-comment">#                             )</span>
+  <span class="ruby-comment">#  self.update(document_id: document.uuid)</span>
+  <span class="ruby-comment">#  if self_publishing?</span>
+  <span class="ruby-comment">#    document.executed!</span>
+  <span class="ruby-comment">#  end</span>
+  <span class="ruby-comment">#end</span>
+  <span class="ruby-comment">#document</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-documents">
+            
+              <b>documents</b>()
+            
+            <a href="../classes/PublishingAgreement.html#method-i-documents" name="method-i-documents" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-documents_source')" id="l_method-i-documents_source">show</a>
+                
+              </p>
+              <div id="method-i-documents_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/publishing_agreement.rb, line 101</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">documents</span>
+  <span class="ruby-constant">Document</span>.<span class="ruby-identifier">where</span>(<span class="ruby-identifier">belongs_to_id</span><span class="ruby-operator">:</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">id</span>, <span class="ruby-identifier">belongs_to_type</span><span class="ruby-operator">:</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">name</span>)
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-remove_relations">
+            
+              <b>remove_relations</b>()
+            
+            <a href="../classes/PublishingAgreement.html#method-i-remove_relations" name="method-i-remove_relations" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-remove_relations_source')" id="l_method-i-remove_relations_source">show</a>
+                
+              </p>
+              <div id="method-i-remove_relations_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/publishing_agreement.rb, line 17</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">remove_relations</span>
+  <span class="ruby-identifier">document</span>.<span class="ruby-identifier">destroy</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">document</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+                    </div>
+
+    </div>
+  </body>
+</html>    

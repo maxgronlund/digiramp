@@ -1,0 +1,374 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>jquery.switchButton.js</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            jquery.switchButton.js
+        </h1>
+        <ul class="files">
+            <li>assets/javascripts/jquery.switchButton.js</li>
+            <li>Last modified: 2015-07-05 15:22:02 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<pre><code>jquery.switchButton.js v1.0
+jQuery iPhone-like switch button
+@author Olivier Lance &lt;olivier.lance@sylights.com&gt;
+
+Copyright (c) Olivier Lance - released under MIT License {{{
+
+Permission is hereby granted, free of charge, to any person
+obtaining a copy of this software and associated documentation
+files (the &quot;Software&quot;), to deal in the Software without
+restriction, including without limitation the rights to use,
+copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the
+Software is furnished to do so, subject to the following
+conditions:
+
+The above copyright notice and this permission notice shall be
+included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
+HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+OTHER DEALINGS IN THE SOFTWARE.
+
+}}}</code></pre>
+
+<p>/*</p>
+
+<pre><code> Meant to be used on a &lt;input type=&quot;checkbox&quot;&gt;, this widget will replace the receiver element with an iPhone-style
+ switch button with two states: &quot;on&quot; and &quot;off&quot;.
+ Labels of the states are customizable, as are their presence and position. The receiver element&#39;s &quot;checked&quot; attribute
+ is updated according to the state of the switch, so that it can be used in a &lt;form&gt;.
+
+/</code></pre>
+
+<p>(function($) {</p>
+
+<pre><code>$.widget(&quot;sylightsUI.switchButton&quot;, {
+
+    options: {
+        checked: undefined,                 // State of the switch
+
+        show_labels: true,                  // Should we show the on and off labels?
+        labels_placement: &quot;both&quot;,   // Position of the labels: &quot;both&quot;, &quot;left&quot; or &quot;right&quot;
+        on_label: &quot;ON&quot;,                             // Text to be displayed when checked
+        off_label: &quot;OFF&quot;,                   // Text to be displayed when unchecked
+
+        width: 25,                                  // Width of the button in pixels
+        height: 11,                                 // Height of the button in pixels
+        button_width: 12,                   // Width of the sliding part in pixels
+
+        clear: true,                                // Should we insert a div with style=&quot;clear: both;&quot; after the switch button?
+        clear_after: null,              // Override the element after which the clearing div should be inserted (null &gt; right after the button)
+        on_callback: undefined,             //callback function that will be executed after going to on state
+        off_callback: undefined             //callback function that will be executed after going to off state
+    },
+
+    _create: function() {
+        // Init the switch from the checkbox if no state was specified on creation
+        if (this.options.checked === undefined) {
+            this.options.checked = this.element.prop(&quot;checked&quot;);
+        }
+
+        this._initLayout();
+        this._initEvents();
+    },
+
+    _initLayout: function() {
+        // Hide the receiver element
+        this.element.hide();
+
+        // Create our objects: two labels and the button
+        this.off_label = $(&quot;&lt;span&gt;&quot;).addClass(&quot;switch-button-label&quot;);
+        this.on_label = $(&quot;&lt;span&gt;&quot;).addClass(&quot;switch-button-label&quot;);
+
+        this.button_bg = $(&quot;&lt;div&gt;&quot;).addClass(&quot;switch-button-background&quot;);
+        this.button = $(&quot;&lt;div&gt;&quot;).addClass(&quot;switch-button-button&quot;);
+
+        // Insert the objects into the DOM
+        this.off_label.insertAfter(this.element);
+        this.button_bg.insertAfter(this.off_label);
+        this.on_label.insertAfter(this.button_bg);
+
+        this.button_bg.append(this.button);
+
+        // Insert a clearing element after the specified element if needed
+        if(this.options.clear)
+        {
+            if (this.options.clear_after === null) {
+                this.options.clear_after = this.on_label;
+            }
+            $(&quot;&lt;div&gt;&quot;).css({
+                clear: &quot;left&quot;
+            }).insertAfter(this.options.clear_after);
+        }
+
+        // Call refresh to update labels text and visibility
+        this._refresh();
+
+        // Init labels and switch state
+        // This will animate all checked switches to the ON position when
+        // loading... this is intentional!
+        this.options.checked = !this.options.checked;
+        this._toggleSwitch();
+    },
+
+    _refresh: function() {
+        // Refresh labels display
+        if (this.options.show_labels) {
+            this.off_label.show();
+            this.on_label.show();
+        }
+        else {
+            this.off_label.hide();
+            this.on_label.hide();
+        }
+
+        // Move labels around depending on labels_placement option
+        switch(this.options.labels_placement) {
+            case &quot;both&quot;:
+            {
+                // Don&#39;t move anything if labels are already in place
+                if(this.button_bg.prev() !== this.off_label || this.button_bg.next() !== this.on_label)
+                {
+                    // Detach labels form DOM and place them correctly
+                    this.off_label.detach();
+                    this.on_label.detach();
+                    this.off_label.insertBefore(this.button_bg);
+                    this.on_label.insertAfter(this.button_bg);
+
+                    // Update label classes
+                    this.on_label.addClass(this.options.checked ? &quot;on&quot; : &quot;off&quot;).removeClass(this.options.checked ? &quot;off&quot; : &quot;on&quot;);
+                    this.off_label.addClass(this.options.checked ? &quot;off&quot; : &quot;on&quot;).removeClass(this.options.checked ? &quot;on&quot; : &quot;off&quot;);
+
+                }
+                break;
+            }
+
+            case &quot;left&quot;:
+            {
+                // Don&#39;t move anything if labels are already in place
+                if(this.button_bg.prev() !== this.on_label || this.on_label.prev() !== this.off_label)
+                {
+                    // Detach labels form DOM and place them correctly
+                    this.off_label.detach();
+                    this.on_label.detach();
+                    this.off_label.insertBefore(this.button_bg);
+                    this.on_label.insertBefore(this.button_bg);
+
+                    // update label classes
+                    this.on_label.addClass(&quot;on&quot;).removeClass(&quot;off&quot;);
+                    this.off_label.addClass(&quot;off&quot;).removeClass(&quot;on&quot;);
+                }
+                break;
+            }
+
+            case &quot;right&quot;:
+            {
+                // Don&#39;t move anything if labels are already in place
+                if(this.button_bg.next() !== this.off_label || this.off_label.next() !== this.on_label)
+                {
+                    // Detach labels form DOM and place them correctly
+                    this.off_label.detach();
+                    this.on_label.detach();
+                    this.off_label.insertAfter(this.button_bg);
+                    this.on_label.insertAfter(this.off_label);
+
+                    // update label classes
+                    this.on_label.addClass(&quot;on&quot;).removeClass(&quot;off&quot;);
+                    this.off_label.addClass(&quot;off&quot;).removeClass(&quot;on&quot;);
+                }
+                break;
+            }
+
+        }
+
+        // Refresh labels texts
+        this.on_label.html(this.options.on_label);
+        this.off_label.html(this.options.off_label);
+
+        // Refresh button&#39;s dimensions
+        this.button_bg.width(this.options.width);
+        this.button_bg.height(this.options.height);
+        this.button.width(this.options.button_width);
+        this.button.height(this.options.height);
+    },
+
+    _initEvents: function() {
+        var self = this;
+
+        // Toggle switch when the switch is clicked
+        this.button_bg.click(function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            self._toggleSwitch();
+            return false;
+        });
+        this.button.click(function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            self._toggleSwitch();
+            return false;
+        });
+
+        // Set switch value when clicking labels
+        this.on_label.click(function(e) {
+            if (self.options.checked &amp;&amp; self.options.labels_placement === &quot;both&quot;) {
+                return false;
+            }
+
+            self._toggleSwitch();
+            return false;
+        });
+
+        this.off_label.click(function(e) {
+            if (!self.options.checked &amp;&amp; self.options.labels_placement === &quot;both&quot;) {
+                return false;
+            }
+
+            self._toggleSwitch();
+            return false;
+        });
+
+    },
+
+    _setOption: function(key, value) {
+        if (key === &quot;checked&quot;) {
+            this._setChecked(value);
+            return;
+        }
+
+        this.options[key] = value;
+        this._refresh();
+    },
+
+    _setChecked: function(value) {
+        if (value === this.options.checked) {
+            return;
+        }
+
+        this.options.checked = !value;
+        this._toggleSwitch();
+    },
+
+    _toggleSwitch: function() {
+        this.options.checked = !this.options.checked;
+        var newLeft = &quot;&quot;;
+        if (this.options.checked) {
+            // Update the underlying checkbox state
+            this.element.prop(&quot;checked&quot;, true);
+            this.element.change();
+
+            var dLeft = this.options.width - this.options.button_width;
+            newLeft = &quot;+=&quot; + dLeft;
+
+            // Update labels states
+            if(this.options.labels_placement == &quot;both&quot;)
+            {
+                this.off_label.removeClass(&quot;on&quot;).addClass(&quot;off&quot;);
+                this.on_label.removeClass(&quot;off&quot;).addClass(&quot;on&quot;);
+            }
+            else
+            {
+                this.off_label.hide();
+                this.on_label.show();
+            }
+            this.button_bg.addClass(&quot;checked&quot;);
+            //execute on state callback if its supplied
+            if(typeof this.options.on_callback === &#39;function&#39;) this.options.on_callback.call(this);
+        }
+        else {
+            // Update the underlying checkbox state
+            this.element.prop(&quot;checked&quot;, false);
+            this.element.change();
+            newLeft = &quot;-1px&quot;;
+
+            // Update labels states
+            if(this.options.labels_placement == &quot;both&quot;)
+            {
+                this.off_label.removeClass(&quot;off&quot;).addClass(&quot;on&quot;);
+                this.on_label.removeClass(&quot;on&quot;).addClass(&quot;off&quot;);
+            }
+            else
+            {
+                this.off_label.show();
+                this.on_label.hide();
+            }
+            this.button_bg.removeClass(&quot;checked&quot;);
+            //execute off state callback if its supplied
+            if(typeof this.options.off_callback === &#39;function&#39;) this.options.off_callback.call(this);
+        }
+        // Animate the switch
+        this.button.animate({ left: newLeft }, 250, &quot;easeInOutCubic&quot;);
+    }
+
+});</code></pre>
+
+<p>})(jQuery);</p>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>_form.html.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            _form.html.slim
+        </h1>
+        <ul class="files">
+            <li>views/user/publishers/_form.html.slim</li>
+            <li>Last modified: 2015-10-04 08:40:53 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<h1 id="label-simple_form_for+-5B-3Auser-2C+-40user-2C+-40publisher-5D+do+-7Cf-7C">simple_form_for [:user, @user, @publisher] do |f|</h1>
+
+<pre><code>= f.error_notification
+
+.form-inputs
+  == render &#39;shared/flash_message&#39;
+  .row
+    .col-sm-6
+      = f.hidden_field :account_id, value: @user.account.id
+      = f.hidden_field :user_id, value: @user.id
+
+      = f.input :email, :hint =&gt; &quot;Publishers email&quot;
+
+      /- unless @publisher.personal_publisher
+      = f.input :show_on_public_page, input_html: { class: &#39;icheck-me acceptance&#39;, &#39;data-skin&#39;.to_sym =&gt; &quot;square&quot;, &#39;data-color&#39;.to_sym =&gt; &quot;blue&quot; }
+
+        span.help-block Make this publisher avaliable to the public
+      /= f.input :personal_publisher, :input_html =&gt; { class: &#39;icheck-me acceptance&#39;, &#39;data-skin&#39;.to_sym =&gt; &quot;square&quot;, &#39;data-color&#39;.to_sym =&gt; &quot;blue&quot;     } 
+      /span class=&quot;help-block&quot; 
+      /  &#39;Check this if you have your own publishing company or want to create one
+    .col-sm-6
+      = f.input :legal_name, :hint =&gt; &quot;Publishers legal name&quot;
+
+  /.row
+  /  .col-sm-6
+  /    - unless @publisher.new_record? 
+  /      - if @publisher.i_am_my_own_publisher
+  /        = f.input :show_on_public_page, input_html: { class: &#39;icheck-me acceptance&#39;, &#39;data-skin&#39;.to_sym =&gt; &quot;square&quot;, &#39;data-color&#39;.to_sym =&gt; &quot;blue&quot; }, hint: &#39;Your contact info will not be exposed&#39;
+  /        = f.input :phone_number
+  /        = f.input :ipi_code
+  /        = f.input :cae_code
+  /        = f.input :pro_affiliation_id, collection: ProAffiliation.order(:title), value_method: :id, include_blank: true, label: &#39;Performance Rights Organization&#39;
+  /        
+  /    /= f.input :status
+  /  /.col-sm-6
+  /  /
+  /  /  = f.simple_fields_for :address do |address_form|
+  /  /    /= address_form.hidden_field :first_name, value: &#39;-&#39;
+  /  /    /= address_form.hidden_field :last_name, value: &#39;-&#39;
+  /  /    /- if @publisher.new_record? 
+  /  /    /  = address_form.hidden_field :address_line_1, value: &#39;-&#39;
+  /  /    /  = address_form.hidden_field :city, value: &#39;-&#39;
+  /  /    /  = address_form.hidden_field :country, value: &#39;-&#39;
+  /  /    /
+  /  /    - unless @publisher.new_record?
+  /  /      - if @publisher.i_am_my_own_publisher  
+  /  /        = address_form.input :address_line_1
+  /  /        = address_form.input :address_line_2
+  /  /        = address_form.input :city
+  /  /        = address_form.input :state
+  /  /        = address_form.input :country
+  /  /        = address_form.input :zip_code
+  /  /      /- else
+  /  /      /  = address_form.hidden_field :address_line_1, value: &#39;-&#39;
+  /  /      /  = address_form.hidden_field :city, value: &#39;-&#39;
+  /  /      /  = address_form.hidden_field :country, value: &#39;-&#39;
+.form-actions
+  .row
+    .col-sm-12
+      .pull-right
+        = f.submit &#39;Save&#39;, class: &#39;btn btn-default&#39;</code></pre>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

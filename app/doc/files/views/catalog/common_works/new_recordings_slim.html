@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>new_recordings.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            new_recordings.slim
+        </h1>
+        <ul class="files">
+            <li>views/catalog/common_works/new_recordings.slim</li>
+            <li>Last modified: 2015-09-24 20:35:34 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>wrapper</p>
+
+<pre><code>.full-width-top
+  == render &#39;shared/navigationbar&#39;, page: &#39;catalog&#39;         
+
+.catalog
+  #sidebar-wrapper
+    ul class=&quot;sidebar-nav&quot;
+      == render &#39;catalog/catalogs/sidebar&#39;, selected: &#39;recording&#39;
+
+#page-content-wrapper
+  .container-fluid
+    == render &#39;shared/breadcrumbs&#39;, breadcrumbs: { links: {   catalog: catalog_account_catalog_path(@account, @catalog),
+                                                             recordings: catalog_account_catalog_recordings_path(@account, @catalog)}, current: &#39;&#39;}
+    .row
+      .col-sm-8
+        .help
+          .help-text
+             h2 Add recordings to a work
+          .help-button
+            == render &#39;admin/helps/help&#39;, identifier: &#39;add recordings to work&#39;
+
+      .col-sm-4
+        .pull-right.pull-down-10
+
+    .sexy_line
+    .row
+      .col-sm-6
+        .digi-box
+          = simple_form_for [ @account, @common_work, Recording.new ], :url =&gt; url_for(:action =&gt; &#39;create_recordings&#39;, 
+                                                                                        :controller =&gt; &#39;catalog/common_works&#39;), 
+                                                                                        :method =&gt; &#39;post&#39;,  
+                                                                                        :html =&gt; { :id =&gt; &#39;recording&#39; } do |f| 
+            = transloadit :recording_with_thumbs 
+            /= form.label      :file, &#39;File to upload&#39; 
+            = f.hidden_field :common_work_id, value: @common_work.id
+            = f.hidden_field :account_id, value: @account.id
+
+            b Select files
+            = f.file_field :file, multiple: true
+            .sexy_line
+            = f.input :add_to_catalogs, collection: [ &quot;#{@catalog.title}&quot;, &quot;All Catalogs&quot;], include_blank: false, label: &#39;Add to Catalogs&#39;
+            .row
+              .col-sm-12
+                .pull-right
+                  = f.submit &#39;Continue&#39;, class: &#39;btn btn-info&#39;
+
+              = transloadit_jquerify :recording, :wait =&gt; true
+
+== render &#39;shared/site_footer&#39;</code></pre>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

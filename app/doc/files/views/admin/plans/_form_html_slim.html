@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>_form.html.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            _form.html.slim
+        </h1>
+        <ul class="files">
+            <li>views/admin/plans/_form.html.slim</li>
+            <li>Last modified: 2015-09-24 20:35:34 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<h1 id="label-simple_form_for+-5B-3Aadmin-2C+-40plan-5D+do+-7Cf-7C">simple_form_for [:admin, @plan] do |f|</h1>
+
+<pre><code>= f.error_notification
+
+.form-inputs  
+  .row
+    .col-sm-6
+      /= f.hidden_field :stripe_id, value: &#39;DigiRAMP plan-&#39; + (Plan.count + 123  ).to_s
+      = f.input :name, autofocus: true
+      = f.input :description
+      = f.input :amount, label: &#39;Price in cents&#39;
+      = f.input :interval, collection: Plan::INTERVALS , include_blank: false
+      = f.input :currency, collection: Plan::CURRENCY  , include_blank: false
+    .col-sm-6
+      = f.input :trial_period_days
+      = f.input :published, hint: &#39;Use this to hide plans&#39;
+      = f.input :statement_descriptor
+      = f.input :account_type , :include_blank =&gt; false, :collection =&gt; Account::ACCOUNT_TYPES  
+      .panel.panel-default
+        .panel-body
+          b Statement descriptor
+          br
+          &#39;An arbitrary string to be displayed on your customer&#39;s credit card statement. This may be up to 22 characters. As an example, if your website is RunClub and the item you&#39;re charging for is your Silver Plan, you may want to specify a statement_descriptor of DigiRAMP Pro Plan. The statement description may not include &#39;&lt;&gt;&#39; characters, and will appear on your customer&#39;s statement in capital letters. Non-ASCII characters are automatically stripped. While most banks display this information consistently, some may display it incorrectly or not at all. This can be unset by updating leaving the field blank and then saving.
+
+.row
+  .col-sm-12
+    .pull-right
+      = f.submit &#39;Save&#39;, class: &#39;btn btn-info&#39;
+      coffee:
+        $(&quot;form#new_plan&quot;).submit -&gt;
+          $(this).find(&#39;input[type=submit]&#39;).attr(&#39;disabled&#39;, &#39;disabled&#39;)
+          $(this).find(&#39;input[type=submit]&#39;).val &quot;Updating Stripe, please wait ...&quot;</code></pre>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

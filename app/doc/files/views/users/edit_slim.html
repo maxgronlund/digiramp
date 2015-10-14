@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>edit.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            edit.slim
+        </h1>
+        <ul class="files">
+            <li>views/users/edit.slim</li>
+            <li>Last modified: 2015-09-25 00:07:31 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>wrapper</p>
+
+<pre><code>.full-width-top
+  == render &#39;shared/navigationbar&#39;, page: &#39;edit_profile&#39; 
+
+#sidebar-wrapper
+  ul class=&quot;sidebar-nav&quot;
+    == render &#39;users/shared/sidebar&#39;, selected: &#39;profile&#39;
+
+#page-content-wrapper
+  .container-fluid 
+    .row
+      .col-sm-12
+        h2 Edit Profile
+        .pull-down-10
+        .digi-box
+          = simple_form_for [@user], html: { :id =&gt; &#39;user_avatar&#39; } do |f|
+            = f.error_notification
+            -if @user.errors.any?
+              = render &#39;shared/errors&#39;, errors: @user.errors
+
+            .row
+              .col-sm-6
+                - if @user.user_name == User.create_uniq_user_name_from_email(@user.email)  
+                  = f.input :user_name, label: &#39;Display name&#39;, placeholder: &#39;i.e. John Doe&#39;, hint: &#39;This name will be displayed on the profile.&#39;,  autofocus: true
+                - else
+                  = f.input :user_name, label: &#39;Display name&#39;,  placeholder: &#39;i.e. John Doe&#39;, hint: &#39;This name will be displayed on the profile.&#39;,  autofocus: true
+
+                = f.input :email
+                = f.input :profession
+                /= f.input :short_description, label: &#39;Short description (Max 100 chars)&#39;, :input_html =&gt; {  style: &quot;height: 80px;&quot;, placeholder: &quot;Short description, max 100 chars&quot;}
+                .row
+                  .col-sm-6
+                    &#39;Ratio 1:1
+                    br
+                    .fileinput.fileinput-new data-provides=&quot;fileinput&quot;
+                      .fileinput-new.thumbnail style=&quot;width: 92px; height: 92px;&quot;
+                        = image_tag @user.image, size: &#39;92x92&#39;
+
+                      div.fileinput-preview.fileinput-exists.thumbnail style=&quot;max-width: 92px; max-height: 92px;&quot;
+                      div
+                        span.btn.btn-default.btn-file
+                          span class=&quot;fileinput-new&quot;
+                            &#39;Change image
+                          &#39;&amp;nbsp;
+                          span class=&quot;fileinput-exists&quot;
+                            &#39;Change
+                          = f.file_field :image, multiple: false
+
+                        &#39;&amp;nbsp;
+                        a href=&quot;#&quot; class=&quot;btn btn-default fileinput-exists&quot; data-dismiss=&quot;fileinput&quot;
+                          &#39;Remove
+                  .col-sm-6
+                    = f.input :private_profile, label: &#39;Hide my profile&#39;,  :input_html =&gt; { class: &#39;icheck-me&#39;, &#39;data-skin&#39;.to_sym =&gt; &quot;square&quot;, &#39;data-color&#39;.to_sym =&gt; &quot;blue&quot;     }  
+                    = f.input :page_style_id, collection: PageStyle.all, label: &#39;Profile page style&#39;, value_method: :id, include_blank: true
+                /.sexy_line
+
+                /- if @user.name == User.create_uniq_user_name_from_email(@user.email)
+                /  = f.input :name, hint: &#39;Change to improve completeness&#39;
+                /- else
+                /  = f.input :name
+                /= f.input :email
+                .row
+                  .col-sm-12
+                    a data-toggle=&quot;collapse&quot; data-parent=&quot;#accordion&quot; href=&quot;#change_email&quot;
+                      i.fa.fa-pencil
+                      b &amp;nbsp;Change Password
+
+                    br
+                    br
+                    div id=&quot;change_email&quot; class=&quot;panel-collapse collapse&quot;  
+                      .row
+                        .col-sm-6
+                          = f.input :password, autocomplete: :off, placeholder: &#39;•••••••••••&#39;, hint: &#39;New password&#39;
+                        .col-sm-6
+                          = f.input :password_confirmation, autocomplete: :off, placeholder: &#39;•••••••••••&#39;, hint: &#39;Confirm new password&#39;
+
+                /.sexy_line
+                .pull-down-10
+                - if @user.cms_pages.count &gt; 0
+                  = f.input :default_cms_page_id, collection: @user.cms_pages, label: &#39;Default profile page&#39;, value_method: :id, include_blank: true
+
+              .col-sm-6
+                .row
+                  .col-sm-12
+                    b Bio
+
+                    div id=&quot;toolbar&quot; class=&quot;wysihtml5-toolbar&quot;
+                      a data-wysihtml5-command=&quot;bold&quot; Bold
+                      &#39;&amp;nbsp; 
+                      a data-wysihtml5-command=&quot;italic&quot; Italic
+                      .pull-right
+                        a data-wysihtml5-action=&quot;change_view&quot;  Html 
+
+                    =f.input :profile, label: false, :input_html =&gt; {  style: &quot;height: 180px;&quot;, placeholder: &quot;Profile&quot;, id: &#39;wysihtml5_editor&#39;}
+
+                    =f.input :short_description, placeholder: &quot;Max 100 chars&quot; , 
+                                                 :input_html =&gt; {  style: &quot;height: 64px;&quot;, maxlength: &quot;100&quot;}
+                    div id=&quot;textarea_feedback&quot;
+                    br
+                    javascript:
+                      $(document).ready(function() {
+                          var text_max = 100;
+                          $(&#39;#textarea_feedback&#39;).html(text_max + &#39; characters remaining&#39;);
+                          update_textarea_feedback();
+                          $(&#39;#user_short_description&#39;).keyup(function() {
+                             update_textarea_feedback();
+                          });
+
+                          function update_textarea_feedback(){
+                            var text_length = $(&#39;#user_short_description&#39;).val().length;
+                            var text_remaining = text_max - text_length;
+
+                            $(&#39;#textarea_feedback&#39;).html(text_remaining + &#39; characters remaining&#39;);
+                          }
+                      });
+                b Tags
+                .row
+                  .col-sm-6
+                    = f.input :artist,  :input_html =&gt; { class: &#39;icheck-me&#39;, &#39;data-skin&#39;.to_sym =&gt; &quot;square&quot;, &#39;data-color&#39;.to_sym =&gt; &quot;blue&quot;     }  
+                    = f.input :author,  :input_html =&gt; { class: &#39;icheck-me&#39;, &#39;data-skin&#39;.to_sym =&gt; &quot;square&quot;, &#39;data-color&#39;.to_sym =&gt; &quot;blue&quot;     }  
+                    = f.input :composer,  :input_html =&gt; { class: &#39;icheck-me&#39;, &#39;data-skin&#39;.to_sym =&gt; &quot;square&quot;, &#39;data-color&#39;.to_sym =&gt; &quot;blue&quot;     }  
+                    = f.input :writer,  :input_html =&gt; { class: &#39;icheck-me&#39;, &#39;data-skin&#39;.to_sym =&gt; &quot;square&quot;, &#39;data-color&#39;.to_sym =&gt; &quot;blue&quot;     }  
+                  .col-sm-6
+                    = f.input :musician,  :input_html =&gt; { class: &#39;icheck-me&#39;, &#39;data-skin&#39;.to_sym =&gt; &quot;square&quot;, &#39;data-color&#39;.to_sym =&gt; &quot;blue&quot;     }  
+                    = f.input :producer,  :input_html =&gt; { class: &#39;icheck-me&#39;, &#39;data-skin&#39;.to_sym =&gt; &quot;square&quot;, &#39;data-color&#39;.to_sym =&gt; &quot;blue&quot;     }  
+                    = f.input :remixer,  :input_html =&gt; { class: &#39;icheck-me&#39;, &#39;data-skin&#39;.to_sym =&gt; &quot;square&quot;, &#39;data-color&#39;.to_sym =&gt; &quot;blue&quot;     }  
+                    = f.input :dj,  :input_html =&gt; { class: &#39;icheck-me&#39;, &#39;data-skin&#39;.to_sym =&gt; &quot;square&quot;, &#39;data-color&#39;.to_sym =&gt; &quot;blue&quot;     }  
+
+            .row
+              .col-sm-12.pull-down-8
+                = link_to &#39;Delete account&#39;, user_path(@user), data: { confirm: &#39;Are you sure?&#39; } , :method =&gt; :delete, class: &#39;btn btn-default&#39;
+
+                .pull-right
+
+                  =&gt; link_to &#39;Cancel&#39;, user_path(@user), class: &#39;btn btn-default&#39;
+                  = f.submit &#39;Save&#39;, class: &#39;btn btn-info&#39;
+                  coffee:
+                    $(&quot;form#user_avatar&quot;).submit -&gt;
+                      $(this).find(&#39;input[type=submit]&#39;).attr(&#39;disabled&#39;, &#39;disabled&#39;)
+                      $(this).find(&#39;input[type=submit]&#39;).val &quot;Uploading, please wait ...&quot;
+
+== render &#39;shared/site_footer&#39;</code></pre>
+
+<h2 id="label-render+-27shared-2Finit_wysiwyg5-27">render &#39;shared/init_wysiwyg5&#39;</h2>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

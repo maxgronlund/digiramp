@@ -1,0 +1,319 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>show.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            show.slim
+        </h1>
+        <ul class="files">
+            <li>views/catalog/common_works/show.slim</li>
+            <li>Last modified: 2015-09-24 20:35:34 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>wrapper</p>
+
+<pre><code>.full-width-top
+  == render &#39;shared/navigationbar&#39;, page: &#39;catalog&#39;         
+
+.catalog
+  #sidebar-wrapper
+    ul class=&quot;sidebar-nav&quot;
+      == render &#39;catalog/catalogs/sidebar&#39;, selected: &#39;common_work&#39;
+
+#page-content-wrapper
+  .container-fluid
+    == render &#39;shared/breadcrumbs&#39;, breadcrumbs: { links: {   catalog: catalog_account_catalog_path(@account, @catalog),
+                                                             works: catalog_account_catalog_common_works_path(@account, @catalog)}, current: &#39;&#39;}
+    /.row
+    /  .col-sm-8
+    /    .help
+    /      .help-text
+    /         h2 = @common_work.title
+    /      .help-button
+    /        == render &#39;admin/helps/help&#39;, identifier: &#39;catalog work&#39;
+    /        
+    /  .col-sm-4
+    /    .pull-right.pull-down-10
+    /      
+    /      
+    /
+    /.sexy_line
+    .row
+      .col-sm-6
+        .help
+          .help-text
+            h2 = @common_work.title
+
+          .help-button
+            == render &#39;admin/helps/help&#39;, identifier: &#39;catalog work&#39;
+      .col-sm-6
+        .pull-right.pull-down-10
+          =&gt; link_to edit_catalog_account_catalog_common_work_path(@account, @catalog, @common_work ) do
+            .btn.btn-info
+              i.fa.fa-pencil
+              &#39;&amp;nbsp;Edit
+
+    .sexy_line
+    .row
+      .col-sm-6
+        == render &#39;user/common_works/info&#39;
+
+      .col-sm-6
+        - if @common_work.description.to_s != &#39;&#39;
+          h4 Description
+          .digi-box
+            = @common_work.description
+        - if @common_work.lyrics.to_s != &#39;&#39;
+          h4 Lyrics
+          .digi-box
+            = simple_format @common_work.lyrics
+
+    /h4 Creative credits &amp; rights
+    /.digi-box
+    /  .row
+    /    .col-sm-12
+    /      .table-responsive
+    /        table class=&quot;table table-hover&quot;
+    /          thead
+    /            tr
+    /              th Capacity
+    /              th Name
+    /              th Email
+    /              th Show credits
+    /              th Share
+    /              th Confirmation
+    /          tbody
+    /            - @common_work.ipis.each do |ipi|
+    /              tr
+    /                
+    /                
+    /                td
+    /                  - if ipi.composer
+    /                    &#39;Composer
+    /                    br
+    /                    
+    /                  - if ipi.writer
+    /                    &#39;Writer
+    /                    br
+    /                    
+    /                  - if ipi.administrator
+    /                    &#39;Administrator
+    /                    br
+    /                    
+    /                  - if ipi.original_publisher
+    /                    &#39;Original publisher
+    /                    br
+    /                td = ipi.full_name
+    /                td = ipi.email
+    /                td 
+    /                  - if ipi.show_credit_on_recordings
+    /                    i.fa.fa-check
+    /                td = ipi.share
+    /                td 
+    /                  .pull-right
+    /                    /== render &#39;user/common_works/confirmation&#39;, ipi: ipi
+    /                    
+    /            tr
+    /              td
+    /              td
+    /              td
+    /              td
+    /              td = @common_work.total_share
+    /              td
+    /                          
+    /  .sexy_line                        
+    /  .row
+    /    .col-sm-12
+    /      .pull-right
+    /        = link_to &#39;Contracts&#39;, user_user_common_work_common_work_contracts_path(@user, @common_work), class: &#39;btn btn-default&#39;
+    /        - if @common_work.recordings
+    /          =&lt; link_to &#39;Edit credits&#39;, edit_user_user_common_work_credit_path(@user, @common_work), class: &#39;btn btn-default&#39;
+    /
+    /
+    /
+    /
+    h4 Recordings credits &amp; rights
+    - @common_work.recordings.each do |recording|
+      #digiWhams  class=&quot;/recordings/#{recording.id.to_s}&quot;
+        == render &#39;catalog/common_works/show_recording&#39;, recording: recording
+
+== render &#39;shared/site_footer&#39;</code></pre>
+
+<p>/- <a href=":return_url">session</a>  = request.url /#wrap /  div
+class=“#{&#39;profile&#39; if account_owner?}” /    .full-width-top /     
+== render &#39;admin/shared/navbar&#39;, page: &#39;account&#39;  /  .do</p>
+
+<p>/    .container /      == render &#39;admin/shared/messages&#39; /      ==
+render &#39;shared/breadcrumbs&#39;, breadcrumbs: { links: {
+@account.title.to_sym =&gt; account_path(@account), \ /                    
+catalogs: catalog_account_catalogs_path(@account), \ /                     
+@catalog.title.to_sym =&gt; catalog_account_catalog_path(@account,
+@catalog), \ /                                                             
+&#39;common works&#39;.to_sym =&gt;
+catalog_account_catalog_common_works_path(@account, @catalog), \ /         
+}, current: @common_work.title} /</p>
+
+<p>/</p>
+
+<p>/</p>
+
+<p>/      == render &#39;shared/page_title_text&#39;, locals: {title:
+@common_work.title, body: &#39;&#39;, insert:
+&#39;catalog/common_works/edit&#39;} /      .row /       
+.col-sm-6.pull-down /          .panel.panel-primary /           
+.panel-heading /              = @common_work.title /            .panel-body
+/              .row /                .col-sm-12 /                  -art =
+@common_work.artwork || &#39;default-cover.jpg&#39; /                  =
+image_tag art, width: “184”, height: “184”, style: “float:left”, alt:
+“#{@common_work.title}”, class: “cover_thumb” /</p>
+
+<p>/                  &#39;Alternative Titles:  /                  br /       
+b = @common_work.alternative_titles /                  hr /                
+= simple_format @common_work.description /              .row /             
+.col-sm-12 /                  - unless @common_work.iswc_code.to_s    ==
+&#39;&#39; /                    br /                    b ISWC:  /         
+= @common_work.iswc_code /</p>
+
+<p>/                  - unless @common_work.bmi_catalog.to_s  == &#39;Main
+catalog&#39; /                    br /                    b BMI Catalog:  /
+= @common_work.bmi_catalog /</p>
+
+<p>/</p>
+
+<p>/</p>
+
+<p>/          - if @common_work.lyrics.to_s != &#39;&#39; /</p>
+
+<p>/            .panel.panel-primary /              .panel-heading /          
+&#39;Lyrics /              .panel-body /                .text-center /     
+= simple_format @common_work.lyrics /</p>
+
+<p>/</p>
+
+<p>/        .col-sm-6</p>
+
+<p>/          - if current_catalog_user.read_recording /            == render
+&#39;shared/badge_button&#39;, locals: { \ /                               
+blog_post: &#39;RECORDINGS&#39;, \ /                                       
+link: catalog_account_catalog_common_work_recordings_path(@account,
+@catalog, @common_work), \ /                                               
+css_class: &#39;btn btn-warning&#39;, \ /                                  
+icon: &#39;fa fa-headphones&#39;\ /                                        
+} /</p>
+
+<p>/          /- if current_account_user.createx_user? ||
+current_account_user.update_account_user? ||
+current_account_user.delete_account_user? /          /    == render
+&#39;shared/badge_button&#39;, locals: { \ /          /                    
+blog_post: &#39;USERS&#39;, \ /          /                                 
+link: account_work_work_users_path(@account, @common_work), \ /          / 
+css_class: &#39;btn btn-default&#39;, \ /          /                       
+icon: &#39;fa fa-group&#39; \ /          /                                 
+} /          /</p>
+
+<p>/          /-if current_catalog_user.read_file /          /    == render
+&#39;shared/badge_button&#39;, locals: { \  /          /                   
+blog_post: &#39;FILES&#39;, \ /          /                                 
+link: catalog_account_catalog_common_work_files_path(@account,
+@common_work), \ /          /                                             
+css_class: &#39;btn btn-success&#39;, \ /          /                       
+icon: &#39;fa fa-folder&#39; \ /          /                                
+} /          /  /         
+/catalog/accounts/6/catalogs/53/common_works/6566/common_work_ipis  /      
+-if current_catalog_user.read_common_work_ipi /              == render
+&#39;shared/badge_button&#39;, locals: { \  /                              
+blog_post: &#39;IPIS&#39;, \ /                                             
+link: catalog_account_catalog_common_work_common_work_ipis_path(@account,
+@catalog, @common_work), \ /                                               
+css_class: &#39;btn btn-info&#39;, \ /                                     
+icon: &#39;fa fa-exclamation-circle&#39; \ /                               
+} /</p>
+
+<p>/</p>
+
+<p>/</p>
+
+<p>/</p>
+
+<p>/</p>
+
+<p>/</p>
+
+<p>/</p>
+
+<p>/</p>
+
+<p>/</p>
+
+<p>/</p>
+
+<p>/</p>
+
+<p>/</p>
+
+<p>/-cache ([&#39;footer&#39;, <a
+href="../../../../classes/Admin.html#method-c-cached_find">Admin.cached_find</a>.version])
+do</p>
+
+<p>/  =render &#39;shared/footer&#39; /</p>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

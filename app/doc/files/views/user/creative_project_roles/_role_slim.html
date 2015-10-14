@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>_role.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            _role.slim
+        </h1>
+        <ul class="files">
+            <li>views/user/creative_project_roles/_role.slim</li>
+            <li>Last modified: 2015-07-05 15:22:06 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      <ul><li>
+<p>applications = creative_project_role.creative_project_users.count</p>
+</li></ul>
+
+<p>.creative-projects</p>
+
+<pre><code>.digi-box
+  == render &#39;user/creative_project_roles/show&#39;, creative_project_role: creative_project_role
+  .sexy_line
+  .row
+    .col-sm-4
+      // the position is taken
+      -if creative_project_role.taken? 
+        .alert.alert-success
+          &#39;Assigned
+
+      // no on is given the possition yet
+      // and cuttent user is the manager
+      - elsif  applications &gt; 0 &amp;&amp; current_user.id == @creative_project.user_id 
+        .pull-down-8
+          =&gt; link_to  user_user_creative_project_creative_project_role_path(@user, @creative_project, creative_project_role) do
+            .btn.btn-success
+              = pluralize(applications, &#39;Application&#39;)
+    .col-sm-8
+      .pull-right.pull-down-8
+
+         - if current_user &amp;&amp; current_user.id != @creative_project.user_id 
+
+          - unless CreativeProjectUser.where( creative_project_role: creative_project_role.id, user_id: current_user.id).first
+            - unless creative_project_role.taken? 
+              = link_to new_user_user_creative_project_creative_project_user_path(@user, @creative_project, creative_project_role_id: creative_project_role.id) do
+                .btn.btn-warning
+                  &#39;Yes I want to do that
+            /- else
+            /  .btn.btn-warning disabled=&#39;desabled
+            /    &#39;Yes I want to do that
+          - else
+            .btn.btn-default disabled=&quot;disabled&quot;
+              &#39;You have applied for that
+
+         - if @user.manage?(current_user)
+
+           =&gt; link_to  user_user_creative_project_creative_project_role_path(@user, @creative_project, creative_project_role) do
+             .btn.btn-default
+               &#39;Show
+
+           =&gt; link_to &#39;Edit&#39;, edit_user_user_creative_project_creative_project_role_path(@user, @creative_project, creative_project_role, role: creative_project_role.role), class: &#39;btn btn-default&#39;
+           = link_to user_user_creative_project_creative_project_role_path(@user, @creative_project, creative_project_role), data: {:confirm =&gt; &#39;Are you sure?&#39;}, :method =&gt; :delete, turboboost: true do
+            .btn.btn-danger
+              i.fa.fa-times</code></pre>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

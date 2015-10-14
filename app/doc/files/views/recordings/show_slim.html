@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>show.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            show.slim
+        </h1>
+        <ul class="files">
+            <li>views/recordings/show.slim</li>
+            <li>Last modified: 2015-09-28 09:10:45 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>/ from  / <a
+href="https://developers.facebook.com/apps/493734500765975/open-graph/object-types/115192665222226">developers.facebook.com/apps/493734500765975/open-graph/object-types/115192665222226</a>/
+/ look under advanced</p>
+
+<h2 id="label-content_for+-3Ahead+do">content_for :head do</h2>
+
+<pre><code>&lt;meta property=&quot;fb:app_id&quot;             content=&quot;493734500765975&quot; /&gt; 
+&lt;meta property=&quot;og:type&quot;               content=&quot;music.song&quot; /&gt; 
+&lt;meta property=&quot;og:url&quot;                content=&quot;#{request.url}&quot; /&gt; 
+&lt;meta property=&quot;og:title&quot;              content=&quot;#{@recording.title.force_encoding(&#39;UTF-8&#39;)}&quot; /&gt; 
+&lt;meta property=&quot;og:image&quot;              content=&quot;#{@recording.get_artwork}&quot; /&gt; 
+/&lt;meta property=&quot;music:preview_url:url&quot; content=&quot;#{@recording.title} URL: #{@recording.mp3.gsub(&#39;http:&#39;, &#39;https:&#39;) if @recording.mp3}&quot; /&gt;
+&lt;meta property=&quot;og:description&quot;        content=&quot;#{@recording.comment}&quot; /&gt;
+&lt;meta property=&quot;og:audio&quot;              content=&quot;#{@recording.mp3.gsub(&#39;https:&#39;, &#39;http:&#39;) if @recording.mp3 }&quot; /&gt;
+&lt;meta property=&quot;og:audio:type&quot; content=&quot;audio/vnd.facebook.bridge&quot; /&gt;
+&lt;meta property=&quot;music:duration&quot; content=&quot;#{@recording.duration.to_i}&quot; /&gt;
+&lt;meta property=&quot;og:audio:secure_url&quot;   content=&quot;#{@recording.mp3.gsub(&#39;http:&#39;, &#39;https:&#39;) if @recording.mp3 }&quot; /&gt;
+/&lt;meta property=&quot;og:audio:type&quot;         content=&quot;audio/mpeg&quot;&gt;
+/&lt;meta property=&quot;fb:app_id&quot;             content=&quot;728817730525571&quot; /&gt; 
+/&lt;meta property=&quot;og:type&quot;               content=&quot;music.song&quot; /&gt; 
+/&lt;meta property=&quot;og:description&quot;        content=&quot;#{@recording.comment}&quot; /&gt; 
+/&lt;meta property=&quot;og:url&quot;                content=&quot;#{request.url}&quot; /&gt; 
+/&lt;meta property=&quot;og:title&quot;              content=&quot;#{@recording.title}&quot; /&gt; 
+/&lt;meta property=&quot;og:image&quot;              content=&quot;#{@recording.get_artwork}&quot; /&gt; 
+/&lt;meta property=&quot;og:image:url&quot;          content=&quot;#{@recording.get_artwork}&quot; /&gt;
+/&lt;meta property=&quot;og:audio&quot;              content=&quot;#{@recording.mp3}&quot; /&gt;
+/&lt;meta property=&quot;music:album:url&quot;       content=&quot;#{@recording.user.user_name} URL: http://digiramp.com/users/#{@recording.user.slug}&quot; /&gt;</code></pre>
+
+<p>wrapper</p>
+
+<pre><code>.full-width-top
+  == render &#39;shared/navigationbar&#39;, page: &#39;home&#39; 
+
+#sidebar-wrapper
+  ul class=&quot;sidebar-nav&quot;
+    == render &#39;users/shared/sidebar&#39;, selected: &#39;recordings&#39;
+
+#page-content-wrapper
+  .container-fluid
+    -if @recording.user.manage? current_user
+      - unless @recording.common_work.is_registered?
+        - blog = Blog.cached_find(&#39;Recording&#39;)
+        - blog_post = BlogPost.cached_find(&#39;No copyrights registered&#39;, blog)
+        .alert.alert-warning
+          h3 
+            = blog_post.title
+            - if editor?
+              = link_to edit_admin_blog_blog_post_path( blog, blog_post) do
+                &#39;&amp;nbsp;
+                i.fa.fa-pencil
+
+          = simple_format blog_post.body
+          .row
+            .col-sm-12
+              .pull-right
+                = link_to &#39;Register copyrights&#39;, edit_user_user_common_work_path(@user, @recording.common_work), class: &#39;btn btn-success&#39;
+    /= debug url_for( user_user_path( user: @user) )
+    #digiWhams  class=&quot;/recordings/#{@recording.id.to_s}&quot;
+      == render &#39;recordings/recording_with_icons&#39;, recording: @recording, 
+                                                   info: false,
+                                                   add_to_playlist: true, 
+                                                   remove_from_playlist: false, 
+                                                   edit: true, 
+                                                   delete: false,
+                                                   description: false,
+                                                   share: true,
+                                                   target: &quot;&quot;,
+                                                   music_request_link: false,
+                                                   remove_from_request: false
+
+    .row
+      .col-md-8
+        == render &#39;credits&#39;
+
+        .digi-box
+          / description can be updated with AJAX
+          .tags    
+          .tags-content    
+            == render &#39;tags/tags_content&#39;
+          .show-recording
+            == render &#39;artists/artists_content&#39;
+            /.cover
+            /  = image_tag @recording.artwork, alt: &quot;#{@recording.title}&quot;
+            /
+            .info
+              / description can be updated with AJAX
+              .description-text    
+              .description-content 
+                - if @recording.comment.to_s != &#39;&#39;
+                  br
+                  i Description
+                  = simple_format @recording.comment
+                - if @recording.lyrics.to_s != &#39;&#39;
+                  i Lyrics
+                  = simple_format @recording.lyrics
+
+          - if @authorized
+            h4 Quick Edit
+            .recording 
+              .panel-group id=&quot;accordion&quot;
+                == render &#39;descriptions/description&#39; 
+                == render &#39;lyrics/lyrics&#39;
+                == render &#39;tags/tags&#39;
+                == render &#39;artists/artists&#39;
+
+      .col-md-4
+        .digi-box
+          /div class=&quot;fb-like&quot; data-send=&quot;true&quot; data-width=&quot;450&quot; data-show-faces=&quot;true&quot; 
+          == render &#39;shared/comments&#39;, commentable: @recording
+
+== render &#39;shared/site_footer&#39;</code></pre>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

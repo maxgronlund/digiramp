@@ -1,0 +1,365 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>PosterUploader</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../css/github.css" type="text/css" media="screen" />
+<script src="../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            <span class="type">Class</span> 
+            PosterUploader 
+            
+                <span class="parent">&lt; 
+                    
+                    CarrierWave::Uploader::Base
+                    
+                </span>
+            
+        </h1>
+        <ul class="files">
+            
+            <li><a href="../files/uploaders/poster_uploader_rb.html">uploaders/poster_uploader.rb</a></li>
+            
+        </ul>
+    </div>
+    <div id="bodyContent">
+        <div id="content">
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+    <!-- Method ref -->
+    <div class="sectiontitle">Methods</div>
+    <dl class="methods">
+      
+        <dt>D</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-default_url">default_url</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>E</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-extension_white_list">extension_white_list</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>M</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-manipulate_crop-21">manipulate_crop!</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-i-manualcrop">manualcrop</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>S</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-store_dir">store_dir</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+    </dl>
+  
+
+  
+    <!-- Includes -->
+    <div class="sectiontitle">Included Modules</div>
+    <ul>
+      
+        <li>
+          
+            CarrierWave::MiniMagick
+          
+        </li>
+      
+    </ul>
+  
+
+
+
+  
+
+    
+
+    
+
+    
+      <!-- Section constants -->
+      <div class="sectiontitle">Constants</div>
+      <table border='0' cellpadding='5'>
+        
+          <tr valign='top'>
+            <td class="attr-name">RESIZE_GRAVITY</td>
+            <td>=</td>
+            <td class="attr-value">&#39;NorthWest&#39;</td>
+          </tr>
+          
+            <tr valign='top'>
+              <td>&nbsp;</td>
+              <td colspan="2" class="attr-desc"></td>
+            </tr>
+          
+        
+      </table>
+    
+
+
+    
+
+
+    <!-- Methods -->
+        
+      <div class="sectiontitle">Instance Public methods</div>
+      
+        <div class="method">
+          <div class="title method-title" id="method-i-default_url">
+            
+              <b>default_url</b>()
+            
+            <a href="../classes/PosterUploader.html#method-i-default_url" name="method-i-default_url" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              <p>Provide a default URL as a default if there hasn&#39;t been a file
+uploaded:</p>
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-default_url_source')" id="l_method-i-default_url_source">show</a>
+                
+              </p>
+              <div id="method-i-default_url_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File uploaders/poster_uploader.rb, line 16</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">default_url</span>
+  <span class="ruby-string">&quot;/assets/fallback/&quot;</span> <span class="ruby-operator">+</span> [<span class="ruby-identifier">version_name</span>, <span class="ruby-string">&quot;default.jpg&quot;</span>].<span class="ruby-identifier">compact</span>.<span class="ruby-identifier">join</span>(<span class="ruby-string">&#39;_&#39;</span>)
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-extension_white_list">
+            
+              <b>extension_white_list</b>()
+            
+            <a href="../classes/PosterUploader.html#method-i-extension_white_list" name="method-i-extension_white_list" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              <p>Add a white list of extensions which are allowed to be uploaded. For images
+you might use something like this:</p>
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-extension_white_list_source')" id="l_method-i-extension_white_list_source">show</a>
+                
+              </p>
+              <div id="method-i-extension_white_list_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File uploaders/poster_uploader.rb, line 68</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">extension_white_list</span>
+  <span class="ruby-node">%w(jpg jpeg gif png bmp tif tiff)</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-manipulate_crop-21">
+            
+              <b>manipulate_crop!</b>()
+            
+            <a href="../classes/PosterUploader.html#method-i-manipulate_crop-21" name="method-i-manipulate_crop-21" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-manipulate_crop-21_source')" id="l_method-i-manipulate_crop-21_source">show</a>
+                
+              </p>
+              <div id="method-i-manipulate_crop-21_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File uploaders/poster_uploader.rb, line 58</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">manipulate_crop!</span>
+  <span class="ruby-identifier">crop_image</span> = <span class="ruby-operator">::</span><span class="ruby-constant">MiniMagick</span><span class="ruby-operator">::</span><span class="ruby-constant">Image</span>.<span class="ruby-identifier">open</span>(<span class="ruby-identifier">current_path</span>)
+  <span class="ruby-keyword">yield</span>(<span class="ruby-identifier">crop_image</span>)
+  <span class="ruby-identifier">crop_image</span>.<span class="ruby-identifier">write</span>(<span class="ruby-identifier">current_path</span>)
+<span class="ruby-keyword">rescue</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
+  <span class="ruby-identifier">raise</span> <span class="ruby-constant">CarrierWave</span><span class="ruby-operator">::</span><span class="ruby-constant">ProcessingError</span>.<span class="ruby-identifier">new</span>(<span class="ruby-node">&quot;Failed to manipulate with MiniMagick, maybe it is not an image? Original Error: #{e}&quot;</span>)
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-manualcrop">
+            
+              <b>manualcrop</b>()
+            
+            <a href="../classes/PosterUploader.html#method-i-manualcrop" name="method-i-manualcrop" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-manualcrop_source')" id="l_method-i-manualcrop_source">show</a>
+                
+              </p>
+              <div id="method-i-manualcrop_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File uploaders/poster_uploader.rb, line 47</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">manualcrop</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">model</span>.<span class="ruby-identifier">cropping?</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">model</span>.<span class="ruby-identifier">crop_params</span>[<span class="ruby-identifier">version_name</span>.<span class="ruby-identifier">to_sym</span>].<span class="ruby-identifier">blank?</span>
+
+  <span class="ruby-identifier">model</span>.<span class="ruby-identifier">get_crop_version!</span>(<span class="ruby-identifier">version_name</span>)
+
+  <span class="ruby-identifier">manipulate_crop!</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">img</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">img</span>.<span class="ruby-identifier">crop</span>(<span class="ruby-node">&quot;#{model.crop_w.to_i}x#{model.crop_h.to_i}+#{model.crop_x.to_i}+#{model.crop_y.to_i}&quot;</span>)
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-store_dir">
+            
+              <b>store_dir</b>()
+            
+            <a href="../classes/PosterUploader.html#method-i-store_dir" name="method-i-store_dir" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-store_dir_source')" id="l_method-i-store_dir_source">show</a>
+                
+              </p>
+              <div id="method-i-store_dir_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File uploaders/poster_uploader.rb, line 11</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">store_dir</span>
+  <span class="ruby-node">&quot;uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}&quot;</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+                    </div>
+
+    </div>
+  </body>
+</html>    

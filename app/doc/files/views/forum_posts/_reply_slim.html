@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>_reply.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            _reply.slim
+        </h1>
+        <ul class="files">
+            <li>views/forum_posts/_reply.slim</li>
+            <li>Last modified: 2015-07-05 15:22:06 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      <ul><li>
+<p>if user = reply.user</p>
+
+<p>div id=“delete_reply_#{reply.id.to_s}”</p>
+
+<pre><code>.digi-box
+  .forum
+
+    .forum-body
+      .user
+        .user-avatar
+          = link_to  user_path(user) do
+            = image_tag( reply.user.image_url(:avatar_48x48))
+          br
+        .user-name
+          b = user.user_name if user
+          br
+          i = &quot;#{time_ago_in_words(reply.created_at) } ago&quot;
+          /i = reply.created_at.strftime(&quot;%d %b %Y&quot;)
+      .content
+        - unless reply.image_url == &#39;/assets/fallback/artwork.jpg&#39;
+          = render &#39;shared/lightbox&#39;, locals: {image_url: reply.image_url(), thumb_url: reply.image_url(:size_62x62), id: reply.id, caption: reply.title}
+          br
+          i Click to enlarge
+        = simple_format reply.body
+
+  .row            
+    .col-sm-12  
+      .pull-right
+        - if current_user
+          /= link_to &#39;Qoute&#39;, &#39;#qoute&#39;, class: &#39;btn btn-default btn-xs&#39;, id: reply.id
+          -if reply.user_id == current_user.id || super?
+            =&lt; link_to edit_reply_path(reply) do
+              .btn.btn-default.btn-xs
+                i.fa.fa-pencil
+
+            =&lt; link_to reply_path(reply), data: { confirm: &#39;Are you sure?&#39; } , :method =&gt; :delete, remote: true do
+              .btn.btn-danger.btn-xs
+                i class=&quot;fa fa-times&quot;</code></pre>
+</li><li>
+<p>else</p>
+<ul><li>
+<p>reply.destroy</p>
+</li></ul>
+</li></ul>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

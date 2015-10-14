@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>_show.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            _show.slim
+        </h1>
+        <ul class="files">
+            <li>views/forums/_show.slim</li>
+            <li>Last modified: 2015-07-05 15:22:06 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>div id=“delete_forum_#{forum.id.to_s}”</p>
+
+<pre><code>.digi-box
+  .forum
+    - if show_heading
+      .forum-head
+        .title
+          = link_to forum_path( forum)
+            h3 = forum.title
+        .posts-count  
+          = pluralize(forum.forum_posts.count, &#39;Tread&#39;)  
+      .sexy_line
+    .forum-body
+      .user
+        .user-avatar
+          = link_to  user_path(forum.user) do
+            = image_tag( forum.user.image_url(:avatar_48x48))
+        .user-name
+          b = forum.user.user_name
+          br
+          i = forum.created_at.strftime(&quot;%d %b %Y&quot;)
+      .content
+        = simple_format forum.body
+  .row
+    .col-sm-12
+      .pull-right
+        - if read_more
+          = link_to &#39;Read more&#39;, forum_path( forum), class: &#39;btn btn-default btn-xs&#39;
+        - if super?
+          /=&lt; link_to edit_user_forum_path(forum.user, forum) do
+          /  .btn.btn-default.btn-xs
+          /    i.fa.fa-pencil
+          - if delete_forum
+            =&lt; link_to user_forum_path(forum.user, forum), data: { confirm: &#39;Are you sure?&#39; } , :method =&gt; :delete, remote: true do
+              .btn.btn-danger.btn-xs
+                i class=&quot;fa fa-times&quot;</code></pre>
+
+<p>/.row /  .col-sm-12 /    .pull-right /      = link_to &#39;Read more&#39;,
+user_forum_path(forum.user, forum), class: &#39;btn btn-default&#39; /     
+- if super? /        =&lt; link_to user_forum_path(forum.user, forum),
+data: { confirm: &#39;Are you sure?&#39; } , :method =&gt; :delete do /    
+.btn.btn-danger /            i class=“fa fa-times” /</p>
+
+<p>/</p>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

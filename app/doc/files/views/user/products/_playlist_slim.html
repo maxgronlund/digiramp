@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>_playlist.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            _playlist.slim
+        </h1>
+        <ul class="files">
+            <li>views/user/products/_playlist.slim</li>
+            <li>Last modified: 2015-09-24 20:35:34 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>.row</p>
+
+<pre><code>.col-sm-8
+  .help
+    .help-text
+      h2 Edit #{@category.capitalize.gsub(&#39;-&#39;, &#39; &#39;)}
+
+    .help-button
+      == render &#39;admin/helps/help&#39;, identifier: &#39;edit shop recording&#39;
+
+.col-sm-4
+  .pull-right.pull-down-10
+    /=&gt; link_to  user_user_product_path(@user, @shop_product) do
+    /    .btn.btn-default
+    /      i.fa.fa-chevron-left
+    /      &#39;&amp;nbsp;Back</code></pre>
+
+<p>.sexy_line .digi-box</p>
+
+<pre><code>= simple_form_for [:user, @user, @shop_product], 
+                  :url =&gt; url_for(:action =&gt; action, 
+                                  :controller =&gt; &#39;products&#39;),
+                  html: { :id =&gt; &#39;shop_product&#39; }  do |f|
+  = f.error_notification
+  = f.hidden_field :user_id   , value: @user.id
+  = f.hidden_field :account_id, value: @user.account.id
+  - if @category
+    = f.hidden_field :category,   value:  @category 
+  .form-inputs
+    = f.input :title, autofocus: true
+    .row
+      .col-sm-6
+        .row
+          .col-sm-6
+            = f.input :price, label: &#39;Price in cent&#39;
+          .col-sm-6.pull-down-12
+            = f.input :for_sale,  :input_html =&gt; { class: &#39;icheck-me&#39;, 
+                                                          &#39;data-skin&#39;.to_sym =&gt; &quot;square&quot;, 
+                                                          &#39;data-color&#39;.to_sym =&gt; &quot;blue&quot; }
+            = f.input :show_in_shop, label: &#39;Show in public shop&#39;,
+                                     :input_html =&gt; { class: &#39;icheck-me&#39;, 
+                                                       &#39;data-skin&#39;.to_sym =&gt; &quot;square&quot;, 
+                                                       &#39;data-color&#39;.to_sym =&gt; &quot;blue&quot; }
+
+        = f.input :image, hint: &#39;Ratio 1:1&#39;, label: &#39;Image for the shop&#39;
+        /= f.input :units_on_stock
+
+        /b Additional files
+        /br
+        /.fileinput.fileinput-new.input-group data-provides=&quot;fileinput&quot;
+        /  .form-control data-trigger=&quot;fileinput&quot;
+        /    i.glyphicon.glyphicon-file.fileinput-exists
+        /    span.fileinput-filename
+        /
+        /  span.input-group-addon.btn.btn-default.btn-file
+        /    span.fileinput-new
+        /      &#39;Select zip file
+        /    span.fileinput-exists
+        /      &#39;Change
+        /
+        /    
+        /    = f.file_field :zip_file, multiple: false, label: &#39;Select zip File&#39;
+        /  a href=&quot;#&quot; class=&quot;input-group-addon btn btn-default fileinput-exists&quot; data-dismiss=&quot;fileinput&quot;
+        /    &#39;Remove
+        /  
+        /
+        /span class=&quot;help-block&quot;
+        /  &#39;Artwork, lyrics, funn stuff
+
+        = f.input :zip_file, hint: &#39;Art work, lyrics, funn stuff&#39;, label: &#39;Additional files(zip)&#39;
+
+        /= f.input :exclusive_offered_to_email, placeholder: &#39;email@someone-lucky.com&#39;
+        = f.input :sub_category, collection: Shop::Product::DOWNLOAD_CATEGORIES, :include_blank =&gt; false
+        .chosen-label
+          = f.input :recording_id, 
+                    collection: @user.recordings,
+                    include_blank: true,
+                    input_html: { class: &#39;chosen-select&#39; }
+
+          = f.input :playlist_id, 
+                    collection: @user.playlists,
+                    include_blank: true,
+                    input_html: { class: &#39;chosen-select&#39; }
+
+      .col-sm-6
+        = f.input :additional_info, :input_html =&gt; {  style: &quot;height: 80px;&quot;, 
+                                                      placeholder: &quot;Text for small badges and invoice statements&quot;,
+                                                      maxlength: &quot;150&quot;}, 
+                                                      label: &#39;Info on badges&#39;
+
+        div id=&quot;textarea_feedback&quot;
+        br
+        javascript:
+          $(document).ready(function() {
+              var text_max = 150;
+              $(&#39;#textarea_feedback&#39;).html(text_max + &#39; characters remaining&#39;);
+              update_textarea_feedback();
+              $(&#39;#shop_product_additional_info&#39;).keyup(function() {
+                update_textarea_feedback();
+              });
+
+              function update_textarea_feedback(){
+                var text_length = $(&#39;#shop_product_additional_info&#39;).val().length;
+                var text_remaining = text_max - text_length;
+                $(&#39;#textarea_feedback&#39;).html(text_remaining + &#39; characters remaining&#39;);
+              }
+          });
+        b Description
+        br
+        div id=&quot;toolbar&quot; class=&quot;wysihtml5-toolbar&quot;
+          a data-wysihtml5-command=&quot;bold&quot; Bold
+          &#39;&amp;nbsp; 
+          a data-wysihtml5-command=&quot;italic&quot; Italic
+          .pull-right
+            a data-wysihtml5-action=&quot;change_view&quot;  Html 
+        = f.input :body, label: false, :input_html =&gt; {  style: &quot;height: 180px;&quot;, placeholder: &quot;Detailed text about the product&quot;, id: &#39;wysihtml5_editor&#39;}
+    /=f.input :invitation_message, label: false, :input_html =&gt; {  style: &quot;height: 280px;&quot;, placeholder: &quot;Invitation message&quot;, id: &#39;wysihtml5_editor&#39;}
+
+  .form-actions  
+    .row
+      .col-sm-12
+        .pull-right
+          = f.submit &#39;Save&#39;, class: &#39;btn btn-info&#39;</code></pre>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

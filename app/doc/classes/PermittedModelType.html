@@ -1,0 +1,425 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>PermittedModelType</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../css/github.css" type="text/css" media="screen" />
+<script src="../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            <span class="type">Class</span> 
+            PermittedModelType 
+            
+                <span class="parent">&lt; 
+                    
+                    ActiveRecord::Base
+                    
+                </span>
+            
+        </h1>
+        <ul class="files">
+            
+            <li><a href="../files/models/permitted_model_type_rb.html">models/permitted_model_type.rb</a></li>
+            
+        </ul>
+    </div>
+    <div id="bodyContent">
+        <div id="content">
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+    <!-- Method ref -->
+    <div class="sectiontitle">Methods</div>
+    <dl class="methods">
+      
+        <dt>A</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-add_to_account_user">add_to_account_user</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-i-add_to_account_users">add_to_account_users</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>F</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-c-find_or_create_permitted_model_type">find_or_create_permitted_model_type</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>I</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-c-initiallize_permitted_model_types">initiallize_permitted_model_types</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>R</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-remove_from_account_user">remove_from_account_user</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-i-remove_from_account_users">remove_from_account_users</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-i-remove_from_users">remove_from_users</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+    </dl>
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+    
+      <div class="sectiontitle">Class Public methods</div>
+      
+        <div class="method">
+          <div class="title method-title" id="method-c-find_or_create_permitted_model_type">
+            
+              <b>find_or_create_permitted_model_type</b>(c, r, u, d, ui_name, id_name)
+            
+            <a href="../classes/PermittedModelType.html#method-c-find_or_create_permitted_model_type" name="method-c-find_or_create_permitted_model_type" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-c-find_or_create_permitted_model_type_source')" id="l_method-c-find_or_create_permitted_model_type_source">show</a>
+                
+              </p>
+              <div id="method-c-find_or_create_permitted_model_type_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/permitted_model_type.rb, line 52</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">self</span>.<span class="ruby-identifier">find_or_create_permitted_model_type</span> <span class="ruby-identifier">c</span>, <span class="ruby-identifier">r</span>, <span class="ruby-identifier">u</span>, <span class="ruby-identifier">d</span>, <span class="ruby-identifier">ui_name</span>, <span class="ruby-identifier">id_name</span>
+  <span class="ruby-constant">PermittedModelType</span>.<span class="ruby-identifier">where</span>(<span class="ruby-identifier">c</span><span class="ruby-operator">:</span> <span class="ruby-identifier">c</span>, <span class="ruby-identifier">r</span><span class="ruby-operator">:</span> <span class="ruby-identifier">r</span>, <span class="ruby-identifier">u</span><span class="ruby-operator">:</span> <span class="ruby-identifier">u</span>, <span class="ruby-identifier">d</span><span class="ruby-operator">:</span> <span class="ruby-identifier">d</span>, <span class="ruby-identifier">ui_name</span><span class="ruby-operator">:</span> <span class="ruby-identifier">ui_name</span>, <span class="ruby-identifier">id_name</span><span class="ruby-operator">:</span> <span class="ruby-identifier">id_name</span> ).<span class="ruby-identifier">first_or_create</span>(<span class="ruby-identifier">c</span><span class="ruby-operator">:</span> <span class="ruby-identifier">c</span>, <span class="ruby-identifier">r</span><span class="ruby-operator">:</span> <span class="ruby-identifier">r</span>, <span class="ruby-identifier">u</span><span class="ruby-operator">:</span> <span class="ruby-identifier">u</span>, <span class="ruby-identifier">d</span><span class="ruby-operator">:</span> <span class="ruby-identifier">d</span>, <span class="ruby-identifier">ui_name</span><span class="ruby-operator">:</span> <span class="ruby-identifier">ui_name</span>, <span class="ruby-identifier">id_name</span><span class="ruby-operator">:</span> <span class="ruby-identifier">id_name</span> )
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-c-initiallize_permitted_model_types">
+            
+              <b>initiallize_permitted_model_types</b>()
+            
+            <a href="../classes/PermittedModelType.html#method-c-initiallize_permitted_model_types" name="method-c-initiallize_permitted_model_types" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-c-initiallize_permitted_model_types_source')" id="l_method-c-initiallize_permitted_model_types_source">show</a>
+                
+              </p>
+              <div id="method-c-initiallize_permitted_model_types_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/permitted_model_type.rb, line 37</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">self</span>.<span class="ruby-identifier">initiallize_permitted_model_types</span>
+  <span class="ruby-identifier">find_or_create_permitted_model_type</span> <span class="ruby-keyword">false</span>, <span class="ruby-keyword">false</span>, <span class="ruby-keyword">false</span>, <span class="ruby-keyword">false</span>, <span class="ruby-string">&quot;Catalogs&quot;</span>,             <span class="ruby-string">&quot;Catalogs&quot;</span> 
+  <span class="ruby-identifier">find_or_create_permitted_model_type</span> <span class="ruby-keyword">false</span>, <span class="ruby-keyword">false</span>, <span class="ruby-keyword">false</span>, <span class="ruby-keyword">false</span>, <span class="ruby-string">&quot;Documents&quot;</span>,            <span class="ruby-string">&quot;Document&quot;</span>  
+  <span class="ruby-identifier">find_or_create_permitted_model_type</span> <span class="ruby-keyword">true</span>,  <span class="ruby-keyword">true</span>,  <span class="ruby-keyword">true</span>,  <span class="ruby-keyword">true</span>,  <span class="ruby-string">&quot;Activity events&quot;</span>,      <span class="ruby-string">&quot;ActivityEvents&quot;</span>  
+  <span class="ruby-identifier">find_or_create_permitted_model_type</span> <span class="ruby-keyword">false</span>, <span class="ruby-keyword">false</span>, <span class="ruby-keyword">false</span>, <span class="ruby-keyword">false</span>, <span class="ruby-string">&quot;Assign Permissions&quot;</span>,   <span class="ruby-string">&quot;AssignPermission&quot;</span>  
+  <span class="ruby-identifier">find_or_create_permitted_model_type</span> <span class="ruby-keyword">false</span>, <span class="ruby-keyword">true</span>,  <span class="ruby-keyword">false</span>, <span class="ruby-keyword">false</span>, <span class="ruby-string">&quot;Recordings&quot;</span>,           <span class="ruby-string">&quot;Recording&quot;</span>  
+  <span class="ruby-identifier">find_or_create_permitted_model_type</span> <span class="ruby-keyword">false</span>, <span class="ruby-keyword">true</span>,  <span class="ruby-keyword">false</span>, <span class="ruby-keyword">false</span>, <span class="ruby-string">&quot;Common Works&quot;</span>,         <span class="ruby-string">&quot;CommonWork&quot;</span>  
+  <span class="ruby-identifier">find_or_create_permitted_model_type</span> <span class="ruby-keyword">false</span>, <span class="ruby-keyword">true</span>,  <span class="ruby-keyword">false</span>, <span class="ruby-keyword">false</span>, <span class="ruby-string">&quot;Users&quot;</span>,                <span class="ruby-string">&quot;User&quot;</span>  
+  <span class="ruby-identifier">find_or_create_permitted_model_type</span> <span class="ruby-keyword">false</span>, <span class="ruby-keyword">true</span>,  <span class="ruby-keyword">false</span>, <span class="ruby-keyword">false</span>, <span class="ruby-string">&quot;Playlists&quot;</span>,            <span class="ruby-string">&quot;Playlist&quot;</span>  
+  <span class="ruby-identifier">find_or_create_permitted_model_type</span> <span class="ruby-keyword">true</span>,  <span class="ruby-keyword">true</span>,  <span class="ruby-keyword">true</span>,  <span class="ruby-keyword">true</span>,  <span class="ruby-string">&quot;Ipi Shares&quot;</span>,           <span class="ruby-string">&quot;IpiShare&quot;</span>  
+  <span class="ruby-identifier">find_or_create_permitted_model_type</span> <span class="ruby-keyword">true</span>,  <span class="ruby-keyword">true</span>,  <span class="ruby-keyword">true</span>,  <span class="ruby-keyword">true</span>,  <span class="ruby-string">&quot;Ipi&#39;s&quot;</span>,                <span class="ruby-string">&quot;Ipi&quot;</span>  
+  <span class="ruby-identifier">find_or_create_permitted_model_type</span> <span class="ruby-keyword">true</span>,  <span class="ruby-keyword">true</span>,  <span class="ruby-keyword">true</span>,  <span class="ruby-keyword">true</span>,  <span class="ruby-string">&quot;Movie Projects&quot;</span>,       <span class="ruby-string">&quot;MovieProject&quot;</span>  
+  <span class="ruby-identifier">find_or_create_permitted_model_type</span> <span class="ruby-keyword">true</span>,  <span class="ruby-keyword">true</span>,  <span class="ruby-keyword">true</span>,  <span class="ruby-keyword">true</span>,  <span class="ruby-string">&quot;Music Opportunities&quot;</span>,  <span class="ruby-string">&quot;MusicOpportunity&quot;</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+                  
+      <div class="sectiontitle">Instance Public methods</div>
+      
+        <div class="method">
+          <div class="title method-title" id="method-i-add_to_account_user">
+            
+              <b>add_to_account_user</b>(account_user)
+            
+            <a href="../classes/PermittedModelType.html#method-i-add_to_account_user" name="method-i-add_to_account_user" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-add_to_account_user_source')" id="l_method-i-add_to_account_user_source">show</a>
+                
+              </p>
+              <div id="method-i-add_to_account_user_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/permitted_model_type.rb, line 17</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">add_to_account_user</span>(<span class="ruby-identifier">account_user</span>)
+  <span class="ruby-identifier">account_user</span>.<span class="ruby-identifier">permitted_models</span>.<span class="ruby-identifier">where</span>(<span class="ruby-identifier">permitted_model_type_id</span><span class="ruby-operator">:</span> <span class="ruby-identifier">id</span>).<span class="ruby-identifier">first_or_create</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-add_to_account_users">
+            
+              <b>add_to_account_users</b>()
+            
+            <a href="../classes/PermittedModelType.html#method-i-add_to_account_users" name="method-i-add_to_account_users" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-add_to_account_users_source')" id="l_method-i-add_to_account_users_source">show</a>
+                
+              </p>
+              <div id="method-i-add_to_account_users_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/permitted_model_type.rb, line 11</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">add_to_account_users</span>
+  <span class="ruby-constant">AccountUser</span>.<span class="ruby-identifier">all</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">account_user</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">add_to_account_user</span>(<span class="ruby-identifier">account_user</span>)
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-remove_from_account_user">
+            
+              <b>remove_from_account_user</b>(account_user)
+            
+            <a href="../classes/PermittedModelType.html#method-i-remove_from_account_user" name="method-i-remove_from_account_user" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-remove_from_account_user_source')" id="l_method-i-remove_from_account_user_source">show</a>
+                
+              </p>
+              <div id="method-i-remove_from_account_user_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/permitted_model_type.rb, line 27</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">remove_from_account_user</span>(<span class="ruby-identifier">account_user</span>)
+  <span class="ruby-identifier">account_user</span>.<span class="ruby-identifier">permitted_models</span>.<span class="ruby-identifier">where</span>(<span class="ruby-identifier">permitted_model_type_id</span><span class="ruby-operator">:</span> <span class="ruby-identifier">id</span>).<span class="ruby-identifier">delete_all</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-remove_from_account_users">
+            
+              <b>remove_from_account_users</b>()
+            
+            <a href="../classes/PermittedModelType.html#method-i-remove_from_account_users" name="method-i-remove_from_account_users" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-remove_from_account_users_source')" id="l_method-i-remove_from_account_users_source">show</a>
+                
+              </p>
+              <div id="method-i-remove_from_account_users_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/permitted_model_type.rb, line 21</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">remove_from_account_users</span>
+  <span class="ruby-constant">AccountUser</span>.<span class="ruby-identifier">all</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">account_user</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">remove_from_account_user</span>(<span class="ruby-identifier">account_user</span>)
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-remove_from_users">
+            
+              <b>remove_from_users</b>()
+            
+            <a href="../classes/PermittedModelType.html#method-i-remove_from_users" name="method-i-remove_from_users" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-remove_from_users_source')" id="l_method-i-remove_from_users_source">show</a>
+                
+              </p>
+              <div id="method-i-remove_from_users_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/permitted_model_type.rb, line 31</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">remove_from_users</span>
+  <span class="ruby-constant">AccountUser</span>.<span class="ruby-identifier">all</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">account_user</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">account_user</span>.<span class="ruby-identifier">permitted_models</span>.<span class="ruby-identifier">where</span>(<span class="ruby-identifier">permitted_model_type_id</span><span class="ruby-operator">:</span> <span class="ruby-identifier">id</span>).<span class="ruby-identifier">delete_all</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+                    </div>
+
+    </div>
+  </body>
+</html>    

@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>edit.html.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            edit.html.slim
+        </h1>
+        <ul class="files">
+            <li>views/admin/homes/edit.html.slim</li>
+            <li>Last modified: 2015-07-05 15:22:06 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>wrap</p>
+
+<pre><code>== render &#39;admin/shared/navbar&#39;, page: &#39;edit-pages&#39;
+
+.container
+  .row
+    .col-sm-12
+      /==render &#39;admin/shared/messages&#39;
+
+      = simple_form_for [:admin, @home] do |f|
+        - if @home.errors.any?
+          #error_explanation
+            h2 = &quot;#{pluralize(@home.errors.count, &quot;error&quot;)} prohibited this home from being saved:&quot;
+            ul
+              - @home.errors.full_messages.each do |message|
+                li = message
+        .row
+          .col-sm-8
+            .jumbotron
+              .shadow
+                h1 =f.input :big_banner_text, label: false, autofocus: true
+              .row
+                .col-xs-12
+                  .pull-right
+                    &#39;Get you account now 
+                    &#39;&amp;nbsp;
+                    =link_to &#39;Sign up&#39;, &#39;#&#39;, class: &#39;btn btn-default btn-lg btn-orange&#39;
+                    br
+          .col-sm-4
+            .panel.panel-default
+              .panel-heading.blue
+                h3 class=&quot;panel-title&quot;
+                  &#39;Log In
+              .panel-body
+                &#39;&amp;nbsp;
+                br
+                br
+                br
+
+        .row
+          .col-sm-4
+            .panel.panel-default
+              .panel-heading.green
+                h3 class=&quot;panel-title&quot;
+                  =f.input :box_1_title, label: false
+              .panel-body
+                =f.input :box_1_link, label: false, placeholder: &#39;Link&#39;
+                =f.input :box_1_body, label: false, :input_html =&gt; {:style=&gt;&quot;height: 250px;&quot;}
+
+          .col-sm-4
+            .panel.panel-default
+              .panel-heading.red
+                h3 class=&quot;panel-title&quot;
+                  =f.input :box_2_title, label: false
+              .panel-body
+                =f.input :box_2_link, label: false, placeholder: &#39;Link&#39;
+                =f.input :box_2_body, label: false, :input_html =&gt; {:style=&gt;&quot;height: 250px;&quot;}
+          .col-sm-4
+            .panel.panel-default
+              .panel-heading.orange
+                h3 class=&quot;panel-title&quot;
+                  =f.input :box_3_title, label: false
+              .panel-body
+                =f.input :box_3_link, label: false, placeholder: &#39;Link&#39;
+                =f.input :box_3_body, label: false, :input_html =&gt; {:style=&gt;&quot;height: 250px;&quot;}
+            .pull-right  
+              = f.submit &#39;Save&#39;, class: &#39;btn btn-lg btn-green&#39;</code></pre>
+
+<p>footer</p>
+
+<pre><code>.container
+  .footer
+    .row
+      .col-sm-12
+        &#39;©2014 All rights reserved</code></pre>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

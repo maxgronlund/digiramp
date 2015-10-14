@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>disqus.js</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            disqus.js
+        </h1>
+        <ul class="files">
+            <li>assets/javascripts/disqus.js</li>
+            <li>Last modified: 2015-07-05 15:22:02 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>$(document).on(&#39;page:change&#39;, &#39;page:load&#39;, function () {</p>
+
+<pre><code>var disqusPublicKey = &quot;G5tosdkcwgXvyM5z7zxhrqK7QCOQwrs94xRpAYx6KUpxBW9YK8La8aGgotP4DtV8&quot;; // Replace with your own public key
+var disqusShortname = &quot;digiramp&quot;; // Replace with your own shortname
+
+var urlArray = [];
+
+$(&#39;.comment-link-marker&#39;).each(function () {
+  var url = $(this).attr(&#39;data-disqus-url&#39;);
+  urlArray.push(&#39;link:&#39; + url);
+});
+
+$.ajax({
+  type: &#39;GET&#39;,
+  url: &quot;https://disqus.com/api/3.0/threads/set.jsonp&quot;,
+  data: { api_key: disqusPublicKey, forum : disqusShortname, thread : urlArray },
+  cache: false,
+  dataType: &#39;jsonp&#39;,
+  success: function (result) {
+
+    for (var i in result.response) {
+
+      var countText = &quot; comments&quot;;
+      var count = result.response[i].posts;
+
+      if (count == 1)
+        countText = &quot; comments&quot;;
+
+      $(&#39;a[data-disqus-url=&quot;&#39; + result.response[i].link + &#39;&quot;]&#39;).html(count + countText);
+
+    }
+  }
+});</code></pre>
+
+<p>});</p>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

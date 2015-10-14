@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>FrontEndContent</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../css/github.css" type="text/css" media="screen" />
+<script src="../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            <span class="type">Class</span> 
+            FrontEndContent 
+            
+                <span class="parent">&lt; 
+                    
+                    ActiveRecord::Base
+                    
+                </span>
+            
+        </h1>
+        <ul class="files">
+            
+            <li><a href="../files/models/front_end_content_rb.html">models/front_end_content.rb</a></li>
+            
+        </ul>
+    </div>
+    <div id="bodyContent">
+        <div id="content">
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+    <!-- Method ref -->
+    <div class="sectiontitle">Methods</div>
+    <dl class="methods">
+      
+        <dt>G</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-c-get_content">get_content</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+    </dl>
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+    
+      <div class="sectiontitle">Class Public methods</div>
+      
+        <div class="method">
+          <div class="title method-title" id="method-c-get_content">
+            
+              <b>get_content</b>()
+            
+            <a href="../classes/FrontEndContent.html#method-c-get_content" name="method-c-get_content" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-c-get_content_source')" id="l_method-c-get_content_source">show</a>
+                
+              </p>
+              <div id="method-c-get_content_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/front_end_content.rb, line 3</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">self</span>.<span class="ruby-identifier">get_content</span>
+  <span class="ruby-identifier">mount_uploader</span> <span class="ruby-value">:page_1_image</span>,               <span class="ruby-constant">ImageS3Uploader</span>
+  <span class="ruby-identifier">mount_uploader</span> <span class="ruby-value">:page_3_image</span>,               <span class="ruby-constant">ImageS3Uploader</span>
+  <span class="ruby-identifier">mount_uploader</span> <span class="ruby-value">:page_5_image_1</span>,             <span class="ruby-constant">ImageS3Uploader</span>
+  <span class="ruby-identifier">mount_uploader</span> <span class="ruby-value">:page_5_image_2</span>,             <span class="ruby-constant">ImageS3Uploader</span>
+  <span class="ruby-identifier">mount_uploader</span> <span class="ruby-value">:page_5_image_3</span>,             <span class="ruby-constant">ImageS3Uploader</span>
+  <span class="ruby-identifier">mount_uploader</span> <span class="ruby-value">:page_5_image_4</span>,             <span class="ruby-constant">ImageS3Uploader</span>
+  <span class="ruby-identifier">mount_uploader</span> <span class="ruby-value">:page_5_image_5</span>,             <span class="ruby-constant">ImageS3Uploader</span>
+  <span class="ruby-identifier">mount_uploader</span> <span class="ruby-value">:page_5_image_6</span>,             <span class="ruby-constant">ImageS3Uploader</span>
+  <span class="ruby-identifier">mount_uploader</span> <span class="ruby-value">:page_6_testimonial_1_image</span>, <span class="ruby-constant">ImageS3Uploader</span>
+  <span class="ruby-identifier">mount_uploader</span> <span class="ruby-value">:page_6_testimonial_2_image</span>, <span class="ruby-constant">ImageS3Uploader</span>
+  <span class="ruby-identifier">mount_uploader</span> <span class="ruby-value">:page_6_testimonial_3_image</span>, <span class="ruby-constant">ImageS3Uploader</span>
+  <span class="ruby-identifier">mount_uploader</span> <span class="ruby-value">:page_6_testimonial_4_image</span>, <span class="ruby-constant">ImageS3Uploader</span>
+  <span class="ruby-identifier">mount_uploader</span> <span class="ruby-value">:page_6_testimonial_5_image</span>, <span class="ruby-constant">ImageS3Uploader</span>
+  <span class="ruby-identifier">mount_uploader</span> <span class="ruby-value">:page_7_image</span>,               <span class="ruby-constant">ImageS3Uploader</span>
+
+  
+
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">where</span>(<span class="ruby-identifier">identifyer</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;content&#39;</span>)
+      .<span class="ruby-identifier">first_or_create</span>(
+          <span class="ruby-identifier">identifyer</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;content&#39;</span>,
+          <span class="ruby-identifier">page1_title_1</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;Creativity&#39;</span>,
+          <span class="ruby-identifier">page1_title_2</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;Professional&#39;</span>,
+          <span class="ruby-identifier">page1_title_3</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;Business&#39;</span>,
+          <span class="ruby-identifier">page_1_body</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;Imagine a world where pure creative is the road to success. No need for: Promotion. Contracts. Layers. All people have equal opportunities. What really matters is the joy of music&#39;</span>,
+          <span class="ruby-identifier">page2_title</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;Let the music speak for it self&#39;</span>,
+          <span class="ruby-identifier">page_2_headline</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;DISTRIBUTE YOUR CONTENT IN A MANNER THAT BEST SUITS YOU AND YOUR AUDIENCE. MAKE BEAUTIFUL PROMOTION!&#39;</span>,
+          <span class="ruby-identifier">page_2_option_1_title</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;Manage all you assets&#39;</span>,
+          <span class="ruby-identifier">page_2_option_1_headline</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;ORIGINAL FILES, CONTRACTS, RIGHTS&#39;</span>,
+          <span class="ruby-identifier">page_2_option_1_body</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;A work has many users, interested parties tracks and fottage and more bla bla&#39;</span>,
+          <span class="ruby-identifier">page_2_option_2_title</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;Cloud Distribution&#39;</span>,
+          <span class="ruby-identifier">page_2_option_2_headline</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;AUTOMATE THE DISTRIBUTION&#39;</span>,
+          <span class="ruby-identifier">page_2_option_2_body</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;You can send playlists and widgets, emails and respond to opportunities&#39;</span>,
+          <span class="ruby-identifier">page_2_option_3_title</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;Connect with you audience&#39;</span>,
+          <span class="ruby-identifier">page_2_option_3_headline</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;GET FEEDBACK AND COMMENTS DIRECTLY&#39;</span>,
+          <span class="ruby-identifier">page_2_option_3_body</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;Connect music and feedback from music lovers directly to you creations&#39;</span>,
+          <span class="ruby-identifier">page_3_title</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;Get started right now!&#39;</span>,
+          <span class="ruby-identifier">page_3_headline</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;Try the creative account today and se how we help you promote your music across the net.&#39;</span>,
+          <span class="ruby-identifier">page_3_option_1_title</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;Present you work&#39;</span>,
+          <span class="ruby-identifier">page_3_option_1_body</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;Share music on social media and with you relatives using hour stylish customable widget&#39;</span>,
+          <span class="ruby-identifier">page_3_option_2_title</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;Profeccional usage&#39;</span>,
+          <span class="ruby-identifier">page_3_option_2_body</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;Share you businness and profit with you own network op profeccionals&#39;</span>,
+          <span class="ruby-identifier">page_4_title</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;Acount types&#39;</span>,
+          <span class="ruby-identifier">page_4_body</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;not anything yet&#39;</span>,
+          <span class="ruby-identifier">page_4_account_1_title</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;Creative&#39;</span>,
+          <span class="ruby-identifier">page_4_account_1_price</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;0/month&#39;</span>,
+          <span class="ruby-identifier">page_4_account_1_option_1</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;3 Hours Music&#39;</span>,
+          <span class="ruby-identifier">page_4_account_1_option_2</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;Unlimited Playlists&#39;</span>,
+          <span class="ruby-identifier">page_4_account_1_option_3</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;Unlimited Widgets&#39;</span>,
+          <span class="ruby-identifier">page_4_account_1_option_4</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;1000 hours Streaming&#39;</span>,
+          <span class="ruby-identifier">page_4_account_1_option_5</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;Social features&#39;</span>,
+          <span class="ruby-identifier">page_4_account_1_option_6</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;&#39;</span>,
+          <span class="ruby-identifier">page_4_account_2_title</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;Pro&#39;</span>,
+          <span class="ruby-identifier">page_4_account_2_price</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;$19/month&#39;</span>,
+          <span class="ruby-identifier">page_4_account_2_option_1</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;Creative ++&#39;</span>,
+          <span class="ruby-identifier">page_4_account_2_option_2</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;Unlimited Works&#39;</span>,
+          <span class="ruby-identifier">page_4_account_2_option_3</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;Unlimited IPIs&#39;</span>,
+          <span class="ruby-identifier">page_4_account_2_option_4</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;50 GB Storage&#39;</span>,
+          <span class="ruby-identifier">page_4_account_2_option_5</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;&#39;</span>,
+          <span class="ruby-identifier">page_4_account_2_option_6</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;&#39;</span>,
+          <span class="ruby-identifier">page_4_account_3_title</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;Business&#39;</span>,
+          <span class="ruby-identifier">page_4_account_3_price</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;149/month&#39;</span>,
+          <span class="ruby-identifier">page_4_account_3_option_1</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;Pro ++&#39;</span>,
+          <span class="ruby-identifier">page_4_account_3_option_2</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;100 Catalogs&#39;</span>,
+          <span class="ruby-identifier">page_4_account_3_option_3</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;Access management&#39;</span>,
+          <span class="ruby-identifier">page_4_account_3_option_4</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;25 Users&#39;</span>,
+          <span class="ruby-identifier">page_4_account_3_option_5</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;CRM&#39;</span>,
+          <span class="ruby-identifier">page_4_account_3_option_6</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;Business Documents&#39;</span>,
+          <span class="ruby-identifier">page_4_account_4_title</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;Enterprice&#39;</span>,
+          <span class="ruby-identifier">page_4_account_4_price</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;Contact us&#39;</span>,
+          <span class="ruby-identifier">page_4_account_4_option_1</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;Business ++&#39;</span>,
+          <span class="ruby-identifier">page_4_account_4_option_2</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;Dedicated Server&#39;</span>,
+          <span class="ruby-identifier">page_4_account_4_option_3</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;Task Management&#39;</span>,
+          <span class="ruby-identifier">page_4_account_4_option_4</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;Deleviry DDEX&#39;</span>,
+          <span class="ruby-identifier">page_4_account_4_option_5</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;FTP&#39;</span>,
+          <span class="ruby-identifier">page_4_account_4_option_6</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;Workers&#39;</span>,
+          <span class="ruby-identifier">page_5_title</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;Application Screenshots&#39;</span>,
+          <span class="ruby-identifier">page_5_body</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;USE THIS AREA TO SHOWCASE SCREENSHOTS OF YOUR APP THE STRUCTURE IS SIMPLY, JUST ADD YOUR IMAGES AND DONE!&#39;</span>,
+          <span class="ruby-identifier">page_7_title</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;Perfect Marketing Theme&#39;</span>,
+          <span class="ruby-identifier">page_7_headline</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;WE ARE ESPECIALLY BEAUTIFUL AND FULLY RESPONSIVE&#39;</span>,
+          <span class="ruby-identifier">page_7_body</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;Lorem ipsum dolor sit amet, consectetur Morbi sagittis, sem quis lacinia faucibus, orci ipsum gravida tortor. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi sagittis, sem quis lacinia faucibus, orci ipsum gravida tortor. Nulla varius consequat magna, id molestie ipsum volutpat quis. Suspendisse consectetur fringilla suctus. Pellentesque ipsum erat, facilisis ut venenatis eu, sodales vel dolor quis lacinia faucibus, orci ipsum gravida tortor.&#39;</span>,
+          <span class="ruby-identifier">page_8_title</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;Contact&#39;</span>, 
+          <span class="ruby-identifier">page_8_body</span><span class="ruby-value">:&#39;OUR TECHNICAL SUPPORT TEAMS STAND READY TO ASSIST YOU WITH ALL OF YOUR TECHNICAL QUESTIONS CONCERNING APULUM&#39;</span>
+        
+        )
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+                        </div>
+
+    </div>
+  </body>
+</html>    

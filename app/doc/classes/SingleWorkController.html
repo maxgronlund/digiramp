@@ -1,0 +1,625 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>SingleWorkController</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../css/github.css" type="text/css" media="screen" />
+<script src="../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            <span class="type">Class</span> 
+            SingleWorkController 
+            
+                <span class="parent">&lt; 
+                    
+                    <a href="ApplicationController.html">ApplicationController</a>
+                    
+                </span>
+            
+        </h1>
+        <ul class="files">
+            
+            <li><a href="../files/controllers/single_work_controller_rb.html">controllers/single_work_controller.rb</a></li>
+            
+        </ul>
+    </div>
+    <div id="bodyContent">
+        <div id="content">
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+    <!-- Method ref -->
+    <div class="sectiontitle">Methods</div>
+    <dl class="methods">
+      
+        <dt>C</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-create">create</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-i-create_recording">create_recording</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>E</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-edit">edit</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>I</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-ipis">ipis</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>L</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-lyrics">lyrics</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>N</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-new">new</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>R</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-recordings">recordings</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>S</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-show">show</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>U</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-update">update</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-i-users">users</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+    </dl>
+  
+
+  
+    <!-- Includes -->
+    <div class="sectiontitle">Included Modules</div>
+    <ul>
+      
+        <li>
+          
+            Transloadit::Rails::ParamsDecoder
+          
+        </li>
+      
+        <li>
+          
+            <a href="AccountsHelper.html">
+              AccountsHelper
+            </a>
+          
+        </li>
+      
+    </ul>
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+        
+      <div class="sectiontitle">Instance Public methods</div>
+      
+        <div class="method">
+          <div class="title method-title" id="method-i-create">
+            
+              <b>create</b>()
+            
+            <a href="../classes/SingleWorkController.html#method-i-create" name="method-i-create" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-create_source')" id="l_method-i-create_source">show</a>
+                
+              </p>
+              <div id="method-i-create_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File controllers/single_work_controller.rb, line 18</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">create</span>
+  <span class="ruby-ivar">@common_work</span> = <span class="ruby-constant">CommonWork</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">common_work_params</span>)
+  <span class="ruby-keyword">if</span> <span class="ruby-ivar">@common_work</span>.<span class="ruby-identifier">save</span>
+    <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">account_single_work_lyrics_path</span>(<span class="ruby-ivar">@account</span>, <span class="ruby-ivar">@common_work</span>)
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">render</span> <span class="ruby-value">:new</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-create_recording">
+            
+              <b>create_recording</b>()
+            
+            <a href="../classes/SingleWorkController.html#method-i-create_recording" name="method-i-create_recording" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-create_recording_source')" id="l_method-i-create_recording_source">show</a>
+                
+              </p>
+              <div id="method-i-create_recording_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File controllers/single_work_controller.rb, line 62</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">create_recording</span>
+
+  <span class="ruby-ivar">@common_work</span>          = <span class="ruby-constant">CommonWork</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:single_work_id</span>])
+  <span class="ruby-constant">TransloaditParser</span>.<span class="ruby-identifier">add_to_common_work</span>( <span class="ruby-identifier">params</span>[<span class="ruby-value">:transloadit</span>], <span class="ruby-ivar">@common_work</span>.<span class="ruby-identifier">id</span>, <span class="ruby-ivar">@account</span>.<span class="ruby-identifier">id</span> )
+  <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">account_single_work_path</span>(<span class="ruby-ivar">@account</span>, <span class="ruby-ivar">@common_work</span>)
+  <span class="ruby-comment">#redirect_to account_single_work_ipis_path(@account, @common_work)</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-edit">
+            
+              <b>edit</b>()
+            
+            <a href="../classes/SingleWorkController.html#method-i-edit" name="method-i-edit" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-edit_source')" id="l_method-i-edit_source">show</a>
+                
+              </p>
+              <div id="method-i-edit_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File controllers/single_work_controller.rb, line 27</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">edit</span>
+  <span class="ruby-comment">#@new_single_work  = new_single_work</span>
+  <span class="ruby-ivar">@common_work</span>      = <span class="ruby-constant">CommonWork</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:single_work_id</span>])
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-ipis">
+            
+              <b>ipis</b>()
+            
+            <a href="../classes/SingleWorkController.html#method-i-ipis" name="method-i-ipis" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-ipis_source')" id="l_method-i-ipis_source">show</a>
+                
+              </p>
+              <div id="method-i-ipis_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File controllers/single_work_controller.rb, line 85</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">ipis</span>
+  <span class="ruby-ivar">@common_work</span>    = <span class="ruby-constant">CommonWork</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:single_work_id</span>])
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-lyrics">
+            
+              <b>lyrics</b>()
+            
+            <a href="../classes/SingleWorkController.html#method-i-lyrics" name="method-i-lyrics" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-lyrics_source')" id="l_method-i-lyrics_source">show</a>
+                
+              </p>
+              <div id="method-i-lyrics_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File controllers/single_work_controller.rb, line 81</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">lyrics</span>
+  <span class="ruby-ivar">@common_work</span>    = <span class="ruby-constant">CommonWork</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:single_work_id</span>])
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-new">
+            
+              <b>new</b>()
+            
+            <a href="../classes/SingleWorkController.html#method-i-new" name="method-i-new" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-new_source')" id="l_method-i-new_source">show</a>
+                
+              </p>
+              <div id="method-i-new_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File controllers/single_work_controller.rb, line 13</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">new</span>
+  <span class="ruby-comment">#@new_single_work  = new_single_work</span>
+  <span class="ruby-ivar">@common_work</span>      = <span class="ruby-constant">CommonWork</span>.<span class="ruby-identifier">new</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-recordings">
+            
+              <b>recordings</b>()
+            
+            <a href="../classes/SingleWorkController.html#method-i-recordings" name="method-i-recordings" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              <p>def description</p>
+
+<pre><code>@add_description = add_description
+@common_work      = CommonWork.find(params[:single_work_id])
+</code></pre>
+
+<p>end</p>
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-recordings_source')" id="l_method-i-recordings_source">show</a>
+                
+              </p>
+              <div id="method-i-recordings_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File controllers/single_work_controller.rb, line 76</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">recordings</span>
+  <span class="ruby-ivar">@recording</span>      = <span class="ruby-constant">Recording</span>.<span class="ruby-identifier">new</span>
+  <span class="ruby-ivar">@common_work</span>    = <span class="ruby-constant">CommonWork</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:single_work_id</span>])
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-show">
+            
+              <b>show</b>()
+            
+            <a href="../classes/SingleWorkController.html#method-i-show" name="method-i-show" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              <p>before_action :get_blog</p>
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-show_source')" id="l_method-i-show_source">show</a>
+                
+              </p>
+              <div id="method-i-show_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File controllers/single_work_controller.rb, line 7</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">show</span>
+  <span class="ruby-ivar">@common_work</span>      = <span class="ruby-constant">CommonWork</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
+  <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">account_work_path</span>( <span class="ruby-ivar">@account</span>, <span class="ruby-ivar">@common_work</span>)
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-update">
+            
+              <b>update</b>()
+            
+            <a href="../classes/SingleWorkController.html#method-i-update" name="method-i-update" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-update_source')" id="l_method-i-update_source">show</a>
+                
+              </p>
+              <div id="method-i-update_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File controllers/single_work_controller.rb, line 32</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">update</span>
+  <span class="ruby-ivar">@common_work</span> = <span class="ruby-constant">CommonWork</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:single_work_id</span>])
+ 
+  <span class="ruby-ivar">@account</span>.<span class="ruby-identifier">save</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-ivar">@common_work</span>.<span class="ruby-identifier">update_attributes</span>(<span class="ruby-identifier">common_work_params</span>)
+    
+    <span class="ruby-ivar">@common_work</span>.<span class="ruby-identifier">create_activity</span>(  <span class="ruby-value">:updated</span>, 
+                              <span class="ruby-identifier">owner</span><span class="ruby-operator">:</span> <span class="ruby-identifier">current_user</span>,
+                          <span class="ruby-identifier">recipient</span><span class="ruby-operator">:</span> <span class="ruby-ivar">@common_work</span>,
+                     <span class="ruby-identifier">recipient_type</span><span class="ruby-operator">:</span> <span class="ruby-ivar">@common_work</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">name</span>,
+                         <span class="ruby-identifier">account_id</span><span class="ruby-operator">:</span> <span class="ruby-ivar">@account</span>.<span class="ruby-identifier">id</span>)
+                         
+                         
+    <span class="ruby-keyword">case</span> <span class="ruby-ivar">@common_work</span>.<span class="ruby-identifier">step</span>
+    <span class="ruby-keyword">when</span> <span class="ruby-string">&#39;created&#39;</span>
+      <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">account_single_work_lyrics_path</span>(<span class="ruby-ivar">@account</span>, <span class="ruby-ivar">@common_work</span>)
+    <span class="ruby-keyword">when</span> <span class="ruby-string">&#39;lyrics added&#39;</span>
+      <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">account_single_work_recordings_path</span>(<span class="ruby-ivar">@account</span>, <span class="ruby-ivar">@common_work</span>)
+    <span class="ruby-keyword">when</span> <span class="ruby-string">&#39;recordings added&#39;</span>
+      <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">account_single_work_path</span>(<span class="ruby-ivar">@account</span>, <span class="ruby-ivar">@common_work</span>)
+      <span class="ruby-comment">#redirect_to account_single_work_ipis_path(@account, @common_work)</span>
+      <span class="ruby-comment">#when &#39;ipis added&#39;</span>
+      <span class="ruby-comment">#  redirect_to account_single_work_users_path(@account, @common_work)</span>
+      <span class="ruby-comment">#when &#39;users added&#39;</span>
+      <span class="ruby-comment">#  redirect_to account_single_work_path(@account, @common_work)</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-users">
+            
+              <b>users</b>()
+            
+            <a href="../classes/SingleWorkController.html#method-i-users" name="method-i-users" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-users_source')" id="l_method-i-users_source">show</a>
+                
+              </p>
+              <div id="method-i-users_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File controllers/single_work_controller.rb, line 89</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">users</span>
+  <span class="ruby-ivar">@common_work</span>    = <span class="ruby-constant">CommonWork</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:single_work_id</span>])
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+                    </div>
+
+    </div>
+  </body>
+</html>    

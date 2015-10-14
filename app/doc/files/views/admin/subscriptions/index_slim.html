@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>index.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            index.slim
+        </h1>
+        <ul class="files">
+            <li>views/admin/subscriptions/index.slim</li>
+            <li>Last modified: 2015-09-26 13:35:29 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>wrapper</p>
+
+<pre><code>.full-width-top
+  == render &#39;shared/navigationbar&#39;, page: &#39;admin&#39; 
+
+.admin-account
+  #sidebar-wrapper
+    ul class=&quot;sidebar-nav&quot;
+      == render &#39;admin/shared/sidebar&#39;, selected: &#39;sale&#39;
+
+#page-content-wrapper
+  .container-fluid
+    == render &#39;shared/breadcrumbs&#39;, breadcrumbs: { links: { &quot;admin&quot;.to_sym =&gt; admin_index_path, \
+                                                            business: admin_business_index_path}, current: &#39;&#39;}
+    .row
+      .col-sm-6
+        h2 Subscriptions
+      .col-sm-6
+        .pull-right.pull-down-10
+
+    .pull-down-10
+    .digi-box
+      table.table.table-hover
+        thead
+          tr
+            th User
+            /th Guid
+            th Plan
+            /th Stripe
+            th Date
+            th 
+
+        tbody
+          - @subscriptions.each do |subscription| 
+            tr
+              td 
+                - if user = subscription.user 
+                  = link_to user.user_name, user
+              td
+                - if plan = subscription.plan
+                  = plan.stripe_id
+              td = subscription.created_at.to_formatted_s(:short)
+              td
+                .pull-right
+                  =&gt; link_to &#39;Show&#39;, admin_subscription_path(subscription), class: &#39;btn btn-default btn-xs&#39;
+                  - if user = subscription.user
+
+                  - if Rails.env == &#39;development&#39;
+                    = link_to &#39;Stripe&#39;, &quot;https://dashboard.stripe.com/test/customers/#{user.stripe_customer_id}&quot;, :target =&gt; &quot;_blank&quot; , class: &#39;btn btn-info btn-xs&#39;
+                  - else
+                    = link_to &#39;Stripe&#39;, &quot;https://dashboard.stripe.com/customers/#{user.stripe_customer_id}&quot;, :target =&gt; &quot;_blank&quot; , class: &#39;btn btn-info btn-xs&#39;
+                  /https://dashboard.stripe.com/test/payments/ch_15vUn1DCWuUtTcRTs0mQb1YN
+              /td = sale.email 
+              //td = sale.guid 
+              /td = sale.product.name 
+              //td = sale.stripe_id 
+              /td = sale.created_at.to_formatted_s(:short) 
+              /td 
+              /  .pull-right
+              /    =&gt; link_to &#39;Show&#39;, admin_sale_path( sale ), class: &#39;btn btn-default btn-xs&#39;
+              /    = link_to &#39;Stripe&#39;, &quot;https://manage.stripe.com/payments/#{sale.stripe_id}&quot; , class: &#39;btn btn-info btn-xs&#39;
+
+== render &#39;shared/site_footer&#39;</code></pre>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

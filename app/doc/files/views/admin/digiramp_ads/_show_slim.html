@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>_show.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            _show.slim
+        </h1>
+        <ul class="files">
+            <li>views/admin/digiramp_ads/_show.slim</li>
+            <li>Last modified: 2015-07-05 15:22:06 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      <ul><li>
+<p><a href=":return_url">session</a>         = request.url</p>
+</li><li>
+<p>digiramp_ad = DigirampAd.where(identifier:
+identifier).first_or_create(identifier: identifier)</p>
+</li></ul>
+
+<p>.digiramp-ad</p>
+
+<pre><code>- if digiramp_ad.show_banner
+  .digiramp-ad-banner
+    - if digiramp_ad.link.to_s != &#39;&#39;
+      = link_to image_tag( digiramp_ad.banner_url(:banner)), digiramp_ad.link
+    - else
+      = image_tag digiramp_ad.banner_url(:banner)
+
+- if digiramp_ad.show_image
+  .digiramp-ad-image
+    - if digiramp_ad.link.to_s != &#39;&#39;
+      = link_to image_tag( digiramp_ad.image_url(:sidebar)), digiramp_ad.link
+    - else
+      = image_tag digiramp_ad.image_url(:sidebar)
+.digiramp-ad-title
+  = digiramp_ad.title
+
+.digiramp-ad-body
+  = simple_format digiramp_ad.body
+.digiramp-ad-button
+  .pull-right
+
+    -if digiramp_ad.button_link.to_s != &#39;&#39; 
+      =&lt; link_to digiramp_ad.button_link do 
+         div class=&quot;#{digiramp_ad.button_style}&quot;
+           i class=&quot;#{digiramp_ad.button_icon}&quot;
+           &#39;&amp;nbsp;
+           = digiramp_ad.button_text
+
+    -if super?
+      =&lt; link_to edit_admin_digiramp_ad_path(digiramp_ad) do
+        .btn.btn-default
+          i.fa.fa-pencil</code></pre>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

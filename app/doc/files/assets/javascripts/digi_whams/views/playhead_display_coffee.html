@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>playhead_display.coffee</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            playhead_display.coffee
+        </h1>
+        <ul class="files">
+            <li>assets/javascripts/digi_whams/views/playhead_display.coffee</li>
+            <li>Last modified: 2015-07-05 15:22:02 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p># wrapper around soundmanager2 class @PlayheadDisplay</p>
+
+<pre><code>constructor: -&gt;
+
+set_text: (id, position, playhead_position) -&gt;
+  update_display( id, convertTimeToString(position * 0.001) )
+
+  width =  $(&#39;#&#39;+ id + &#39;.audio-waveform&#39;).width() - 1
+  margin_left = (playhead_position * width) - 22
+
+  if margin_left &lt; 0
+    margin_left = 0
+  if margin_left &gt; width - 46
+    margin_left = width  - 46
+
+  $(&#39;#&#39;+ id + &#39;.playhead-time&#39;).css &#39;margin-left&#39;: margin_left 
+
+update_display = ( id, text ) -&gt;
+  $(&#39;#&#39;+ id + &#39;.playhead-time&#39;).text( text )
+
+convertTimeToString = (timeFloat) -&gt;
+  hours   = parseInt(timeFloat / 3600)
+  minutes = parseInt(timeFloat / 60) - hours
+  seconds = parseInt(timeFloat) - (minutes * 60)
+  msec    = parseInt(timeFloat * 100) - (parseInt(timeFloat) * 100)
+  text = convertToTwoDigitString(minutes) + &#39;:&#39; + convertToTwoDigitString(seconds) + &#39;:&#39; + convertToTwoDigitString(msec)
+
+convertToTwoDigitString = (inInt) -&gt;
+  if inInt &lt; 10
+    return &quot;0&quot; + inInt
+  inInt</code></pre>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>users.js.coffee</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            users.js.coffee
+        </h1>
+        <ul class="files">
+            <li>assets/javascripts/users.js.coffee</li>
+            <li>Last modified: 2015-07-05 15:22:02 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>ready = -&gt;</p>
+
+<pre><code>endless_users()
+endless_activities()
+$(window).resize -&gt;
+  endless_users()</code></pre>
+
+<p>$(document).ready(ready) $(document).on(&#39;page:load&#39;, ready)</p>
+
+<p>@endless_users =() -&gt;</p>
+
+<pre><code>if $(&#39;.endless-users&#39;).length
+  if $(&#39;.pagination&#39;).length
+    $(window).scroll -&gt;
+      url = $(&#39;.pagination .next a&#39;).attr(&#39;href&#39;)
+      if url &amp;&amp;  $(window).scrollTop() &gt; $(document).height() - $(window).height() - 400
+        $(&#39;.pagination&#39;).text(&#39;...&#39;)
+        $.getScript(url)
+    $(window).scroll()</code></pre>
+
+<p>#@paginate_users =() -&gt; #  $.getScript(&#39;/users&#39;)</p>
+
+<p>@endless_activities =() -&gt;</p>
+
+<pre><code>if $(&#39;.endless_activities&#39;).length
+
+  if $(&#39;.pagination&#39;).length
+    $(window).scroll -&gt;
+
+      url = $(&#39;.pagination .next a&#39;).attr(&#39;href&#39;)
+      if url &amp;&amp;  $(window).scrollTop() &gt; $(document).height() - $(window).height() - 200
+        $(&#39;.pagination&#39;).text(&#39;...&#39;)
+        $.getScript(url)
+    $(window).scroll()</code></pre>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

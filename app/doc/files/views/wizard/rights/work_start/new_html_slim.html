@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>new.html.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            new.html.slim
+        </h1>
+        <ul class="files">
+            <li>views/wizard/rights/work_start/new.html.slim</li>
+            <li>Last modified: 2015-07-21 23:34:10 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>h1 Wizard::Rights::WorkStart#new br</p>
+
+<p>/= link_to &#39;Wizard&#39;,
+edit_wizard_rights_common_work_work_contributor_path( @common_work,
+@wizard, user_id: <a href=":user_id">params</a>), class: &#39;btn
+btn-default&#39;</p>
+
+<p>/.row /  .col-sm-6 /    .digi-box /      = simple_form_for [ @wizard ],
+:url =&gt; url_for(:action =&gt; &#39;create&#39;, :controller =&gt;
+&#39;work_start&#39;), :method =&gt; &#39;post&#39; do |f| /        =
+f.error_notification /        = f.hidden_field :user_id,      value: <a
+href=":user_id">params</a> /        = f.hidden_field :wizard_id,    value:
+@common_work.id /        = f.hidden_field :wizard_type,  value: 
+@common_work.class.name /</p>
+
+<p>/</p>
+
+<p>/</p>
+
+<p>/        /= debug @wizard.errors /        .form-inputs /          &#39;How
+many people contributed to the original work? /</p>
+
+<p>/          = f.input :work_contributor_count, as: :integer /          =
+f.submit &#39;Save&#39;, class: &#39;btn btn-default&#39;</p>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

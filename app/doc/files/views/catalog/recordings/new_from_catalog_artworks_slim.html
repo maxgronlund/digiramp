@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>new_from_catalog_artworks.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            new_from_catalog_artworks.slim
+        </h1>
+        <ul class="files">
+            <li>views/catalog/recordings/new_from_catalog_artworks.slim</li>
+            <li>Last modified: 2015-07-08 09:41:35 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>/#wrap /  div class=“#{&#39;profile&#39; if account_owner?}” /   
+.full-width-top /      == render &#39;admin/shared/navbar&#39;, page:
+&#39;account&#39;</p>
+
+<p>/  .container /    /==render &#39;admin/shared/messages&#39; /    .do /    
+== render &#39;shared/breadcrumbs&#39;, breadcrumbs: { links: {
+@account.title.to_sym =&gt; account_path(@account), \ /                    
+catalogs: catalog_account_catalogs_path(@account), \ /                     
+@catalog.title.to_sym =&gt; catalog_account_catalog_path(@account,
+@catalog), \ /                                                             
+recordings: catalog_account_catalog_recordings_path(@account, @catalog), \
+/                                                             
+@recording.title.to_sym =&gt;
+catalog_account_catalog_recording_path(@account, @catalog, @recording), \ /
+artwork:
+catalog_account_catalog_recording_recording_artworks_path(@account,
+@catalog, @recording), \ /                                                 
+}, current: &#39;select from catalog&#39;} /</p>
+
+<p>/      - blog = <a
+href="../../../../classes/Blog.html#method-c-cached_find">Blog.cached_find</a>(&#39;Recording
+Artwork&#39;) /      == render &#39;shared/page_title&#39;, locals: {blog:
+blog, blog_post: &#39;Artwork&#39;} /</p>
+
+<p>/      - @catalog.artworks.each do |artwork| /        == render
+&#39;catalog/artworks/index&#39;, locals: {artwork: artwork, links:
+&#39;catalog/artworks/add_to_recording&#39;} /</p>
+
+<p>/</p>
+
+<p>/-cache ([&#39;footer&#39;, <a
+href="../../../../classes/Admin.html#method-c-cached_find">Admin.cached_find</a>.version])
+do</p>
+
+<p>/  =render &#39;shared/footer&#39;</p>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

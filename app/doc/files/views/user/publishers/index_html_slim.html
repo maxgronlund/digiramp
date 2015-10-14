@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>index.html.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            index.html.slim
+        </h1>
+        <ul class="files">
+            <li>views/user/publishers/index.html.slim</li>
+            <li>Last modified: 2015-10-03 14:51:09 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>wrapper</p>
+
+<pre><code>.full-width-top
+  == render &#39;shared/navigationbar&#39;, page: &#39;dashboard&#39; 
+
+#sidebar-wrapper
+  ul class=&quot;sidebar-nav&quot;
+    == render &#39;users/shared/sidebar&#39;, selected: &#39;dashboard&#39;
+
+#page-content-wrapper
+  .container-fluid
+    == render &#39;shared/breadcrumbs&#39;, breadcrumbs: { links: { &#39;Dashboard&#39;.to_sym =&gt; user_user_control_panel_index_path(@user) } }
+    == render &#39;shared/flash_message&#39;
+    .row
+      .col-sm-6
+        .help
+          .help-text
+            h2 Publishers
+
+          .help-button
+            == render &#39;admin/helps/help&#39;, identifier: &#39;user publishers&#39;
+      .col-sm-6
+        .pull-right.pull-down-10
+          = link_to &#39;Add Publisher&#39;, new_user_user_publisher_path(@user), class: &#39;btn btn-default&#39;, id: &#39;add-publisher&#39;
+
+    .pull-down-10
+    .table-responsive
+      table class=&quot;table table-hover&quot;
+
+        thead
+          tr
+            th
+            th Legal name
+            th Public
+            /th Email,
+            /th Phone number
+            /th Ipi code
+            /th Pro affiliation
+            /th Status
+            th IPI CODE
+            th PRO
+
+        tbody
+          - @publishers.each do |publisher|
+            tr
+              td style=&quot;width: 70px;&quot;
+
+                -if (publisher.account_id == @user.account.id) || publisher.pending?
+                  =&gt; link_to edit_user_user_publisher_legal_info_path(publisher.user, publisher), id: &quot;edit-publisher-#{publisher.id}&quot;
+                      .btn.btn-default.btn-xs
+                        i.fa.fa-pencil
+
+                  - if publisher.personal_publisher  
+                    .btn.btn-danger.btn-xs disabled=&quot;disabled&quot;
+                      i.fa.fa-times
+                  - else 
+                    = link_to  user_user_publisher_path(@user, publisher), 
+                                          data: {:confirm =&gt; &#39;Are you sure?&#39;}, 
+                                          :method =&gt; :delete,
+                                          id: &quot;delete-publisher-#{publisher.id}&quot;,
+                                          turboboost: true do
+                          .btn.btn-danger.btn-xs
+                            i.fa.fa-times
+
+              th 
+                -if publisher.user_id == @user.id
+                  = link_to publisher.legal_name, user_user_publisher_path(publisher.user, publisher), class: &#39;btn btn-default btn-xs&#39;
+                - else
+                  = publisher.legal_name
+              /td = publisher.email
+              /td = publisher.phone_number
+              td
+                - if publisher.show_on_public_page
+                  &#39;√ Yes
+                - else
+                  &#39; - No
+              td = publisher.ipi_code
+              td 
+                - if pro_affiliation = publisher.pro_affiliation
+                  = pro_affiliation.title
+              /td 
+              /  - if publisher.pending?
+              /    .label.label-info
+              /      &#39;Pending
+              /  - elsif publisher.confirmed?
+              /    .label.label-success
+              /      &#39;Confirmed
+              /  - elsif publisher.declined?
+              /    .label.label-warning
+              /      &#39;Declined
+              /
+              /td = link_to &#39;Show&#39;, publisher
+              /td = link_to &#39;Edit&#39;, edit_publisher_path(publisher)
+              /td = link_to &#39;Destroy&#39;, publisher, data: {:confirm =&gt; &#39;Are you sure?&#39;}, :method =&gt; :delete
+
+== render &#39;shared/site_footer&#39;</code></pre>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

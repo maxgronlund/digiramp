@@ -1,0 +1,544 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>TransloaditImageParser</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../css/github.css" type="text/css" media="screen" />
+<script src="../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            <span class="type">Class</span> 
+            TransloaditImageParser 
+            
+                <span class="parent">&lt; 
+                    
+                    Object
+                    
+                </span>
+            
+        </h1>
+        <ul class="files">
+            
+            <li><a href="../files/services/transloadit_image_parser_rb.html">services/transloadit_image_parser.rb</a></li>
+            
+        </ul>
+    </div>
+    <div id="bodyContent">
+        <div id="content">
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+    <!-- Method ref -->
+    <div class="sectiontitle">Methods</div>
+    <dl class="methods">
+      
+        <dt>A</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-c-artwork">artwork</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>E</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-c-extract">extract</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>G</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-c-get_image_url">get_image_url</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>N</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-c-new">new</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>P</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-c-parse_images">parse_images</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+    </dl>
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+    
+      <div class="sectiontitle">Class Public methods</div>
+      
+        <div class="method">
+          <div class="title method-title" id="method-c-artwork">
+            
+              <b>artwork</b>(uploads, account_id)
+            
+            <a href="../classes/TransloaditImageParser.html#method-c-artwork" name="method-c-artwork" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-c-artwork_source')" id="l_method-c-artwork_source">show</a>
+                
+              </p>
+              <div id="method-c-artwork_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File services/transloadit_image_parser.rb, line 95</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">self</span>.<span class="ruby-identifier">artwork</span>  <span class="ruby-identifier">uploads</span>, <span class="ruby-identifier">account_id</span>
+  
+  <span class="ruby-identifier">transloadets</span> = <span class="ruby-identifier">extract</span>( <span class="ruby-identifier">uploads</span> )
+  <span class="ruby-identifier">artworks</span> = []
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">transloadets</span>
+    <span class="ruby-identifier">transloadets</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">transloaded</span><span class="ruby-operator">|</span>
+    
+      <span class="ruby-identifier">keywords</span> = <span class="ruby-string">&#39;&#39;</span>
+      <span class="ruby-keyword">if</span> <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:keywords</span>]
+        <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:keywords</span>].<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">keyword</span><span class="ruby-operator">|</span>
+          <span class="ruby-identifier">keywords</span> <span class="ruby-operator">+=</span> <span class="ruby-string">&#39; &#39;</span>
+          <span class="ruby-identifier">keywords</span> <span class="ruby-operator">+=</span> <span class="ruby-identifier">keyword</span>
+          <span class="ruby-identifier">keywords</span> <span class="ruby-operator">+=</span> <span class="ruby-string">&#39;,&#39;</span>
+        <span class="ruby-keyword">end</span>
+      <span class="ruby-keyword">end</span>
+      
+      <span class="ruby-identifier">artwork</span> = <span class="ruby-constant">Artwork</span>.<span class="ruby-identifier">create!</span>(  <span class="ruby-identifier">account_id</span><span class="ruby-operator">:</span>              <span class="ruby-identifier">account_id</span>, 
+                                  <span class="ruby-identifier">file</span><span class="ruby-operator">:</span>                    <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:file</span>], 
+                                  <span class="ruby-identifier">thumb</span><span class="ruby-operator">:</span>                   <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:thumb</span>], 
+                                  <span class="ruby-identifier">title</span><span class="ruby-operator">:</span>                   <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:title</span>],
+                                  <span class="ruby-identifier">basename</span><span class="ruby-operator">:</span>                <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:basename</span> ],
+                                  <span class="ruby-identifier">ext</span><span class="ruby-operator">:</span>                     <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:ext</span>],
+                                  <span class="ruby-identifier">image_size</span><span class="ruby-operator">:</span>              <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:image_size</span>],
+                                  <span class="ruby-identifier">mime</span><span class="ruby-operator">:</span>                    <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:mime</span>],
+                                  <span class="ruby-identifier">image_type</span><span class="ruby-operator">:</span>              <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:image_type</span>],
+                                  <span class="ruby-identifier">md5hash</span><span class="ruby-operator">:</span>                 <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:md5hash</span>],
+                                  <span class="ruby-identifier">width</span><span class="ruby-operator">:</span>                   <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:width</span>],
+                                  <span class="ruby-identifier">height</span><span class="ruby-operator">:</span>                  <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:height</span>],
+                                  <span class="ruby-identifier">date_recorded</span><span class="ruby-operator">:</span>               <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:date_recorded</span>],
+                                  <span class="ruby-identifier">date_file_created</span><span class="ruby-operator">:</span>       <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:date_file_created</span>],
+                                  <span class="ruby-identifier">date_file_modified</span><span class="ruby-operator">:</span>      <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:date_file_modified</span>],
+                                  <span class="ruby-identifier">description</span><span class="ruby-operator">:</span>                   <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:description</span>],
+                                  <span class="ruby-identifier">location</span><span class="ruby-operator">:</span>                  <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:location</span>],
+                                  <span class="ruby-identifier">aspect_ratio</span><span class="ruby-operator">:</span>            <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:aspect_ratio</span>],
+                                  <span class="ruby-identifier">city</span><span class="ruby-operator">:</span>                                <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:city</span>],
+                                  <span class="ruby-identifier">state</span><span class="ruby-operator">:</span>                       <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:state</span>],
+                                  <span class="ruby-identifier">country</span><span class="ruby-operator">:</span>                   <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:country</span>],
+                                  <span class="ruby-identifier">country_code</span><span class="ruby-operator">:</span>            <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:country_code</span>],
+                                  <span class="ruby-identifier">keywords</span><span class="ruby-operator">:</span>                  <span class="ruby-identifier">keywords</span>,
+                                  <span class="ruby-identifier">aperture</span><span class="ruby-operator">:</span>                  <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:aperture</span>],
+                                  <span class="ruby-identifier">exposure_compensation</span><span class="ruby-operator">:</span>       <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:exposure_compensation</span>],
+                                  <span class="ruby-identifier">exposure_mode</span><span class="ruby-operator">:</span>               <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:exposure_mode</span>],
+                                  <span class="ruby-identifier">exposure_time</span><span class="ruby-operator">:</span>               <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:exposure_time</span>],
+                                  <span class="ruby-identifier">flash</span><span class="ruby-operator">:</span>                       <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:flash</span>],
+                                  <span class="ruby-identifier">focal_length</span><span class="ruby-operator">:</span>                  <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:focal_length</span>],
+                                  <span class="ruby-identifier">f_number</span><span class="ruby-operator">:</span>                  <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:f_number</span>],
+                                  <span class="ruby-identifier">iso</span><span class="ruby-operator">:</span>                           <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:iso</span>],
+                                  <span class="ruby-identifier">light_value</span><span class="ruby-operator">:</span>                   <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:light_value</span>],
+                                  <span class="ruby-identifier">metering_mode</span><span class="ruby-operator">:</span>               <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:metering_mode</span>],
+                                  <span class="ruby-identifier">shutter_speed</span><span class="ruby-operator">:</span>               <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:shutter_speed</span>],
+                                  <span class="ruby-identifier">white_balance</span><span class="ruby-operator">:</span>               <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:white_balance</span>],
+                                  <span class="ruby-identifier">device_name</span><span class="ruby-operator">:</span>                   <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:device_name</span>],
+                                  <span class="ruby-identifier">device_vendor</span><span class="ruby-operator">:</span>               <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:device_vendor</span>],
+                                  <span class="ruby-identifier">device_software</span><span class="ruby-operator">:</span>         <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:device_software</span>],
+                                  <span class="ruby-identifier">latitude</span><span class="ruby-operator">:</span>                  <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:latitude</span>],
+                                  <span class="ruby-identifier">longitude</span><span class="ruby-operator">:</span>               <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:longitude</span>],
+                                  <span class="ruby-identifier">orientation</span><span class="ruby-operator">:</span>             <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:orientation</span>],
+                                  <span class="ruby-identifier">has_clipping_path</span><span class="ruby-operator">:</span>       <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:has_clipping_path</span>],
+                                  <span class="ruby-identifier">creator</span><span class="ruby-operator">:</span>                   <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:creator</span>],
+                                  <span class="ruby-identifier">author</span><span class="ruby-operator">:</span>                      <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:author</span>],
+                                  <span class="ruby-identifier">copyright</span><span class="ruby-operator">:</span>               <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:copyright</span>],
+                                  <span class="ruby-identifier">frame_count</span><span class="ruby-operator">:</span>                   <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:frame_count</span>],
+                                  <span class="ruby-identifier">copyright_notice</span><span class="ruby-operator">:</span>          <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:copyright_notice</span>]
+                                )
+      <span class="ruby-identifier">artworks</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">artwork</span>                          
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-identifier">artworks</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-c-extract">
+            
+              <b>extract</b>(uploads)
+            
+            <a href="../classes/TransloaditImageParser.html#method-c-extract" name="method-c-extract" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-c-extract_source')" id="l_method-c-extract_source">show</a>
+                
+              </p>
+              <div id="method-c-extract_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File services/transloadit_image_parser.rb, line 7</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">self</span>.<span class="ruby-identifier">extract</span> <span class="ruby-identifier">uploads</span>
+  <span class="ruby-identifier">transloadets</span>  = []
+  <span class="ruby-identifier">extracted</span>     = {}
+  
+  <span class="ruby-keyword">begin</span>
+  <span class="ruby-comment"># original images</span>
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">uploads</span>[<span class="ruby-value">:results</span>] <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">uploads</span>[<span class="ruby-value">:results</span>][<span class="ruby-value">:accepted_images</span>]
+      <span class="ruby-identifier">uploads</span>[<span class="ruby-value">:results</span>][<span class="ruby-value">:accepted_images</span>].<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">accepted_image</span><span class="ruby-operator">|</span>
+        
+        <span class="ruby-identifier">meta</span> = <span class="ruby-identifier">accepted_image</span>[<span class="ruby-string">&quot;meta&quot;</span>]
+        
+        <span class="ruby-identifier">extracted</span>[ <span class="ruby-identifier">accepted_image</span>[<span class="ruby-value">:original_id</span>] ] =  { 
+                                                        <span class="ruby-identifier">file</span><span class="ruby-operator">:</span>                    <span class="ruby-identifier">accepted_image</span>[<span class="ruby-value">:ssl_url</span>].<span class="ruby-identifier">sub</span>(<span class="ruby-string">&#39;https://s3.amazonaws.com/digiramp&#39;</span>, <span class="ruby-string">&#39;https://s3-us-west-1.amazonaws.com/digiramp&#39;</span>), 
+                                                        <span class="ruby-identifier">title</span><span class="ruby-operator">:</span>                   <span class="ruby-identifier">accepted_image</span>[<span class="ruby-value">:name</span>],
+                                                        <span class="ruby-identifier">basename</span><span class="ruby-operator">:</span>                <span class="ruby-identifier">accepted_image</span>[<span class="ruby-value">:basename</span> ],
+                                                        <span class="ruby-identifier">ext</span><span class="ruby-operator">:</span>                     <span class="ruby-identifier">accepted_image</span>[<span class="ruby-value">:ext</span>],
+                                                        <span class="ruby-identifier">image_size</span><span class="ruby-operator">:</span>              <span class="ruby-identifier">accepted_image</span>[<span class="ruby-value">:image_size</span>],
+                                                        <span class="ruby-identifier">mime</span><span class="ruby-operator">:</span>                    <span class="ruby-identifier">accepted_image</span>[<span class="ruby-value">:mime</span>],
+                                                        <span class="ruby-identifier">image_type</span><span class="ruby-operator">:</span>              <span class="ruby-identifier">accepted_image</span>[<span class="ruby-value">:image_type</span>],
+                                                        <span class="ruby-identifier">md5hash</span><span class="ruby-operator">:</span>                 <span class="ruby-identifier">accepted_image</span>[<span class="ruby-value">:md5hash</span>],
+                                                        <span class="ruby-identifier">width</span><span class="ruby-operator">:</span>                   <span class="ruby-identifier">meta</span>[<span class="ruby-string">&quot;width&quot;</span>],
+                                                        <span class="ruby-identifier">height</span><span class="ruby-operator">:</span>                  <span class="ruby-identifier">meta</span>[<span class="ruby-string">&quot;height&quot;</span>],
+                                                        <span class="ruby-identifier">date_recorded</span><span class="ruby-operator">:</span>                 <span class="ruby-identifier">meta</span>[<span class="ruby-string">&quot;date_recorded&quot;</span>],
+                                                        <span class="ruby-identifier">date_file_created</span><span class="ruby-operator">:</span>         <span class="ruby-identifier">meta</span>[<span class="ruby-string">&quot;date_file_created&quot;</span>],
+                                                        <span class="ruby-identifier">date_file_modified</span><span class="ruby-operator">:</span>      <span class="ruby-identifier">meta</span>[<span class="ruby-string">&quot;date_file_modified&quot;</span>],
+                                                        <span class="ruby-identifier">description</span><span class="ruby-operator">:</span>             <span class="ruby-identifier">meta</span>[<span class="ruby-string">&quot;description&quot;</span>],
+                                                        <span class="ruby-identifier">location</span><span class="ruby-operator">:</span>                    <span class="ruby-identifier">meta</span>[<span class="ruby-string">&quot;location&quot;</span>],
+                                                        <span class="ruby-identifier">aspect_ratio</span><span class="ruby-operator">:</span>            <span class="ruby-identifier">meta</span>[<span class="ruby-string">&quot;aspect_ratio&quot;</span>],
+                                                        <span class="ruby-identifier">city</span><span class="ruby-operator">:</span>                          <span class="ruby-identifier">meta</span>[<span class="ruby-string">&quot;city&quot;</span>],
+                                                        <span class="ruby-identifier">state</span><span class="ruby-operator">:</span>                         <span class="ruby-identifier">meta</span>[<span class="ruby-string">&quot;state&quot;</span>],
+                                                        <span class="ruby-identifier">country</span><span class="ruby-operator">:</span>                     <span class="ruby-identifier">meta</span>[<span class="ruby-string">&quot;country&quot;</span>],
+                                                        <span class="ruby-identifier">country_code</span><span class="ruby-operator">:</span>            <span class="ruby-identifier">meta</span>[<span class="ruby-string">&quot;country_code&quot;</span>],
+                                                        <span class="ruby-identifier">keywords</span><span class="ruby-operator">:</span>                    <span class="ruby-identifier">meta</span>[<span class="ruby-string">&quot;keywords&quot;</span>],
+                                                        <span class="ruby-identifier">aperture</span><span class="ruby-operator">:</span>                    <span class="ruby-identifier">meta</span>[<span class="ruby-string">&quot;aperture&quot;</span>],
+                                                        <span class="ruby-identifier">exposure_compensation</span><span class="ruby-operator">:</span>         <span class="ruby-identifier">meta</span>[<span class="ruby-string">&quot;exposure_compensation&quot;</span>],
+                                                        <span class="ruby-identifier">exposure_mode</span><span class="ruby-operator">:</span>                 <span class="ruby-identifier">meta</span>[<span class="ruby-string">&quot;exposure_mode&quot;</span>],
+                                                        <span class="ruby-identifier">exposure_time</span><span class="ruby-operator">:</span>                 <span class="ruby-identifier">meta</span>[<span class="ruby-string">&quot;exposure_time&quot;</span>],
+                                                        <span class="ruby-identifier">flash</span><span class="ruby-operator">:</span>                         <span class="ruby-identifier">meta</span>[<span class="ruby-string">&quot;flash&quot;</span>],
+                                                        <span class="ruby-identifier">focal_length</span><span class="ruby-operator">:</span>            <span class="ruby-identifier">meta</span>[<span class="ruby-string">&quot;focal_length&quot;</span>],
+                                                        <span class="ruby-identifier">f_number</span><span class="ruby-operator">:</span>                    <span class="ruby-identifier">meta</span>[<span class="ruby-string">&quot;f_number&quot;</span>],
+                                                        <span class="ruby-identifier">iso</span><span class="ruby-operator">:</span>                     <span class="ruby-identifier">meta</span>[<span class="ruby-string">&quot;iso&quot;</span>],
+                                                        <span class="ruby-identifier">light_value</span><span class="ruby-operator">:</span>             <span class="ruby-identifier">meta</span>[<span class="ruby-string">&quot;light_value&quot;</span>],
+                                                        <span class="ruby-identifier">metering_mode</span><span class="ruby-operator">:</span>                 <span class="ruby-identifier">meta</span>[<span class="ruby-string">&quot;metering_mode&quot;</span>],
+                                                        <span class="ruby-identifier">shutter_speed</span><span class="ruby-operator">:</span>                 <span class="ruby-identifier">meta</span>[<span class="ruby-string">&quot;shutter_speed&quot;</span>],
+                                                        <span class="ruby-identifier">white_balance</span><span class="ruby-operator">:</span>                 <span class="ruby-identifier">meta</span>[<span class="ruby-string">&quot;white_balance&quot;</span>],
+                                                        <span class="ruby-identifier">device_name</span><span class="ruby-operator">:</span>             <span class="ruby-identifier">meta</span>[<span class="ruby-string">&quot;device_name&quot;</span>],
+                                                        <span class="ruby-identifier">device_vendor</span><span class="ruby-operator">:</span>                 <span class="ruby-identifier">meta</span>[<span class="ruby-string">&quot;device_vendor&quot;</span>],
+                                                        <span class="ruby-identifier">device_software</span><span class="ruby-operator">:</span>         <span class="ruby-identifier">meta</span>[<span class="ruby-string">&quot;device_software&quot;</span>],
+                                                        <span class="ruby-identifier">latitude</span><span class="ruby-operator">:</span>                    <span class="ruby-identifier">meta</span>[<span class="ruby-string">&quot;latitude&quot;</span>],
+                                                        <span class="ruby-identifier">longitude</span><span class="ruby-operator">:</span>                 <span class="ruby-identifier">meta</span>[<span class="ruby-string">&quot;longitude&quot;</span>],
+                                                        <span class="ruby-identifier">orientation</span><span class="ruby-operator">:</span>             <span class="ruby-identifier">meta</span>[<span class="ruby-string">&quot;orientation&quot;</span>],
+                                                        <span class="ruby-identifier">has_clipping_path</span><span class="ruby-operator">:</span>         <span class="ruby-identifier">meta</span>[<span class="ruby-string">&quot;has_clipping_path&quot;</span>],
+                                                        <span class="ruby-identifier">creator</span><span class="ruby-operator">:</span>                     <span class="ruby-identifier">meta</span>[<span class="ruby-string">&quot;creator&quot;</span>],
+                                                        <span class="ruby-identifier">author</span><span class="ruby-operator">:</span>                        <span class="ruby-identifier">meta</span>[<span class="ruby-string">&quot;author&quot;</span>],
+                                                        <span class="ruby-identifier">copyright</span><span class="ruby-operator">:</span>                 <span class="ruby-identifier">meta</span>[<span class="ruby-string">&quot;copyright&quot;</span>],
+                                                        <span class="ruby-identifier">frame_count</span><span class="ruby-operator">:</span>             <span class="ruby-identifier">meta</span>[<span class="ruby-string">&quot;frame_count &quot;</span>],
+                                                        <span class="ruby-identifier">copyright_notice</span><span class="ruby-operator">:</span>            <span class="ruby-identifier">meta</span>[<span class="ruby-string">&quot;copyright_notice&quot;</span>]
+                                                      }
+      <span class="ruby-keyword">end</span>
+      
+      
+      
+      
+      <span class="ruby-comment"># thumbnail</span>
+      <span class="ruby-identifier">uploads</span>[<span class="ruby-value">:results</span>][<span class="ruby-value">:image_thumb</span>].<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">image_thumb</span><span class="ruby-operator">|</span>
+        <span class="ruby-identifier">extracted</span>[ <span class="ruby-identifier">image_thumb</span>[<span class="ruby-value">:original_id</span>]][<span class="ruby-value">:thumb</span>]  = <span class="ruby-identifier">image_thumb</span>[<span class="ruby-value">:ssl_url</span>].<span class="ruby-identifier">sub</span>(<span class="ruby-string">&#39;https://s3.amazonaws.com/digiramp&#39;</span>, <span class="ruby-string">&#39;https://s3-us-west-1.amazonaws.com/digiramp&#39;</span>)
+      <span class="ruby-keyword">end</span>
+      
+      
+      <span class="ruby-identifier">extracted</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span> <span class="ruby-identifier">k</span>, <span class="ruby-identifier">v</span><span class="ruby-operator">|</span>
+        <span class="ruby-identifier">transloadets</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">v</span>
+      <span class="ruby-keyword">end</span>
+      
+      
+      <span class="ruby-comment">#uploads[:results][:image_thumb].each_with_index do |image_thumb, index|</span>
+      <span class="ruby-comment">#  transloadets[index][:thumb] = image_thumb[:url]</span>
+      <span class="ruby-comment">#end</span>
+    <span class="ruby-keyword">else</span>
+      <span class="ruby-identifier">transloadets</span> = <span class="ruby-keyword">nil</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">rescue</span>
+    <span class="ruby-identifier">transloadets</span> = <span class="ruby-keyword">nil</span>
+  <span class="ruby-keyword">end</span>
+  
+
+  <span class="ruby-identifier">transloadets</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-c-get_image_url">
+            
+              <b>get_image_url</b>(uploads)
+            
+            <a href="../classes/TransloaditImageParser.html#method-c-get_image_url" name="method-c-get_image_url" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-c-get_image_url_source')" id="l_method-c-get_image_url_source">show</a>
+                
+              </p>
+              <div id="method-c-get_image_url_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File services/transloadit_image_parser.rb, line 238</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">self</span>.<span class="ruby-identifier">get_image_url</span> <span class="ruby-identifier">uploads</span>
+  
+  <span class="ruby-identifier">transloadets</span> = <span class="ruby-identifier">extract</span>( <span class="ruby-identifier">uploads</span> )
+
+  <span class="ruby-identifier">transloadets</span> <span class="ruby-operator">?</span> <span class="ruby-identifier">transloadets</span>[<span class="ruby-number">0</span>][<span class="ruby-value">:thumb</span>] <span class="ruby-operator">:</span> <span class="ruby-keyword">nil</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-c-new">
+            
+              <b>new</b>()
+            
+            <a href="../classes/TransloaditImageParser.html#method-c-new" name="method-c-new" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-c-new_source')" id="l_method-c-new_source">show</a>
+                
+              </p>
+              <div id="method-c-new_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File services/transloadit_image_parser.rb, line 3</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">initialize</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-c-parse_images">
+            
+              <b>parse_images</b>(uploads, account_id, recording_id)
+            
+            <a href="../classes/TransloaditImageParser.html#method-c-parse_images" name="method-c-parse_images" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              <p>depricate this use artwork instead</p>
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-c-parse_images_source')" id="l_method-c-parse_images_source">show</a>
+                
+              </p>
+              <div id="method-c-parse_images_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File services/transloadit_image_parser.rb, line 169</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">self</span>.<span class="ruby-identifier">parse_images</span> <span class="ruby-identifier">uploads</span>, <span class="ruby-identifier">account_id</span>, <span class="ruby-identifier">recording_id</span>
+  <span class="ruby-identifier">transloadets</span> = <span class="ruby-identifier">extract</span>( <span class="ruby-identifier">uploads</span> )
+  
+  <span class="ruby-identifier">transloadets</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">transloaded</span><span class="ruby-operator">|</span>
+
+    <span class="ruby-identifier">keywords</span> = <span class="ruby-string">&#39;&#39;</span>
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:keywords</span>]
+      <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:keywords</span>].<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">keyword</span><span class="ruby-operator">|</span>
+        <span class="ruby-identifier">keywords</span> <span class="ruby-operator">+=</span> <span class="ruby-string">&#39; &#39;</span>
+        <span class="ruby-identifier">keywords</span> <span class="ruby-operator">+=</span> <span class="ruby-identifier">keyword</span>
+        <span class="ruby-identifier">keywords</span> <span class="ruby-operator">+=</span> <span class="ruby-string">&#39;,&#39;</span>
+      <span class="ruby-keyword">end</span>
+    <span class="ruby-keyword">end</span>
+    
+    <span class="ruby-constant">ImageFile</span>.<span class="ruby-identifier">create!</span>(  <span class="ruby-identifier">account_id</span><span class="ruby-operator">:</span>              <span class="ruby-identifier">account_id</span>, 
+                        <span class="ruby-identifier">recording_id</span><span class="ruby-operator">:</span>            <span class="ruby-identifier">recording_id</span>, 
+                        <span class="ruby-identifier">file</span><span class="ruby-operator">:</span>                    <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:file</span>], 
+                        <span class="ruby-identifier">thumb</span><span class="ruby-operator">:</span>                   <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:thumb</span>], 
+                        <span class="ruby-identifier">title</span><span class="ruby-operator">:</span>                   <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:title</span>],
+                        <span class="ruby-identifier">basename</span><span class="ruby-operator">:</span>                <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:basename</span> ],
+                        <span class="ruby-identifier">ext</span><span class="ruby-operator">:</span>                     <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:ext</span>],
+                        <span class="ruby-identifier">image_size</span><span class="ruby-operator">:</span>              <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:image_size</span>],
+                        <span class="ruby-identifier">mime</span><span class="ruby-operator">:</span>                    <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:mime</span>],
+                        <span class="ruby-identifier">image_type</span><span class="ruby-operator">:</span>              <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:image_type</span>],
+                        <span class="ruby-identifier">md5hash</span><span class="ruby-operator">:</span>                 <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:md5hash</span>],
+                        <span class="ruby-identifier">width</span><span class="ruby-operator">:</span>                   <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:width</span>],
+                        <span class="ruby-identifier">height</span><span class="ruby-operator">:</span>                  <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:height</span>],
+                        <span class="ruby-identifier">date_recorded</span><span class="ruby-operator">:</span>                 <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:date_recorded</span>],
+                        <span class="ruby-identifier">date_file_created</span><span class="ruby-operator">:</span>         <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:date_file_created</span>],
+                        <span class="ruby-identifier">date_file_modified</span><span class="ruby-operator">:</span>      <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:date_file_modified</span>],
+                        <span class="ruby-identifier">description</span><span class="ruby-operator">:</span>             <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:description</span>],
+                        <span class="ruby-identifier">location</span><span class="ruby-operator">:</span>                    <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:location</span>],
+                        <span class="ruby-identifier">aspect_ratio</span><span class="ruby-operator">:</span>            <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:aspect_ratio</span>],
+                        <span class="ruby-identifier">city</span><span class="ruby-operator">:</span>                          <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:city</span>],
+                        <span class="ruby-identifier">state</span><span class="ruby-operator">:</span>                         <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:state</span>],
+                        <span class="ruby-identifier">country</span><span class="ruby-operator">:</span>                     <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:country</span>],
+                        <span class="ruby-identifier">country_code</span><span class="ruby-operator">:</span>            <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:country_code</span>],
+                        <span class="ruby-identifier">keywords</span><span class="ruby-operator">:</span>                    <span class="ruby-identifier">keywords</span>,
+                        <span class="ruby-identifier">aperture</span><span class="ruby-operator">:</span>                    <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:aperture</span>],
+                        <span class="ruby-identifier">exposure_compensation</span><span class="ruby-operator">:</span>         <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:exposure_compensation</span>],
+                        <span class="ruby-identifier">exposure_mode</span><span class="ruby-operator">:</span>                 <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:exposure_mode</span>],
+                        <span class="ruby-identifier">exposure_time</span><span class="ruby-operator">:</span>                 <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:exposure_time</span>],
+                        <span class="ruby-identifier">flash</span><span class="ruby-operator">:</span>                         <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:flash</span>],
+                        <span class="ruby-identifier">focal_length</span><span class="ruby-operator">:</span>            <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:focal_length</span>],
+                        <span class="ruby-identifier">f_number</span><span class="ruby-operator">:</span>                    <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:f_number</span>],
+                        <span class="ruby-identifier">iso</span><span class="ruby-operator">:</span>                     <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:iso</span>],
+                        <span class="ruby-identifier">light_value</span><span class="ruby-operator">:</span>             <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:light_value</span>],
+                        <span class="ruby-identifier">metering_mode</span><span class="ruby-operator">:</span>                 <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:metering_mode</span>],
+                        <span class="ruby-identifier">shutter_speed</span><span class="ruby-operator">:</span>                 <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:shutter_speed</span>],
+                        <span class="ruby-identifier">white_balance</span><span class="ruby-operator">:</span>                 <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:white_balance</span>],
+                        <span class="ruby-identifier">device_name</span><span class="ruby-operator">:</span>             <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:device_name</span>],
+                        <span class="ruby-identifier">device_vendor</span><span class="ruby-operator">:</span>                 <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:device_vendor</span>],
+                        <span class="ruby-identifier">device_software</span><span class="ruby-operator">:</span>         <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:device_software</span>],
+                        <span class="ruby-identifier">latitude</span><span class="ruby-operator">:</span>                    <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:latitude</span>],
+                        <span class="ruby-identifier">longitude</span><span class="ruby-operator">:</span>                 <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:longitude</span>],
+                        <span class="ruby-identifier">orientation</span><span class="ruby-operator">:</span>             <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:orientation</span>],
+                        <span class="ruby-identifier">has_clipping_path</span><span class="ruby-operator">:</span>         <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:has_clipping_path</span>],
+                        <span class="ruby-identifier">creator</span><span class="ruby-operator">:</span>                     <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:creator</span>],
+                        <span class="ruby-identifier">author</span><span class="ruby-operator">:</span>                        <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:author</span>],
+                        <span class="ruby-identifier">copyright</span><span class="ruby-operator">:</span>                 <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:copyright</span>],
+                        <span class="ruby-identifier">frame_count</span><span class="ruby-operator">:</span>             <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:frame_count</span>],
+                        <span class="ruby-identifier">copyright_notice</span><span class="ruby-operator">:</span>            <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:copyright_notice</span>]
+                        
+                      )
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+                        </div>
+
+    </div>
+  </body>
+</html>    

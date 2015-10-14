@@ -1,0 +1,391 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>sidebar.sass</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            sidebar.sass
+        </h1>
+        <ul class="files">
+            <li>assets/stylesheets/sidebar.sass</li>
+            <li>Last modified: 2015-10-06 16:36:45 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>@import compass/css3 @import “compass/css3/opacity” // Toggle Styles</p>
+
+<p>wrapper</p>
+
+<pre><code>padding-left: 0 
+-webkit-transition: all 0.5s ease 
+-moz-transition: all 0.5s ease 
+-o-transition: all 0.5s ease 
+transition: all 0.5s ease</code></pre>
+
+<p>wrapper.toggled</p>
+
+<pre><code>padding-left: 180px</code></pre>
+
+<p>sidebar-wrapper</p>
+
+<pre><code>//.sexy_line 
+//  background: -webkit-gradient(linear, 0 0, 100% 0, from(rgb(0,73,101)), color-stop(0.5, rgb(136, 136, 136)), to(rgb(0,73,101)))
+//
+h4, .h4 
+  color: #666
+  margin-bottom: 18px
+h5
+  margin-bottom: 10px
+  color: #D1D1D1
+//z-index: 1000 
+position: fixed 
+left: 180px 
+width: 0 
+height: 100% 
+margin-left: -180px 
+overflow-y: auto 
+padding: 34px 0px 30px 0px
++box-shadow(#BBB 1px 1px 1px)
+
+// background: #000  
+-webkit-transition: all 0.5s ease 
+-moz-transition: all 0.5s ease 
+-o-transition: all 0.5s ease 
+transition: all 0.5s ease 
+background-color: #EfEfEf
+color: #565656
+
+.fa
+  font-size: 18px
+  margin-left: -8px
+.tag 
+
+  .tag-title 
+    padding-left: 10px
+    display: inline-table
+    width: 120px
+    white-space: nowrap
+    overflow: hidden
+    text-overflow: ellipsis
+
+  .tag-count 
+    display: inline
+    width: 45px
+
+  .tag-selected
+    background-color: #8CA0B4
+    color: #FFF
+    @include box-shadow(rgba(#666, 0.2) 0 0 3px 1px inset)
+
+.tag:hover 
+  background-color: #8CA0B4  
+  color: #FFF
+
+.static-content
+  margin-left: 10px
+
+a
+  color: #666
+
+.fa-heart
+  color: #A70009
+
+.news
+  .label
+    border-radius: 10px
+  .label-danger
+    background-color: #A8423D
+  .fa-lightbulb-o
+    color: #F4913B
+
+.sidebar-nav  
+  //position: absolute 
+  top: 0 
+  width: 180px 
+  margin: 0 
+  padding-top: 34px 
+  list-style: none 
+
+  .fa-star
+    color: #FCAB22
+  .sexy_line
+    margin: 0px
+
+  .sidebar-user-profile
+    li
+      a
+        display: inline
+    a:hover
+      background-color: transparent
+    margin-top: 8px
+    .user-avatar
+      margin-left: -2px
+      //margin-top: 10px
+      margin-bottom: 8px
+      img 
+        width: 164px
+        height: auto
+      //display: inline-block
+      //float: left
+    .user-name
+      margin-top: 0px
+      overflow: hidden
+      text-overflow: ellipsis
+      h4
+        margin-top: 0px
+        margin-bottom: 6px
+      //top: 0px
+      //position: relative
+    .user-buttons
+      padding-left: 2px
+      margin-bottom: 8px  
+      text-indent: 4px !important 
+      //background-color: #DED
+      width: 100%
+      //height: 30px
+      .fa
+        font-size: 12px
+        margin-left: 2px
+
+      .fa-envelope
+        margin-left: -8px
+      .fa-times
+        color: #A40010
+        margin-left: -8px
+
+      line-height: 1.0
+
+      .old-connect-buttons
+        margin-top: 8px
+        a
+          display: inline
+  .invite-friends
+    a
+      color: #103993
+  .sidebar-selected 
+    //background: rgba(200,200,200,0.2) 
+    background-color: #65BDEE
+    @include box-shadow(rgba(#666, 0.2) 0 0 3px 1px inset)
+    a
+      color: #FFF !important
+      font-weight: 400
+
+    a:hover  
+      background-color: #5EACD7
+      @include box-shadow(rgba(#666, 0.2) 0 0 3px 1px inset)
+
+  li  
+    text-indent: 10px 
+    line-height: 32px 
+
+    a  
+      display: block 
+      text-decoration: none 
+      color: #666
+
+    a:hover  
+      text-decoration: none 
+      background-color: #5EACD7
+      color: #fff
+
+    a:active, a:focus  
+      text-decoration: none</code></pre>
+
+<p>.pro-account</p>
+
+<pre><code>#sidebar-wrapper 
+  h4
+    color: #AAA
+  background-color: #2B2B37
+  color: #666  
+  .sidebar-nav li a 
+    color: #666
+
+  .sidebar li a 
+    .user-avatar
+      margin-left: -2px
+      //margin-top: 10px
+      margin-bottom: 8px
+      img 
+        width: 164px
+        height: auto
+
+  .sidebar-selected 
+    //background: rgba(200,200,200,0.2) 
+    background-color: #32496A
+    a
+      color: #FFF !important
+      font-weight: 400
+
+    a:hover  
+      background-color: #32496A
+
+  li  
+    a:hover  
+      background-color: #32496A</code></pre>
+
+<p>.catalog</p>
+
+<pre><code>#sidebar-wrapper 
+  fa
+    margin-left: 0px
+  h4
+    color: #CFCFCF
+  background-color: #54565C
+  color: #C8C8C8 
+  .sidebar-nav li a 
+    color: #C8C8C8
+    .user-avatar
+      margin-left: -2px
+      //margin-top: 10px
+      margin-bottom: 8px
+      img 
+        width: 164px
+        height: auto
+
+  .sidebar-selected 
+    //background: rgba(200,200,200,0.2) 
+    background-color: #32496A
+    a
+      color: #DDD !important
+      font-weight: 400
+
+    a:hover  
+      background-color: #32496A
+
+  li  
+    a:hover  
+      background-color: #32496A</code></pre>
+
+<p>wrapper.toggled sidebar-wrapper</p>
+
+<pre><code>width: 180px 
+z-index: 100</code></pre>
+
+<p>page-content-wrapper</p>
+
+<pre><code>width: 100% 
+//padding: 15px 
+//padding: 60px 15px</code></pre>
+
+<p>wrapper.toggled page-content-wrapper</p>
+
+<pre><code>position: absolute 
+margin-right: -180px</code></pre>
+
+<p>@media(min-width:768px)</p>
+
+<pre><code>#wrapper  
+  padding-left: 180px 
+
+#wrapper.toggled  
+  padding-left: 0 
+
+#sidebar-wrapper  
+  width: 180px 
+
+#wrapper.toggled #sidebar-wrapper  
+  width: 0 
+
+//#page-content-wrapper  
+//  padding: 60px 0px 
+
+#wrapper.toggled #page-content-wrapper  
+  position: relative 
+  margin-right: 0</code></pre>
+
+<p>.sidebar-toggle</p>
+
+<pre><code>position: fixed
+top: 50px
+left: 0px</code></pre>
+
+<p>terms</p>
+
+<pre><code>bottom: 0px
+height: 40px
+position: fixed
+width: 100%
+z-index: 1002
+padding: 8px 8px 8px 16px
+background-color: #000
+@include opacity(0.5)
+a
+  color: #FFF
+  font-size: 12px
+//text-align: center</code></pre>
+
+<p>sidebar-wrapper .sidebar-nav</p>
+
+<pre><code>.basket
+  a 
+    color: #FFF !important
+    line-height: 48px
+    background-color: #30BBED
+    margin-bottom: 10px
+  a:hover
+    color: #FFF !important
+    background-color: #2BA9D6</code></pre>
+
+<p>//#sidebar-wrapper .sidebar-nav li a  //    display: block; //   
+text-decoration: none; //    color: #D3D3D3; //.basket //  margin-bottom:
+100px</p>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

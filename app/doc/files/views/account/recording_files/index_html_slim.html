@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>index.html.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            index.html.slim
+        </h1>
+        <ul class="files">
+            <li>views/account/recording_files/index.html.slim</li>
+            <li>Last modified: 2015-09-30 21:59:59 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>wrapper</p>
+
+<pre><code>.full-width-top
+  == render &#39;shared/navigationbar&#39;, page: &#39;account&#39; 
+
+.pro-account
+  #sidebar-wrapper
+    ul class=&quot;sidebar-nav&quot;
+      == render &#39;account/shared/sidebar&#39;, selected: &#39;recording&#39;
+
+#page-content-wrapper
+  .container-fluid
+    == render &#39;shared/breadcrumbs&#39;, breadcrumbs: { links: {recordings: account_account_recordings_path(@account),\
+                                                           @recording.title.to_sym =&gt; account_account_recording_path(@account, @recording) \
+                                                           },current:  &#39;&#39;}
+
+    .row
+      .col-sm-6
+        .help
+          .help-text
+            h2 Recording files
+          .help-button
+            == render &#39;admin/helps/help&#39;, identifier: &#39;recording files&#39;
+
+      .col-sm-6
+        .pull-right
+          = link_to new_account_account_recording_recording_file_path(@account, @recording) do
+            .btn.btn-default
+              i.fa.fa-cloud-upload
+              &#39;&amp;nbsp;Attach file
+
+    .pull-down-10
+    .row
+      .col-sm-12
+        #digiWhams  class=&quot;/recordings/#{@recording.id.to_s}&quot;
+
+          == render &#39;account/recordings/account_recording&#39;, recording: @recording,
+                                                       info: true,
+                                                       add_to_playlist: true, 
+                                                       remove_from_playlist: false, 
+                                                       edit: true, 
+                                                       delete: false,
+                                                       description: false,
+                                                       share: true,
+                                                       target: &quot;&quot;,
+                                                       music_request_link: false,
+                                                       remove_from_request: false
+
+    == render &#39;account/recordings/shared/document_navigation&#39;, selected: &#39;files&#39;
+
+    .row.pull-down-10
+      .col-sm-12
+        .table-responsive
+          table class=&quot;table table-hover&quot;
+            thead
+              tr
+                th Name
+                th Size
+                th Download
+                th 
+
+            tbody
+              - @files.each do |file|
+                tr
+                  td = File.basename(file.file_url)
+                  td
+                    =  number_to_human_size(file.file_size.to_i) 
+                  td 
+                    = link_to  file.file_url do
+                      .btn.btn-default.btn-xs
+                        i.fa.fa-cloud-download
+                        &#39;&amp;nbsp;Right clink and select save
+                  td 
+                    .pull-right
+                      = link_to account_account_attachment_path(@account, file, return_url: request.url), data: { confirm: &#39;Are you sure?&#39; }, turboboost: true , :method =&gt; :delete do
+                        .btn.btn-danger.btn-xs
+                          i.fa.fa-times
+
+== render &#39;shared/site_footer&#39;</code></pre>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

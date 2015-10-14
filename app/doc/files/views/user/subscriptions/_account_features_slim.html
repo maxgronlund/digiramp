@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>_account_features.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            _account_features.slim
+        </h1>
+        <ul class="files">
+            <li>views/user/subscriptions/_account_features.slim</li>
+            <li>Last modified: 2015-07-05 15:22:06 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>.sexy_line .row</p>
+
+<pre><code>.col-sm-6
+  &#39;Price /month:
+  .pull-right
+    - if plan = account_feature.plan
+      = number_to_currency(plan.amount * 0.01)
+    -else
+      &#39;Free
+  .sexy_line
+
+  &#39;Max recordings:
+  .pull-right
+    = account_feature.max_recordings
+  .sexy_line
+
+  &#39;Catalogs:
+  .pull-right
+    - if account_feature.enable_catalogs
+      i.fa.fa-check
+    - else
+      i.fa.fa-minus
+  .sexy_line
+
+  &#39;Max catalogs:
+  .pull-right
+    - if account_feature.max_catalogs &gt; 0
+      = account_feature.max_catalogs
+    - else
+      i.fa.fa-minus
+  .sexy_line
+
+  /&#39;Catalogs users:
+  /.pull-right
+  /  - if account_feature.max_catalog_users &gt; 0
+  /    = account_feature.max_catalog_users
+  /  - else
+  /    i.fa.fa-minus
+  /.sexy_line
+
+  &#39;Manage opportunities:
+  .pull-right
+    - if account_feature.manage_opportunities
+      i.fa.fa-check
+    - else
+      i.fa.fa-minus
+  .sexy_line
+
+.col-sm-6
+
+  &#39;Multiply recordings on works:
+  .pull-right
+    - if account_feature.multiply_recordings_on_works
+      i.fa.fa-check
+    - else
+      i.fa.fa-minus
+  .sexy_line
+
+  &#39;Export works as csv:
+  .pull-right
+    - if account_feature.export_works_as_csv
+      i.fa.fa-check
+    - else
+      i.fa.fa-minus
+  .sexy_line
+
+  &#39;Import works as csv:
+  .pull-right
+    - if account_feature.import_works_as_csv
+      i.fa.fa-check
+    - else
+      i.fa.fa-minus
+  .sexy_line
+
+  &#39;Import works from ASCAP/BMI:
+  .pull-right
+    - if account_feature.import_from_pros
+      i.fa.fa-check
+    - else
+      i.fa.fa-minus
+  .sexy_line
+
+  /&#39;Max account users:
+  /.pull-right
+  /  = account_feature.max_account_users 
+  /.sexy_line
+
+  &#39;Max account IPI&#39;s:
+  .pull-right
+    = account_feature.max_ipi_codes 
+  .sexy_line</code></pre>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

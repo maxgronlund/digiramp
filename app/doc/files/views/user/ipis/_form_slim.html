@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>_form.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            _form.slim
+        </h1>
+        <ul class="files">
+            <li>views/user/ipis/_form.slim</li>
+            <li>Last modified: 2015-09-13 17:21:04 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>.digi-box</p>
+
+<pre><code>= simple_form_for [:user, @user, @common_work, @ipi] do |f|
+  = f.hidden_field :common_work_id, value: @common_work.id
+  = f.error_notification
+
+  .input-group
+    .row
+      .col-sm-6
+        = f.input :email
+        = f.input :share, label: &#39;split&#39;
+      .col-sm-6
+        b Roles
+        br
+        = f.input :music,    :as =&gt; :boolean,  :input_html =&gt; { class: &#39;icheck-me&#39;, &#39;data-skin&#39;.to_sym =&gt; &quot;square&quot;, &#39;data-color&#39;.to_sym =&gt; &quot;blue&quot;     }   , label: &#39;Music&#39;
+        = f.input :lyric,      :as =&gt; :boolean,  :input_html =&gt; { class: &#39;icheck-me&#39;, &#39;data-skin&#39;.to_sym =&gt; &quot;square&quot;, &#39;data-color&#39;.to_sym =&gt; &quot;blue&quot;     }  , label: &#39;Lyric&#39;
+        = f.input :melody,       :as =&gt; :boolean,  :input_html =&gt; { class: &#39;icheck-me&#39;, &#39;data-skin&#39;.to_sym =&gt; &quot;square&quot;, &#39;data-color&#39;.to_sym =&gt; &quot;blue&quot;     }   , label: &#39;Melody&#39;
+        = f.input :arrangement, :as =&gt; :boolean,  :input_html =&gt; { class: &#39;icheck-me&#39;, &#39;data-skin&#39;.to_sym =&gt; &quot;square&quot;, &#39;data-color&#39;.to_sym =&gt; &quot;blue&quot;     }   , label: &#39;Arrangement&#39;
+        = f.input :show_credit_on_recordings, :as =&gt; :boolean,  :input_html =&gt; { class: &#39;icheck-me&#39;, &#39;data-skin&#39;.to_sym =&gt; &quot;square&quot;, &#39;data-color&#39;.to_sym =&gt; &quot;blue&quot;     }   , label: &#39;Show on recordings&#39;
+
+        .row
+          .col-sm-12.pull-down-10
+            .pull-right
+              = f.submit &#39;Save&#39;, class: &#39;btn btn-default&#39;
+              /= f.submit &#39;Save and get confirmation&#39;, class: &#39;btn btn-default&#39;</code></pre>
+<ul><li>
+<p>if @common_work.ipis .digi-box</p>
+
+<pre><code>h4 All Ip&#39;s
+.table-responsive
+  table class=&quot;table table-hover&quot;
+    thead
+      tr
+        th Legal name/ Email
+        th Capacity
+        th Split
+
+    tbody
+      - @common_work.ipis.each do |ipi|
+        tr
+          td
+            = ipi.get_full_name
+            br = ipi.email
+          td
+            /&#39;&amp;nbsp;
+            - if ipi.music
+              &#39;Music
+              br
+            - if ipi.lyric
+              &#39;Lyric
+              br
+            - if ipi.melody
+              &#39;Melody
+              br
+            - if ipi.arrangement
+              &#39;Arrangement
+
+          td = number_to_percentage(ipi.share, precision: 0)</code></pre>
+</li></ul>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

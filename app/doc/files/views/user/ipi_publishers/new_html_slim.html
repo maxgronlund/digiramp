@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>new.html.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            new.html.slim
+        </h1>
+        <ul class="files">
+            <li>views/user/ipi_publishers/new.html.slim</li>
+            <li>Last modified: 2015-10-03 15:59:05 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>wrapper</p>
+
+<pre><code>.full-width-top
+  == render &#39;shared/navigationbar&#39;, page: &#39;dashboard&#39; 
+
+#sidebar-wrapper
+  ul class=&quot;sidebar-nav&quot;
+    == render &#39;users/shared/sidebar&#39;, selected: &#39;dashboard&#39;
+
+#page-content-wrapper
+  .container-fluid
+    == render &#39;shared/breadcrumbs&#39;, breadcrumbs: { links: { legal: user_user_legal_index_path(@user),
+                                                            publishers:  user_user_publishers_path(@user),
+                                                            publisher:  user_user_publisher_path(@user, @publisher)}}
+    == render &#39;shared/flash_message&#39;
+    .row
+      .col-sm-9
+        .help
+          .help-text
+            h2 
+              b New creator to publish by&amp;nbsp;
+              = @publisher.legal_name
+
+          .help-button
+            == render &#39;admin/helps/help&#39;, identifier: &#39;new user publisher publisher_ipi&#39;
+      .col-sm-3
+        .pull-right.pull-down-10
+          = link_to  user_user_publisher_path(@user, @publisher) do
+              .btn.btn-default
+                i.fa.fa-chevron-left
+                &#39;&amp;nbsp;Back
+
+    .pull-down-10
+    .row
+      .col-sm-6
+        .digi-box
+          = simple_form_for [:user, @user, @publisher, @ipi_publisher], turboboost: true do |f|
+            = f.hidden_field :publisher_id, value: @publisher.id
+
+            b 
+              &#39;*Email
+            == render &#39;shared/popover&#39;, identifier: &#39;This email is used to link a creator to this publisher, the creator should receive an email asking for confirmation&#39;
+            .pull-down-6
+            = f.input :email, label: false
+
+            b
+              &#39;* Revenue stream
+            == render &#39;shared/popover&#39;, identifier: &#39;The revenue stream defines your share as a publisher, you can add as many streams as you want&#39;
+            .chosen-label
+              = f.input :publishing_agreement_id, 
+                        collection: @publishing_agreements,
+                        include_blank: false,
+                        label: false,
+                        multiple: false,
+                        input_html: { class: &#39;chosen-select&#39;, &#39;data-placeholder&#39;.to_sym =&gt; &quot;Select recording...&quot; }
+
+            .row
+              .col-sm-12
+                .pull-right
+                  = f.submit &#39;Send confirmation request&#39;, class: &#39;btn btn-info&#39;</code></pre>
+
+<p>/ this view is rendered when the user and current_user and ipi is valid /=
+debug @user_credits /#wrapper /  .full-width-top /    == render
+&#39;shared/navigationbar&#39;, page: &#39;settings&#39;  /</p>
+
+<p>/</p>
+
+<p>/  sidebar-wrapper /    ul class=“sidebar-nav” /      == render
+&#39;users/shared/sidebar&#39;, selected: &#39;settings&#39; /</p>
+
+<p>/  page-content-wrapper /    .container-fluid /      == render
+&#39;shared/breadcrumbs&#39;, breadcrumbs: { links: {
+&#39;Dashboard&#39;.to_sym =&gt; user_user_control_panel_index_path(@user),
+/                                                             
+&#39;ipis&#39;.to_sym =&gt; user_user_ipis_path(@user) }, current:
+&#39;&#39;} /      .row /        .col-sm-6 /          .help /           
+.help-text /              h2 Publishing agreements /              b =
+@common_work.title /            .help-button /              == render
+&#39;admin/helps/help&#39;, identifier: &#39;select publishing agreement
+for a work&#39; /        .col-sm-6 /          .pull-right.pull-down-10 /   
+= link_to user_user_common_work_ipi_path(@user, @common_work, @ipi ) do /  
+.btn.btn-default /                i.fa.fa-chevron-left /               
+&#39;&amp;nbsp;Back /            /= link_to &#39;Add publisher&#39;,
+new_user_user_common_work_ipi_ipi_publisher_path(@user, @common_work,
+@ipi), class: &#39;btn btn-default&#39; /      .sexy_line / /      -
+@documents.each do |document| /        .digi-box /          .row /         
+.col-sm-6 /</p>
+
+<p>/</p>
+
+<p>/              h4 = document.title /              = document.body /        
+.col-sm-6 /              .row /                .col-sm-12 /                
+.pull-right /                    - if
+@ipi.publishing_agreement(document.uuid) /                     
+.btn.btn-default disabled=&#39;disabled&#39; /                       
+&#39;Applied /                    - else /                      = link_to
+&#39;Apply&#39;, new_user_user_common_work_ipi_ipi_publisher_path( @user, 
+/                                                                          
+@common_work,  /                                                           
+@ipi,  /                                                                   
+document_id: document.uuid ),  /                                           
+data: { confirm: “Are you sure? You will not be able to remove the
+publishing agreement without permission from the publisher” }, /           
+class: &#39;btn btn-default&#39; /</p>
+
+<p>/ /              .row /                .col-sm-12</p>
+
+<p>/                  table /                    tr /                      td
+/                        .pull-right /                         
+&#39;Publisher:&amp;nbsp; /                      th /                      
+- if publisher_agreement = PublishingAgreement.find_by(document_id:
+document.uuid) /                          - if publisher =
+publisher_agreement.publisher /                            =
+publisher.legal_name /                    tr /                      td  /  
+.pull-right /                          &#39;UUID:&amp;nbsp; /              
+th  = document.uuid /                    tr /                      td  /   
+.pull-right /                          &#39;Status:&amp;nbsp; /            
+th  = document.status.capitalize /                    /tr /                
+/  th  /                    /    .pull-right /                    /     
+&#39;Type:&amp;nbsp; /                    /  td  = document.document_type /</p>
+
+<p>/</p>
+
+<p>/          .sexy_line /          .table-responsive /            table
+class=“table table-hover” /              thead /                tr /       
+th Parties /                  th <a
+href="../../../../classes/Email.html">Email</a> /                  th Role
+/                  th Can edit /                  th Should sign /         
+th Status /              tbody /                -
+document.document_users.each do |document_user| /                  tr /    
+td  /                      /=&gt; link_to &#39;#&#39; do /                 
+/  .btn.btn-danger.btn-xs /                      /    i.fa.fa-times /      
+/= link_to &#39;Edit&#39;,
+edit_user_user_publisher_publishing_agreement_publishing_agreement_user_path(@user,
+/                      /                            @publisher,  /         
+/                            @publishing_agreement,  /                     
+/                            document_user), class: &#39;btn btn-default
+btn-xs&#39; /                      / /                      - if user =
+document_user.user</p>
+
+<p>/                        =&lt; user.user_name /</p>
+
+<p>/                    td  = document_user.email /                    td  =
+document_user.role /                    td  = document_user.can_edit /     
+td  = document_user.should_sign /                    td  =
+document_user.status?</p>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

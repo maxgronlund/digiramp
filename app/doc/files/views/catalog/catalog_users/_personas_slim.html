@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>_personas.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            _personas.slim
+        </h1>
+        <ul class="files">
+            <li>views/catalog/catalog_users/_personas.slim</li>
+            <li>Last modified: 2015-08-18 19:23:03 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>.account_users</p>
+
+<pre><code>.row
+  .col-sm-12
+    #accordion
+      -@catalog.catalog_users.order(&quot;email asc&quot;).each do |catalog_user|
+        - if current_catalog_user.read_user
+          .panel.panel-default
+            .panel-heading
+              .panel-title
+                a data-toggle=&quot;collapse&quot; data-parent=&quot;#accordion&quot; href=&quot;#collapse_#{catalog_user.id.to_s}&quot;
+                  = catalog_user.user.email
+                  .pull-right
+                    //- if catalog_user.user.role == &#39;Super&#39;
+                    //  &#39;SUPER USER&amp;nbsp;/
+                    = catalog_user.role
+
+            div id=&quot;collapse_#{catalog_user.id.to_s}&quot; class=&quot;panel-collapse collapse&quot;  
+              .panel-body
+                .table-responsive.table-permissions
+                  table class=&quot;table table-hover&quot;
+
+                    tbody
+                      tr 
+                        td Recordings &amp;nbsp; &amp;nbsp; &amp;nbsp;
+                        td = catalog_user.create_recording ? &#39;Create&#39;: &#39;&#39;
+                        td = catalog_user.read_recording ? &#39;Read&#39;: &#39;&#39;
+                        td = catalog_user.update_recording ? &#39;Update&#39;: &#39;&#39;
+                        td = catalog_user.delete_recording ? &#39;Delete&#39;: &#39;&#39;
+                      tr 
+                        td Download &amp;nbsp; &amp;nbsp; &amp;nbsp;
+                        td = catalog_user.download_recording ? &#39;Download&#39;: &#39;&#39;
+                        td
+                        td
+                        td
+
+                      tr 
+
+                        td Recordings IPI&#39;s &amp;nbsp; &amp;nbsp; &amp;nbsp;
+                        td = catalog_user.create_recording_ipi ? &#39;Create&#39;: &#39;&#39;
+                        td = catalog_user.read_recording_ipi ? &#39;Read&#39;: &#39;&#39;
+                        td = catalog_user.update_recording_ipi ? &#39;Update&#39;: &#39;&#39;
+                        td = catalog_user.delete_recording_ipi ? &#39;Delete&#39;: &#39;&#39;
+
+                      tr 
+                        td Files &amp;nbsp; &amp;nbsp; &amp;nbsp;
+                        td = catalog_user.create_file ? &#39;Create&#39;: &#39;&#39;
+                        td = catalog_user.read_file ? &#39;Read&#39;: &#39;&#39;
+                        td = catalog_user.update_file ? &#39;Update&#39;: &#39;&#39;
+                        td = catalog_user.delete_file ? &#39;Delete&#39;: &#39;&#39;
+
+                      tr 
+                        td Artwork &amp;nbsp; &amp;nbsp; &amp;nbsp;
+                        td = catalog_user.create_artwork ? &#39;Create&#39;: &#39;&#39;
+                        td =   catalog_user.read_artwork ? &#39;Read&#39;: &#39;&#39;
+                        td = catalog_user.update_artwork ? &#39;Update&#39;: &#39;&#39;
+                        td = catalog_user.delete_artwork ? &#39;Delete&#39;: &#39;&#39;
+
+                      tr 
+                        td Legal Documents &amp;nbsp; &amp;nbsp; &amp;nbsp;
+                        td = catalog_user.create_legal_document ? &#39;Create&#39;: &#39;&#39;
+                        td = catalog_user.read_legal_document ? &#39;Read&#39;: &#39;&#39;
+                        td = catalog_user.update_legal_document ? &#39;Update&#39;: &#39;&#39;
+                        td = catalog_user.delete_legal_document ? &#39;Delete&#39;: &#39;&#39;
+
+                      tr 
+                        td Financial Documents &amp;nbsp; &amp;nbsp; &amp;nbsp;
+                        td = catalog_user.create_financial_document ? &#39;Create&#39;: &#39;&#39;
+                        td   = catalog_user.read_financial_document ? &#39;Read&#39;: &#39;&#39;
+                        td = catalog_user.update_financial_document ? &#39;Update&#39;: &#39;&#39;
+                        td = catalog_user.delete_financial_document ? &#39;Delete&#39;: &#39;&#39;
+
+                      tr 
+                        td Common Works &amp;nbsp; &amp;nbsp; &amp;nbsp;
+                        td = catalog_user.create_common_work ? &#39;Create&#39;: &#39;&#39;
+                        td   = catalog_user.read_common_work ? &#39;Read&#39;: &#39;&#39;
+                        td = catalog_user.update_common_work ? &#39;Update&#39;: &#39;&#39;
+                        td = catalog_user.delete_common_work ? &#39;Delete&#39;: &#39;&#39;
+
+                      tr 
+                        td Common Work IPI&#39;s &amp;nbsp; &amp;nbsp; &amp;nbsp;
+                        td = catalog_user.create_common_work_ipi ? &#39;Create&#39;: &#39;&#39;
+                        td   = catalog_user.read_common_work_ipi ? &#39;Read&#39;: &#39;&#39;
+                        td = catalog_user.update_common_work_ipi ? &#39;Update&#39;: &#39;&#39;
+                        td = catalog_user.delete_common_work_ipi ? &#39;Delete&#39;: &#39;&#39;
+
+                      tr 
+                        td Users &amp;nbsp; &amp;nbsp; &amp;nbsp;
+                        td = catalog_user.createx_user ? &#39;Create&#39;: &#39;&#39;
+                        td   = catalog_user.read_user ? &#39;Read&#39;: &#39;&#39;
+                        td = catalog_user.update_user ? &#39;Update&#39;: &#39;&#39;
+                        td = catalog_user.delete_user ? &#39;Delete&#39;: &#39;&#39;
+
+                      tr 
+                        td Playlists &amp;nbsp; &amp;nbsp; &amp;nbsp;
+                        td = catalog_user.create_playlist ? &#39;Create&#39;: &#39;&#39;
+                        td   = catalog_user.read_playlist ? &#39;Read&#39;: &#39;&#39;
+                        td = catalog_user.update_playlist ? &#39;Update&#39;: &#39;&#39;
+                        td = catalog_user.delete_playlist ? &#39;Delete&#39;: &#39;&#39;
+
+                      tr 
+                        td Comments &amp;nbsp; &amp;nbsp; &amp;nbsp;
+                        td = catalog_user.create_comment ? &#39;Create&#39;: &#39;&#39;
+                        td   = catalog_user.read_comment ? &#39;Read&#39;: &#39;&#39;
+                        td = catalog_user.update_comment ? &#39;Update&#39;: &#39;&#39;
+                        td = catalog_user.delete_comment ? &#39;Delete&#39;: &#39;&#39;
+
+                .pull-right
+                  = link_to edit_catalog_account_catalog_catalog_user_path(@account, @catalog, catalog_user) do
+                    - if current_catalog_user.can_update_catalog_user( catalog_user )
+                      .btn.btn-default.btn-xs
+                        i class=&quot;fa fa-pencil&quot;
+                        &#39;&amp;nbsp;Edit permissions
+                    -else
+                      .btn.btn-default.btn-xs disabled=&quot;disabled&quot;
+                        i class=&quot;fa fa-pencil&quot;
+                        &#39;&amp;nbsp;Edit permissions
+                  &#39;&amp;nbsp;
+
+                  = link_to  catalog_account_catalog_catalog_user_path(@account, @catalog, catalog_user),\
+                            data: { confirm: &#39;Are you sure?&#39; } ,turboboost: true, :method =&gt; :delete do
+                    - if current_catalog_user.can_delete_catalog_user( catalog_user ) &amp;&amp; catalog_user.role != &#39;Account User&#39;
+                      .btn.btn-danger.btn-xs
+                        i class=&quot;fa fa-times&quot;
+                        &#39;&amp;nbsp;Remove
+                    -else
+                      .btn.btn-danger.btn-xs disabled=&quot;disabled&quot;
+                        i class=&quot;fa fa-times&quot;
+                        &#39;&amp;nbsp;Remove
+
+                  br
+                  br</code></pre>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

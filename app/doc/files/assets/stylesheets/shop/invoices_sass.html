@@ -1,0 +1,6095 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>invoices.sass</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            invoices.sass
+        </h1>
+        <ul class="files">
+            <li>assets/stylesheets/shop/invoices.sass</li>
+            <li>Last modified: 2015-09-24 18:52:03 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>/*!</p>
+
+<pre><code>* Bootstrap v3.0.3 (http://getbootstrap.com)
+* Copyright 2013 Twitter, Inc.
+* Licensed under http://www.apache.org/licenses/LICENSE-2.0</code></pre>
+
+<p>/*! normalize.css v2.1.3 | MIT License | git.io/normalize</p>
+
+<p>article, aside, details, figcaption, figure, footer, header, hgroup, main,
+nav, section, summary</p>
+
+<pre><code>display: block</code></pre>
+
+<p>audio, canvas, video</p>
+
+<pre><code>display: inline-block</code></pre>
+
+<p><a href="controls">audio:not(</a>)</p>
+
+<pre><code>display: none
+height: 0</code></pre>
+
+<p>[hidden], template</p>
+
+<pre><code>display: none</code></pre>
+
+<p>html</p>
+
+<pre><code>font-family: sans-serif
+-webkit-text-size-adjust: 100%
+-ms-text-size-adjust: 100%</code></pre>
+
+<p>body</p>
+
+<pre><code>margin: 0</code></pre>
+
+<p>a</p>
+
+<pre><code>background: transparent
+&amp;:focus
+  outline: thin dotted
+&amp;:active, &amp;:hover
+  outline: 0</code></pre>
+
+<p>h1</p>
+
+<pre><code>margin: 0.67em 0
+font-size: 2em</code></pre>
+
+<p><a href="title">abbr</a></p>
+
+<pre><code>border-bottom: 1px dotted</code></pre>
+
+<p>b, strong</p>
+
+<pre><code>font-weight: bold</code></pre>
+
+<p>dfn</p>
+
+<pre><code>font-style: italic</code></pre>
+
+<p>hr</p>
+
+<pre><code>height: 0
+-moz-box-sizing: content-box
+box-sizing: content-box</code></pre>
+
+<p>mark</p>
+
+<pre><code>color: #000
+background: #ff0</code></pre>
+
+<p>code, kbd, pre, samp</p>
+
+<pre><code>font-family: monospace, serif
+font-size: 1em</code></pre>
+
+<p>pre</p>
+
+<pre><code>white-space: pre-wrap</code></pre>
+
+<p>q</p>
+
+<pre><code>quotes: &quot;\201C&quot; &quot;\201D&quot; &quot;\2018&quot; &quot;\2019&quot;</code></pre>
+
+<p>small</p>
+
+<pre><code>font-size: 80%</code></pre>
+
+<p>sub</p>
+
+<pre><code>position: relative
+font-size: 75%
+line-height: 0
+vertical-align: baseline</code></pre>
+
+<p>sup</p>
+
+<pre><code>position: relative
+font-size: 75%
+line-height: 0
+vertical-align: baseline
+top: -0.5em</code></pre>
+
+<p>sub</p>
+
+<pre><code>bottom: -0.25em</code></pre>
+
+<p>img</p>
+
+<pre><code>border: 0</code></pre>
+
+<p>svg:not(:root)</p>
+
+<pre><code>overflow: hidden</code></pre>
+
+<p>figure</p>
+
+<pre><code>margin: 0</code></pre>
+
+<p>fieldset</p>
+
+<pre><code>padding: 0.35em 0.625em 0.75em
+margin: 0 2px
+border: 1px solid #c0c0c0</code></pre>
+
+<p>legend</p>
+
+<pre><code>padding: 0
+border: 0</code></pre>
+
+<p>button, input, select, textarea</p>
+
+<pre><code>margin: 0
+font-family: inherit
+font-size: 100%</code></pre>
+
+<p>button, input</p>
+
+<pre><code>line-height: normal</code></pre>
+
+<p>button, select</p>
+
+<pre><code>text-transform: none</code></pre>
+
+<p>button, html <a href="type="button"">input</a></p>
+
+<pre><code>cursor: pointer
+-webkit-appearance: button</code></pre>
+
+<p>input</p>
+
+<pre><code>&amp;[type=&quot;reset&quot;], &amp;[type=&quot;submit&quot;]
+  cursor: pointer
+  -webkit-appearance: button</code></pre>
+
+<p><a href="disabled">button</a>, html <a href="disabled">input</a></p>
+
+<pre><code>cursor: default</code></pre>
+
+<p>input</p>
+
+<pre><code>&amp;[type=&quot;checkbox&quot;], &amp;[type=&quot;radio&quot;]
+  padding: 0
+  box-sizing: border-box
+&amp;[type=&quot;search&quot;]
+  -webkit-box-sizing: content-box
+  -moz-box-sizing: content-box
+  box-sizing: content-box
+  -webkit-appearance: textfield
+  &amp;::-webkit-search-cancel-button, &amp;::-webkit-search-decoration
+    -webkit-appearance: none</code></pre>
+
+<p>button::-moz-focus-inner, input::-moz-focus-inner</p>
+
+<pre><code>padding: 0
+border: 0</code></pre>
+
+<p>textarea</p>
+
+<pre><code>overflow: auto
+vertical-align: top</code></pre>
+
+<p>table</p>
+
+<pre><code>border-collapse: collapse
+border-spacing: 0</code></pre>
+
+<p>/*@media print {</p>
+
+<pre><code>*  * {
+*    color: #000 !important;
+*    text-shadow: none !important;
+*    background: transparent !important;
+*    box-shadow: none !important;
+*  }
+*  a,
+*  a:visited {
+*    text-decoration: underline;
+*  }
+*  a[href]:after {
+*    content: &quot; (&quot; attr(href) &quot;)&quot;;
+*  }
+*  abbr[title]:after {
+*    content: &quot; (&quot; attr(title) &quot;)&quot;;
+*  }
+*  a[href^=&quot;javascript:&quot;]:after,
+*  a[href^=&quot;#&quot;]:after {
+*    content: &quot;&quot;;
+*  }
+*  pre,
+*  blockquote {
+*    border: 1px solid #999;
+*    page-break-inside: avoid;
+*  }
+*  thead {
+*    display: table-header-group;
+*  }
+*  tr,
+*  img {
+*    page-break-inside: avoid;
+*  }
+*  img {
+*    max-width: 100% !important;
+*  }
+*  @page  {
+*    margin: 2cm .5cm;
+*  }
+*  p,
+*  h2,
+*  h3 {
+*    orphans: 3;
+*    widows: 3;
+*  }
+*  h2,
+*  h3 {
+*    page-break-after: avoid;
+*  }
+*  select {
+*    background: #fff !important;
+*  }
+*  .navbar {
+*    display: none;
+*  }
+*  .table td,
+*  .table th {
+*    background-color: #fff !important;
+*  }
+*  .btn &gt; .caret,
+*  .dropup &gt; .btn &gt; .caret {
+*    border-top-color: #000 !important;
+*  }
+*  .label {
+*    border: 1px solid #000;
+*  }
+*  .table {
+*    border-collapse: collapse !important;
+*  }
+*  .table-bordered th,
+*  .table-bordered td {
+*    border: 1px solid #ddd !important;
+*  }
+*}</code></pre>
+
+<p>*</p>
+
+<pre><code>-webkit-box-sizing: border-box
+-moz-box-sizing: border-box
+box-sizing: border-box
+&amp;:before, &amp;:after
+  -webkit-box-sizing: border-box
+  -moz-box-sizing: border-box
+  box-sizing: border-box</code></pre>
+
+<p>html</p>
+
+<pre><code>font-size: 62.5%
+-webkit-tap-highlight-color: rgba(0, 0, 0, 0)</code></pre>
+
+<p>body</p>
+
+<pre><code>font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif
+font-size: 14px
+line-height: 1.428571429
+color: #333333
+background-color: #ffffff</code></pre>
+
+<p>input, button, select, textarea</p>
+
+<pre><code>font-family: inherit
+font-size: inherit
+line-height: inherit</code></pre>
+
+<p>a</p>
+
+<pre><code>color: #428bca
+text-decoration: none
+&amp;:hover
+  color: #2a6496
+  text-decoration: underline
+&amp;:focus
+  color: #2a6496
+  text-decoration: underline
+  outline: thin dotted
+  outline: 5px auto -webkit-focus-ring-color
+  outline-offset: -2px</code></pre>
+
+<p>img</p>
+
+<pre><code>vertical-align: middle</code></pre>
+
+<p>.img-responsive</p>
+
+<pre><code>display: block
+height: auto
+max-width: 100%</code></pre>
+
+<p>.img-rounded</p>
+
+<pre><code>border-radius: 6px</code></pre>
+
+<p>.img-thumbnail</p>
+
+<pre><code>display: inline-block
+height: auto
+max-width: 100%
+padding: 4px
+line-height: 1.428571429
+background-color: #ffffff
+border: 1px solid #dddddd
+border-radius: 4px
+-webkit-transition: all 0.2s ease-in-out
+transition: all 0.2s ease-in-out</code></pre>
+
+<p>.img-circle</p>
+
+<pre><code>border-radius: 50%</code></pre>
+
+<p>hr</p>
+
+<pre><code>margin-top: 20px
+margin-bottom: 20px
+border: 0
+border-top: 1px solid #eeeeee</code></pre>
+
+<p>.sr-only</p>
+
+<pre><code>position: absolute
+width: 1px
+height: 1px
+padding: 0
+margin: -1px
+overflow: hidden
+clip: rect(0, 0, 0, 0)
+border: 0</code></pre>
+
+<p>h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6</p>
+
+<pre><code>font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif
+font-weight: 300
+line-height: 1.1
+color: inherit</code></pre>
+
+<p>h1 small, h2 small, h3 small, h4 small, h5 small, h6 small, .h1 small, .h2
+small, .h3 small, .h4 small, .h5 small, .h6 small, h1 .small, h2 .small, h3
+.small, h4 .small, h5 .small, h6 .small, .h1 .small, .h2 .small, .h3
+.small, .h4 .small, .h5 .small, .h6 .small</p>
+
+<pre><code>font-weight: normal
+line-height: 1
+color: #999999</code></pre>
+
+<p>h1, h2, h3</p>
+
+<pre><code>margin-top: 20px
+margin-bottom: 10px</code></pre>
+
+<p>h1 small, h2 small, h3 small, h1 .small, h2 .small, h3 .small</p>
+
+<pre><code>font-size: 65%</code></pre>
+
+<p>h4, h5, h6</p>
+
+<pre><code>margin-top: 10px
+margin-bottom: 10px</code></pre>
+
+<p>h4 small, h5 small, h6 small, h4 .small, h5 .small, h6 .small</p>
+
+<pre><code>font-size: 75%</code></pre>
+
+<p>h1, .h1</p>
+
+<pre><code>font-size: 36px</code></pre>
+
+<p>h2, .h2</p>
+
+<pre><code>font-size: 30px</code></pre>
+
+<p>h3, .h3</p>
+
+<pre><code>font-size: 24px</code></pre>
+
+<p>h4, .h4</p>
+
+<pre><code>font-size: 18px</code></pre>
+
+<p>h5, .h5</p>
+
+<pre><code>font-size: 14px</code></pre>
+
+<p>h6, .h6</p>
+
+<pre><code>font-size: 12px</code></pre>
+
+<p>p</p>
+
+<pre><code>margin: 0 0 10px</code></pre>
+
+<p>.lead</p>
+
+<pre><code>margin-bottom: 20px
+font-size: 16px
+font-weight: 200
+line-height: 1.4</code></pre>
+
+<p>@media (min-width: 768px)</p>
+
+<pre><code>.lead
+  font-size: 21px</code></pre>
+
+<p>small, .small</p>
+
+<pre><code>font-size: 85%</code></pre>
+
+<p>cite</p>
+
+<pre><code>font-style: normal</code></pre>
+
+<p>.text-muted</p>
+
+<pre><code>color: #999999</code></pre>
+
+<p>.text-primary</p>
+
+<pre><code>color: #428bca
+&amp;:hover
+  color: #3071a9</code></pre>
+
+<p>.text-warning</p>
+
+<pre><code>color: #8a6d3b
+&amp;:hover
+  color: #66512c</code></pre>
+
+<p>.text-danger</p>
+
+<pre><code>color: #a94442
+&amp;:hover
+  color: #843534</code></pre>
+
+<p>.text-success</p>
+
+<pre><code>color: #3c763d
+&amp;:hover
+  color: #2b542c</code></pre>
+
+<p>.text-info</p>
+
+<pre><code>color: #31708f
+&amp;:hover
+  color: #245269</code></pre>
+
+<p>.text-left</p>
+
+<pre><code>text-align: left</code></pre>
+
+<p>.text-right</p>
+
+<pre><code>text-align: right</code></pre>
+
+<p>.text-center</p>
+
+<pre><code>text-align: center</code></pre>
+
+<p>.page-header</p>
+
+<pre><code>padding-bottom: 9px
+margin: 40px 0 20px
+border-bottom: 1px solid #eeeeee</code></pre>
+
+<p>ul, ol</p>
+
+<pre><code>margin-top: 0
+margin-bottom: 10px</code></pre>
+
+<p>ul ul, ol ul, ul ol, ol ol</p>
+
+<pre><code>margin-bottom: 0</code></pre>
+
+<p>.list-unstyled</p>
+
+<pre><code>padding-left: 0
+list-style: none</code></pre>
+
+<p>.list-inline</p>
+
+<pre><code>padding-left: 0
+list-style: none
+&gt; li
+  display: inline-block
+  padding-right: 5px
+  padding-left: 5px
+  &amp;:first-child
+    padding-left: 0</code></pre>
+
+<p>dl</p>
+
+<pre><code>margin-top: 0
+margin-bottom: 20px</code></pre>
+
+<p>dt, dd</p>
+
+<pre><code>line-height: 1.428571429</code></pre>
+
+<p>dt</p>
+
+<pre><code>font-weight: bold</code></pre>
+
+<p>dd</p>
+
+<pre><code>margin-left: 0</code></pre>
+
+<p>@media (min-width: 768px)</p>
+
+<pre><code>.dl-horizontal
+  dt
+    float: left
+    width: 160px
+    overflow: hidden
+    clear: left
+    text-align: right
+    text-overflow: ellipsis
+    white-space: nowrap
+  dd
+    margin-left: 180px
+    &amp;:before
+      display: table
+      content: &quot; &quot;
+    &amp;:after
+      display: table
+      content: &quot; &quot;
+      clear: both
+    &amp;:before
+      display: table
+      content: &quot; &quot;
+    &amp;:after
+      display: table
+      content: &quot; &quot;
+      clear: both</code></pre>
+
+<p>abbr</p>
+
+<pre><code>&amp;[title], &amp;[data-original-title]
+  cursor: help
+  border-bottom: 1px dotted #999999</code></pre>
+
+<p>.initialism</p>
+
+<pre><code>font-size: 90%
+text-transform: uppercase</code></pre>
+
+<p>blockquote</p>
+
+<pre><code>padding: 10px 20px
+margin: 0 0 20px
+border-left: 5px solid #eeeeee
+p
+  font-size: 17.5px
+  font-weight: 300
+  line-height: 1.25
+  &amp;:last-child
+    margin-bottom: 0
+small, .small
+  display: block
+  line-height: 1.428571429
+  color: #999999
+small:before, .small:before
+  content: &#39;\2014 \00A0&#39;
+&amp;.pull-right
+  padding-right: 15px
+  padding-left: 0
+  border-right: 5px solid #eeeeee
+  border-left: 0
+  p, small, .small
+    text-align: right
+  small:before, .small:before
+    content: &#39;&#39;
+  small:after, .small:after
+    content: &#39;\00A0 \2014&#39;
+&amp;:before, &amp;:after
+  content: &quot;&quot;</code></pre>
+
+<p>address</p>
+
+<pre><code>margin-bottom: 20px
+font-style: normal
+line-height: 1.428571429</code></pre>
+
+<p>code, kbd, pre, samp</p>
+
+<pre><code>font-family: Menlo, Monaco, Consolas, &quot;Courier New&quot;, monospace</code></pre>
+
+<p>code</p>
+
+<pre><code>padding: 2px 4px
+font-size: 90%
+color: #c7254e
+white-space: nowrap
+background-color: #f9f2f4
+border-radius: 4px</code></pre>
+
+<p>pre</p>
+
+<pre><code>display: block
+padding: 9.5px
+margin: 0 0 10px
+font-size: 13px
+line-height: 1.428571429
+color: #333333
+word-break: break-all
+word-wrap: break-word
+background-color: #f5f5f5
+border: 1px solid #cccccc
+border-radius: 4px
+code
+  padding: 0
+  font-size: inherit
+  color: inherit
+  white-space: pre-wrap
+  background-color: transparent
+  border-radius: 0</code></pre>
+
+<p>.pre-scrollable</p>
+
+<pre><code>max-height: 340px
+overflow-y: scroll</code></pre>
+
+<p>.container</p>
+
+<pre><code>padding-right: 15px
+padding-left: 15px
+margin-right: auto
+margin-left: auto
+&amp;:before
+  display: table
+  content: &quot; &quot;
+&amp;:after
+  display: table
+  content: &quot; &quot;
+  clear: both
+&amp;:before
+  display: table
+  content: &quot; &quot;
+&amp;:after
+  display: table
+  content: &quot; &quot;
+  clear: both</code></pre>
+
+<p>@media (min-width: 768px)</p>
+
+<pre><code>.container
+  width: 750px</code></pre>
+
+<p>@media (min-width: 992px)</p>
+
+<pre><code>.container
+  width: 970px</code></pre>
+
+<p>@media (min-width: 1200px)</p>
+
+<pre><code>.container
+  width: 1170px</code></pre>
+
+<p>.row</p>
+
+<pre><code>margin-right: -15px
+margin-left: -15px
+&amp;:before
+  display: table
+  content: &quot; &quot;
+&amp;:after
+  display: table
+  content: &quot; &quot;
+  clear: both
+&amp;:before
+  display: table
+  content: &quot; &quot;
+&amp;:after
+  display: table
+  content: &quot; &quot;
+  clear: both</code></pre>
+
+<p>.col-xs-1, .col-sm-1, .col-md-1, .col-lg-1, .col-xs-2, .col-sm-2,
+.col-md-2, .col-lg-2, .col-xs-3, .col-sm-3, .col-md-3, .col-lg-3,
+.col-xs-4, .col-sm-4, .col-md-4, .col-lg-4, .col-xs-5, .col-sm-5,
+.col-md-5, .col-lg-5, .col-xs-6, .col-sm-6, .col-md-6, .col-lg-6,
+.col-xs-7, .col-sm-7, .col-md-7, .col-lg-7, .col-xs-8, .col-sm-8,
+.col-md-8, .col-lg-8, .col-xs-9, .col-sm-9, .col-md-9, .col-lg-9,
+.col-xs-10, .col-sm-10, .col-md-10, .col-lg-10, .col-xs-11, .col-sm-11,
+.col-md-11, .col-lg-11, .col-xs-12, .col-sm-12, .col-md-12, .col-lg-12</p>
+
+<pre><code>position: relative
+min-height: 1px
+padding-right: 15px
+padding-left: 15px</code></pre>
+
+<p>.col-xs-1, .col-xs-2, .col-xs-3, .col-xs-4, .col-xs-5, .col-xs-6,
+.col-xs-7, .col-xs-8, .col-xs-9, .col-xs-10, .col-xs-11</p>
+
+<pre><code>float: left</code></pre>
+
+<p>.col-xs-12</p>
+
+<pre><code>float: left
+width: 100%</code></pre>
+
+<p>.col-xs-11</p>
+
+<pre><code>width: 91.66666666666666%</code></pre>
+
+<p>.col-xs-10</p>
+
+<pre><code>width: 83.33333333333334%</code></pre>
+
+<p>.col-xs-9</p>
+
+<pre><code>width: 75%</code></pre>
+
+<p>.col-xs-8</p>
+
+<pre><code>width: 66.66666666666666%</code></pre>
+
+<p>.col-xs-7</p>
+
+<pre><code>width: 58.333333333333336%</code></pre>
+
+<p>.col-xs-6</p>
+
+<pre><code>width: 50%</code></pre>
+
+<p>.col-xs-5</p>
+
+<pre><code>width: 41.66666666666667%</code></pre>
+
+<p>.col-xs-4</p>
+
+<pre><code>width: 33.33333333333333%</code></pre>
+
+<p>.col-xs-3</p>
+
+<pre><code>width: 25%</code></pre>
+
+<p>.col-xs-2</p>
+
+<pre><code>width: 16.666666666666664%</code></pre>
+
+<p>.col-xs-1</p>
+
+<pre><code>width: 8.333333333333332%</code></pre>
+
+<p>.col-xs-pull-12</p>
+
+<pre><code>right: 100%</code></pre>
+
+<p>.col-xs-pull-11</p>
+
+<pre><code>right: 91.66666666666666%</code></pre>
+
+<p>.col-xs-pull-10</p>
+
+<pre><code>right: 83.33333333333334%</code></pre>
+
+<p>.col-xs-pull-9</p>
+
+<pre><code>right: 75%</code></pre>
+
+<p>.col-xs-pull-8</p>
+
+<pre><code>right: 66.66666666666666%</code></pre>
+
+<p>.col-xs-pull-7</p>
+
+<pre><code>right: 58.333333333333336%</code></pre>
+
+<p>.col-xs-pull-6</p>
+
+<pre><code>right: 50%</code></pre>
+
+<p>.col-xs-pull-5</p>
+
+<pre><code>right: 41.66666666666667%</code></pre>
+
+<p>.col-xs-pull-4</p>
+
+<pre><code>right: 33.33333333333333%</code></pre>
+
+<p>.col-xs-pull-3</p>
+
+<pre><code>right: 25%</code></pre>
+
+<p>.col-xs-pull-2</p>
+
+<pre><code>right: 16.666666666666664%</code></pre>
+
+<p>.col-xs-pull-1</p>
+
+<pre><code>right: 8.333333333333332%</code></pre>
+
+<p>.col-xs-pull-0</p>
+
+<pre><code>right: 0</code></pre>
+
+<p>.col-xs-push-12</p>
+
+<pre><code>left: 100%</code></pre>
+
+<p>.col-xs-push-11</p>
+
+<pre><code>left: 91.66666666666666%</code></pre>
+
+<p>.col-xs-push-10</p>
+
+<pre><code>left: 83.33333333333334%</code></pre>
+
+<p>.col-xs-push-9</p>
+
+<pre><code>left: 75%</code></pre>
+
+<p>.col-xs-push-8</p>
+
+<pre><code>left: 66.66666666666666%</code></pre>
+
+<p>.col-xs-push-7</p>
+
+<pre><code>left: 58.333333333333336%</code></pre>
+
+<p>.col-xs-push-6</p>
+
+<pre><code>left: 50%</code></pre>
+
+<p>.col-xs-push-5</p>
+
+<pre><code>left: 41.66666666666667%</code></pre>
+
+<p>.col-xs-push-4</p>
+
+<pre><code>left: 33.33333333333333%</code></pre>
+
+<p>.col-xs-push-3</p>
+
+<pre><code>left: 25%</code></pre>
+
+<p>.col-xs-push-2</p>
+
+<pre><code>left: 16.666666666666664%</code></pre>
+
+<p>.col-xs-push-1</p>
+
+<pre><code>left: 8.333333333333332%</code></pre>
+
+<p>.col-xs-push-0</p>
+
+<pre><code>left: 0</code></pre>
+
+<p>.col-xs-offset-12</p>
+
+<pre><code>margin-left: 100%</code></pre>
+
+<p>.col-xs-offset-11</p>
+
+<pre><code>margin-left: 91.66666666666666%</code></pre>
+
+<p>.col-xs-offset-10</p>
+
+<pre><code>margin-left: 83.33333333333334%</code></pre>
+
+<p>.col-xs-offset-9</p>
+
+<pre><code>margin-left: 75%</code></pre>
+
+<p>.col-xs-offset-8</p>
+
+<pre><code>margin-left: 66.66666666666666%</code></pre>
+
+<p>.col-xs-offset-7</p>
+
+<pre><code>margin-left: 58.333333333333336%</code></pre>
+
+<p>.col-xs-offset-6</p>
+
+<pre><code>margin-left: 50%</code></pre>
+
+<p>.col-xs-offset-5</p>
+
+<pre><code>margin-left: 41.66666666666667%</code></pre>
+
+<p>.col-xs-offset-4</p>
+
+<pre><code>margin-left: 33.33333333333333%</code></pre>
+
+<p>.col-xs-offset-3</p>
+
+<pre><code>margin-left: 25%</code></pre>
+
+<p>.col-xs-offset-2</p>
+
+<pre><code>margin-left: 16.666666666666664%</code></pre>
+
+<p>.col-xs-offset-1</p>
+
+<pre><code>margin-left: 8.333333333333332%</code></pre>
+
+<p>.col-xs-offset-0</p>
+
+<pre><code>margin-left: 0</code></pre>
+
+<p>@media (min-width: 768px)</p>
+
+<pre><code>.col-sm-1, .col-sm-2, .col-sm-3, .col-sm-4, .col-sm-5, .col-sm-6, .col-sm-7, .col-sm-8, .col-sm-9, .col-sm-10, .col-sm-11
+  float: left
+.col-sm-12
+  float: left
+  width: 100%
+.col-sm-11
+  width: 91.66666666666666%
+.col-sm-10
+  width: 83.33333333333334%
+.col-sm-9
+  width: 75%
+.col-sm-8
+  width: 66.66666666666666%
+.col-sm-7
+  width: 58.333333333333336%
+.col-sm-6
+  width: 50%
+.col-sm-5
+  width: 41.66666666666667%
+.col-sm-4
+  width: 33.33333333333333%
+.col-sm-3
+  width: 25%
+.col-sm-2
+  width: 16.666666666666664%
+.col-sm-1
+  width: 8.333333333333332%
+.col-sm-pull-12
+  right: 100%
+.col-sm-pull-11
+  right: 91.66666666666666%
+.col-sm-pull-10
+  right: 83.33333333333334%
+.col-sm-pull-9
+  right: 75%
+.col-sm-pull-8
+  right: 66.66666666666666%
+.col-sm-pull-7
+  right: 58.333333333333336%
+.col-sm-pull-6
+  right: 50%
+.col-sm-pull-5
+  right: 41.66666666666667%
+.col-sm-pull-4
+  right: 33.33333333333333%
+.col-sm-pull-3
+  right: 25%
+.col-sm-pull-2
+  right: 16.666666666666664%
+.col-sm-pull-1
+  right: 8.333333333333332%
+.col-sm-pull-0
+  right: 0
+.col-sm-push-12
+  left: 100%
+.col-sm-push-11
+  left: 91.66666666666666%
+.col-sm-push-10
+  left: 83.33333333333334%
+.col-sm-push-9
+  left: 75%
+.col-sm-push-8
+  left: 66.66666666666666%
+.col-sm-push-7
+  left: 58.333333333333336%
+.col-sm-push-6
+  left: 50%
+.col-sm-push-5
+  left: 41.66666666666667%
+.col-sm-push-4
+  left: 33.33333333333333%
+.col-sm-push-3
+  left: 25%
+.col-sm-push-2
+  left: 16.666666666666664%
+.col-sm-push-1
+  left: 8.333333333333332%
+.col-sm-push-0
+  left: 0
+.col-sm-offset-12
+  margin-left: 100%
+.col-sm-offset-11
+  margin-left: 91.66666666666666%
+.col-sm-offset-10
+  margin-left: 83.33333333333334%
+.col-sm-offset-9
+  margin-left: 75%
+.col-sm-offset-8
+  margin-left: 66.66666666666666%
+.col-sm-offset-7
+  margin-left: 58.333333333333336%
+.col-sm-offset-6
+  margin-left: 50%
+.col-sm-offset-5
+  margin-left: 41.66666666666667%
+.col-sm-offset-4
+  margin-left: 33.33333333333333%
+.col-sm-offset-3
+  margin-left: 25%
+.col-sm-offset-2
+  margin-left: 16.666666666666664%
+.col-sm-offset-1
+  margin-left: 8.333333333333332%
+.col-sm-offset-0
+  margin-left: 0</code></pre>
+
+<p>@media (min-width: 992px)</p>
+
+<pre><code>.col-md-1, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-10, .col-md-11
+  float: left
+.col-md-12
+  float: left
+  width: 100%
+.col-md-11
+  width: 91.66666666666666%
+.col-md-10
+  width: 83.33333333333334%
+.col-md-9
+  width: 75%
+.col-md-8
+  width: 66.66666666666666%
+.col-md-7
+  width: 58.333333333333336%
+.col-md-6
+  width: 50%
+.col-md-5
+  width: 41.66666666666667%
+.col-md-4
+  width: 33.33333333333333%
+.col-md-3
+  width: 25%
+.col-md-2
+  width: 16.666666666666664%
+.col-md-1
+  width: 8.333333333333332%
+.col-md-pull-12
+  right: 100%
+.col-md-pull-11
+  right: 91.66666666666666%
+.col-md-pull-10
+  right: 83.33333333333334%
+.col-md-pull-9
+  right: 75%
+.col-md-pull-8
+  right: 66.66666666666666%
+.col-md-pull-7
+  right: 58.333333333333336%
+.col-md-pull-6
+  right: 50%
+.col-md-pull-5
+  right: 41.66666666666667%
+.col-md-pull-4
+  right: 33.33333333333333%
+.col-md-pull-3
+  right: 25%
+.col-md-pull-2
+  right: 16.666666666666664%
+.col-md-pull-1
+  right: 8.333333333333332%
+.col-md-pull-0
+  right: 0
+.col-md-push-12
+  left: 100%
+.col-md-push-11
+  left: 91.66666666666666%
+.col-md-push-10
+  left: 83.33333333333334%
+.col-md-push-9
+  left: 75%
+.col-md-push-8
+  left: 66.66666666666666%
+.col-md-push-7
+  left: 58.333333333333336%
+.col-md-push-6
+  left: 50%
+.col-md-push-5
+  left: 41.66666666666667%
+.col-md-push-4
+  left: 33.33333333333333%
+.col-md-push-3
+  left: 25%
+.col-md-push-2
+  left: 16.666666666666664%
+.col-md-push-1
+  left: 8.333333333333332%
+.col-md-push-0
+  left: 0
+.col-md-offset-12
+  margin-left: 100%
+.col-md-offset-11
+  margin-left: 91.66666666666666%
+.col-md-offset-10
+  margin-left: 83.33333333333334%
+.col-md-offset-9
+  margin-left: 75%
+.col-md-offset-8
+  margin-left: 66.66666666666666%
+.col-md-offset-7
+  margin-left: 58.333333333333336%
+.col-md-offset-6
+  margin-left: 50%
+.col-md-offset-5
+  margin-left: 41.66666666666667%
+.col-md-offset-4
+  margin-left: 33.33333333333333%
+.col-md-offset-3
+  margin-left: 25%
+.col-md-offset-2
+  margin-left: 16.666666666666664%
+.col-md-offset-1
+  margin-left: 8.333333333333332%
+.col-md-offset-0
+  margin-left: 0</code></pre>
+
+<p>@media (min-width: 1200px)</p>
+
+<pre><code>.col-lg-1, .col-lg-2, .col-lg-3, .col-lg-4, .col-lg-5, .col-lg-6, .col-lg-7, .col-lg-8, .col-lg-9, .col-lg-10, .col-lg-11
+  float: left
+.col-lg-12
+  float: left
+  width: 100%
+.col-lg-11
+  width: 91.66666666666666%
+.col-lg-10
+  width: 83.33333333333334%
+.col-lg-9
+  width: 75%
+.col-lg-8
+  width: 66.66666666666666%
+.col-lg-7
+  width: 58.333333333333336%
+.col-lg-6
+  width: 50%
+.col-lg-5
+  width: 41.66666666666667%
+.col-lg-4
+  width: 33.33333333333333%
+.col-lg-3
+  width: 25%
+.col-lg-2
+  width: 16.666666666666664%
+.col-lg-1
+  width: 8.333333333333332%
+.col-lg-pull-12
+  right: 100%
+.col-lg-pull-11
+  right: 91.66666666666666%
+.col-lg-pull-10
+  right: 83.33333333333334%
+.col-lg-pull-9
+  right: 75%
+.col-lg-pull-8
+  right: 66.66666666666666%
+.col-lg-pull-7
+  right: 58.333333333333336%
+.col-lg-pull-6
+  right: 50%
+.col-lg-pull-5
+  right: 41.66666666666667%
+.col-lg-pull-4
+  right: 33.33333333333333%
+.col-lg-pull-3
+  right: 25%
+.col-lg-pull-2
+  right: 16.666666666666664%
+.col-lg-pull-1
+  right: 8.333333333333332%
+.col-lg-pull-0
+  right: 0
+.col-lg-push-12
+  left: 100%
+.col-lg-push-11
+  left: 91.66666666666666%
+.col-lg-push-10
+  left: 83.33333333333334%
+.col-lg-push-9
+  left: 75%
+.col-lg-push-8
+  left: 66.66666666666666%
+.col-lg-push-7
+  left: 58.333333333333336%
+.col-lg-push-6
+  left: 50%
+.col-lg-push-5
+  left: 41.66666666666667%
+.col-lg-push-4
+  left: 33.33333333333333%
+.col-lg-push-3
+  left: 25%
+.col-lg-push-2
+  left: 16.666666666666664%
+.col-lg-push-1
+  left: 8.333333333333332%
+.col-lg-push-0
+  left: 0
+.col-lg-offset-12
+  margin-left: 100%
+.col-lg-offset-11
+  margin-left: 91.66666666666666%
+.col-lg-offset-10
+  margin-left: 83.33333333333334%
+.col-lg-offset-9
+  margin-left: 75%
+.col-lg-offset-8
+  margin-left: 66.66666666666666%
+.col-lg-offset-7
+  margin-left: 58.333333333333336%
+.col-lg-offset-6
+  margin-left: 50%
+.col-lg-offset-5
+  margin-left: 41.66666666666667%
+.col-lg-offset-4
+  margin-left: 33.33333333333333%
+.col-lg-offset-3
+  margin-left: 25%
+.col-lg-offset-2
+  margin-left: 16.666666666666664%
+.col-lg-offset-1
+  margin-left: 8.333333333333332%
+.col-lg-offset-0
+  margin-left: 0</code></pre>
+
+<p>table</p>
+
+<pre><code>max-width: 100%
+background-color: transparent</code></pre>
+
+<p>th</p>
+
+<pre><code>text-align: left</code></pre>
+
+<p>.table</p>
+
+<pre><code>width: 100%
+margin-bottom: 20px
+&gt;
+  thead &gt; tr &gt; th, tbody &gt; tr &gt; th, tfoot &gt; tr &gt; th, thead &gt; tr &gt; td, tbody &gt; tr &gt; td, tfoot &gt; tr &gt; td
+    padding: 8px
+    line-height: 1.428571429
+    vertical-align: top
+    border-top: 1px solid #dddddd
+  thead &gt; tr &gt; th
+    vertical-align: bottom
+    border-bottom: 2px solid #dddddd
+  caption + thead &gt; tr:first-child &gt; th, colgroup + thead &gt; tr:first-child &gt; th, thead:first-child &gt; tr:first-child &gt; th, caption + thead &gt; tr:first-child &gt; td, colgroup + thead &gt; tr:first-child &gt; td, thead:first-child &gt; tr:first-child &gt; td
+    border-top: 0
+  tbody + tbody
+    border-top: 2px solid #dddddd
+.table
+  background-color: #ffffff</code></pre>
+
+<p>.table-condensed &gt;</p>
+
+<pre><code>thead &gt; tr &gt; th, tbody &gt; tr &gt; th, tfoot &gt; tr &gt; th, thead &gt; tr &gt; td, tbody &gt; tr &gt; td, tfoot &gt; tr &gt; td
+  padding: 5px</code></pre>
+
+<p>.table-bordered</p>
+
+<pre><code>border: 1px solid #dddddd
+&gt;
+  thead &gt; tr &gt; th, tbody &gt; tr &gt; th, tfoot &gt; tr &gt; th, thead &gt; tr &gt; td, tbody &gt; tr &gt; td, tfoot &gt; tr &gt; td
+    border: 1px solid #dddddd
+  thead &gt; tr &gt;
+    th, td
+      border-bottom-width: 2px</code></pre>
+
+<p>.table-striped &gt; tbody &gt; tr:nth-child(odd) &gt;</p>
+
+<pre><code>td, th
+  background-color: #f9f9f9</code></pre>
+
+<p>.table-hover &gt; tbody &gt; tr:hover &gt;</p>
+
+<pre><code>td, th
+  background-color: #f5f5f5</code></pre>
+
+<p>table</p>
+
+<pre><code>col[class*=&quot;col-&quot;]
+  position: static
+  display: table-column
+  float: none
+td[class*=&quot;col-&quot;], th[class*=&quot;col-&quot;]
+  display: table-cell
+  float: none</code></pre>
+
+<p>.table &gt;</p>
+
+<pre><code>thead &gt; tr &gt; .active, tbody &gt; tr &gt; .active, tfoot &gt; tr &gt; .active, thead &gt; .active &gt; td, tbody &gt; .active &gt; td, tfoot &gt; .active &gt; td, thead &gt; .active &gt; th, tbody &gt; .active &gt; th, tfoot &gt; .active &gt; th
+  background-color: #f5f5f5</code></pre>
+
+<p>.table-hover &gt; tbody &gt;</p>
+
+<pre><code>tr &gt; .active:hover
+  background-color: #e8e8e8
+.active:hover &gt;
+  td, th
+    background-color: #e8e8e8</code></pre>
+
+<p>.table &gt;</p>
+
+<pre><code>thead &gt; tr &gt; .success, tbody &gt; tr &gt; .success, tfoot &gt; tr &gt; .success, thead &gt; .success &gt; td, tbody &gt; .success &gt; td, tfoot &gt; .success &gt; td, thead &gt; .success &gt; th, tbody &gt; .success &gt; th, tfoot &gt; .success &gt; th
+  background-color: #dff0d8</code></pre>
+
+<p>.table-hover &gt; tbody &gt;</p>
+
+<pre><code>tr &gt; .success:hover
+  background-color: #d0e9c6
+.success:hover &gt;
+  td, th
+    background-color: #d0e9c6</code></pre>
+
+<p>.table &gt;</p>
+
+<pre><code>thead &gt; tr &gt; .danger, tbody &gt; tr &gt; .danger, tfoot &gt; tr &gt; .danger, thead &gt; .danger &gt; td, tbody &gt; .danger &gt; td, tfoot &gt; .danger &gt; td, thead &gt; .danger &gt; th, tbody &gt; .danger &gt; th, tfoot &gt; .danger &gt; th
+  background-color: #f2dede</code></pre>
+
+<p>.table-hover &gt; tbody &gt;</p>
+
+<pre><code>tr &gt; .danger:hover
+  background-color: #ebcccc
+.danger:hover &gt;
+  td, th
+    background-color: #ebcccc</code></pre>
+
+<p>.table &gt;</p>
+
+<pre><code>thead &gt; tr &gt; .warning, tbody &gt; tr &gt; .warning, tfoot &gt; tr &gt; .warning, thead &gt; .warning &gt; td, tbody &gt; .warning &gt; td, tfoot &gt; .warning &gt; td, thead &gt; .warning &gt; th, tbody &gt; .warning &gt; th, tfoot &gt; .warning &gt; th
+  background-color: #fcf8e3</code></pre>
+
+<p>.table-hover &gt; tbody &gt;</p>
+
+<pre><code>tr &gt; .warning:hover
+  background-color: #faf2cc
+.warning:hover &gt;
+  td, th
+    background-color: #faf2cc</code></pre>
+
+<p>@media (max-width: 767px)</p>
+
+<pre><code>.table-responsive
+  width: 100%
+  margin-bottom: 15px
+  overflow-x: scroll
+  overflow-y: hidden
+  border: 1px solid #dddddd
+  -ms-overflow-style: -ms-autohiding-scrollbar
+  -webkit-overflow-scrolling: touch
+  &gt;
+    .table
+      margin-bottom: 0
+      &gt;
+        thead &gt; tr &gt; th, tbody &gt; tr &gt; th, tfoot &gt; tr &gt; th, thead &gt; tr &gt; td, tbody &gt; tr &gt; td, tfoot &gt; tr &gt; td
+          white-space: nowrap
+    .table-bordered
+      border: 0
+      &gt;
+        thead &gt; tr &gt; th:first-child, tbody &gt; tr &gt; th:first-child, tfoot &gt; tr &gt; th:first-child, thead &gt; tr &gt; td:first-child, tbody &gt; tr &gt; td:first-child, tfoot &gt; tr &gt; td:first-child
+          border-left: 0
+        thead &gt; tr &gt; th:last-child, tbody &gt; tr &gt; th:last-child, tfoot &gt; tr &gt; th:last-child, thead &gt; tr &gt; td:last-child, tbody &gt; tr &gt; td:last-child, tfoot &gt; tr &gt; td:last-child
+          border-right: 0
+        tbody &gt; tr:last-child &gt; th, tfoot &gt; tr:last-child &gt; th, tbody &gt; tr:last-child &gt; td, tfoot &gt; tr:last-child &gt; td
+          border-bottom: 0</code></pre>
+
+<p>fieldset</p>
+
+<pre><code>padding: 0
+margin: 0
+border: 0</code></pre>
+
+<p>legend</p>
+
+<pre><code>display: block
+width: 100%
+padding: 0
+margin-bottom: 20px
+font-size: 21px
+line-height: inherit
+color: #333333
+border: 0
+border-bottom: 1px solid #e5e5e5</code></pre>
+
+<p>label</p>
+
+<pre><code>display: inline-block
+margin-bottom: 5px
+font-weight: bold</code></pre>
+
+<p>input</p>
+
+<pre><code>&amp;[type=&quot;search&quot;]
+  -webkit-box-sizing: border-box
+  -moz-box-sizing: border-box
+  box-sizing: border-box
+&amp;[type=&quot;radio&quot;], &amp;[type=&quot;checkbox&quot;]
+  margin: 4px 0 0
+  margin-top: 1px \9
+  /* IE8-9
+  line-height: normal
+&amp;[type=&quot;file&quot;]
+  display: block</code></pre>
+
+<p>select</p>
+
+<pre><code>&amp;[multiple], &amp;[size]
+  height: auto
+optgroup
+  font-family: inherit
+  font-size: inherit
+  font-style: inherit</code></pre>
+
+<p>input</p>
+
+<pre><code>&amp;[type=&quot;file&quot;]:focus, &amp;[type=&quot;radio&quot;]:focus, &amp;[type=&quot;checkbox&quot;]:focus
+  outline: thin dotted
+  outline: 5px auto -webkit-focus-ring-color
+  outline-offset: -2px
+&amp;[type=&quot;number&quot;]
+  &amp;::-webkit-outer-spin-button, &amp;::-webkit-inner-spin-button
+    height: auto</code></pre>
+
+<p>output</p>
+
+<pre><code>display: block
+padding-top: 7px
+font-size: 14px
+line-height: 1.428571429
+color: #555555
+vertical-align: middle</code></pre>
+
+<p>.form-control</p>
+
+<pre><code>display: block
+width: 100%
+height: 34px
+padding: 6px 12px
+font-size: 14px
+line-height: 1.428571429
+color: #555555
+vertical-align: middle
+background-color: #ffffff
+background-image: none
+border: 1px solid #cccccc
+border-radius: 4px
+-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075)
+box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075)
+-webkit-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s
+transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s
+&amp;:focus
+  border-color: #66afe9
+  outline: 0
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6)
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6)
+&amp;:-moz-placeholder
+  color: #999999
+&amp;::-moz-placeholder
+  color: #999999
+  opacity: 1
+&amp;:-ms-input-placeholder, &amp;::-webkit-input-placeholder
+  color: #999999
+&amp;[disabled], &amp;[readonly]
+  cursor: not-allowed
+  background-color: #eeeeee</code></pre>
+
+<p><a href="disabled">fieldset</a> .form-control</p>
+
+<pre><code>cursor: not-allowed
+background-color: #eeeeee</code></pre>
+
+<p>textarea.form-control</p>
+
+<pre><code>height: auto</code></pre>
+
+<p>.form-group</p>
+
+<pre><code>margin-bottom: 15px</code></pre>
+
+<p>.radio, .checkbox</p>
+
+<pre><code>display: block
+min-height: 20px
+padding-left: 20px
+margin-top: 10px
+margin-bottom: 10px
+vertical-align: middle</code></pre>
+
+<p>.radio label, .checkbox label</p>
+
+<pre><code>display: inline
+margin-bottom: 0
+font-weight: normal
+cursor: pointer</code></pre>
+
+<p>.radio <a href="type="radio"">input</a>, .radio-inline <a
+href="type="radio"">input</a>, .checkbox <a
+href="type="checkbox"">input</a>, .checkbox-inline <a
+href="type="checkbox"">input</a></p>
+
+<pre><code>float: left
+margin-left: -20px</code></pre>
+
+<p>.radio + .radio, .checkbox + .checkbox</p>
+
+<pre><code>margin-top: -5px</code></pre>
+
+<p>.radio-inline, .checkbox-inline</p>
+
+<pre><code>display: inline-block
+padding-left: 20px
+margin-bottom: 0
+font-weight: normal
+vertical-align: middle
+cursor: pointer</code></pre>
+
+<p>.radio-inline + .radio-inline, .checkbox-inline + .checkbox-inline</p>
+
+<pre><code>margin-top: 0
+margin-left: 10px</code></pre>
+
+<p>input</p>
+
+<pre><code>&amp;[type=&quot;radio&quot;][disabled], &amp;[type=&quot;checkbox&quot;][disabled]
+  cursor: not-allowed</code></pre>
+
+<p>.<a href="disabled">radio</a>, .<a href="disabled">radio-inline</a>, .<a
+href="disabled">checkbox</a>, .<a href="disabled">checkbox-inline</a></p>
+
+<pre><code>cursor: not-allowed</code></pre>
+
+<p><a href="disabled">fieldset</a></p>
+
+<pre><code>input
+  &amp;[type=&quot;radio&quot;], &amp;[type=&quot;checkbox&quot;]
+    cursor: not-allowed
+.radio, .radio-inline, .checkbox, .checkbox-inline
+  cursor: not-allowed</code></pre>
+
+<p>.input-sm</p>
+
+<pre><code>height: 30px
+padding: 5px 10px
+font-size: 12px
+line-height: 1.5
+border-radius: 3px</code></pre>
+
+<p>select.input-sm</p>
+
+<pre><code>height: 30px
+line-height: 30px</code></pre>
+
+<p>textarea.input-sm</p>
+
+<pre><code>height: auto</code></pre>
+
+<p>.input-lg</p>
+
+<pre><code>height: 46px
+padding: 10px 16px
+font-size: 18px
+line-height: 1.33
+border-radius: 6px</code></pre>
+
+<p>select.input-lg</p>
+
+<pre><code>height: 46px
+line-height: 46px</code></pre>
+
+<p>textarea.input-lg</p>
+
+<pre><code>height: auto</code></pre>
+
+<p>.has-warning</p>
+
+<pre><code>.help-block, .control-label, .radio, .checkbox, .radio-inline, .checkbox-inline
+  color: #8a6d3b
+.form-control
+  border-color: #8a6d3b
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075)
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075)
+  &amp;:focus
+    border-color: #66512c
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #c0a16b
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #c0a16b
+.input-group-addon
+  color: #8a6d3b
+  background-color: #fcf8e3
+  border-color: #8a6d3b</code></pre>
+
+<p>.has-error</p>
+
+<pre><code>.help-block, .control-label, .radio, .checkbox, .radio-inline, .checkbox-inline
+  color: #a94442
+.form-control
+  border-color: #a94442
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075)
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075)
+  &amp;:focus
+    border-color: #843534
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #ce8483
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #ce8483
+.input-group-addon
+  color: #a94442
+  background-color: #f2dede
+  border-color: #a94442</code></pre>
+
+<p>.has-success</p>
+
+<pre><code>.help-block, .control-label, .radio, .checkbox, .radio-inline, .checkbox-inline
+  color: #3c763d
+.form-control
+  border-color: #3c763d
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075)
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075)
+  &amp;:focus
+    border-color: #2b542c
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #67b168
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #67b168
+.input-group-addon
+  color: #3c763d
+  background-color: #dff0d8
+  border-color: #3c763d</code></pre>
+
+<p>.form-control-static</p>
+
+<pre><code>margin-bottom: 0</code></pre>
+
+<p>.help-block</p>
+
+<pre><code>display: block
+margin-top: 5px
+margin-bottom: 10px
+color: #737373</code></pre>
+
+<p>@media (min-width: 768px)</p>
+
+<pre><code>.form-inline
+  .form-group
+    display: inline-block
+    margin-bottom: 0
+    vertical-align: middle
+  .form-control
+    display: inline-block
+  select.form-control
+    width: auto
+  .radio, .checkbox
+    display: inline-block
+    padding-left: 0
+    margin-top: 0
+    margin-bottom: 0
+  .radio input[type=&quot;radio&quot;], .checkbox input[type=&quot;checkbox&quot;]
+    float: none
+    margin-left: 0</code></pre>
+
+<p>.form-horizontal</p>
+
+<pre><code>.control-label, .radio, .checkbox, .radio-inline, .checkbox-inline
+  padding-top: 7px
+  margin-top: 0
+  margin-bottom: 0
+.radio, .checkbox
+  min-height: 27px
+.form-group
+  margin-right: -15px
+  margin-left: -15px
+  &amp;:before
+    display: table
+    content: &quot; &quot;
+  &amp;:after
+    display: table
+    content: &quot; &quot;
+    clear: both
+  &amp;:before
+    display: table
+    content: &quot; &quot;
+  &amp;:after
+    display: table
+    content: &quot; &quot;
+    clear: both
+.form-control-static
+  padding-top: 7px</code></pre>
+
+<p>@media (min-width: 768px)</p>
+
+<pre><code>.form-horizontal .control-label
+  text-align: right</code></pre>
+
+<p>.btn</p>
+
+<pre><code>display: inline-block
+padding: 6px 12px
+margin-bottom: 0
+font-size: 14px
+font-weight: normal
+line-height: 1.428571429
+text-align: center
+white-space: nowrap
+vertical-align: middle
+cursor: pointer
+background-image: none
+border: 1px solid transparent
+border-radius: 4px
+-webkit-user-select: none
+-moz-user-select: none
+-ms-user-select: none
+-o-user-select: none
+user-select: none
+&amp;:focus
+  outline: thin dotted
+  outline: 5px auto -webkit-focus-ring-color
+  outline-offset: -2px
+&amp;:hover, &amp;:focus
+  color: #333333
+  text-decoration: none
+&amp;:active, &amp;.active
+  background-image: none
+  outline: 0
+  -webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125)
+  box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125)
+&amp;.disabled, &amp;[disabled]
+  pointer-events: none
+  cursor: not-allowed
+  opacity: 0.65
+  filter: alpha(opacity = 65)
+  -webkit-box-shadow: none
+  box-shadow: none</code></pre>
+
+<p><a href="disabled">fieldset</a> .btn</p>
+
+<pre><code>pointer-events: none
+cursor: not-allowed
+opacity: 0.65
+filter: alpha(opacity = 65)
+-webkit-box-shadow: none
+box-shadow: none</code></pre>
+
+<p>.btn-default</p>
+
+<pre><code>color: #333333
+background-color: #ffffff
+border-color: #cccccc
+&amp;:hover, &amp;:focus, &amp;:active, &amp;.active
+  color: #333333
+  background-color: #ebebeb
+  border-color: #adadad</code></pre>
+
+<p>.open .dropdown-toggle.btn-default</p>
+
+<pre><code>color: #333333
+background-color: #ebebeb
+border-color: #adadad</code></pre>
+
+<p>.btn-default</p>
+
+<pre><code>&amp;:active, &amp;.active
+  background-image: none</code></pre>
+
+<p>.open .dropdown-toggle.btn-default</p>
+
+<pre><code>background-image: none</code></pre>
+
+<p>.btn-default</p>
+
+<pre><code>&amp;.disabled, &amp;[disabled]
+  background-color: #ffffff
+  border-color: #cccccc</code></pre>
+
+<p><a href="disabled">fieldset</a> .btn-default</p>
+
+<pre><code>background-color: #ffffff
+border-color: #cccccc</code></pre>
+
+<p>.btn-default</p>
+
+<pre><code>&amp;.disabled:hover, &amp;[disabled]:hover
+  background-color: #ffffff
+  border-color: #cccccc</code></pre>
+
+<p><a href="disabled">fieldset</a> .btn-default:hover</p>
+
+<pre><code>background-color: #ffffff
+border-color: #cccccc</code></pre>
+
+<p>.btn-default</p>
+
+<pre><code>&amp;.disabled:focus, &amp;[disabled]:focus
+  background-color: #ffffff
+  border-color: #cccccc</code></pre>
+
+<p><a href="disabled">fieldset</a> .btn-default:focus</p>
+
+<pre><code>background-color: #ffffff
+border-color: #cccccc</code></pre>
+
+<p>.btn-default</p>
+
+<pre><code>&amp;.disabled:active, &amp;[disabled]:active
+  background-color: #ffffff
+  border-color: #cccccc</code></pre>
+
+<p><a href="disabled">fieldset</a> .btn-default:active</p>
+
+<pre><code>background-color: #ffffff
+border-color: #cccccc</code></pre>
+
+<p>.btn-default</p>
+
+<pre><code>&amp;.disabled.active, &amp;[disabled].active
+  background-color: #ffffff
+  border-color: #cccccc</code></pre>
+
+<p><a href="disabled">fieldset</a> .btn-default.active</p>
+
+<pre><code>background-color: #ffffff
+border-color: #cccccc</code></pre>
+
+<p>.btn-default .badge</p>
+
+<pre><code>color: #ffffff
+background-color: #fff</code></pre>
+
+<p>.btn-primary</p>
+
+<pre><code>color: #ffffff
+background-color: #428bca
+border-color: #357ebd
+&amp;:hover, &amp;:focus, &amp;:active, &amp;.active
+  color: #ffffff
+  background-color: #3276b1
+  border-color: #285e8e</code></pre>
+
+<p>.open .dropdown-toggle.btn-primary</p>
+
+<pre><code>color: #ffffff
+background-color: #3276b1
+border-color: #285e8e</code></pre>
+
+<p>.btn-primary</p>
+
+<pre><code>&amp;:active, &amp;.active
+  background-image: none</code></pre>
+
+<p>.open .dropdown-toggle.btn-primary</p>
+
+<pre><code>background-image: none</code></pre>
+
+<p>.btn-primary</p>
+
+<pre><code>&amp;.disabled, &amp;[disabled]
+  background-color: #428bca
+  border-color: #357ebd</code></pre>
+
+<p><a href="disabled">fieldset</a> .btn-primary</p>
+
+<pre><code>background-color: #428bca
+border-color: #357ebd</code></pre>
+
+<p>.btn-primary</p>
+
+<pre><code>&amp;.disabled:hover, &amp;[disabled]:hover
+  background-color: #428bca
+  border-color: #357ebd</code></pre>
+
+<p><a href="disabled">fieldset</a> .btn-primary:hover</p>
+
+<pre><code>background-color: #428bca
+border-color: #357ebd</code></pre>
+
+<p>.btn-primary</p>
+
+<pre><code>&amp;.disabled:focus, &amp;[disabled]:focus
+  background-color: #428bca
+  border-color: #357ebd</code></pre>
+
+<p><a href="disabled">fieldset</a> .btn-primary:focus</p>
+
+<pre><code>background-color: #428bca
+border-color: #357ebd</code></pre>
+
+<p>.btn-primary</p>
+
+<pre><code>&amp;.disabled:active, &amp;[disabled]:active
+  background-color: #428bca
+  border-color: #357ebd</code></pre>
+
+<p><a href="disabled">fieldset</a> .btn-primary:active</p>
+
+<pre><code>background-color: #428bca
+border-color: #357ebd</code></pre>
+
+<p>.btn-primary</p>
+
+<pre><code>&amp;.disabled.active, &amp;[disabled].active
+  background-color: #428bca
+  border-color: #357ebd</code></pre>
+
+<p><a href="disabled">fieldset</a> .btn-primary.active</p>
+
+<pre><code>background-color: #428bca
+border-color: #357ebd</code></pre>
+
+<p>.btn-primary .badge</p>
+
+<pre><code>color: #428bca
+background-color: #fff</code></pre>
+
+<p>.btn-warning</p>
+
+<pre><code>color: #ffffff
+background-color: #f0ad4e
+border-color: #eea236
+&amp;:hover, &amp;:focus, &amp;:active, &amp;.active
+  color: #ffffff
+  background-color: #ed9c28
+  border-color: #d58512</code></pre>
+
+<p>.open .dropdown-toggle.btn-warning</p>
+
+<pre><code>color: #ffffff
+background-color: #ed9c28
+border-color: #d58512</code></pre>
+
+<p>.btn-warning</p>
+
+<pre><code>&amp;:active, &amp;.active
+  background-image: none</code></pre>
+
+<p>.open .dropdown-toggle.btn-warning</p>
+
+<pre><code>background-image: none</code></pre>
+
+<p>.btn-warning</p>
+
+<pre><code>&amp;.disabled, &amp;[disabled]
+  background-color: #f0ad4e
+  border-color: #eea236</code></pre>
+
+<p><a href="disabled">fieldset</a> .btn-warning</p>
+
+<pre><code>background-color: #f0ad4e
+border-color: #eea236</code></pre>
+
+<p>.btn-warning</p>
+
+<pre><code>&amp;.disabled:hover, &amp;[disabled]:hover
+  background-color: #f0ad4e
+  border-color: #eea236</code></pre>
+
+<p><a href="disabled">fieldset</a> .btn-warning:hover</p>
+
+<pre><code>background-color: #f0ad4e
+border-color: #eea236</code></pre>
+
+<p>.btn-warning</p>
+
+<pre><code>&amp;.disabled:focus, &amp;[disabled]:focus
+  background-color: #f0ad4e
+  border-color: #eea236</code></pre>
+
+<p><a href="disabled">fieldset</a> .btn-warning:focus</p>
+
+<pre><code>background-color: #f0ad4e
+border-color: #eea236</code></pre>
+
+<p>.btn-warning</p>
+
+<pre><code>&amp;.disabled:active, &amp;[disabled]:active
+  background-color: #f0ad4e
+  border-color: #eea236</code></pre>
+
+<p><a href="disabled">fieldset</a> .btn-warning:active</p>
+
+<pre><code>background-color: #f0ad4e
+border-color: #eea236</code></pre>
+
+<p>.btn-warning</p>
+
+<pre><code>&amp;.disabled.active, &amp;[disabled].active
+  background-color: #f0ad4e
+  border-color: #eea236</code></pre>
+
+<p><a href="disabled">fieldset</a> .btn-warning.active</p>
+
+<pre><code>background-color: #f0ad4e
+border-color: #eea236</code></pre>
+
+<p>.btn-warning .badge</p>
+
+<pre><code>color: #f0ad4e
+background-color: #fff</code></pre>
+
+<p>.btn-danger</p>
+
+<pre><code>color: #ffffff
+background-color: #d9534f
+border-color: #d43f3a
+&amp;:hover, &amp;:focus, &amp;:active, &amp;.active
+  color: #ffffff
+  background-color: #d2322d
+  border-color: #ac2925</code></pre>
+
+<p>.open .dropdown-toggle.btn-danger</p>
+
+<pre><code>color: #ffffff
+background-color: #d2322d
+border-color: #ac2925</code></pre>
+
+<p>.btn-danger</p>
+
+<pre><code>&amp;:active, &amp;.active
+  background-image: none</code></pre>
+
+<p>.open .dropdown-toggle.btn-danger</p>
+
+<pre><code>background-image: none</code></pre>
+
+<p>.btn-danger</p>
+
+<pre><code>&amp;.disabled, &amp;[disabled]
+  background-color: #d9534f
+  border-color: #d43f3a</code></pre>
+
+<p><a href="disabled">fieldset</a> .btn-danger</p>
+
+<pre><code>background-color: #d9534f
+border-color: #d43f3a</code></pre>
+
+<p>.btn-danger</p>
+
+<pre><code>&amp;.disabled:hover, &amp;[disabled]:hover
+  background-color: #d9534f
+  border-color: #d43f3a</code></pre>
+
+<p><a href="disabled">fieldset</a> .btn-danger:hover</p>
+
+<pre><code>background-color: #d9534f
+border-color: #d43f3a</code></pre>
+
+<p>.btn-danger</p>
+
+<pre><code>&amp;.disabled:focus, &amp;[disabled]:focus
+  background-color: #d9534f
+  border-color: #d43f3a</code></pre>
+
+<p><a href="disabled">fieldset</a> .btn-danger:focus</p>
+
+<pre><code>background-color: #d9534f
+border-color: #d43f3a</code></pre>
+
+<p>.btn-danger</p>
+
+<pre><code>&amp;.disabled:active, &amp;[disabled]:active
+  background-color: #d9534f
+  border-color: #d43f3a</code></pre>
+
+<p><a href="disabled">fieldset</a> .btn-danger:active</p>
+
+<pre><code>background-color: #d9534f
+border-color: #d43f3a</code></pre>
+
+<p>.btn-danger</p>
+
+<pre><code>&amp;.disabled.active, &amp;[disabled].active
+  background-color: #d9534f
+  border-color: #d43f3a</code></pre>
+
+<p><a href="disabled">fieldset</a> .btn-danger.active</p>
+
+<pre><code>background-color: #d9534f
+border-color: #d43f3a</code></pre>
+
+<p>.btn-danger .badge</p>
+
+<pre><code>color: #d9534f
+background-color: #fff</code></pre>
+
+<p>.btn-success</p>
+
+<pre><code>color: #ffffff
+background-color: #5cb85c
+border-color: #4cae4c
+&amp;:hover, &amp;:focus, &amp;:active, &amp;.active
+  color: #ffffff
+  background-color: #47a447
+  border-color: #398439</code></pre>
+
+<p>.open .dropdown-toggle.btn-success</p>
+
+<pre><code>color: #ffffff
+background-color: #47a447
+border-color: #398439</code></pre>
+
+<p>.btn-success</p>
+
+<pre><code>&amp;:active, &amp;.active
+  background-image: none</code></pre>
+
+<p>.open .dropdown-toggle.btn-success</p>
+
+<pre><code>background-image: none</code></pre>
+
+<p>.btn-success</p>
+
+<pre><code>&amp;.disabled, &amp;[disabled]
+  background-color: #5cb85c
+  border-color: #4cae4c</code></pre>
+
+<p><a href="disabled">fieldset</a> .btn-success</p>
+
+<pre><code>background-color: #5cb85c
+border-color: #4cae4c</code></pre>
+
+<p>.btn-success</p>
+
+<pre><code>&amp;.disabled:hover, &amp;[disabled]:hover
+  background-color: #5cb85c
+  border-color: #4cae4c</code></pre>
+
+<p><a href="disabled">fieldset</a> .btn-success:hover</p>
+
+<pre><code>background-color: #5cb85c
+border-color: #4cae4c</code></pre>
+
+<p>.btn-success</p>
+
+<pre><code>&amp;.disabled:focus, &amp;[disabled]:focus
+  background-color: #5cb85c
+  border-color: #4cae4c</code></pre>
+
+<p><a href="disabled">fieldset</a> .btn-success:focus</p>
+
+<pre><code>background-color: #5cb85c
+border-color: #4cae4c</code></pre>
+
+<p>.btn-success</p>
+
+<pre><code>&amp;.disabled:active, &amp;[disabled]:active
+  background-color: #5cb85c
+  border-color: #4cae4c</code></pre>
+
+<p><a href="disabled">fieldset</a> .btn-success:active</p>
+
+<pre><code>background-color: #5cb85c
+border-color: #4cae4c</code></pre>
+
+<p>.btn-success</p>
+
+<pre><code>&amp;.disabled.active, &amp;[disabled].active
+  background-color: #5cb85c
+  border-color: #4cae4c</code></pre>
+
+<p><a href="disabled">fieldset</a> .btn-success.active</p>
+
+<pre><code>background-color: #5cb85c
+border-color: #4cae4c</code></pre>
+
+<p>.btn-success .badge</p>
+
+<pre><code>color: #5cb85c
+background-color: #fff</code></pre>
+
+<p>.btn-info</p>
+
+<pre><code>color: #ffffff
+background-color: #5bc0de
+border-color: #46b8da
+&amp;:hover, &amp;:focus, &amp;:active, &amp;.active
+  color: #ffffff
+  background-color: #39b3d7
+  border-color: #269abc</code></pre>
+
+<p>.open .dropdown-toggle.btn-info</p>
+
+<pre><code>color: #ffffff
+background-color: #39b3d7
+border-color: #269abc</code></pre>
+
+<p>.btn-info</p>
+
+<pre><code>&amp;:active, &amp;.active
+  background-image: none</code></pre>
+
+<p>.open .dropdown-toggle.btn-info</p>
+
+<pre><code>background-image: none</code></pre>
+
+<p>.btn-info</p>
+
+<pre><code>&amp;.disabled, &amp;[disabled]
+  background-color: #5bc0de
+  border-color: #46b8da</code></pre>
+
+<p><a href="disabled">fieldset</a> .btn-info</p>
+
+<pre><code>background-color: #5bc0de
+border-color: #46b8da</code></pre>
+
+<p>.btn-info</p>
+
+<pre><code>&amp;.disabled:hover, &amp;[disabled]:hover
+  background-color: #5bc0de
+  border-color: #46b8da</code></pre>
+
+<p><a href="disabled">fieldset</a> .btn-info:hover</p>
+
+<pre><code>background-color: #5bc0de
+border-color: #46b8da</code></pre>
+
+<p>.btn-info</p>
+
+<pre><code>&amp;.disabled:focus, &amp;[disabled]:focus
+  background-color: #5bc0de
+  border-color: #46b8da</code></pre>
+
+<p><a href="disabled">fieldset</a> .btn-info:focus</p>
+
+<pre><code>background-color: #5bc0de
+border-color: #46b8da</code></pre>
+
+<p>.btn-info</p>
+
+<pre><code>&amp;.disabled:active, &amp;[disabled]:active
+  background-color: #5bc0de
+  border-color: #46b8da</code></pre>
+
+<p><a href="disabled">fieldset</a> .btn-info:active</p>
+
+<pre><code>background-color: #5bc0de
+border-color: #46b8da</code></pre>
+
+<p>.btn-info</p>
+
+<pre><code>&amp;.disabled.active, &amp;[disabled].active
+  background-color: #5bc0de
+  border-color: #46b8da</code></pre>
+
+<p><a href="disabled">fieldset</a> .btn-info.active</p>
+
+<pre><code>background-color: #5bc0de
+border-color: #46b8da</code></pre>
+
+<p>.btn-info .badge</p>
+
+<pre><code>color: #5bc0de
+background-color: #fff</code></pre>
+
+<p>.btn-link</p>
+
+<pre><code>font-weight: normal
+color: #428bca
+cursor: pointer
+border-radius: 0
+background-color: transparent
+-webkit-box-shadow: none
+box-shadow: none
+&amp;:active, &amp;[disabled]
+  background-color: transparent
+  -webkit-box-shadow: none
+  box-shadow: none</code></pre>
+
+<p><a href="disabled">fieldset</a> .btn-link</p>
+
+<pre><code>background-color: transparent
+-webkit-box-shadow: none
+box-shadow: none</code></pre>
+
+<p>.btn-link</p>
+
+<pre><code>border-color: transparent
+&amp;:hover, &amp;:focus, &amp;:active
+  border-color: transparent
+&amp;:hover, &amp;:focus
+  color: #2a6496
+  text-decoration: underline
+  background-color: transparent
+&amp;[disabled]:hover
+  color: #999999
+  text-decoration: none</code></pre>
+
+<p><a href="disabled">fieldset</a> .btn-<a href="../../../../hover">hover</a>,
+.<a href="disabled">btn-link</a>:focus, <a href="disabled">fieldset</a>
+.btn-<a href="../../../../focus">focus</a></p>
+
+<pre><code>color: #999999
+text-decoration: none</code></pre>
+
+<p>.btn-lg</p>
+
+<pre><code>padding: 10px 16px
+font-size: 18px
+line-height: 1.33
+border-radius: 6px</code></pre>
+
+<p>.btn-sm</p>
+
+<pre><code>padding: 5px 10px
+font-size: 12px
+line-height: 1.5
+border-radius: 3px</code></pre>
+
+<p>.btn-xs</p>
+
+<pre><code>padding: 1px 5px
+font-size: 12px
+line-height: 1.5
+border-radius: 3px</code></pre>
+
+<p>.btn-block</p>
+
+<pre><code>display: block
+width: 100%
+padding-right: 0
+padding-left: 0
++ .btn-block
+  margin-top: 5px</code></pre>
+
+<p>input</p>
+
+<pre><code>&amp;[type=&quot;submit&quot;].btn-block, &amp;[type=&quot;reset&quot;].btn-block, &amp;[type=&quot;button&quot;].btn-block
+  width: 100%</code></pre>
+
+<p>.fade</p>
+
+<pre><code>opacity: 0
+-webkit-transition: opacity 0.15s linear
+transition: opacity 0.15s linear
+&amp;.in
+  opacity: 1</code></pre>
+
+<p>.collapse</p>
+
+<pre><code>display: none
+&amp;.in
+  display: block</code></pre>
+
+<p>.collapsing</p>
+
+<pre><code>position: relative
+height: 0
+overflow: hidden
+-webkit-transition: height 0.35s ease
+transition: height 0.35s ease</code></pre>
+
+<p>@font-face</p>
+
+<pre><code>font-family: &#39;Glyphicons Halflings&#39;
+src: url(&#39;../fonts/glyphicons-halflings-regular.eot&#39;)
+src: url(&#39;../fonts/glyphicons-halflings-regular.eot?#iefix&#39;) format(&quot;embedded-opentype&quot;), url(&#39;../fonts/glyphicons-halflings-regular.woff&#39;) format(&quot;woff&quot;), url(&#39;../fonts/glyphicons-halflings-regular.ttf&#39;) format(&quot;truetype&quot;), url(&#39;../fonts/glyphicons-halflings-regular.svg#glyphicons-halflingsregular&#39;) format(&quot;svg&quot;)</code></pre>
+
+<p>.glyphicon</p>
+
+<pre><code>position: relative
+top: 1px
+display: inline-block
+font-family: &#39;Glyphicons Halflings&#39;
+-webkit-font-smoothing: antialiased
+font-style: normal
+font-weight: normal
+line-height: 1
+-moz-osx-font-smoothing: grayscale
+&amp;:empty
+  width: 1em</code></pre>
+
+<p>.glyphicon-asterisk:before</p>
+
+<pre><code>content: &quot;\2a&quot;</code></pre>
+
+<p>.glyphicon-plus:before</p>
+
+<pre><code>content: &quot;\2b&quot;</code></pre>
+
+<p>.glyphicon-euro:before</p>
+
+<pre><code>content: &quot;\20ac&quot;</code></pre>
+
+<p>.glyphicon-minus:before</p>
+
+<pre><code>content: &quot;\2212&quot;</code></pre>
+
+<p>.glyphicon-cloud:before</p>
+
+<pre><code>content: &quot;\2601&quot;</code></pre>
+
+<p>.glyphicon-envelope:before</p>
+
+<pre><code>content: &quot;\2709&quot;</code></pre>
+
+<p>.glyphicon-pencil:before</p>
+
+<pre><code>content: &quot;\270f&quot;</code></pre>
+
+<p>.glyphicon-glass:before</p>
+
+<pre><code>content: &quot;\e001&quot;</code></pre>
+
+<p>.glyphicon-music:before</p>
+
+<pre><code>content: &quot;\e002&quot;</code></pre>
+
+<p>.glyphicon-search:before</p>
+
+<pre><code>content: &quot;\e003&quot;</code></pre>
+
+<p>.glyphicon-heart:before</p>
+
+<pre><code>content: &quot;\e005&quot;</code></pre>
+
+<p>.glyphicon-star:before</p>
+
+<pre><code>content: &quot;\e006&quot;</code></pre>
+
+<p>.glyphicon-star-empty:before</p>
+
+<pre><code>content: &quot;\e007&quot;</code></pre>
+
+<p>.glyphicon-user:before</p>
+
+<pre><code>content: &quot;\e008&quot;</code></pre>
+
+<p>.glyphicon-film:before</p>
+
+<pre><code>content: &quot;\e009&quot;</code></pre>
+
+<p>.glyphicon-th-large:before</p>
+
+<pre><code>content: &quot;\e010&quot;</code></pre>
+
+<p>.glyphicon-th:before</p>
+
+<pre><code>content: &quot;\e011&quot;</code></pre>
+
+<p>.glyphicon-th-list:before</p>
+
+<pre><code>content: &quot;\e012&quot;</code></pre>
+
+<p>.glyphicon-ok:before</p>
+
+<pre><code>content: &quot;\e013&quot;</code></pre>
+
+<p>.glyphicon-remove:before</p>
+
+<pre><code>content: &quot;\e014&quot;</code></pre>
+
+<p>.glyphicon-zoom-in:before</p>
+
+<pre><code>content: &quot;\e015&quot;</code></pre>
+
+<p>.glyphicon-zoom-out:before</p>
+
+<pre><code>content: &quot;\e016&quot;</code></pre>
+
+<p>.glyphicon-off:before</p>
+
+<pre><code>content: &quot;\e017&quot;</code></pre>
+
+<p>.glyphicon-signal:before</p>
+
+<pre><code>content: &quot;\e018&quot;</code></pre>
+
+<p>.glyphicon-cog:before</p>
+
+<pre><code>content: &quot;\e019&quot;</code></pre>
+
+<p>.glyphicon-trash:before</p>
+
+<pre><code>content: &quot;\e020&quot;</code></pre>
+
+<p>.glyphicon-home:before</p>
+
+<pre><code>content: &quot;\e021&quot;</code></pre>
+
+<p>.glyphicon-file:before</p>
+
+<pre><code>content: &quot;\e022&quot;</code></pre>
+
+<p>.glyphicon-time:before</p>
+
+<pre><code>content: &quot;\e023&quot;</code></pre>
+
+<p>.glyphicon-road:before</p>
+
+<pre><code>content: &quot;\e024&quot;</code></pre>
+
+<p>.glyphicon-download-alt:before</p>
+
+<pre><code>content: &quot;\e025&quot;</code></pre>
+
+<p>.glyphicon-download:before</p>
+
+<pre><code>content: &quot;\e026&quot;</code></pre>
+
+<p>.glyphicon-upload:before</p>
+
+<pre><code>content: &quot;\e027&quot;</code></pre>
+
+<p>.glyphicon-inbox:before</p>
+
+<pre><code>content: &quot;\e028&quot;</code></pre>
+
+<p>.glyphicon-play-circle:before</p>
+
+<pre><code>content: &quot;\e029&quot;</code></pre>
+
+<p>.glyphicon-repeat:before</p>
+
+<pre><code>content: &quot;\e030&quot;</code></pre>
+
+<p>.glyphicon-refresh:before</p>
+
+<pre><code>content: &quot;\e031&quot;</code></pre>
+
+<p>.glyphicon-list-alt:before</p>
+
+<pre><code>content: &quot;\e032&quot;</code></pre>
+
+<p>.glyphicon-lock:before</p>
+
+<pre><code>content: &quot;\e033&quot;</code></pre>
+
+<p>.glyphicon-flag:before</p>
+
+<pre><code>content: &quot;\e034&quot;</code></pre>
+
+<p>.glyphicon-headphones:before</p>
+
+<pre><code>content: &quot;\e035&quot;</code></pre>
+
+<p>.glyphicon-volume-off:before</p>
+
+<pre><code>content: &quot;\e036&quot;</code></pre>
+
+<p>.glyphicon-volume-down:before</p>
+
+<pre><code>content: &quot;\e037&quot;</code></pre>
+
+<p>.glyphicon-volume-up:before</p>
+
+<pre><code>content: &quot;\e038&quot;</code></pre>
+
+<p>.glyphicon-qrcode:before</p>
+
+<pre><code>content: &quot;\e039&quot;</code></pre>
+
+<p>.glyphicon-barcode:before</p>
+
+<pre><code>content: &quot;\e040&quot;</code></pre>
+
+<p>.glyphicon-tag:before</p>
+
+<pre><code>content: &quot;\e041&quot;</code></pre>
+
+<p>.glyphicon-tags:before</p>
+
+<pre><code>content: &quot;\e042&quot;</code></pre>
+
+<p>.glyphicon-book:before</p>
+
+<pre><code>content: &quot;\e043&quot;</code></pre>
+
+<p>.glyphicon-bookmark:before</p>
+
+<pre><code>content: &quot;\e044&quot;</code></pre>
+
+<p>.glyphicon-print:before</p>
+
+<pre><code>content: &quot;\e045&quot;</code></pre>
+
+<p>.glyphicon-camera:before</p>
+
+<pre><code>content: &quot;\e046&quot;</code></pre>
+
+<p>.glyphicon-font:before</p>
+
+<pre><code>content: &quot;\e047&quot;</code></pre>
+
+<p>.glyphicon-bold:before</p>
+
+<pre><code>content: &quot;\e048&quot;</code></pre>
+
+<p>.glyphicon-italic:before</p>
+
+<pre><code>content: &quot;\e049&quot;</code></pre>
+
+<p>.glyphicon-text-height:before</p>
+
+<pre><code>content: &quot;\e050&quot;</code></pre>
+
+<p>.glyphicon-text-width:before</p>
+
+<pre><code>content: &quot;\e051&quot;</code></pre>
+
+<p>.glyphicon-align-left:before</p>
+
+<pre><code>content: &quot;\e052&quot;</code></pre>
+
+<p>.glyphicon-align-center:before</p>
+
+<pre><code>content: &quot;\e053&quot;</code></pre>
+
+<p>.glyphicon-align-right:before</p>
+
+<pre><code>content: &quot;\e054&quot;</code></pre>
+
+<p>.glyphicon-align-justify:before</p>
+
+<pre><code>content: &quot;\e055&quot;</code></pre>
+
+<p>.glyphicon-list:before</p>
+
+<pre><code>content: &quot;\e056&quot;</code></pre>
+
+<p>.glyphicon-indent-left:before</p>
+
+<pre><code>content: &quot;\e057&quot;</code></pre>
+
+<p>.glyphicon-indent-right:before</p>
+
+<pre><code>content: &quot;\e058&quot;</code></pre>
+
+<p>.glyphicon-facetime-video:before</p>
+
+<pre><code>content: &quot;\e059&quot;</code></pre>
+
+<p>.glyphicon-picture:before</p>
+
+<pre><code>content: &quot;\e060&quot;</code></pre>
+
+<p>.glyphicon-map-marker:before</p>
+
+<pre><code>content: &quot;\e062&quot;</code></pre>
+
+<p>.glyphicon-adjust:before</p>
+
+<pre><code>content: &quot;\e063&quot;</code></pre>
+
+<p>.glyphicon-tint:before</p>
+
+<pre><code>content: &quot;\e064&quot;</code></pre>
+
+<p>.glyphicon-edit:before</p>
+
+<pre><code>content: &quot;\e065&quot;</code></pre>
+
+<p>.glyphicon-share:before</p>
+
+<pre><code>content: &quot;\e066&quot;</code></pre>
+
+<p>.glyphicon-check:before</p>
+
+<pre><code>content: &quot;\e067&quot;</code></pre>
+
+<p>.glyphicon-move:before</p>
+
+<pre><code>content: &quot;\e068&quot;</code></pre>
+
+<p>.glyphicon-step-backward:before</p>
+
+<pre><code>content: &quot;\e069&quot;</code></pre>
+
+<p>.glyphicon-fast-backward:before</p>
+
+<pre><code>content: &quot;\e070&quot;</code></pre>
+
+<p>.glyphicon-backward:before</p>
+
+<pre><code>content: &quot;\e071&quot;</code></pre>
+
+<p>.glyphicon-play:before</p>
+
+<pre><code>content: &quot;\e072&quot;</code></pre>
+
+<p>.glyphicon-pause:before</p>
+
+<pre><code>content: &quot;\e073&quot;</code></pre>
+
+<p>.glyphicon-stop:before</p>
+
+<pre><code>content: &quot;\e074&quot;</code></pre>
+
+<p>.glyphicon-forward:before</p>
+
+<pre><code>content: &quot;\e075&quot;</code></pre>
+
+<p>.glyphicon-fast-forward:before</p>
+
+<pre><code>content: &quot;\e076&quot;</code></pre>
+
+<p>.glyphicon-step-forward:before</p>
+
+<pre><code>content: &quot;\e077&quot;</code></pre>
+
+<p>.glyphicon-eject:before</p>
+
+<pre><code>content: &quot;\e078&quot;</code></pre>
+
+<p>.glyphicon-chevron-left:before</p>
+
+<pre><code>content: &quot;\e079&quot;</code></pre>
+
+<p>.glyphicon-chevron-right:before</p>
+
+<pre><code>content: &quot;\e080&quot;</code></pre>
+
+<p>.glyphicon-plus-sign:before</p>
+
+<pre><code>content: &quot;\e081&quot;</code></pre>
+
+<p>.glyphicon-minus-sign:before</p>
+
+<pre><code>content: &quot;\e082&quot;</code></pre>
+
+<p>.glyphicon-remove-sign:before</p>
+
+<pre><code>content: &quot;\e083&quot;</code></pre>
+
+<p>.glyphicon-ok-sign:before</p>
+
+<pre><code>content: &quot;\e084&quot;</code></pre>
+
+<p>.glyphicon-question-sign:before</p>
+
+<pre><code>content: &quot;\e085&quot;</code></pre>
+
+<p>.glyphicon-info-sign:before</p>
+
+<pre><code>content: &quot;\e086&quot;</code></pre>
+
+<p>.glyphicon-screenshot:before</p>
+
+<pre><code>content: &quot;\e087&quot;</code></pre>
+
+<p>.glyphicon-remove-circle:before</p>
+
+<pre><code>content: &quot;\e088&quot;</code></pre>
+
+<p>.glyphicon-ok-circle:before</p>
+
+<pre><code>content: &quot;\e089&quot;</code></pre>
+
+<p>.glyphicon-ban-circle:before</p>
+
+<pre><code>content: &quot;\e090&quot;</code></pre>
+
+<p>.glyphicon-arrow-left:before</p>
+
+<pre><code>content: &quot;\e091&quot;</code></pre>
+
+<p>.glyphicon-arrow-right:before</p>
+
+<pre><code>content: &quot;\e092&quot;</code></pre>
+
+<p>.glyphicon-arrow-up:before</p>
+
+<pre><code>content: &quot;\e093&quot;</code></pre>
+
+<p>.glyphicon-arrow-down:before</p>
+
+<pre><code>content: &quot;\e094&quot;</code></pre>
+
+<p>.glyphicon-share-alt:before</p>
+
+<pre><code>content: &quot;\e095&quot;</code></pre>
+
+<p>.glyphicon-resize-full:before</p>
+
+<pre><code>content: &quot;\e096&quot;</code></pre>
+
+<p>.glyphicon-resize-small:before</p>
+
+<pre><code>content: &quot;\e097&quot;</code></pre>
+
+<p>.glyphicon-exclamation-sign:before</p>
+
+<pre><code>content: &quot;\e101&quot;</code></pre>
+
+<p>.glyphicon-gift:before</p>
+
+<pre><code>content: &quot;\e102&quot;</code></pre>
+
+<p>.glyphicon-leaf:before</p>
+
+<pre><code>content: &quot;\e103&quot;</code></pre>
+
+<p>.glyphicon-fire:before</p>
+
+<pre><code>content: &quot;\e104&quot;</code></pre>
+
+<p>.glyphicon-eye-open:before</p>
+
+<pre><code>content: &quot;\e105&quot;</code></pre>
+
+<p>.glyphicon-eye-close:before</p>
+
+<pre><code>content: &quot;\e106&quot;</code></pre>
+
+<p>.glyphicon-warning-sign:before</p>
+
+<pre><code>content: &quot;\e107&quot;</code></pre>
+
+<p>.glyphicon-plane:before</p>
+
+<pre><code>content: &quot;\e108&quot;</code></pre>
+
+<p>.glyphicon-calendar:before</p>
+
+<pre><code>content: &quot;\e109&quot;</code></pre>
+
+<p>.glyphicon-random:before</p>
+
+<pre><code>content: &quot;\e110&quot;</code></pre>
+
+<p>.glyphicon-comment:before</p>
+
+<pre><code>content: &quot;\e111&quot;</code></pre>
+
+<p>.glyphicon-magnet:before</p>
+
+<pre><code>content: &quot;\e112&quot;</code></pre>
+
+<p>.glyphicon-chevron-up:before</p>
+
+<pre><code>content: &quot;\e113&quot;</code></pre>
+
+<p>.glyphicon-chevron-down:before</p>
+
+<pre><code>content: &quot;\e114&quot;</code></pre>
+
+<p>.glyphicon-retweet:before</p>
+
+<pre><code>content: &quot;\e115&quot;</code></pre>
+
+<p>.glyphicon-shopping-cart:before</p>
+
+<pre><code>content: &quot;\e116&quot;</code></pre>
+
+<p>.glyphicon-folder-close:before</p>
+
+<pre><code>content: &quot;\e117&quot;</code></pre>
+
+<p>.glyphicon-folder-open:before</p>
+
+<pre><code>content: &quot;\e118&quot;</code></pre>
+
+<p>.glyphicon-resize-vertical:before</p>
+
+<pre><code>content: &quot;\e119&quot;</code></pre>
+
+<p>.glyphicon-resize-horizontal:before</p>
+
+<pre><code>content: &quot;\e120&quot;</code></pre>
+
+<p>.glyphicon-hdd:before</p>
+
+<pre><code>content: &quot;\e121&quot;</code></pre>
+
+<p>.glyphicon-bullhorn:before</p>
+
+<pre><code>content: &quot;\e122&quot;</code></pre>
+
+<p>.glyphicon-bell:before</p>
+
+<pre><code>content: &quot;\e123&quot;</code></pre>
+
+<p>.glyphicon-certificate:before</p>
+
+<pre><code>content: &quot;\e124&quot;</code></pre>
+
+<p>.glyphicon-thumbs-up:before</p>
+
+<pre><code>content: &quot;\e125&quot;</code></pre>
+
+<p>.glyphicon-thumbs-down:before</p>
+
+<pre><code>content: &quot;\e126&quot;</code></pre>
+
+<p>.glyphicon-hand-right:before</p>
+
+<pre><code>content: &quot;\e127&quot;</code></pre>
+
+<p>.glyphicon-hand-left:before</p>
+
+<pre><code>content: &quot;\e128&quot;</code></pre>
+
+<p>.glyphicon-hand-up:before</p>
+
+<pre><code>content: &quot;\e129&quot;</code></pre>
+
+<p>.glyphicon-hand-down:before</p>
+
+<pre><code>content: &quot;\e130&quot;</code></pre>
+
+<p>.glyphicon-circle-arrow-right:before</p>
+
+<pre><code>content: &quot;\e131&quot;</code></pre>
+
+<p>.glyphicon-circle-arrow-left:before</p>
+
+<pre><code>content: &quot;\e132&quot;</code></pre>
+
+<p>.glyphicon-circle-arrow-up:before</p>
+
+<pre><code>content: &quot;\e133&quot;</code></pre>
+
+<p>.glyphicon-circle-arrow-down:before</p>
+
+<pre><code>content: &quot;\e134&quot;</code></pre>
+
+<p>.glyphicon-globe:before</p>
+
+<pre><code>content: &quot;\e135&quot;</code></pre>
+
+<p>.glyphicon-wrench:before</p>
+
+<pre><code>content: &quot;\e136&quot;</code></pre>
+
+<p>.glyphicon-tasks:before</p>
+
+<pre><code>content: &quot;\e137&quot;</code></pre>
+
+<p>.glyphicon-filter:before</p>
+
+<pre><code>content: &quot;\e138&quot;</code></pre>
+
+<p>.glyphicon-briefcase:before</p>
+
+<pre><code>content: &quot;\e139&quot;</code></pre>
+
+<p>.glyphicon-fullscreen:before</p>
+
+<pre><code>content: &quot;\e140&quot;</code></pre>
+
+<p>.glyphicon-dashboard:before</p>
+
+<pre><code>content: &quot;\e141&quot;</code></pre>
+
+<p>.glyphicon-paperclip:before</p>
+
+<pre><code>content: &quot;\e142&quot;</code></pre>
+
+<p>.glyphicon-heart-empty:before</p>
+
+<pre><code>content: &quot;\e143&quot;</code></pre>
+
+<p>.glyphicon-<a href="../../../../before">before</a></p>
+
+<pre><code>content: &quot;\e144&quot;</code></pre>
+
+<p>.glyphicon-phone:before</p>
+
+<pre><code>content: &quot;\e145&quot;</code></pre>
+
+<p>.glyphicon-pushpin:before</p>
+
+<pre><code>content: &quot;\e146&quot;</code></pre>
+
+<p>.glyphicon-usd:before</p>
+
+<pre><code>content: &quot;\e148&quot;</code></pre>
+
+<p>.glyphicon-gbp:before</p>
+
+<pre><code>content: &quot;\e149&quot;</code></pre>
+
+<p>.glyphicon-sort:before</p>
+
+<pre><code>content: &quot;\e150&quot;</code></pre>
+
+<p>.glyphicon-sort-by-alphabet:before</p>
+
+<pre><code>content: &quot;\e151&quot;</code></pre>
+
+<p>.glyphicon-sort-by-alphabet-alt:before</p>
+
+<pre><code>content: &quot;\e152&quot;</code></pre>
+
+<p>.glyphicon-sort-by-order:before</p>
+
+<pre><code>content: &quot;\e153&quot;</code></pre>
+
+<p>.glyphicon-sort-by-order-alt:before</p>
+
+<pre><code>content: &quot;\e154&quot;</code></pre>
+
+<p>.glyphicon-sort-by-attributes:before</p>
+
+<pre><code>content: &quot;\e155&quot;</code></pre>
+
+<p>.glyphicon-sort-by-attributes-alt:before</p>
+
+<pre><code>content: &quot;\e156&quot;</code></pre>
+
+<p>.glyphicon-unchecked:before</p>
+
+<pre><code>content: &quot;\e157&quot;</code></pre>
+
+<p>.glyphicon-expand:before</p>
+
+<pre><code>content: &quot;\e158&quot;</code></pre>
+
+<p>.glyphicon-collapse-down:before</p>
+
+<pre><code>content: &quot;\e159&quot;</code></pre>
+
+<p>.glyphicon-collapse-up:before</p>
+
+<pre><code>content: &quot;\e160&quot;</code></pre>
+
+<p>.glyphicon-log-in:before</p>
+
+<pre><code>content: &quot;\e161&quot;</code></pre>
+
+<p>.glyphicon-flash:before</p>
+
+<pre><code>content: &quot;\e162&quot;</code></pre>
+
+<p>.glyphicon-log-out:before</p>
+
+<pre><code>content: &quot;\e163&quot;</code></pre>
+
+<p>.glyphicon-new-window:before</p>
+
+<pre><code>content: &quot;\e164&quot;</code></pre>
+
+<p>.glyphicon-record:before</p>
+
+<pre><code>content: &quot;\e165&quot;</code></pre>
+
+<p>.glyphicon-save:before</p>
+
+<pre><code>content: &quot;\e166&quot;</code></pre>
+
+<p>.glyphicon-open:before</p>
+
+<pre><code>content: &quot;\e167&quot;</code></pre>
+
+<p>.glyphicon-saved:before</p>
+
+<pre><code>content: &quot;\e168&quot;</code></pre>
+
+<p>.glyphicon-import:before</p>
+
+<pre><code>content: &quot;\e169&quot;</code></pre>
+
+<p>.glyphicon-export:before</p>
+
+<pre><code>content: &quot;\e170&quot;</code></pre>
+
+<p>.glyphicon-send:before</p>
+
+<pre><code>content: &quot;\e171&quot;</code></pre>
+
+<p>.glyphicon-floppy-disk:before</p>
+
+<pre><code>content: &quot;\e172&quot;</code></pre>
+
+<p>.glyphicon-floppy-saved:before</p>
+
+<pre><code>content: &quot;\e173&quot;</code></pre>
+
+<p>.glyphicon-floppy-remove:before</p>
+
+<pre><code>content: &quot;\e174&quot;</code></pre>
+
+<p>.glyphicon-floppy-save:before</p>
+
+<pre><code>content: &quot;\e175&quot;</code></pre>
+
+<p>.glyphicon-floppy-open:before</p>
+
+<pre><code>content: &quot;\e176&quot;</code></pre>
+
+<p>.glyphicon-credit-card:before</p>
+
+<pre><code>content: &quot;\e177&quot;</code></pre>
+
+<p>.glyphicon-transfer:before</p>
+
+<pre><code>content: &quot;\e178&quot;</code></pre>
+
+<p>.glyphicon-cutlery:before</p>
+
+<pre><code>content: &quot;\e179&quot;</code></pre>
+
+<p>.glyphicon-header:before</p>
+
+<pre><code>content: &quot;\e180&quot;</code></pre>
+
+<p>.glyphicon-compressed:before</p>
+
+<pre><code>content: &quot;\e181&quot;</code></pre>
+
+<p>.glyphicon-earphone:before</p>
+
+<pre><code>content: &quot;\e182&quot;</code></pre>
+
+<p>.glyphicon-phone-alt:before</p>
+
+<pre><code>content: &quot;\e183&quot;</code></pre>
+
+<p>.glyphicon-tower:before</p>
+
+<pre><code>content: &quot;\e184&quot;</code></pre>
+
+<p>.glyphicon-stats:before</p>
+
+<pre><code>content: &quot;\e185&quot;</code></pre>
+
+<p>.glyphicon-sd-video:before</p>
+
+<pre><code>content: &quot;\e186&quot;</code></pre>
+
+<p>.glyphicon-hd-video:before</p>
+
+<pre><code>content: &quot;\e187&quot;</code></pre>
+
+<p>.glyphicon-subtitles:before</p>
+
+<pre><code>content: &quot;\e188&quot;</code></pre>
+
+<p>.glyphicon-sound-stereo:before</p>
+
+<pre><code>content: &quot;\e189&quot;</code></pre>
+
+<p>.glyphicon-sound-dolby:before</p>
+
+<pre><code>content: &quot;\e190&quot;</code></pre>
+
+<p>.glyphicon-sound-5-1:before</p>
+
+<pre><code>content: &quot;\e191&quot;</code></pre>
+
+<p>.glyphicon-sound-6-1:before</p>
+
+<pre><code>content: &quot;\e192&quot;</code></pre>
+
+<p>.glyphicon-sound-7-1:before</p>
+
+<pre><code>content: &quot;\e193&quot;</code></pre>
+
+<p>.glyphicon-copyright-mark:before</p>
+
+<pre><code>content: &quot;\e194&quot;</code></pre>
+
+<p>.glyphicon-registration-mark:before</p>
+
+<pre><code>content: &quot;\e195&quot;</code></pre>
+
+<p>.glyphicon-cloud-download:before</p>
+
+<pre><code>content: &quot;\e197&quot;</code></pre>
+
+<p>.glyphicon-cloud-upload:before</p>
+
+<pre><code>content: &quot;\e198&quot;</code></pre>
+
+<p>.glyphicon-tree-conifer:before</p>
+
+<pre><code>content: &quot;\e199&quot;</code></pre>
+
+<p>.glyphicon-tree-deciduous:before</p>
+
+<pre><code>content: &quot;\e200&quot;</code></pre>
+
+<p>.caret</p>
+
+<pre><code>display: inline-block
+width: 0
+height: 0
+margin-left: 2px
+vertical-align: middle
+border-top: 4px solid
+border-right: 4px solid transparent
+border-left: 4px solid transparent</code></pre>
+
+<p>.dropdown</p>
+
+<pre><code>position: relative</code></pre>
+
+<p>.dropdown-toggle:focus</p>
+
+<pre><code>outline: 0</code></pre>
+
+<p>.dropdown-menu</p>
+
+<pre><code>position: absolute
+top: 100%
+left: 0
+z-index: 1000
+display: none
+float: left
+min-width: 160px
+padding: 5px 0
+margin: 2px 0 0
+font-size: 14px
+list-style: none
+background-color: #ffffff
+border: 1px solid #cccccc
+border: 1px solid rgba(0, 0, 0, 0.15)
+border-radius: 4px
+-webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175)
+box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175)
+background-clip: padding-box
+&amp;.pull-right
+  right: 0
+  left: auto
+.divider
+  height: 1px
+  margin: 9px 0
+  overflow: hidden
+  background-color: #e5e5e5
+&gt;
+  li &gt; a
+    display: block
+    padding: 3px 20px
+    clear: both
+    font-weight: normal
+    line-height: 1.428571429
+    color: #333333
+    white-space: nowrap
+    &amp;:hover, &amp;:focus
+      color: #262626
+      text-decoration: none
+      background-color: #f5f5f5
+  .active &gt; a
+    color: #ffffff
+    text-decoration: none
+    background-color: #428bca
+    outline: 0
+    &amp;:hover, &amp;:focus
+      color: #ffffff
+      text-decoration: none
+      background-color: #428bca
+      outline: 0
+  .disabled &gt; a
+    color: #999999
+    &amp;:hover, &amp;:focus
+      color: #999999
+    &amp;:hover, &amp;:focus
+      text-decoration: none
+      cursor: not-allowed
+      background-color: transparent
+      background-image: none
+      filter: progid:DXImageTransform.Microsoft.gradient(enabled=false)</code></pre>
+
+<p>.open &gt;</p>
+
+<pre><code>.dropdown-menu
+  display: block
+a
+  outline: 0</code></pre>
+
+<p>.dropdown-header</p>
+
+<pre><code>display: block
+padding: 3px 20px
+font-size: 12px
+line-height: 1.428571429
+color: #999999</code></pre>
+
+<p>.dropdown-backdrop</p>
+
+<pre><code>position: fixed
+top: 0
+right: 0
+bottom: 0
+left: 0
+z-index: 990</code></pre>
+
+<p>.pull-right &gt; .dropdown-menu</p>
+
+<pre><code>right: 0
+left: auto</code></pre>
+
+<p>.dropup .caret, .navbar-fixed-bottom .dropdown .caret</p>
+
+<pre><code>border-top: 0
+border-bottom: 4px solid
+content: &quot;&quot;</code></pre>
+
+<p>.dropup .dropdown-menu, .navbar-fixed-bottom .dropdown .dropdown-menu</p>
+
+<pre><code>top: auto
+bottom: 100%
+margin-bottom: 1px</code></pre>
+
+<p>@media (min-width: 768px)</p>
+
+<pre><code>.navbar-right .dropdown-menu
+  right: 0
+  left: auto</code></pre>
+
+<p>.btn-group, .btn-group-vertical</p>
+
+<pre><code>position: relative
+display: inline-block
+vertical-align: middle</code></pre>
+
+<p>.btn-group &gt; .btn, .btn-group-vertical &gt; .btn</p>
+
+<pre><code>position: relative
+float: left</code></pre>
+
+<p>.btn-group &gt; .btn:hover, .btn-group-vertical &gt; .btn:hover, .btn-group
+&gt; .btn:focus, .btn-group-vertical &gt; .btn:focus, .btn-group &gt;
+.btn:active, .btn-group-vertical &gt; .btn:active, .btn-group &gt;
+.btn.active, .btn-group-vertical &gt; .btn.active</p>
+
+<pre><code>z-index: 2</code></pre>
+
+<p>.btn-group &gt; .btn:focus, .btn-group-vertical &gt; .btn:focus</p>
+
+<pre><code>outline: none</code></pre>
+
+<p>.btn-group</p>
+
+<pre><code>.btn +
+  .btn, .btn-group
+    margin-left: -1px
+.btn-group +
+  .btn, .btn-group
+    margin-left: -1px</code></pre>
+
+<p>.btn-toolbar</p>
+
+<pre><code>&amp;:before
+  display: table
+  content: &quot; &quot;
+&amp;:after
+  display: table
+  content: &quot; &quot;
+  clear: both
+&amp;:before
+  display: table
+  content: &quot; &quot;
+&amp;:after
+  display: table
+  content: &quot; &quot;
+  clear: both
+.btn-group
+  float: left
+&gt;
+  .btn + .btn, .btn-group + .btn, .btn + .btn-group, .btn-group + .btn-group
+    margin-left: 5px</code></pre>
+
+<p>.btn-group</p>
+
+<pre><code>&gt;
+  .btn
+    &amp;:not(:first-child):not(:last-child):not(.dropdown-toggle)
+      border-radius: 0
+    &amp;:first-child
+      margin-left: 0
+      &amp;:not(:last-child):not(.dropdown-toggle)
+        border-top-right-radius: 0
+        border-bottom-right-radius: 0
+    &amp;:last-child:not(:first-child)
+      border-bottom-left-radius: 0
+      border-top-left-radius: 0
+  .dropdown-toggle:not(:first-child)
+    border-bottom-left-radius: 0
+    border-top-left-radius: 0
+  .btn-group
+    float: left
+    &amp;:not(:first-child):not(:last-child) &gt; .btn
+      border-radius: 0
+    &amp;:first-child &gt;
+      .btn:last-child, .dropdown-toggle
+        border-top-right-radius: 0
+        border-bottom-right-radius: 0
+    &amp;:last-child &gt; .btn:first-child
+      border-bottom-left-radius: 0
+      border-top-left-radius: 0
+.dropdown-toggle:active, &amp;.open .dropdown-toggle
+  outline: 0</code></pre>
+
+<p>.btn-group-xs &gt; .btn</p>
+
+<pre><code>padding: 1px 5px
+font-size: 12px
+line-height: 1.5
+border-radius: 3px</code></pre>
+
+<p>.btn-group-sm &gt; .btn</p>
+
+<pre><code>padding: 5px 10px
+font-size: 12px
+line-height: 1.5
+border-radius: 3px</code></pre>
+
+<p>.btn-group-lg &gt; .btn</p>
+
+<pre><code>padding: 10px 16px
+font-size: 18px
+line-height: 1.33
+border-radius: 6px</code></pre>
+
+<p>.btn-group</p>
+
+<pre><code>&gt;
+  .btn + .dropdown-toggle
+    padding-right: 8px
+    padding-left: 8px
+  .btn-lg + .dropdown-toggle
+    padding-right: 12px
+    padding-left: 12px
+&amp;.open .dropdown-toggle
+  -webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125)
+  box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125)
+  &amp;.btn-link
+    -webkit-box-shadow: none
+    box-shadow: none</code></pre>
+
+<p>.btn .caret</p>
+
+<pre><code>margin-left: 0</code></pre>
+
+<p>.btn-lg .caret</p>
+
+<pre><code>border-width: 5px 5px 0
+border-bottom-width: 0</code></pre>
+
+<p>.dropup .btn-lg .caret</p>
+
+<pre><code>border-width: 0 5px 5px</code></pre>
+
+<p>.btn-group-vertical &gt;</p>
+
+<pre><code>.btn
+  display: block
+  float: none
+  width: 100%
+  max-width: 100%
+.btn-group
+  display: block
+  float: none
+  width: 100%
+  max-width: 100%
+  &gt; .btn
+    display: block
+    float: none
+    width: 100%
+    max-width: 100%
+  &amp;:before
+    display: table
+    content: &quot; &quot;
+  &amp;:after
+    display: table
+    content: &quot; &quot;
+    clear: both
+  &amp;:before
+    display: table
+    content: &quot; &quot;
+  &amp;:after
+    display: table
+    content: &quot; &quot;
+    clear: both
+  &gt; .btn
+    float: none
+.btn +
+  .btn, .btn-group
+    margin-top: -1px
+    margin-left: 0
+.btn-group +
+  .btn, .btn-group
+    margin-top: -1px
+    margin-left: 0
+.btn
+  &amp;:not(:first-child):not(:last-child)
+    border-radius: 0
+  &amp;:first-child:not(:last-child)
+    border-top-right-radius: 4px
+    border-bottom-right-radius: 0
+    border-bottom-left-radius: 0
+  &amp;:last-child:not(:first-child)
+    border-top-right-radius: 0
+    border-bottom-left-radius: 4px
+    border-top-left-radius: 0
+.btn-group
+  &amp;:not(:first-child):not(:last-child) &gt; .btn
+    border-radius: 0
+  &amp;:first-child &gt;
+    .btn:last-child, .dropdown-toggle
+      border-bottom-right-radius: 0
+      border-bottom-left-radius: 0
+  &amp;:last-child &gt; .btn:first-child
+    border-top-right-radius: 0
+    border-top-left-radius: 0</code></pre>
+
+<p>.btn-group-justified</p>
+
+<pre><code>display: table
+width: 100%
+border-collapse: separate
+table-layout: fixed
+&gt;
+  .btn
+    display: table-cell
+    float: none
+    width: 1%
+  .btn-group
+    display: table-cell
+    float: none
+    width: 1%
+    .btn
+      width: 100%</code></pre>
+<dl class="rdoc-list label-list"><dt>data-toggle=“buttons”
+<dd>
+<p>&gt; .btn &gt; input</p>
+</dd></dl>
+
+<pre><code>&amp;[type=&quot;radio&quot;], &amp;[type=&quot;checkbox&quot;]
+  display: none</code></pre>
+
+<p>.input-group</p>
+
+<pre><code>position: relative
+display: table
+border-collapse: separate
+&amp;[class*=&quot;col-&quot;]
+  float: none
+  padding-right: 0
+  padding-left: 0
+.form-control
+  width: 100%
+  margin-bottom: 0</code></pre>
+
+<p>.input-group-lg &gt;</p>
+
+<pre><code>.form-control, .input-group-addon, .input-group-btn &gt; .btn
+  height: 46px
+  padding: 10px 16px
+  font-size: 18px
+  line-height: 1.33
+  border-radius: 6px</code></pre>
+
+<p>select.input-group-lg &gt;</p>
+
+<pre><code>.form-control, .input-group-addon, .input-group-btn &gt; .btn
+  height: 46px
+  line-height: 46px</code></pre>
+
+<p>textarea.input-group-lg &gt;</p>
+
+<pre><code>.form-control, .input-group-addon, .input-group-btn &gt; .btn
+  height: auto</code></pre>
+
+<p>.input-group-sm &gt;</p>
+
+<pre><code>.form-control, .input-group-addon, .input-group-btn &gt; .btn
+  height: 30px
+  padding: 5px 10px
+  font-size: 12px
+  line-height: 1.5
+  border-radius: 3px</code></pre>
+
+<p>select.input-group-sm &gt;</p>
+
+<pre><code>.form-control, .input-group-addon, .input-group-btn &gt; .btn
+  height: 30px
+  line-height: 30px</code></pre>
+
+<p>textarea.input-group-sm &gt;</p>
+
+<pre><code>.form-control, .input-group-addon, .input-group-btn &gt; .btn
+  height: auto</code></pre>
+
+<p>.input-group-addon, .input-group-btn, .input-group .form-control</p>
+
+<pre><code>display: table-cell</code></pre>
+
+<p>.input-group-addon:not(:first-child):not(:last-child),
+.input-group-btn:not(:first-child):not(:last-child), .input-group
+.form-control:not(:first-child):not(:last-child)</p>
+
+<pre><code>border-radius: 0</code></pre>
+
+<p>.input-group-addon, .input-group-btn</p>
+
+<pre><code>width: 1%
+white-space: nowrap
+vertical-align: middle</code></pre>
+
+<p>.input-group-addon</p>
+
+<pre><code>padding: 6px 12px
+font-size: 14px
+font-weight: normal
+line-height: 1
+color: #555555
+text-align: center
+background-color: #eeeeee
+border: 1px solid #cccccc
+border-radius: 4px
+&amp;.input-sm
+  padding: 5px 10px
+  font-size: 12px
+  border-radius: 3px
+&amp;.input-lg
+  padding: 10px 16px
+  font-size: 18px
+  border-radius: 6px
+input
+  &amp;[type=&quot;radio&quot;], &amp;[type=&quot;checkbox&quot;]
+    margin-top: 0</code></pre>
+
+<p>.input-group .form-control:first-child, .input-group-addon:first-child</p>
+
+<pre><code>border-top-right-radius: 0
+border-bottom-right-radius: 0</code></pre>
+
+<p>.input-group-btn</p>
+
+<pre><code>&amp;:first-child &gt;
+  .btn, .dropdown-toggle
+    border-top-right-radius: 0
+    border-bottom-right-radius: 0
+&amp;:last-child &gt; .btn:not(:last-child):not(.dropdown-toggle)
+  border-top-right-radius: 0
+  border-bottom-right-radius: 0</code></pre>
+
+<p>.input-group-addon:first-child</p>
+
+<pre><code>border-right: 0</code></pre>
+
+<p>.input-group .form-control:last-child, .input-group-addon:last-child</p>
+
+<pre><code>border-bottom-left-radius: 0
+border-top-left-radius: 0</code></pre>
+
+<p>.input-group-btn</p>
+
+<pre><code>&amp;:last-child &gt;
+  .btn, .dropdown-toggle
+    border-bottom-left-radius: 0
+    border-top-left-radius: 0
+&amp;:first-child &gt; .btn:not(:first-child)
+  border-bottom-left-radius: 0
+  border-top-left-radius: 0</code></pre>
+
+<p>.input-group-addon:last-child</p>
+
+<pre><code>border-left: 0</code></pre>
+
+<p>.input-group-btn</p>
+
+<pre><code>position: relative
+white-space: nowrap
+&amp;:first-child &gt; .btn
+  margin-right: -1px
+&amp;:last-child &gt; .btn
+  margin-left: -1px
+&gt; .btn
+  position: relative
+  + .btn
+    margin-left: -4px
+  &amp;:hover, &amp;:active
+    z-index: 2</code></pre>
+
+<p>.nav</p>
+
+<pre><code>padding-left: 0
+margin-bottom: 0
+list-style: none
+&amp;:before
+  display: table
+  content: &quot; &quot;
+&amp;:after
+  display: table
+  content: &quot; &quot;
+  clear: both
+&amp;:before
+  display: table
+  content: &quot; &quot;
+&amp;:after
+  display: table
+  content: &quot; &quot;
+  clear: both
+&gt; li
+  position: relative
+  display: block
+  &gt; a
+    position: relative
+    display: block
+    padding: 10px 15px
+    &amp;:hover, &amp;:focus
+      text-decoration: none
+      background-color: #eeeeee
+  &amp;.disabled &gt; a
+    color: #999999
+    &amp;:hover, &amp;:focus
+      color: #999999
+      text-decoration: none
+      cursor: not-allowed
+      background-color: transparent
+.open &gt; a
+  background-color: #eeeeee
+  border-color: #428bca
+  &amp;:hover, &amp;:focus
+    background-color: #eeeeee
+    border-color: #428bca
+.nav-divider
+  height: 1px
+  margin: 9px 0
+  overflow: hidden
+  background-color: #e5e5e5
+&gt; li &gt; a &gt; img
+  max-width: none</code></pre>
+
+<p>.nav-tabs</p>
+
+<pre><code>border-bottom: 1px solid #dddddd
+&gt; li
+  float: left
+  margin-bottom: -1px
+  &gt; a
+    margin-right: 2px
+    line-height: 1.428571429
+    border: 1px solid transparent
+    border-radius: 4px 4px 0 0
+    &amp;:hover
+      border-color: #eeeeee #eeeeee #dddddd
+  &amp;.active &gt; a
+    color: #555555
+    cursor: default
+    background-color: #ffffff
+    border: 1px solid #dddddd
+    border-bottom-color: transparent
+    &amp;:hover, &amp;:focus
+      color: #555555
+      cursor: default
+      background-color: #ffffff
+      border: 1px solid #dddddd
+      border-bottom-color: transparent
+&amp;.nav-justified
+  width: 100%
+  border-bottom: 0
+  &gt;
+    li
+      float: none
+      &gt; a
+        margin-bottom: 5px
+        text-align: center
+    .dropdown .dropdown-menu
+      top: auto
+      left: auto
+    li &gt; a
+      margin-right: 0
+      border-radius: 4px
+    .active &gt; a
+      border: 1px solid #dddddd
+      &amp;:hover, &amp;:focus
+        border: 1px solid #dddddd</code></pre>
+
+<p>@media (min-width: 768px)</p>
+
+<pre><code>.nav-tabs.nav-justified &gt; li
+  display: table-cell
+  width: 1%
+  &gt; a
+    margin-bottom: 0</code></pre>
+
+<p>@media (min-width: 768px)</p>
+
+<pre><code>.nav-tabs.nav-justified &gt;
+  li &gt; a
+    border-bottom: 1px solid #dddddd
+    border-radius: 4px 4px 0 0
+  .active &gt; a
+    border-bottom-color: #ffffff
+    &amp;:hover, &amp;:focus
+      border-bottom-color: #ffffff</code></pre>
+
+<p>.nav-pills &gt; li</p>
+
+<pre><code>float: left
+&gt; a
+  border-radius: 4px
++ li
+  margin-left: 2px
+&amp;.active &gt; a
+  color: #ffffff
+  background-color: #428bca
+  &amp;:hover, &amp;:focus
+    color: #ffffff
+    background-color: #428bca</code></pre>
+
+<p>.nav-stacked &gt; li</p>
+
+<pre><code>float: none
++ li
+  margin-top: 2px
+  margin-left: 0</code></pre>
+
+<p>.nav-justified</p>
+
+<pre><code>width: 100%
+&gt;
+  li
+    float: none
+    &gt; a
+      margin-bottom: 5px
+      text-align: center
+  .dropdown .dropdown-menu
+    top: auto
+    left: auto</code></pre>
+
+<p>@media (min-width: 768px)</p>
+
+<pre><code>.nav-justified &gt; li
+  display: table-cell
+  width: 1%
+  &gt; a
+    margin-bottom: 0</code></pre>
+
+<p>.nav-tabs-justified</p>
+
+<pre><code>border-bottom: 0
+&gt;
+  li &gt; a
+    margin-right: 0
+    border-radius: 4px
+  .active &gt; a
+    border: 1px solid #dddddd
+    &amp;:hover, &amp;:focus
+      border: 1px solid #dddddd</code></pre>
+
+<p>@media (min-width: 768px)</p>
+
+<pre><code>.nav-tabs-justified &gt;
+  li &gt; a
+    border-bottom: 1px solid #dddddd
+    border-radius: 4px 4px 0 0
+  .active &gt; a
+    border-bottom-color: #ffffff
+    &amp;:hover, &amp;:focus
+      border-bottom-color: #ffffff</code></pre>
+
+<p>.tab-content &gt;</p>
+
+<pre><code>.tab-pane
+  display: none
+.active
+  display: block</code></pre>
+
+<p>.nav-tabs .dropdown-menu</p>
+
+<pre><code>margin-top: -1px
+border-top-right-radius: 0
+border-top-left-radius: 0</code></pre>
+
+<p>.navbar</p>
+
+<pre><code>position: relative
+min-height: 50px
+margin-bottom: 20px
+border: 1px solid transparent
+&amp;:before
+  display: table
+  content: &quot; &quot;
+&amp;:after
+  display: table
+  content: &quot; &quot;
+  clear: both
+&amp;:before
+  display: table
+  content: &quot; &quot;
+&amp;:after
+  display: table
+  content: &quot; &quot;
+  clear: both</code></pre>
+
+<p>@media (min-width: 768px)</p>
+
+<pre><code>.navbar
+  border-radius: 4px</code></pre>
+
+<p>.navbar-header</p>
+
+<pre><code>&amp;:before
+  display: table
+  content: &quot; &quot;
+&amp;:after
+  display: table
+  content: &quot; &quot;
+  clear: both
+&amp;:before
+  display: table
+  content: &quot; &quot;
+&amp;:after
+  display: table
+  content: &quot; &quot;
+  clear: both</code></pre>
+
+<p>@media (min-width: 768px)</p>
+
+<pre><code>.navbar-header
+  float: left</code></pre>
+
+<p>.navbar-collapse</p>
+
+<pre><code>max-height: 340px
+padding-right: 15px
+padding-left: 15px
+overflow-x: visible
+border-top: 1px solid transparent
+box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1)
+-webkit-overflow-scrolling: touch
+&amp;:before
+  display: table
+  content: &quot; &quot;
+&amp;:after
+  display: table
+  content: &quot; &quot;
+  clear: both
+&amp;:before
+  display: table
+  content: &quot; &quot;
+&amp;:after
+  display: table
+  content: &quot; &quot;
+  clear: both
+&amp;.in
+  overflow-y: auto</code></pre>
+
+<p>@media (min-width: 768px)</p>
+
+<pre><code>.navbar-collapse
+  width: auto
+  border-top: 0
+  box-shadow: none
+  &amp;.collapse
+    display: block !important
+    height: auto !important
+    padding-bottom: 0
+    overflow: visible !important
+  &amp;.in
+    overflow-y: visible
+.navbar-fixed-top .navbar-collapse, .navbar-static-top .navbar-collapse, .navbar-fixed-bottom .navbar-collapse
+  padding-right: 0
+  padding-left: 0</code></pre>
+
+<p>.container &gt;</p>
+
+<pre><code>.navbar-header, .navbar-collapse
+  margin-right: -15px
+  margin-left: -15px</code></pre>
+
+<p>@media (min-width: 768px)</p>
+
+<pre><code>.container &gt;
+  .navbar-header, .navbar-collapse
+    margin-right: 0
+    margin-left: 0</code></pre>
+
+<p>.navbar-static-top</p>
+
+<pre><code>z-index: 1000
+border-width: 0 0 1px</code></pre>
+
+<p>@media (min-width: 768px)</p>
+
+<pre><code>.navbar-static-top
+  border-radius: 0</code></pre>
+
+<p>.navbar-fixed-top, .navbar-fixed-bottom</p>
+
+<pre><code>position: fixed
+right: 0
+left: 0
+z-index: 1030</code></pre>
+
+<p>@media (min-width: 768px)</p>
+
+<pre><code>.navbar-fixed-top, .navbar-fixed-bottom
+  border-radius: 0</code></pre>
+
+<p>.navbar-fixed-top</p>
+
+<pre><code>top: 0
+border-width: 0 0 1px</code></pre>
+
+<p>.navbar-fixed-bottom</p>
+
+<pre><code>bottom: 0
+margin-bottom: 0
+border-width: 1px 0 0</code></pre>
+
+<p>.navbar-brand</p>
+
+<pre><code>float: left
+padding: 15px 15px
+font-size: 18px
+line-height: 20px
+&amp;:hover, &amp;:focus
+  text-decoration: none</code></pre>
+
+<p>@media (min-width: 768px)</p>
+
+<pre><code>.navbar &gt; .container .navbar-brand
+  margin-left: -15px</code></pre>
+
+<p>.navbar-toggle</p>
+
+<pre><code>position: relative
+float: right
+padding: 9px 10px
+margin-top: 8px
+margin-right: 15px
+margin-bottom: 8px
+background-color: transparent
+background-image: none
+border: 1px solid transparent
+border-radius: 4px
+.icon-bar
+  display: block
+  width: 22px
+  height: 2px
+  border-radius: 1px
+  + .icon-bar
+    margin-top: 4px</code></pre>
+
+<p>@media (min-width: 768px)</p>
+
+<pre><code>.navbar-toggle
+  display: none</code></pre>
+
+<p>.navbar-nav</p>
+
+<pre><code>margin: 7.5px -15px
+&gt; li &gt; a
+  padding-top: 10px
+  padding-bottom: 10px
+  line-height: 20px</code></pre>
+
+<p>@media (max-width: 767px)</p>
+
+<pre><code>.navbar-nav .open .dropdown-menu
+  position: static
+  float: none
+  width: auto
+  margin-top: 0
+  background-color: transparent
+  border: 0
+  box-shadow: none
+  &gt; li &gt; a, .dropdown-header
+    padding: 5px 15px 5px 25px
+  &gt; li &gt; a
+    line-height: 20px
+    &amp;:hover, &amp;:focus
+      background-image: none</code></pre>
+
+<p>@media (min-width: 768px)</p>
+
+<pre><code>.navbar-nav
+  float: left
+  margin: 0
+  &gt; li
+    float: left
+    &gt; a
+      padding-top: 15px
+      padding-bottom: 15px
+  &amp;.navbar-right:last-child
+    margin-right: -15px</code></pre>
+
+<p>@media (min-width: 768px)</p>
+
+<pre><code>.navbar-left
+  float: left !important
+.navbar-right
+  float: right !important</code></pre>
+
+<p>.navbar-form</p>
+
+<pre><code>padding: 10px 15px
+margin-top: 8px
+margin-right: -15px
+margin-bottom: 8px
+margin-left: -15px
+border-top: 1px solid transparent
+border-bottom: 1px solid transparent
+-webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1), 0 1px 0 rgba(255, 255, 255, 0.1)
+box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1), 0 1px 0 rgba(255, 255, 255, 0.1)</code></pre>
+
+<p>@media (min-width: 768px)</p>
+
+<pre><code>.navbar-form
+  .form-group
+    display: inline-block
+    margin-bottom: 0
+    vertical-align: middle
+  .form-control
+    display: inline-block
+  select.form-control
+    width: auto
+  .radio, .checkbox
+    display: inline-block
+    padding-left: 0
+    margin-top: 0
+    margin-bottom: 0
+  .radio input[type=&quot;radio&quot;], .checkbox input[type=&quot;checkbox&quot;]
+    float: none
+    margin-left: 0</code></pre>
+
+<p>@media (max-width: 767px)</p>
+
+<pre><code>.navbar-form .form-group
+  margin-bottom: 5px</code></pre>
+
+<p>@media (min-width: 768px)</p>
+
+<pre><code>.navbar-form
+  width: auto
+  padding-top: 0
+  padding-bottom: 0
+  margin-right: 0
+  margin-left: 0
+  border: 0
+  -webkit-box-shadow: none
+  box-shadow: none
+  &amp;.navbar-right:last-child
+    margin-right: -15px</code></pre>
+
+<p>.navbar-nav &gt; li &gt; .dropdown-menu</p>
+
+<pre><code>margin-top: 0
+border-top-right-radius: 0
+border-top-left-radius: 0</code></pre>
+
+<p>.navbar-fixed-bottom .navbar-nav &gt; li &gt; .dropdown-menu</p>
+
+<pre><code>border-bottom-right-radius: 0
+border-bottom-left-radius: 0</code></pre>
+
+<p>.navbar-nav</p>
+
+<pre><code>&amp;.pull-right &gt; li &gt; .dropdown-menu, &gt; li &gt; .dropdown-menu.pull-right
+  right: 0
+  left: auto</code></pre>
+
+<p>.navbar-btn</p>
+
+<pre><code>margin-top: 8px
+margin-bottom: 8px
+&amp;.btn-sm
+  margin-top: 10px
+  margin-bottom: 10px
+&amp;.btn-xs
+  margin-top: 14px
+  margin-bottom: 14px</code></pre>
+
+<p>.navbar-text</p>
+
+<pre><code>margin-top: 15px
+margin-bottom: 15px</code></pre>
+
+<p>@media (min-width: 768px)</p>
+
+<pre><code>.navbar-text
+  float: left
+  margin-right: 15px
+  margin-left: 15px
+  &amp;.navbar-right:last-child
+    margin-right: 0</code></pre>
+
+<p>.navbar-default</p>
+
+<pre><code>background-color: #f8f8f8
+border-color: #e7e7e7
+.navbar-brand
+  color: #777777
+  &amp;:hover, &amp;:focus
+    color: #5e5e5e
+    background-color: transparent
+.navbar-text
+  color: #777777
+.navbar-nav &gt;
+  li &gt; a
+    color: #777777
+    &amp;:hover, &amp;:focus
+      color: #333333
+      background-color: transparent
+  .active &gt; a
+    color: #555555
+    background-color: #e7e7e7
+    &amp;:hover, &amp;:focus
+      color: #555555
+      background-color: #e7e7e7
+  .disabled &gt; a
+    color: #cccccc
+    background-color: transparent
+    &amp;:hover, &amp;:focus
+      color: #cccccc
+      background-color: transparent
+.navbar-toggle
+  border-color: #dddddd
+  &amp;:hover, &amp;:focus
+    background-color: #dddddd
+  .icon-bar
+    background-color: #cccccc
+.navbar-collapse, .navbar-form
+  border-color: #e7e7e7
+.navbar-nav &gt; .open &gt; a
+  color: #555555
+  background-color: #e7e7e7
+  &amp;:hover, &amp;:focus
+    color: #555555
+    background-color: #e7e7e7
+.navbar-link
+  color: #777777
+  &amp;:hover
+    color: #333333</code></pre>
+
+<p>@media (max-width: 767px)</p>
+
+<pre><code>.navbar-default .navbar-nav .open .dropdown-menu &gt;
+  li &gt; a
+    color: #777777
+    &amp;:hover, &amp;:focus
+      color: #333333
+      background-color: transparent
+  .active &gt; a
+    color: #555555
+    background-color: #e7e7e7
+    &amp;:hover, &amp;:focus
+      color: #555555
+      background-color: #e7e7e7
+  .disabled &gt; a
+    color: #cccccc
+    background-color: transparent
+    &amp;:hover, &amp;:focus
+      color: #cccccc
+      background-color: transparent</code></pre>
+
+<p>.navbar-inverse</p>
+
+<pre><code>background-color: #222222
+border-color: #080808
+.navbar-brand
+  color: #999999
+  &amp;:hover, &amp;:focus
+    color: #ffffff
+    background-color: transparent
+.navbar-text
+  color: #999999
+.navbar-nav &gt;
+  li &gt; a
+    color: #999999
+    &amp;:hover, &amp;:focus
+      color: #ffffff
+      background-color: transparent
+  .active &gt; a
+    color: #ffffff
+    background-color: #080808
+    &amp;:hover, &amp;:focus
+      color: #ffffff
+      background-color: #080808
+  .disabled &gt; a
+    color: #444444
+    background-color: transparent
+    &amp;:hover, &amp;:focus
+      color: #444444
+      background-color: transparent
+.navbar-toggle
+  border-color: #333333
+  &amp;:hover, &amp;:focus
+    background-color: #333333
+  .icon-bar
+    background-color: #ffffff
+.navbar-collapse, .navbar-form
+  border-color: #101010
+.navbar-nav &gt; .open &gt; a
+  color: #ffffff
+  background-color: #080808
+  &amp;:hover, &amp;:focus
+    color: #ffffff
+    background-color: #080808
+.navbar-link
+  color: #999999
+  &amp;:hover
+    color: #ffffff</code></pre>
+
+<p>@media (max-width: 767px)</p>
+
+<pre><code>.navbar-inverse .navbar-nav .open .dropdown-menu
+  &gt; .dropdown-header
+    border-color: #080808
+  .divider
+    background-color: #080808
+  &gt;
+    li &gt; a
+      color: #999999
+      &amp;:hover, &amp;:focus
+        color: #ffffff
+        background-color: transparent
+    .active &gt; a
+      color: #ffffff
+      background-color: #080808
+      &amp;:hover, &amp;:focus
+        color: #ffffff
+        background-color: #080808
+    .disabled &gt; a
+      color: #444444
+      background-color: transparent
+      &amp;:hover, &amp;:focus
+        color: #444444
+        background-color: transparent</code></pre>
+
+<p>.breadcrumb</p>
+
+<pre><code>padding: 8px 15px
+margin-bottom: 20px
+list-style: none
+background-color: #f5f5f5
+border-radius: 4px
+&gt;
+  li
+    display: inline-block
+    + li:before
+      padding: 0 5px
+      color: #cccccc
+      content: &quot;/\00a0&quot;
+  .active
+    color: #999999</code></pre>
+
+<p>.pagination</p>
+
+<pre><code>display: inline-block
+padding-left: 0
+margin: 20px 0
+border-radius: 4px
+&gt;
+  li
+    display: inline
+    &gt;
+      a, span
+        position: relative
+        float: left
+        padding: 6px 12px
+        margin-left: -1px
+        line-height: 1.428571429
+        text-decoration: none
+        background-color: #ffffff
+        border: 1px solid #dddddd
+    &amp;:first-child &gt;
+      a, span
+        margin-left: 0
+        border-bottom-left-radius: 4px
+        border-top-left-radius: 4px
+    &amp;:last-child &gt;
+      a, span
+        border-top-right-radius: 4px
+        border-bottom-right-radius: 4px
+    &gt;
+      a:hover, span:hover, a:focus, span:focus
+        background-color: #eeeeee
+  .active &gt;
+    a, span, a:hover, span:hover, a:focus, span:focus
+      z-index: 2
+      color: #ffffff
+      cursor: default
+      background-color: #428bca
+      border-color: #428bca
+  .disabled &gt;
+    span
+      color: #999999
+      cursor: not-allowed
+      background-color: #ffffff
+      border-color: #dddddd
+      &amp;:hover, &amp;:focus
+        color: #999999
+        cursor: not-allowed
+        background-color: #ffffff
+        border-color: #dddddd
+    a
+      color: #999999
+      cursor: not-allowed
+      background-color: #ffffff
+      border-color: #dddddd
+      &amp;:hover, &amp;:focus
+        color: #999999
+        cursor: not-allowed
+        background-color: #ffffff
+        border-color: #dddddd</code></pre>
+
+<p>.pagination-lg &gt; li</p>
+
+<pre><code>&gt;
+  a, span
+    padding: 10px 16px
+    font-size: 18px
+&amp;:first-child &gt;
+  a, span
+    border-bottom-left-radius: 6px
+    border-top-left-radius: 6px
+&amp;:last-child &gt;
+  a, span
+    border-top-right-radius: 6px
+    border-bottom-right-radius: 6px</code></pre>
+
+<p>.pagination-sm &gt; li</p>
+
+<pre><code>&gt;
+  a, span
+    padding: 5px 10px
+    font-size: 12px
+&amp;:first-child &gt;
+  a, span
+    border-bottom-left-radius: 3px
+    border-top-left-radius: 3px
+&amp;:last-child &gt;
+  a, span
+    border-top-right-radius: 3px
+    border-bottom-right-radius: 3px</code></pre>
+
+<p>.pager</p>
+
+<pre><code>padding-left: 0
+margin: 20px 0
+text-align: center
+list-style: none
+&amp;:before
+  display: table
+  content: &quot; &quot;
+&amp;:after
+  display: table
+  content: &quot; &quot;
+  clear: both
+&amp;:before
+  display: table
+  content: &quot; &quot;
+&amp;:after
+  display: table
+  content: &quot; &quot;
+  clear: both
+li
+  display: inline
+  &gt;
+    a, span
+      display: inline-block
+      padding: 5px 14px
+      background-color: #ffffff
+      border: 1px solid #dddddd
+      border-radius: 15px
+    a
+      &amp;:hover, &amp;:focus
+        text-decoration: none
+        background-color: #eeeeee
+.next &gt;
+  a, span
+    float: right
+.previous &gt;
+  a, span
+    float: left
+.disabled &gt;
+  a
+    color: #999999
+    cursor: not-allowed
+    background-color: #ffffff
+    &amp;:hover, &amp;:focus
+      color: #999999
+      cursor: not-allowed
+      background-color: #ffffff
+  span
+    color: #999999
+    cursor: not-allowed
+    background-color: #ffffff</code></pre>
+
+<p>.label</p>
+
+<pre><code>display: inline
+padding: .2em .6em .3em
+font-size: 75%
+font-weight: bold
+line-height: 1
+color: #ffffff
+text-align: center
+white-space: nowrap
+vertical-align: baseline
+border-radius: .25em
+&amp;[href]
+  &amp;:hover, &amp;:focus
+    color: #ffffff
+    text-decoration: none
+    cursor: pointer
+&amp;:empty
+  display: none</code></pre>
+
+<p>.btn .label</p>
+
+<pre><code>position: relative
+top: -1px</code></pre>
+
+<p>.label-default</p>
+
+<pre><code>background-color: #999999
+&amp;[href]
+  &amp;:hover, &amp;:focus
+    background-color: #808080</code></pre>
+
+<p>.label-primary</p>
+
+<pre><code>background-color: #428bca
+&amp;[href]
+  &amp;:hover, &amp;:focus
+    background-color: #3071a9</code></pre>
+
+<p>.label-success</p>
+
+<pre><code>background-color: #5cb85c
+&amp;[href]
+  &amp;:hover, &amp;:focus
+    background-color: #449d44</code></pre>
+
+<p>.label-info</p>
+
+<pre><code>background-color: #5bc0de
+&amp;[href]
+  &amp;:hover, &amp;:focus
+    background-color: #31b0d5</code></pre>
+
+<p>.label-warning</p>
+
+<pre><code>background-color: #f0ad4e
+&amp;[href]
+  &amp;:hover, &amp;:focus
+    background-color: #ec971f</code></pre>
+
+<p>.label-danger</p>
+
+<pre><code>background-color: #d9534f
+&amp;[href]
+  &amp;:hover, &amp;:focus
+    background-color: #c9302c</code></pre>
+
+<p>.badge</p>
+
+<pre><code>display: inline-block
+min-width: 10px
+padding: 3px 7px
+font-size: 12px
+font-weight: bold
+line-height: 1
+color: #ffffff
+text-align: center
+white-space: nowrap
+vertical-align: baseline
+background-color: #999999
+border-radius: 10px
+&amp;:empty
+  display: none</code></pre>
+
+<p>.btn .badge</p>
+
+<pre><code>position: relative
+top: -1px</code></pre>
+
+<p>a</p>
+
+<pre><code>&amp;.badge
+  &amp;:hover, &amp;:focus
+    color: #ffffff
+    text-decoration: none
+    cursor: pointer
+&amp;.list-group-item.active &gt; .badge
+  color: #428bca
+  background-color: #ffffff</code></pre>
+
+<p>.nav-pills &gt;</p>
+
+<pre><code>.active &gt; a &gt; .badge
+  color: #428bca
+  background-color: #ffffff
+li &gt; a &gt; .badge
+  margin-left: 3px</code></pre>
+
+<p>.jumbotron</p>
+
+<pre><code>padding: 30px
+margin-bottom: 30px
+font-size: 21px
+font-weight: 200
+line-height: 2.1428571435
+color: inherit
+background-color: #eeeeee
+h1, .h1
+  line-height: 1
+  color: inherit
+p
+  line-height: 1.4</code></pre>
+
+<p>.container .jumbotron</p>
+
+<pre><code>border-radius: 6px</code></pre>
+
+<p>.jumbotron .container</p>
+
+<pre><code>max-width: 100%</code></pre>
+
+<p>@media screen and (min-width: 768px)</p>
+
+<pre><code>.jumbotron
+  padding-top: 48px
+  padding-bottom: 48px
+.container .jumbotron
+  padding-right: 60px
+  padding-left: 60px
+.jumbotron
+  h1, .h1
+    font-size: 63px</code></pre>
+
+<p>.thumbnail</p>
+
+<pre><code>display: block
+padding: 4px
+margin-bottom: 20px
+line-height: 1.428571429
+background-color: #ffffff
+border: 1px solid #dddddd
+border-radius: 4px
+-webkit-transition: all 0.2s ease-in-out
+transition: all 0.2s ease-in-out
+&gt; img, a &gt; img
+  display: block
+  height: auto
+  max-width: 100%
+  margin-right: auto
+  margin-left: auto</code></pre>
+
+<p>a.thumbnail</p>
+
+<pre><code>&amp;:hover, &amp;:focus, &amp;.active
+  border-color: #428bca</code></pre>
+
+<p>.thumbnail .caption</p>
+
+<pre><code>padding: 9px
+color: #333333</code></pre>
+
+<p>.alert</p>
+
+<pre><code>padding: 15px
+margin-bottom: 20px
+border: 1px solid transparent
+border-radius: 4px
+h4
+  margin-top: 0
+  color: inherit
+.alert-link
+  font-weight: bold
+&gt;
+  p, ul
+    margin-bottom: 0
+  p + p
+    margin-top: 5px</code></pre>
+
+<p>.alert-dismissable</p>
+
+<pre><code>padding-right: 35px
+.close
+  position: relative
+  top: -2px
+  right: -21px
+  color: inherit</code></pre>
+
+<p>.alert-success</p>
+
+<pre><code>color: #3c763d
+background-color: #dff0d8
+border-color: #d6e9c6
+hr
+  border-top-color: #c9e2b3
+.alert-link
+  color: #2b542c</code></pre>
+
+<p>.alert-info</p>
+
+<pre><code>color: #31708f
+background-color: #d9edf7
+border-color: #bce8f1
+hr
+  border-top-color: #a6e1ec
+.alert-link
+  color: #245269</code></pre>
+
+<p>.alert-warning</p>
+
+<pre><code>color: #8a6d3b
+background-color: #fcf8e3
+border-color: #faebcc
+hr
+  border-top-color: #f7e1b5
+.alert-link
+  color: #66512c</code></pre>
+
+<p>.alert-danger</p>
+
+<pre><code>color: #a94442
+background-color: #f2dede
+border-color: #ebccd1
+hr
+  border-top-color: #e4b9c0
+.alert-link
+  color: #843534</code></pre>
+
+<p>@-webkit-keyframes progress-bar-stripes</p>
+
+<pre><code>from
+  background-position: 40px 0
+to
+  background-position: 0 0</code></pre>
+
+<p>@keyframes progress-bar-stripes</p>
+
+<pre><code>from
+  background-position: 40px 0
+to
+  background-position: 0 0</code></pre>
+
+<p>.progress</p>
+
+<pre><code>height: 20px
+margin-bottom: 20px
+overflow: hidden
+background-color: #f5f5f5
+border-radius: 4px
+-webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1)
+box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1)</code></pre>
+
+<p>.progress-bar</p>
+
+<pre><code>float: left
+width: 0
+height: 100%
+font-size: 12px
+line-height: 20px
+color: #ffffff
+text-align: center
+background-color: #428bca
+-webkit-box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.15)
+box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.15)
+-webkit-transition: width 0.6s ease
+transition: width 0.6s ease</code></pre>
+
+<p>.progress-striped .progress-bar</p>
+
+<pre><code>background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent)
+background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent)
+background-size: 40px 40px</code></pre>
+
+<p>.progress.active .progress-bar</p>
+
+<pre><code>-webkit-animation: progress-bar-stripes 2s linear infinite
+animation: progress-bar-stripes 2s linear infinite</code></pre>
+
+<p>.progress-bar-success</p>
+
+<pre><code>background-color: #5cb85c</code></pre>
+
+<p>.progress-striped .progress-bar-success</p>
+
+<pre><code>background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent)
+background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent)</code></pre>
+
+<p>.progress-bar-info</p>
+
+<pre><code>background-color: #5bc0de</code></pre>
+
+<p>.progress-striped .progress-bar-info</p>
+
+<pre><code>background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent)
+background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent)</code></pre>
+
+<p>.progress-bar-warning</p>
+
+<pre><code>background-color: #f0ad4e</code></pre>
+
+<p>.progress-striped .progress-bar-warning</p>
+
+<pre><code>background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent)
+background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent)</code></pre>
+
+<p>.progress-bar-danger</p>
+
+<pre><code>background-color: #d9534f</code></pre>
+
+<p>.progress-striped .progress-bar-danger</p>
+
+<pre><code>background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent)
+background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent)</code></pre>
+
+<p>.media, .media-body</p>
+
+<pre><code>overflow: hidden
+zoom: 1</code></pre>
+
+<p>.media</p>
+
+<pre><code>margin-top: 15px
+.media
+  margin-top: 15px
+&amp;:first-child
+  margin-top: 0</code></pre>
+
+<p>.media-object</p>
+
+<pre><code>display: block</code></pre>
+
+<p>.media-heading</p>
+
+<pre><code>margin: 0 0 5px</code></pre>
+
+<p>.media &gt;</p>
+
+<pre><code>.pull-left
+  margin-right: 10px
+.pull-right
+  margin-left: 10px</code></pre>
+
+<p>.media-list</p>
+
+<pre><code>padding-left: 0
+list-style: none</code></pre>
+
+<p>.list-group</p>
+
+<pre><code>padding-left: 0
+margin-bottom: 20px</code></pre>
+
+<p>.list-group-item</p>
+
+<pre><code>position: relative
+display: block
+padding: 10px 15px
+margin-bottom: -1px
+background-color: #ffffff
+border: 1px solid #dddddd
+&amp;:first-child
+  border-top-right-radius: 4px
+  border-top-left-radius: 4px
+&amp;:last-child
+  margin-bottom: 0
+  border-bottom-right-radius: 4px
+  border-bottom-left-radius: 4px
+&gt; .badge
+  float: right
+  + .badge
+    margin-right: 5px</code></pre>
+
+<p>a.list-group-item</p>
+
+<pre><code>color: #555555
+.list-group-item-heading
+  color: #333333
+&amp;:hover, &amp;:focus
+  text-decoration: none
+  background-color: #f5f5f5
+&amp;.active
+  z-index: 2
+  color: #ffffff
+  background-color: #428bca
+  border-color: #428bca
+  &amp;:hover, &amp;:focus
+    z-index: 2
+    color: #ffffff
+    background-color: #428bca
+    border-color: #428bca
+  .list-group-item-heading, &amp;:hover .list-group-item-heading, &amp;:focus .list-group-item-heading
+    color: inherit
+  .list-group-item-text, &amp;:hover .list-group-item-text, &amp;:focus .list-group-item-text
+    color: #e1edf7</code></pre>
+
+<p>.list-group-item-heading</p>
+
+<pre><code>margin-top: 0
+margin-bottom: 5px</code></pre>
+
+<p>.list-group-item-text</p>
+
+<pre><code>margin-bottom: 0
+line-height: 1.3</code></pre>
+
+<p>.panel</p>
+
+<pre><code>margin-bottom: 20px
+background-color: #ffffff
+border: 1px solid transparent
+border-radius: 4px
+-webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05)
+box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05)</code></pre>
+
+<p>.panel-body</p>
+
+<pre><code>padding: 15px
+&amp;:before
+  display: table
+  content: &quot; &quot;
+&amp;:after
+  display: table
+  content: &quot; &quot;
+  clear: both
+&amp;:before
+  display: table
+  content: &quot; &quot;
+&amp;:after
+  display: table
+  content: &quot; &quot;
+  clear: both</code></pre>
+
+<p>.panel &gt; .list-group</p>
+
+<pre><code>margin-bottom: 0
+.list-group-item
+  border-width: 1px 0
+  &amp;:first-child
+    border-top-right-radius: 0
+    border-top-left-radius: 0
+  &amp;:last-child
+    border-bottom: 0</code></pre>
+
+<p>.panel-heading + .list-group .list-group-item:first-child</p>
+
+<pre><code>border-top-width: 0</code></pre>
+
+<p>.panel &gt;</p>
+
+<pre><code>.table, .table-responsive &gt; .table
+  margin-bottom: 0
+.panel-body +
+  .table, .table-responsive
+    border-top: 1px solid #dddddd
+.table &gt; tbody:first-child
+  th, td
+    border-top: 0
+.table-bordered, .table-responsive &gt; .table-bordered
+  border: 0
+.table-bordered &gt; thead &gt; tr &gt; th:first-child, .table-responsive &gt; .table-bordered &gt; thead &gt; tr &gt; th:first-child, .table-bordered &gt; tbody &gt; tr &gt; th:first-child, .table-responsive &gt; .table-bordered &gt; tbody &gt; tr &gt; th:first-child, .table-bordered &gt; tfoot &gt; tr &gt; th:first-child, .table-responsive &gt; .table-bordered &gt; tfoot &gt; tr &gt; th:first-child, .table-bordered &gt; thead &gt; tr &gt; td:first-child, .table-responsive &gt; .table-bordered &gt; thead &gt; tr &gt; td:first-child, .table-bordered &gt; tbody &gt; tr &gt; td:first-child, .table-responsive &gt; .table-bordered &gt; tbody &gt; tr &gt; td:first-child, .table-bordered &gt; tfoot &gt; tr &gt; td:first-child, .table-responsive &gt; .table-bordered &gt; tfoot &gt; tr &gt; td:first-child
+  border-left: 0
+.table-bordered &gt; thead &gt; tr &gt; th:last-child, .table-responsive &gt; .table-bordered &gt; thead &gt; tr &gt; th:last-child, .table-bordered &gt; tbody &gt; tr &gt; th:last-child, .table-responsive &gt; .table-bordered &gt; tbody &gt; tr &gt; th:last-child, .table-bordered &gt; tfoot &gt; tr &gt; th:last-child, .table-responsive &gt; .table-bordered &gt; tfoot &gt; tr &gt; th:last-child, .table-bordered &gt; thead &gt; tr &gt; td:last-child, .table-responsive &gt; .table-bordered &gt; thead &gt; tr &gt; td:last-child, .table-bordered &gt; tbody &gt; tr &gt; td:last-child, .table-responsive &gt; .table-bordered &gt; tbody &gt; tr &gt; td:last-child, .table-bordered &gt; tfoot &gt; tr &gt; td:last-child, .table-responsive &gt; .table-bordered &gt; tfoot &gt; tr &gt; td:last-child
+  border-right: 0
+.table-bordered &gt; thead &gt; tr:last-child &gt; th, .table-responsive &gt; .table-bordered &gt; thead &gt; tr:last-child &gt; th, .table-bordered &gt; tbody &gt; tr:last-child &gt; th, .table-responsive &gt; .table-bordered &gt; tbody &gt; tr:last-child &gt; th, .table-bordered &gt; tfoot &gt; tr:last-child &gt; th, .table-responsive &gt; .table-bordered &gt; tfoot &gt; tr:last-child &gt; th, .table-bordered &gt; thead &gt; tr:last-child &gt; td, .table-responsive &gt; .table-bordered &gt; thead &gt; tr:last-child &gt; td, .table-bordered &gt; tbody &gt; tr:last-child &gt; td, .table-responsive &gt; .table-bordered &gt; tbody &gt; tr:last-child &gt; td, .table-bordered &gt; tfoot &gt; tr:last-child &gt; td
+  border-bottom: 0
+.table-responsive
+  &gt; .table-bordered &gt; tfoot &gt; tr:last-child &gt; td
+    border-bottom: 0
+  margin-bottom: 0
+  border: 0</code></pre>
+
+<p>.panel-heading</p>
+
+<pre><code>padding: 10px 15px
+border-bottom: 1px solid transparent
+border-top-right-radius: 3px
+border-top-left-radius: 3px
+&gt; .dropdown .dropdown-toggle
+  color: inherit</code></pre>
+
+<p>.panel-title</p>
+
+<pre><code>margin-top: 0
+margin-bottom: 0
+font-size: 16px
+color: inherit
+&gt; a
+  color: inherit</code></pre>
+
+<p>.panel-footer</p>
+
+<pre><code>padding: 10px 15px
+background-color: #f5f5f5
+border-top: 1px solid #dddddd
+border-bottom-right-radius: 3px
+border-bottom-left-radius: 3px</code></pre>
+
+<p>.panel-group</p>
+
+<pre><code>.panel
+  margin-bottom: 0
+  overflow: hidden
+  border-radius: 4px
+  + .panel
+    margin-top: 5px
+.panel-heading
+  border-bottom: 0
+  + .panel-collapse .panel-body
+    border-top: 1px solid #dddddd
+.panel-footer
+  border-top: 0
+  + .panel-collapse .panel-body
+    border-bottom: 1px solid #dddddd</code></pre>
+
+<p>.panel-default</p>
+
+<pre><code>border-color: #dddddd
+&gt;
+  .panel-heading
+    color: #333333
+    background-color: #f5f5f5
+    border-color: #dddddd
+    + .panel-collapse .panel-body
+      border-top-color: #dddddd
+  .panel-footer + .panel-collapse .panel-body
+    border-bottom-color: #dddddd</code></pre>
+
+<p>.panel-primary</p>
+
+<pre><code>border-color: #428bca
+&gt;
+  .panel-heading
+    color: #ffffff
+    background-color: #428bca
+    border-color: #428bca
+    + .panel-collapse .panel-body
+      border-top-color: #428bca
+  .panel-footer + .panel-collapse .panel-body
+    border-bottom-color: #428bca</code></pre>
+
+<p>.panel-success</p>
+
+<pre><code>border-color: #d6e9c6
+&gt;
+  .panel-heading
+    color: #3c763d
+    background-color: #dff0d8
+    border-color: #d6e9c6
+    + .panel-collapse .panel-body
+      border-top-color: #d6e9c6
+  .panel-footer + .panel-collapse .panel-body
+    border-bottom-color: #d6e9c6</code></pre>
+
+<p>.panel-warning</p>
+
+<pre><code>border-color: #faebcc
+&gt;
+  .panel-heading
+    color: #8a6d3b
+    background-color: #fcf8e3
+    border-color: #faebcc
+    + .panel-collapse .panel-body
+      border-top-color: #faebcc
+  .panel-footer + .panel-collapse .panel-body
+    border-bottom-color: #faebcc</code></pre>
+
+<p>.panel-danger</p>
+
+<pre><code>border-color: #ebccd1
+&gt;
+  .panel-heading
+    color: #a94442
+    background-color: #f2dede
+    border-color: #ebccd1
+    + .panel-collapse .panel-body
+      border-top-color: #ebccd1
+  .panel-footer + .panel-collapse .panel-body
+    border-bottom-color: #ebccd1</code></pre>
+
+<p>.panel-info</p>
+
+<pre><code>border-color: #bce8f1
+&gt;
+  .panel-heading
+    color: #31708f
+    background-color: #d9edf7
+    border-color: #bce8f1
+    + .panel-collapse .panel-body
+      border-top-color: #bce8f1
+  .panel-footer + .panel-collapse .panel-body
+    border-bottom-color: #bce8f1</code></pre>
+
+<p>.well</p>
+
+<pre><code>min-height: 20px
+padding: 19px
+margin-bottom: 20px
+background-color: #f5f5f5
+border: 1px solid #e3e3e3
+border-radius: 4px
+-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05)
+box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05)
+blockquote
+  border-color: #ddd
+  border-color: rgba(0, 0, 0, 0.15)</code></pre>
+
+<p>.well-lg</p>
+
+<pre><code>padding: 24px
+border-radius: 6px</code></pre>
+
+<p>.well-sm</p>
+
+<pre><code>padding: 9px
+border-radius: 3px</code></pre>
+
+<p>.close</p>
+
+<pre><code>float: right
+font-size: 21px
+font-weight: bold
+line-height: 1
+color: #000000
+text-shadow: 0 1px 0 #ffffff
+opacity: 0.2
+filter: alpha(opacity = 20)
+&amp;:hover, &amp;:focus
+  color: #000000
+  text-decoration: none
+  cursor: pointer
+  opacity: 0.5
+  filter: alpha(opacity = 50)</code></pre>
+
+<p>button.close</p>
+
+<pre><code>padding: 0
+cursor: pointer
+background: transparent
+border: 0
+-webkit-appearance: none</code></pre>
+
+<p>.modal-open</p>
+
+<pre><code>overflow: hidden</code></pre>
+
+<p>.modal</p>
+
+<pre><code>position: fixed
+top: 0
+right: 0
+bottom: 0
+left: 0
+z-index: 1040
+display: none
+overflow: auto
+overflow-y: scroll
+&amp;.fade .modal-dialog
+  -webkit-transform: translate(0, -25%)
+  -ms-transform: translate(0, -25%)
+  transform: translate(0, -25%)
+  -webkit-transition: -webkit-transform 0.3s ease-out
+  -moz-transition: -moz-transform 0.3s ease-out
+  -o-transition: -o-transform 0.3s ease-out
+  transition: transform 0.3s ease-out
+&amp;.in .modal-dialog
+  -webkit-transform: translate(0, 0)
+  -ms-transform: translate(0, 0)
+  transform: translate(0, 0)</code></pre>
+
+<p>.modal-dialog</p>
+
+<pre><code>position: relative
+z-index: 1050
+width: auto
+margin: 10px</code></pre>
+
+<p>.modal-content</p>
+
+<pre><code>position: relative
+background-color: #ffffff
+border: 1px solid #999999
+border: 1px solid rgba(0, 0, 0, 0.2)
+border-radius: 6px
+outline: none
+-webkit-box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5)
+box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5)
+background-clip: padding-box</code></pre>
+
+<p>.modal-backdrop</p>
+
+<pre><code>position: fixed
+top: 0
+right: 0
+bottom: 0
+left: 0
+z-index: 1030
+background-color: #000000
+&amp;.fade
+  opacity: 0
+  filter: alpha(opacity = 0)
+&amp;.in
+  opacity: 0.5
+  filter: alpha(opacity = 50)</code></pre>
+
+<p>.modal-header</p>
+
+<pre><code>min-height: 16.428571429px
+padding: 15px
+border-bottom: 1px solid #e5e5e5
+.close
+  margin-top: -2px</code></pre>
+
+<p>.modal-title</p>
+
+<pre><code>margin: 0
+line-height: 1.428571429</code></pre>
+
+<p>.modal-body</p>
+
+<pre><code>position: relative
+padding: 20px</code></pre>
+
+<p>.modal-footer</p>
+
+<pre><code>padding: 19px 20px 20px
+margin-top: 15px
+text-align: right
+border-top: 1px solid #e5e5e5
+&amp;:before
+  display: table
+  content: &quot; &quot;
+&amp;:after
+  display: table
+  content: &quot; &quot;
+  clear: both
+&amp;:before
+  display: table
+  content: &quot; &quot;
+&amp;:after
+  display: table
+  content: &quot; &quot;
+  clear: both
+.btn + .btn
+  margin-bottom: 0
+  margin-left: 5px
+.btn-group .btn + .btn
+  margin-left: -1px
+.btn-block + .btn-block
+  margin-left: 0</code></pre>
+
+<p>@media screen and (min-width: 768px)</p>
+
+<pre><code>.modal-dialog
+  width: 600px
+  margin: 30px auto
+.modal-content
+  -webkit-box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5)
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5)</code></pre>
+
+<p>.tooltip</p>
+
+<pre><code>position: absolute
+z-index: 1030
+display: block
+font-size: 12px
+line-height: 1.4
+opacity: 0
+filter: alpha(opacity = 0)
+visibility: visible
+&amp;.in
+  opacity: 0.9
+  filter: alpha(opacity = 90)
+&amp;.top
+  padding: 5px 0
+  margin-top: -3px
+&amp;.right
+  padding: 0 5px
+  margin-left: 3px
+&amp;.bottom
+  padding: 5px 0
+  margin-top: 3px
+&amp;.left
+  padding: 0 5px
+  margin-left: -3px</code></pre>
+
+<p>.tooltip-inner</p>
+
+<pre><code>max-width: 200px
+padding: 3px 8px
+color: #ffffff
+text-align: center
+text-decoration: none
+background-color: #000000
+border-radius: 4px</code></pre>
+
+<p>.tooltip-arrow</p>
+
+<pre><code>position: absolute
+width: 0
+height: 0
+border-color: transparent
+border-style: solid</code></pre>
+
+<p>.tooltip</p>
+
+<pre><code>&amp;.top .tooltip-arrow
+  bottom: 0
+  left: 50%
+  margin-left: -5px
+  border-top-color: #000000
+  border-width: 5px 5px 0
+&amp;.top-left .tooltip-arrow
+  bottom: 0
+  left: 5px
+  border-top-color: #000000
+  border-width: 5px 5px 0
+&amp;.top-right .tooltip-arrow
+  right: 5px
+  bottom: 0
+  border-top-color: #000000
+  border-width: 5px 5px 0
+&amp;.right .tooltip-arrow
+  top: 50%
+  left: 0
+  margin-top: -5px
+  border-right-color: #000000
+  border-width: 5px 5px 5px 0
+&amp;.left .tooltip-arrow
+  top: 50%
+  right: 0
+  margin-top: -5px
+  border-left-color: #000000
+  border-width: 5px 0 5px 5px
+&amp;.bottom .tooltip-arrow
+  top: 0
+  left: 50%
+  margin-left: -5px
+  border-bottom-color: #000000
+  border-width: 0 5px 5px
+&amp;.bottom-left .tooltip-arrow
+  top: 0
+  left: 5px
+  border-bottom-color: #000000
+  border-width: 0 5px 5px
+&amp;.bottom-right .tooltip-arrow
+  top: 0
+  right: 5px
+  border-bottom-color: #000000
+  border-width: 0 5px 5px</code></pre>
+
+<p>.popover</p>
+
+<pre><code>position: absolute
+top: 0
+left: 0
+z-index: 1010
+display: none
+max-width: 276px
+padding: 1px
+text-align: left
+white-space: normal
+background-color: #ffffff
+border: 1px solid #cccccc
+border: 1px solid rgba(0, 0, 0, 0.2)
+border-radius: 6px
+-webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2)
+box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2)
+background-clip: padding-box
+&amp;.top
+  margin-top: -10px
+&amp;.right
+  margin-left: 10px
+&amp;.bottom
+  margin-top: 10px
+&amp;.left
+  margin-left: -10px</code></pre>
+
+<p>.popover-title</p>
+
+<pre><code>padding: 8px 14px
+margin: 0
+font-size: 14px
+font-weight: normal
+line-height: 18px
+background-color: #f7f7f7
+border-bottom: 1px solid #ebebeb
+border-radius: 5px 5px 0 0</code></pre>
+
+<p>.popover-content</p>
+
+<pre><code>padding: 9px 14px</code></pre>
+
+<p>.popover</p>
+
+<pre><code>.arrow
+  position: absolute
+  display: block
+  width: 0
+  height: 0
+  border-color: transparent
+  border-style: solid
+  &amp;:after
+    position: absolute
+    display: block
+    width: 0
+    height: 0
+    border-color: transparent
+    border-style: solid
+    border-width: 10px
+    content: &quot;&quot;
+  border-width: 11px
+&amp;.top .arrow
+  bottom: -11px
+  left: 50%
+  margin-left: -11px
+  border-top-color: #999999
+  border-top-color: rgba(0, 0, 0, 0.25)
+  border-bottom-width: 0
+  &amp;:after
+    bottom: 1px
+    margin-left: -10px
+    border-top-color: #ffffff
+    border-bottom-width: 0
+    content: &quot; &quot;
+&amp;.right .arrow
+  top: 50%
+  left: -11px
+  margin-top: -11px
+  border-right-color: #999999
+  border-right-color: rgba(0, 0, 0, 0.25)
+  border-left-width: 0
+  &amp;:after
+    bottom: -10px
+    left: 1px
+    border-right-color: #ffffff
+    border-left-width: 0
+    content: &quot; &quot;
+&amp;.bottom .arrow
+  top: -11px
+  left: 50%
+  margin-left: -11px
+  border-bottom-color: #999999
+  border-bottom-color: rgba(0, 0, 0, 0.25)
+  border-top-width: 0
+  &amp;:after
+    top: 1px
+    margin-left: -10px
+    border-bottom-color: #ffffff
+    border-top-width: 0
+    content: &quot; &quot;
+&amp;.left .arrow
+  top: 50%
+  right: -11px
+  margin-top: -11px
+  border-left-color: #999999
+  border-left-color: rgba(0, 0, 0, 0.25)
+  border-right-width: 0
+  &amp;:after
+    right: 1px
+    bottom: -10px
+    border-left-color: #ffffff
+    border-right-width: 0
+    content: &quot; &quot;</code></pre>
+
+<p>.carousel</p>
+
+<pre><code>position: relative</code></pre>
+
+<p>.carousel-inner</p>
+
+<pre><code>position: relative
+width: 100%
+overflow: hidden
+&gt;
+  .item
+    position: relative
+    display: none
+    -webkit-transition: 0.6s ease-in-out left
+    transition: 0.6s ease-in-out left
+    &gt;
+      img, a &gt; img
+        display: block
+        height: auto
+        max-width: 100%
+        line-height: 1
+  .active, .next, .prev
+    display: block
+  .active
+    left: 0
+  .next, .prev
+    position: absolute
+    top: 0
+    width: 100%
+  .next
+    left: 100%
+  .prev
+    left: -100%
+  .next.left, .prev.right
+    left: 0
+  .active
+    &amp;.left
+      left: -100%
+    &amp;.right
+      left: 100%</code></pre>
+
+<p>.carousel-control</p>
+
+<pre><code>position: absolute
+top: 0
+bottom: 0
+left: 0
+width: 15%
+font-size: 20px
+color: #ffffff
+text-align: center
+text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6)
+opacity: 0.5
+filter: alpha(opacity = 50)
+&amp;.left
+  background-image: -webkit-linear-gradient(left, color-stop(rgba(0, 0, 0, 0.5) 0), color-stop(rgba(0, 0, 0, 0.0001) 100%))
+  background-image: linear-gradient(to right, rgba(0, 0, 0, 0.5) 0, rgba(0, 0, 0, 0.0001) 100%)
+  background-repeat: repeat-x
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=&#39;#80000000&#39;, endColorstr=&#39;#00000000&#39;, GradientType=1)
+&amp;.right
+  right: 0
+  left: auto
+  background-image: -webkit-linear-gradient(left, color-stop(rgba(0, 0, 0, 0.0001) 0), color-stop(rgba(0, 0, 0, 0.5) 100%))
+  background-image: linear-gradient(to right, rgba(0, 0, 0, 0.0001) 0, rgba(0, 0, 0, 0.5) 100%)
+  background-repeat: repeat-x
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=&#39;#00000000&#39;, endColorstr=&#39;#80000000&#39;, GradientType=1)
+&amp;:hover, &amp;:focus
+  color: #ffffff
+  text-decoration: none
+  outline: none
+  opacity: 0.9
+  filter: alpha(opacity = 90)
+.icon-prev, .icon-next, .glyphicon-chevron-left, .glyphicon-chevron-right
+  position: absolute
+  top: 50%
+  z-index: 5
+  display: inline-block
+.icon-prev, .glyphicon-chevron-left
+  left: 50%
+.icon-next, .glyphicon-chevron-right
+  right: 50%
+.icon-prev, .icon-next
+  width: 20px
+  height: 20px
+  margin-top: -10px
+  margin-left: -10px
+  font-family: serif
+.icon-prev:before
+  content: &#39;\2039&#39;
+.icon-next:before
+  content: &#39;\203a&#39;</code></pre>
+
+<p>.carousel-indicators</p>
+
+<pre><code>position: absolute
+bottom: 10px
+left: 50%
+z-index: 15
+width: 60%
+padding-left: 0
+margin-left: -30%
+text-align: center
+list-style: none
+li
+  display: inline-block
+  width: 10px
+  height: 10px
+  margin: 1px
+  text-indent: -999px
+  cursor: pointer
+  background-color: #000 \9
+  background-color: rgba(0, 0, 0, 0)
+  border: 1px solid #ffffff
+  border-radius: 10px
+.active
+  width: 12px
+  height: 12px
+  margin: 0
+  background-color: #ffffff</code></pre>
+
+<p>.carousel-caption</p>
+
+<pre><code>position: absolute
+right: 15%
+bottom: 20px
+left: 15%
+z-index: 10
+padding-top: 20px
+padding-bottom: 20px
+color: #ffffff
+text-align: center
+text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6)
+.btn
+  text-shadow: none</code></pre>
+
+<p>@media screen and (min-width: 768px)</p>
+
+<pre><code>.carousel-control
+  .glyphicons-chevron-left, .glyphicons-chevron-right, .icon-prev, .icon-next
+    width: 30px
+    height: 30px
+    margin-top: -15px
+    margin-left: -15px
+    font-size: 30px
+.carousel-caption
+  right: 20%
+  left: 20%
+  padding-bottom: 30px
+.carousel-indicators
+  bottom: 20px</code></pre>
+
+<p>.clearfix</p>
+
+<pre><code>&amp;:before
+  display: table
+  content: &quot; &quot;
+&amp;:after
+  display: table
+  content: &quot; &quot;
+  clear: both</code></pre>
+
+<p>.center-block</p>
+
+<pre><code>display: block
+margin-right: auto
+margin-left: auto</code></pre>
+
+<p>.pull-right</p>
+
+<pre><code>float: right !important</code></pre>
+
+<p>.pull-left</p>
+
+<pre><code>float: left !important</code></pre>
+
+<p>.hide</p>
+
+<pre><code>display: none !important</code></pre>
+
+<p>.show</p>
+
+<pre><code>display: block !important</code></pre>
+
+<p>.invisible</p>
+
+<pre><code>visibility: hidden</code></pre>
+
+<p>.text-hide</p>
+
+<pre><code>font: 0/0 a
+color: transparent
+text-shadow: none
+background-color: transparent
+border: 0</code></pre>
+
+<p>.hidden</p>
+
+<pre><code>display: none !important
+visibility: hidden !important</code></pre>
+
+<p>.affix</p>
+
+<pre><code>position: fixed</code></pre>
+
+<p>@-ms-viewport</p>
+
+<pre><code>width: device-width</code></pre>
+
+<p>.visible-xs, tr.visible-xs, th.visible-xs, td.visible-xs, .visible-sm,
+tr.visible-sm, th.visible-sm, td.visible-sm, .visible-md, tr.visible-md,
+th.visible-md, td.visible-md, .visible-lg, tr.visible-lg, th.visible-lg,
+td.visible-lg</p>
+
+<pre><code>display: none !important</code></pre>
+
+<p>@media (max-width: 767px)</p>
+
+<pre><code>.visible-xs
+  display: block !important
+table.visible-xs
+  display: table
+tr.visible-xs
+  display: table-row !important
+th.visible-xs, td.visible-xs
+  display: table-cell !important</code></pre>
+
+<p>@media (min-width: 768px) and (max-width: 991px)</p>
+
+<pre><code>.visible-xs.visible-sm
+  display: block !important
+table.visible-xs.visible-sm
+  display: table
+tr.visible-xs.visible-sm
+  display: table-row !important
+th.visible-xs.visible-sm, td.visible-xs.visible-sm
+  display: table-cell !important</code></pre>
+
+<p>@media (min-width: 992px) and (max-width: 1199px)</p>
+
+<pre><code>.visible-xs.visible-md
+  display: block !important
+table.visible-xs.visible-md
+  display: table
+tr.visible-xs.visible-md
+  display: table-row !important
+th.visible-xs.visible-md, td.visible-xs.visible-md
+  display: table-cell !important</code></pre>
+
+<p>@media (min-width: 1200px)</p>
+
+<pre><code>.visible-xs.visible-lg
+  display: block !important
+table.visible-xs.visible-lg
+  display: table
+tr.visible-xs.visible-lg
+  display: table-row !important
+th.visible-xs.visible-lg, td.visible-xs.visible-lg
+  display: table-cell !important</code></pre>
+
+<p>@media (max-width: 767px)</p>
+
+<pre><code>.visible-sm.visible-xs
+  display: block !important
+table.visible-sm.visible-xs
+  display: table
+tr.visible-sm.visible-xs
+  display: table-row !important
+th.visible-sm.visible-xs, td.visible-sm.visible-xs
+  display: table-cell !important</code></pre>
+
+<p>@media (min-width: 768px) and (max-width: 991px)</p>
+
+<pre><code>.visible-sm
+  display: block !important
+table.visible-sm
+  display: table
+tr.visible-sm
+  display: table-row !important
+th.visible-sm, td.visible-sm
+  display: table-cell !important</code></pre>
+
+<p>@media (min-width: 992px) and (max-width: 1199px)</p>
+
+<pre><code>.visible-sm.visible-md
+  display: block !important
+table.visible-sm.visible-md
+  display: table
+tr.visible-sm.visible-md
+  display: table-row !important
+th.visible-sm.visible-md, td.visible-sm.visible-md
+  display: table-cell !important</code></pre>
+
+<p>@media (min-width: 1200px)</p>
+
+<pre><code>.visible-sm.visible-lg
+  display: block !important
+table.visible-sm.visible-lg
+  display: table
+tr.visible-sm.visible-lg
+  display: table-row !important
+th.visible-sm.visible-lg, td.visible-sm.visible-lg
+  display: table-cell !important</code></pre>
+
+<p>@media (max-width: 767px)</p>
+
+<pre><code>.visible-md.visible-xs
+  display: block !important
+table.visible-md.visible-xs
+  display: table
+tr.visible-md.visible-xs
+  display: table-row !important
+th.visible-md.visible-xs, td.visible-md.visible-xs
+  display: table-cell !important</code></pre>
+
+<p>@media (min-width: 768px) and (max-width: 991px)</p>
+
+<pre><code>.visible-md.visible-sm
+  display: block !important
+table.visible-md.visible-sm
+  display: table
+tr.visible-md.visible-sm
+  display: table-row !important
+th.visible-md.visible-sm, td.visible-md.visible-sm
+  display: table-cell !important</code></pre>
+
+<p>@media (min-width: 992px) and (max-width: 1199px)</p>
+
+<pre><code>.visible-md
+  display: block !important
+table.visible-md
+  display: table
+tr.visible-md
+  display: table-row !important
+th.visible-md, td.visible-md
+  display: table-cell !important</code></pre>
+
+<p>@media (min-width: 1200px)</p>
+
+<pre><code>.visible-md.visible-lg
+  display: block !important
+table.visible-md.visible-lg
+  display: table
+tr.visible-md.visible-lg
+  display: table-row !important
+th.visible-md.visible-lg, td.visible-md.visible-lg
+  display: table-cell !important</code></pre>
+
+<p>@media (max-width: 767px)</p>
+
+<pre><code>.visible-lg.visible-xs
+  display: block !important
+table.visible-lg.visible-xs
+  display: table
+tr.visible-lg.visible-xs
+  display: table-row !important
+th.visible-lg.visible-xs, td.visible-lg.visible-xs
+  display: table-cell !important</code></pre>
+
+<p>@media (min-width: 768px) and (max-width: 991px)</p>
+
+<pre><code>.visible-lg.visible-sm
+  display: block !important
+table.visible-lg.visible-sm
+  display: table
+tr.visible-lg.visible-sm
+  display: table-row !important
+th.visible-lg.visible-sm, td.visible-lg.visible-sm
+  display: table-cell !important</code></pre>
+
+<p>@media (min-width: 992px) and (max-width: 1199px)</p>
+
+<pre><code>.visible-lg.visible-md
+  display: block !important
+table.visible-lg.visible-md
+  display: table
+tr.visible-lg.visible-md
+  display: table-row !important
+th.visible-lg.visible-md, td.visible-lg.visible-md
+  display: table-cell !important</code></pre>
+
+<p>@media (min-width: 1200px)</p>
+
+<pre><code>.visible-lg
+  display: block !important
+table.visible-lg
+  display: table
+tr.visible-lg
+  display: table-row !important
+th.visible-lg, td.visible-lg
+  display: table-cell !important</code></pre>
+
+<p>.hidden-xs</p>
+
+<pre><code>display: block !important</code></pre>
+
+<p>table.hidden-xs</p>
+
+<pre><code>display: table</code></pre>
+
+<p>tr.hidden-xs</p>
+
+<pre><code>display: table-row !important</code></pre>
+
+<p>th.hidden-xs, td.hidden-xs</p>
+
+<pre><code>display: table-cell !important</code></pre>
+
+<p>@media (max-width: 767px)</p>
+
+<pre><code>.hidden-xs, tr.hidden-xs, th.hidden-xs, td.hidden-xs
+  display: none !important</code></pre>
+
+<p>@media (min-width: 768px) and (max-width: 991px)</p>
+
+<pre><code>.hidden-xs.hidden-sm, tr.hidden-xs.hidden-sm, th.hidden-xs.hidden-sm, td.hidden-xs.hidden-sm
+  display: none !important</code></pre>
+
+<p>@media (min-width: 992px) and (max-width: 1199px)</p>
+
+<pre><code>.hidden-xs.hidden-md, tr.hidden-xs.hidden-md, th.hidden-xs.hidden-md, td.hidden-xs.hidden-md
+  display: none !important</code></pre>
+
+<p>@media (min-width: 1200px)</p>
+
+<pre><code>.hidden-xs.hidden-lg, tr.hidden-xs.hidden-lg, th.hidden-xs.hidden-lg, td.hidden-xs.hidden-lg
+  display: none !important</code></pre>
+
+<p>.hidden-sm</p>
+
+<pre><code>display: block !important</code></pre>
+
+<p>table.hidden-sm</p>
+
+<pre><code>display: table</code></pre>
+
+<p>tr.hidden-sm</p>
+
+<pre><code>display: table-row !important</code></pre>
+
+<p>th.hidden-sm, td.hidden-sm</p>
+
+<pre><code>display: table-cell !important</code></pre>
+
+<p>@media (max-width: 767px)</p>
+
+<pre><code>.hidden-sm.hidden-xs, tr.hidden-sm.hidden-xs, th.hidden-sm.hidden-xs, td.hidden-sm.hidden-xs
+  display: none !important</code></pre>
+
+<p>@media (min-width: 768px) and (max-width: 991px)</p>
+
+<pre><code>.hidden-sm, tr.hidden-sm, th.hidden-sm, td.hidden-sm
+  display: none !important</code></pre>
+
+<p>@media (min-width: 992px) and (max-width: 1199px)</p>
+
+<pre><code>.hidden-sm.hidden-md, tr.hidden-sm.hidden-md, th.hidden-sm.hidden-md, td.hidden-sm.hidden-md
+  display: none !important</code></pre>
+
+<p>@media (min-width: 1200px)</p>
+
+<pre><code>.hidden-sm.hidden-lg, tr.hidden-sm.hidden-lg, th.hidden-sm.hidden-lg, td.hidden-sm.hidden-lg
+  display: none !important</code></pre>
+
+<p>.hidden-md</p>
+
+<pre><code>display: block !important</code></pre>
+
+<p>table.hidden-md</p>
+
+<pre><code>display: table</code></pre>
+
+<p>tr.hidden-md</p>
+
+<pre><code>display: table-row !important</code></pre>
+
+<p>th.hidden-md, td.hidden-md</p>
+
+<pre><code>display: table-cell !important</code></pre>
+
+<p>@media (max-width: 767px)</p>
+
+<pre><code>.hidden-md.hidden-xs, tr.hidden-md.hidden-xs, th.hidden-md.hidden-xs, td.hidden-md.hidden-xs
+  display: none !important</code></pre>
+
+<p>@media (min-width: 768px) and (max-width: 991px)</p>
+
+<pre><code>.hidden-md.hidden-sm, tr.hidden-md.hidden-sm, th.hidden-md.hidden-sm, td.hidden-md.hidden-sm
+  display: none !important</code></pre>
+
+<p>@media (min-width: 992px) and (max-width: 1199px)</p>
+
+<pre><code>.hidden-md, tr.hidden-md, th.hidden-md, td.hidden-md
+  display: none !important</code></pre>
+
+<p>@media (min-width: 1200px)</p>
+
+<pre><code>.hidden-md.hidden-lg, tr.hidden-md.hidden-lg, th.hidden-md.hidden-lg, td.hidden-md.hidden-lg
+  display: none !important</code></pre>
+
+<p>.hidden-lg</p>
+
+<pre><code>display: block !important</code></pre>
+
+<p>table.hidden-lg</p>
+
+<pre><code>display: table</code></pre>
+
+<p>tr.hidden-lg</p>
+
+<pre><code>display: table-row !important</code></pre>
+
+<p>th.hidden-lg, td.hidden-lg</p>
+
+<pre><code>display: table-cell !important</code></pre>
+
+<p>@media (max-width: 767px)</p>
+
+<pre><code>.hidden-lg.hidden-xs, tr.hidden-lg.hidden-xs, th.hidden-lg.hidden-xs, td.hidden-lg.hidden-xs
+  display: none !important</code></pre>
+
+<p>@media (min-width: 768px) and (max-width: 991px)</p>
+
+<pre><code>.hidden-lg.hidden-sm, tr.hidden-lg.hidden-sm, th.hidden-lg.hidden-sm, td.hidden-lg.hidden-sm
+  display: none !important</code></pre>
+
+<p>@media (min-width: 992px) and (max-width: 1199px)</p>
+
+<pre><code>.hidden-lg.hidden-md, tr.hidden-lg.hidden-md, th.hidden-lg.hidden-md, td.hidden-lg.hidden-md
+  display: none !important</code></pre>
+
+<p>@media (min-width: 1200px)</p>
+
+<pre><code>.hidden-lg, tr.hidden-lg, th.hidden-lg, td.hidden-lg
+  display: none !important</code></pre>
+
+<p>.visible-print, tr.visible-print, th.visible-print, td.visible-print</p>
+
+<pre><code>display: none !important</code></pre>
+
+<p>@media print</p>
+
+<pre><code>.visible-print
+  display: block !important
+table.visible-print
+  display: table
+tr.visible-print
+  display: table-row !important
+th.visible-print, td.visible-print
+  display: table-cell !important
+.hidden-print, tr.hidden-print, th.hidden-print, td.hidden-print
+  display: none !important</code></pre>
+
+<p>.uppercase</p>
+
+<pre><code>text-transform: uppercase</code></pre>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

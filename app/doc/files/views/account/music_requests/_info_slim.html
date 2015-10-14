@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>_info.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            _info.slim
+        </h1>
+        <ul class="files">
+            <li>views/account/music_requests/_info.slim</li>
+            <li>Last modified: 2015-08-08 13:02:50 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>.digi-box.digi-box-dark</p>
+
+<pre><code>== render &#39;music_requests/info&#39;, music_request: music_request
+.row
+  .col-sm-12
+    .pull-right
+      - if super? || current_account_user.update_opportunity
+        = link_to account_account_opportunity_music_request_path(@account, @opportunity, music_request), 
+                                                                  data: { confirm: &#39;Are you sure?&#39; },
+                                                                  turboboost: true , 
+                                                                  :method =&gt; :delete  do
+          .btn.btn-danger.btn-xs
+            i class=&quot;fa fa-times&quot;
+
+        =&lt; link_to edit_account_account_opportunity_music_request_path(@account, @opportunity, music_request) do
+          .btn.btn-default.btn-xs
+            i class=&quot;fa fa-pencil&quot;
+            &#39;&amp;nbsp;Edit
+
+      =&lt; link_to account_account_opportunity_music_request_submit_recordings_path( @account, @opportunity, music_request ) do
+        .btn.btn-default.btn-xs
+          i.fa.fa-plus&amp;nbsp;Submit recordings</code></pre>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

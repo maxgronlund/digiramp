@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>index.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            index.slim
+        </h1>
+        <ul class="files">
+            <li>views/users/index.slim</li>
+            <li>Last modified: 2015-09-24 23:26:22 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>wrapper</p>
+
+<pre><code>.full-width-top
+  == render &#39;shared/navigationbar&#39;, page: &#39;home&#39; 
+
+#sidebar-wrapper
+  ul class=&quot;sidebar-nav&quot;
+    li class=&quot;#{&#39;sidebar-selected&#39; if params[:clear] == &#39;clear&#39;}&quot;
+
+      = link_to users_path(clear: &#39;clear&#39;)
+        i.fa.fa-users
+        &#39;&amp;nbsp;All
+
+    li class=&quot;#{&#39;sidebar-selected&#39; if params[:latest] == &#39;true&#39;}&quot;
+
+      = link_to  users_path(latest: true) do
+        i.fa.fa-clock-o
+        &#39;&amp;nbsp;Latest
+    li class=&quot;#{&#39;sidebar-selected&#39; if params[:followers] == &#39;true&#39;}&quot;
+
+      = link_to users_path(followers: true) do
+        i.fa.fa-arrow-right
+        &#39;&amp;nbsp;Most followed
+
+    li class=&quot;#{&#39;sidebar-selected&#39; if params[:featured] == &#39;true&#39;}&quot;
+      = link_to  users_path(featured: true)do
+          i class=&quot;fa fa-star&quot;
+          &#39;&amp;nbsp;
+          &#39;Featured
+
+    .sexy_line
+    li class=&quot;#{&#39;sidebar-selected&#39; if params[:composer] == &#39;true&#39;}&quot;
+      = link_to  users_path(composer: true) do
+          &#39;Composers
+
+    li class=&quot;#{&#39;sidebar-selected&#39; if params[:author] == &#39;true&#39;}&quot;
+      = link_to  users_path(author: true) do
+          &#39;Authors
+
+    li class=&quot;#{&#39;sidebar-selected&#39; if params[:writer] == &#39;true&#39;}&quot;
+      = link_to  users_path(writer: true) do
+          &#39;Writers
+
+    li class=&quot;#{&#39;sidebar-selected&#39; if params[:producer] == &#39;true&#39;}&quot;
+      = link_to  users_path(producer: true) do
+          &#39;Producers
+
+    li class=&quot;#{&#39;sidebar-selected&#39; if params[:musician] == &#39;true&#39;}&quot;
+      = link_to  users_path(musician: true) do
+          &#39;Musicians
+
+    li class=&quot;#{&#39;sidebar-selected&#39; if params[:dj] == &#39;true&#39;}&quot;
+      = link_to  users_path(dj: true) do
+          &#39;DJ&#39;s
+
+    li class=&quot;#{&#39;sidebar-selected&#39; if params[:artist] == &#39;true&#39;}&quot;
+      = link_to  users_path(artist: true) do
+          &#39;Artists
+
+  .clearfix
+
+#page-content-wrapper
+  .container-fluid
+    .row
+      .col-sm-5
+        .help
+          .help-text
+            h2 People
+          .help-button
+            == render &#39;admin/helps/help&#39;, identifier: &#39;all users&#39;
+
+      .col-sm-7.pull-down-10
+        .pull-right
+          = form_tag(&quot;/users&quot;, method: &quot;get&quot;, remote: true) do |f|
+            .input-group
+              span class=&quot;input-group-addon&quot;
+                i class= &#39;fa fa-search&#39;
+              = text_field_tag &quot;query&quot;, &quot;&quot;, class:        &#39;search-query form-control&#39;, 
+                                            placeholder:  &#39;Search for users&#39;, 
+                                            value:        params[:query]
+              .input-group-btn
+                =&gt; submit_tag &#39;Go&#39;, class: &quot;btn btn-info&quot;
+                = link_to &#39;Clear&#39;, users_path( clear: &#39;clear&#39;), class: &#39;btn btn-default&#39;
+    /.sexy_line
+    .users
+      /= render &#39;users/navigation&#39;
+
+    .pull-down-10
+    .endless-users
+    .person-badges
+    .all-users
+      == render &#39;users/index&#39;, users: @users
+      .add_users
+
+    .add_pagination
+    == render &#39;users/paggination&#39;, users: @users
+
+== render &#39;shared/site_footer&#39;</code></pre>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

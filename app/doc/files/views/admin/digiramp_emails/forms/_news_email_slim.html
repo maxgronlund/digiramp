@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>_news_email.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            _news_email.slim
+        </h1>
+        <ul class="files">
+            <li>views/admin/digiramp_emails/forms/_news_email.slim</li>
+            <li>Last modified: 2015-09-24 20:35:34 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<h2 id="label-render+-27admin-2Fdigiramp_emails-2Flayouts-2Fnews_style-27">render &#39;admin/digiramp_emails/layouts/news_style&#39;</h2>
+
+<h1 id="label-simple_form_for+-5B-3Aadmin-2C+-40email_group-2C+-40digiramp_email+-5D+do+-7Cf-7C">simple_form_for [:admin, @email_group, @digiramp_email ] do |f|</h1>
+
+<pre><code>= f.hidden_field :email_group_id, value: @email_group.id
+.row
+  .col-sm-8
+    = f.input :subject, autofocus:  true    
+  .col-sm-4 
+    = f.input :layout, collection: DigirampEmail::LAYOUT, :include_blank =&gt; false
+
+.email bgcolor=&quot;#f6f6f6&quot;
+
+  table class=&quot;body-wrap&quot;
+    tr
+      td class=&quot;container&quot; bgcolor=&quot;#FFFFFF&quot;
+        .content
+          table
+            tr
+
+              td
+                &#39;Size 558x90
+                br
+                .fileinput.fileinput-new data-provides=&quot;fileinput&quot;
+                  .fileinput-new.thumbnail style=&quot;width: 558px; height: 90px;&quot;
+                    = image_tag @digiramp_email.image_1_url(:banner_558x90), size: &#39;558x90&#39;
+
+                  div.fileinput-preview.fileinput-exists.thumbnail style=&quot;max-width: 558px; max-height: 90px;&quot;
+                  div
+                    span.btn.btn-default.btn-file
+                      span class=&quot;fileinput-new&quot;
+                        &#39;Change image
+                      &#39;&amp;nbsp;
+                      span class=&quot;fileinput-exists&quot;
+                        &#39;Change
+                      = f.file_field :image_1, multiple: false
+
+                    &#39;&amp;nbsp;
+                    a href=&quot;#&quot; class=&quot;btn btn-default fileinput-exists&quot; data-dismiss=&quot;fileinput&quot;
+                      &#39;Remove
+
+                h1 
+                  = f.input :title_1, placeholder: &#39;Title 1&#39;
+
+                div id=&quot;toolbar&quot; class=&quot;wysihtml5-toolbar&quot;
+                  a data-wysihtml5-command=&quot;bold&quot; Bold
+                  &#39;&amp;nbsp; 
+                  a data-wysihtml5-command=&quot;italic&quot; Italic
+
+                = f.input :body_1, label: false, :input_html =&gt; {  style: &quot;height: 220px;&quot;, placeholder: &quot;Body 1&quot;, id: &#39;wysihtml5_editor&#39;}
+                .row
+                h2  = f.input :title_2, placeholder: &#39;Title 2&#39;
+                = f.input :body_2, placeholder: &#39;Body 2&#39;
+                table
+                   tr
+                     td class=&quot;padding&quot;
+                       a href=&quot;#&quot; class=&quot;btn-info&quot;
+                         = f.input :link_1_title, label: false, placeholder: &#39;Link title&#39;
+                         = f.input :link_1, label: false, placeholder: &#39;http://SOME_URL&#39;
+
+                h3 = f.input :title_3, placeholder: &quot;title 3&quot;
+                = f.input :body_3, label: false, :input_html =&gt; {  style: &quot;height: 80px;&quot;, placeholder: &quot;Body 3&quot;}
+                /a href=&quot;http://twitter.com/leemunroe&quot;
+                /  &#39;Follow @leemunroe on Twitter
+
+  table class=&quot;footer-wrap&quot;
+    tr
+      td
+      td class=&quot;container&quot;
+        .content
+          table
+            tr
+              td align=&quot;center&quot;
+                &#39;If you wish to be removed for this email list, please click here:  
+                a href=&quot;#&quot;
+                  unsubscribe
+                    &#39;Unsubscribe
+
+.pull-right
+  = f.submit &#39;Save&#39;, class: &#39;btn btn-info&#39;</code></pre>
+
+<h2 id="label-render+-27shared-2Finit_wysiwyg5-27">render &#39;shared/init_wysiwyg5&#39;</h2>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

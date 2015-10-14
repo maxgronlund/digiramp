@@ -25,15 +25,15 @@ class Ipi < ActiveRecord::Base
   belongs_to :import_ipi
   belongs_to :user
   validates_with IpiValidator 
-  validates_presence_of :email
-  validates_formatting_of :email, :using => :email, :allow_nil => true
+  #validates_presence_of :email
+  validates_formatting_of :email, :using => :email, :allow_nil => false
   #validates_numericality_of :share, less_than_or_equal_to: 100
   after_create :attach_to_user
   #after_update :attach_user_credits
   #before_destroy :remove_user_credits
   
   has_many :ipi_publishers
-  has_many :ipis,   :through => :ipi_publishers 
+  has_many :publishers,   :through => :ipi_publishers 
   
   
   
@@ -160,6 +160,14 @@ class Ipi < ActiveRecord::Base
     if user      = User.get_by_email(self.email)
       self.update(user_id: user.id, full_name: user.full_name)
       #self.save!(validate: false)
+    end
+  end
+  
+  def attach_to_publisher
+    if self.user
+      if user.personal_publishing_status == "I own and control my own publishing"
+        
+      end
     end
   end
   

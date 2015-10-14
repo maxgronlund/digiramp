@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>_recording_basics_form.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            _recording_basics_form.slim
+        </h1>
+        <ul class="files">
+            <li>views/shared/recordings/_recording_basics_form.slim</li>
+            <li>Last modified: 2015-10-03 17:08:01 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<h1 id="label-transloadit+-3Aimage_files_to_s3+">transloadit :image_files_to_s3 </h1>
+
+<p>.row</p>
+
+<pre><code>.col-sm-6
+  = f.input :title
+
+  /b Original file:
+  /=&lt; recording.original_file_name
+  /.pull-down-8
+  /=&gt; link_to recording.download_url2 do
+  /  .btn.btn-default
+  /    i.fa.fa-cloud-download
+  /    &#39;&amp;nbsp;Download
+  .row
+    .col-sm-6
+      b Original file name:
+      .pull-down-6
+      = recording.original_file_name
+      .pull-down-6
+      = link_to edit_user_recording_upload_path(user, recording) do
+         .btn.btn-default
+           &#39;Select from disk
+      .pull-down-10
+
+    .col-sm-6
+      = f.input :position
+  .row.pull-down-8
+    .col-sm-6
+      b Artwork
+      .pull-down-6
+      .fileinput.fileinput-new data-provides=&quot;fileinput&quot;
+        .fileinput-new.thumbnail style=&quot;width: 100px; height: 100px;&quot;
+          - if recording.cover_art
+            = image_tag recording.cover_art, size: &#39;184x184&#39;
+          - else
+            = image_tag &#39;default-cover.jpg&#39;
+
+        div.fileinput-preview.fileinput-exists.thumbnail style=&quot;max-width: 100px; max-height: 100px;&quot;
+        div
+          span.btn.btn-default.btn-file
+            span class=&quot;fileinput-new&quot;
+              &#39;Select from disk
+            &#39;&amp;nbsp;
+            span class=&quot;fileinput-exists&quot;
+              &#39;Select from disk
+            = f.file_field :cover_art, multiple: false
+
+          &#39;&amp;nbsp;
+          a href=&quot;#&quot; class=&quot;btn btn-default fileinput-exists&quot; data-dismiss=&quot;fileinput&quot;
+            &#39;Remove 
+    .col-sm-6
+      = f.input :downlodable, label: &#39;Downloadable&#39;, \
+                              hint: &#39;Enabling this will allow the recording to be downloaded for free&#39;,  \
+                              :input_html =&gt; { class: &#39;icheck-me&#39;, &#39;data-skin&#39;.to_sym =&gt; &quot;square&quot;, &#39;data-color&#39;.to_sym =&gt; &quot;blue&quot;     }
+      - if editor?
+        b Editors only
+        .pull-down-6
+        .alert.alert-warning
+          = f.input :featured,  :input_html =&gt; { class: &#39;icheck-me&#39;, &#39;data-skin&#39;.to_sym =&gt; &quot;square&quot;, &#39;data-color&#39;.to_sym =&gt; &quot;blue&quot;     }
+
+  .pull-down-4
+  = f.input :sounds_like, :input_html =&gt; {  style: &quot;height: 80px;&quot;, placeholder: &quot;Beethoven, Elvis, Louis Armstrong&quot;}
+
+.col-sm-6
+
+  b 
+  &#39;ISRC 
+  == render &#39;shared/popover&#39;, identifier: &#39;An ISRC identifies a particular recording, not the work (composition and lyrical content) itself. Therefore, different recordings, edits, and remixes of the same work should each have their own ISRC.&#39;
+  .pull-down-6
+  = f.input :isrc_code, label: false, hint: &#39;International Standard Recording Code&#39;, placeholder: &#39;Optional&#39;
+  = f.input :privacy, collection: Recording::PRIVACY, include_blank: false,  label: &#39;Privacy&#39;, hint: &#39;Select who has access to this recording&#39;
+
+  = f.input :comment, :input_html =&gt; {  style: &quot;height: 80px;&quot;, 
+                                                placeholder: &quot;Text for small badges and invoice statements&quot;,
+                                                maxlength: &quot;150&quot;}, 
+                                                label: &#39;Description&#39;
+
+  div id=&quot;textarea_feedback&quot;
+  br
+  javascript:
+    $(document).ready(function() {
+
+        var text_max = 150;
+        $(&#39;#textarea_feedback&#39;).html(text_max + &#39; characters remaining&#39;);
+        update_textarea_feedback();
+        $(&#39;#recording_comment&#39;).keyup(function() {
+            update_textarea_feedback();
+        });
+
+        function update_textarea_feedback(){
+          var text_length = $(&#39;#recording_comment&#39;).val().length;
+          var text_remaining = text_max - text_length;
+
+          $(&#39;#textarea_feedback&#39;).html(text_remaining + &#39; characters remaining&#39;);
+        }
+    });</code></pre>
+
+<p>.row</p>
+
+<pre><code>.col-sm-12
+  .pull-right  
+    = f.submit  &#39;Save&#39;, class: &#39;btn btn-info&#39;
+    coffee:
+      $(&quot;form#recording_artwork&quot;).submit -&gt;
+        $(this).find(&#39;input[type=submit]&#39;).attr(&#39;disabled&#39;, &#39;disabled&#39;)
+        $(this).find(&#39;input[type=submit]&#39;).val &quot;Updating, please wait ...&quot;</code></pre>
+
+<h1 id="label-transloadit_jquerify+-3Arecording_artwork-2C+-3Await+-3D-3E+true">transloadit_jquerify :recording_artwork, :wait =&gt; true</h1>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>_music_request_fields.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            _music_request_fields.slim
+        </h1>
+        <ul class="files">
+            <li>views/account/opportunities/_music_request_fields.slim</li>
+            <li>Last modified: 2015-07-05 15:22:06 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>.nested-fields</p>
+
+<pre><code>.digi-box
+  .row
+    .col-sm-6
+      = f.input :title
+      /div id=&quot;toolbar&quot; class=&quot;wysihtml5-toolbar&quot;
+      /  a data-wysihtml5-command=&quot;bold&quot; Bold
+      /  &#39;&amp;nbsp; 
+      /  a data-wysihtml5-command=&quot;italic&quot; Italic
+      /
+      /=f.input :body, label: false, :input_html =&gt; {  style: &quot;height: 244px;&quot;, placeholder: &quot;Description&quot;, id: &#39;wysihtml5_editor&#39;}
+      =f.input :body, label: false, :input_html =&gt; {  style: &quot;height: 168px;&quot;, placeholder: &quot;Description&quot;,}
+    .col-sm-6
+      = f.input :fee
+      /br
+      /b Sounds Like
+      /br
+      /.fileinput.fileinput-new.input-group data-provides=&quot;fileinput&quot;
+      /  .form-control data-trigger=&quot;fileinput&quot;
+      /    i.glyphicon.glyphicon-file.fileinput-exists
+      /    span.fileinput-filename
+      /  span.input-group-addon.btn.btn-default.btn-file
+      /    span.fileinput-new
+      /      &#39;Select file
+      /    span.fileinput-exists
+      /      &#39;Change
+      /    = f.file_field :audio_file, multiple: false, label: &#39;Select Audio File&#39;
+      /  a href=&quot;#&quot; class=&quot;input-group-addon btn btn-default fileinput-exists&quot; data-dismiss=&quot;fileinput&quot;
+      /    &#39;Remove
+      /
+      /br
+
+      /= f.file_field :audio_file, multiple: false
+      /br
+
+      = f.input :duration_text, label: &#39;Duration&#39;, placeholder: &#39;HH:MM:SS&#39;
+      = f.input :up_to_full_use
+      /.row
+      /  .col-sm-6
+      /    = f.input :link, placeholder: &#39;i.e. http://youtube.com/bruno-mars&#39;, hint: &#39;Could sound like&#39;, label: &#39;Example link&#39;
+      /  .col-sm-6
+      /    = f.input :link_title, label: &#39;Link Name&#39;, placeholder: &#39;Click Here&#39;
+      /= f.input :deadline
+  .row
+    .col-sm-12
+      .pull-right
+        = link_to_remove_association &quot;Remove request&quot;, f, class: &#39;btn btn-danger btn-xs&#39;</code></pre>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

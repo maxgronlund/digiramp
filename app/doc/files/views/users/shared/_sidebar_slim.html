@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>_sidebar.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            _sidebar.slim
+        </h1>
+        <ul class="files">
+            <li>views/users/shared/_sidebar.slim</li>
+            <li>Last modified: 2015-09-29 11:01:02 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>.sidebar</p>
+
+<pre><code>- if @user      
+  li
+    .sidebar-user-profile
+      = link_to profile_path_for( @user) do
+        .user-name
+          h4 = @user.user_name
+
+        .user-avatar
+          =  image_tag @user.image_url(:avatar_184x184) 
+
+  li class=&quot;#{&#39;sidebar-selected&#39; if selected == &#39;profile&#39;}&quot;
+    = link_to user_path(@user) do
+      i class=&quot;fa fa-user&quot;
+      &#39;&amp;nbsp;
+      &#39;Profile
+
+  li class=&quot;#{&#39;sidebar-selected&#39; if selected == &#39;recordings&#39;}&quot;
+    = link_to user_recordings_path(@user, clear: &#39;clear&#39;) do
+      i class=&quot;fa fa-headphones&quot;
+      &#39;&amp;nbsp;
+      = pluralize(@user.recordings.count, &#39;Recording&#39;)  
+
+  li class=&quot;#{&#39;sidebar-selected&#39; if selected == &#39;likes&#39;}&quot;
+    = link_to user_likes_path(@user) do
+      i.fa.fa-headphones
+      &#39;&amp;nbsp;
+      = @user.likes.count
+      &#39;&amp;nbsp;
+      &#39;Liked rec. 
+
+  li class=&quot;#{&#39;sidebar-selected&#39; if selected == &#39;followers&#39;}&quot;
+    = link_to user_followers_path(@user, clear: &#39;clear&#39;) do
+      i class=&quot;fa fa-users&quot;
+      &#39;&amp;nbsp;
+      = pluralize(@user.followers.count, &#39;Follower&#39;)  
+
+  li class=&quot;#{&#39;sidebar-selected&#39; if selected == &#39;followed&#39;}&quot;
+    = link_to user_following_index_path(@user, clear: &#39;clear&#39;) do
+      i class=&quot;fa fa-users&quot;
+      &#39;&amp;nbsp;
+      &#39;Following
+      = @user.followed_users.count 
+
+  li class=&quot;#{&#39;sidebar-selected&#39; if selected == &#39;liked_users&#39;}&quot;
+    = link_to user_user_likes_path(@user) do
+      i class=&quot;fa fa-heart red-heart&quot;
+      &#39;&amp;nbsp;
+      = @user.liked_users_count
+      &#39;&amp;nbsp;Liked users
+
+  li class=&quot;#{&#39;sidebar-selected&#39; if selected == &#39;playlists&#39;}&quot;
+    = link_to user_playlists_path(@user) do
+      i class=&quot;fa fa-list&quot;
+      &#39;&amp;nbsp;
+      = pluralize(@user.playlists.count, &#39;Playlist&#39;)  
+
+  /li class=&quot;#{&#39;sidebar-selected&#39; if selected == &#39;credits&#39;}&quot;
+  /  = link_to user_ipis_path(@user) do
+  /    i class=&quot;fa fa-tags&quot;
+  /    &#39;&amp;nbsp;
+  /    = pluralize(@user.user_credits.count, &#39;Credit&#39;) 
+
+  - if current_user &amp;&amp; @user.permits?( current_user)
+    li class=&quot;#{&#39;sidebar-selected&#39; if selected == &#39;dashboard&#39;}&quot;
+      = link_to user_user_control_panel_index_path(@user) do
+        i class=&quot;fa fa-tachometer&quot;
+        &#39;&amp;nbsp;
+        &#39;Dashboard
+
+  - if (current_user &amp;&amp; current_user.account_type == &#39;Pro&#39; &amp;&amp; @user.permits?( current_user)) || super?    
+    li class=&quot;#{&#39;sidebar-selected&#39; if selected == &#39;pro&#39;}&quot;
+      = link_to account_account_path( @user.account) do
+        i class=&quot;fa fa-money&quot;
+        &#39;&amp;nbsp;
+        &#39;Pro account
+
+- else
+    .sidebar-ad.sidebar-top-ad
+      == render &#39;admin/digiramp_ads/show&#39;, identifier: &#39;add on user page&#39;
+
+/- if current_user 
+/  .sexy_line
+/  li class=&quot;invite-friends #{&#39;sidebar-selected&#39; if selected == &#39;invite_friends&#39;}&quot;
+/    = link_to new_user_user_invite_friend_path(@user) do
+/      i class=&quot;fa fa-user-plus&quot;
+/      &#39;&amp;nbsp;
+/      &#39;Invite friends
+/      
+/  li class=&quot;#{&#39;sidebar-selected&#39; if selected == &#39;tutorial&#39;}&quot;
+/    = link_to tutorials_path do
+/      i class=&quot;fa fa-video-camera&quot;
+/      &#39;&amp;nbsp;
+/      &#39;Tutorials
+/      
+/  li class=&quot;#{&#39;sidebar-selected&#39; if selected == &#39;issues&#39;}&quot;
+/    = link_to user_issues_path(current_user) do
+/      i class=&quot;fa fa-life-ring&quot;
+/      &#39;&amp;nbsp;
+/      &#39;Support
+/      
+  /li class=&quot;#{&#39;sidebar-selected&#39; if selected == &#39;news&#39;}&quot;
+  /  = link_to user_news_index_path(current_user) do
+  /    - user_news_count       = current_user.news_count
+  /    - news_blog_news_count  = Blog.news_count
+  /    - if user_news_count &lt; news_blog_news_count
+  /      .news
+  /        - news  =  news_blog_news_count - user_news_count
+  /        i class=&quot;fa fa-lightbulb-o &quot;
+  /        &#39;&amp;nbsp;
+  /        &#39;News
+  /        &#39;&amp;nbsp; 
+  /        .label.label-danger
+  /          = news
+  /    - else
+  /      i class=&quot;fa fa-lightbulb-o &quot;
+  /      &#39;&amp;nbsp;
+  /      &#39;News
+
+/li class=&quot;#{&#39;sidebar-selected&#39; if selected == &#39;contact&#39;}&quot;
+/  = link_to support_index_path do
+/    i class=&quot;fa fa-envelope&quot;
+/    &#39;&amp;nbsp;
+/    &#39;Contact
+/      
+/li class=&quot;#{&#39;sidebar-selected&#39; if selected == &#39;forums&#39;}&quot;
+/  = link_to forums_path do
+/    i.fa.fa-comments-o
+/    &#39;&amp;nbsp;
+/    &#39;Forums</code></pre>
+
+<p>/.sidebar-ad /  &lt;div id=“digiramp-ad” data-no-turbolink&gt; /    =
+render &#39;admin/digiramp_ads/show&#39;, identifier: &#39;disqus added to
+site&#39; /  &lt;/div&gt; terms</p>
+
+<pre><code>= link_to &#39;Terms And Conditions&#39;, terms_and_conditions_path</code></pre>
+
+<p>.pull-down-34</p>
+
+<pre><code>/-if super?
+/  &#39;&amp;nbsp;
+/  = link_to edit_admin_blog_blog_post_path(blog, blog_post) do
+/     i class=&quot;fa fa-pencil&quot;
+/&#39;&amp;nbsp;&amp;nbsp;|&amp;nbsp;&amp;nbsp;
+/= link_to &#39;Contact Us&#39;, new_contact_path</code></pre>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

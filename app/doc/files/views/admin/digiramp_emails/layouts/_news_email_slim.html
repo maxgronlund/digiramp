@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>_news_email.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            _news_email.slim
+        </h1>
+        <ul class="files">
+            <li>views/admin/digiramp_emails/layouts/_news_email.slim</li>
+            <li>Last modified: 2015-09-24 20:35:34 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<h2 id="label-render+-27admin-2Fdigiramp_emails-2Flayouts-2Fnews_style-27+">render &#39;admin/digiramp_emails/layouts/news_style&#39; </h2>
+
+<p>.email bgcolor=“#f6f6f6”</p>
+
+<pre><code>table class=&quot;body-wrap&quot;
+  tr
+    td
+    td class=&quot;container&quot; bgcolor=&quot;#FFFFFF&quot;
+      .content
+
+        table
+          tr
+
+            td
+              = image_tag @digiramp_email.image_1_url(:banner_558x90)
+              - if @digiramp_email.title_1 != &#39;&#39;
+                h1 = @digiramp_email.title_1
+              - if @digiramp_email.body_1 != &#39;&#39;
+                = simple_format  @digiramp_email.body_1
+              - if @digiramp_email.title_2 != &#39;&#39;
+                h2 = @digiramp_email.title_2
+              - if @digiramp_email.body_2 != &#39;&#39;
+                = simple_format  @digiramp_email.body_2
+              - if @digiramp_email.link_1_title != &#39;&#39;
+                table
+                  tr
+                    td class=&quot;padding&quot;
+                      p
+                        = link_to @digiramp_email.link_1 do
+                          .btn.btn-info
+                            = @digiramp_email.link_1_title
+
+              - if @digiramp_email.title_3 != &#39;&#39;
+                h3 =  @digiramp_email.title_3
+              - if @digiramp_email.body_3 != &#39;&#39;
+                = simple_format  @digiramp_email.body_3
+              /a href=&quot;http://twitter.com/leemunroe&quot;
+              /  &#39;Follow @leemunroe on Twitter
+
+  table class=&quot;footer-wrap&quot;
+    tr
+      td
+      td class=&quot;container&quot;
+        .content
+          table
+            tr
+              td align=&quot;center&quot;
+                &#39;If you wish to be removed for this email list, please click here:  
+                a href=&quot;#{@unsibscribe_link}&quot;
+                  unsubscribe
+                    &#39;Unsubscribe</code></pre>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

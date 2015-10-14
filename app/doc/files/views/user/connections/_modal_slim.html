@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>_modal.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            _modal.slim
+        </h1>
+        <ul class="files">
+            <li>views/user/connections/_modal.slim</li>
+            <li>Last modified: 2015-09-24 20:35:34 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      <ul><li>
+<p>if current_user</p>
+
+<h2 id="label-render+-27messages-2Fmodal-27-2C+modal_id-3A+-22pmModal_-23-7B-40user.id.to_s-7D-22-2C+recipient-3A+-40user-2C+subjectable-3A+-40user">render &#39;messages/modal&#39;, modal_id: “pmModal_#{@user.id.to_s}”, recipient: @user, subjectable: @user</h2>
+
+<p>.modal.fade id=“#{modal_id}” tabindex=“-1” role=“dialog”
+aria-labelledby=“modal-label” aria-hidden=“true”</p>
+
+<pre><code>.modal-dialog
+  .modal-content
+    .modal-header
+      button type=&quot;button&quot; class=&quot;close&quot; data-dismiss=&quot;modal&quot;
+        span aria-hidden=&quot;true&quot; &amp;times;
+        span class=&quot;sr-only&quot; Close
+
+      h4 class=&quot;modal-title&quot; id=&quot;myModalLabel&quot;
+        &#39;New message
+      .sexy_line
+
+    == simple_form_for [:user, current_user , Connection.new(message: &quot;Hi #{@user.user_name } \r\nI&#39;d like to add you to my connections \r\n\n --#{current_user.user_name}&quot;)], remote: true do |f|
+      .modal-body
+        = f.hidden_field :connection_id, value: @user.id
+        = f.hidden_field :user_id, value: current_user.id
+        = f.input :message, :input_html =&gt; {  style: &quot;height: 280px;&quot;, placeholder: &quot;Message&quot;}, autofocus: true
+
+      .modal-footer
+        = f.submit &quot;Cancel&quot;, :type =&gt; &quot;reset&quot;, class: &#39;btn btn-default&#39;,  &quot;data-dismiss&quot;.to_sym =&gt; &quot;modal&quot;
+        &#39;&amp;nbsp;
+        = f.submit &#39;Send request&#39;, class: &#39;btn btn-info&#39;</code></pre>
+
+<p>javascript:</p>
+
+<pre><code>$(&quot;##{modal_id}&quot;).on(&#39;hidden.bs.modal&#39;, function (event) {
+  $(&quot;#connection_message&quot;).val(&quot;Hi #{@user.user_name } \r\nI&#39;d like to add you to my connections \r\n\n --#{current_user.user_name}&quot;);
+})</code></pre>
+</li><li>
+<p>else .modal.fade.become-member tabindex=“-1” role=“dialog”
+aria-labelledby=“myLargeModalLabel” aria-hidden=“true”</p>
+
+<pre><code>.modal-dialog
+  .modal-content
+    .modal-header
+      button type=&quot;button&quot; class=&quot;close&quot; data-dismiss=&quot;modal&quot;
+        span aria-hidden=&quot;true&quot; &amp;times;
+        span class=&quot;sr-only&quot; Close
+
+      h4 class=&quot;modal-title&quot; id=&quot;myModalLabel&quot;
+        &#39;Sign up
+      .sexy_line
+      .modal-body
+        &#39;After signing up you can connect to users on DigiRAMP 
+      .modal-footer
+        .pull-right
+          = link_to signup_index_path do
+            .btn.btn-warning
+              &#39;Sign up</code></pre>
+
+<p>/.modal.fade id=“become-member” tabindex=“-1” role=“dialog”
+aria-labelledby=“modal-label” aria-hidden=“true”  /  .modal-dialog /   
+.modal-content /      .modal-header /        button type=“button”
+class=“close” data-dismiss=“modal” /          span aria-hidden=“true”
+&amp;times; /          span class=“sr-only” Close / /        h4
+class=“modal-title” id=“myModalLabel” /          &#39;This function
+requires you are a member /        .sexy_line / / /      .modal-body /     
+&#39;take me there /</p>
+
+<p>/      .modal-footer /</p>
+</li></ul>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

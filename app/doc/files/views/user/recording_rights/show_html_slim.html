@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>show.html.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            show.html.slim
+        </h1>
+        <ul class="files">
+            <li>views/user/recording_rights/show.html.slim</li>
+            <li>Last modified: 2015-10-03 12:58:10 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>wrapper</p>
+
+<pre><code>.full-width-top
+  == render &#39;shared/navigationbar&#39;, page: &#39;user&#39; 
+
+#sidebar-wrapper
+  ul class=&quot;sidebar-nav&quot;
+    == render &#39;users/shared/sidebar&#39;, selected: &#39;recordings&#39;
+
+#page-content-wrapper
+  .container-fluid
+    == render &#39;shared/breadcrumbs&#39;, breadcrumbs: { links: { user:    @user,
+                                                            recordings: user_recordings_path(@user)}}
+    .row
+      .col-sm-8
+        .help
+          .help-text
+            h2 
+              b ℗ Contributors on the master
+              br = @recording.title
+          .help-button
+            == render &#39;admin/helps/help&#39;, identifier: &#39;sound recording copyright&#39;
+      .col-sm-4
+        .pull-right
+          .pull-down-10
+            = link_to edit_user_recording_tag_path(@user, @recording) do
+              .btn.btn-default
+                i.fa.fa-chevron-left
+                &#39;&amp;nbsp;
+                &#39;Back
+            /=&lt; link_to edit_user_user_common_work_path(@user, @recording.common_work) do
+            /  .btn.btn-default
+            /    i.fa.fa-copyright
+            /    &#39;&amp;nbsp;
+            /    &#39;Common work
+
+    == render &#39;recordings/wizard_step&#39;, step: 5
+    .table-responsive
+      .row
+        .col-sm-12
+          .pull-right.pull-down-6
+            div style=&quot;display: inline-block;&quot;
+              = link_to new_user_user_recording_recording_ipi_path(@user, @recording) do
+                  .btn.btn-default
+                    i.fa.fa-user-plus&amp;nbsp;Add contributor
+
+            div  style=&quot;display: inline-block;&quot;
+              - if current_user.id == @recording.user_id
+                - if @recording.recording_ipis.count &lt; 1
+                  =&lt; simple_form_for [ :user, @user, @recording, RecordingIpi.new ], turboboost: true do |f|
+                    = f.hidden_field :recording_id, value: @recording.id
+                    = f.hidden_field :email, value: @user.email
+                    = f.hidden_field :role, value: &#39;Other&#39;
+                    = f.hidden_field :share, value: 100
+                    = f.hidden_field :distribution_agreement_id, value:  @user.personal_distribution_agreement.id
+                    = f.submit &quot;I&#39;m the only contributor&quot;, class: &#39;btn btn-warning&#39;
+      table class=&quot;table table-hover&quot;
+        thead
+          tr
+            th style=&quot;max-width: 64px;&quot;
+            th Legal name / Email
+            th Capacity
+            th Arists split
+            th 
+              .pull-right
+                &#39;Status
+
+        tbody
+          - @recording.recording_ipis.order(:id).each do |recording_ipi|
+            tr
+              td 
+                =&gt; link_to user_user_recording_recording_ipi_path( @user, @recording, recording_ipi), 
+                    data: {:confirm =&gt; &#39;Are you sure?&#39;}, 
+                    turboboost: true,
+                    method: :delete do
+                  .btn.btn-danger.btn-xs
+                    i.fa.fa-times
+                =&gt; link_to edit_user_user_recording_recording_ipi_path( @user, @recording, recording_ipi) do
+                  .btn.btn-default.btn-xs
+                    i.fa.fa-pencil
+              td 
+                = recording_ipi.name
+                br = recording_ipi.email
+              td = recording_ipi.role
+
+              td = number_to_percentage(recording_ipi.share, precision: 2)
+
+              td
+                .pull-right
+                  div class=&quot;recording-confirmation-button-#{recording_ipi.id.to_s}&quot;
+                  == render &#39;user/recording_ipis/confirmation_button&#39;, user: @user, recording: @recording, recording_ipi: recording_ipi
+
+    .row.pull-down-10
+      .col-sm-12
+        .pull-right
+          = link_to edit_user_user_common_work_path(@user, @recording.common_work) do
+              .btn.btn-success
+                i.fa.fa-copyright&amp;nbsp;Common work
+      /.col-sm-6
+      /  .pull-right
+      /    - if !@user.is_stripe_connected  &amp;&amp; @recording.is_cleared?
+      /      = link_to &#39;Enable payment gateway&#39;, user_user_create_shop_index_path(@user), class: &#39;btn btn-success&#39;
+      /
+      /    - if @user.is_stripe_connected &amp;&amp; @recording.is_cleared?
+      /      - if product = @recording.product
+      /        =&lt; link_to edit_user_user_product_path(@user, product ) do
+      /                .btn.btn-success
+      /                  i.fa.fa-shopping-cart&amp;nbsp;Edit in shop
+      /      - else
+      /        =&lt; link_to new_user_user_product_path(@user, category: &#39;recording&#39;, recording_id: @recording.id) do
+      /                .btn.btn-success
+      /                  i.fa.fa-shopping-cart&amp;nbsp;Add to shop
+      /
+      /
+
+== render &#39;shared/site_footer&#39;</code></pre>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

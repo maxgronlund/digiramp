@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>_linkedin.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            _linkedin.slim
+        </h1>
+        <ul class="files">
+            <li>views/user/authorization_providers/_linkedin.slim</li>
+            <li>Last modified: 2015-07-05 15:22:06 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>.digi-box</p>
+
+<pre><code>.icon
+  .linkedin
+.info
+  - if linkedin  = @user.authorization_providers.where(provider: &#39;linkedin&#39;).first
+    /= debug linkedin
+    - linkedin_instructions = BlogPost.cached_find(&#39;Your Linkedin account is linked to your DigiRAMP account&#39;, blog)
+    h4 = linkedin_instructions.title
+    &#39;Linkedin account:
+    &#39;&amp;nbsp;
+    - if linkedin.info
+      = link_to linkedin.info[&#39;urls&#39;][&#39;public_profile&#39;] do
+        i.fa.fa-eye
+        &#39;&amp;nbsp;
+        =  linkedin.info[&#39;name&#39;]
+    - else
+      &#39; Please relink to get more informations
+    br
+    = linkedin_instructions.body 
+
+  - else   
+    - linkedin_instructions = BlogPost.cached_find(&#39;Link you Linkedin account to DigiRAMP&#39;, blog)
+    h4 = linkedin_instructions.title
+    = simple_format linkedin_instructions.body
+
+br
+.clearfix
+- if linkedin
+  = link_to user_user_authorization_provider_path(@user, linkedin), data: { confirm: &#39;Are you sure?&#39; } , :method =&gt; :delete do 
+          .btn.btn-danger.btn-xs
+            i class=&quot;fa fa-lock&quot;
+            &#39;&amp;nbsp;
+            &#39;Unlink
+- else
+  = link_to &quot;/auth/linkedin&quot; do
+      .btn.btn-default.brn.btn-xs
+        i class=&quot;fa fa-unlock&quot;
+        &#39;&amp;nbsp;
+        &#39;Link
+
+-if super?
+  = link_to edit_admin_blog_blog_post_path(blog, linkedin_instructions) do
+    .btn.btn-default.btn-xs
+      i.fa.fa-pencil
+      &#39;&amp;nbsp;
+      &#39;Edit instruction</code></pre>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

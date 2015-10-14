@@ -1,0 +1,598 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>Document</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../css/github.css" type="text/css" media="screen" />
+<script src="../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            <span class="type">Class</span> 
+            Document 
+            
+                <span class="parent">&lt; 
+                    
+                    ActiveRecord::Base
+                    
+                </span>
+            
+        </h1>
+        <ul class="files">
+            
+            <li><a href="../files/models/document_rb.html">models/document.rb</a></li>
+            
+        </ul>
+    </div>
+    <div id="bodyContent">
+        <div id="content">
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+    <!-- Method ref -->
+    <div class="sectiontitle">Methods</div>
+    <dl class="methods">
+      
+        <dt>C</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-c-cached_find">cached_find</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-c-catalogs_search">catalogs_search</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-i-controller_by">controller_by</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>D</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-digital_signatures">digital_signatures</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-i-download_url">download_url</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>E</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-execute_document">execute_document</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>S</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-signed-3F">signed?</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>U</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-uploaded-3F">uploaded?</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-i-used_on">used_on</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-i-user">user</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+    </dl>
+  
+
+  
+    <!-- Includes -->
+    <div class="sectiontitle">Included Modules</div>
+    <ul>
+      
+        <li>
+          
+            PgSearch
+          
+        </li>
+      
+    </ul>
+  
+
+
+
+  
+
+    
+
+    
+
+    
+      <!-- Section constants -->
+      <div class="sectiontitle">Constants</div>
+      <table border='0' cellpadding='5'>
+        
+          <tr valign='top'>
+            <td class="attr-name">TYPES</td>
+            <td>=</td>
+            <td class="attr-value">[&#39;File&#39;, &#39;Financial&#39;, &#39;Legal&#39;, &#39;Template&#39;]</td>
+          </tr>
+          
+            <tr valign='top'>
+              <td>&nbsp;</td>
+              <td colspan="2" class="attr-desc"></td>
+            </tr>
+          
+        
+      </table>
+    
+
+
+    
+
+
+    <!-- Methods -->
+    
+      <div class="sectiontitle">Class Public methods</div>
+      
+        <div class="method">
+          <div class="title method-title" id="method-c-cached_find">
+            
+              <b>cached_find</b>(id)
+            
+            <a href="../classes/Document.html#method-c-cached_find" name="method-c-cached_find" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-c-cached_find_source')" id="l_method-c-cached_find_source">show</a>
+                
+              </p>
+              <div id="method-c-cached_find_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/document.rb, line 42</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">self</span>.<span class="ruby-identifier">cached_find</span>(<span class="ruby-identifier">id</span>)
+  <span class="ruby-constant">Rails</span>.<span class="ruby-identifier">cache</span>.<span class="ruby-identifier">fetch</span>([<span class="ruby-identifier">name</span>, <span class="ruby-identifier">id</span>]) { <span class="ruby-identifier">find_by</span>(<span class="ruby-identifier">uuid</span><span class="ruby-operator">:</span> <span class="ruby-identifier">id</span>) }
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-c-catalogs_search">
+            
+              <b>catalogs_search</b>(documents, query)
+            
+            <a href="../classes/Document.html#method-c-catalogs_search" name="method-c-catalogs_search" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              <p>!!! name</p>
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-c-catalogs_search_source')" id="l_method-c-catalogs_search_source">show</a>
+                
+              </p>
+              <div id="method-c-catalogs_search_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/document.rb, line 34</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">self</span>.<span class="ruby-identifier">catalogs_search</span>(<span class="ruby-identifier">documents</span>, <span class="ruby-identifier">query</span>)
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">query</span>.<span class="ruby-identifier">present?</span>
+   <span class="ruby-identifier">documents</span> = <span class="ruby-identifier">documents</span>.<span class="ruby-identifier">search_in_documents</span>(<span class="ruby-identifier">query</span>)
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-identifier">documents</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+                  
+      <div class="sectiontitle">Instance Public methods</div>
+      
+        <div class="method">
+          <div class="title method-title" id="method-i-controller_by">
+            
+              <b>controller_by</b>()
+            
+            <a href="../classes/Document.html#method-i-controller_by" name="method-i-controller_by" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-controller_by_source')" id="l_method-i-controller_by_source">show</a>
+                
+              </p>
+              <div id="method-i-controller_by_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/document.rb, line 68</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">controller_by</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">user</span>.<span class="ruby-identifier">full_name</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">user</span>
+  <span class="ruby-string">&#39;&#39;</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-digital_signatures">
+            
+              <b>digital_signatures</b>()
+            
+            <a href="../classes/Document.html#method-i-digital_signatures" name="method-i-digital_signatures" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-digital_signatures_source')" id="l_method-i-digital_signatures_source">show</a>
+                
+              </p>
+              <div id="method-i-digital_signatures_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/document.rb, line 46</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">digital_signatures</span>
+  <span class="ruby-constant">DigitalSignature</span>.<span class="ruby-identifier">where</span>(<span class="ruby-identifier">signable_type</span><span class="ruby-operator">:</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">name</span>, <span class="ruby-identifier">signable_id</span><span class="ruby-operator">:</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">id</span>)
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-download_url">
+            
+              <b>download_url</b>()
+            
+            <a href="../classes/Document.html#method-i-download_url" name="method-i-download_url" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-download_url_source')" id="l_method-i-download_url_source">show</a>
+                
+              </p>
+              <div id="method-i-download_url_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/document.rb, line 81</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">download_url</span>
+  
+  <span class="ruby-identifier">s3</span> = <span class="ruby-constant">Aws</span><span class="ruby-operator">::</span><span class="ruby-constant">S3</span><span class="ruby-operator">::</span><span class="ruby-constant">Resource</span>.<span class="ruby-identifier">new</span>
+  <span class="ruby-identifier">secure_url</span> = <span class="ruby-keyword">self</span>.<span class="ruby-identifier">file_url</span>
+  
+  <span class="ruby-keyword">begin</span>
+    <span class="ruby-identifier">secure_url</span>.<span class="ruby-identifier">gsub!</span>(<span class="ruby-string">&quot;https://digiramp.s3.amazonaws.com/&quot;</span>, <span class="ruby-string">&#39;&#39;</span>)
+    <span class="ruby-identifier">bucket</span>      = <span class="ruby-identifier">s3</span>.<span class="ruby-identifier">bucket</span>(<span class="ruby-constant">Rails</span>.<span class="ruby-identifier">application</span>.<span class="ruby-identifier">secrets</span>.<span class="ruby-identifier">aws_s3_bucket</span>)
+    <span class="ruby-identifier">s3_obj</span>      =  <span class="ruby-identifier">bucket</span>.<span class="ruby-identifier">object</span>(<span class="ruby-identifier">secure_url</span>)
+    <span class="ruby-identifier">filename</span>    = <span class="ruby-keyword">self</span>.<span class="ruby-identifier">title</span>.<span class="ruby-identifier">downcase</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-string">&#39; &#39;</span>, <span class="ruby-string">&#39;-&#39;</span>) <span class="ruby-operator">+</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">extname</span>(<span class="ruby-identifier">secure_url</span>)
+    <span class="ruby-identifier">secure_url</span>  = <span class="ruby-identifier">s3_obj</span>.<span class="ruby-identifier">presigned_url</span>(<span class="ruby-value">:get</span>, <span class="ruby-identifier">expires_in</span><span class="ruby-operator">:</span> <span class="ruby-number">600</span>,<span class="ruby-identifier">response_content_disposition</span><span class="ruby-operator">:</span> <span class="ruby-node">&quot;attachment; filename=&#39;#{filename}&#39;&quot;</span>)
+  <span class="ruby-keyword">rescue</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
+    <span class="ruby-identifier">ap</span> <span class="ruby-identifier">e</span>.<span class="ruby-identifier">inspect</span>
+    <span class="ruby-identifier">secure_url</span> = <span class="ruby-keyword">self</span>.<span class="ruby-identifier">file_url</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-identifier">secure_url</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-execute_document">
+            
+              <b>execute_document</b>()
+            
+            <a href="../classes/Document.html#method-i-execute_document" name="method-i-execute_document" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-execute_document_source')" id="l_method-i-execute_document_source">show</a>
+                
+              </p>
+              <div id="method-i-execute_document_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/document.rb, line 77</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">execute_document</span>
+  
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-signed-3F">
+            
+              <b>signed?</b>()
+            
+            <a href="../classes/Document.html#method-i-signed-3F" name="method-i-signed-3F" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-signed-3F_source')" id="l_method-i-signed-3F_source">show</a>
+                
+              </p>
+              <div id="method-i-signed-3F_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/document.rb, line 50</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">signed?</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span> <span class="ruby-keyword">if</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">document_users</span>.<span class="ruby-identifier">count</span> <span class="ruby-operator">==</span> <span class="ruby-number">0</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">document_users</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">document_user</span><span class="ruby-operator">|</span>
+    <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span> <span class="ruby-keyword">if</span>( <span class="ruby-identifier">document_user</span>.<span class="ruby-identifier">should_sign</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">document_user</span>.<span class="ruby-identifier">digital_signature_id</span>.<span class="ruby-identifier">nil?</span>)
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">true</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-uploaded-3F">
+            
+              <b>uploaded?</b>()
+            
+            <a href="../classes/Document.html#method-i-uploaded-3F" name="method-i-uploaded-3F" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-uploaded-3F_source')" id="l_method-i-uploaded-3F_source">show</a>
+                
+              </p>
+              <div id="method-i-uploaded-3F_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/document.rb, line 99</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">uploaded?</span>
+  <span class="ruby-operator">!</span><span class="ruby-identifier">content_type</span>.<span class="ruby-identifier">nil?</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-used_on">
+            
+              <b>used_on</b>()
+            
+            <a href="../classes/Document.html#method-i-used_on" name="method-i-used_on" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-used_on_source')" id="l_method-i-used_on_source">show</a>
+                
+              </p>
+              <div id="method-i-used_on_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/document.rb, line 73</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">used_on</span>
+  
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-user">
+            
+              <b>user</b>()
+            
+            <a href="../classes/Document.html#method-i-user" name="method-i-user" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-user_source')" id="l_method-i-user_source">show</a>
+                
+              </p>
+              <div id="method-i-user_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/document.rb, line 58</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">user</span>
+  <span class="ruby-keyword">begin</span>
+    <span class="ruby-keyword">return</span> <span class="ruby-identifier">account</span>.<span class="ruby-identifier">user</span>
+  <span class="ruby-keyword">rescue</span>
+    <span class="ruby-constant">ErrorNotification</span>.<span class="ruby-identifier">post</span> <span class="ruby-node">&quot;Document#user: #{self.id}&quot;</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">nil</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+                    </div>
+
+    </div>
+  </body>
+</html>    

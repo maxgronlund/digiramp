@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>_badge.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            _badge.slim
+        </h1>
+        <ul class="files">
+            <li>views/shop/products/shared/_badge.slim</li>
+            <li>Last modified: 2015-10-06 10:12:46 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>/- cache [product]</p>
+
+<p>.product</p>
+
+<pre><code>= link_to link_to_product, id: &quot;#{product.title.gsub(&#39; &#39;,&#39;_&#39;).downcase}&quot; do
+  .product-image
+    /= image_tag( product.image_url :thumb_300x300)
+    = image_tag product.get_shop_art(:thumb_300x300)
+    .product-category
+      =&gt; number_to_currency(product.price * 0.01, locale: :en, procision: 2)
+      /= product.category.gsub(&#39;-&#39;, &#39; &#39;).capitalize
+
+    - if product.category == &#39;physical-product&#39; &amp;&amp; product.units_on_stock.to_i &lt; 99
+      .units-on-stock
+        &#39;Units on stock:&amp;nbsp#{product.units_on_stock}
+
+  /.product-category
+  /  = product.category
+  .product-title
+    = truncate(product.title, length: 76)
+    /= word_wrap(product.title, line_width: 8)
+  .product-info
+    = word_wrap(product.additional_info.to_s)
+  /.product-price
+  /  &#39;PRICE&amp;nbsp;
+  /  =&gt; number_to_currency(product.price * 0.01, locale: :en, procision: 2)
+  /
+  /= link_to link_to_product do
+  /  i class=&quot;fa fa-users&quot;
+  /  &#39;&amp;nbsp;
+  /  &#39;5
+  /- if true
+  /  .pull-right
+  /    i class=&quot;fa fa-star&quot;
+  /    &#39;&amp;nbsp;</code></pre>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

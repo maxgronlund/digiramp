@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>_common_work_ipis.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            _common_work_ipis.slim
+        </h1>
+        <ul class="files">
+            <li>views/user/common_works/_common_work_ipis.slim</li>
+            <li>Last modified: 2015-09-29 18:12:24 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>.digi-box</p>
+
+<pre><code>.row  
+  .col-sm-6
+    h4 Creators
+  .col-sm-6
+    .pull-right
+      = link_to new_user_user_common_work_common_work_ipi_path(@user, @common_work) do
+        .btn.btn-default
+          i.fa.fa-user-plus&amp;nbsp;Add creator
+
+.row
+  .col-sm-12
+    .table-responsive
+      table class=&quot;table table-hover&quot;
+        thead
+          tr
+            th
+            th Legal name/ Email
+            th Capacity
+            th Publisher
+            th Creators share
+            th 
+              .pull-right
+                &#39;Status
+
+        tbody
+          - @common_work.common_work_ipis.each do |common_work_ipi|
+            - unless selected_id == common_work_ipi.id
+              - publishing_agreement = common_work_ipi.publishing_agreement
+
+              tr
+                td  style=&quot;width: 64px;&quot;
+
+                  - unless params[:id].to_i == common_work_ipi.id
+                    =&gt; link_to user_user_common_work_common_work_ipi_path(@user, @common_work, common_work_ipi),
+                                                              turboboost: true,
+                                                              data: { confirm: &#39;Are you sure?&#39; }, 
+                                                              method: :delete do
+                                              .btn.btn-danger.btn-xs
+                                                i.fa.fa-times
+                    = link_to edit_user_user_common_work_common_work_ipi_path(@user, @common_work, common_work_ipi) do
+                      .btn.btn-default.btn-xs
+                        i.fa.fa-pencil
+                  - else
+                    &#39;
+                td 
+                  = common_work_ipi.get_full_name
+                  br = common_work_ipi.get_email
+
+                td 
+                  - if common_work_ipi.music
+                    &#39;Music
+                    br
+                  - if common_work_ipi.lyric
+                    &#39;Lyric
+                    br
+                  - if common_work_ipi.melody
+                    &#39;Melody
+                    br
+                  - if common_work_ipi.arrangement
+                    &#39;Arrangement
+                td
+                   - if publishing_agreement
+                     - if publisher = publishing_agreement.publisher
+                        = publisher.legal_name
+                        br
+                     = link_to publishing_agreement.title, 
+                               user_user_publisher_publishing_agreement_path(@user, 
+                                                                             publisher, 
+                                                                             publishing_agreement), 
+                                                                             class: &#39;btn btn-default btn-xs&#39;
+
+                td
+
+                  = number_to_percentage(common_work_ipi.share, precision: 0)   
+
+                td   
+                  .pull-right
+                    div class=&quot;confirmation-button-#{common_work_ipi.id.to_s}&quot;
+                      == render &#39;user/common_works/common_work_ipi_buttons&#39;, user: @user, common_work: @common_work, common_work_ipi: common_work_ipi</code></pre>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

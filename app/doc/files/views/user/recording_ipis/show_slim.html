@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>show.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            show.slim
+        </h1>
+        <ul class="files">
+            <li>views/user/recording_ipis/show.slim</li>
+            <li>Last modified: 2015-10-03 13:21:58 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>/ this view is rendered when the user and current_user and ipi is valid /=
+debug @user_credits wrapper</p>
+
+<pre><code>.full-width-top
+  == render &#39;shared/navigationbar&#39;, page: &#39;dashboard&#39; 
+
+#sidebar-wrapper
+  ul class=&quot;sidebar-nav&quot;
+    == render &#39;users/shared/sidebar&#39;, selected: &#39;dashboard&#39;
+
+#page-content-wrapper
+  .container-fluid
+    == render &#39;shared/breadcrumbs&#39;, breadcrumbs: { links: { &#39;Dashboard&#39;.to_sym =&gt; user_user_control_panel_index_path(@user),
+                                                            &#39;ipis&#39;.to_sym =&gt; user_user_ipis_path(@user) }, current: &#39;&#39;}
+    .row
+      .col-sm-6
+        .help
+          .help-text
+            h2 IPI / Credits on master 
+          .help-button
+            == render &#39;admin/helps/help&#39;, identifier: &#39;ipi credits on master&#39;
+      .col-sm-6
+        .pull-right.pull-down-10
+          = link_to user_user_ipis_path(@user ) do
+            .btn.btn-default
+              i.fa.fa-chevron-left
+              &#39;&amp;nbsp;Back
+    .pull-down-10
+    .digi-box .ipi-confirmations
+      .row
+        .col-sm-6
+          .panel.panel-warning
+            .panel-heading
+              &#39;Status
+            .panel-body
+              b = @recording_ipi.status
+
+              - if @recording_ipi.confirmed? 
+                .row
+                  .col-sm-12
+                    .pull-right
+                      = link_to &#39;Accept&#39;, user_user_accept_recording_ipi_path(@user, @recording_ipi), turboboost: true, :method =&gt; &#39;put&#39;, class: &#39;btn btn-success&#39;
+
+          .panel.panel-default
+            .panel-heading
+              &#39;Master title
+            .panel-body
+              b = link_to @recording_ipi.recording.title, recording_path(@recording_ipi.recording)
+
+          .panel.panel-default
+            .panel-heading
+              &#39;Role / Credits for
+            .panel-body
+              b = @recording_ipi.role + &#39; / &#39;+ @recording_ipi.credit_for
+
+          .panel.panel-default
+            .panel-heading
+              &#39;Name
+            .panel-body
+              b = @recording_ipi.name
+
+          .panel.panel-default
+            .panel-heading
+              &#39;Email
+            .panel-body
+              b = @recording_ipi.email
+
+        .col-sm-6
+          .panel.panel-default
+            .panel-heading
+              &#39;Phone number
+            .panel-body
+              b = @recording_ipi.phone_number
+          .panel.panel-default
+            .panel-heading
+              &#39;Address
+            .panel-body
+              b = @recording_ipi.address
+          .panel.panel-default
+            .panel-heading
+              &#39;Share
+            .panel-body
+              b = number_to_percentage(@recording_ipi.share, precision: 1)
+          .panel.panel-default
+            .panel-heading
+              &#39;Controlled by
+            .panel-body
+              b = @recording_ipi.recording.user.user_name
+              .row
+                .col-sm-12
+                  .pull-right
+                    =&lt; link_to new_message_digalog_path(sender: @recording_ipi.user, 
+                                                       receiver: @recording_ipi.recording.user, 
+                                                       title: &quot;Regarding: #{@recording_ipi.recording.title}&quot;, 
+                                                       subjectable_id: @recording_ipi.id, 
+                                                       subjectable_type: &#39;RecordingIpi&#39;), remote: true do
+                          .btn.btn-default
+                            i.fa.fa-envelope
+                              &#39;&amp;nbsp;Send message
+
+== render &#39;shared/site_footer&#39;</code></pre>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

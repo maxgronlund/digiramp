@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>_metadata.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            _metadata.slim
+        </h1>
+        <ul class="files">
+            <li>views/account/recordings/shared/_metadata.slim</li>
+            <li>Last modified: 2015-07-05 15:22:06 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>/= debug @recording .panel.panel-primary</p>
+
+<pre><code>.panel-heading
+  &#39;Tags
+.panel-body
+
+  /= upload_completed.body
+  .table-responsive
+    table class=&quot;table&quot;
+      - if @recording.clearance
+        == render &#39;shared/meta_line&#39; , locals: {title: &#39;Clearance&#39;, data: &#39;200%&#39;}
+
+      - if @recording.copyright.to_s != &#39;&#39;
+        == render &#39;shared/meta_line&#39; , locals: {title: &#39;Copyright&#39;, data: @recording.copyright}
+
+      - if @recording.explicit
+        == render &#39;shared/meta_line&#39; , locals: {title: &#39;Explicit&#39;, data: &#39;Yes&#39;}
+
+      - if @recording.duration   != 0.0 &amp;&amp; @recording.duration.to_s != &#39;&#39;
+        == render &#39;shared/meta_line&#39; , locals: {title: &#39;Duration&#39;, data: @recording.duration_string}
+
+      - if @recording.composer.to_s != &#39;&#39;
+        == render &#39;shared/meta_line&#39; , locals: {title: &#39;Composer&#39;, data: @recording.composer}
+
+      - if @recording.bpm   != 0 
+        == render &#39;shared/meta_line&#39; , locals: {title: &#39;BPM&#39;, data: @recording.bpm}
+
+      - if @recording.tempo   != &#39;&#39;
+        == render &#39;shared/meta_line&#39; , locals: {title: &#39;Tempo&#39;, data: @recording.tempo}
+
+      - if @recording.album_name   != &#39;&#39; 
+        == render &#39;shared/meta_line&#39; , locals: {title: &#39;Album Name&#39;, data: @recording.album_name}
+
+      - if @recording.year   != &#39;1001&#39;
+        == render &#39;shared/meta_line&#39; , locals: {title: &#39;Year&#39;, data: @recording.year}
+
+      - if @recording.genre   != &#39;&#39;
+        == render &#39;shared/meta_line&#39; , locals: {title: &#39;Genre&#39;, data: @recording.genre}
+
+      - if @recording.instruments   != &#39;&#39;
+        == render &#39;shared/meta_line&#39; , locals: {title: &#39;Instruments&#39;, data: @recording.instruments}
+
+      - if @recording.mood   != &#39;&#39;
+        == render &#39;shared/meta_line&#39; , locals: {title: &#39;Moods&#39;, data: @recording.mood}
+
+      - if @recording.artist   != &#39;&#39;
+        == render &#39;shared/meta_line&#39; , locals: {title: &#39;Artist&#39;, data: @recording.artist}
+
+      - if @recording.performer   != &#39;&#39;
+        == render &#39;shared/meta_line&#39; , locals: {title: &#39;Performer&#39;, data: @recording.performer}
+
+      - if @recording.band   != &#39;&#39;
+        == render &#39;shared/meta_line&#39; , locals: {title: &#39;Band&#39;, data: @recording.band}
+
+      - if @recording.disc   != &#39;&#39;
+        == render &#39;shared/meta_line&#39; , locals: {title: &#39;Disc&#39;, data: @recording.disc}
+
+      - if @recording.track   != &#39;&#39;
+        == render &#39;shared/meta_line&#39; , locals: {title: &#39;Track&#39;, data: @recording.track}
+      - if @recording.original_file_name != &#39;&#39;
+        == render &#39;shared/meta_line&#39; , locals: {title: &#39;Original File Name&#39;, data: @recording.original_file_name}</code></pre>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

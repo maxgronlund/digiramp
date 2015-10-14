@@ -101,6 +101,7 @@ class PublishingAgreement < ActiveRecord::Base
   def documents
     Document.where(belongs_to_id: self.id, belongs_to_type: self.class.name)
   end
+  
   def document
     Document.cached_find(self.document_uuid)
     #if document = Document.cached_find(self.document_id)

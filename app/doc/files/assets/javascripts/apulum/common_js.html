@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>common.js</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            common.js
+        </h1>
+        <ul class="files">
+            <li>assets/javascripts/apulum/common.js</li>
+            <li>Last modified: 2015-07-05 15:22:02 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>// Sticky Header $(window).scroll(function() {</p>
+
+<pre><code>if ($(window).scrollTop() &gt; 100) {
+    $(&#39;.main_h&#39;).addClass(&#39;sticky&#39;);
+} else {
+    $(&#39;.main_h&#39;).removeClass(&#39;sticky&#39;);
+}</code></pre>
+
+<p>});</p>
+
+<p>// Mobile Navigation $(&#39;.mobile-toggle&#39;).click(function() {</p>
+
+<pre><code>if ($(&#39;.main_h&#39;).hasClass(&#39;open-nav&#39;)) {
+    $(&#39;.main_h&#39;).removeClass(&#39;open-nav&#39;);
+} else {
+    $(&#39;.main_h&#39;).addClass(&#39;open-nav&#39;);
+}</code></pre>
+
+<p>});</p>
+
+<p>$(&#39;.main_h li a&#39;).click(function() {</p>
+
+<pre><code>if ($(&#39;.main_h&#39;).hasClass(&#39;open-nav&#39;)) {
+    $(&#39;.navigation&#39;).removeClass(&#39;open-nav&#39;);
+    $(&#39;.main_h&#39;).removeClass(&#39;open-nav&#39;);
+}</code></pre>
+
+<p>});</p>
+
+<p>// navigation scroll lijepo radi materem $(function() {</p>
+
+<pre><code>$(&#39;a.logo, nav a, .home-buttons a, a.introarrow, a.footerarrow&#39;).bind(&#39;click&#39;, function(event) {
+    var $anchor = $(this);
+    $(&#39;html, body&#39;).stop().animate({
+        scrollTop: $($anchor.attr(&#39;href&#39;)).offset().top
+    }, 1000, &#39;easeInOutExpo&#39;);
+    event.preventDefault();
+});</code></pre>
+
+<p>});</p>
+
+<p>// init animations on appear</p>
+
+<pre><code>var wow = new WOW(
+ {
+   boxClass:     &#39;wow&#39;,      // animated element css class (default is wow)   
+   mobile:       false        // trigger animations on mobile devices (true is default)
+ }</code></pre>
+
+<p>); wow.init();</p>
+
+<p>// tooltip $(function() {</p>
+
+<pre><code>$(&#39;.homepage a&#39;).tooltip({placement: &#39;bottom&#39;});</code></pre>
+
+<p>});</p>
+
+<p>// carousel $(document).ready(function() {</p>
+
+<pre><code>$(&quot;#wowtestim&quot;).owlCarousel({
+    navigation : false, // Show next and prev buttons
+    slideSpeed : 50,
+    paginationSpeed : 400,
+        autoPlay : false,
+    items : 1
+    // &quot;singleItem:true&quot; is a shortcut for:
+    // items : 1, 
+    // itemsDesktop : false,
+    // itemsDesktopSmall : false,
+    // itemsTablet: false,
+    // itemsMobile : false
+});</code></pre>
+
+<p>});</p>
+
+<p>// carousel $(document).ready(function() {</p>
+
+<pre><code>$(&quot;#wowcarousel&quot;).owlCarousel({
+    navigation : false, // Show next and prev buttons
+    slideSpeed : 100,
+    paginationSpeed : 700,
+        autoPlay : false, 
+    items : 2
+    // &quot;singleItem:true&quot; is a shortcut for:
+    // items : 1, 
+    // itemsDesktop : false,
+    // itemsDesktopSmall : false,
+    // itemsTablet: false,
+    // itemsMobile : false
+});</code></pre>
+
+<p>});</p>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

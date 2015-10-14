@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>show.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            show.slim
+        </h1>
+        <ul class="files">
+            <li>views/account/recordings/show.slim</li>
+            <li>Last modified: 2015-09-30 22:00:38 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>wrapper</p>
+
+<pre><code>.full-width-top
+  == render &#39;shared/navigationbar&#39;, page: &#39;account&#39; 
+
+.pro-account
+  #sidebar-wrapper
+    ul class=&quot;sidebar-nav&quot;
+      == render &#39;account/shared/sidebar&#39;, selected: &#39;recording&#39;
+
+#page-content-wrapper
+  .container-fluid
+
+    == render &#39;shared/breadcrumbs&#39;, breadcrumbs: { links: { account: account_account_path(@account ),\
+                                                            recordings: account_account_recordings_path(@account) }, current:&#39;&#39; }
+    /.row
+    /  .col-sm-7
+    /    .help
+    /      .help-text
+    /        h2 #{@account.title} &lt;funky&gt;Pro&lt;/funky&gt;
+    /  
+    /      .help-button
+    /        == render &#39;admin/helps/help&#39;, identifier: &#39;account opportunities&#39;
+    /
+    /  .col-sm-5
+    /    .pull-right
+    /      .recording-navigation
+    /        = link_to new_account_account_opportunity_path(@user.account) do
+    /          .btn.btn-info
+    /            i.fa.fa-plus-circle
+    /            &#39;&amp;nbsp;
+    /            &#39;Create Recording
+    .row
+      .col-sm-8
+        h2 = @recording.title
+      .col-sm-4
+        .pull-right.pull-down-10
+          =&gt; link_to &#39;Common work&#39;, account_account_common_work_path(@account, @recording.get_common_work), class: &#39;btn btn-default&#39;
+          = link_to &#39;Edit&#39;, edit_account_account_common_work_recording_path(@account, @recording.get_common_work, @recording), class: &#39;btn btn-info&#39;
+
+    .pull-down-10
+    .row
+      .col-sm-12
+        #digiWhams  class=&quot;/recordings/#{@recording.id.to_s}&quot;
+
+          == render &#39;account/recordings/account_recording&#39;, recording: @recording,
+                                                       info: true,
+                                                       add_to_playlist: true, 
+                                                       remove_from_playlist: false, 
+                                                       edit: true, 
+                                                       delete: true,
+                                                       description: false,
+                                                       share: true,
+                                                       target: &quot;&quot;,
+                                                       music_request_link: false,
+                                                       remove_from_request: false
+
+    .row
+      .col-sm-6 
+        - if @recording.comment.to_s != &#39;&#39;
+          h4 Describtion
+          .digi-box
+            = @recording.comment   
+        - if @recording.lyrics.to_s != &#39;&#39;
+          h4 Lyrics
+          .digi-box
+            = simple_format @recording.lyrics
+
+      .col-sm-6
+        h4 Info
+        .digi-box
+          == render &#39;recordings/shared/metadata&#39;
+        - if current_account_user &amp;&amp; current_account_user.read_recording_ipi
+          == render &#39;ipis&#39;
+
+== render &#39;shared/site_footer&#39;</code></pre>
+
+<p>/- <a href=":return_url">session</a>  = request.url /#wrap /  div
+class=“#{&#39;profile&#39; if account_owner?}” /    .full-width-top /     
+== render &#39;admin/shared/navbar&#39;, page: &#39;account&#39;  /  .do</p>
+
+<p>/    .container /      == render &#39;admin/shared/messages&#39; /      ==
+render &#39;shared/breadcrumbs&#39;, breadcrumbs: { links:
+{@account.title.to_sym =&gt; account_path(@account), /                     
+dashboard: account_account_path(@account), \ /                             
+recordings: account_account_recordings_path(@account)\ /                   
+}, current: @recording.title } / /      == render
+&#39;shared/recording_title&#39;, locals: {recording: @recording, body:
+@recording.comment, insert: &#39;show_common_work&#39;}  /      /== render
+&#39;shared/title&#39;, locals: {title: @recording.title, body: body,
+insert: insert}  /      -index = @recording.id /      div class=“player”
+id=“#{index}” /      .just-load /      .panel.panel-primary /       
+.panel-heading /          = @recording.title /        .panel-body /        
+.digiramp_player /            div class=“permissions”
+value=“account_recordings” id=“#{current_user.id}” /            == render
+&#39;players/digramp_player&#39;, locals: {index: index , recording:
+@recording} /      .row /        .col-sm-6 /          /= link_to “#”,
+class: &#39;update-url&#39; /          /  &#39;Download /</p>
+
+<p>/          = link_to download_account_account_common_work_recording_path(
+@account, @recording.get_common_work, @recording, format: :mp3 ),
+&#39;data-no-turbolink&#39;=&gt;&#39;true&#39; do /           
+.btn.btn-info.btn-lg /              i class=“fa fa-cloud-download” /       
+&#39;&amp;nbsp;Download mp3 /          &#39;&amp;nbsp; /</p>
+
+<p>/          == render &#39;recordings/shared/metadata&#39; /       
+.col-sm-6  /          == render &#39;recordings/shared/description&#39;  
+if @recording.comment.to_s != &#39;&#39; /          == render
+&#39;recordings/shared/lyrics&#39;        if @recording.lyrics.to_s !=
+&#39;&#39; /</p>
+
+<p>/</p>
+
+<p>/</p>
+
+<p>/-cache ([&#39;footer&#39;, <a
+href="../../../../classes/Admin.html#method-c-cached_find">Admin.cached_find</a>.version])
+do</p>
+
+<p>/  =render &#39;shared/footer&#39;</p>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

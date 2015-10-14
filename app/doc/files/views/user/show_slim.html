@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>show.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            show.slim
+        </h1>
+        <ul class="files">
+            <li>views/user/show.slim</li>
+            <li>Last modified: 2015-09-24 20:35:34 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      <ul><li>
+<p>user_account                  = <a
+href="../../../classes/Account.html#method-c-cached_find">Account.cached_find</a>(@user.account.id)</p>
+</li><li>
+<p><a href=":go_to_after_update">session</a>  = request.url</p>
+</li></ul>
+
+<p>wrap</p>
+
+<pre><code>.profile
+  .full-width-top
+    == render &#39;admin/shared/navbar&#39;, page: &#39;profile&#39;     
+.container                                                 
+  == render &#39;shared/page_title&#39;, locals: {blog: Blog.cached_find(&#39;User Account&#39;), blog_post: &#39;Dashboard&#39;}
+
+  - account_user = AccountUser.where(account_id: @user.account.id, user_id: @user.id).first
+  .row
+    .col-sm-6
+      .panel.panel-primary
+        .panel-heading
+          &#39;ACCOUNT INFO
+        .panel-body
+          .logo
+            .thumbnail
+
+              = image_tag @user.account.logo_url(:default) || &#39;account-logo.jpg&#39;
+
+          = simple_format @user.account.description
+
+          .pull-right
+            = link_to account_path( @user.account.id) do
+              .btn.btn-default.btn-lg
+                i class=&quot;fa fa-eye&quot;
+            &#39;&amp;nbsp;
+            = link_to edit_user_account_path(@user, @user.account.id) do
+              .btn.btn-info.btn-lg
+                i class=&quot;fa fa-pencil&quot;
+
+      .panel.panel-primary
+        .panel-heading
+          &#39;profile
+        .panel-body
+          .media
+            .pull-left
+              .logo
+                / !!! use social_avatar
+                - unless @user.image == &quot;/assets/fallback/avatar_120x120_account-logo.jpg&quot;
+                  = image_tag @user.image_url :avatar_120x120
+                -else
+                  = gravatar_tag @user.email, :size =&gt; 120, class: &quot;media-object&quot;
+
+            .media-body
+              h4 class=&quot;media-heading&quot; =@user.full_name
+              = @user.user_name
+          br
+          = simple_format @user.profile
+          .pull-right
+            = link_to edit_user_path(@user) do
+              .btn.btn-info.btn-lg
+                i class=&quot;fa fa-pencil&quot;
+            /= link_to &#39;Edit Profile&#39;, edit_user_path(@user), class: &#39;btn btn-info btn-lg&#39;
+
+    .col-sm-6.pull-up-20
+      - if @user.has_a_collection
+        == render &#39;users/shared/badge_button&#39;, locals: { \
+                                                    blog_post: &#39;MANAGE COLLECTION&#39;, \
+                                                    link: account_account_path( @user.account ), \
+                                                    css_class: &#39;btn btn-default&#39;, \
+                                                    icon: &#39;fa fa-tachometer&#39; \
+                                                  }
+
+      == render &#39;users/shared/badge_button&#39;, locals: { \
+                                                  blog_post: &#39;COLLECTIONS&#39;, \
+                                                  link: user_user_collections_path(@user), \
+                                                  css_class: &#39;btn btn-warning&#39;, \
+                                                  icon: &#39;fa fa-list&#39; \
+                                                }
+
+      == render &#39;users/shared/badge_button&#39;, locals: { \
+                                                  blog_post: &#39;CATALOGS&#39;, \
+                                                  link: user_user_catalogs_path(@user), \
+                                                  css_class: &#39;btn btn-info&#39;, \
+                                                  icon: &#39;fa fa-book&#39; \
+                                                }
+
+      == render &#39;users/shared/badge_button&#39;, locals: { \
+                                                  blog_post: &#39;OPPORTUNITIES&#39;, \
+                                                  link: user_user_opportunities_path(@user), \
+                                                  css_class: &#39;btn btn-danger&#39;, \
+                                                  icon: &#39;fa fa-plane&#39; \
+                                                }
+
+      == render &#39;users/shared/badge_button&#39;, locals: { \
+                                                  blog_post: &#39;ACTIVITIES&#39;, \
+                                                  link: user_user_activities_path(@user), \
+                                                  css_class: &#39;btn btn-warning&#39;, \
+                                                  icon: &#39;fa fa-clock-o&#39; \
+                                                }
+
+      == render &#39;users/shared/badge_button&#39;, locals: { \
+                                                  blog_post: &#39;AUTHORIZATION&#39;, \
+                                                  link: user_user_authorization_providers_path(@user), \
+                                                  css_class: &#39;btn btn-default&#39;, \
+                                                  icon: &#39;fa fa-lock&#39; \
+                                                }</code></pre>
+
+<p>/-cache ([&#39;footer&#39;, <a
+href="../../../classes/Admin.html#method-c-cached_find">Admin.cached_find</a>.version])
+do</p>
+
+<p>/  =render &#39;shared/footer&#39;</p>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>_form.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            _form.slim
+        </h1>
+        <ul class="files">
+            <li>views/user/common_work_ipis/_form.slim</li>
+            <li>Last modified: 2015-10-03 15:06:11 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      <ul><li>
+<p>if @common_work_ipi_user .alert.alert-info</p>
+
+<pre><code>.row
+  .col-sm-6
+    h4 Creator is connected
+    &#39;This creator has been connected to a DigiRAMP user. Email. Name and Alias are taken from that users profile
+
+  .col-sm-6
+    b Email:&amp;nbsp;
+    = @common_work_ipi_user.email
+    .pull-down-10
+    b Full name:&amp;nbsp;
+    = @common_work_ipi_user.full_name
+    .pull-down-10
+    b Alias / Artist name:&amp;nbsp;
+    = @common_work_ipi_user.user_name
+    .pull-down-10
+    - if publisher = @common_work_ipi.publisher
+      b Publisher:&amp;nbsp;
+      = publisher.legal_name
+    - else
+      b ! Publisher is not assigned
+    /= f.input :full_name,  :input_html =&gt; {disabled: &#39;disabled&#39;}, label: &#39;Full name (updated by user)&#39;
+    /= f.input :alias,  :input_html =&gt; {disabled: &#39;disabled&#39;}, label: &#39;Alias (updated by user)&#39;
+    /= @common_work_ipi_user.full_name</code></pre>
+</li></ul>
+
+<p>.digi-box</p>
+
+<pre><code>= simple_form_for [:user, @user, @common_work, @common_work_ipi] do |f|
+  = f.hidden_field :common_work_id, value: @common_work.id
+  = f.error_notification
+  .form-inputs
+
+    .row
+
+      - unless @common_work_ipi_user
+        .col-sm-6
+          b 
+            &#39;*Email 
+          == render &#39;shared/popover&#39;, identifier: &#39;The creators email is used to find the creators publisher, make sure the publisher has signed this creator with the same email&#39;
+          .pull-down-6
+          = f.input :email, label: false
+          b Full name
+          == render &#39;shared/popover&#39;, identifier: &#39;The creators real name &#39;
+          .pull-down-6
+          = f.input :full_name, label: false
+
+        .col-sm-6
+
+          b Alias
+          == render &#39;shared/popover&#39;, identifier: &#39;The contributors artist name as shown on recordings&#39;
+          .pull-down-6
+          = f.input :alias, label: false
+
+    .row
+      .col-sm-6
+        - if @common_work.total_share == 100.0
+          .alert.alert-warning
+            &#39;Total share for all other creators is 100%
+            br You can&#39;t raise the share for this creator
+        b Creators share in %
+        == render &#39;shared/popover&#39;, identifier: &#39;Share of the income between creators ( often defined in a song writer agreement )&#39;
+        .pull-down-6
+        = f.input :share, label: false, input_html: { style: &quot;max-width:150px;&quot; }, hint: &quot;All creators&#39;s share should add up to 100%&quot;
+
+      .col-sm-6
+        b Roles
+        .row
+          .col-sm-6
+            = f.input :music,    :as =&gt; :boolean,  :input_html =&gt; { class: &#39;icheck-me&#39;, &#39;data-skin&#39;.to_sym =&gt; &quot;square&quot;, &#39;data-color&#39;.to_sym =&gt; &quot;blue&quot;     }   , label: &#39;Music&#39;
+            = f.input :lyric,    :as =&gt; :boolean,  :input_html =&gt; { class: &#39;icheck-me&#39;, &#39;data-skin&#39;.to_sym =&gt; &quot;square&quot;, &#39;data-color&#39;.to_sym =&gt; &quot;blue&quot;     }  , label: &#39;Lyric&#39;
+          .col-sm-6
+            = f.input :melody,       :as =&gt; :boolean,  :input_html =&gt; { class: &#39;icheck-me&#39;, &#39;data-skin&#39;.to_sym =&gt; &quot;square&quot;, &#39;data-color&#39;.to_sym =&gt; &quot;blue&quot;     }   , label: &#39;Melody&#39;
+            = f.input :arrangement, :as =&gt; :boolean,  :input_html =&gt; { class: &#39;icheck-me&#39;, &#39;data-skin&#39;.to_sym =&gt; &quot;square&quot;, &#39;data-color&#39;.to_sym =&gt; &quot;blue&quot;     }   , label: &#39;Arrangement&#39;
+        = f.input :notes
+        = f.input :show_on_recordings,    
+                  :as =&gt; :boolean,  
+                  :label =&gt; &#39;Show roles and notes on recordings&#39;,
+                  :input_html =&gt; { class: &#39;icheck-me&#39;, &#39;data-skin&#39;.to_sym =&gt; &quot;square&quot;, &#39;data-color&#39;.to_sym =&gt; &quot;blue&quot;     }
+
+  .form-actions
+    .row
+      .col-sm-12.pull-down-10
+        .pull-right
+          = f.submit &#39;Save&#39;, class: &#39;btn btn-info&#39;
+          /= f.submit &#39;Save and get confirmation&#39;, class: &#39;btn btn-default&#39;</code></pre>
+
+<p>/== render &#39;user/common_works/common_work_ipis&#39;, selected_id:
+@common_work_ipi.id</p>
+
+<p>.table-responsive</p>
+
+<pre><code>h4 Other creators
+table class=&quot;table table-hover&quot;
+  thead
+    tr
+      th Name/ Email
+      th Roles
+      th Share in %
+
+  tbody
+    - @common_work.common_work_ipis.where.not(id: @common_work_ipi.id).each do |common_work_ipi|
+
+      tr
+
+        td
+          - if ipi = common_work_ipi.ipi
+            - if user = ipi.user
+              = user.full_name
+              br
+              = user.email
+            - else 
+              = ipi.email
+        td 
+          - if common_work_ipi.music
+            &#39;Music
+            br
+          - if common_work_ipi.lyric
+            &#39;Lyric
+            br
+          - if common_work_ipi.melody
+            &#39;Melody
+            br
+          - if common_work_ipi.arrangement
+            &#39;Arrangement
+        td = number_to_percentage(common_work_ipi.share, precision: 0)   
+
+        /td   
+        /  .pull-right
+        /    div class=&quot;confirmation-button-#{common_work_ipi.id.to_s}&quot;
+        /      == render &#39;common_works/common_work_ipi_buttons&#39;, user: @user, common_work: @common_work, common_work_ipi: common_work_ipi</code></pre>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

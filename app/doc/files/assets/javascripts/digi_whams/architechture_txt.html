@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>architechture.txt</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            architechture.txt
+        </h1>
+        <ul class="files">
+            <li>assets/javascripts/digi_whams/architechture.txt</li>
+            <li>Last modified: 2015-07-05 15:22:02 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>something that picks up the need for players and create them</p>
+
+<p>a list of players</p>
+
+<p>something that picks up action from the vies</p>
+
+<pre><code>and parse it to an appropiated player</code></pre>
+
+<p>something that alters the view</p>
+
+<p>something that generates list of players</p>
+
+<p>a player with the following features</p>
+
+<pre><code>initialize( info about soundfile_id, user/login status, permissions )
+play
+stop revind
+fast forward
+position</code></pre>
+
+<p>an authorzed link for download</p>
+
+<p>social features -playlist -share on facebook, pinterest, twitter google+
+etc… -embed -like</p>
+
+<p>Research Fetch data from backend in coffe files true coffee models</p>
+<hr>
+
+<p>Implemention strategy</p>
+<hr>
+
+<p>Views are written in slim and js.erb <a
+href="../../../../classes/Client.html">Client</a> side controlers are
+written in coffee script Audio is implemented using soundmanager2 JQuery
+are used for templating and visual effects Inter face logic are perfored
+client side Interface reflect current_users permissions Requests to the
+backend is done with $.getScript Responces are inserted using render js
+Namespace in rails  Namespace in coffe  mirror of coffee and rails
+controllers CRUD in rails controllers API in rails Themes and customization
+endles pages security</p>
+<hr>
+
+<p>Coffee Modules</p>
+
+<p>digi_whams: loads all modules</p>
+
+<p>√digi_whams_controler:</p>
+
+<pre><code>Delegates interaction and logic to dedicated controllers
+</code></pre>
+
+<p>plyback_controller: handles the state of all tracks</p>
+<ul><li>
+<p>select track</p>
+</li><li>
+<p>stop all tracks</p>
+</li></ul>
+
+<p>Track_controller: handles the state of one track</p>
+<ul><li>
+<p>play</p>
+</li><li>
+<p>stop revind</p>
+</li><li>
+<p>fast forward</p>
+</li><li>
+<p>click_on_playhead</p>
+</li><li>
+<p>set_playhead_position</p>
+</li><li>
+<p>statistic</p>
+</li></ul>
+
+<p>playlist_controller:</p>
+<ul><li>
+<p>interact with playlist views</p>
+</li><li>
+<p>interacts with rails</p>
+</li></ul>
+
+<p>login_controller:</p>
+<ul><li>
+<p>check uf user is logged in</p>
+</li><li>
+<p>check if user is signed up</p>
+</li><li>
+<p>open login dialog</p>
+</li><li>
+<p>open signup dialog</p>
+</li></ul>
+
+<p>digiwham_player wrapper around soundmanager2</p>
+<ul><li>
+<p>start</p>
+</li><li>
+<p>stop</p>
+</li><li>
+<p>load</p>
+</li><li>
+<p>go_to_possition</p>
+</li><li>
+<p>update_possition</p>
+</li><li>
+<p>load_recording</p>
+</li><li>
+<p>load_position</p>
+</li><li>
+<p>ready</p>
+</li></ul>
+
+<p>playlist_controller handles interaction with playlists</p>
+<ul><li>
+<p>show_hide</p>
+</li><li>
+<p>get_playlist</p>
+</li><li>
+<p>create_playlist</p>
+</li><li>
+<p>add_to_playlist</p>
+</li><li>
+<p>go_to_playlist</p>
+</li></ul>
+
+<p>share_controller</p>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

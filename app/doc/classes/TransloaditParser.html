@@ -1,0 +1,950 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>TransloaditParser</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../css/github.css" type="text/css" media="screen" />
+<script src="../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            <span class="type">Class</span> 
+            TransloaditParser 
+            
+                <span class="parent">&lt; 
+                    
+                    Object
+                    
+                </span>
+            
+        </h1>
+        <ul class="files">
+            
+            <li><a href="../files/services/transloadit_parser_rb.html">services/transloadit_parser.rb</a></li>
+            
+        </ul>
+    </div>
+    <div id="bodyContent">
+        <div id="content">
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+    <!-- Method ref -->
+    <div class="sectiontitle">Methods</div>
+    <dl class="methods">
+      
+        <dt>A</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-c-add_artwork_to">add_artwork_to</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-c-add_to_common_work">add_to_common_work</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>D</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-c-deprication_warning">deprication_warning</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>E</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-c-extract">extract</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-c-extract_title_from">extract_title_from</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>N</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-c-new">new</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>P</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-c-parse_recordings">parse_recordings</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>S</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-c-sanitize_comment">sanitize_comment</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-c-sanitize_lyrics">sanitize_lyrics</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-c-sanitize_title">sanitize_title</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>U</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-c-update">update</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-c-update_catalogs">update_catalogs</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>W</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-c-write_recording">write_recording</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+    </dl>
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+    
+      <div class="sectiontitle">Class Public methods</div>
+      
+        <div class="method">
+          <div class="title method-title" id="method-c-add_artwork_to">
+            
+              <b>add_artwork_to</b>(recording)
+            
+            <a href="../classes/TransloaditParser.html#method-c-add_artwork_to" name="method-c-add_artwork_to" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-c-add_artwork_to_source')" id="l_method-c-add_artwork_to_source">show</a>
+                
+              </p>
+              <div id="method-c-add_artwork_to_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File services/transloadit_parser.rb, line 156</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">self</span>.<span class="ruby-identifier">add_artwork_to</span> <span class="ruby-identifier">recording</span>
+  
+  <span class="ruby-identifier">artwork</span> = <span class="ruby-constant">Artwork</span>.<span class="ruby-identifier">create!</span>(  <span class="ruby-identifier">title</span><span class="ruby-operator">:</span>      <span class="ruby-identifier">recording</span>.<span class="ruby-identifier">title</span>,
+                              <span class="ruby-identifier">body</span><span class="ruby-operator">:</span>       <span class="ruby-identifier">recording</span>.<span class="ruby-identifier">comment</span>,
+                              <span class="ruby-identifier">account_id</span><span class="ruby-operator">:</span> <span class="ruby-identifier">recording</span>.<span class="ruby-identifier">account_id</span>, 
+                              <span class="ruby-identifier">thumb</span><span class="ruby-operator">:</span>      <span class="ruby-identifier">recording</span>.<span class="ruby-identifier">cover_art</span>, 
+                              <span class="ruby-identifier">file</span><span class="ruby-operator">:</span>       <span class="ruby-identifier">recording</span>.<span class="ruby-identifier">artwork</span>
+                            )
+  <span class="ruby-comment"># add artwork to recording</span>
+  <span class="ruby-constant">RecordingItem</span>.<span class="ruby-identifier">create</span>( <span class="ruby-identifier">itemable_type</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;Artwork&#39;</span>, 
+                        <span class="ruby-identifier">itemable_id</span><span class="ruby-operator">:</span>   <span class="ruby-identifier">artwork</span>.<span class="ruby-identifier">id</span>, 
+                        <span class="ruby-identifier">recording_id</span><span class="ruby-operator">:</span> <span class="ruby-identifier">recording</span>.<span class="ruby-identifier">id</span>
+                        )
+  
+  <span class="ruby-comment"># add artwork to catalogs                      </span>
+  <span class="ruby-identifier">recording</span>.<span class="ruby-identifier">catalogs</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">catalog</span><span class="ruby-operator">|</span>
+    
+    <span class="ruby-constant">ArtworksCatalogs</span>.<span class="ruby-identifier">where</span>(<span class="ruby-identifier">artwork_id</span><span class="ruby-operator">:</span> <span class="ruby-identifier">artwork</span>.<span class="ruby-identifier">id</span>, <span class="ruby-identifier">catalog_id</span><span class="ruby-operator">:</span> <span class="ruby-identifier">catalog</span>.<span class="ruby-identifier">id</span>)
+                    .<span class="ruby-identifier">first_or_create</span>(<span class="ruby-identifier">artwork_id</span><span class="ruby-operator">:</span> <span class="ruby-identifier">artwork</span>.<span class="ruby-identifier">id</span>, <span class="ruby-identifier">catalog_id</span><span class="ruby-operator">:</span> <span class="ruby-identifier">catalog</span>.<span class="ruby-identifier">id</span>)
+    
+    
+  <span class="ruby-keyword">end</span>
+  
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-c-add_to_common_work">
+            
+              <b>add_to_common_work</b>(uploads, common_work_id, account_id, add_to_catalog = nil)
+            
+            <a href="../classes/TransloaditParser.html#method-c-add_to_common_work" name="method-c-add_to_common_work" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              <p>add a recording to a common work</p>
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-c-add_to_common_work_source')" id="l_method-c-add_to_common_work_source">show</a>
+                
+              </p>
+              <div id="method-c-add_to_common_work_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File services/transloadit_parser.rb, line 184</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">self</span>.<span class="ruby-identifier">add_to_common_work</span> <span class="ruby-identifier">uploads</span>, <span class="ruby-identifier">common_work_id</span>, <span class="ruby-identifier">account_id</span>, <span class="ruby-identifier">add_to_catalog</span> = <span class="ruby-keyword">nil</span>
+
+  
+  <span class="ruby-identifier">transloadets</span>      = <span class="ruby-identifier">extract</span>( <span class="ruby-identifier">uploads</span> )
+  
+  
+  
+  <span class="ruby-identifier">transloadets</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">transloaded</span><span class="ruby-operator">|</span>
+    
+    <span class="ruby-keyword">begin</span>
+      <span class="ruby-identifier">recording</span> =   <span class="ruby-constant">Recording</span>.<span class="ruby-identifier">create!</span>(  <span class="ruby-identifier">title</span><span class="ruby-operator">:</span>             <span class="ruby-identifier">extract_title_from</span>( <span class="ruby-identifier">transloaded</span> ), 
+                                        <span class="ruby-identifier">duration</span><span class="ruby-operator">:</span>          <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:duration</span>],
+                                        <span class="ruby-identifier">artist</span><span class="ruby-operator">:</span>            <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:artist</span>],
+                                        <span class="ruby-identifier">lyrics</span><span class="ruby-operator">:</span>            <span class="ruby-identifier">sanitize_lyrics</span>( <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:lyrics</span>] ),
+                                        <span class="ruby-identifier">bpm</span><span class="ruby-operator">:</span>               <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:bpm</span>],
+                                        <span class="ruby-identifier">comment</span><span class="ruby-operator">:</span>           <span class="ruby-identifier">sanitize_comment</span>( <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:comment</span>] ),
+                                        <span class="ruby-identifier">year</span><span class="ruby-operator">:</span>              <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:year</span>],
+                                        <span class="ruby-identifier">album_name</span><span class="ruby-operator">:</span>        <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:album</span>],
+                                        <span class="ruby-identifier">genre</span><span class="ruby-operator">:</span>             <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:genre</span>],
+                                        <span class="ruby-identifier">performer</span><span class="ruby-operator">:</span>         <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:performer</span>],
+                                        <span class="ruby-identifier">band</span><span class="ruby-operator">:</span>              <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:band</span>],
+                                        <span class="ruby-identifier">disc</span><span class="ruby-operator">:</span>              <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:disc</span>],
+                                        <span class="ruby-identifier">track</span><span class="ruby-operator">:</span>             <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:track</span>],
+                                        <span class="ruby-identifier">mp3</span><span class="ruby-operator">:</span>               <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:mp3</span>],
+                                        <span class="ruby-identifier">waveform</span><span class="ruby-operator">:</span>          <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:waveform</span>],
+                                        <span class="ruby-identifier">thumbnail</span><span class="ruby-operator">:</span>         <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:thumbnail</span>],
+                                        <span class="ruby-identifier">original_file</span><span class="ruby-operator">:</span>     <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:original_file</span>],
+                                        <span class="ruby-identifier">cover_art</span><span class="ruby-operator">:</span>         <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:cover_art</span>],
+                                        <span class="ruby-identifier">artwork</span><span class="ruby-operator">:</span>           <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:artwork</span>],
+                                        <span class="ruby-comment">#copyright:         transloaded[:copyright],</span>
+                                        <span class="ruby-comment">#composer:          transloaded[:composer],</span>
+                                        <span class="ruby-identifier">account_id</span><span class="ruby-operator">:</span>        <span class="ruby-identifier">account_id</span>, 
+                                        <span class="ruby-identifier">audio_upload</span><span class="ruby-operator">:</span>      <span class="ruby-identifier">transloaded</span>,
+                                        <span class="ruby-identifier">common_work_id</span><span class="ruby-operator">:</span>    <span class="ruby-identifier">common_work_id</span>
+                                       )
+      
+      <span class="ruby-identifier">add_artwork_to</span> <span class="ruby-identifier">recording</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">recording</span>.<span class="ruby-identifier">cover_art</span> <span class="ruby-operator">==</span> <span class="ruby-string">&#39;&#39;</span>
+      <span class="ruby-identifier">recording</span>.<span class="ruby-identifier">extract_genres</span>                          
+      <span class="ruby-identifier">recording</span>.<span class="ruby-identifier">update_completeness</span>
+      
+      
+      <span class="ruby-identifier">update_catalogs</span>( <span class="ruby-identifier">recording</span>, <span class="ruby-identifier">account_id</span>, <span class="ruby-identifier">add_to_catalog</span> )
+
+    <span class="ruby-keyword">rescue</span>
+      <span class="ruby-identifier">puts</span> <span class="ruby-string">&#39;+++++++++++++++++++++++++++++++++++++++++++++++++&#39;</span>
+      <span class="ruby-identifier">puts</span> <span class="ruby-string">&#39;ERROR: Unable to add recordings to common_work&#39;</span>
+      <span class="ruby-identifier">puts</span> <span class="ruby-string">&#39;In TransloaditParser#add_to_common_work&#39;</span>
+      <span class="ruby-identifier">puts</span> <span class="ruby-string">&#39;+++++++++++++++++++++++++++++++++++++++++++++++++&#39;</span>
+    <span class="ruby-keyword">end</span>
+
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-c-deprication_warning">
+            
+              <b>deprication_warning</b>()
+            
+            <a href="../classes/TransloaditParser.html#method-c-deprication_warning" name="method-c-deprication_warning" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-c-deprication_warning_source')" id="l_method-c-deprication_warning_source">show</a>
+                
+              </p>
+              <div id="method-c-deprication_warning_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File services/transloadit_parser.rb, line 318</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">self</span>.<span class="ruby-identifier">deprication_warning</span>
+  <span class="ruby-identifier">puts</span> <span class="ruby-string">&#39;+++++++++++++++++++++++++++++++++++++++++++++++++&#39;</span>
+  <span class="ruby-identifier">puts</span> <span class="ruby-string">&#39;DEPRICATION WARNING: TransloaditParser&#39;</span>
+  <span class="ruby-identifier">puts</span> <span class="ruby-string">&#39;A More generilized version is created&#39;</span>
+  <span class="ruby-identifier">puts</span> <span class="ruby-string">&#39;Please use TransloaditRecordingsParser instead&#39;</span>
+  <span class="ruby-identifier">puts</span> <span class="ruby-string">&#39;+++++++++++++++++++++++++++++++++++++++++++++++++&#39;</span>
+  
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-c-extract">
+            
+              <b>extract</b>(uploads)
+            
+            <a href="../classes/TransloaditParser.html#method-c-extract" name="method-c-extract" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-c-extract_source')" id="l_method-c-extract_source">show</a>
+                
+              </p>
+              <div id="method-c-extract_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File services/transloadit_parser.rb, line 11</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">self</span>.<span class="ruby-identifier">extract</span> <span class="ruby-identifier">uploads</span>
+  <span class="ruby-identifier">deprication_warning</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">uploads</span>[<span class="ruby-value">:results</span>].<span class="ruby-identifier">nil?</span>
+    <span class="ruby-identifier">puts</span> <span class="ruby-string">&#39;+++++++++++++++++++++++++++++++++++++++++++++++++&#39;</span>
+    <span class="ruby-identifier">puts</span> <span class="ruby-string">&#39;ERROR: Unable to extract recordings: uploads nil&#39;</span>
+    <span class="ruby-identifier">puts</span> <span class="ruby-string">&#39;In TransloaditParser#extract&#39;</span>
+    <span class="ruby-identifier">puts</span> <span class="ruby-string">&#39;+++++++++++++++++++++++++++++++++++++++++++++++++&#39;</span>
+    <span class="ruby-keyword">return</span> <span class="ruby-keyword">nil</span> 
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-identifier">transloadets</span>  = []
+  <span class="ruby-identifier">extracted</span>     = {}
+
+  
+  <span class="ruby-comment"># original file</span>
+  <span class="ruby-identifier">uploads</span>[<span class="ruby-value">:results</span>][<span class="ruby-string">&#39;:original&#39;</span>].<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">original</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">extracted</span>[ <span class="ruby-identifier">original</span>[<span class="ruby-value">:original_id</span>] ] =  { <span class="ruby-identifier">original_file</span><span class="ruby-operator">:</span> <span class="ruby-identifier">original</span>[<span class="ruby-value">:url</span>].<span class="ruby-identifier">sub</span>(<span class="ruby-string">&#39;https://s3.amazonaws.com/digiramp&#39;</span>, <span class="ruby-string">&#39;https://s3-us-west-1.amazonaws.com/digiramp&#39;</span>), <span class="ruby-identifier">meta</span><span class="ruby-operator">:</span> <span class="ruby-identifier">original</span>[<span class="ruby-value">:meta</span>]}
+  <span class="ruby-keyword">end</span>
+  
+
+  <span class="ruby-comment"># thumbnail</span>
+  <span class="ruby-identifier">uploads</span>[<span class="ruby-value">:results</span>][<span class="ruby-value">:thumbnail</span>].<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">thumbnail</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">extracted</span>[ <span class="ruby-identifier">thumbnail</span>[<span class="ruby-value">:original_id</span>] ][<span class="ruby-value">:original_file</span>] = <span class="ruby-identifier">thumbnail</span>[<span class="ruby-value">:url</span>].<span class="ruby-identifier">sub</span>(<span class="ruby-string">&#39;https://s3.amazonaws.com/digiramp&#39;</span>, <span class="ruby-string">&#39;https://s3-us-west-1.amazonaws.com/digiramp&#39;</span>)
+  <span class="ruby-keyword">end</span>
+  
+  <span class="ruby-comment"># waveform</span>
+  <span class="ruby-identifier">uploads</span>[<span class="ruby-value">:results</span>][<span class="ruby-value">:waveform</span>].<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">waveform</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">extracted</span>[ <span class="ruby-identifier">waveform</span>[<span class="ruby-value">:original_id</span>] ][<span class="ruby-value">:waveform</span>]       = <span class="ruby-identifier">waveform</span>[<span class="ruby-value">:url</span>].<span class="ruby-identifier">sub</span>(<span class="ruby-string">&#39;https://s3.amazonaws.com/digiramp&#39;</span>, <span class="ruby-string">&#39;https://s3-us-west-1.amazonaws.com/digiramp&#39;</span>)
+  <span class="ruby-keyword">end</span>
+  
+  <span class="ruby-comment"># metadata</span>
+  <span class="ruby-comment">#uploads[:results][:mp3].each_with_index do |mp3, index|</span>
+  <span class="ruby-comment">#  transloadets[index][:mp3]                 = mp3[:url]</span>
+  <span class="ruby-comment">#  transloadets[index][:original_file_name]  = mp3[:name]</span>
+  <span class="ruby-comment">#  transloadets[index][:original_name]       = mp3[:original_basename]</span>
+  <span class="ruby-comment">#end</span>
+  
+  <span class="ruby-identifier">uploads</span>[<span class="ruby-value">:results</span>][<span class="ruby-value">:mp3</span>].<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">mp3</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">extracted</span>[ <span class="ruby-identifier">mp3</span>[<span class="ruby-value">:original_id</span>] ][<span class="ruby-value">:mp3</span>]                 = <span class="ruby-identifier">mp3</span>[<span class="ruby-value">:url</span>].<span class="ruby-identifier">sub</span>(<span class="ruby-string">&#39;https://s3.amazonaws.com/digiramp&#39;</span>, <span class="ruby-string">&#39;https://s3-us-west-1.amazonaws.com/digiramp&#39;</span>)
+    <span class="ruby-identifier">extracted</span>[ <span class="ruby-identifier">mp3</span>[<span class="ruby-value">:original_id</span>] ][<span class="ruby-value">:original_file_name</span>]  = <span class="ruby-identifier">mp3</span>[<span class="ruby-value">:name</span>]
+    <span class="ruby-identifier">extracted</span>[ <span class="ruby-identifier">mp3</span>[<span class="ruby-value">:original_id</span>] ][<span class="ruby-value">:original_name</span>]       = <span class="ruby-identifier">mp3</span>[<span class="ruby-value">:original_basename</span>]
+  <span class="ruby-keyword">end</span>
+  
+  <span class="ruby-comment">## artwork_thumb</span>
+  <span class="ruby-comment">#uploads[:results][:artwork_thumb].each_with_index do |artwork_thumb, index|</span>
+  <span class="ruby-comment">#  transloadets[index][:artwork_thumb]       = artwork_thumb[:url]</span>
+  <span class="ruby-comment">#end</span>
+  
+  <span class="ruby-comment"># artwork_thumb</span>
+  <span class="ruby-keyword">unless</span> <span class="ruby-identifier">uploads</span>[<span class="ruby-value">:results</span>][<span class="ruby-value">:artwork_thumb</span>].<span class="ruby-identifier">nil?</span>
+    <span class="ruby-identifier">uploads</span>[<span class="ruby-value">:results</span>][<span class="ruby-value">:artwork_thumb</span>].<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">artwork_thumb</span><span class="ruby-operator">|</span>
+      <span class="ruby-identifier">extracted</span>[ <span class="ruby-identifier">artwork_thumb</span>[<span class="ruby-value">:original_id</span>] ][<span class="ruby-value">:cover_art</span>]       = <span class="ruby-identifier">artwork_thumb</span>[<span class="ruby-value">:url</span>].<span class="ruby-identifier">sub</span>(<span class="ruby-string">&#39;https://s3.amazonaws.com/digiramp&#39;</span>, <span class="ruby-string">&#39;https://s3-us-west-1.amazonaws.com/digiramp&#39;</span>)
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+  
+  
+  
+  <span class="ruby-comment"># artwork </span>
+  <span class="ruby-keyword">unless</span> <span class="ruby-identifier">uploads</span>[<span class="ruby-value">:results</span>][<span class="ruby-value">:artwork</span>].<span class="ruby-identifier">nil?</span>
+    <span class="ruby-identifier">uploads</span>[<span class="ruby-value">:results</span>][<span class="ruby-value">:artwork</span>].<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">artwork</span><span class="ruby-operator">|</span>
+      <span class="ruby-identifier">extracted</span>[ <span class="ruby-identifier">artwork</span>[<span class="ruby-value">:original_id</span>] ][<span class="ruby-value">:artwork</span>]       = <span class="ruby-identifier">artwork</span>[<span class="ruby-value">:url</span>].<span class="ruby-identifier">sub</span>(<span class="ruby-string">&#39;https://s3.amazonaws.com/digiramp&#39;</span>, <span class="ruby-string">&#39;https://s3-us-west-1.amazonaws.com/digiramp&#39;</span>)
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+  
+  
+  <span class="ruby-identifier">extracted</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span> <span class="ruby-identifier">k</span>, <span class="ruby-identifier">v</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">transloadets</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">v</span>
+  <span class="ruby-keyword">end</span>
+  
+  <span class="ruby-identifier">transloadets</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">transloadet</span><span class="ruby-operator">|</span>
+
+    <span class="ruby-identifier">meta</span>                      = <span class="ruby-identifier">transloadet</span>[<span class="ruby-value">:meta</span>]
+    <span class="ruby-comment"># remove curupted iTunes info</span>
+    <span class="ruby-identifier">comment</span>                   = <span class="ruby-identifier">meta</span>[<span class="ruby-value">:comment</span>].<span class="ruby-identifier">to_s</span> 
+    <span class="ruby-identifier">comment</span>                   = <span class="ruby-string">&#39;&#39;</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">comment</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-string">&#39;(iTun&#39;</span>)
+    <span class="ruby-identifier">transloadet</span>[<span class="ruby-value">:title</span>]       = <span class="ruby-identifier">meta</span>[<span class="ruby-value">:title</span>].<span class="ruby-identifier">to_s</span> 
+    <span class="ruby-identifier">transloadet</span>[<span class="ruby-value">:duration</span>]    = <span class="ruby-identifier">meta</span>[<span class="ruby-value">:duration</span>].<span class="ruby-identifier">to_f</span>.<span class="ruby-identifier">round</span>(<span class="ruby-number">2</span>)
+    <span class="ruby-identifier">transloadet</span>[<span class="ruby-value">:lyrics</span>]      = <span class="ruby-identifier">meta</span>[<span class="ruby-value">:lyrics</span>].<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-regexp">/\//</span>, <span class="ruby-string">&#39;&lt;br&gt;&#39;</span>)
+    <span class="ruby-identifier">transloadet</span>[<span class="ruby-value">:bpm</span>]         = <span class="ruby-identifier">meta</span>[<span class="ruby-value">:beats_per_minute</span>].<span class="ruby-identifier">to_i</span>
+    <span class="ruby-identifier">transloadet</span>[<span class="ruby-value">:album</span>]       = <span class="ruby-identifier">meta</span>[<span class="ruby-value">:album</span>].<span class="ruby-identifier">to_s</span> 
+    <span class="ruby-identifier">transloadet</span>[<span class="ruby-value">:year</span>]        = <span class="ruby-identifier">meta</span>[<span class="ruby-value">:year</span>].<span class="ruby-identifier">to_s</span> 
+    <span class="ruby-identifier">transloadet</span>[<span class="ruby-value">:genre</span>]       = <span class="ruby-identifier">meta</span>[<span class="ruby-value">:genre</span>].<span class="ruby-identifier">to_s</span> 
+    <span class="ruby-identifier">transloadet</span>[<span class="ruby-value">:artist</span>]      = <span class="ruby-identifier">meta</span>[<span class="ruby-value">:artist</span>].<span class="ruby-identifier">to_s</span> 
+    <span class="ruby-identifier">transloadet</span>[<span class="ruby-value">:comment</span>]     = <span class="ruby-identifier">comment</span> 
+    <span class="ruby-identifier">transloadet</span>[<span class="ruby-value">:performer</span>]   = <span class="ruby-identifier">meta</span>[<span class="ruby-value">:performer</span>].<span class="ruby-identifier">to_s</span> 
+    <span class="ruby-identifier">transloadet</span>[<span class="ruby-value">:band</span>]        = <span class="ruby-identifier">meta</span>[<span class="ruby-value">:band</span>].<span class="ruby-identifier">to_s</span> 
+    <span class="ruby-identifier">transloadet</span>[<span class="ruby-value">:disc</span>]        = <span class="ruby-identifier">meta</span>[<span class="ruby-value">:disc</span>].<span class="ruby-identifier">to_s</span> 
+    <span class="ruby-identifier">transloadet</span>[<span class="ruby-value">:track</span>]       = <span class="ruby-identifier">meta</span>[<span class="ruby-value">:track</span>].<span class="ruby-identifier">to_s</span> 
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-identifier">transloadets</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-c-extract_title_from">
+            
+              <b>extract_title_from</b>(transloaded)
+            
+            <a href="../classes/TransloaditParser.html#method-c-extract_title_from" name="method-c-extract_title_from" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-c-extract_title_from_source')" id="l_method-c-extract_title_from_source">show</a>
+                
+              </p>
+              <div id="method-c-extract_title_from_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File services/transloadit_parser.rb, line 269</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">self</span>.<span class="ruby-identifier">extract_title_from</span> <span class="ruby-identifier">transloaded</span>
+  <span class="ruby-identifier">title</span> = <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:title</span>].<span class="ruby-identifier">to_s</span>
+  <span class="ruby-identifier">title</span> = <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:original_name</span>]   <span class="ruby-keyword">if</span> <span class="ruby-identifier">title</span>.<span class="ruby-identifier">to_s</span> <span class="ruby-operator">==</span> <span class="ruby-string">&#39;&#39;</span>
+  <span class="ruby-identifier">sanitize_title</span>( <span class="ruby-identifier">title</span> )
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-c-new">
+            
+              <b>new</b>()
+            
+            <a href="../classes/TransloaditParser.html#method-c-new" name="method-c-new" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-c-new_source')" id="l_method-c-new_source">show</a>
+                
+              </p>
+              <div id="method-c-new_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File services/transloadit_parser.rb, line 3</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">initialize</span>
+  <span class="ruby-identifier">deprication_warning</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-c-parse_recordings">
+            
+              <b>parse_recordings</b>(uploads, account_id)
+            
+            <a href="../classes/TransloaditParser.html#method-c-parse_recordings" name="method-c-parse_recordings" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-c-parse_recordings_source')" id="l_method-c-parse_recordings_source">show</a>
+                
+              </p>
+              <div id="method-c-parse_recordings_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File services/transloadit_parser.rb, line 102</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">self</span>.<span class="ruby-identifier">parse_recordings</span> <span class="ruby-identifier">uploads</span>, <span class="ruby-identifier">account_id</span>
+
+  <span class="ruby-identifier">transloadets</span>  = <span class="ruby-identifier">extract</span>( <span class="ruby-identifier">uploads</span> )
+  <span class="ruby-identifier">import_batch</span>  = <span class="ruby-constant">ImportBatch</span>.<span class="ruby-identifier">create</span>(<span class="ruby-identifier">account_id</span><span class="ruby-operator">:</span> <span class="ruby-identifier">account_id</span>, <span class="ruby-identifier">transloadit</span><span class="ruby-operator">:</span> <span class="ruby-identifier">uploads</span>)
+
+  <span class="ruby-identifier">recordings</span> = []
+  <span class="ruby-identifier">transloadets</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">transloaded</span><span class="ruby-operator">|</span>
+
+
+    <span class="ruby-identifier">recording</span> =   <span class="ruby-constant">Recording</span>.<span class="ruby-identifier">create!</span>(  <span class="ruby-identifier">title</span><span class="ruby-operator">:</span>                              <span class="ruby-identifier">extract_title_from</span>( <span class="ruby-identifier">transloaded</span> ), 
+                                      <span class="ruby-identifier">duration</span><span class="ruby-operator">:</span>                           <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:duration</span>],
+                                      <span class="ruby-identifier">artist</span><span class="ruby-operator">:</span>                             <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:artist</span>],
+                                      <span class="ruby-identifier">lyrics</span><span class="ruby-operator">:</span>                             <span class="ruby-identifier">sanitize_lyrics</span>( <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:lyrics</span>] ),
+                                      <span class="ruby-identifier">bpm</span><span class="ruby-operator">:</span>                                <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:bpm</span>],
+                                      <span class="ruby-identifier">comment</span><span class="ruby-operator">:</span>                            <span class="ruby-identifier">sanitize_comment</span>( <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:comment</span>] ),
+                                      <span class="ruby-identifier">year</span><span class="ruby-operator">:</span>                               <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:year</span>],
+                                      <span class="ruby-identifier">album_name</span><span class="ruby-operator">:</span>                         <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:album</span>],
+                                      <span class="ruby-identifier">genre</span><span class="ruby-operator">:</span>                              <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:genre</span>],
+                                      <span class="ruby-identifier">performer</span><span class="ruby-operator">:</span>                          <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:performer</span>],
+                                      <span class="ruby-identifier">band</span><span class="ruby-operator">:</span>                               <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:band</span>],
+                                      <span class="ruby-identifier">disc</span><span class="ruby-operator">:</span>                               <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:disc</span>],
+                                      <span class="ruby-identifier">track</span><span class="ruby-operator">:</span>                              <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:track</span>],
+                                      <span class="ruby-identifier">mp3</span><span class="ruby-operator">:</span>                                <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:mp3</span>],
+                                      <span class="ruby-identifier">waveform</span><span class="ruby-operator">:</span>                           <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:waveform</span>],
+                                      <span class="ruby-identifier">thumbnail</span><span class="ruby-operator">:</span>                          <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:thumbnail</span>],
+                                      <span class="ruby-comment">#copyright:                          transloaded[:copyright],</span>
+                                      <span class="ruby-comment">#composer:                           transloaded[:composer],</span>
+                                      <span class="ruby-identifier">account_id</span><span class="ruby-operator">:</span>                         <span class="ruby-identifier">account_id</span>, 
+                                      <span class="ruby-identifier">import_batch_id</span><span class="ruby-operator">:</span>                    <span class="ruby-identifier">import_batch</span>.<span class="ruby-identifier">id</span>,
+                                      <span class="ruby-identifier">audio_upload</span><span class="ruby-operator">:</span>                       <span class="ruby-identifier">transloaded</span>,
+                                      <span class="ruby-identifier">original_file</span><span class="ruby-operator">:</span>                      <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:original_file</span>],
+                                      <span class="ruby-identifier">cover_art</span><span class="ruby-operator">:</span>                          <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:cover_art</span>],
+                                      <span class="ruby-identifier">artwork</span><span class="ruby-operator">:</span>                            <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:artwork</span>],
+                                     )
+    
+    
+    <span class="ruby-identifier">add_artwork_to</span> <span class="ruby-identifier">recording</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">recording</span>.<span class="ruby-identifier">cover_art</span>.<span class="ruby-identifier">to_s</span> <span class="ruby-operator">==</span> <span class="ruby-string">&#39;&#39;</span>
+    <span class="ruby-identifier">recording</span>.<span class="ruby-identifier">extract_genres</span>                                 
+    <span class="ruby-identifier">recording</span>.<span class="ruby-identifier">update_completeness</span>
+    <span class="ruby-identifier">recordings</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">recording</span>
+    
+    <span class="ruby-constant">CommonWork</span>.<span class="ruby-identifier">attach</span>( <span class="ruby-identifier">recording</span>, <span class="ruby-identifier">account_id</span>, <span class="ruby-identifier">current_user</span>)
+
+    
+
+
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-identifier">import_batch</span>.<span class="ruby-identifier">recordings_count</span> = <span class="ruby-identifier">recordings</span>.<span class="ruby-identifier">size</span>
+  <span class="ruby-identifier">import_batch</span>.<span class="ruby-identifier">save!</span>
+  <span class="ruby-identifier">import_batch</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-c-sanitize_comment">
+            
+              <b>sanitize_comment</b>(comment)
+            
+            <a href="../classes/TransloaditParser.html#method-c-sanitize_comment" name="method-c-sanitize_comment" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-c-sanitize_comment_source')" id="l_method-c-sanitize_comment_source">show</a>
+                
+              </p>
+              <div id="method-c-sanitize_comment_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File services/transloadit_parser.rb, line 279</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">self</span>.<span class="ruby-identifier">sanitize_comment</span> <span class="ruby-identifier">comment</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">comment</span>
+    <span class="ruby-keyword">return</span> <span class="ruby-string">&#39;&#39;</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">comment</span>.<span class="ruby-identifier">include?</span> <span class="ruby-string">&#39;(iTunSMPB)&#39;</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">comment</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-c-sanitize_lyrics">
+            
+              <b>sanitize_lyrics</b>(lyrics)
+            
+            <a href="../classes/TransloaditParser.html#method-c-sanitize_lyrics" name="method-c-sanitize_lyrics" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-c-sanitize_lyrics_source')" id="l_method-c-sanitize_lyrics_source">show</a>
+                
+              </p>
+              <div id="method-c-sanitize_lyrics_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File services/transloadit_parser.rb, line 286</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">self</span>.<span class="ruby-identifier">sanitize_lyrics</span> <span class="ruby-identifier">lyrics</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">lyrics</span>
+    <span class="ruby-keyword">return</span> <span class="ruby-identifier">lyrics</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-regexp">/\//</span>, <span class="ruby-string">&#39;&lt;br&gt;&#39;</span>) 
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-string">&#39;&#39;</span>
+    
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-c-sanitize_title">
+            
+              <b>sanitize_title</b>(title)
+            
+            <a href="../classes/TransloaditParser.html#method-c-sanitize_title" name="method-c-sanitize_title" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-c-sanitize_title_source')" id="l_method-c-sanitize_title_source">show</a>
+                
+              </p>
+              <div id="method-c-sanitize_title_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File services/transloadit_parser.rb, line 275</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">self</span>.<span class="ruby-identifier">sanitize_title</span> <span class="ruby-identifier">title</span>
+  <span class="ruby-identifier">title</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-regexp">/(^\d{2}\s)/</span>, <span class="ruby-string">&#39;&#39;</span>)
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-c-update">
+            
+              <b>update</b>(recording, uploads)
+            
+            <a href="../classes/TransloaditParser.html#method-c-update" name="method-c-update" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-c-update_source')" id="l_method-c-update_source">show</a>
+                
+              </p>
+              <div id="method-c-update_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File services/transloadit_parser.rb, line 7</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">self</span>.<span class="ruby-identifier">update</span> <span class="ruby-identifier">recording</span>, <span class="ruby-identifier">uploads</span>
+  <span class="ruby-identifier">write_recording</span>( <span class="ruby-identifier">recording</span>, <span class="ruby-identifier">extract</span>(<span class="ruby-identifier">uploads</span>).<span class="ruby-identifier">first</span> )
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-c-update_catalogs">
+            
+              <b>update_catalogs</b>( recording, account_id, add_to_catalog )
+            
+            <a href="../classes/TransloaditParser.html#method-c-update_catalogs" name="method-c-update_catalogs" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-c-update_catalogs_source')" id="l_method-c-update_catalogs_source">show</a>
+                
+              </p>
+              <div id="method-c-update_catalogs_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File services/transloadit_parser.rb, line 237</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">self</span>.<span class="ruby-identifier">update_catalogs</span>( <span class="ruby-identifier">recording</span>, <span class="ruby-identifier">account_id</span>, <span class="ruby-identifier">add_to_catalog</span> )
+
+  <span class="ruby-keyword">begin</span>
+    <span class="ruby-identifier">account</span> = <span class="ruby-constant">Account</span>.<span class="ruby-identifier">cached_find</span>(<span class="ruby-identifier">account_id</span>)
+    <span class="ruby-comment"># start with adding to all catalogs</span>
+    <span class="ruby-comment">#catalog_ids = CatalogItem.where(catalog_itemable_id: common_work_id, catalog_itemable_type: &#39;CommonWork&#39;).pluck(catalog_id)</span>
+    <span class="ruby-comment">#catalogs = Catalog.find(catalog_ids)</span>
+    
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">account</span>.<span class="ruby-identifier">catalogs</span>
+      
+      <span class="ruby-identifier">account</span>.<span class="ruby-identifier">catalogs</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">catalog</span><span class="ruby-operator">|</span>
+        <span class="ruby-identifier">catalog</span>.<span class="ruby-identifier">attach_recording</span> <span class="ruby-identifier">recording</span>
+      <span class="ruby-keyword">end</span>
+      
+    <span class="ruby-keyword">end</span>
+    <span class="ruby-comment">#puts catalogs.inspect</span>
+    <span class="ruby-comment">#catalogs.each do catalog</span>
+    <span class="ruby-comment">#  catalog.add_recording recording</span>
+    <span class="ruby-comment">#end</span>
+  <span class="ruby-keyword">rescue</span>
+    <span class="ruby-identifier">puts</span> <span class="ruby-string">&#39;+++++++++++++++++++++++++++++++++++++++++++++++++++++++++&#39;</span>
+    <span class="ruby-identifier">puts</span> <span class="ruby-string">&#39;ERROR: Unable to add recordings to catalogs&#39;</span>
+    <span class="ruby-identifier">puts</span> <span class="ruby-string">&#39;In TransloaditParser#add_to_catalogs&#39;</span>
+    <span class="ruby-identifier">puts</span> <span class="ruby-string">&#39;++++++++++++++++++++++++++++++++++++++++++++++++++++++++&#39;</span>
+  <span class="ruby-keyword">end</span>
+  
+    
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-c-write_recording">
+            
+              <b>write_recording</b>(recording, transloadet)
+            
+            <a href="../classes/TransloaditParser.html#method-c-write_recording" name="method-c-write_recording" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-c-write_recording_source')" id="l_method-c-write_recording_source">show</a>
+                
+              </p>
+              <div id="method-c-write_recording_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File services/transloadit_parser.rb, line 294</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">self</span>.<span class="ruby-identifier">write_recording</span> <span class="ruby-identifier">recording</span>, <span class="ruby-identifier">transloadet</span>
+  
+  <span class="ruby-identifier">recording</span>.<span class="ruby-identifier">title</span>             = <span class="ruby-identifier">sanitize_title</span>( <span class="ruby-identifier">transloadet</span>[<span class="ruby-value">:title</span>] )       <span class="ruby-comment">#if recording.title.to_s       == &#39;&#39;</span>
+  <span class="ruby-identifier">recording</span>.<span class="ruby-identifier">artist</span>            = <span class="ruby-identifier">transloadet</span>[<span class="ruby-value">:artist</span>]                        <span class="ruby-comment">#if recording.artist.to_s      == &#39;&#39;</span>
+  <span class="ruby-identifier">recording</span>.<span class="ruby-identifier">lyrics</span>            = <span class="ruby-identifier">sanitize_lyrics</span>( <span class="ruby-identifier">transloadet</span>[<span class="ruby-value">:lyrics</span>] )     <span class="ruby-comment">#if recording.lyrics.to_s      == &#39;&#39;</span>
+  <span class="ruby-identifier">recording</span>.<span class="ruby-identifier">bpm</span>               = <span class="ruby-identifier">transloadet</span>[<span class="ruby-value">:bpm</span>]                           <span class="ruby-comment">#if recording.bpm.to_s         == &#39;&#39;</span>
+  <span class="ruby-identifier">recording</span>.<span class="ruby-identifier">comment</span>           = <span class="ruby-identifier">sanitize_comment</span>( <span class="ruby-identifier">transloadet</span>[<span class="ruby-value">:comment</span>] )   <span class="ruby-comment">#if recording.comment.to_s     == &#39;&#39;</span>
+  <span class="ruby-identifier">recording</span>.<span class="ruby-identifier">year</span>              = <span class="ruby-identifier">transloadet</span>[<span class="ruby-value">:year</span>]                          <span class="ruby-comment">#if recording.year.to_s        == &#39;&#39;</span>
+  <span class="ruby-identifier">recording</span>.<span class="ruby-identifier">album_name</span>        = <span class="ruby-identifier">transloadet</span>[<span class="ruby-value">:album</span>]                         <span class="ruby-comment">#if recording.album_name.to_s  == &#39;&#39;</span>
+  <span class="ruby-identifier">recording</span>.<span class="ruby-identifier">genre</span>             = <span class="ruby-identifier">transloadet</span>[<span class="ruby-value">:genre</span>]                         <span class="ruby-comment">#if recording.genre.to_s       == &#39;&#39;</span>
+  <span class="ruby-identifier">recording</span>.<span class="ruby-identifier">performer</span>         = <span class="ruby-identifier">transloadet</span>[<span class="ruby-value">:performer</span>]                     <span class="ruby-comment">#if recording.performer.to_s   == &#39;&#39;</span>
+  <span class="ruby-identifier">recording</span>.<span class="ruby-identifier">band</span>              = <span class="ruby-identifier">transloadet</span>[<span class="ruby-value">:band</span>]                          <span class="ruby-comment">#if recording.band.to_s        == &#39;&#39;</span>
+  <span class="ruby-identifier">recording</span>.<span class="ruby-identifier">disc</span>              = <span class="ruby-identifier">transloadet</span>[<span class="ruby-value">:disc</span>]                          <span class="ruby-comment">#if recording.disc.to_s        == &#39;&#39;</span>
+  <span class="ruby-identifier">recording</span>.<span class="ruby-identifier">track</span>             = <span class="ruby-identifier">transloadet</span>[<span class="ruby-value">:track</span>]                         <span class="ruby-comment">#if recording.track.to_s       == &#39;&#39;</span>
+  <span class="ruby-comment">#recording.copyright:       = transloaded[:copyright],</span>
+  <span class="ruby-comment">#recording.composer:        = transloaded[:composer],</span>
+  <span class="ruby-identifier">recording</span>.<span class="ruby-identifier">mp3</span>               = <span class="ruby-identifier">transloadet</span>[<span class="ruby-value">:mp3</span>]
+  <span class="ruby-identifier">recording</span>.<span class="ruby-identifier">waveform</span>          = <span class="ruby-identifier">transloadet</span>[<span class="ruby-value">:waveform</span>]
+  <span class="ruby-identifier">recording</span>.<span class="ruby-identifier">thumbnail</span>         = <span class="ruby-identifier">transloadet</span>[<span class="ruby-value">:thumbnail</span>]
+  <span class="ruby-identifier">recording</span>.<span class="ruby-identifier">audio_upload</span>      = <span class="ruby-identifier">transloadet</span>
+  <span class="ruby-identifier">recording</span>.<span class="ruby-identifier">extract_genres</span>
+  <span class="ruby-identifier">recording</span>.<span class="ruby-identifier">update_completeness</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+                        </div>
+
+    </div>
+  </body>
+</html>    

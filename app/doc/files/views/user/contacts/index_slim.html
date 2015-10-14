@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>index.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            index.slim
+        </h1>
+        <ul class="files">
+            <li>views/user/contacts/index.slim</li>
+            <li>Last modified: 2015-09-25 00:02:26 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>wrapper</p>
+
+<pre><code>.full-width-top
+  == render &#39;shared/navigationbar&#39;, page: &#39;contacts&#39; 
+
+#sidebar-wrapper
+  ul class=&quot;sidebar-nav&quot;
+    == render &#39;users/shared/sidebar&#39;, selected: &#39;control panel&#39;
+
+#page-content-wrapper
+  .container-fluid
+    == render &#39;shared/breadcrumbs&#39;, breadcrumbs: { links: { &#39;Dashboard&#39;.to_sym =&gt; user_user_control_panel_index_path(@user) }, current: &#39;&#39;}
+    .row
+      .col-sm-6
+        .help
+          .help-text
+            h2 Contacts
+          .help-button
+            == render &#39;admin/helps/help&#39;, identifier: &#39;user contacts&#39;
+
+      .col-sm-6
+        .pull-right.pull-down-10
+          =&gt; link_to user_user_contact_groups_path(@user) do
+            .btn.btn-default
+              i.fa.fa-users
+              &#39;&amp;nbsp;Groups
+          = link_to &#39;Add contacts&#39;, new_user_user_contact_path( @user), class: &#39;btn btn-info&#39;
+
+    .pull-down-10
+    .row
+      .col-sm-6
+      .col-sm-6
+        = simple_form_for  [ @user ], :url =&gt; url_for(:action =&gt; &#39;index&#39;, \
+                                                      :controller =&gt; &#39;/user/contacts&#39;), \
+                                                      turboboost: true, \
+                                                      :method =&gt; &#39;get&#39; do |f|
+
+          .input-group
+            span class=&quot;input-group-addon&quot;
+              i class= &#39;fa fa-search&#39;
+            = text_field_tag &quot;query&quot;, &quot;&quot;, :class =&gt; &#39;search-query form-control&#39;, \
+                                          :placeholder =&gt; &#39;Search for contacts&#39;, \
+                                          value: params[:query], autofocus: true
+            .input-group-btn
+              = f.submit &#39;Go&#39;, class: &quot;btn btn-info&quot;
+              &#39;&amp;nbsp;
+              = link_to &#39;Show All&#39;, user_user_contacts_path( @user ), class: &#39;btn btn-default&#39;
+
+    .digi-box.pull-down-10
+      .row
+        .col-sm-3
+          .ellipsis
+            b Name / Company
+        .col-sm-4
+          b Email
+
+        .col-sm-3
+          b Capacity
+        .col-sm-2
+          b Member
+
+      .sexy_line
+      .endless-contacts
+      .add_contacts
+        == render &#39;user/contacts/index&#39;
+
+      .add_pagination
+      == paginate(@contacts)
+        /== render &#39;users/paggination&#39;, users: @users
+
+        /= debug @contacts.first
+
+== render &#39;shared/site_footer&#39;</code></pre>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

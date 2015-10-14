@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>move.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            move.slim
+        </h1>
+        <ul class="files">
+            <li>views/catalog/catalogs/move.slim</li>
+            <li>Last modified: 2015-09-24 20:35:34 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>wrapper</p>
+
+<pre><code>.full-width-top
+  == render &#39;shared/navigationbar&#39;, page: &#39;catalog&#39;         
+
+.catalog
+  #sidebar-wrapper
+    ul class=&quot;sidebar-nav&quot;
+      == render &#39;catalog/catalogs/sidebar&#39;, selected: &#39;move&#39;
+
+#page-content-wrapper
+  .container-fluid
+    == render &#39;shared/breadcrumbs&#39;, breadcrumbs: { links: {   catalog: catalog_account_catalog_path(@account, @catalog) }, current: &#39;&#39;}
+    .row
+      .col-sm-12
+        .help
+          .help-text
+            h2 Move catalog
+          .help-button
+            == render &#39;admin/helps/help&#39;, identifier: &#39;move catalog&#39;
+    .sexy_line
+    .row
+      .col-sm-8
+        .digi-box
+          = simple_form_for  [@account, @catalog], :url =&gt; url_for( action: &#39;generate_code&#39;, 
+                                                                    controller: &#39;catalogs&#39;), 
+                                                                    method: &#39;put&#39;,
+                                                                    turboboost: true do |f|
+            = f.hidden_field :account_id, value: @account.id
+            = f.hidden_field :catalog_id, value: @catalog.id
+            = f.input :movable, label: &#39;Make Catalog Transferable&#39;
+            = f.input :include_all, label: &#39;Include All documents and Common Works&#39;
+
+            br
+            - if @catalog.move_code != &#39;&#39;
+
+              .input-group
+                span class=&quot;input-group-addon&quot;
+                  i class= &#39;fa fa-key&#39;
+                = f.input_field :move_code, placeholder: &#39;Unlock Catalog To Generate Key&#39;, autocomplete: :off
+            .row
+              .col-sm-12
+                .pull-right.pull-down-12
+                  /- if @catalog.movable
+                  /  =&gt; link_to &#39;Done&#39;,  catalog_account_catalog_path( @account, @catalog) , class: &#39;btn btn-default btn-lg&#39;
+
+                  = f.submit &#39;Save&#39;, class: &#39;btn btn-info&#39;
+
+== render &#39;shared/site_footer&#39;</code></pre>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

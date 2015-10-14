@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>_who_wrote_the_music.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            _who_wrote_the_music.slim
+        </h1>
+        <ul class="files">
+            <li>views/user/work_rights/_who_wrote_the_music.slim</li>
+            <li>Last modified: 2015-09-26 13:30:20 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>.old-wizard</p>
+
+<pre><code>.row
+  .col-sm-12
+    .help
+      .help-text
+        h2 = common_work.title
+      .help-button
+        == render &#39;admin/helps/help&#39;, identifier: &#39;user work rights&#39;
+
+.sexy_line
+
+.row
+  .col-sm-12
+    h4 Composers, Writers and who represent their rights
+
+.row
+  .col-sm-6
+    .digi-box
+
+      h4 Option 1:
+      &#39;If the work is registered at a ASCAP or BMI we can help you get that informations now 
+      .sexy_line
+      .row
+        .col-sm-6.pull-down-8
+          b Get info from:
+          br
+          = link_to user_user_recording_work_rights_path( user, recording, go_to: &#39;get_from_ascap&#39;), remote: true do
+            .btn.btn-default
+              &#39;ASCAP
+
+        .col-sm-6.pull-down-8
+          b Get info from:
+          br
+          = link_to user_user_recording_work_rights_path( user, recording, go_to: &#39;get_from_bmi&#39;), remote: true do
+            .btn.btn-default
+              &#39;BMI
+  .col-sm-6
+    .digi-box
+      h4 Option 2:
+      &#39;If the work is NOT registered at a ASCAP or BMI or you want to fill in that information by your self continue here
+      .sexy_line   
+      .row
+        .col-sm-12.pull-down-8
+          b Start here:
+          br
+          = link_to user_user_recording_work_rights_path( user, recording, go_to: &#39;continue&#39;), remote: true do
+            .btn.btn-default
+              &#39;Continue</code></pre>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

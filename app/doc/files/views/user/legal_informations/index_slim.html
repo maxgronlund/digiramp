@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>index.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            index.slim
+        </h1>
+        <ul class="files">
+            <li>views/user/legal_informations/index.slim</li>
+            <li>Last modified: 2015-10-04 09:28:53 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>wrapper</p>
+
+<pre><code>.full-width-top
+  == render &#39;shared/navigationbar&#39;, page: &#39;dashboard&#39; 
+
+#sidebar-wrapper
+  ul class=&quot;sidebar-nav&quot;
+    == render &#39;users/shared/sidebar&#39;, selected: &#39;dashboard&#39;
+
+#page-content-wrapper
+  .container-fluid
+    == render &#39;shared/breadcrumbs&#39;, breadcrumbs: { links: { dashboard: user_user_control_panel_index_path(@user),
+                                                           legal: user_user_legal_index_path(@user)} }
+    == render &#39;shared/flash_message&#39;
+    .row
+      .col-sm-6
+        .help
+          .help-text
+            h2 Legal information
+
+          .help-button
+            == render &#39;admin/helps/help&#39;, identifier: &#39;user legal information&#39;
+      .col-sm-6
+        .pull-right.pull-down-10
+          =&gt; link_to  user_user_legal_index_path(@user) do
+                .btn.btn-default
+                  i.fa.fa-chevron-left
+                  &#39;&amp;nbsp;Back
+
+    /= render &#39;user/shared/legal_navigation&#39;
+    .digi-box
+      = simple_form_for [:user, @user], turboboost: true do |f|
+
+        = f.error_notification
+        -if @user.errors.any?
+          = render &#39;shared/errors&#39;, errors: @user.errors
+        .form-inputs
+          = f.simple_fields_for :address do |address_form|
+            .row
+              .col-sm-6
+                = address_form.input :first_name
+                = address_form.input :middle_name
+                = address_form.input :last_name
+
+                /b Personal publishers IPI code
+                /== render &#39;shared/popover&#39;, identifier: &#39;Your Personal publishers IPI code (Interested party information) is a unique identifying number assigned by the CISAC database&#39;
+                /.pull-down-6
+                /= f.input :personal_publisher_ipi_code, label: false
+
+                b Personal IPI code
+                == render &#39;shared/popover&#39;, identifier: &#39;Tiyr IPI code (Interested party information) is a unique identifying number assigned by the CISAC database&#39;
+                .pull-down-6
+                = f.input :ipi_code, label: false, placeholder: &#39;Optional&#39;, hint: &quot;Leave blank if you don&#39;t know&quot;
+
+                = f.input \
+                  :pro_affiliation, 
+                  collection: ProAffiliation.order(:title), 
+                  value_method: :id, 
+                  include_blank: true, 
+                  label: &#39;Performance Rights Organization&#39;,
+                  hint: &quot;Leave blank if you don&#39;t know&quot;
+
+              .col-sm-6
+                = f.input :phone_number 
+                = address_form.input :address_line_1
+                = address_form.input :address_line_2
+                .row
+                  .col-sm-6
+                    = address_form.input :city
+                  .col-sm-6
+                    = address_form.input :zip_code
+                .row
+                  .col-sm-6
+                    = address_form.input :country
+                  .col-sm-6
+                    = address_form.input :state
+            .row
+              .col-sm-12
+                .pull-right
+                  =&gt; link_to &#39;Cancel&#39;, user_user_control_panel_index_path(@user), class: &#39;btn btn-default&#39;
+                  = f.submit &#39;Save&#39;, class: &#39;btn btn-info&#39;
+
+== render &#39;shared/site_footer&#39;</code></pre>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

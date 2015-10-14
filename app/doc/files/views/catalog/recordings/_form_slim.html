@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>_form.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            _form.slim
+        </h1>
+        <ul class="files">
+            <li>views/catalog/recordings/_form.slim</li>
+            <li>Last modified: 2015-09-24 20:35:34 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>/.row /  .col-sm-6 /    .panel.panel-primary /</p>
+
+<p>/      .panel-body /</p>
+
+<p>/        = f.input :title, :input_html =&gt; {  style: “ width: 100%;”,
+placeholder: “Title”} /        /= f.input :cover_art, label: &#39;Cover
+Art. Ratio 1:1&#39; /        /= f.input :image_file_id /        /.row /    
+/  .col-sm-12 /        /    .pull-right /        /      = link_to
+catalog_account_catalog_recording_recording_artworks_path(@account,
+@catalog, @recording), \ /        /                data: {confirm:
+&#39;Save form?&#39;}, \ /        /                id:
+“attach_artwork_#{@recording.id}” do /        /</p>
+
+<p>/        /        .btn.btn-default.btn-lg /        /          i class=“fa
+fa-picture-open” /        /          &#39;&amp;nbsp;Find <a
+href="../../../../classes/Artwork.html">Artwork</a> /        .row /        
+.col-sm-6 /            = f.input :image_file_id , :include_blank =&gt;
+true, :collection =&gt; @recording.artworks , label: &#39;Cover Art&#39; / 
+.col-sm-6 /            &#39;Artwork /            = f.file_field :cover_art,
+multiple: false /        /= transloadit :recording_with_thumbs  /       
+//= f.file_field :file /        /= f.input :audio_file /        = f.input
+:isrc_code, label: &#39;ISRC Code&#39;,:input_html =&gt; {  placeholder:
+“CC-XXX-YY-NNNNN”} /        .row /          .col-sm-6 /            =
+f.input :artist, :input_html =&gt; {  style: “height: 80px;”, placeholder:
+“Artist”} /          .col-sm-6 /            = f.input :performer,
+:input_html =&gt; {  style: “height: 80px;”, placeholder: “Performer”} /   
+.row /          .col-sm-6 /            = f.input :composer, :input_html
+=&gt; {  style: “height: 80px;”, placeholder: “Composer”} /         
+.col-sm-6 /            = f.input :band, :input_html =&gt; {  style:
+“height: 80px;”, placeholder: “Band”} /        .row /          .col-sm-6 / 
+= f.input :duration,:input_html =&gt; {  placeholder: “Seconds”} /       
+.row /          .col-sm-6 /            = f.input :year /          .col-sm-6
+/            = f.input :vocal,   collection: Recording::VOCAL /        .row
+/          .col-sm-6 /            =f.input :disc /          .col-sm-6 /    
+=f.input :track /</p>
+
+<p>/        /= f.input :lyrics, :input_html =&gt; {  style: “height: 120px;”,
+placeholder: “Lyrics”} /  .col-sm-6 /    .panel.panel-primary /</p>
+
+<p>/      .panel-body /        .row /          .col-sm-6 /            =
+f.input :clearance, label: &#39;200% clearance&#39; /          .col-sm-6 / 
+= f.input :explicit /        = f.input :copyright,  :input_html =&gt; { 
+placeholder: “i.e. © 2014 Entertainment Company, Inc”} /</p>
+
+<p>/        /  All rights reserved ℗ 2010 /        b Description /        br /
+div id=“toolbar” class=“wysihtml5-toolbar” /          a
+data-wysihtml5-command=“bold” Bold /          &#39;&amp;nbsp;  /          a
+data-wysihtml5-command=“italic” Italic /</p>
+
+<p>/        =f.input :comment, label: false, :input_html =&gt; {  style:
+“height: 120px;”, placeholder: “Description”, id:
+&#39;wysihtml5_editor&#39;} /        /=f.input :genre /        .row /      
+.col-sm-6 /            = f.input :bpm /</p>
+
+<p>/          .col-sm-6 /            = f.input :tempo,   collection:
+Recording::TEMPO /</p>
+
+<p>/        .row /          .col-sm-6 /            = f.input :mood, hint:
+&#39;Comma seperated list&#39;, :input_html =&gt; {  placeholder: “i.e.
+Happy, Uplifting, Scary, Action”} /          .col-sm-6 /            =
+f.input :genre, hint: &#39;Comma seperated list&#39;, :input_html =&gt; { 
+placeholder: “i.e. Pop, Cinimatic, Hip-Hop, Christmas”} /        .row /    
+.col-sm-6 /            = f.input :instruments, hint: &#39;Comma seperated
+list&#39;, :input_html =&gt; {  placeholder: “i.e. Drums, Banjo, Choir,
+Electric Guitar”} /</p>
+
+<p>/ /.pull-right</p>
+
+<p>/  = f.submit &#39;Save&#39;, class: &#39;btn btn-info btn-lg&#39; /</p>
+
+<p>/  /&#39;&amp;nbsp;</p>
+
+<pre><code>//-if @recording.instrumental
+//  = link_to &#39;Skip&#39;, account_common_work_recording_path( @account, @common_work, @recording), class: &#39;btn btn-default btn-lg&#39;
+//-else
+//  = link_to &#39;Skip&#39;, edit_account_common_work_lyric_path( @account, @common_work, @recording), class: &#39;btn btn-default btn-lg&#39;
+/  
+/&#39;&amp;nbsp;
+/= f.submit &#39;Next&#39;, class: &#39;btn btn-info btn-lg&#39;</code></pre>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

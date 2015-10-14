@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>_dashboard.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            _dashboard.slim
+        </h1>
+        <ul class="files">
+            <li>views/accounts/shared/_dashboard.slim</li>
+            <li>Last modified: 2015-09-24 20:35:34 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>/- <a href=":return_url">session</a>  = request.url /- blog                
+= <a
+href="../../../../classes/Blog.html#method-c-cached_find">Blog.cached_find</a>(&#39;Dashboard&#39;)
+/- blog_post             = <a
+href="../../../../classes/BlogPost.html#method-c-cached_find">BlogPost.cached_find</a>(&#39;Account&#39;,
+blog)</p>
+
+<p>.row</p>
+
+<pre><code>== render &#39;shared/page_title_text&#39;, locals: {title: @account.title, body: &#39;&#39;, insert: &#39;accounts/shared/leave_account&#39;}
+/.col-sm-8
+/  .page-title
+/    h1 
+/      =@account.title
+/      -if super?
+/        &#39;&amp;nbsp;
+/        = link_to edit_admin_blog_blog_post_path(blog, blog_post) do
+/           i class=&quot;fa fa-pencil&quot;
+/  = simple_format blog_post.body
+/
+/    
+/.col-sm-12
+/  hr</code></pre>
+
+<p>.row</p>
+
+<pre><code>-if current_account_user.can_manage_assets?
+  .col-sm-6
+    == render &#39;shared/badge_button&#39;, locals: { \
+                                                blog_post: &#39;ASSETS&#39;, \
+                                                link: account_assets_path(@account), \
+                                                css_class: &#39;btn btn-info&#39;, \
+                                                icon: &#39;fa fa-archive&#39;, \
+                                               id: &#39;assets&#39; \
+                                              }
+
+-if current_account_user.read_user
+  .col-sm-6
+    == render &#39;shared/badge_button&#39;, locals: { \
+                                               blog_post: &#39;USERS&#39;, \
+                                               link: account_account_users_path(@account), \
+                                               css_class: &#39;btn btn-default&#39;, \
+                                               icon: &#39;fa fa-group&#39;, \
+                                               id: &#39;users&#39; \
+                                             }
+
+/-if current_user.can_manage &#39;collect&#39;, @account
+/  .col-sm-6
+/    == render &#39;shared/badge_button&#39;, locals: { \ 
+/                                              blog_post: &#39;COLLECT&#39;, \
+/                                              link: account_promotion_index_path(@account), \
+/                                              css_class: &#39;btn btn-success&#39;, \
+/                                              icon: &#39;fa fa-money&#39; \
+/                                             }
+/    
+/-if current_user.can_manage &#39;promotion&#39;, @account
+/  .col-sm-6
+/    == render &#39;shared/badge_button&#39;, locals: { \
+/                                               blog_post: &#39;PROMOTE&#39;, \
+/                                               link: account_promotion_index_path(@account), \
+/                                               css_class: &#39;btn btn-warning&#39;, \
+/                                               icon: &#39;fa fa-share&#39; \
+/                                              }
+/    
+/-if current_user.can_manage &#39;rights&#39;, @account
+/  .col-sm-6
+/    == render &#39;shared/badge_button&#39;, locals: { \
+/                                              blog_post: &#39;RIGHTS&#39;, \
+/                                              link: account_drm_index_path(@account), \
+/                                              css_class: &#39;btn btn-danger&#39;, \
+/                                              icon: &#39;fa fa-gavel&#39; \
+/                                             }
+/                                                                     
+/    
+/-if current_user.can_manage &#39;customer relations&#39;, @account
+/  .col-sm-6
+/    == render &#39;shared/badge_button&#39;, locals: { \
+/                                              blog_post: &#39;CUSTOMERS&#39;, \
+/                                              link: account_customers_path(@account), \
+/                                              css_class: &#39;btn btn-info&#39;, \
+/                                              icon: &#39;fa fa-phone&#39; \
+/                                             }</code></pre>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

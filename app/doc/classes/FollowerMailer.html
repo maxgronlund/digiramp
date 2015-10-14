@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>FollowerMailer</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../css/github.css" type="text/css" media="screen" />
+<script src="../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            <span class="type">Class</span> 
+            FollowerMailer 
+            
+                <span class="parent">&lt; 
+                    
+                    <a href="ApplicationMailer.html">ApplicationMailer</a>
+                    
+                </span>
+            
+        </h1>
+        <ul class="files">
+            
+            <li><a href="../files/mailers/follower_mailer_rb.html">mailers/follower_mailer.rb</a></li>
+            
+        </ul>
+    </div>
+    <div id="bodyContent">
+        <div id="content">
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+    <!-- Method ref -->
+    <div class="sectiontitle">Methods</div>
+    <dl class="methods">
+      
+        <dt>E</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-errors">errors</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>R</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-recording_uploaded">recording_uploaded</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+    </dl>
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+        
+      <div class="sectiontitle">Instance Public methods</div>
+      
+        <div class="method">
+          <div class="title method-title" id="method-i-errors">
+            
+              <b>errors</b>(err)
+            
+            <a href="../classes/FollowerMailer.html#method-i-errors" name="method-i-errors" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-errors_source')" id="l_method-i-errors_source">show</a>
+                
+              </p>
+              <div id="method-i-errors_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File mailers/follower_mailer.rb, line 59</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">errors</span> <span class="ruby-identifier">err</span>
+  <span class="ruby-identifier">ap</span> <span class="ruby-identifier">err</span>
+  <span class="ruby-constant">ErrorNotification</span>.<span class="ruby-identifier">post</span> <span class="ruby-identifier">err</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-recording_uploaded">
+            
+              <b>recording_uploaded</b>(recording_id)
+            
+            <a href="../classes/FollowerMailer.html#method-i-recording_uploaded" name="method-i-recording_uploaded" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-recording_uploaded_source')" id="l_method-i-recording_uploaded_source">show</a>
+                
+              </p>
+              <div id="method-i-recording_uploaded_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File mailers/follower_mailer.rb, line 3</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">recording_uploaded</span> <span class="ruby-identifier">recording_id</span>
+  
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">errors</span>(<span class="ruby-node">&quot;Recording id: #{recording_id} not found&quot;</span>)  <span class="ruby-keyword">unless</span> <span class="ruby-ivar">@recording</span> = <span class="ruby-constant">Recording</span>.<span class="ruby-identifier">cached_find</span>(<span class="ruby-identifier">recording_id</span>)
+  
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">errors</span>(<span class="ruby-string">&quot;User not found&quot;</span>)  <span class="ruby-keyword">unless</span> <span class="ruby-ivar">@user</span>      = <span class="ruby-ivar">@recording</span>.<span class="ruby-identifier">user</span>
+  
+  <span class="ruby-ivar">@user_avatar</span>  = ( <span class="ruby-constant">URI</span>.<span class="ruby-identifier">parse</span>(<span class="ruby-identifier">root_url</span>) <span class="ruby-operator">+</span> <span class="ruby-ivar">@user</span>.<span class="ruby-identifier">image_url</span>(<span class="ruby-value">:avatar_92x92</span>) ).<span class="ruby-identifier">to_s</span>
+  <span class="ruby-ivar">@user_url</span>     = <span class="ruby-identifier">url_for</span>( <span class="ruby-identifier">controller</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;users&#39;</span>, <span class="ruby-identifier">action</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;show&#39;</span>, <span class="ruby-identifier">id</span><span class="ruby-operator">:</span> <span class="ruby-ivar">@user</span>.<span class="ruby-identifier">slug</span>)
+  <span class="ruby-ivar">@user_url</span>     = ( <span class="ruby-constant">URI</span>.<span class="ruby-identifier">parse</span>(<span class="ruby-identifier">root_url</span>) <span class="ruby-operator">+</span> <span class="ruby-ivar">@user_url</span> ).<span class="ruby-identifier">to_s</span>
+
+  <span class="ruby-ivar">@recording_url</span> = <span class="ruby-identifier">url_for</span>( <span class="ruby-identifier">controller</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;recordings&#39;</span>, <span class="ruby-identifier">action</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;show&#39;</span>, <span class="ruby-identifier">user_id</span><span class="ruby-operator">:</span> <span class="ruby-ivar">@user</span>.<span class="ruby-identifier">slug</span>, <span class="ruby-identifier">id</span><span class="ruby-operator">:</span> <span class="ruby-ivar">@recording</span>.<span class="ruby-identifier">id</span>)
+  <span class="ruby-ivar">@recording_url</span> = ( <span class="ruby-constant">URI</span>.<span class="ruby-identifier">parse</span>(<span class="ruby-identifier">root_url</span>) <span class="ruby-operator">+</span> <span class="ruby-ivar">@recording_url</span> ).<span class="ruby-identifier">to_s</span>
+  
+  <span class="ruby-ivar">@title</span> = <span class="ruby-node">&quot;#{@user.user_name} uploaded a new recording&quot;</span>
+  
+  <span class="ruby-identifier">receipients_with_names</span> = []
+  <span class="ruby-identifier">merge_vars</span>             = []
+  
+  <span class="ruby-ivar">@user</span>.<span class="ruby-identifier">followers</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">follover</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">receipients_with_names</span>  <span class="ruby-operator">&lt;&lt;</span> {<span class="ruby-identifier">email</span><span class="ruby-operator">:</span> <span class="ruby-identifier">follover</span>.<span class="ruby-identifier">email</span>, <span class="ruby-identifier">name</span><span class="ruby-operator">:</span> <span class="ruby-identifier">follover</span>.<span class="ruby-identifier">user_name</span>}
+    <span class="ruby-identifier">merge_vars</span>              <span class="ruby-operator">&lt;&lt;</span> { <span class="ruby-identifier">rcpt</span><span class="ruby-operator">:</span> <span class="ruby-identifier">follover</span>.<span class="ruby-identifier">email</span>,
+                                 <span class="ruby-identifier">vars</span><span class="ruby-operator">:</span> [
+                                         {<span class="ruby-identifier">name</span><span class="ruby-operator">:</span> <span class="ruby-string">&quot;USER_NAME&quot;</span>,          <span class="ruby-identifier">content</span><span class="ruby-operator">:</span> <span class="ruby-ivar">@user</span>.<span class="ruby-identifier">user_name</span>},
+                                         {<span class="ruby-identifier">name</span><span class="ruby-operator">:</span> <span class="ruby-string">&quot;USER_URL&quot;</span>,           <span class="ruby-identifier">content</span><span class="ruby-operator">:</span> <span class="ruby-ivar">@user_url</span>},
+                                         {<span class="ruby-identifier">name</span><span class="ruby-operator">:</span> <span class="ruby-string">&quot;TITLE&quot;</span>,              <span class="ruby-identifier">content</span><span class="ruby-operator">:</span> <span class="ruby-ivar">@title</span>},
+                                         {<span class="ruby-identifier">name</span><span class="ruby-operator">:</span> <span class="ruby-string">&quot;RECORDING_URL&quot;</span>,      <span class="ruby-identifier">content</span><span class="ruby-operator">:</span> <span class="ruby-ivar">@recording_url</span>},
+                                         {<span class="ruby-identifier">name</span><span class="ruby-operator">:</span> <span class="ruby-string">&quot;COMMENT&quot;</span>,            <span class="ruby-identifier">content</span><span class="ruby-operator">:</span> <span class="ruby-ivar">@recording</span>.<span class="ruby-identifier">comment</span>},
+                                         {<span class="ruby-identifier">name</span><span class="ruby-operator">:</span> <span class="ruby-string">&quot;AVATAR_URL&quot;</span>,         <span class="ruby-identifier">content</span><span class="ruby-operator">:</span> <span class="ruby-ivar">@user_avatar</span>},
+                                         {<span class="ruby-identifier">name</span><span class="ruby-operator">:</span> <span class="ruby-string">&quot;PROFESION&quot;</span>,          <span class="ruby-identifier">content</span><span class="ruby-operator">:</span> <span class="ruby-ivar">@user</span>.<span class="ruby-identifier">profession</span>},
+                                         {<span class="ruby-identifier">name</span><span class="ruby-operator">:</span> <span class="ruby-string">&quot;SHORT_DESCRIPTION&quot;</span>,  <span class="ruby-identifier">content</span><span class="ruby-operator">:</span> <span class="ruby-ivar">@user</span>.<span class="ruby-identifier">short_description</span>},
+                                         {<span class="ruby-identifier">name</span><span class="ruby-operator">:</span> <span class="ruby-string">&quot;WRITER&quot;</span>,             <span class="ruby-identifier">content</span><span class="ruby-operator">:</span> <span class="ruby-ivar">@user</span>.<span class="ruby-identifier">writer</span>},
+                                         {<span class="ruby-identifier">name</span><span class="ruby-operator">:</span> <span class="ruby-string">&quot;AUTHOR&quot;</span>,             <span class="ruby-identifier">content</span><span class="ruby-operator">:</span> <span class="ruby-ivar">@user</span>.<span class="ruby-identifier">author</span>},
+                                         {<span class="ruby-identifier">name</span><span class="ruby-operator">:</span> <span class="ruby-string">&quot;PRODUCER&quot;</span>,           <span class="ruby-identifier">content</span><span class="ruby-operator">:</span> <span class="ruby-ivar">@user</span>.<span class="ruby-identifier">producer</span>},
+                                         {<span class="ruby-identifier">name</span><span class="ruby-operator">:</span> <span class="ruby-string">&quot;COMPOSER&quot;</span>,           <span class="ruby-identifier">content</span><span class="ruby-operator">:</span> <span class="ruby-ivar">@user</span>.<span class="ruby-identifier">composer</span>},
+                                         {<span class="ruby-identifier">name</span><span class="ruby-operator">:</span> <span class="ruby-string">&quot;REMIXER&quot;</span>,            <span class="ruby-identifier">content</span><span class="ruby-operator">:</span> <span class="ruby-ivar">@user</span>.<span class="ruby-identifier">remixer</span>},
+                                         {<span class="ruby-identifier">name</span><span class="ruby-operator">:</span> <span class="ruby-string">&quot;MUSICIAN&quot;</span>,           <span class="ruby-identifier">content</span><span class="ruby-operator">:</span> <span class="ruby-ivar">@user</span>.<span class="ruby-identifier">musician</span>},
+                                         {<span class="ruby-identifier">name</span><span class="ruby-operator">:</span> <span class="ruby-string">&quot;DJ&quot;</span>,                 <span class="ruby-identifier">content</span><span class="ruby-operator">:</span> <span class="ruby-ivar">@user</span>.<span class="ruby-identifier">dj</span>},
+                                         {<span class="ruby-identifier">name</span><span class="ruby-operator">:</span> <span class="ruby-string">&quot;ARTIST&quot;</span>,             <span class="ruby-identifier">content</span><span class="ruby-operator">:</span> <span class="ruby-ivar">@user</span>.<span class="ruby-identifier">artist</span>}
+                                       ]
+                                   }
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">unless</span> <span class="ruby-identifier">receipients_with_names</span>.<span class="ruby-identifier">empty?</span>
+    <span class="ruby-identifier">send_with_mandrill</span>( <span class="ruby-identifier">receipients_with_names</span>, 
+                        <span class="ruby-string">&quot;followed-user-uploaded-a-recording&quot;</span>, 
+                        <span class="ruby-string">&#39;DigiRAMP update&#39;</span>, 
+                        [<span class="ruby-string">&quot;notifications&quot;</span>, <span class="ruby-string">&quot;follower&quot;</span>, <span class="ruby-string">&quot;recording&quot;</span>], 
+                        <span class="ruby-identifier">merge_vars</span>,
+                        <span class="ruby-keyword">true</span>, 
+                        <span class="ruby-keyword">true</span>, 
+                        <span class="ruby-ivar">@user</span>.<span class="ruby-identifier">mandrill_account_id</span>,
+                        <span class="ruby-string">&quot;mailchimp&quot;</span>
+                      )
+  <span class="ruby-keyword">end</span>
+
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+                    </div>
+
+    </div>
+  </body>
+</html>    

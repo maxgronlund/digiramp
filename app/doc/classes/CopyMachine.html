@@ -1,0 +1,442 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>CopyMachine</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../css/github.css" type="text/css" media="screen" />
+<script src="../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            <span class="type">Class</span> 
+            CopyMachine 
+            
+                <span class="parent">&lt; 
+                    
+                    Object
+                    
+                </span>
+            
+        </h1>
+        <ul class="files">
+            
+            <li><a href="../files/services/copy_machine_rb.html">services/copy_machine.rb</a></li>
+            
+        </ul>
+    </div>
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>Copy models</p>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+    <!-- Method ref -->
+    <div class="sectiontitle">Methods</div>
+    <dl class="methods">
+      
+        <dt>C</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-c-copy_document">copy_document</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-c-copy_signature">copy_signature</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-c-create_document_users">create_document_users</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>S</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-c-setup_publisher">setup_publisher</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-c-setup_publishing_agreement">setup_publishing_agreement</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-c-setup_publishing_documents">setup_publishing_documents</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+    </dl>
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+    
+      <div class="sectiontitle">Class Public methods</div>
+      
+        <div class="method">
+          <div class="title method-title" id="method-c-copy_document">
+            
+              <b>copy_document</b>(source_doc)
+            
+            <a href="../classes/CopyMachine.html#method-c-copy_document" name="method-c-copy_document" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              <p><a href="CopyMachine.html#method-c-copy_document">::copy_document</a>
+source</p>
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-c-copy_document_source')" id="l_method-c-copy_document_source">show</a>
+                
+              </p>
+              <div id="method-c-copy_document_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File services/copy_machine.rb, line 6</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">self</span>.<span class="ruby-identifier">copy_document</span> <span class="ruby-identifier">source_doc</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">nil</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">source_doc</span>.<span class="ruby-identifier">nil?</span>
+  <span class="ruby-identifier">doc</span>               = <span class="ruby-identifier">source_doc</span>.<span class="ruby-identifier">dup</span>
+  <span class="ruby-identifier">doc</span>.<span class="ruby-identifier">title</span>         = <span class="ruby-identifier">source_doc</span>.<span class="ruby-identifier">title</span> <span class="ruby-operator">+</span> <span class="ruby-string">&#39; COPY&#39;</span>
+  <span class="ruby-identifier">doc</span>.<span class="ruby-identifier">uuid</span>          = <span class="ruby-constant">UUIDTools</span><span class="ruby-operator">::</span><span class="ruby-constant">UUID</span>.<span class="ruby-identifier">timestamp_create</span>().<span class="ruby-identifier">to_s</span>
+  <span class="ruby-identifier">doc</span>.<span class="ruby-identifier">document_type</span> = <span class="ruby-string">&#39;Legal&#39;</span>
+  <span class="ruby-identifier">doc</span>.<span class="ruby-identifier">save</span>
+  <span class="ruby-identifier">doc</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-c-copy_signature">
+            
+              <b>copy_signature</b>(source_signature)
+            
+            <a href="../classes/CopyMachine.html#method-c-copy_signature" name="method-c-copy_signature" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              <p><a href="CopyMachine.html#method-c-copy_signature">::copy_signature</a>
+source_signature</p>
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-c-copy_signature_source')" id="l_method-c-copy_signature_source">show</a>
+                
+              </p>
+              <div id="method-c-copy_signature_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File services/copy_machine.rb, line 17</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">self</span>.<span class="ruby-identifier">copy_signature</span> <span class="ruby-identifier">source_signature</span>
+  <span class="ruby-identifier">signature</span>            = <span class="ruby-identifier">source_signature</span>.<span class="ruby-identifier">dup</span>
+  <span class="ruby-identifier">signature</span>.<span class="ruby-identifier">uuid</span>       = <span class="ruby-constant">UUIDTools</span><span class="ruby-operator">::</span><span class="ruby-constant">UUID</span>.<span class="ruby-identifier">timestamp_create</span>().<span class="ruby-identifier">to_s</span>
+  <span class="ruby-identifier">signature</span>.<span class="ruby-identifier">save</span>
+  <span class="ruby-identifier">signature</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-c-create_document_users">
+            
+              <b>create_document_users</b>(source_doc, dest_doc)
+            
+            <a href="../classes/CopyMachine.html#method-c-create_document_users" name="method-c-create_document_users" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              <p><a
+href="CopyMachine.html#method-c-create_document_users">::create_document_users</a>
+source_doc, dest_doc</p>
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-c-create_document_users_source')" id="l_method-c-create_document_users_source">show</a>
+                
+              </p>
+              <div id="method-c-create_document_users_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File services/copy_machine.rb, line 26</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">self</span>.<span class="ruby-identifier">create_document_users</span> <span class="ruby-identifier">source_doc</span>, <span class="ruby-identifier">dest_doc</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">digital_signatures</span> = <span class="ruby-identifier">source_doc</span>.<span class="ruby-identifier">digital_signatures</span>
+    <span class="ruby-identifier">digital_signatures</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">digital_signature</span><span class="ruby-operator">|</span>
+      <span class="ruby-identifier">document_user</span> = <span class="ruby-constant">DocumentUser</span>.<span class="ruby-identifier">new</span>(
+        <span class="ruby-identifier">document_id</span><span class="ruby-operator">:</span>    <span class="ruby-identifier">dest_doc</span>.<span class="ruby-identifier">uuid</span>,
+        <span class="ruby-identifier">account_id</span><span class="ruby-operator">:</span>     <span class="ruby-identifier">dest_doc</span>.<span class="ruby-identifier">account_id</span>,
+        <span class="ruby-identifier">can_edit</span><span class="ruby-operator">:</span>       <span class="ruby-keyword">true</span>,
+        <span class="ruby-identifier">should_sign</span><span class="ruby-operator">:</span>    <span class="ruby-keyword">true</span>,
+        <span class="ruby-identifier">role</span><span class="ruby-operator">:</span>           <span class="ruby-identifier">digital_signature</span>.<span class="ruby-identifier">role</span>
+      )
+      <span class="ruby-identifier">document_user</span>.<span class="ruby-identifier">save</span>(<span class="ruby-identifier">validate</span><span class="ruby-operator">:</span> <span class="ruby-keyword">false</span>)
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+  
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-c-setup_publisher">
+            
+              <b>setup_publisher</b>(publisher_id)
+            
+            <a href="../classes/CopyMachine.html#method-c-setup_publisher" name="method-c-setup_publisher" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              <p><a href="CopyMachine.html#method-c-setup_publisher">::setup_publisher</a>
+publisher_id</p>
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-c-setup_publisher_source')" id="l_method-c-setup_publisher_source">show</a>
+                
+              </p>
+              <div id="method-c-setup_publisher_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File services/copy_machine.rb, line 92</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">self</span>.<span class="ruby-identifier">setup_publisher</span> <span class="ruby-identifier">publisher_id</span>
+  
+  <span class="ruby-identifier">publisher</span> = <span class="ruby-constant">Publisher</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">publisher_id</span>)
+  <span class="ruby-identifier">publisher</span>.<span class="ruby-identifier">confirmed!</span>
+  <span class="ruby-identifier">publishing_agreement</span> = <span class="ruby-identifier">setup_publishing_agreement</span>(
+    <span class="ruby-identifier">publisher</span>.<span class="ruby-identifier">id</span>, 
+    <span class="ruby-keyword">false</span>,
+    <span class="ruby-string">&#39;Default publishing agreement&#39;</span>,
+    <span class="ruby-identifier">publisher</span>.<span class="ruby-identifier">user</span>
+  )
+  <span class="ruby-identifier">setup_publishing_documents</span>( 
+    <span class="ruby-identifier">publisher</span>,
+    <span class="ruby-string">&#39;34debb4c-5e09-11e5-a542-d43d7eecec4d&#39;</span>,
+    <span class="ruby-identifier">publishing_agreement</span>
+  )
+
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-c-setup_publishing_agreement">
+            
+              <b>setup_publishing_agreement</b>(publisher_id, personal_agreement, title, user)
+            
+            <a href="../classes/CopyMachine.html#method-c-setup_publishing_agreement" name="method-c-setup_publishing_agreement" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-c-setup_publishing_agreement_source')" id="l_method-c-setup_publishing_agreement_source">show</a>
+                
+              </p>
+              <div id="method-c-setup_publishing_agreement_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File services/copy_machine.rb, line 110</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">self</span>.<span class="ruby-identifier">setup_publishing_agreement</span>(<span class="ruby-identifier">publisher_id</span>, <span class="ruby-identifier">personal_agreement</span>, <span class="ruby-identifier">title</span>, <span class="ruby-identifier">user</span>)
+  <span class="ruby-constant">PublishingAgreement</span>.<span class="ruby-identifier">create</span>(
+    <span class="ruby-identifier">publisher_id</span><span class="ruby-operator">:</span>       <span class="ruby-identifier">publisher_id</span>,
+    <span class="ruby-identifier">split</span><span class="ruby-operator">:</span>              <span class="ruby-number">50.0</span>,
+    <span class="ruby-identifier">title</span><span class="ruby-operator">:</span>              <span class="ruby-identifier">title</span>,
+    <span class="ruby-identifier">personal_agreement</span><span class="ruby-operator">:</span> <span class="ruby-identifier">personal_agreement</span>,
+    <span class="ruby-identifier">user_id</span><span class="ruby-operator">:</span>            <span class="ruby-identifier">user</span>.<span class="ruby-identifier">id</span>,
+    <span class="ruby-identifier">account_id</span><span class="ruby-operator">:</span>         <span class="ruby-identifier">user</span>.<span class="ruby-identifier">account</span>.<span class="ruby-identifier">id</span>, 
+    <span class="ruby-identifier">uuid</span><span class="ruby-operator">:</span> <span class="ruby-constant">UUIDTools</span><span class="ruby-operator">::</span><span class="ruby-constant">UUID</span>.<span class="ruby-identifier">timestamp_create</span>().<span class="ruby-identifier">to_s</span>
+  )
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-c-setup_publishing_documents">
+            
+              <b>setup_publishing_documents</b>( publisher, uuid, publishing_agreement )
+            
+            <a href="../classes/CopyMachine.html#method-c-setup_publishing_documents" name="method-c-setup_publishing_documents" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-c-setup_publishing_documents_source')" id="l_method-c-setup_publishing_documents_source">show</a>
+                
+              </p>
+              <div id="method-c-setup_publishing_documents_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File services/copy_machine.rb, line 122</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">self</span>.<span class="ruby-identifier">setup_publishing_documents</span>( <span class="ruby-identifier">publisher</span>, <span class="ruby-identifier">uuid</span>, <span class="ruby-identifier">publishing_agreement</span> )
+
+  <span class="ruby-identifier">template</span>  = <span class="ruby-constant">Document</span>.<span class="ruby-identifier">where</span>(<span class="ruby-identifier">uuid</span><span class="ruby-operator">:</span> <span class="ruby-identifier">uuid</span>)
+  .<span class="ruby-identifier">first_or_create</span>(
+    <span class="ruby-identifier">uuid</span><span class="ruby-operator">:</span>               <span class="ruby-identifier">uuid</span>,
+    <span class="ruby-identifier">title</span><span class="ruby-operator">:</span>              <span class="ruby-string">&#39;Artist publicity agreement&#39;</span>,
+    <span class="ruby-identifier">body</span><span class="ruby-operator">:</span>               <span class="ruby-string">&#39;ARTIST PUBLICITY AGREEMENT&#39;</span>,
+    <span class="ruby-identifier">text_content</span><span class="ruby-operator">:</span>       <span class="ruby-string">&#39;This Agreement shall be effective as of the date set forth herein...&#39;</span>,
+    <span class="ruby-identifier">expires</span><span class="ruby-operator">:</span>            <span class="ruby-keyword">false</span>,
+    <span class="ruby-identifier">tag</span><span class="ruby-operator">:</span>                <span class="ruby-string">&#39;Publishing&#39;</span>,
+    <span class="ruby-identifier">document_type</span><span class="ruby-operator">:</span>      <span class="ruby-string">&#39;Template&#39;</span>
+  )
+  <span class="ruby-identifier">doc</span>       = <span class="ruby-constant">CopyMachine</span>.<span class="ruby-identifier">copy_document</span>( <span class="ruby-identifier">template</span> )
+  
+  <span class="ruby-identifier">doc</span>.<span class="ruby-identifier">update</span>( 
+      <span class="ruby-identifier">belongs_to_id</span><span class="ruby-operator">:</span>      <span class="ruby-identifier">publishing_agreement</span>.<span class="ruby-identifier">id</span>,
+      <span class="ruby-identifier">belongs_to_type</span><span class="ruby-operator">:</span>    <span class="ruby-identifier">publishing_agreement</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">name</span>,
+      <span class="ruby-identifier">account_id</span><span class="ruby-operator">:</span>         <span class="ruby-identifier">publishing_agreement</span>.<span class="ruby-identifier">account_id</span>,
+      <span class="ruby-identifier">template_id</span><span class="ruby-operator">:</span>        <span class="ruby-identifier">template</span>.<span class="ruby-identifier">id</span>,
+      <span class="ruby-identifier">title</span><span class="ruby-operator">:</span>              <span class="ruby-identifier">template</span>.<span class="ruby-identifier">title</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-string">&quot;COPY&quot;</span>, <span class="ruby-node">&quot;- #{doc.id}&quot;</span>),
+      <span class="ruby-identifier">expires</span><span class="ruby-operator">:</span>            <span class="ruby-keyword">false</span>
+  )
+  
+  <span class="ruby-identifier">template</span>.<span class="ruby-identifier">digital_signatures</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">digital_signature</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">document_user</span> = <span class="ruby-constant">DocumentUser</span>.<span class="ruby-identifier">new</span>(
+      <span class="ruby-value">:document_id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">doc</span>.<span class="ruby-identifier">uuid</span>,
+        <span class="ruby-value">:user_id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">nil</span>,
+     <span class="ruby-value">:account_id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">publishing_agreement</span>.<span class="ruby-identifier">account_id</span>,
+       <span class="ruby-value">:can_edit</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">true</span>,
+    <span class="ruby-value">:should_sign</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">true</span>,
+          <span class="ruby-value">:email</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">nil</span>,
+           <span class="ruby-value">:role</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">digital_signature</span>.<span class="ruby-identifier">role</span>,
+     <span class="ruby-value">:legal_name</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">nil</span>
+
+    )
+    <span class="ruby-identifier">document_user</span>.<span class="ruby-identifier">save</span>(<span class="ruby-identifier">validate</span><span class="ruby-operator">:</span> <span class="ruby-keyword">false</span>)
+  <span class="ruby-keyword">end</span>
+  
+  <span class="ruby-identifier">doc</span>
+  
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+                        </div>
+
+    </div>
+  </body>
+</html>    

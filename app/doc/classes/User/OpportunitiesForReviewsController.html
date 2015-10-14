@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>User::OpportunitiesForReviewsController</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../css/github.css" type="text/css" media="screen" />
+<script src="../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            <span class="type">Class</span> 
+            User::OpportunitiesForReviewsController 
+            
+                <span class="parent">&lt; 
+                    
+                    <a href="../ApplicationController.html">ApplicationController</a>
+                    
+                </span>
+            
+        </h1>
+        <ul class="files">
+            
+            <li><a href="../../files/controllers/user/opportunities_for_reviews_controller_rb.html">controllers/user/opportunities_for_reviews_controller.rb</a></li>
+            
+        </ul>
+    </div>
+    <div id="bodyContent">
+        <div id="content">
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+    <!-- Method ref -->
+    <div class="sectiontitle">Methods</div>
+    <dl class="methods">
+      
+        <dt>I</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-index">index</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>S</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-show">show</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+    </dl>
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+        
+      <div class="sectiontitle">Instance Public methods</div>
+      
+        <div class="method">
+          <div class="title method-title" id="method-i-index">
+            
+              <b>index</b>()
+            
+            <a href="../../classes/User/OpportunitiesForReviewsController.html#method-i-index" name="method-i-index" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              <p>include <a href="AccountsHelper.html">AccountsHelper</a> before_action
+:access_account</p>
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-index_source')" id="l_method-i-index_source">show</a>
+                
+              </p>
+              <div id="method-i-index_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File controllers/user/opportunities_for_reviews_controller.rb, line 7</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">index</span>
+  <span class="ruby-constant">PageView</span>.<span class="ruby-identifier">create</span>(<span class="ruby-identifier">url</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;/user/opportunities_for_reviews&#39;</span> )
+  
+  <span class="ruby-identifier">opportunity_ids</span>   = <span class="ruby-constant">OpportunityUser</span>.<span class="ruby-identifier">where</span>(<span class="ruby-identifier">user_id</span><span class="ruby-operator">:</span> <span class="ruby-ivar">@user</span>.<span class="ruby-identifier">id</span>, <span class="ruby-identifier">reviewer</span><span class="ruby-operator">:</span> <span class="ruby-keyword">true</span>).<span class="ruby-identifier">pluck</span>(<span class="ruby-value">:opportunity_id</span>)
+  <span class="ruby-identifier">opportunity_ids</span>  <span class="ruby-operator">-=</span> <span class="ruby-constant">SelectedOpportunity</span>.<span class="ruby-identifier">where</span>(<span class="ruby-identifier">user_id</span><span class="ruby-operator">:</span> <span class="ruby-ivar">@user</span>.<span class="ruby-identifier">id</span>, <span class="ruby-identifier">archived</span><span class="ruby-operator">:</span> <span class="ruby-keyword">true</span>).<span class="ruby-identifier">pluck</span>(<span class="ruby-value">:opportunity_id</span>)
+  <span class="ruby-identifier">opportunity_ids</span>.<span class="ruby-identifier">uniq!</span>
+  <span class="ruby-ivar">@opportunities</span>     = <span class="ruby-constant">Opportunity</span>.<span class="ruby-identifier">order</span>(<span class="ruby-string">&#39;created_at desc&#39;</span>).<span class="ruby-identifier">where</span>(<span class="ruby-identifier">id</span><span class="ruby-operator">:</span> <span class="ruby-identifier">opportunity_ids</span>)
+
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-show">
+            
+              <b>show</b>()
+            
+            <a href="../../classes/User/OpportunitiesForReviewsController.html#method-i-show" name="method-i-show" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-show_source')" id="l_method-i-show_source">show</a>
+                
+              </p>
+              <div id="method-i-show_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File controllers/user/opportunities_for_reviews_controller.rb, line 17</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">show</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-ivar">@opportunity_user</span> = <span class="ruby-constant">OpportunityUser</span>.<span class="ruby-identifier">find_by</span>( <span class="ruby-identifier">user_id</span><span class="ruby-operator">:</span> <span class="ruby-ivar">@user</span>.<span class="ruby-identifier">id</span>, <span class="ruby-identifier">uuid</span><span class="ruby-operator">:</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>] )
+    <span class="ruby-comment">#@account = @user.account</span>
+    <span class="ruby-keyword">if</span> <span class="ruby-ivar">@opportunity</span> = <span class="ruby-ivar">@opportunity_user</span>.<span class="ruby-identifier">opportunity</span>
+      <span class="ruby-constant">SelectedOpportunity</span>.<span class="ruby-identifier">where</span>(<span class="ruby-identifier">user_id</span><span class="ruby-operator">:</span> <span class="ruby-ivar">@user</span>.<span class="ruby-identifier">id</span>, <span class="ruby-identifier">opportunity_id</span><span class="ruby-operator">:</span> <span class="ruby-ivar">@opportunity</span>.<span class="ruby-identifier">id</span>)
+                         .<span class="ruby-identifier">first_or_create</span>(<span class="ruby-identifier">user_id</span><span class="ruby-operator">:</span> <span class="ruby-ivar">@user</span>.<span class="ruby-identifier">id</span>, <span class="ruby-identifier">opportunity_id</span><span class="ruby-operator">:</span> <span class="ruby-ivar">@opportunity</span>.<span class="ruby-identifier">id</span>)
+      <span class="ruby-keyword">if</span> <span class="ruby-identifier">account</span> = <span class="ruby-ivar">@opportunity</span>.<span class="ruby-identifier">account</span>
+        <span class="ruby-ivar">@mail_receiver</span> = <span class="ruby-identifier">account</span>.<span class="ruby-identifier">user</span>
+      <span class="ruby-keyword">else</span>
+        <span class="ruby-identifier">not_found</span>
+      <span class="ruby-keyword">end</span>
+      
+    <span class="ruby-keyword">else</span>
+      <span class="ruby-identifier">not_found</span>
+    <span class="ruby-keyword">end</span>                 
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">not_found</span>
+  <span class="ruby-keyword">end</span>
+      
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+                    </div>
+
+    </div>
+  </body>
+</html>    

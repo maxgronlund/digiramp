@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>respond.min.js</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            respond.min.js
+        </h1>
+        <ul class="files">
+            <li>assets/javascripts/apulum/respond.min.js</li>
+            <li>Last modified: 2015-07-05 15:22:02 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<pre><code>! Respond.js v1.4.2: min/max-width media query polyfill * Copyright 2013 Scott Jehl
+ Licensed under https://github.com/scottjehl/Respond/blob/master/LICENSE-MIT</code></pre>
+
+<p>!function(a){“use strict”;a.matchMedia=a.matchMedia||function(a){var
+b,c=a.documentElement,d=c.firstElementChild||c.firstChild,e=a.createElement(“body”),f=a.createElement(“div”);return
+f.id=“mq-test-1”,f.style.cssText=“position:absolute;top:-100em”,e.style.background=“none”,e.appendChild(f),function(a){return
+f.innerHTML=&#39;&amp;shy;&lt;style media=“&#39;<code>a</code>&#39;”&gt;
+mq-test-1 { width: 42px;
+}&lt;/style&gt;&#39;,c.insertBefore(e,d),b=42===f.offsetWidth,c.removeChild(e),{matches:b,media:a}}}(a.document)}(this),function(a){“use
+strict”;function b(){u(!0)}var c={};a.respond=c,c.update=function(){};var
+d=[],e=function(){var b=!1;try{b=new a.XMLHttpRequest}catch©{b=new
+a.ActiveXObject(“Microsoft.XMLHTTP”)}return function(){return
+b}}(),f=function(a,b){var
+c=e();c&amp;&amp;(c.open(“GET”,a,!0),c.onreadystatechange=function(){4!==c.readyState||200!==c.status&amp;&amp;304!==c.status||b(c.responseText)},4!==c.readyState&amp;&amp;c.send(null))};if(c.ajax=f,c.queue=d,c.regex={<a
+href="^\{">media:/@media</a>+{([^{}]*{[^}{]*})+/<a
+href="^\{">gi,keyframes:/@(?:-(?:o|moz|webkit)-)?keyframes</a>+{(?:[^{}]*{[^}{]*})+[^}]*}/<a
+href="'"">gi,urls:/(url()</a>?([^/)&#39;“][^:)&#39;”]+)[&#39;“]?())/g,findStyles:/@media
+*([^{]+){([<a href=”a-zA-Z“>Ss]+?)$/,only:/(onlys+)?(</a>+)<a
+href=”s“>s?/,minw:/(</a>*<a href="\s">min-widths*:</a>*([<a
+href=”0-9.“>s]*</a>+)(<a href="\s">px|em)</a>*)/,<a
+href="\s">maxw:/(</a>*<a href="\s">max-widths*:</a>*([<a
+href=”0-9.“>s]*</a>+)(<a
+href="\s">px|em)</a>*)/},c.mediaQueriesSupported=a.matchMedia&amp;&amp;null!==a.matchMedia(”only
+all“)&amp;&amp;a.matchMedia(”only
+all“).matches,!c.mediaQueriesSupported){var <a
+href="">g,h,i,j=a.document,k=j.documentElement,l=[],m=</a>,<a
+href="0">n=[],o={},p=30,q=j.getElementsByTagName(”head“)</a>||<a
+href="0">k,r=j.getElementsByTagName(”base“)</a>,s=q.getElementsByTagName(”link“),t=function(){var
+a,b=j.createElement(”div“),c=j.body,d=k.style.fontSize,e=c&amp;&amp;c.style.fontSize,f=!1;return
+b.style.cssText=”position:absolute;font-size:1em;width:1em“,c||(c=f=j.createElement(”body“),c.style.background=”none“),k.style.fontSize=”100%“,c.style.fontSize=”100%“,c.appendChild(b),f&amp;&amp;k.insertBefore(c,k.firstChild),a=b.offsetWidth,f?k.removeChild©:c.removeChild(b),k.style.fontSize=d,e&amp;&amp;(c.style.fontSize=e),a=i=parseFloat(a)},u=function(b){var
+<a href="c">c=”clientWidth“,d=k</a>,<a
+href="c">e=”CSS1Compat“===j.compatMode&&d||j.body</a>||d,f={},<a
+href="s.length-1">o=s</a>,r=(new
+Date).getTime();if(b&amp;&amp;g&amp;&amp;p&gt;r-g)return
+a.clearTimeout(h),h=a.setTimeout(u,p),void 0;g=r;for(var v in
+l)if(l.hasOwnProperty(v)){var <a href="v">w=l</a>,<a
+href="w.media">x=w.minw,y=w.maxw,z=null===x,A=null===y,B=”em“;x&&(x=parseFloat(x)*(x.indexOf(B)>-1?i||t():1)),y&&(y=parseFloat(y)*(y.indexOf(B)>-1?i||t():1)),w.hasquery&&(z&&A||!(z||e>=x)||!(A||y>=e))||(f</a>||(<a
+href="w.media">f</a>=[]),<a href="w.media">f</a>.<a
+href="w.rules">push(m</a>))}for(var C in <a
+href="C">n)n.hasOwnProperty(C)&&n</a>&amp;&amp;<a href="C">n</a>.<a
+href="C">parentNode===q&&q.removeChild(n</a>);n.length=0;for(var D in
+f)if(f.hasOwnProperty(D)){var <a
+href="D">E=j.createElement(”style“),F=f</a>.join(”n“);E.type=”text/css“,E.media=D,q.insertBefore(E,o.nextSibling),E.styleSheet?E.styleSheet.cssText=F:E.appendChild(j.createTextNode(F)),n.push(E)}},v=function(a,b,d){var
+e=a.replace(c.regex.keyframes,”“).match(c.regex.media),f=e&amp;&amp;e.length||0;b=b.substring(0,b.lastIndexOf(”/“));var
+g=function(a){return
+a.replace(c.regex.urls,”$1“<code>b</code>”$2$3“)},h=!f&amp;&amp;d;b.length&amp;&amp;(b+=”/“),h&amp;&amp;(f=1);for(var
+i=0;f&gt;i;i++){var <a
+href="i">j,k,n,o;h?(j=d,m.push(g(a))):(j=e</a>.match(c.regex.findStyles)&amp;&amp;RegExp.$1,m.push(RegExp.$2&amp;&amp;g(RegExp.$2))),n=j.split(”,“),o=n.length;for(var
+<a href="p">p=0;o>p;p++)k=n</a>,l.push({<a
+href="0">media:k.split(”(“)</a>.match(c.regex.only)&amp;&amp;RegExp.$2||”all“,rules:m.length-1,hasquery:k.indexOf(”(“)&gt;-1,minw:k.match(c.regex.minw)&amp;&amp;parseFloat(RegExp.$1)+(RegExp.$2||”“),maxw:k.match(c.regex.maxw)&amp;&amp;parseFloat(RegExp.$1)+(RegExp.$2||”“)})}u()},w=function(){if(d.length){var
+b=d.shift();f(b.href,function©{<a
+href="b.href">v(c,b.href,b.media),o</a>=!0,a.setTimeout(function(){w()},0)})}},x=function(){for(var
+b=0;b&lt;s.length;b++){var <a href="b">c=s</a>,<a
+href="e">e=c.href,f=c.media,g=c.rel&&”stylesheet“===c.rel.toLowerCase();e&&g&&!o</a>&amp;&amp;(<a
+href="e">c.styleSheet&&c.styleSheet.rawCssText?(v(c.styleSheet.rawCssText,e,f),o</a>=!<a
+href="a-zA-Z:">0):(!/^(</a>*//)/.<a
+href="0">test(e)&&!r||e.replace(RegExp.$1,”“).split(”/“)</a>===a.location.host)&amp;&amp;(”//“===e.substring(0,2)&amp;&amp;(e=a.location.protocol+e),d.push({href:e,media:f})))}w()};x(),c.update=x,c.getEmValue=t,a.addEventListener?a.addEventListener(”resize“,b,!1):a.attachEvent&amp;&amp;a.attachEvent(”onresize“,b)}}(this);</p>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

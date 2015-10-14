@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>index.html.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            index.html.slim
+        </h1>
+        <ul class="files">
+            <li>views/user/creative_project_dashboards/index.html.slim</li>
+            <li>Last modified: 2015-09-26 13:39:51 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>wrapper</p>
+
+<pre><code>.full-width-top
+  == render &#39;shared/navigationbar&#39;, page: &#39;user&#39; 
+
+#sidebar-wrapper
+  ul class=&quot;sidebar-nav&quot;
+    == render &#39;user/creative_projects/project_sidebar&#39;, selected: &#39;dashboard&#39;
+
+#page-content-wrapper
+  .container-fluid
+    == render &#39;shared/breadcrumbs&#39;, breadcrumbs: { links: { &#39;creative projects&#39;.to_sym =&gt; user_user_creative_projects_path(@user)}, current: &#39;&#39;}
+    .row
+      .col-sm-8
+        .help
+          .help-text
+            h2 = @creative_project.title
+          .help-button
+            == render &#39;admin/helps/help&#39;, identifier: &#39;user creative project&#39;
+      .col-sm-4
+        .pull-right.pull-down-10
+          =&gt; link_to user_user_creative_projects_path(@user) do
+            .btn.btn-default
+              i.fa.fa-chevron-left
+              &#39;&amp;nbsp;Back
+          = link_to &#39;Edit&#39;, edit_user_user_creative_project_path(@user, @creative_project), class: &#39;btn btn-info&#39;
+
+    .pull-down-10
+    .digi-box 
+      .row
+        .col-sm-6
+          b Description
+          br
+          = simple_format @creative_project.description
+          .sexy_line
+          b Deadline
+          br
+          = @creative_project.deadline
+
+        .col-sm-6
+          b Looking for
+          br
+          == render &#39;user/creative_project_roles/roles&#39;, creative_project: @creative_project
+          br
+          b Team members
+          br
+          - @creative_project_users.each do |creative_project_user|
+            - if user = creative_project_user.user
+              = link_to user_user_creative_project_creative_project_user_path( @user, @creative_project, creative_project_user) do
+                .btn.btn-default.btn-xs
+                  =&lt; user.user_name
+                  &#39; : 
+                  = creative_project_user.creative_project_role.role.capitalize  
+
+              .pull-right
+                = link_to user do
+                  .btn.btn-default.btn-xs
+                    &#39;Profile
+
+              .sexy_line
+    .row
+      .col-sm-8
+
+      .col-sm-4
+        .digi-box
+          = simple_form_for [ Comment.new ], remote: true do |f|
+            .row
+              .col-sm-12
+                = f.hidden_field  :commentable_id,    value: @creative_project.id
+                = f.hidden_field  :commentable_type,  value: @creative_project.class.name
+                = f.hidden_field  :user_id,  value: current_user.id
+                h4 Comments
+                /= f.input :title, placeholder: &#39;Title&#39;, label: false
+                = f.input :body, label: false, :input_html =&gt; {  style: &quot;height: 60px;&quot;, placeholder: &quot;Write Comment&quot;}, autofocus: true
+            .row
+              .col-sm-12
+                .pull-right
+                  = f.submit &#39;Post&#39;, class: &#39;btn btn-info&#39;
+          br
+          .rec-comments
+            - @creative_project.comments.order(&#39;created_at desc&#39;).each do |comment|
+              == render &#39;comments/show&#39;, comment: comment
+
+== render &#39;shared/site_footer&#39;</code></pre>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

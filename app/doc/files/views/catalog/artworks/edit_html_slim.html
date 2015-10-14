@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>edit.html.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            edit.html.slim
+        </h1>
+        <ul class="files">
+            <li>views/catalog/artworks/edit.html.slim</li>
+            <li>Last modified: 2015-09-26 13:37:48 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>wrapper</p>
+
+<pre><code>.full-width-top
+  == render &#39;shared/navigationbar&#39;, page: &#39;catalog&#39;         
+
+.catalog
+  #sidebar-wrapper
+    ul class=&quot;sidebar-nav&quot;
+      == render &#39;catalog/catalogs/sidebar&#39;, selected: &#39;assets&#39;
+
+#page-content-wrapper
+  .container-fluid
+    == render &#39;shared/breadcrumbs&#39;, breadcrumbs: { links: {   catalog: catalog_account_catalog_path(@account, @catalog),
+                                                              documents: catalog_account_catalog_documents_path(@account, @catalog) }, current: &#39;&#39;}
+    .row
+      .col-sm-8
+        .help
+          .help-text
+             h2 Edit artwork
+          .help-button
+            == render &#39;admin/helps/help&#39;, identifier: &#39;edit catalog artword&#39;
+
+      .col-sm-4
+        .pull-right.pull-down-10
+          = link_to  catalog_account_catalog_artwork_path(@account, @catalog, @artwork) do
+              .btn.btn-default
+                i.fa.fa-chevron-left
+                &#39;&amp;nbsp;Back
+
+    .pull-down-10
+    .digi-box
+      = simple_form_for [ :catalog, @account, @catalog, @artwork ],  :html =&gt; { :id =&gt; &#39;artwork&#39; }   do |f|
+        .row
+          .col-sm-6
+            = f.input :title, autofocus: true, value: @artwork.title
+
+            div id=&quot;toolbar&quot; class=&quot;wysihtml5-toolbar&quot;
+              a data-wysihtml5-command=&quot;bold&quot; Bold
+              &#39;&amp;nbsp; 
+              a data-wysihtml5-command=&quot;italic&quot; Italic
+
+            =f.input :description, label: false, :input_html =&gt; {  style: &quot;height: 182px;&quot;, placeholder: &quot;Description&quot;, id: &#39;wysihtml5_editor&#39;}
+
+                  /= f.input :body, value: @artwork.body
+          .col-sm-6
+            =f.input :creator
+            =f.input :author
+            =f.input :copyright
+            =f.input :copyright_notice
+            =f.input :keywords
+
+        .row
+          .col-sm-12
+            .pull-right
+              = f.submit &#39;Save&#39;, class: &#39;btn btn-info&#39;
+
+== render &#39;shared/site_footer&#39;</code></pre>
+
+<h2 id="label-render+-27shared-2Finit_wysiwyg5-27">render &#39;shared/init_wysiwyg5&#39;</h2>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

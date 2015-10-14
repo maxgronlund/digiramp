@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>_form.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            _form.slim
+        </h1>
+        <ul class="files">
+            <li>views/account/recordings/_form.slim</li>
+            <li>Last modified: 2015-09-24 20:35:34 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>.digi-box</p>
+
+<pre><code>.row
+  .col-sm-6
+
+      = f.input :title, :input_html =&gt; {  style: &quot; width: 100%;&quot;, placeholder: &quot;Title&quot;}, autofocus:  true
+      /= f.input :cover_art, label: &#39;Cover Art. Ratio 1:1&#39;
+      /= f.input :image_file_id
+      /= f.input :image_file_id , :include_blank =&gt; false, :collection =&gt; @recording.image_files , label: &#39;Cover Art&#39;
+      .row
+        .col-sm-6
+          = f.input :image_file_id , :include_blank =&gt; true, :collection =&gt; @recording.artworks , label: &#39;Cover Art&#39;
+        .col-sm-6
+          &#39;Artwork
+          = f.file_field :cover_art, multiple: false
+      /= transloadit :recording_with_thumbs 
+      //= f.file_field :file
+      /= f.input :audio_file
+      = f.input :isrc_code, label: &#39;ISRC Code&#39;,:input_html =&gt; {  placeholder: &quot;ISRC Code&quot;}
+      .row
+        .col-sm-6
+          = f.input :artist, :input_html =&gt; {  style: &quot;height: 80px;&quot;, placeholder: &quot;Artist&quot;}
+        .col-sm-6
+          = f.input :performer, :input_html =&gt; {  style: &quot;height: 80px;&quot;, placeholder: &quot;Performer&quot;}
+      .row
+        .col-sm-6
+          = f.input :composer
+        .col-sm-6
+          = f.input :year
+      .row
+        .col-sm-6
+          = f.input :band
+        .col-sm-6
+          = f.input :vocal,   collection: Recording::VOCAL
+
+      .row
+        .col-sm-6
+          =f.input :disc
+        .col-sm-6
+          =f.input :track
+
+  .col-sm-6
+    //= f.input :lyrics, :input_html =&gt; {  style: &quot;height: 120px;&quot;, placeholder: &quot;Lyrics&quot;}
+    .row
+      .col-sm-6
+        = f.input :clearance, label: &#39;200% clearance&#39;
+      .col-sm-6
+        = f.input :explicit
+    = f.input :copyright
+
+    b Description
+    br
+    div id=&quot;toolbar&quot; class=&quot;wysihtml5-toolbar&quot;
+      a data-wysihtml5-command=&quot;bold&quot;
+        .btn.btn-default.btn-sm
+          &#39;Bold
+      a data-wysihtml5-command=&quot;italic&quot; 
+        .btn.btn-default.btn-sm
+          &#39;Italic
+
+      =f.input :comment, label: false, :input_html =&gt; {  style: &quot;height: 120px;&quot;, placeholder: &quot;Description&quot;, id: &#39;wysihtml5_editor&#39;}
+    /=f.input :genre
+    .row
+      .col-sm-6
+        = f.input :bpm
+
+        = f.input :duration
+        = f.input :mood
+      .col-sm-6
+        = f.input :tempo,   collection: Recording::TEMPO
+        = f.input :genre
+        = f.input :instruments</code></pre>
+
+<p>.pull-right</p>
+
+<pre><code>= f.submit &#39;Save&#39;, class: &#39;btn btn-info&#39;</code></pre>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

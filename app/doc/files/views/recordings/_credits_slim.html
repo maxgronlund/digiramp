@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>_credits.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            _credits.slim
+        </h1>
+        <ul class="files">
+            <li>views/recordings/_credits.slim</li>
+            <li>Last modified: 2015-07-29 16:05:26 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      <ul><li>
+<p>if @common_work</p>
+<ul><li>
+<p>ipis      =  @common_work.ipis.where(show_credit_on_recordings: true)</p>
+</li><li>
+<p>rec_ipis  = RecordingIpi.where(show_credit_on_recording: true,
+recording_id: @recording.id)</p>
+</li><li>
+<p>unless rec_ipis.empty? || ipis.empty? .row</p>
+
+<pre><code>.col-sm-12
+  .pull-right
+    a data-toggle=&quot;collapse&quot; data-parent=&quot;#credits&quot; href=&quot;#credits&quot;
+      .btn.btn-default
+        &#39;Show credits</code></pre>
+
+<p>.panel-collapse.collapse.pull-down-10 id=“credits”</p>
+
+<pre><code>.digi-box
+  - ipis.each do |ipi|
+    b = ipi.role
+    br
+    i
+      - if user = ipi.user
+        = link_to user.user_name, user_ipis_path(user)
+      - else
+        = ipi.full_name
+    .sexy_line
+
+  - rec_ipis.each do |rec_ipi|
+    b = rec_ipi.role
+    br
+    i
+      - if user = rec_ipi.user
+        = link_to user.user_name, user_ipis_path(user)
+      - else
+        = rec_ipi.name
+    p = rec_ipi.credit_for
+    .sexy_line</code></pre>
+
+<p>.pull-down-10</p>
+</li></ul>
+</li></ul>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

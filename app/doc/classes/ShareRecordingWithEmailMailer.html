@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>ShareRecordingWithEmailMailer</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../css/github.css" type="text/css" media="screen" />
+<script src="../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            <span class="type">Class</span> 
+            ShareRecordingWithEmailMailer 
+            
+                <span class="parent">&lt; 
+                    
+                    <a href="ApplicationMailer.html">ApplicationMailer</a>
+                    
+                </span>
+            
+        </h1>
+        <ul class="files">
+            
+            <li><a href="../files/mailers/share_recording_with_email_mailer_rb.html">mailers/share_recording_with_email_mailer.rb</a></li>
+            
+        </ul>
+    </div>
+    <div id="bodyContent">
+        <div id="content">
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+    <!-- Method ref -->
+    <div class="sectiontitle">Methods</div>
+    <dl class="methods">
+      
+        <dt>S</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-send_email">send_email</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+    </dl>
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+        
+      <div class="sectiontitle">Instance Public methods</div>
+      
+        <div class="method">
+          <div class="title method-title" id="method-i-send_email">
+            
+              <b>send_email</b>(id , email)
+            
+            <a href="../classes/ShareRecordingWithEmailMailer.html#method-i-send_email" name="method-i-send_email" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-send_email_source')" id="l_method-i-send_email_source">show</a>
+                
+              </p>
+              <div id="method-i-send_email_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File mailers/share_recording_with_email_mailer.rb, line 4</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">send_email</span> <span class="ruby-identifier">id</span> , <span class="ruby-identifier">email</span>
+   
+  <span class="ruby-identifier">share_recording_with_email</span>  = <span class="ruby-constant">ShareRecordingWithEmail</span>.<span class="ruby-identifier">find</span>( <span class="ruby-identifier">id</span> )
+  <span class="ruby-identifier">user</span>                        = <span class="ruby-identifier">share_recording_with_email</span>.<span class="ruby-identifier">user</span>
+  <span class="ruby-identifier">title</span>                       = <span class="ruby-identifier">share_recording_with_email</span>.<span class="ruby-identifier">title</span>
+  <span class="ruby-identifier">message</span>                     = <span class="ruby-identifier">share_recording_with_email</span>.<span class="ruby-identifier">message</span>
+  <span class="ruby-identifier">recording</span>                   = <span class="ruby-identifier">share_recording_with_email</span>.<span class="ruby-identifier">recording</span>
+  <span class="ruby-comment">#user                        = recording.user</span>
+  <span class="ruby-identifier">image_url</span>                   = <span class="ruby-identifier">recording</span>.<span class="ruby-identifier">cover_art</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">recording</span>.<span class="ruby-identifier">get_cover_art</span>
+  <span class="ruby-identifier">link</span>                        = <span class="ruby-identifier">url_for</span>( <span class="ruby-identifier">controller</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;recordings&#39;</span>, <span class="ruby-identifier">action</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;show&#39;</span>, <span class="ruby-identifier">user_id</span><span class="ruby-operator">:</span> <span class="ruby-identifier">recording</span>.<span class="ruby-identifier">user_id</span>, <span class="ruby-identifier">id</span><span class="ruby-operator">:</span> <span class="ruby-identifier">recording</span>.<span class="ruby-identifier">id</span>  )
+  <span class="ruby-comment">#fotter_link                      = url_for( controller: &#39;contacts&#39;, action: &#39;new&#39;)</span>
+
+  
+
+
+  <span class="ruby-keyword">begin</span>
+    <span class="ruby-identifier">template_name</span> = <span class="ruby-string">&quot;share-recording&quot;</span>
+    <span class="ruby-identifier">template_content</span> = []
+    <span class="ruby-identifier">message</span> = {
+      <span class="ruby-identifier">to</span><span class="ruby-operator">:</span> [{<span class="ruby-identifier">email</span><span class="ruby-operator">:</span> <span class="ruby-identifier">email</span> }],
+      <span class="ruby-identifier">from</span><span class="ruby-operator">:</span> {<span class="ruby-identifier">email</span><span class="ruby-operator">:</span> <span class="ruby-string">&quot;noreply@digiramp.com&quot;</span>},
+      <span class="ruby-identifier">subject</span><span class="ruby-operator">:</span> <span class="ruby-identifier">title</span>,
+      <span class="ruby-identifier">tags</span><span class="ruby-operator">:</span> [<span class="ruby-string">&quot;recording&quot;</span>, <span class="ruby-string">&quot;sharing&quot;</span>],
+      <span class="ruby-identifier">track_clicks</span><span class="ruby-operator">:</span> <span class="ruby-keyword">true</span>,
+      <span class="ruby-identifier">track_opens</span><span class="ruby-operator">:</span> <span class="ruby-keyword">true</span>,
+      <span class="ruby-identifier">subaccount</span><span class="ruby-operator">:</span> <span class="ruby-identifier">user</span>.<span class="ruby-identifier">mandrill_account_id</span>,
+      <span class="ruby-identifier">recipient_metadata</span><span class="ruby-operator">:</span> [{<span class="ruby-identifier">rcpt</span><span class="ruby-operator">:</span> <span class="ruby-identifier">email</span>, <span class="ruby-identifier">values</span><span class="ruby-operator">:</span> {<span class="ruby-identifier">recordingid</span><span class="ruby-operator">:</span> <span class="ruby-identifier">recording</span>.<span class="ruby-identifier">id</span>}}],
+      <span class="ruby-identifier">merge_vars</span><span class="ruby-operator">:</span> [
+        {
+         <span class="ruby-identifier">rcpt</span><span class="ruby-operator">:</span> <span class="ruby-identifier">email</span>,
+         <span class="ruby-identifier">vars</span><span class="ruby-operator">:</span> [
+                 {<span class="ruby-identifier">name</span><span class="ruby-operator">:</span> <span class="ruby-string">&quot;RECORDING_TITLE&quot;</span>,    <span class="ruby-identifier">content</span><span class="ruby-operator">:</span> <span class="ruby-identifier">recording</span>.<span class="ruby-identifier">title</span>},
+                 {<span class="ruby-identifier">name</span><span class="ruby-operator">:</span> <span class="ruby-string">&quot;RECORDING_COMMENT&quot;</span>,  <span class="ruby-identifier">content</span><span class="ruby-operator">:</span> <span class="ruby-identifier">recording</span>.<span class="ruby-identifier">comment</span>},
+                 {<span class="ruby-identifier">name</span><span class="ruby-operator">:</span> <span class="ruby-string">&quot;TITLE&quot;</span>,              <span class="ruby-identifier">content</span><span class="ruby-operator">:</span> <span class="ruby-identifier">title</span>},
+                 {<span class="ruby-identifier">name</span><span class="ruby-operator">:</span> <span class="ruby-string">&quot;MESSAGE&quot;</span>,            <span class="ruby-identifier">content</span><span class="ruby-operator">:</span> <span class="ruby-identifier">message</span>},
+                 {<span class="ruby-identifier">name</span><span class="ruby-operator">:</span> <span class="ruby-string">&quot;IMAGE_URL&quot;</span>,          <span class="ruby-identifier">content</span><span class="ruby-operator">:</span> <span class="ruby-identifier">image_url</span>},
+                 {<span class="ruby-identifier">name</span><span class="ruby-operator">:</span> <span class="ruby-string">&quot;LINK&quot;</span>,               <span class="ruby-identifier">content</span><span class="ruby-operator">:</span> <span class="ruby-identifier">link</span>}
+                 ]
+        }
+      ]
+    }
+    <span class="ruby-identifier">mandril_client</span>.<span class="ruby-identifier">messages</span>.<span class="ruby-identifier">send_template</span> <span class="ruby-identifier">template_name</span>, <span class="ruby-identifier">template_content</span>, <span class="ruby-identifier">message</span>
+  <span class="ruby-keyword">rescue</span> <span class="ruby-constant">Mandrill</span><span class="ruby-operator">::</span><span class="ruby-constant">Error</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
+    <span class="ruby-constant">Opbeat</span>.<span class="ruby-identifier">capture_message</span>(<span class="ruby-node">&quot;#{e.class} - #{e.message}&quot;</span>)
+  <span class="ruby-keyword">end</span>
+
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+                    </div>
+
+    </div>
+  </body>
+</html>    

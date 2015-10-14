@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>_legal_navigation.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            _legal_navigation.slim
+        </h1>
+        <ul class="files">
+            <li>views/user/shared/_legal_navigation.slim</li>
+            <li>Last modified: 2015-09-06 18:48:03 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>.row</p>
+
+<pre><code>.col-sm-12.hidden-xs
+  .btn-group.btn-group-justified
+
+    = link_to user_user_legal_index_path(@user), :class =&gt; &quot;btn btn-default&quot;
+      i.fa.fa-gavel&amp;nbsp;Legal
+
+    /= link_to user_user_digital_signatures_path(@user), :class =&gt; &quot;btn btn-default&quot;
+    /  i.fa.fa-pencil&amp;nbsp;Signatures
+
+    = link_to user_user_legal_documents_path(@user), :class =&gt; &quot;btn btn-default&quot;
+      i.fa.fa-file-pdf-o&amp;nbsp;Documents
+
+    = link_to user_user_ipis_path(@user), :class =&gt; &quot;btn btn-default&quot;
+      i.fa.fa-file-pdf-o&amp;nbsp;IP&#39;s
+
+    /= link_to user_user_legal_informations_path(@user), :class =&gt; &quot;btn btn-default&quot;
+    /  i.fa.fa-user
+    /  &#39;&amp;nbsp;Edit
+.col-sm-12.visible-xs
+  .btn-group.btn-group-justified
+
+    = link_to user_user_legal_index_path(@user), :class =&gt; &quot;btn btn-default&quot;
+      i.fa.fa-gavel
+
+    /= link_to user_user_digital_signatures_path(@user), :class =&gt; &quot;btn btn-default&quot;
+    /  i.fa.fa-pencil
+
+    = link_to user_user_legal_documents_path(@user), :class =&gt; &quot;btn btn-default&quot;
+      i.fa.fa-file-pdf-o
+
+    = link_to user_user_ipis_path(@user), :class =&gt; &quot;btn btn-default&quot;
+      i.fa.fa-file-pdf-o&amp;nbsp;IP&#39;s
+
+    /= link_to user_user_legal_informations_path(@user), :class =&gt; &quot;btn btn-default&quot;
+    /  i.fa.fa-user</code></pre>
+
+<p>/</p>
+
+<p>/</p>
+
+<p>/  = link_to catalog_account_catalog_financial_documents_path(@account,
+@catalog), :class =&gt; “btn btn-default” /    i.fa.fa-money /   
+&#39;&amp;nbsp;Financial documents</p>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

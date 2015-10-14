@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>_form.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            _form.slim
+        </h1>
+        <ul class="files">
+            <li>views/user/labels/_form.slim</li>
+            <li>Last modified: 2015-09-27 15:24:55 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<h1 id="label-simple_form_for+-5B-3Auser-2C+-40user-2C+-40label-5D++do+-7Cf-7C">simple_form_for [:user, @user, @label]  do |f|</h1>
+
+<pre><code>= f.error_notification
+.row
+  .col-sm-6
+    .form-inputs
+      = f.input :title
+      br
+      b Description
+      div id=&quot;toolbar&quot; class=&quot;wysihtml5-toolbar&quot;
+        a data-wysihtml5-command=&quot;bold&quot; Bold
+        &#39;&amp;nbsp; 
+        a data-wysihtml5-command=&quot;italic&quot; Italic
+        .pull-right
+          a data-wysihtml5-action=&quot;change_view&quot;  Html 
+
+      =f.input :body, label: false, :input_html =&gt; {  style: &quot;height: 182px;&quot;, placeholder: &quot;Description&quot;, id: &#39;wysihtml5_editor&#39;}
+  .col-sm-6
+    &#39;Ratio 1:1
+    br
+    .fileinput.fileinput-new data-provides=&quot;fileinput&quot;
+      .fileinput-new.thumbnail style=&quot;width: 270px; height: 270px;&quot;
+        = image_tag @label.image_url(:size_270x270), size: &#39;:size_270x270&#39;
+
+      div.fileinput-preview.fileinput-exists.thumbnail style=&quot;max-width: 270px; max-height: 270px;&quot;
+      div
+        span.btn.btn-default.btn-file
+          span class=&quot;fileinput-new&quot;
+            &#39;Change image
+          &#39;&amp;nbsp;
+          span class=&quot;fileinput-exists&quot;
+            &#39;Change
+          = f.file_field :image, multiple: false
+
+        &#39;&amp;nbsp;
+        a href=&quot;#&quot; class=&quot;btn btn-default fileinput-exists&quot; data-dismiss=&quot;fileinput&quot;
+          &#39;Remove
+
+    = f.hidden_field :user_id, value: @user.id
+    = f.hidden_field :account_id, value: @user.account_id
+.row
+  = f.simple_fields_for :address do |address_form|
+    .col-sm-6
+      /= address_form.input :first_name
+      /= address_form.input :middle_name
+      /= address_form.input :last_name
+      = address_form.input :address_line_1
+      = address_form.input :address_line_2
+    .col-sm-6
+      = address_form.input :city
+      = address_form.input :state
+      = address_form.input :country
+      = address_form.input :zip_code
+
+.row
+  .form-actions
+    .col-sm-12
+      .pull-right
+        = f.submit &#39;Save&#39;, class: &#39;btn btn-info&#39;</code></pre>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

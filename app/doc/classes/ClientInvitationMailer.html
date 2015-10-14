@@ -1,0 +1,510 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>ClientInvitationMailer</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../css/github.css" type="text/css" media="screen" />
+<script src="../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            <span class="type">Class</span> 
+            ClientInvitationMailer 
+            
+                <span class="parent">&lt; 
+                    
+                    <a href="ApplicationMailer.html">ApplicationMailer</a>
+                    
+                </span>
+            
+        </h1>
+        <ul class="files">
+            
+            <li><a href="../files/mailers/client_invitation_mailer_rb.html">mailers/client_invitation_mailer.rb</a></li>
+            
+        </ul>
+    </div>
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>require &#39;uri&#39;</p>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+    <!-- Method ref -->
+    <div class="sectiontitle">Methods</div>
+    <dl class="methods">
+      
+        <dt>C</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-client_has_received_email">client_has_received_email</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>G</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-get_client_invitation">get_client_invitation</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-i-get_merge_vars">get_merge_vars</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>I</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-invite_all_from_group">invite_all_from_group</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-i-invite_batch">invite_batch</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>S</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-send_one_with_avatar">send_one_with_avatar</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-i-send_to_mandrill">send_to_mandrill</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+    </dl>
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+        
+      <div class="sectiontitle">Instance Public methods</div>
+      
+        <div class="method">
+          <div class="title method-title" id="method-i-client_has_received_email">
+            
+              <b>client_has_received_email</b>(client)
+            
+            <a href="../classes/ClientInvitationMailer.html#method-i-client_has_received_email" name="method-i-client_has_received_email" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-client_has_received_email_source')" id="l_method-i-client_has_received_email_source">show</a>
+                
+              </p>
+              <div id="method-i-client_has_received_email_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File mailers/client_invitation_mailer.rb, line 116</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">client_has_received_email</span> <span class="ruby-identifier">client</span>
+  
+  <span class="ruby-identifier">client_invitation</span> = <span class="ruby-constant">ClientInvitation</span>.<span class="ruby-identifier">where</span>( <span class="ruby-identifier">user_id</span><span class="ruby-operator">:</span> <span class="ruby-identifier">client</span>.<span class="ruby-identifier">user_id</span>, <span class="ruby-identifier">email</span><span class="ruby-operator">:</span> <span class="ruby-identifier">client</span>.<span class="ruby-identifier">email</span> ).<span class="ruby-identifier">first</span>
+  <span class="ruby-identifier">client_invitation</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-operator">!</span><span class="ruby-identifier">client_invitation</span>.<span class="ruby-identifier">pending?</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-get_client_invitation">
+            
+              <b>get_client_invitation</b>(client, client_group_id)
+            
+            <a href="../classes/ClientInvitationMailer.html#method-i-get_client_invitation" name="method-i-get_client_invitation" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-get_client_invitation_source')" id="l_method-i-get_client_invitation_source">show</a>
+                
+              </p>
+              <div id="method-i-get_client_invitation_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File mailers/client_invitation_mailer.rb, line 122</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">get_client_invitation</span> <span class="ruby-identifier">client</span>, <span class="ruby-identifier">client_group_id</span>
+  <span class="ruby-constant">ClientInvitation</span>.<span class="ruby-identifier">where</span>( <span class="ruby-identifier">user_id</span><span class="ruby-operator">:</span>          <span class="ruby-identifier">client</span>.<span class="ruby-identifier">user_id</span>, <span class="ruby-identifier">email</span><span class="ruby-operator">:</span> <span class="ruby-identifier">client</span>.<span class="ruby-identifier">email</span> )
+        .<span class="ruby-identifier">first_or_create</span>( <span class="ruby-identifier">user_id</span><span class="ruby-operator">:</span>          <span class="ruby-identifier">client</span>.<span class="ruby-identifier">user_id</span>,
+                          <span class="ruby-identifier">email</span><span class="ruby-operator">:</span>            <span class="ruby-identifier">client</span>.<span class="ruby-identifier">email</span>, 
+                          <span class="ruby-identifier">client_id</span><span class="ruby-operator">:</span>        <span class="ruby-identifier">client</span>.<span class="ruby-identifier">id</span>,
+                          <span class="ruby-identifier">account_id</span><span class="ruby-operator">:</span>       <span class="ruby-identifier">client</span>.<span class="ruby-identifier">account_id</span>, 
+                          <span class="ruby-identifier">client_group_id</span><span class="ruby-operator">:</span>  <span class="ruby-identifier">client_group_id</span>,
+                          <span class="ruby-identifier">uuid</span><span class="ruby-operator">:</span>             <span class="ruby-constant">UUIDTools</span><span class="ruby-operator">::</span><span class="ruby-constant">UUID</span>.<span class="ruby-identifier">timestamp_create</span>().<span class="ruby-identifier">to_s</span>)        
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-get_merge_vars">
+            
+              <b>get_merge_vars</b>(email, inviter, accept_url, decline_url, avatar_url, sender_url)
+            
+            <a href="../classes/ClientInvitationMailer.html#method-i-get_merge_vars" name="method-i-get_merge_vars" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-get_merge_vars_source')" id="l_method-i-get_merge_vars_source">show</a>
+                
+              </p>
+              <div id="method-i-get_merge_vars_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File mailers/client_invitation_mailer.rb, line 19</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">get_merge_vars</span> <span class="ruby-identifier">email</span>, <span class="ruby-identifier">inviter</span>, <span class="ruby-identifier">accept_url</span>, <span class="ruby-identifier">decline_url</span>, <span class="ruby-identifier">avatar_url</span>, <span class="ruby-identifier">sender_url</span>
+  { <span class="ruby-identifier">rcpt</span><span class="ruby-operator">:</span> <span class="ruby-identifier">email</span>,
+    <span class="ruby-identifier">vars</span><span class="ruby-operator">:</span> [ {<span class="ruby-identifier">name</span><span class="ruby-operator">:</span> <span class="ruby-string">&quot;USER_NAME&quot;</span>,            <span class="ruby-identifier">content</span><span class="ruby-operator">:</span> <span class="ruby-identifier">inviter</span>.<span class="ruby-identifier">user_name</span>},
+            {<span class="ruby-identifier">name</span><span class="ruby-operator">:</span> <span class="ruby-string">&quot;PROFESION&quot;</span>,            <span class="ruby-identifier">content</span><span class="ruby-operator">:</span> <span class="ruby-identifier">inviter</span>.<span class="ruby-identifier">profession</span>},
+            {<span class="ruby-identifier">name</span><span class="ruby-operator">:</span> <span class="ruby-string">&quot;SHORT_DESCRIPTION&quot;</span>,    <span class="ruby-identifier">content</span><span class="ruby-operator">:</span> <span class="ruby-identifier">inviter</span>.<span class="ruby-identifier">short_description</span>},
+            {<span class="ruby-identifier">name</span><span class="ruby-operator">:</span> <span class="ruby-string">&quot;WRITER&quot;</span>,               <span class="ruby-identifier">content</span><span class="ruby-operator">:</span> <span class="ruby-identifier">inviter</span>.<span class="ruby-identifier">writer</span>},
+            {<span class="ruby-identifier">name</span><span class="ruby-operator">:</span> <span class="ruby-string">&quot;AUTHOR&quot;</span>,               <span class="ruby-identifier">content</span><span class="ruby-operator">:</span> <span class="ruby-identifier">inviter</span>.<span class="ruby-identifier">author</span>},
+            {<span class="ruby-identifier">name</span><span class="ruby-operator">:</span> <span class="ruby-string">&quot;PRODUCER&quot;</span>,             <span class="ruby-identifier">content</span><span class="ruby-operator">:</span> <span class="ruby-identifier">inviter</span>.<span class="ruby-identifier">producer</span>},
+            {<span class="ruby-identifier">name</span><span class="ruby-operator">:</span> <span class="ruby-string">&quot;COMPOSER&quot;</span>,             <span class="ruby-identifier">content</span><span class="ruby-operator">:</span> <span class="ruby-identifier">inviter</span>.<span class="ruby-identifier">composer</span>},
+            {<span class="ruby-identifier">name</span><span class="ruby-operator">:</span> <span class="ruby-string">&quot;REMIXER&quot;</span>,              <span class="ruby-identifier">content</span><span class="ruby-operator">:</span> <span class="ruby-identifier">inviter</span>.<span class="ruby-identifier">remixer</span>},
+            {<span class="ruby-identifier">name</span><span class="ruby-operator">:</span> <span class="ruby-string">&quot;MUSICIAN&quot;</span>,             <span class="ruby-identifier">content</span><span class="ruby-operator">:</span> <span class="ruby-identifier">inviter</span>.<span class="ruby-identifier">musician</span>},
+            {<span class="ruby-identifier">name</span><span class="ruby-operator">:</span> <span class="ruby-string">&quot;DJ&quot;</span>,                   <span class="ruby-identifier">content</span><span class="ruby-operator">:</span> <span class="ruby-identifier">inviter</span>.<span class="ruby-identifier">dj</span>},
+            {<span class="ruby-identifier">name</span><span class="ruby-operator">:</span> <span class="ruby-string">&quot;ARTIST&quot;</span>,               <span class="ruby-identifier">content</span><span class="ruby-operator">:</span> <span class="ruby-identifier">inviter</span>.<span class="ruby-identifier">artist</span>},
+            {<span class="ruby-identifier">name</span><span class="ruby-operator">:</span> <span class="ruby-string">&quot;ACCEPT_URL&quot;</span>,           <span class="ruby-identifier">content</span><span class="ruby-operator">:</span> <span class="ruby-identifier">accept_url</span>},
+            {<span class="ruby-identifier">name</span><span class="ruby-operator">:</span> <span class="ruby-string">&quot;DECLINE_URL&quot;</span>,          <span class="ruby-identifier">content</span><span class="ruby-operator">:</span> <span class="ruby-identifier">decline_url</span>},
+            {<span class="ruby-identifier">name</span><span class="ruby-operator">:</span> <span class="ruby-string">&quot;AVATAR_URL&quot;</span>,           <span class="ruby-identifier">content</span><span class="ruby-operator">:</span> <span class="ruby-identifier">avatar_url</span>},
+            {<span class="ruby-identifier">name</span><span class="ruby-operator">:</span> <span class="ruby-string">&quot;SENDER_URL&quot;</span>,           <span class="ruby-identifier">content</span><span class="ruby-operator">:</span> <span class="ruby-identifier">sender_url</span>}
+          ]
+  }
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-invite_all_from_group">
+            
+              <b>invite_all_from_group</b>(client_group_id)
+            
+            <a href="../classes/ClientInvitationMailer.html#method-i-invite_all_from_group" name="method-i-invite_all_from_group" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              <p>send in batches</p>
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-invite_all_from_group_source')" id="l_method-i-invite_all_from_group_source">show</a>
+                
+              </p>
+              <div id="method-i-invite_all_from_group_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File mailers/client_invitation_mailer.rb, line 41</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">invite_all_from_group</span> <span class="ruby-identifier">client_group_id</span>
+  <span class="ruby-identifier">client_group</span>    = <span class="ruby-constant">ClientGroup</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">client_group_id</span>)
+  <span class="ruby-identifier">client_group</span>.<span class="ruby-identifier">clients</span>.<span class="ruby-identifier">in_groups_of</span>(<span class="ruby-number">256</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">client_batch</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">invite_batch</span>( <span class="ruby-identifier">client_group</span>, <span class="ruby-identifier">client_batch</span>)
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-invite_batch">
+            
+              <b>invite_batch</b>(client_group, client_batch)
+            
+            <a href="../classes/ClientInvitationMailer.html#method-i-invite_batch" name="method-i-invite_batch" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-invite_batch_source')" id="l_method-i-invite_batch_source">show</a>
+                
+              </p>
+              <div id="method-i-invite_batch_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File mailers/client_invitation_mailer.rb, line 48</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">invite_batch</span> <span class="ruby-identifier">client_group</span>, <span class="ruby-identifier">client_batch</span>
+  
+  <span class="ruby-comment"># collect data</span>
+  <span class="ruby-identifier">inviter</span>                 = <span class="ruby-identifier">client_group</span>.<span class="ruby-identifier">user</span>
+  <span class="ruby-identifier">avatar_url</span>              = ( <span class="ruby-constant">URI</span>.<span class="ruby-identifier">parse</span>(<span class="ruby-identifier">root_url</span>) <span class="ruby-operator">+</span> <span class="ruby-identifier">inviter</span>.<span class="ruby-identifier">image_url</span>(<span class="ruby-value">:avatar_92x92</span>) ).<span class="ruby-identifier">to_s</span>
+  <span class="ruby-identifier">sender_url</span>              = <span class="ruby-identifier">url_for</span>( <span class="ruby-identifier">controller</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;/users&#39;</span>, <span class="ruby-identifier">action</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;show&#39;</span>, <span class="ruby-identifier">id</span><span class="ruby-operator">:</span> <span class="ruby-identifier">inviter</span>.<span class="ruby-identifier">id</span> )
+  <span class="ruby-identifier">invitations</span>             = []
+  <span class="ruby-identifier">emails</span>                  = []
+  <span class="ruby-identifier">accept_urls</span>             = []
+  <span class="ruby-identifier">receipients_with_names</span>  = []
+  <span class="ruby-identifier">merge_vars</span>              = []
+  
+  <span class="ruby-comment"># pack info</span>
+  <span class="ruby-identifier">client_batch</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">client</span><span class="ruby-operator">|</span>
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">client</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">email</span> = <span class="ruby-identifier">client</span>.<span class="ruby-identifier">email</span>
+      <span class="ruby-comment"># Don&#39;t invite clients two times</span>
+      <span class="ruby-keyword">if</span> <span class="ruby-identifier">client_has_received_email</span>( <span class="ruby-identifier">client</span> )
+       
+      <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">invitation</span>          = <span class="ruby-identifier">get_client_invitation</span>( <span class="ruby-identifier">client</span>, <span class="ruby-identifier">client_group</span>.<span class="ruby-identifier">id</span> )
+        <span class="ruby-identifier">accept_url</span>              = <span class="ruby-identifier">url_for</span>( <span class="ruby-identifier">controller</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;/contact_invitations&#39;</span>, <span class="ruby-identifier">action</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;accept_invitation&#39;</span>, <span class="ruby-identifier">contact_invitation_id</span><span class="ruby-operator">:</span>  <span class="ruby-identifier">invitation</span>.<span class="ruby-identifier">uuid</span> )
+        <span class="ruby-identifier">decline_url</span>             = <span class="ruby-identifier">url_for</span>( <span class="ruby-identifier">controller</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;/contact_invitations&#39;</span>, <span class="ruby-identifier">action</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;decline_invitation&#39;</span>, <span class="ruby-identifier">contact_invitation_id</span><span class="ruby-operator">:</span> <span class="ruby-identifier">invitation</span>.<span class="ruby-identifier">uuid</span> )
+        <span class="ruby-identifier">receipients_with_names</span> <span class="ruby-operator">&lt;&lt;</span> {<span class="ruby-identifier">email</span><span class="ruby-operator">:</span> <span class="ruby-identifier">invitation</span>.<span class="ruby-identifier">email</span>, <span class="ruby-identifier">name</span><span class="ruby-operator">:</span> <span class="ruby-identifier">client</span>.<span class="ruby-identifier">name</span>}
+        <span class="ruby-identifier">invitations</span>            <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">invitation</span>
+        <span class="ruby-identifier">merge_vars</span>             <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">get_merge_vars</span>( <span class="ruby-identifier">email</span>, <span class="ruby-identifier">inviter</span>, <span class="ruby-identifier">accept_url</span>, <span class="ruby-identifier">decline_url</span>, <span class="ruby-identifier">avatar_url</span>, <span class="ruby-identifier">sender_url</span> )           
+      <span class="ruby-keyword">end</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+   
+  <span class="ruby-comment"># send batch</span>
+  <span class="ruby-keyword">unless</span> <span class="ruby-identifier">merge_vars</span>.<span class="ruby-identifier">empty?</span>
+    <span class="ruby-identifier">send_to_mandrill</span>( <span class="ruby-identifier">receipients_with_names</span>, <span class="ruby-identifier">inviter</span>, <span class="ruby-identifier">merge_vars</span>, <span class="ruby-identifier">invitations</span> )
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-constant">Opbeat</span>.<span class="ruby-identifier">capture_message</span>(<span class="ruby-node">&quot;ClientInvitationMailer: client_group_id: #{client_group.id}&quot;</span>)
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-send_one_with_avatar">
+            
+              <b>send_one_with_avatar</b>(client_invitation_id)
+            
+            <a href="../classes/ClientInvitationMailer.html#method-i-send_one_with_avatar" name="method-i-send_one_with_avatar" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-send_one_with_avatar_source')" id="l_method-i-send_one_with_avatar_source">show</a>
+                
+              </p>
+              <div id="method-i-send_one_with_avatar_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File mailers/client_invitation_mailer.rb, line 5</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">send_one_with_avatar</span> <span class="ruby-identifier">client_invitation_id</span>
+  <span class="ruby-identifier">client_invitation</span>      = <span class="ruby-constant">ClientInvitation</span>.<span class="ruby-identifier">cached_find</span>(<span class="ruby-identifier">client_invitation_id</span>)
+  <span class="ruby-identifier">email</span>                  = <span class="ruby-identifier">client_invitation</span>.<span class="ruby-identifier">email</span>
+  <span class="ruby-identifier">inviter</span>                = <span class="ruby-identifier">client_invitation</span>.<span class="ruby-identifier">user</span>
+  <span class="ruby-identifier">avatar_url</span>             = ( <span class="ruby-constant">URI</span>.<span class="ruby-identifier">parse</span>(<span class="ruby-identifier">root_url</span>) <span class="ruby-operator">+</span> <span class="ruby-identifier">inviter</span>.<span class="ruby-identifier">image_url</span>(<span class="ruby-value">:avatar_92x92</span>) ).<span class="ruby-identifier">to_s</span>
+  <span class="ruby-identifier">sender_url</span>             = <span class="ruby-identifier">url_for</span>( <span class="ruby-identifier">controller</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;/users&#39;</span>, <span class="ruby-identifier">action</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;show&#39;</span>, <span class="ruby-identifier">id</span><span class="ruby-operator">:</span> <span class="ruby-identifier">inviter</span>.<span class="ruby-identifier">id</span> )
+  <span class="ruby-identifier">accept_url</span>             = <span class="ruby-identifier">url_for</span>( <span class="ruby-identifier">controller</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;/contact_invitations&#39;</span>, <span class="ruby-identifier">action</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;accept_invitation&#39;</span>,  <span class="ruby-identifier">contact_invitation_id</span><span class="ruby-operator">:</span> <span class="ruby-identifier">client_invitation</span>.<span class="ruby-identifier">uuid</span> )
+  <span class="ruby-identifier">decline_url</span>            = <span class="ruby-identifier">url_for</span>( <span class="ruby-identifier">controller</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;/contact_invitations&#39;</span>, <span class="ruby-identifier">action</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;decline_invitation&#39;</span>, <span class="ruby-identifier">contact_invitation_id</span><span class="ruby-operator">:</span> <span class="ruby-identifier">client_invitation</span>.<span class="ruby-identifier">uuid</span> )
+  <span class="ruby-identifier">receipients_with_names</span> = [{<span class="ruby-identifier">email</span><span class="ruby-operator">:</span> <span class="ruby-identifier">email</span>, <span class="ruby-identifier">name</span><span class="ruby-operator">:</span> <span class="ruby-identifier">client_invitation</span>.<span class="ruby-identifier">client</span>.<span class="ruby-identifier">name</span>}]
+  <span class="ruby-identifier">merge_vars</span>             = [<span class="ruby-identifier">get_merge_vars</span>( <span class="ruby-identifier">email</span>, <span class="ruby-identifier">inviter</span>, <span class="ruby-identifier">accept_url</span>, <span class="ruby-identifier">decline_url</span>, <span class="ruby-identifier">avatar_url</span>, <span class="ruby-identifier">sender_url</span> )]
+  
+  <span class="ruby-identifier">send_to_mandrill</span>( <span class="ruby-identifier">receipients_with_names</span>, <span class="ruby-identifier">inviter</span>, <span class="ruby-identifier">merge_vars</span>, [<span class="ruby-identifier">client_invitation</span>] )
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-send_to_mandrill">
+            
+              <b>send_to_mandrill</b>(receipients_with_names, inviter, merge_vars, invitations)
+            
+            <a href="../classes/ClientInvitationMailer.html#method-i-send_to_mandrill" name="method-i-send_to_mandrill" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-send_to_mandrill_source')" id="l_method-i-send_to_mandrill_source">show</a>
+                
+              </p>
+              <div id="method-i-send_to_mandrill_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File mailers/client_invitation_mailer.rb, line 84</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">send_to_mandrill</span> <span class="ruby-identifier">receipients_with_names</span>, <span class="ruby-identifier">inviter</span>, <span class="ruby-identifier">merge_vars</span>, <span class="ruby-identifier">invitations</span>
+  <span class="ruby-keyword">begin</span>
+    <span class="ruby-identifier">template_name</span> = <span class="ruby-string">&quot;user-invitation&quot;</span>
+    <span class="ruby-identifier">template_content</span> = []
+    <span class="ruby-identifier">message</span> = { <span class="ruby-identifier">to</span><span class="ruby-operator">:</span> <span class="ruby-identifier">receipients_with_names</span> ,
+                <span class="ruby-identifier">from</span><span class="ruby-operator">:</span> {<span class="ruby-identifier">email</span><span class="ruby-operator">:</span> <span class="ruby-string">&quot;noreply@digiramp.com&quot;</span>},
+                <span class="ruby-identifier">subject</span><span class="ruby-operator">:</span> <span class="ruby-string">&quot;Please join my network on DigiRAMP&quot;</span>,
+                <span class="ruby-identifier">tags</span><span class="ruby-operator">:</span> [<span class="ruby-string">&quot;user-invitation&quot;</span>],
+                <span class="ruby-identifier">track_clicks</span><span class="ruby-operator">:</span> <span class="ruby-keyword">true</span>,
+                <span class="ruby-identifier">track_opens</span><span class="ruby-operator">:</span> <span class="ruby-keyword">true</span>,
+                <span class="ruby-identifier">subaccount</span><span class="ruby-operator">:</span> <span class="ruby-identifier">inviter</span>.<span class="ruby-identifier">mandrill_account_id</span>,
+                <span class="ruby-comment">#recipient_metadata: recipient_metadata,</span>
+                <span class="ruby-identifier">merge_vars</span><span class="ruby-operator">:</span> <span class="ruby-identifier">merge_vars</span>
+              }
+    <span class="ruby-identifier">resoults</span> =  <span class="ruby-identifier">mandril_client</span>.<span class="ruby-identifier">messages</span>.<span class="ruby-identifier">send_template</span> <span class="ruby-identifier">template_name</span>, <span class="ruby-identifier">template_content</span>, <span class="ruby-identifier">message</span>
+    <span class="ruby-comment"># stamp ids</span>
+    <span class="ruby-identifier">resoults</span>.<span class="ruby-identifier">each_with_index</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">resoult</span>, <span class="ruby-identifier">index</span><span class="ruby-operator">|</span>
+      <span class="ruby-keyword">begin</span>
+        <span class="ruby-identifier">invitations</span>[<span class="ruby-identifier">index</span>].<span class="ruby-identifier">mandrill_id</span> = <span class="ruby-identifier">resoult</span>[<span class="ruby-string">&quot;_id&quot;</span>]
+        <span class="ruby-identifier">invitations</span>[<span class="ruby-identifier">index</span>].<span class="ruby-identifier">sent!</span>
+        <span class="ruby-identifier">invitations</span>[<span class="ruby-identifier">index</span>].<span class="ruby-identifier">save</span>
+      <span class="ruby-keyword">rescue</span>
+      <span class="ruby-keyword">end</span>
+    <span class="ruby-keyword">end</span>
+
+  <span class="ruby-keyword">rescue</span> <span class="ruby-constant">Mandrill</span><span class="ruby-operator">::</span><span class="ruby-constant">Error</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
+    
+    <span class="ruby-identifier">message</span> = <span class="ruby-node">&quot;#{e.class} - #{e.message}&quot;</span>
+    <span class="ruby-constant">ErrorNotification</span>.<span class="ruby-identifier">post</span> <span class="ruby-identifier">message</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+                    </div>
+
+    </div>
+  </body>
+</html>    

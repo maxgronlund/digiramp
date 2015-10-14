@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>OpportunityEvaluationMailer</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../css/github.css" type="text/css" media="screen" />
+<script src="../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            <span class="type">Class</span> 
+            OpportunityEvaluationMailer 
+            
+                <span class="parent">&lt; 
+                    
+                    <a href="ApplicationMailer.html">ApplicationMailer</a>
+                    
+                </span>
+            
+        </h1>
+        <ul class="files">
+            
+            <li><a href="../files/mailers/opportunity_evaluation_mailer_rb.html">mailers/opportunity_evaluation_mailer.rb</a></li>
+            
+        </ul>
+    </div>
+    <div id="bodyContent">
+        <div id="content">
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+    <!-- Method ref -->
+    <div class="sectiontitle">Methods</div>
+    <dl class="methods">
+      
+        <dt>I</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-invite">invite</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-i-invite_to_account">invite_to_account</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+    </dl>
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+        
+      <div class="sectiontitle">Instance Public methods</div>
+      
+        <div class="method">
+          <div class="title method-title" id="method-i-invite">
+            
+              <b>invite</b>(user_id, opportunity_evaluation_id)
+            
+            <a href="../classes/OpportunityEvaluationMailer.html#method-i-invite" name="method-i-invite" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-invite_source')" id="l_method-i-invite_source">show</a>
+                
+              </p>
+              <div id="method-i-invite_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File mailers/opportunity_evaluation_mailer.rb, line 3</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">invite</span> <span class="ruby-identifier">user_id</span>, <span class="ruby-identifier">opportunity_evaluation_id</span>
+  
+  <span class="ruby-identifier">opportunity_evaluation</span>        = <span class="ruby-constant">OpportunityEvaluation</span>.<span class="ruby-identifier">cached_find</span>(<span class="ruby-identifier">opportunity_evaluation_id</span>)
+  <span class="ruby-identifier">user</span>                          = <span class="ruby-constant">User</span>.<span class="ruby-identifier">cached_find</span>(<span class="ruby-identifier">user_id</span>)
+  <span class="ruby-identifier">email</span>                         = <span class="ruby-identifier">user</span>.<span class="ruby-identifier">email</span>
+  <span class="ruby-identifier">sender</span>                        = <span class="ruby-constant">User</span>.<span class="ruby-identifier">cached_find</span>(<span class="ruby-identifier">opportunity_evaluation</span>.<span class="ruby-identifier">user_id</span>)
+  
+  <span class="ruby-identifier">link</span>                          = <span class="ruby-identifier">url_for</span>( <span class="ruby-identifier">controller</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;opportunity/opportunities&#39;</span>, 
+                                           <span class="ruby-identifier">action</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;show&#39;</span>, 
+                                           <span class="ruby-identifier">id</span><span class="ruby-operator">:</span> <span class="ruby-identifier">opportunity_evaluation</span>.<span class="ruby-identifier">opportunity_id</span>, 
+                                           <span class="ruby-identifier">opportunity_invitation</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;true&#39;</span>, 
+                                           <span class="ruby-identifier">user_id</span><span class="ruby-operator">:</span> <span class="ruby-identifier">user</span>.<span class="ruby-identifier">id</span>)
+                                           
+  <span class="ruby-comment">#fotter_link                   = url_for( controller: &#39;contacts&#39;, </span>
+  <span class="ruby-comment">#                                        action: &#39;new&#39;)</span>
+  
+  <span class="ruby-identifier">subject</span> = <span class="ruby-identifier">opportunity_evaluation</span>.<span class="ruby-identifier">subject</span>
+  <span class="ruby-identifier">title</span>   = <span class="ruby-identifier">opportunity_evaluation</span>.<span class="ruby-identifier">subject</span>
+  <span class="ruby-identifier">body</span>    = <span class="ruby-identifier">opportunity_evaluation</span>.<span class="ruby-identifier">body</span>
+  
+  <span class="ruby-keyword">begin</span>
+    <span class="ruby-identifier">template_name</span> = <span class="ruby-string">&quot;opportunity-evaluation-for-new-user&quot;</span>
+    <span class="ruby-identifier">template_content</span> = []
+    <span class="ruby-identifier">message</span> = {
+      <span class="ruby-identifier">to</span><span class="ruby-operator">:</span> [{<span class="ruby-identifier">email</span><span class="ruby-operator">:</span> <span class="ruby-identifier">email</span> }],
+      <span class="ruby-identifier">from</span><span class="ruby-operator">:</span> {<span class="ruby-identifier">email</span><span class="ruby-operator">:</span> <span class="ruby-string">&quot;noreply@digiramp.com&quot;</span>},
+      <span class="ruby-identifier">subject</span><span class="ruby-operator">:</span> <span class="ruby-identifier">subject</span>,
+      <span class="ruby-identifier">tags</span><span class="ruby-operator">:</span> [<span class="ruby-string">&quot;opportunity&quot;</span>, <span class="ruby-string">&quot;invitation&quot;</span>, <span class="ruby-string">&quot;invite-to-account&quot;</span>],
+      <span class="ruby-identifier">track_clicks</span><span class="ruby-operator">:</span> <span class="ruby-keyword">true</span>,
+      <span class="ruby-identifier">track_opens</span><span class="ruby-operator">:</span> <span class="ruby-keyword">true</span>,
+      <span class="ruby-identifier">subaccount</span><span class="ruby-operator">:</span> <span class="ruby-identifier">sender</span>.<span class="ruby-identifier">mandrill_account_id</span>,
+      <span class="ruby-identifier">recipient_metadata</span><span class="ruby-operator">:</span> [{<span class="ruby-identifier">rcpt</span><span class="ruby-operator">:</span> <span class="ruby-identifier">email</span>, <span class="ruby-identifier">values</span><span class="ruby-operator">:</span> {<span class="ruby-identifier">opportunity_evaluation_id</span><span class="ruby-operator">:</span> <span class="ruby-identifier">opportunity_evaluation</span>.<span class="ruby-identifier">id</span>}}],
+      <span class="ruby-identifier">merge_vars</span><span class="ruby-operator">:</span> [
+        {
+         <span class="ruby-identifier">rcpt</span><span class="ruby-operator">:</span> <span class="ruby-identifier">email</span>,
+         <span class="ruby-identifier">vars</span><span class="ruby-operator">:</span> [
+                 {<span class="ruby-identifier">name</span><span class="ruby-operator">:</span> <span class="ruby-string">&quot;TITLE&quot;</span>,       <span class="ruby-identifier">content</span><span class="ruby-operator">:</span> <span class="ruby-identifier">title</span>},
+                 {<span class="ruby-identifier">name</span><span class="ruby-operator">:</span> <span class="ruby-string">&quot;BODY&quot;</span>,        <span class="ruby-identifier">content</span><span class="ruby-operator">:</span> <span class="ruby-identifier">body</span> },
+                 {<span class="ruby-identifier">name</span><span class="ruby-operator">:</span> <span class="ruby-string">&quot;LINK&quot;</span>,        <span class="ruby-identifier">content</span><span class="ruby-operator">:</span> <span class="ruby-identifier">link</span> }
+                 ]
+        }
+      ]
+    }
+    <span class="ruby-identifier">mandril_client</span>.<span class="ruby-identifier">messages</span>.<span class="ruby-identifier">send_template</span> <span class="ruby-identifier">template_name</span>, <span class="ruby-identifier">template_content</span>, <span class="ruby-identifier">message</span>
+  <span class="ruby-keyword">rescue</span> <span class="ruby-constant">Mandrill</span><span class="ruby-operator">::</span><span class="ruby-constant">Error</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
+    <span class="ruby-constant">Opbeat</span>.<span class="ruby-identifier">capture_message</span>(<span class="ruby-node">&quot;#{e.class} - #{e.message}&quot;</span>)
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-invite_to_account">
+            
+              <b>invite_to_account</b>(user_id, opportunity_evaluation_id)
+            
+            <a href="../classes/OpportunityEvaluationMailer.html#method-i-invite_to_account" name="method-i-invite_to_account" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-invite_to_account_source')" id="l_method-i-invite_to_account_source">show</a>
+                
+              </p>
+              <div id="method-i-invite_to_account_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File mailers/opportunity_evaluation_mailer.rb, line 52</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">invite_to_account</span> <span class="ruby-identifier">user_id</span>, <span class="ruby-identifier">opportunity_evaluation_id</span>
+  <span class="ruby-identifier">user</span>                          = <span class="ruby-constant">User</span>.<span class="ruby-identifier">cached_find</span>(<span class="ruby-identifier">user_id</span>)
+  <span class="ruby-identifier">email</span>                         = <span class="ruby-identifier">user</span>.<span class="ruby-identifier">email</span>
+  <span class="ruby-identifier">opportunity_evaluation</span>        = <span class="ruby-constant">OpportunityEvaluation</span>.<span class="ruby-identifier">cached_find</span>(<span class="ruby-identifier">opportunity_evaluation_id</span>)
+  <span class="ruby-identifier">sender</span>                        = <span class="ruby-constant">User</span>.<span class="ruby-identifier">cached_find</span>(<span class="ruby-identifier">opportunity_evaluation</span>.<span class="ruby-identifier">user_id</span>)
+  
+  <span class="ruby-identifier">link</span>                          = <span class="ruby-identifier">url_for</span>( <span class="ruby-identifier">controller</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;opportunity/opportunities&#39;</span>, 
+                                           <span class="ruby-identifier">action</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;show&#39;</span>, 
+                                           <span class="ruby-identifier">id</span><span class="ruby-operator">:</span> <span class="ruby-identifier">opportunity_evaluation</span>.<span class="ruby-identifier">opportunity_id</span>, 
+                                           <span class="ruby-identifier">opportunity_invitation</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;true&#39;</span>, 
+                                           <span class="ruby-identifier">user_id</span><span class="ruby-operator">:</span> <span class="ruby-identifier">user</span>.<span class="ruby-identifier">id</span>)
+                                           
+  <span class="ruby-comment">#fotter_link                   = url_for( controller: &#39;contacts&#39;, </span>
+  <span class="ruby-comment">#                                        action: &#39;new&#39;)</span>
+  
+  <span class="ruby-identifier">subject</span> = <span class="ruby-identifier">opportunity_evaluation</span>.<span class="ruby-identifier">subject</span>
+  <span class="ruby-identifier">title</span>   = <span class="ruby-identifier">opportunity_evaluation</span>.<span class="ruby-identifier">subject</span>
+  <span class="ruby-identifier">body</span>    = <span class="ruby-identifier">opportunity_evaluation</span>.<span class="ruby-identifier">body</span>
+  
+  <span class="ruby-keyword">begin</span>
+    <span class="ruby-identifier">template_name</span> = <span class="ruby-string">&quot;opportunity-evaluation-for-new-user&quot;</span>
+    <span class="ruby-identifier">template_content</span> = []
+    <span class="ruby-identifier">message</span> = {
+      <span class="ruby-identifier">to</span><span class="ruby-operator">:</span> [{<span class="ruby-identifier">email</span><span class="ruby-operator">:</span> <span class="ruby-identifier">email</span> }],
+      <span class="ruby-identifier">from</span><span class="ruby-operator">:</span> {<span class="ruby-identifier">email</span><span class="ruby-operator">:</span> <span class="ruby-string">&quot;noreply@digiramp.com&quot;</span>},
+      <span class="ruby-identifier">subject</span><span class="ruby-operator">:</span> <span class="ruby-identifier">subject</span>,
+      <span class="ruby-identifier">tags</span><span class="ruby-operator">:</span> [<span class="ruby-string">&quot;opportunity&quot;</span>, <span class="ruby-string">&quot;invitation&quot;</span>, <span class="ruby-string">&quot;invite-to-account&quot;</span>],
+      <span class="ruby-identifier">track_clicks</span><span class="ruby-operator">:</span> <span class="ruby-keyword">true</span>,
+      <span class="ruby-identifier">track_opens</span><span class="ruby-operator">:</span> <span class="ruby-keyword">true</span>,
+      <span class="ruby-identifier">subaccount</span><span class="ruby-operator">:</span> <span class="ruby-identifier">sender</span>.<span class="ruby-identifier">mandrill_account_id</span>,
+      <span class="ruby-identifier">recipient_metadata</span><span class="ruby-operator">:</span> [{<span class="ruby-identifier">rcpt</span><span class="ruby-operator">:</span> <span class="ruby-identifier">email</span>, <span class="ruby-identifier">values</span><span class="ruby-operator">:</span> {<span class="ruby-identifier">opportunity_evaluation_id</span><span class="ruby-operator">:</span> <span class="ruby-identifier">opportunity_evaluation</span>.<span class="ruby-identifier">id</span>}}],
+      <span class="ruby-identifier">merge_vars</span><span class="ruby-operator">:</span> [
+        {
+         <span class="ruby-identifier">rcpt</span><span class="ruby-operator">:</span> <span class="ruby-identifier">email</span>,
+         <span class="ruby-identifier">vars</span><span class="ruby-operator">:</span> [
+                 {<span class="ruby-identifier">name</span><span class="ruby-operator">:</span> <span class="ruby-string">&quot;TITLE&quot;</span>,       <span class="ruby-identifier">content</span><span class="ruby-operator">:</span> <span class="ruby-identifier">title</span>},
+                 {<span class="ruby-identifier">name</span><span class="ruby-operator">:</span> <span class="ruby-string">&quot;BODY&quot;</span>,        <span class="ruby-identifier">content</span><span class="ruby-operator">:</span> <span class="ruby-identifier">body</span> },
+                 {<span class="ruby-identifier">name</span><span class="ruby-operator">:</span> <span class="ruby-string">&quot;LINK&quot;</span>,        <span class="ruby-identifier">content</span><span class="ruby-operator">:</span> <span class="ruby-identifier">link</span> }
+                 ]
+        }
+      ]
+    }
+    <span class="ruby-identifier">mandril_client</span>.<span class="ruby-identifier">messages</span>.<span class="ruby-identifier">send_template</span> <span class="ruby-identifier">template_name</span>, <span class="ruby-identifier">template_content</span>, <span class="ruby-identifier">message</span>
+  <span class="ruby-keyword">rescue</span> <span class="ruby-constant">Mandrill</span><span class="ruby-operator">::</span><span class="ruby-constant">Error</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
+    <span class="ruby-constant">Opbeat</span>.<span class="ruby-identifier">capture_message</span>(<span class="ruby-node">&quot;#{e.class} - #{e.message}&quot;</span>)
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+                    </div>
+
+    </div>
+  </body>
+</html>    

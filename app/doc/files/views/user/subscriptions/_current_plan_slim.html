@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>_current_plan.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            _current_plan.slim
+        </h1>
+        <ul class="files">
+            <li>views/user/subscriptions/_current_plan.slim</li>
+            <li>Last modified: 2015-07-05 15:22:06 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>/ dereference pointers ruby:</p>
+
+<pre><code>####################################
+# default flags
+####################################
+selected_plan              = false
+show_update_card           = false
+show_cancel_subscription   = false
+show_select_plan           = true
+show_reactivate_plan       = false
+
+####################################
+# change flags for selected plan
+####################################
+if account_feature.plan_id
+  # THIS PLAN IS SUBSCRIABLE
+
+  if selected_plan = @current_plan.id == account_feature.plan_id 
+    # THE USER SUBSCRIBES TO THIS PLAN
+
+    show_select_plan         = false
+
+    if @current_subscription.cancel_at_period_end
+      # THE USER HAS CANCLED THE SUBSCRIBTION
+      show_reactivate_plan    = true
+    else
+      # THIS PLAN CAN BE CANCLED AND THE CARD CAN BE UPDATED
+      show_cancel_subscription = true
+      show_update_card         = true
+    end
+
+    # THE CARD WILL EXPIRES BEFORE THE END OF THE SUBSCRIPTION PERIOD ENDS
+    # if payment_method = @current_subscription &amp;&amp; @current_subscription.payment_method
+    # 
+  end
+else
+  # IT IS NOT A SUBSCRIPEABLE PLAN
+  show_select_plan           = false
+end
+</code></pre>
+<ul><li>
+<p>if show_update_card</p>
+
+<h1 id="label-link_to+edit_user_user_subscription_path-28-40user-2C+-40current_subscription-2C+update_payment_method-3A+true-29-2C-27data-no-turbolink-27-3D-3E-27true-27+do">link_to edit_user_user_subscription_path(@user, @current_subscription, update_payment_method: true),&#39;data-no-turbolink&#39;=&gt;&#39;true&#39; do</h1>
+
+<pre><code>.btn.btn-default
+  i.fa.fa-cc-stripe
+  &#39;&amp;nbsp;Update payment method</code></pre>
+</li><li>
+<p>if show_reactivate_plan .alert.alert-warning</p>
+
+<pre><code>&#39;The plan has been cancled. It will continue working until the period paid for expires
+.row
+  .col-sm-12
+    .pull-right
+      = link_to user_user_subscription_path(@user, @current_subscription, 
+                                                    plan_id: account_feature.plan_id), 
+                                                    method: &#39;put&#39;, 
+                                                    &#39;data-no-turbolink&#39;=&gt;&#39;true&#39;
+
+                .btn.btn-success.please_wait
+                  i.fa.fa-plus
+                    &#39;&amp;nbsp;Reactivate</code></pre>
+</li><li>
+<p>if show_select_plan</p>
+
+<h1 id="label-link_to+user_user_subscription_path-28-40user-2C+-40current_subscription-2C+">link_to user_user_subscription_path(@user, @current_subscription, </h1>
+
+<pre><code>                                    plan_id: account_feature.plan_id), 
+                                    method: &#39;put&#39;, 
+                                    &#39;data-no-turbolink&#39;=&gt;&#39;true&#39;
+
+.btn.btn-success.please_wait
+  i.fa.fa-plus
+    &#39;&amp;nbsp;Select</code></pre>
+</li><li>
+<p>if show_cancel_subscription</p>
+
+<h1 id="label-link_to+user_user_subscription_path-28-40user-2C+-40current_subscription-2C+">link_to user_user_subscription_path(@user, @current_subscription, </h1>
+
+<pre><code>                                            plan_id: account_feature.plan_id), 
+                                            method: :delete,
+                                            turboboost: true , 
+                                            data: { confirm: &#39;Are you sure?&#39; } ,
+                                            &#39;data-no-turbolink&#39;=&gt;&#39;true&#39;
+.btn.btn-danger
+  i.fa.fa-minus
+  &#39;&amp;nbsp;Cancel subscription</code></pre>
+</li></ul>
+
+<p>/ this is the celected plan /- if selected_plan  /    - if
+subscription_cancled /    - select_plan = true /    b /      &#39;! This
+plan is cancled and will expire: &amp;nbsp; /      =
+@current_subscription.current_period_end /</p>
+
+<p>/  - else /    - cancel_subscription = true / /</p>
+
+<p>/- elsif select_plan</p>
+
+<p>/  = link_to edit_user_user_subscription_path(@user, @current_subscription,
+update_payment_method: true),&#39;data-no-turbolink&#39;=&gt;&#39;true&#39;
+do /    .btn.btn-default /      i.fa.fa-cc-stripe /     
+&#39;&amp;nbsp;Update payment method</p>
+
+<p>/  .btn.btn-success disabled=&#39;disabled&#39; /    = account_feature.name
+/ / // select another plan /- elsif @current_subscription /  = link_to
+&#39;Select&#39;, user_user_subscription_path(@user, @current_subscription,
+/                                                plan_id:
+account_feature.plan_id),  /                                               
+method: &#39;put&#39;,  /                                               
+class: &#39;btn btn-success please_wait&#39;, /                            
+&#39;data-no-turbolink&#39;=&gt;&#39;true&#39; /</p>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

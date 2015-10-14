@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>init-icheck.js.coffee</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            init-icheck.js.coffee
+        </h1>
+        <ul class="files">
+            <li>assets/javascripts/init-icheck.js.coffee</li>
+            <li>Last modified: 2015-07-05 15:22:02 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>ready = -&gt;</p>
+
+<pre><code>init_icheck()
+</code></pre>
+
+<p>$(document).ready(ready) $(document).on(&#39;page:load&#39;, ready)</p>
+
+<p>@init_icheck =() -&gt;</p>
+
+<pre><code>icheck = -&gt;
+  if $(&quot;.icheck-me&quot;).length &gt; 0
+    $(&quot;.icheck-me&quot;).each -&gt;
+      $el = $(this)
+      skin = (if ($el.attr(&quot;data-skin&quot;) isnt `undefined`) then &quot;_&quot; + $el.attr(&quot;data-skin&quot;) else &quot;&quot;)
+      color = (if ($el.attr(&quot;data-color&quot;) isnt `undefined`) then &quot;-&quot; + $el.attr(&quot;data-color&quot;) else &quot;&quot;)
+      opt =
+        checkboxClass: &quot;icheckbox&quot; + skin + color
+        radioClass: &quot;iradio&quot; + skin + color
+
+      $el.iCheck opt
+      return
+
+  return
+$ -&gt;
+  icheck()
+  return</code></pre>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

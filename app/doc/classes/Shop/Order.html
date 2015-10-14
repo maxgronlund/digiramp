@@ -1,0 +1,843 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>Shop::Order</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../css/github.css" type="text/css" media="screen" />
+<script src="../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            <span class="type">Class</span> 
+            Shop::Order 
+            
+                <span class="parent">&lt; 
+                    
+                    ActiveRecord::Base
+                    
+                </span>
+            
+        </h1>
+        <ul class="files">
+            
+            <li><a href="../../files/models/shop/order_rb.html">models/shop/order.rb</a></li>
+            
+        </ul>
+    </div>
+    <div id="bodyContent">
+        <div id="content">
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+    <!-- Method ref -->
+    <div class="sectiontitle">Methods</div>
+    <dl class="methods">
+      
+        <dt>B</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-buyer_account_id">buyer_account_id</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>C</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-c-cached_find">cached_find</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-i-charge_card">charge_card</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-i-charge_succeeded">charge_succeeded</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>I</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-invalid-3F">invalid?</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-i-items_count">items_count</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>M</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-merge_with_and_delete">merge_with_and_delete</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>P</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-payment_source">payment_source</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-i-price_total">price_total</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>R</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-require_shipping_address">require_shipping_address</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>S</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-shipping_address">shipping_address</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-i-store_order_lines">store_order_lines</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>T</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-total_price">total_price</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>U</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-units_of_product">units_of_product</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+    </dl>
+  
+
+  
+    <!-- Includes -->
+    <div class="sectiontitle">Included Modules</div>
+    <ul>
+      
+        <li>
+          
+            AASM
+          
+        </li>
+      
+        <li>
+          
+            <a href="../ErrorNotification.html">
+              ErrorNotification
+            </a>
+          
+        </li>
+      
+    </ul>
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+    
+      <div class="sectiontitle">Class Public methods</div>
+      
+        <div class="method">
+          <div class="title method-title" id="method-c-cached_find">
+            
+              <b>cached_find</b>(id)
+            
+            <a href="../../classes/Shop/Order.html#method-c-cached_find" name="method-c-cached_find" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-c-cached_find_source')" id="l_method-c-cached_find_source">show</a>
+                
+              </p>
+              <div id="method-c-cached_find_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/shop/order.rb, line 138</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">self</span>.<span class="ruby-identifier">cached_find</span>(<span class="ruby-identifier">id</span>)
+  <span class="ruby-constant">Rails</span>.<span class="ruby-identifier">cache</span>.<span class="ruby-identifier">fetch</span>([<span class="ruby-identifier">name</span>, <span class="ruby-identifier">id</span>]) { <span class="ruby-identifier">find</span>(<span class="ruby-identifier">id</span>) }
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+                  
+      <div class="sectiontitle">Instance Public methods</div>
+      
+        <div class="method">
+          <div class="title method-title" id="method-i-buyer_account_id">
+            
+              <b>buyer_account_id</b>()
+            
+            <a href="../../classes/Shop/Order.html#method-i-buyer_account_id" name="method-i-buyer_account_id" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-buyer_account_id_source')" id="l_method-i-buyer_account_id_source">show</a>
+                
+              </p>
+              <div id="method-i-buyer_account_id_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/shop/order.rb, line 96</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">buyer_account_id</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">nil</span> <span class="ruby-keyword">unless</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">user</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">nil</span> <span class="ruby-keyword">unless</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">user</span>.<span class="ruby-identifier">account</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">user</span>.<span class="ruby-identifier">account</span>.<span class="ruby-identifier">id</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-charge_card">
+            
+              <b>charge_card</b>()
+            
+            <a href="../../classes/Shop/Order.html#method-i-charge_card" name="method-i-charge_card" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-charge_card_source')" id="l_method-i-charge_card_source">show</a>
+                
+              </p>
+              <div id="method-i-charge_card_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/shop/order.rb, line 58</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">charge_card</span>
+  
+  <span class="ruby-identifier">save!</span>
+  <span class="ruby-keyword">begin</span>
+    <span class="ruby-identifier">charge</span> = <span class="ruby-constant">Stripe</span><span class="ruby-operator">::</span><span class="ruby-constant">Charge</span>.<span class="ruby-identifier">create</span>( <span class="ruby-identifier">amount</span><span class="ruby-operator">:</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">total_price</span>.<span class="ruby-identifier">to_i</span>.<span class="ruby-identifier">to_s</span>,
+                                    <span class="ruby-identifier">currency</span><span class="ruby-operator">:</span> <span class="ruby-string">&quot;usd&quot;</span>,
+                                    <span class="ruby-identifier">source</span><span class="ruby-operator">:</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">stripe_token</span>,
+                                    <span class="ruby-identifier">description</span><span class="ruby-operator">:</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">email</span>,
+                                    <span class="ruby-identifier">statement_descriptor</span><span class="ruby-operator">:</span> <span class="ruby-keyword">nil</span>,
+                                    <span class="ruby-identifier">shipping</span><span class="ruby-operator">:</span> {}
+                                  )
+    
+    <span class="ruby-comment"># charge </span>
+    <span class="ruby-comment">#balance = Stripe::BalanceTransaction.retrieve(charge.balance_transaction)</span>
+    <span class="ruby-comment"># &#39;----------------- balance ----------------------------&#39;</span>
+    <span class="ruby-comment"># balance</span>
+    <span class="ruby-comment"># &#39;======================================================&#39;</span>
+
+    <span class="ruby-keyword">self</span>.<span class="ruby-identifier">update</span>(<span class="ruby-identifier">charge_id</span><span class="ruby-operator">:</span> <span class="ruby-identifier">charge</span>.<span class="ruby-identifier">id</span>)
+
+  <span class="ruby-keyword">rescue</span> <span class="ruby-constant">Stripe</span><span class="ruby-operator">::</span><span class="ruby-constant">StripeError</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
+    <span class="ruby-keyword">self</span>.<span class="ruby-identifier">update_attributes</span>(<span class="ruby-identifier">error</span><span class="ruby-operator">:</span> <span class="ruby-identifier">e</span>.<span class="ruby-identifier">message</span>)
+    <span class="ruby-keyword">self</span>.<span class="ruby-identifier">fail!</span>
+    <span class="ruby-identifier">post_error</span> <span class="ruby-node">&quot;Order#charte_card: #{e.message}&quot;</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-charge_succeeded">
+            
+              <b>charge_succeeded</b>(params)
+            
+            <a href="../../classes/Shop/Order.html#method-i-charge_succeeded" name="method-i-charge_succeeded" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              <p>the order is paid for, time to pay the stakeholders</p>
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-charge_succeeded_source')" id="l_method-i-charge_succeeded_source">show</a>
+                
+              </p>
+              <div id="method-i-charge_succeeded_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/shop/order.rb, line 186</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">charge_succeeded</span> <span class="ruby-identifier">params</span>
+
+
+  <span class="ruby-identifier">split</span>               = <span class="ruby-identifier">payment_fee_split</span>
+  <span class="ruby-identifier">params</span>[<span class="ruby-value">:stripe_fees</span>]   <span class="ruby-operator">*=</span> <span class="ruby-identifier">split</span>
+  <span class="ruby-identifier">params</span>[<span class="ruby-value">:digiramp_fees</span>] <span class="ruby-operator">*=</span> <span class="ruby-identifier">split</span>
+
+  
+  <span class="ruby-identifier">params</span>[<span class="ruby-value">:order_id</span>]     = <span class="ruby-keyword">self</span>.<span class="ruby-identifier">id</span>
+  <span class="ruby-keyword">begin</span>
+    <span class="ruby-keyword">self</span>.<span class="ruby-identifier">order_items</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">order_item</span><span class="ruby-operator">|</span>
+      <span class="ruby-identifier">order_item</span>.<span class="ruby-identifier">charge_succeeded</span> <span class="ruby-identifier">params</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">rescue</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">error</span>
+    <span class="ruby-identifier">post_error</span> <span class="ruby-node">&quot;Order#create_transfers: #{error.inspect}&quot;</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-invalid-3F">
+            
+              <b>invalid?</b>()
+            
+            <a href="../../classes/Shop/Order.html#method-i-invalid-3F" name="method-i-invalid-3F" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-invalid-3F_source')" id="l_method-i-invalid-3F_source">show</a>
+                
+              </p>
+              <div id="method-i-invalid-3F_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/shop/order.rb, line 124</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">invalid?</span>
+  <span class="ruby-constant">OrderValidator</span>.<span class="ruby-identifier">check_validity_on</span>( <span class="ruby-keyword">self</span> )
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-items_count">
+            
+              <b>items_count</b>()
+            
+            <a href="../../classes/Shop/Order.html#method-i-items_count" name="method-i-items_count" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-items_count_source')" id="l_method-i-items_count_source">show</a>
+                
+              </p>
+              <div id="method-i-items_count_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/shop/order.rb, line 128</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">items_count</span>
+  <span class="ruby-identifier">count</span> = <span class="ruby-number">0</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">order_items</span>.<span class="ruby-identifier">to_a</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">shop_item</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">count</span> <span class="ruby-operator">+=</span> <span class="ruby-identifier">shop_item</span>.<span class="ruby-identifier">quantity</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-identifier">count</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-merge_with_and_delete">
+            
+              <b>merge_with_and_delete</b>(old_shop_order)
+            
+            <a href="../../classes/Shop/Order.html#method-i-merge_with_and_delete" name="method-i-merge_with_and_delete" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-merge_with_and_delete_source')" id="l_method-i-merge_with_and_delete_source">show</a>
+                
+              </p>
+              <div id="method-i-merge_with_and_delete_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/shop/order.rb, line 85</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">merge_with_and_delete</span> <span class="ruby-identifier">old_shop_order</span>
+  
+  <span class="ruby-identifier">old_shop_order</span>.<span class="ruby-identifier">order_items</span>.<span class="ruby-identifier">to_a</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">order_item</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">new_order_item</span>          = <span class="ruby-identifier">order_item</span>.<span class="ruby-identifier">dup</span>
+    <span class="ruby-identifier">new_order_item</span>.<span class="ruby-identifier">order_id</span> = <span class="ruby-keyword">self</span>.<span class="ruby-identifier">id</span>
+    <span class="ruby-identifier">new_order_item</span>.<span class="ruby-identifier">save!</span>
+
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-identifier">old_shop_order</span>.<span class="ruby-identifier">destroy!</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-payment_source">
+            
+              <b>payment_source</b>()
+            
+            <a href="../../classes/Shop/Order.html#method-i-payment_source" name="method-i-payment_source" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-payment_source_source')" id="l_method-i-payment_source_source">show</a>
+                
+              </p>
+              <div id="method-i-payment_source_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/shop/order.rb, line 177</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">payment_source</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">order_content</span>[<span class="ruby-value">:payment_source</span>]
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-price_total">
+            
+              <b>price_total</b>()
+            
+            <a href="../../classes/Shop/Order.html#method-i-price_total" name="method-i-price_total" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-price_total_source')" id="l_method-i-price_total_source">show</a>
+                
+              </p>
+              <div id="method-i-price_total_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/shop/order.rb, line 181</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">price_total</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">order_content</span>[<span class="ruby-value">:total_price</span>]
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-require_shipping_address">
+            
+              <b>require_shipping_address</b>()
+            
+            <a href="../../classes/Shop/Order.html#method-i-require_shipping_address" name="method-i-require_shipping_address" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-require_shipping_address_source')" id="l_method-i-require_shipping_address_source">show</a>
+                
+              </p>
+              <div id="method-i-require_shipping_address_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/shop/order.rb, line 164</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">require_shipping_address</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">order_items</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">order_item</span><span class="ruby-operator">|</span>
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">product</span> = <span class="ruby-identifier">order_item</span>.<span class="ruby-identifier">shop_product</span>
+      <span class="ruby-keyword">return</span> <span class="ruby-keyword">true</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">product</span>.<span class="ruby-identifier">category</span> <span class="ruby-operator">==</span> <span class="ruby-string">&quot;physical-product&quot;</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">false</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-shipping_address">
+            
+              <b>shipping_address</b>()
+            
+            <a href="../../classes/Shop/Order.html#method-i-shipping_address" name="method-i-shipping_address" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-shipping_address_source')" id="l_method-i-shipping_address_source">show</a>
+                
+              </p>
+              <div id="method-i-shipping_address_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/shop/order.rb, line 173</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">shipping_address</span>
+  <span class="ruby-constant">Address</span>.<span class="ruby-identifier">find_by</span>(<span class="ruby-identifier">addressable_id</span><span class="ruby-operator">:</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">id</span>, <span class="ruby-identifier">addressable_type</span><span class="ruby-operator">:</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">name</span>)
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-store_order_lines">
+            
+              <b>store_order_lines</b>()
+            
+            <a href="../../classes/Shop/Order.html#method-i-store_order_lines" name="method-i-store_order_lines" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-store_order_lines_source')" id="l_method-i-store_order_lines_source">show</a>
+                
+              </p>
+              <div id="method-i-store_order_lines_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/shop/order.rb, line 142</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">store_order_lines</span>
+  
+  <span class="ruby-keyword">begin</span>
+    <span class="ruby-keyword">self</span>.<span class="ruby-identifier">order_lines</span> = []
+    <span class="ruby-keyword">self</span>.<span class="ruby-identifier">order_items</span>.<span class="ruby-identifier">each_with_index</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">order_item</span>, <span class="ruby-identifier">index</span><span class="ruby-operator">|</span>
+      <span class="ruby-keyword">if</span> <span class="ruby-identifier">product</span> = <span class="ruby-identifier">order_item</span>.<span class="ruby-identifier">shop_product</span>
+        
+        <span class="ruby-keyword">self</span>.<span class="ruby-identifier">order_lines</span>[<span class="ruby-identifier">index</span>] = <span class="ruby-identifier">product</span>.<span class="ruby-identifier">as_json</span>.<span class="ruby-identifier">merge</span>( <span class="ruby-string">&quot;total_price&quot;</span>        =<span class="ruby-operator">&gt;</span> (<span class="ruby-identifier">order_item</span>.<span class="ruby-identifier">quantity</span> <span class="ruby-operator">*</span> <span class="ruby-identifier">product</span>.<span class="ruby-identifier">price</span>),
+                                                         <span class="ruby-string">&quot;quantity&quot;</span>           =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">order_item</span>.<span class="ruby-identifier">quantity</span>,
+                                                         <span class="ruby-string">&quot;shop_order_item_id&quot;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">order_item</span>.<span class="ruby-identifier">id</span>,
+                                                         <span class="ruby-string">&quot;seller_info&quot;</span>        =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">order_item</span>.<span class="ruby-identifier">seller_info</span>)
+                                                         
+                                                         
+        <span class="ruby-identifier">product</span>.<span class="ruby-identifier">update_stock</span>
+      <span class="ruby-keyword">end</span>
+    <span class="ruby-keyword">end</span>
+    <span class="ruby-identifier">save!</span>
+  <span class="ruby-keyword">rescue</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
+    <span class="ruby-identifier">post_error</span> <span class="ruby-node">&quot;Order#store_order_lines #{e.message}&quot;</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-total_price">
+            
+              <b>total_price</b>()
+            
+            <a href="../../classes/Shop/Order.html#method-i-total_price" name="method-i-total_price" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-total_price_source')" id="l_method-i-total_price_source">show</a>
+                
+              </p>
+              <div id="method-i-total_price_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/shop/order.rb, line 113</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">total_price</span>
+  <span class="ruby-identifier">tp</span>  = <span class="ruby-number">0.0</span>
+
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">order_items</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">order_item</span><span class="ruby-operator">|</span>
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">product</span> = <span class="ruby-identifier">order_item</span>.<span class="ruby-identifier">shop_product</span>
+      <span class="ruby-identifier">tp</span> <span class="ruby-operator">+=</span> <span class="ruby-identifier">product</span>.<span class="ruby-identifier">price</span> <span class="ruby-operator">*</span> <span class="ruby-identifier">order_item</span>.<span class="ruby-identifier">quantity</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-identifier">tp</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-units_of_product">
+            
+              <b>units_of_product</b>(product_id)
+            
+            <a href="../../classes/Shop/Order.html#method-i-units_of_product" name="method-i-units_of_product" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-units_of_product_source')" id="l_method-i-units_of_product_source">show</a>
+                
+              </p>
+              <div id="method-i-units_of_product_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/shop/order.rb, line 102</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">units_of_product</span> <span class="ruby-identifier">product_id</span>
+  <span class="ruby-identifier">cnt</span> = <span class="ruby-number">0</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">items</span> = <span class="ruby-keyword">self</span>.<span class="ruby-identifier">order_items</span>.<span class="ruby-identifier">where</span>(<span class="ruby-identifier">shop_product_id</span><span class="ruby-operator">:</span> <span class="ruby-identifier">product_id</span>)
+    <span class="ruby-identifier">items</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">order_item</span><span class="ruby-operator">|</span>
+      <span class="ruby-identifier">cnt</span> <span class="ruby-operator">+=</span> <span class="ruby-identifier">order_item</span>.<span class="ruby-identifier">quantity</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-identifier">cnt</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+                    </div>
+
+    </div>
+  </body>
+</html>    

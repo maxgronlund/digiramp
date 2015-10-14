@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>_writers.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            _writers.slim
+        </h1>
+        <ul class="files">
+            <li>views/user/creative_project_roles/_writers.slim</li>
+            <li>Last modified: 2015-07-05 15:22:06 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>h3 Writers</p>
+<ul><li>
+<p>@creative_project.creative_project_roles.where(role: &#39;writer&#39;).each
+do |creative_project_role|</p>
+
+<h2 id="label-render+-27user-2Fcreative_project_roles-2Frole-27-2C+creative_project_role-3A+creative_project_role">render &#39;user/creative_project_roles/role&#39;, creative_project_role: creative_project_role</h2>
+</li><li>
+<p>if @user.manage? current_user .row</p>
+
+<pre><code>.col-sm-12
+  .pull-right
+    = link_to &#39;Add writer&#39;, new_user_user_creative_project_creative_project_role_path(@user, @creative_project, role: &#39;writer&#39;), class: &#39;btn btn-default&#39;</code></pre>
+</li></ul>
+
+<p>.sexy_line</p>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>new.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            new.slim
+        </h1>
+        <ul class="files">
+            <li>views/user/registrations/new.slim</li>
+            <li>Last modified: 2015-09-24 20:35:34 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>wrapper</p>
+
+<pre><code>.full-width-top
+  == render &#39;shared/navigationbar&#39;, page: &#39;contacts&#39; 
+
+#sidebar-wrapper
+  ul class=&quot;sidebar-nav&quot;
+    == render &#39;users/shared/sidebar&#39;, selected: &#39;control panel&#39;
+
+#page-content-wrapper
+  .container-fluid
+    == render &#39;shared/breadcrumbs&#39;, breadcrumbs: { links: { &#39;Dashboard&#39;.to_sym =&gt; user_user_control_panel_index_path(@user) }, current: &#39;&#39;}
+    - if @plan 
+
+      .row
+        .col-sm-8
+          h2 #{@plan.name} Subscription
+          b =  number_to_currency(@plan.amount * 0.01, locale: :en, precision: 2)
+        .col-sm-4
+
+      .sexy_line
+      .digi-box
+        .row
+          .col-sm-12
+              #payment-errors.alert.payment-alert style=(&quot;#{ @subscription.errors.any? ? &#39;&#39; : &#39;display: none;&#39; } margin-bottom: 0px;&quot;) 
+
+                - @subscription.errors.full_messages.each do |msg| 
+                  span = msg
+        = simple_form_for [:user, @user, @subscription], html: { id: &#39;payment-form&#39;, class: &#39;form-horizontal&#39;} do |f| 
+          input name=&quot;plan_id&quot; type=&quot;hidden&quot; value=&quot;#{@plan.id}&quot;
+          fieldset
+            - if @user.email.to_s == &#39;&#39;
+              .row.pull-down-10.cc-input
+                label.col-sm-3.control-label for=&quot;email-address&quot;  * Email
+                input.col-sm-9.form-control name=&quot;email_address&quot; placeholder=(&quot;Email&quot;) type=&quot;text&quot;
+
+            .row.pull-down-10.cc-input
+              label.col-sm-3.control-label for=&quot;cardholders_name&quot;  * Name on Card
+              .col-sm-9
+                input#card-holder-name.form-control name=&quot;cardholders_name&quot; placeholder=(&quot;Card Holder&#39;s Name&quot;) type=&quot;text&quot; 
+            .row.pull-down-10.cc-input
+              label.col-sm-3.control-label for=&quot;card-number&quot; data-stripe=&quot;number&quot; * Card Number
+              .col-sm-9
+                input#card-number.form-control data-stripe=&quot;number&quot; placeholder=(&quot;Debit/Credit Card Number&quot;) type=&quot;text&quot; 
+            .row.pull-down-10
+              label.col-sm-3.control-label for=&quot;expiry-month&quot; * Expiration Date
+              .col-sm-9
+                .row.cc-col-xs-3
+                  .col-xs-3
+                    select.cc-expiry-dropdown name=&quot;expiry-month&quot; data-stripe=&quot;exp-month&quot;
+
+                      - @months.each_with_index do |month, index|
+                        option value=&quot;#{ format(&#39;%02d&#39;, index+1)}&quot;  #{month}
+
+                  .col-xs-3
+                    select.cc-expiry-dropdown name=&quot;expiry-year&quot; data-stripe=&quot;exp-year&quot;
+                      - @years.each do |year|
+                        option value=&quot;#{ format(&#39;%02d&#39;,year-2000)}&quot;  #{year}
+
+            .row.pull-down-10
+              label.col-sm-3#expiry-month.control-label for=&quot;cvv&quot;  * Card CVV
+              .cc-security-code
+                .col-sm-3
+                  input#cvv.form-control name=&quot;cvv&quot; data-stripe=&quot;cvc&quot; placeholder=(&quot;Security Code&quot;) type=&quot;text&quot; /
+            .row.pull-down-10
+              .col-sm-offset-3.col-sm-9
+                .pull-right
+                  button.btn.btn-success type=&quot;submit&quot;  Pay Now
+
+        .row
+          .col-sm-12
+            #powered-by-stripe
+              = image_tag &#39;powered_by_stripe.png&#39;
+
+        /= simple_form_for [:user, @user, @subscription], html: { id: &#39;payment-form&#39; } do |f| 
+        /  input name=&quot;plan_id&quot; type=&quot;hidden&quot; value=&quot;#{@plan.id}&quot;
+        /  /= f.hidden_field :plan_id, value: @plan.id
+        /
+        /  .row
+        /    .col-sm-6
+        /      = f.input :email_address, input_html: {name: &quot;email_address&quot;}
+        /      = f.input :cardholders_name, input_html: {name: &quot;email_address&quot;}
+        /    .col-sm-6
+        /      .form-group.text.required
+        /        label.text.required 
+        /          abbr title=&quot;required&quot;  *
+        /          | Card number
+        /        input.form-control data-stripe=&quot;number&quot; size=&quot;20&quot; type=&quot;text&quot; style=&quot;max-width: 240px;&quot;
+        /      
+        /  .row
+        /    .col-sm-6
+        /      .form-group.text.required
+        /        label.text.required 
+        /          abbr title=&quot;required&quot;  *
+        /          | CVC
+        /        input.form-control data-stripe=&quot;cvc&quot; size=&quot;4&quot; type=&quot;text&quot; style=&quot;width: 60px;&quot;
+        /    
+        /    .col-sm--6
+        /      .form-group.text.required
+        /        label.text.required 
+        /          abbr title=&quot;required&quot;  *
+        /          | Expiration (MM/YYYY)
+        /      .inline
+        /        input.form-control data-stripe=&quot;exp-month&quot; size=&quot;2&quot; type=&quot;text&quot;  style=&quot;width: 60px;&quot;
+        /      .inline
+        /        input.form-control data-stripe=&quot;exp-year&quot; size=&quot;4&quot; type=&quot;text&quot;  style=&quot;width: 120px;&quot;
+        /  /.row
+        /  /  .col-sm-12
+        /  /    button.btn.btn-info type=&quot;submit&quot;  Pay
+        /
+        /.payment-well style=(&quot;margin-top: 0px; margin-bottom: 0px;&quot;) 
+
+        /== render &#39;form&#39;
+        == render &#39;user/registrations/stripe_integration&#39;</code></pre>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

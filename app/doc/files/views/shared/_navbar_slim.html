@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>_navbar.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            _navbar.slim
+        </h1>
+        <ul class="files">
+            <li>views/shared/_navbar.slim</li>
+            <li>Last modified: 2015-07-05 15:22:06 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>.navbar.navbar-default</p>
+
+<pre><code>.container-fluid 
+  .navbar-header
+    button type=&quot;button&quot; class=&quot;navbar-toggle&quot; data-toggle=&quot;collapse&quot; data-target=&quot;#bs-example-navbar-collapse-1&quot;
+      span class=&quot;sr-only&quot;
+        Toggle navigation
+      span class=&quot;icon-bar&quot;
+      span class=&quot;icon-bar&quot;
+      span class=&quot;icon-bar&quot;
+
+    = link_to root_path, &#39;data-no-turbolink&#39;=&gt;true do
+      .navbar-brand
+        = image_tag(&#39;logo.svg&#39;, size: &quot;80x50&quot;)
+
+  .collapse.navbar-collapse id=&quot;bs-example-navbar-collapse-1&quot;
+    ul class=&quot;nav navbar-nav&quot;
+      -if super?
+        li  class=&quot;#{page == &#39;admin&#39; ? &#39;active&#39; : &#39;&#39;}&quot;
+          = link_to admin_index_path, &#39;data-no-turbolink&#39;=&gt;true do
+            i class=&quot;fa fa-wrench&quot;
+            &#39;&amp;nbsp;
+            &#39;ADMIN
+
+        /li class=&quot;#{page == &#39;admin&#39; ? &#39;active&#39; : &#39;&#39;}&quot;
+        /  = link_to &#39;ADMIN&#39;, admin_index_path
+
+    -if user_signed_in?
+      ul class=&quot;nav navbar-nav navbar-right&quot;
+
+        li  class=&quot;#{page == &#39;support&#39; ? &#39;active&#39; : &#39;&#39;}&quot;
+          = link_to support_index_path, &#39;data-no-turbolink&#39;=&gt;true do
+            i class=&quot;fa fa-life-ring&quot;
+            &#39;&amp;nbsp;
+            &#39;SUPPORT
+
+        li  class=&quot;#{page == &#39;account&#39; ? &#39;active&#39; : &#39;&#39;}&quot;
+
+          = link_to account_path(current_account), &#39;data-no-turbolink&#39;=&gt;true do
+            i class=&quot;fa fa-tachometer&quot;
+            &#39;&amp;nbsp;
+            = current_account.title.upcase 
+
+        li class=&quot;#{page == &#39;profile&#39; ? &#39;active&#39; : &#39;&#39;}&quot;
+          = link_to user_path(current_user), &#39;data-no-turbolink&#39;=&gt;true do
+            i class=&quot;fa fa-home&quot;
+            &#39;&amp;nbsp;
+            &#39;HOME
+
+        li 
+          = link_to logout_path, &#39;data-no-turbolink&#39;=&gt;true do
+            i class=&quot;fa fa-unlock&quot;
+            &#39;&amp;nbsp;
+            &#39;LOG OUT
+
+    -else
+      ul class=&quot;nav navbar-nav navbar-right&quot;
+        /li  = link_to &#39;LOG IN&#39;,  login_new_path
+
+        li 
+          = link_to login_new_path, &#39;data-no-turbolink&#39;=&gt;true do
+            i class=&quot;fa fa-lock&quot;
+            &#39;&amp;nbsp;
+            &#39;LOG IN</code></pre>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>opengraph.js.coffee</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            opengraph.js.coffee
+        </h1>
+        <ul class="files">
+            <li>assets/javascripts/opengraph.js.coffee</li>
+            <li>Last modified: 2015-07-05 15:22:02 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>ready = -&gt;</p>
+
+<pre><code>$(&#39;#remove_meta&#39;).remove();
+
+title = $(&#39;#og_title&#39;).data(&#39;title&#39;)
+if title? 
+  $(&#39;head&#39;).append(&#39;&lt;meta property=&quot;og:title&quot; content=&quot;&#39; + title +    &#39;&quot; id=&quot;remove_meta&quot;/&gt;&#39; );
+
+og_type= $(&#39;#og_type&#39;).data(&#39;og_type&#39;)                                
+if title?                                                             
+  $(&#39;head&#39;).append(&#39;&lt;meta property=&quot;og:type&quot; content=&quot;&#39; + og_type +   &#39;&quot; id=&quot;remove_meta&quot;/&gt;&#39; );
+
+og_url= $(&#39;#og_url&#39;).data(&#39;og_url&#39;)                                   
+if title?                                                             
+  $(&#39;head&#39;).append(&#39;&lt;meta property=&quot;og:url&quot; content=&quot;&#39; + og_url +     &#39;&quot; id=&quot;remove_meta&quot;/&gt;&#39; );
+
+og_image= $(&#39;#og_image&#39;).data(&#39;og_image&#39;)
+if title? 
+  $(&#39;head&#39;).append(&#39;&lt;meta property=&quot;og:image&quot; content=&quot;&#39; + og_image + &#39;&quot; id=&quot;remove_meta&quot;/&gt;&#39; );</code></pre>
+
+<p>$(document).ready(ready) $(document).on(&#39;page:load&#39;, ready)</p>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>jquery.linkify.min.js</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            jquery.linkify.min.js
+        </h1>
+        <ul class="files">
+            <li>assets/javascripts/jquery.linkify.min.js</li>
+            <li>Last modified: 2015-07-05 15:22:02 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<pre><code>Linkify - v1.1.7
+Find URLs in plain text and return HTML for discovered links.
+https://github.com/HitSend/jQuery-linkify/
+
+Made by SoapBox Innovations, Inc.
+Under MIT License</code></pre>
+
+<p>!function(a,b,c){“use strict”;function
+d(a,b){this._defaults=e,this.element=a,this.setOptions(b),this.init()}var
+e={tagName:“a”,newLine:“n”,target:“_blank”,linkClass:null,linkClasses:[],linkAttributes:null};d.prototype={constructor:d,init:function(){1===this.element.nodeType?d.linkifyNode.call(this,this.element):this.element=d.linkify.call(this,this.element.toString())},setOptions:function(a){this.settings=d.extendSettings(a,this.settings)},toString:function(){return
+this.element.toString()}},d.extendSettings=function(a,b){var
+c;b=b||{};for(c in <a href="c">e)b</a>||(<a href="c">b</a>=<a
+href="c">e</a>);for(c in <a href="c">a)b</a>=<a href="c">a</a>;return
+b},d.linkMatch=new <a
+href="^a-zA-Z0-9.\+_\\/"\\>\-“>RegExp([”(“,‘\s|</a>|^&#39;,”)(?:“,”(“,”[<a
+href="a-zA-Z0-9\+_\\-">a-zA-Z0-9+_\-]+“,”(?:“,”\.</a>+“,”)*@“,”)?(“,”<a
+href="http:\\/\\/|https:\\/\\/|ftp:\\/\\/",")?(","(?:(?:[a-z0-9][a-z0-9_%\\-_+]*\\.)+)",")(","(?:com|ca|co|edu|gov|net|org|dev|biz|cat|int|pro|tel|mil|aero|asia|coop|info|jobs|mobi|museum|name|post|travel|local|[a-z]{2})",")(","(?::\\d{1,5})",")?(","(?:","[\\/|\\?]","(?:","[\\-a-zA-Z0-9_%#*&+=~!?,;:.\\/]*",")*",")","[\\-\\/a-zA-Z0-9_%#*&+=~]","|","\\/?",")?",")(",'[^a-zA-Z0-9\+_\\/"\<\\-]|$',")"].join(""),"g"),d.emailLinkMatch=/(<[a-z]">\/\/|https:\/\/|ftp:\/\/“,”)?(“,”(?:(?:[a-z0-9][a-z0-9_%\-_+]*\.)+)“,”)(“,”(?:com|ca|co|edu|gov|net|org|dev|biz|cat|int|pro|tel|mil|aero|asia|coop|info|jobs|mobi|museum|name|post|travel|local|[a-z]{2})“,”)(“,”(?::\d{1,5})“,”)?(“,”(?:“,”[\/|\?]“,”(?:“,”[\-a-zA-Z0-9_%#*&+=~!?,;:.\/]*“,”)*“,”)“,”[\-\/a-zA-Z0-9_%#*&+=~]“,”|“,”\/?“,”)?“,”)(“,’[^a-zA-Z0-9+_\/”<\-]|$‘,“)”].join(“”),“g”),d.emailLinkMatch=/(<[a-z]</a>+
+href=")(http://)([a-zA-Z0-9+_-]+(?:.[a-zA-Z0-9+_-]+)*@)/g,d.linkify=function(a,b){var
+<a
+href="">c,e,f,g=[];this.constructor===d&&this.settings?(e=this.settings,b&&(e=d.extendSettings(b,e))):e=d.extendSettings(b),f=e.linkClass?e.linkClass.split(/s+/):</a>,f.push.apply(f,e.linkClasses),a=a.replace(/&lt;/g,“&amp;lt;”).replace(/(s)/g,“$1$1”),g.push(“$1&lt;”+e.tagName,&#39;href=“<a
+href="http://$2$4$5$6$7"'),g.push('class="linkified'+(f.length>0”>$2$4$5$6$7“’),g.push(‘class=”linkified’+(f.length>0</a>?“
+”+f.join(“
+”):“”)+&#39;“&#39;),e.target&amp;&amp;g.push(&#39;target=”&#39;<code>e.target</code>&#39;“&#39;);for(c
+in <a
+href="c">e.linkAttributes)g.push([c,‘=”’,e.linkAttributes</a>.replace(/&quot;/g,“&amp;quot;”).replace(/$/g,“&amp;#36;”),&#39;“&#39;].join(”“));return
+g.push(”&gt;$2$3$4$5$6$7&lt;/“<code>e.tagName</code>”&gt;$8“),a=a.replace(d.linkMatch,g.join(”
+“)),a=a.replace(d.emailLinkMatch,”$1<a
+href="mailto:$3"),a=a.replace(/(\s){2}/g,"$1"),a=a.replace(/\n/g,e.newLine)},d.linkifyNode=function(a){var">$3“),a=a.replace(/(s){2}/g,”$1“),a=a.replace(/n/g,e.newLine)},d.linkifyNode=function(a){var</a>
+b,e,f,g,h;if(a&amp;&amp;”object“==typeof <a
+href="\s$">a&&1===a.nodeType&&”a“!==a.tagName.toLowerCase()&&!/[^s]linkified</a>/.test(a.className)){for(b=[],g=d._dummyElement||c.createElement(”div“),e=a.firstChild,f=a.childElementCount;e;){if(3===e.nodeType){for(;g.firstChild;)g.removeChild(g.firstChild);for(g.innerHTML=d.linkify.call(this,e.textContent||e.innerText||e.nodeValue),b.push.apply(b,g.childNodes);g.firstChild;)g.removeChild(g.firstChild)}else
+b.push(1===e.nodeType?d.linkifyNode.call(this,e):e);e=e.nextSibling}<a
+href="h">for(;a.firstChild;)a.removeChild(a.firstChild);for(h=0;h<b.length;h++)a.appendChild(b</a>)}return
+a},d._dummyElement=c.createElement(”div“),a.fn.linkify=function(b){return
+this.each(function(){var
+c;(c=a.data(this,”plugin-linkify“))?(c.setOptions(b),c.init()):a.data(this,”plugin-linkify“,new
+d(this,b))})},a.fn.linkify.Constructor=d,a(b).on(”load“,function(){<a
+href="data-linkify">a(”</a>“).each(function(){var
+b,c=a(this),d=c.attr(”data-linkify“),e={tagName:c.attr(”data-linkify-tagname“),newLine:c.attr(”data-linkify-newline“),target:c.attr(”data-linkify-target“),linkClass:c.attr(”data-linkify-linkclass“)};for(var
+f in e)”undefined“==typeof <a href="f">e</a>&amp;&amp;delete <a
+href="f">e</a>;b=”this“===d?c:c.find(d),b.linkify(e)})}),a(”body“).on(”click“,”.linkified“,function(){var
+c=a(this),d=c.attr(”href“),e=/^<a
+href="mailto:/i.test(d),f=c.attr("target");return">i.test(d),f=c.attr(”target“);return</a>
+e?b.location.href=d:b.open(d,f),!1})}(jQuery,window,document);</p>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

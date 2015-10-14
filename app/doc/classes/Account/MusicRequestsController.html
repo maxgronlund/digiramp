@@ -1,0 +1,722 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>Account::MusicRequestsController</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../css/github.css" type="text/css" media="screen" />
+<script src="../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            <span class="type">Class</span> 
+            Account::MusicRequestsController 
+            
+                <span class="parent">&lt; 
+                    
+                    <a href="../ApplicationController.html">ApplicationController</a>
+                    
+                </span>
+            
+        </h1>
+        <ul class="files">
+            
+            <li><a href="../../files/controllers/account/music_requests_controller_rb.html">controllers/account/music_requests_controller.rb</a></li>
+            
+        </ul>
+    </div>
+    <div id="bodyContent">
+        <div id="content">
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+    <!-- Method ref -->
+    <div class="sectiontitle">Methods</div>
+    <dl class="methods">
+      
+        <dt>C</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-create">create</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>D</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-destroy">destroy</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>E</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-edit">edit</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>H</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-hide_recording">hide_recording</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>I</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-index">index</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-i-initialize_recording">initialize_recording</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>M</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-max_submissions_reached">max_submissions_reached</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>N</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-new">new</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>S</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-show">show</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>U</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-update">update</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-i-upload_recording">upload_recording</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+    </dl>
+  
+
+  
+    <!-- Includes -->
+    <div class="sectiontitle">Included Modules</div>
+    <ul>
+      
+        <li>
+          
+            Transloadit::Rails::ParamsDecoder
+          
+        </li>
+      
+        <li>
+          
+            ActionView::Helpers::TextHelper
+          
+        </li>
+      
+        <li>
+          
+            <a href="../AccountsHelper.html">
+              AccountsHelper
+            </a>
+          
+        </li>
+      
+    </ul>
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+        
+      <div class="sectiontitle">Instance Public methods</div>
+      
+        <div class="method">
+          <div class="title method-title" id="method-i-create">
+            
+              <b>create</b>()
+            
+            <a href="../../classes/Account/MusicRequestsController.html#method-i-create" name="method-i-create" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-create_source')" id="l_method-i-create_source">show</a>
+                
+              </p>
+              <div id="method-i-create_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File controllers/account/music_requests_controller.rb, line 40</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">create</span>
+  <span class="ruby-identifier">forbidden</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">current_account_user</span>.<span class="ruby-identifier">update_opportunity</span>
+  <span class="ruby-ivar">@opportunity</span>         = <span class="ruby-constant">Opportunity</span>.<span class="ruby-identifier">cached_find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:opportunity_id</span>])
+  <span class="ruby-identifier">initialize_recording</span>  <span class="ruby-constant">TransloaditRecordingsParser</span>.<span class="ruby-identifier">parse</span>( <span class="ruby-identifier">params</span>[<span class="ruby-value">:transloadit</span>], 
+                                                            <span class="ruby-identifier">current_account_user</span>.<span class="ruby-identifier">account</span>.<span class="ruby-identifier">id</span>, 
+                                                            <span class="ruby-keyword">true</span>, 
+                                                            <span class="ruby-identifier">current_account_user</span>.<span class="ruby-identifier">user_id</span>)
+  
+  
+  <span class="ruby-keyword">if</span> <span class="ruby-ivar">@music_request</span> = <span class="ruby-constant">MusicRequest</span>.<span class="ruby-identifier">create</span>(<span class="ruby-identifier">music_request_params</span>)
+    <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">account_account_opportunity_path</span>(<span class="ruby-ivar">@account</span>, <span class="ruby-ivar">@opportunity</span>)
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">render</span> <span class="ruby-value">:new</span>
+  <span class="ruby-keyword">end</span>
+
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-destroy">
+            
+              <b>destroy</b>()
+            
+            <a href="../../classes/Account/MusicRequestsController.html#method-i-destroy" name="method-i-destroy" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-destroy_source')" id="l_method-i-destroy_source">show</a>
+                
+              </p>
+              <div id="method-i-destroy_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File controllers/account/music_requests_controller.rb, line 130</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">destroy</span>
+  <span class="ruby-identifier">forbidden</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">current_account_user</span>.<span class="ruby-identifier">delete_opportunity</span>
+  <span class="ruby-identifier">opportunity</span> = <span class="ruby-ivar">@music_request</span>.<span class="ruby-identifier">opportunity</span>
+  <span class="ruby-ivar">@music_request</span>.<span class="ruby-identifier">destroy</span>
+  <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">account_account_opportunity_path</span>(<span class="ruby-ivar">@account</span>, <span class="ruby-identifier">opportunity</span>)
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-edit">
+            
+              <b>edit</b>()
+            
+            <a href="../../classes/Account/MusicRequestsController.html#method-i-edit" name="method-i-edit" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              <p>GET /opportunities/1/edit</p>
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-edit_source')" id="l_method-i-edit_source">show</a>
+                
+              </p>
+              <div id="method-i-edit_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File controllers/account/music_requests_controller.rb, line 33</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">edit</span>
+  <span class="ruby-identifier">forbidden</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">current_account_user</span>.<span class="ruby-identifier">update_opportunity</span>
+  <span class="ruby-ivar">@opportunity</span>    = <span class="ruby-constant">Opportunity</span>.<span class="ruby-identifier">cached_find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:opportunity_id</span>])
+  <span class="ruby-ivar">@user</span>           = <span class="ruby-identifier">current_user</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-hide_recording">
+            
+              <b>hide_recording</b>(recording_id)
+            
+            <a href="../../classes/Account/MusicRequestsController.html#method-i-hide_recording" name="method-i-hide_recording" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-hide_recording_source')" id="l_method-i-hide_recording_source">show</a>
+                
+              </p>
+              <div id="method-i-hide_recording_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File controllers/account/music_requests_controller.rb, line 107</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">hide_recording</span> <span class="ruby-identifier">recording_id</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">recording</span> = <span class="ruby-constant">Recording</span>.<span class="ruby-identifier">cached_find</span>(<span class="ruby-identifier">recording_id</span>)
+    <span class="ruby-identifier">recording</span>.<span class="ruby-identifier">mount_common_work</span>
+    <span class="ruby-identifier">recording</span>.<span class="ruby-identifier">account_id</span>          = <span class="ruby-constant">User</span>.<span class="ruby-identifier">system_user</span>.<span class="ruby-identifier">account</span>.<span class="ruby-identifier">id</span>
+    <span class="ruby-identifier">recording</span>.<span class="ruby-identifier">user_id</span>             = <span class="ruby-constant">User</span>.<span class="ruby-identifier">system_user</span>.<span class="ruby-identifier">id</span>
+    <span class="ruby-identifier">recording</span>.<span class="ruby-identifier">clearance</span>           = <span class="ruby-keyword">false</span>
+    <span class="ruby-identifier">recording</span>.<span class="ruby-identifier">orphan</span>              = <span class="ruby-keyword">true</span>
+    <span class="ruby-identifier">recording</span>.<span class="ruby-identifier">all_ipis_confirmed</span>  = <span class="ruby-keyword">false</span>
+    <span class="ruby-identifier">recording</span>.<span class="ruby-identifier">pre_cleared</span>         = <span class="ruby-keyword">false</span>
+    <span class="ruby-identifier">recording</span>.<span class="ruby-identifier">in_shop</span>             = <span class="ruby-keyword">false</span>
+    <span class="ruby-identifier">recording</span>.<span class="ruby-identifier">valid_for_sale</span>      = <span class="ruby-keyword">false</span>
+    <span class="ruby-identifier">recording</span>.<span class="ruby-identifier">privacy</span>             = <span class="ruby-string">&#39;Only me&#39;</span>
+    <span class="ruby-identifier">recording</span>.<span class="ruby-identifier">save!</span>
+    
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-comment"># &#39;==========================================================&#39;</span>
+    <span class="ruby-comment"># &quot;============= #{recording_id} ============================&quot;</span>
+    <span class="ruby-comment"># &#39;==========================================================&#39;</span>
+  <span class="ruby-keyword">end</span>
+  
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-index">
+            
+              <b>index</b>()
+            
+            <a href="../../classes/Account/MusicRequestsController.html#method-i-index" name="method-i-index" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              <p>GET /opportunities GET /opportunities.json</p>
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-index_source')" id="l_method-i-index_source">show</a>
+                
+              </p>
+              <div id="method-i-index_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File controllers/account/music_requests_controller.rb, line 10</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">index</span>
+  <span class="ruby-identifier">forbidden</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">current_account_user</span>.<span class="ruby-identifier">read_opportunity</span>
+  
+  <span class="ruby-comment">#@opportunities = Opportunity.all</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-initialize_recording">
+            
+              <b>initialize_recording</b>(result)
+            
+            <a href="../../classes/Account/MusicRequestsController.html#method-i-initialize_recording" name="method-i-initialize_recording" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-initialize_recording_source')" id="l_method-i-initialize_recording_source">show</a>
+                
+              </p>
+              <div id="method-i-initialize_recording_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File controllers/account/music_requests_controller.rb, line 76</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">initialize_recording</span> <span class="ruby-identifier">result</span>
+  <span class="ruby-comment"># &#39;===============================================================&#39;</span>
+  <span class="ruby-comment"># result[:recordings][0]</span>
+  <span class="ruby-keyword">begin</span>
+    
+   <span class="ruby-comment"># success mesage</span>
+   <span class="ruby-keyword">unless</span> <span class="ruby-identifier">result</span>[<span class="ruby-value">:recordings</span>].<span class="ruby-identifier">size</span> <span class="ruby-operator">==</span> <span class="ruby-number">0</span>
+     <span class="ruby-identifier">flash</span>[<span class="ruby-value">:info</span>]      = <span class="ruby-node">&quot;#{pluralize(result[:recordings].size, &quot;File&quot;)} uploaded&quot;</span> 
+     <span class="ruby-comment"># fetch recording id</span>
+     <span class="ruby-identifier">recording_id</span> = <span class="ruby-identifier">result</span>[<span class="ruby-value">:recordings</span>][<span class="ruby-number">0</span>].<span class="ruby-identifier">id</span>
+     <span class="ruby-comment"># make sure recording is not shown public</span>
+     <span class="ruby-identifier">hide_recording</span> <span class="ruby-identifier">recording_id</span>
+     <span class="ruby-comment"># assign the recording id to the request</span>
+     <span class="ruby-identifier">params</span>[<span class="ruby-value">:music_request</span>][<span class="ruby-value">:recording_id</span>] = <span class="ruby-identifier">recording_id</span>
+   <span class="ruby-keyword">end</span>
+   <span class="ruby-comment"># error messages</span>
+   <span class="ruby-keyword">if</span> <span class="ruby-identifier">result</span>[<span class="ruby-value">:errors</span>].<span class="ruby-identifier">size</span> <span class="ruby-operator">&gt;</span> <span class="ruby-number">0</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">result</span>[<span class="ruby-value">:errors</span>][<span class="ruby-number">0</span>] <span class="ruby-operator">!=</span> <span class="ruby-string">&#39;No files uploaded&#39;</span>
+     <span class="ruby-identifier">errors</span>     = <span class="ruby-string">&#39;&#39;</span>
+     <span class="ruby-identifier">nr_errors</span> = <span class="ruby-number">0</span>
+     <span class="ruby-identifier">result</span>[<span class="ruby-value">:errors</span>].<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">error</span><span class="ruby-operator">|</span>
+       <span class="ruby-identifier">nr_errors</span> <span class="ruby-operator">+=</span> <span class="ruby-number">1</span>
+       <span class="ruby-identifier">errors</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">error</span> <span class="ruby-operator">+</span> <span class="ruby-string">&#39;&lt;br&gt;&#39;</span>
+     <span class="ruby-keyword">end</span>
+     <span class="ruby-identifier">flash</span>[<span class="ruby-value">:danger</span>]    = <span class="ruby-identifier">errors</span> 
+   <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">rescue</span>
+    <span class="ruby-comment">#flash[:danger]      = &quot;Unable to create Recording! Please check if you selected a valid file&quot; </span>
+    <span class="ruby-comment">#redirect_to new_account_account_audio_file_path(@account, @common_work )</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-max_submissions_reached">
+            
+              <b>max_submissions_reached</b>()
+            
+            <a href="../../classes/Account/MusicRequestsController.html#method-i-max_submissions_reached" name="method-i-max_submissions_reached" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-max_submissions_reached_source')" id="l_method-i-max_submissions_reached_source">show</a>
+                
+              </p>
+              <div id="method-i-max_submissions_reached_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File controllers/account/music_requests_controller.rb, line 139</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">max_submissions_reached</span> 
+  
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-new">
+            
+              <b>new</b>()
+            
+            <a href="../../classes/Account/MusicRequestsController.html#method-i-new" name="method-i-new" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              <p>GET /opportunities/new</p>
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-new_source')" id="l_method-i-new_source">show</a>
+                
+              </p>
+              <div id="method-i-new_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File controllers/account/music_requests_controller.rb, line 25</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">new</span>
+  <span class="ruby-identifier">forbidden</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">current_account_user</span>.<span class="ruby-identifier">update_opportunity</span>
+  <span class="ruby-ivar">@opportunity</span>    = <span class="ruby-constant">Opportunity</span>.<span class="ruby-identifier">cached_find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:opportunity_id</span>])
+  <span class="ruby-ivar">@music_request</span>  = <span class="ruby-constant">MusicRequest</span>.<span class="ruby-identifier">new</span>
+  <span class="ruby-ivar">@user</span>           = <span class="ruby-identifier">current_user</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-show">
+            
+              <b>show</b>()
+            
+            <a href="../../classes/Account/MusicRequestsController.html#method-i-show" name="method-i-show" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-show_source')" id="l_method-i-show_source">show</a>
+                
+              </p>
+              <div id="method-i-show_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File controllers/account/music_requests_controller.rb, line 17</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">show</span>
+  <span class="ruby-identifier">forbidden</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">current_account_user</span>.<span class="ruby-identifier">read_opportunity</span>
+  <span class="ruby-ivar">@opportunity</span>    = <span class="ruby-constant">Opportunity</span>.<span class="ruby-identifier">cached_find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:opportunity_id</span>])
+  <span class="ruby-ivar">@user</span>           = <span class="ruby-identifier">current_user</span>
+  <span class="ruby-ivar">@playlists</span>      = <span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">playlists</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-update">
+            
+              <b>update</b>()
+            
+            <a href="../../classes/Account/MusicRequestsController.html#method-i-update" name="method-i-update" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-update_source')" id="l_method-i-update_source">show</a>
+                
+              </p>
+              <div id="method-i-update_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File controllers/account/music_requests_controller.rb, line 57</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">update</span>
+  <span class="ruby-comment"># &#39;============================= update ==================================&#39;</span>
+  <span class="ruby-identifier">forbidden</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">current_account_user</span>.<span class="ruby-identifier">update_opportunity</span>
+  <span class="ruby-ivar">@opportunity</span>         = <span class="ruby-constant">Opportunity</span>.<span class="ruby-identifier">cached_find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:opportunity_id</span>])
+  <span class="ruby-identifier">initialize_recording</span>  <span class="ruby-constant">TransloaditRecordingsParser</span>.<span class="ruby-identifier">parse</span>( <span class="ruby-identifier">params</span>[<span class="ruby-value">:transloadit</span>], 
+                                                            <span class="ruby-identifier">current_account_user</span>.<span class="ruby-identifier">account</span>.<span class="ruby-identifier">id</span>, 
+                                                            <span class="ruby-keyword">true</span>, 
+                                                            <span class="ruby-identifier">current_account_user</span>.<span class="ruby-identifier">user_id</span>)
+  
+  <span class="ruby-comment"># params</span>
+  <span class="ruby-comment"># music_request_params</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-ivar">@music_request</span>.<span class="ruby-identifier">update</span>(<span class="ruby-identifier">music_request_params</span>)
+    <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">account_account_opportunity_path</span>(<span class="ruby-ivar">@account</span>, <span class="ruby-ivar">@opportunity</span>)
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">render</span> <span class="ruby-value">:edit</span>
+  <span class="ruby-keyword">end</span>
+
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-upload_recording">
+            
+              <b>upload_recording</b>()
+            
+            <a href="../../classes/Account/MusicRequestsController.html#method-i-upload_recording" name="method-i-upload_recording" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-upload_recording_source')" id="l_method-i-upload_recording_source">show</a>
+                
+              </p>
+              <div id="method-i-upload_recording_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File controllers/account/music_requests_controller.rb, line 144</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">upload_recording</span>
+  <span class="ruby-identifier">forbidden</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">current_account_user</span>.<span class="ruby-identifier">create_recording?</span>
+  <span class="ruby-ivar">@opportunity</span>    = <span class="ruby-constant">Opportunity</span>.<span class="ruby-identifier">cached_find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:opportunity_id</span>])
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+                    </div>
+
+    </div>
+  </body>
+</html>    

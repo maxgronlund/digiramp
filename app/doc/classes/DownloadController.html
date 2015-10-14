@@ -1,0 +1,423 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>DownloadController</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../css/github.css" type="text/css" media="screen" />
+<script src="../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            <span class="type">Class</span> 
+            DownloadController 
+            
+                <span class="parent">&lt; 
+                    
+                    <a href="ApplicationController.html">ApplicationController</a>
+                    
+                </span>
+            
+        </h1>
+        <ul class="files">
+            
+            <li><a href="../files/controllers/download_controller_rb.html">controllers/download_controller.rb</a></li>
+            
+        </ul>
+    </div>
+    <div id="bodyContent">
+        <div id="content">
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+    <!-- Method ref -->
+    <div class="sectiontitle">Methods</div>
+    <dl class="methods">
+      
+        <dt>A</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-artwork">artwork</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>D</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-document">document</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>F</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-financial_document">financial_document</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>I</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-image_file">image_file</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>M</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-mp3_recording">mp3_recording</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>O</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-original_recording">original_recording</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+    </dl>
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+        
+      <div class="sectiontitle">Instance Public methods</div>
+      
+        <div class="method">
+          <div class="title method-title" id="method-i-artwork">
+            
+              <b>artwork</b>()
+            
+            <a href="../classes/DownloadController.html#method-i-artwork" name="method-i-artwork" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-artwork_source')" id="l_method-i-artwork_source">show</a>
+                
+              </p>
+              <div id="method-i-artwork_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File controllers/download_controller.rb, line 12</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">artwork</span>
+  <span class="ruby-ivar">@artwork</span> = <span class="ruby-constant">Artwork</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:artwork</span>])
+  <span class="ruby-identifier">data</span> = <span class="ruby-identifier">open</span>(<span class="ruby-node">&quot;#{@artwork.file}&quot;</span>) 
+  <span class="ruby-identifier">mime</span> = <span class="ruby-ivar">@artwork</span>.<span class="ruby-identifier">mime</span> <span class="ruby-operator">||</span> <span class="ruby-string">&#39;image/jpeg&#39;</span>
+  <span class="ruby-identifier">send_data</span> <span class="ruby-identifier">data</span>.<span class="ruby-identifier">read</span>, <span class="ruby-identifier">filename</span><span class="ruby-operator">:</span> <span class="ruby-ivar">@artwork</span>.<span class="ruby-identifier">title</span>, <span class="ruby-identifier">type</span><span class="ruby-operator">:</span> <span class="ruby-identifier">mime</span>, <span class="ruby-identifier">stream</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;true&#39;</span>, <span class="ruby-identifier">buffer_size</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;4096&#39;</span>  
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-document">
+            
+              <b>document</b>()
+            
+            <a href="../classes/DownloadController.html#method-i-document" name="method-i-document" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-document_source')" id="l_method-i-document_source">show</a>
+                
+              </p>
+              <div id="method-i-document_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File controllers/download_controller.rb, line 30</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">document</span>
+  <span class="ruby-keyword">begin</span>
+    <span class="ruby-ivar">@document</span>= <span class="ruby-constant">Document</span>.<span class="ruby-identifier">cached_find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:document</span>])
+    <span class="ruby-identifier">data</span> = <span class="ruby-identifier">open</span>(<span class="ruby-node">&quot;#{@document.file}&quot;</span>) 
+    <span class="ruby-identifier">mime</span> = <span class="ruby-ivar">@document</span>.<span class="ruby-identifier">mime</span> <span class="ruby-operator">||</span> <span class="ruby-string">&#39;image/jpeg&#39;</span>
+    <span class="ruby-identifier">send_data</span> <span class="ruby-identifier">data</span>.<span class="ruby-identifier">read</span>, <span class="ruby-identifier">filename</span><span class="ruby-operator">:</span> <span class="ruby-ivar">@document</span>.<span class="ruby-identifier">title</span>, <span class="ruby-identifier">type</span><span class="ruby-operator">:</span> <span class="ruby-identifier">mime</span>, <span class="ruby-identifier">stream</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;true&#39;</span>, <span class="ruby-identifier">buffer_size</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;4096&#39;</span>
+  <span class="ruby-keyword">rescue</span>
+    
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-financial_document">
+            
+              <b>financial_document</b>()
+            
+            <a href="../classes/DownloadController.html#method-i-financial_document" name="method-i-financial_document" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-financial_document_source')" id="l_method-i-financial_document_source">show</a>
+                
+              </p>
+              <div id="method-i-financial_document_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File controllers/download_controller.rb, line 19</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">financial_document</span>
+  <span class="ruby-keyword">begin</span>
+    <span class="ruby-ivar">@document</span>= <span class="ruby-constant">Document</span>.<span class="ruby-identifier">cached_find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:document</span>])
+    <span class="ruby-identifier">data</span> = <span class="ruby-identifier">open</span>(<span class="ruby-node">&quot;#{@document.file}&quot;</span>) 
+    <span class="ruby-identifier">mime</span> = <span class="ruby-ivar">@document</span>.<span class="ruby-identifier">mime</span> <span class="ruby-operator">||</span> <span class="ruby-string">&#39;image/jpeg&#39;</span>
+    <span class="ruby-identifier">send_data</span> <span class="ruby-identifier">data</span>.<span class="ruby-identifier">read</span>, <span class="ruby-identifier">filename</span><span class="ruby-operator">:</span> <span class="ruby-ivar">@document</span>.<span class="ruby-identifier">title</span>, <span class="ruby-identifier">type</span><span class="ruby-operator">:</span> <span class="ruby-identifier">mime</span>, <span class="ruby-identifier">stream</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;true&#39;</span>, <span class="ruby-identifier">buffer_size</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;4096&#39;</span>
+  <span class="ruby-keyword">rescue</span>
+    
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-image_file">
+            
+              <b>image_file</b>()
+            
+            <a href="../classes/DownloadController.html#method-i-image_file" name="method-i-image_file" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              <p>include <a href="AccountsHelper.html">AccountsHelper</a> before_action
+:access_account</p>
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-image_file_source')" id="l_method-i-image_file_source">show</a>
+                
+              </p>
+              <div id="method-i-image_file_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File controllers/download_controller.rb, line 5</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">image_file</span>
+  <span class="ruby-ivar">@image_file</span> = <span class="ruby-constant">ImageFile</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:image_file</span>])
+  <span class="ruby-identifier">data</span> = <span class="ruby-identifier">open</span>(<span class="ruby-node">&quot;#{@image_file.file}&quot;</span>) 
+  <span class="ruby-identifier">mime</span> = <span class="ruby-ivar">@image_file</span>.<span class="ruby-identifier">mime</span> <span class="ruby-operator">||</span> <span class="ruby-string">&#39;image/jpeg&#39;</span>
+  <span class="ruby-identifier">send_data</span> <span class="ruby-identifier">data</span>.<span class="ruby-identifier">read</span>, <span class="ruby-identifier">filename</span><span class="ruby-operator">:</span> <span class="ruby-ivar">@image_file</span>.<span class="ruby-identifier">title</span>, <span class="ruby-identifier">type</span><span class="ruby-operator">:</span> <span class="ruby-identifier">mime</span>, <span class="ruby-identifier">stream</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;true&#39;</span>, <span class="ruby-identifier">buffer_size</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;4096&#39;</span>  
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-mp3_recording">
+            
+              <b>mp3_recording</b>()
+            
+            <a href="../classes/DownloadController.html#method-i-mp3_recording" name="method-i-mp3_recording" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-mp3_recording_source')" id="l_method-i-mp3_recording_source">show</a>
+                
+              </p>
+              <div id="method-i-mp3_recording_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File controllers/download_controller.rb, line 41</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">mp3_recording</span>
+  <span class="ruby-identifier">puts</span> <span class="ruby-string">&#39;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;  downloads_controller#mp3_recording &lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&#39;</span>
+  <span class="ruby-identifier">puts</span> <span class="ruby-string">&#39;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;           DEPRICATED                &lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&#39;</span>
+  <span class="ruby-keyword">begin</span>
+    <span class="ruby-ivar">@recording</span> = <span class="ruby-constant">Recording</span>.<span class="ruby-identifier">cached_find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:recording</span>])
+
+    <span class="ruby-identifier">data</span> = <span class="ruby-identifier">open</span>(<span class="ruby-node">&quot;#{@recording.mp3}&quot;</span>) 
+    <span class="ruby-identifier">name</span> = <span class="ruby-ivar">@recording</span>.<span class="ruby-identifier">title</span>
+    <span class="ruby-identifier">ext</span> = <span class="ruby-ivar">@recording</span>.<span class="ruby-identifier">audio_upload</span>[<span class="ruby-value">:ext</span>]
+    <span class="ruby-identifier">mime</span> = <span class="ruby-string">&#39;audio/mpeg&#39;</span>
+    <span class="ruby-identifier">send_data</span> <span class="ruby-identifier">data</span>.<span class="ruby-identifier">read</span>, <span class="ruby-identifier">filename</span><span class="ruby-operator">:</span> <span class="ruby-identifier">name</span>, <span class="ruby-identifier">type</span><span class="ruby-operator">:</span> <span class="ruby-identifier">mime</span>, <span class="ruby-identifier">stream</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;true&#39;</span>, <span class="ruby-identifier">buffer_size</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;4096&#39;</span>
+  <span class="ruby-keyword">rescue</span>
+    <span class="ruby-identifier">redirect_to</span> <span class="ruby-value">:back</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-original_recording">
+            
+              <b>original_recording</b>()
+            
+            <a href="../classes/DownloadController.html#method-i-original_recording" name="method-i-original_recording" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-original_recording_source')" id="l_method-i-original_recording_source">show</a>
+                
+              </p>
+              <div id="method-i-original_recording_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File controllers/download_controller.rb, line 57</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">original_recording</span>
+  <span class="ruby-identifier">puts</span> <span class="ruby-string">&#39;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;  downloads_controller#mp3_recording &lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&#39;</span>
+  <span class="ruby-identifier">puts</span> <span class="ruby-string">&#39;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;           DEPRICATED                &lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&#39;</span>
+  <span class="ruby-keyword">begin</span>
+    <span class="ruby-ivar">@recording</span> = <span class="ruby-constant">Recording</span>.<span class="ruby-identifier">cached_find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:recording</span>])
+
+    <span class="ruby-identifier">data</span> = <span class="ruby-identifier">open</span>(<span class="ruby-node">&quot;#{@recording.audio_upload[:url]}&quot;</span>) 
+    <span class="ruby-identifier">name</span> = <span class="ruby-ivar">@recording</span>.<span class="ruby-identifier">title</span>
+    <span class="ruby-identifier">ext</span> = <span class="ruby-ivar">@recording</span>.<span class="ruby-identifier">audio_upload</span>[<span class="ruby-value">:ext</span>]
+    <span class="ruby-identifier">mime</span> = <span class="ruby-string">&#39;Application/octet-stream&#39;</span>
+    <span class="ruby-identifier">send_data</span> <span class="ruby-identifier">data</span>.<span class="ruby-identifier">read</span>, <span class="ruby-identifier">filename</span><span class="ruby-operator">:</span> <span class="ruby-identifier">name</span>, <span class="ruby-identifier">type</span><span class="ruby-operator">:</span> <span class="ruby-identifier">mime</span>, <span class="ruby-identifier">stream</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;true&#39;</span>, <span class="ruby-identifier">buffer_size</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;4096&#39;</span>
+  <span class="ruby-keyword">rescue</span>
+    <span class="ruby-identifier">redirect_to</span> <span class="ruby-value">:back</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+                    </div>
+
+    </div>
+  </body>
+</html>    

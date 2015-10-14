@@ -1,0 +1,665 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>Playlist</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../css/github.css" type="text/css" media="screen" />
+<script src="../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            <span class="type">Class</span> 
+            Playlist 
+            
+                <span class="parent">&lt; 
+                    
+                    ActiveRecord::Base
+                    
+                </span>
+            
+        </h1>
+        <ul class="files">
+            
+            <li><a href="../files/models/playlist_rb.html">models/playlist.rb</a></li>
+            
+        </ul>
+    </div>
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>A playlist is an aggreation of playlist items</p>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+    <!-- Method ref -->
+    <div class="sectiontitle">Methods</div>
+    <dl class="methods">
+      
+        <dt>A</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-add_item">add_item</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-i-add_items">add_items</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>C</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-c-cached_find">cached_find</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-i-check_default_image">check_default_image</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-i-create_default_key">create_default_key</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-i-create_default_objects">create_default_objects</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-i-create_default_widget">create_default_widget</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>D</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-default_widget">default_widget</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>P</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-playlist_key">playlist_key</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-i-preview">preview</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>R</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-remove_item">remove_item</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+    </dl>
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+    
+      <div class="sectiontitle">Class Public methods</div>
+      
+        <div class="method">
+          <div class="title method-title" id="method-c-cached_find">
+            
+              <b>cached_find</b>(id)
+            
+            <a href="../classes/Playlist.html#method-c-cached_find" name="method-c-cached_find" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-c-cached_find_source')" id="l_method-c-cached_find_source">show</a>
+                
+              </p>
+              <div id="method-c-cached_find_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/playlist.rb, line 143</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">self</span>.<span class="ruby-identifier">cached_find</span>(<span class="ruby-identifier">id</span>)
+  
+   <span class="ruby-constant">Rails</span>.<span class="ruby-identifier">cache</span>.<span class="ruby-identifier">fetch</span>([<span class="ruby-identifier">name</span>, <span class="ruby-identifier">id</span>]) { <span class="ruby-identifier">find</span>(<span class="ruby-identifier">id</span>) }
+
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+                  
+      <div class="sectiontitle">Instance Public methods</div>
+      
+        <div class="method">
+          <div class="title method-title" id="method-i-add_item">
+            
+              <b>add_item</b>(new_item)
+            
+            <a href="../classes/Playlist.html#method-i-add_item" name="method-i-add_item" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              <p>def recordings</p>
+
+<pre><code>recording_ids = self.playlist_items.where(playlist_itemable_type: &#39;Recording&#39;).pluck(:playlist_itemable_id)
+Recording.where(id: recording_ids)
+</code></pre>
+
+<p>end</p>
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-add_item_source')" id="l_method-i-add_item_source">show</a>
+                
+              </p>
+              <div id="method-i-add_item_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/playlist.rb, line 106</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">add_item</span> <span class="ruby-identifier">new_item</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">playlist_items</span>.<span class="ruby-identifier">where</span>(<span class="ruby-identifier">playlist_id</span><span class="ruby-operator">:</span>            <span class="ruby-keyword">self</span>.<span class="ruby-identifier">id</span>,
+                            <span class="ruby-identifier">playlist_itemable_type</span><span class="ruby-operator">:</span> <span class="ruby-identifier">new_item</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">name</span>, 
+                            <span class="ruby-identifier">playlist_itemable_id</span><span class="ruby-operator">:</span>   <span class="ruby-identifier">new_item</span>.<span class="ruby-identifier">id</span>)
+                     .<span class="ruby-identifier">first_or_create</span>( <span class="ruby-identifier">playlist_id</span><span class="ruby-operator">:</span>            <span class="ruby-keyword">self</span>.<span class="ruby-identifier">id</span>,
+                                       <span class="ruby-identifier">playlist_itemable_type</span><span class="ruby-operator">:</span> <span class="ruby-identifier">new_item</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">name</span>,
+                                       <span class="ruby-identifier">playlist_itemable_id</span><span class="ruby-operator">:</span>   <span class="ruby-identifier">new_item</span>.<span class="ruby-identifier">id</span>)
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-add_items">
+            
+              <b>add_items</b>(new_items)
+            
+            <a href="../classes/Playlist.html#method-i-add_items" name="method-i-add_items" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-add_items_source')" id="l_method-i-add_items_source">show</a>
+                
+              </p>
+              <div id="method-i-add_items_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/playlist.rb, line 115</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">add_items</span> <span class="ruby-identifier">new_items</span>
+  <span class="ruby-identifier">new_items</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">item</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">add_item</span> <span class="ruby-identifier">item</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-check_default_image">
+            
+              <b>check_default_image</b>()
+            
+            <a href="../classes/Playlist.html#method-i-check_default_image" name="method-i-check_default_image" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-check_default_image_source')" id="l_method-i-check_default_image_source">show</a>
+                
+              </p>
+              <div id="method-i-check_default_image_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/playlist.rb, line 28</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">check_default_image</span>
+
+  <span class="ruby-keyword">if</span>  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">playlist_image_url</span> <span class="ruby-operator">==</span> <span class="ruby-string">&quot;/assets/fallback/playlist.jpg&quot;</span>
+    <span class="ruby-identifier">prng</span>      = <span class="ruby-constant">Random</span>.<span class="ruby-identifier">new</span>
+    <span class="ruby-identifier">random_id</span> =  <span class="ruby-identifier">prng</span>.<span class="ruby-identifier">rand</span>(<span class="ruby-number">14</span>)
+
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">random_id</span> <span class="ruby-operator">&lt;</span> <span class="ruby-number">10</span>
+      <span class="ruby-identifier">random_id</span> = <span class="ruby-string">&#39;0&#39;</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">random_id</span>.<span class="ruby-identifier">to_s</span> 
+    <span class="ruby-keyword">end</span>
+    <span class="ruby-keyword">self</span>.<span class="ruby-identifier">playlist_image</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">open</span>(<span class="ruby-constant">Rails</span>.<span class="ruby-identifier">root</span>.<span class="ruby-identifier">join</span>(<span class="ruby-string">&#39;app&#39;</span>, <span class="ruby-string">&#39;assets&#39;</span>, <span class="ruby-string">&#39;images&#39;</span>, <span class="ruby-node">&quot;playlists/default_#{random_id.to_s}.jpg&quot;</span>))
+    <span class="ruby-keyword">self</span>.<span class="ruby-identifier">playlist_image</span>.<span class="ruby-identifier">recreate_versions!</span>
+    <span class="ruby-keyword">self</span>.<span class="ruby-identifier">save!</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-create_default_key">
+            
+              <b>create_default_key</b>()
+            
+            <a href="../classes/Playlist.html#method-i-create_default_key" name="method-i-create_default_key" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-create_default_key_source')" id="l_method-i-create_default_key_source">show</a>
+                
+              </p>
+              <div id="method-i-create_default_key_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/playlist.rb, line 63</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">create_default_key</span> 
+
+  <span class="ruby-constant">PlaylistKey</span>.<span class="ruby-identifier">create</span>(
+                           <span class="ruby-identifier">default</span><span class="ruby-operator">:</span> <span class="ruby-keyword">true</span>,
+                       <span class="ruby-identifier">playlist_id</span><span class="ruby-operator">:</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">id</span>,
+                           <span class="ruby-identifier">user_id</span><span class="ruby-operator">:</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">user_id</span>,
+                        <span class="ruby-identifier">account_id</span><span class="ruby-operator">:</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">account_id</span>,
+                     <span class="ruby-identifier">secure_access</span><span class="ruby-operator">:</span> <span class="ruby-keyword">true</span>,
+                          <span class="ruby-identifier">password</span><span class="ruby-operator">:</span> <span class="ruby-constant">UUIDTools</span><span class="ruby-operator">::</span><span class="ruby-constant">UUID</span>.<span class="ruby-identifier">timestamp_create</span>().<span class="ruby-identifier">to_s</span>,
+                           <span class="ruby-identifier">expires</span><span class="ruby-operator">:</span> <span class="ruby-keyword">false</span>,
+                   <span class="ruby-identifier">expiration_date</span><span class="ruby-operator">:</span> <span class="ruby-constant">Date</span>.<span class="ruby-identifier">current</span>() <span class="ruby-operator">&gt;&gt;</span> <span class="ruby-number">365</span>,
+                         <span class="ruby-identifier">page_link</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;&#39;</span>,
+                            <span class="ruby-identifier">status</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;new&#39;</span>,
+                            <span class="ruby-identifier">enable</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;false&#39;</span>,
+                             <span class="ruby-identifier">title</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;Default Key&#39;</span>,
+                              <span class="ruby-identifier">body</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;&#39;</span>,
+                      <span class="ruby-identifier">playlist_url</span><span class="ruby-operator">:</span> <span class="ruby-constant">UUIDTools</span><span class="ruby-operator">::</span><span class="ruby-constant">UUID</span>.<span class="ruby-identifier">timestamp_create</span>().<span class="ruby-identifier">to_s</span>
+                     )
+
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-create_default_objects">
+            
+              <b>create_default_objects</b>()
+            
+            <a href="../classes/Playlist.html#method-i-create_default_objects" name="method-i-create_default_objects" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-create_default_objects_source')" id="l_method-i-create_default_objects_source">show</a>
+                
+              </p>
+              <div id="method-i-create_default_objects_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/playlist.rb, line 43</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">create_default_objects</span>
+  <span class="ruby-identifier">create_default_widget</span>
+  <span class="ruby-identifier">create_default_key</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-create_default_widget">
+            
+              <b>create_default_widget</b>()
+            
+            <a href="../classes/Playlist.html#method-i-create_default_widget" name="method-i-create_default_widget" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-create_default_widget_source')" id="l_method-i-create_default_widget_source">show</a>
+                
+              </p>
+              <div id="method-i-create_default_widget_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/playlist.rb, line 48</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">create_default_widget</span>
+  <span class="ruby-identifier">default_widget</span> = <span class="ruby-constant">Widget</span>.<span class="ruby-identifier">create</span>(
+                            <span class="ruby-identifier">title</span><span class="ruby-operator">:</span>            <span class="ruby-keyword">self</span>.<span class="ruby-identifier">title</span>,
+                            <span class="ruby-identifier">body</span><span class="ruby-operator">:</span>             <span class="ruby-keyword">self</span>.<span class="ruby-identifier">body</span>,
+                            <span class="ruby-identifier">secret_key</span><span class="ruby-operator">:</span>       <span class="ruby-constant">UUIDTools</span><span class="ruby-operator">::</span><span class="ruby-constant">UUID</span>.<span class="ruby-identifier">timestamp_create</span>().<span class="ruby-identifier">to_s</span>,
+                            <span class="ruby-identifier">widget_theme_id</span><span class="ruby-operator">:</span>  <span class="ruby-constant">WidgetTheme</span>.<span class="ruby-identifier">default</span>.<span class="ruby-identifier">id</span>,
+                            <span class="ruby-identifier">user_id</span><span class="ruby-operator">:</span>          <span class="ruby-keyword">self</span>.<span class="ruby-identifier">user_id</span>,
+                            <span class="ruby-identifier">account_id</span><span class="ruby-operator">:</span>       <span class="ruby-keyword">self</span>.<span class="ruby-identifier">account_id</span>,
+                            <span class="ruby-comment">#catalog_id:       self.id,</span>
+                            <span class="ruby-identifier">playlist_id</span><span class="ruby-operator">:</span>      <span class="ruby-keyword">self</span>.<span class="ruby-identifier">id</span>
+                          )
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">default_widget_id</span> = <span class="ruby-identifier">default_widget</span>.<span class="ruby-identifier">id</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">save</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-default_widget">
+            
+              <b>default_widget</b>()
+            
+            <a href="../classes/Playlist.html#method-i-default_widget" name="method-i-default_widget" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-default_widget_source')" id="l_method-i-default_widget_source">show</a>
+                
+              </p>
+              <div id="method-i-default_widget_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/playlist.rb, line 134</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">default_widget</span>
+  <span class="ruby-constant">Widget</span>.<span class="ruby-identifier">cached_find</span>(<span class="ruby-keyword">self</span>.<span class="ruby-identifier">default_widget_id</span>)
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-playlist_key">
+            
+              <b>playlist_key</b>()
+            
+            <a href="../classes/Playlist.html#method-i-playlist_key" name="method-i-playlist_key" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              <p>make a <a href="PlaylistKey.html">PlaylistKey</a></p>
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-playlist_key_source')" id="l_method-i-playlist_key_source">show</a>
+                
+              </p>
+              <div id="method-i-playlist_key_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/playlist.rb, line 85</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">playlist_key</span>
+  <span class="ruby-constant">PlaylistKey</span>.<span class="ruby-identifier">where</span>(<span class="ruby-identifier">playlist_id</span><span class="ruby-operator">:</span>  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">id</span>
+             .<span class="ruby-identifier">first_or_create</span>( <span class="ruby-identifier">playlist_id</span><span class="ruby-operator">:</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">id</span>,
+                               <span class="ruby-identifier">user_id</span><span class="ruby-operator">:</span>     <span class="ruby-keyword">self</span>.<span class="ruby-identifier">account</span>.<span class="ruby-identifier">user_id</span>,
+                               <span class="ruby-identifier">account_id</span><span class="ruby-operator">:</span>  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">account_id</span>),
+                               <span class="ruby-identifier">secure_access</span><span class="ruby-operator">:</span> <span class="ruby-keyword">true</span>,
+                               <span class="ruby-identifier">password</span><span class="ruby-operator">:</span> <span class="ruby-constant">UUIDTools</span><span class="ruby-operator">::</span><span class="ruby-constant">UUID</span>.<span class="ruby-identifier">timestamp_create</span>().<span class="ruby-identifier">to_s</span>,
+                               <span class="ruby-identifier">expires</span><span class="ruby-operator">:</span> <span class="ruby-keyword">false</span>,
+                               <span class="ruby-identifier">expiration_date</span><span class="ruby-operator">:</span> <span class="ruby-constant">Date</span>.<span class="ruby-identifier">current</span>() <span class="ruby-operator">&gt;&gt;</span> <span class="ruby-number">1</span>,
+                               <span class="ruby-identifier">page_link</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;http://digiramp.com&#39;</span>,
+                               <span class="ruby-identifier">status</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;new&#39;</span>
+                             )
+  
+
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-preview">
+            
+              <b>preview</b>()
+            
+            <a href="../classes/Playlist.html#method-i-preview" name="method-i-preview" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-preview_source')" id="l_method-i-preview_source">show</a>
+                
+              </p>
+              <div id="method-i-preview_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/playlist.rb, line 139</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">preview</span>
+  <span class="ruby-identifier">playlist_keys</span>.<span class="ruby-identifier">where</span>(<span class="ruby-identifier">default</span><span class="ruby-operator">:</span> <span class="ruby-keyword">true</span>).<span class="ruby-identifier">first</span>.<span class="ruby-identifier">playlist_url</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-remove_item">
+            
+              <b>remove_item</b>(item)
+            
+            <a href="../classes/Playlist.html#method-i-remove_item" name="method-i-remove_item" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-remove_item_source')" id="l_method-i-remove_item_source">show</a>
+                
+              </p>
+              <div id="method-i-remove_item_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/playlist.rb, line 121</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">remove_item</span> <span class="ruby-identifier">item</span>
+
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">item</span> = <span class="ruby-constant">PlaylistItem</span>.<span class="ruby-identifier">where</span>(  <span class="ruby-identifier">playlist_id</span><span class="ruby-operator">:</span>           <span class="ruby-keyword">self</span>.<span class="ruby-identifier">id</span>, 
+                                 <span class="ruby-identifier">playlist_itemable_id</span><span class="ruby-operator">:</span>  <span class="ruby-identifier">item</span>.<span class="ruby-identifier">id</span>,
+                                <span class="ruby-identifier">playlist_itemable_type</span><span class="ruby-operator">:</span> <span class="ruby-identifier">item</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">name</span>
+                              )
+                                          
+    <span class="ruby-identifier">item</span>.<span class="ruby-identifier">destroy</span> 
+    <span class="ruby-keyword">return</span> <span class="ruby-keyword">true</span>                                 
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">false</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+                    </div>
+
+    </div>
+  </body>
+</html>    

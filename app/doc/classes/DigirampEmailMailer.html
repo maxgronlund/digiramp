@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>DigirampEmailMailer</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../css/github.css" type="text/css" media="screen" />
+<script src="../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            <span class="type">Class</span> 
+            DigirampEmailMailer 
+            
+                <span class="parent">&lt; 
+                    
+                    <a href="ApplicationMailer.html">ApplicationMailer</a>
+                    
+                </span>
+            
+        </h1>
+        <ul class="files">
+            
+            <li><a href="../files/mailers/digiramp_email_mailer_rb.html">mailers/digiramp_email_mailer.rb</a></li>
+            
+        </ul>
+    </div>
+    <div id="bodyContent">
+        <div id="content">
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+    <!-- Method ref -->
+    <div class="sectiontitle">Methods</div>
+    <dl class="methods">
+      
+        <dt>N</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-news_email">news_email</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>O</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-opportunity_created">opportunity_created</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+    </dl>
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+        
+      <div class="sectiontitle">Instance Public methods</div>
+      
+        <div class="method">
+          <div class="title method-title" id="method-i-news_email">
+            
+              <b>news_email</b>(users, digiramp_email_id)
+            
+            <a href="../classes/DigirampEmailMailer.html#method-i-news_email" name="method-i-news_email" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-news_email_source')" id="l_method-i-news_email_source">show</a>
+                
+              </p>
+              <div id="method-i-news_email_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File mailers/digiramp_email_mailer.rb, line 6</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">news_email</span> <span class="ruby-identifier">users</span>, <span class="ruby-identifier">digiramp_email_id</span>
+  
+  <span class="ruby-identifier">digiramp_email</span>         = <span class="ruby-constant">DigirampEmail</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">digiramp_email_id</span>)
+ 
+  <span class="ruby-identifier">receipients_with_names</span> = []
+  <span class="ruby-identifier">merge_vars</span>             = []
+  <span class="ruby-identifier">image_1</span>                = (<span class="ruby-constant">URI</span>.<span class="ruby-identifier">parse</span>(<span class="ruby-identifier">root_url</span>) <span class="ruby-operator">+</span> <span class="ruby-identifier">digiramp_email</span>.<span class="ruby-identifier">image_1_url</span>(<span class="ruby-value">:banner_558x90</span>)).<span class="ruby-identifier">to_s</span>
+  <span class="ruby-identifier">link</span>                   = <span class="ruby-identifier">url_for</span> <span class="ruby-identifier">unsubscribes_path</span>(<span class="ruby-identifier">uuid</span><span class="ruby-operator">:</span> <span class="ruby-identifier">digiramp_email</span>.<span class="ruby-identifier">email_group</span>.<span class="ruby-identifier">uuid</span>)
+  <span class="ruby-identifier">unsibscribe_link</span>       = (<span class="ruby-constant">URI</span>.<span class="ruby-identifier">parse</span>(<span class="ruby-identifier">root_url</span>) <span class="ruby-operator">+</span> <span class="ruby-identifier">link</span>).<span class="ruby-identifier">to_s</span>
+
+  <span class="ruby-identifier">users</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">user</span><span class="ruby-operator">|</span>
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">user</span>.<span class="ruby-identifier">email</span> 
+      <span class="ruby-keyword">if</span> <span class="ruby-identifier">email</span> = <span class="ruby-constant">EmailSanitizer</span>.<span class="ruby-identifier">saintize</span>( <span class="ruby-identifier">user</span>.<span class="ruby-identifier">email</span> )
+        <span class="ruby-identifier">receipients_with_names</span>  <span class="ruby-operator">&lt;&lt;</span> {<span class="ruby-identifier">email</span><span class="ruby-operator">:</span> <span class="ruby-identifier">email</span>, <span class="ruby-identifier">name</span><span class="ruby-operator">:</span> <span class="ruby-identifier">user</span>.<span class="ruby-identifier">user_name</span>}
+        <span class="ruby-identifier">merge_vars</span>              <span class="ruby-operator">&lt;&lt;</span> { <span class="ruby-identifier">rcpt</span><span class="ruby-operator">:</span> <span class="ruby-identifier">email</span>,
+                                     <span class="ruby-identifier">vars</span><span class="ruby-operator">:</span> [ {<span class="ruby-identifier">name</span><span class="ruby-operator">:</span> <span class="ruby-string">&quot;IMAGE_1&quot;</span>,          <span class="ruby-identifier">content</span><span class="ruby-operator">:</span> <span class="ruby-identifier">image_1</span>},
+                                             {<span class="ruby-identifier">name</span><span class="ruby-operator">:</span> <span class="ruby-string">&quot;TITLE_1&quot;</span>,          <span class="ruby-identifier">content</span><span class="ruby-operator">:</span> <span class="ruby-identifier">digiramp_email</span>.<span class="ruby-identifier">title_1</span>},
+                                             {<span class="ruby-identifier">name</span><span class="ruby-operator">:</span> <span class="ruby-string">&quot;BODY_1&quot;</span>,           <span class="ruby-identifier">content</span><span class="ruby-operator">:</span> <span class="ruby-identifier">digiramp_email</span>.<span class="ruby-identifier">body_1</span>},
+                                             {<span class="ruby-identifier">name</span><span class="ruby-operator">:</span> <span class="ruby-string">&quot;TITLE_2&quot;</span>,          <span class="ruby-identifier">content</span><span class="ruby-operator">:</span> <span class="ruby-identifier">digiramp_email</span>.<span class="ruby-identifier">title_2</span>},
+                                             {<span class="ruby-identifier">name</span><span class="ruby-operator">:</span> <span class="ruby-string">&quot;BODY_2&quot;</span>,           <span class="ruby-identifier">content</span><span class="ruby-operator">:</span> <span class="ruby-identifier">digiramp_email</span>.<span class="ruby-identifier">body_2</span>},
+                                             {<span class="ruby-identifier">name</span><span class="ruby-operator">:</span> <span class="ruby-string">&quot;LINK_1&quot;</span>,           <span class="ruby-identifier">content</span><span class="ruby-operator">:</span> <span class="ruby-identifier">digiramp_email</span>.<span class="ruby-identifier">link_1</span> },
+                                             {<span class="ruby-identifier">name</span><span class="ruby-operator">:</span> <span class="ruby-string">&quot;LINK_1_TITLE&quot;</span>,     <span class="ruby-identifier">content</span><span class="ruby-operator">:</span> <span class="ruby-identifier">digiramp_email</span>.<span class="ruby-identifier">link_1_title</span> },
+                                             {<span class="ruby-identifier">name</span><span class="ruby-operator">:</span> <span class="ruby-string">&quot;TITLE_3&quot;</span>,          <span class="ruby-identifier">content</span><span class="ruby-operator">:</span> <span class="ruby-identifier">digiramp_email</span>.<span class="ruby-identifier">title_3</span>},
+                                             {<span class="ruby-identifier">name</span><span class="ruby-operator">:</span> <span class="ruby-string">&quot;BODY_3&quot;</span>,           <span class="ruby-identifier">content</span><span class="ruby-operator">:</span> <span class="ruby-identifier">digiramp_email</span>.<span class="ruby-identifier">body_3</span>},
+                                             
+                                             {<span class="ruby-identifier">name</span><span class="ruby-operator">:</span> <span class="ruby-string">&quot;SHOW_TITLE_1&quot;</span>,     <span class="ruby-identifier">content</span><span class="ruby-operator">:</span> <span class="ruby-operator">!</span><span class="ruby-identifier">digiramp_email</span>.<span class="ruby-identifier">title_1</span>.<span class="ruby-identifier">blank?</span>  },
+                                             {<span class="ruby-identifier">name</span><span class="ruby-operator">:</span> <span class="ruby-string">&quot;SHOW_BODY_1&quot;</span>,      <span class="ruby-identifier">content</span><span class="ruby-operator">:</span> <span class="ruby-operator">!</span><span class="ruby-identifier">digiramp_email</span>.<span class="ruby-identifier">body_1</span>.<span class="ruby-identifier">blank?</span>   },
+                                             {<span class="ruby-identifier">name</span><span class="ruby-operator">:</span> <span class="ruby-string">&quot;SHOW_TITLE_2&quot;</span>,     <span class="ruby-identifier">content</span><span class="ruby-operator">:</span> <span class="ruby-operator">!</span><span class="ruby-identifier">digiramp_email</span>.<span class="ruby-identifier">title_2</span>.<span class="ruby-identifier">blank?</span>  },
+                                             {<span class="ruby-identifier">name</span><span class="ruby-operator">:</span> <span class="ruby-string">&quot;SHOW_BODY_2&quot;</span>,      <span class="ruby-identifier">content</span><span class="ruby-operator">:</span> <span class="ruby-operator">!</span><span class="ruby-identifier">digiramp_email</span>.<span class="ruby-identifier">body_2</span>.<span class="ruby-identifier">blank?</span>   },
+                                             {<span class="ruby-identifier">name</span><span class="ruby-operator">:</span> <span class="ruby-string">&quot;SHOW_LINK_1&quot;</span>,      <span class="ruby-identifier">content</span><span class="ruby-operator">:</span> <span class="ruby-operator">!</span><span class="ruby-identifier">digiramp_email</span>.<span class="ruby-identifier">link_1</span>.<span class="ruby-identifier">blank?</span>  }, 
+                                             {<span class="ruby-identifier">name</span><span class="ruby-operator">:</span> <span class="ruby-string">&quot;SHOW_TITLE_3&quot;</span>,     <span class="ruby-identifier">content</span><span class="ruby-operator">:</span> <span class="ruby-operator">!</span><span class="ruby-identifier">digiramp_email</span>.<span class="ruby-identifier">title_3</span>.<span class="ruby-identifier">blank?</span>  },
+                                             {<span class="ruby-identifier">name</span><span class="ruby-operator">:</span> <span class="ruby-string">&quot;SHOW_BODY_3&quot;</span>,      <span class="ruby-identifier">content</span><span class="ruby-operator">:</span> <span class="ruby-operator">!</span><span class="ruby-identifier">digiramp_email</span>.<span class="ruby-identifier">body_3</span>.<span class="ruby-identifier">blank?</span>   },
+                                             {<span class="ruby-identifier">name</span><span class="ruby-operator">:</span> <span class="ruby-string">&quot;UNSUBSCRIBE_LINK&quot;</span>, <span class="ruby-identifier">content</span><span class="ruby-operator">:</span> <span class="ruby-identifier">unsibscribe_link</span>}
+                                           ]
+                                    }
+      <span class="ruby-keyword">end</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-keyword">unless</span> <span class="ruby-identifier">receipients_with_names</span>.<span class="ruby-identifier">empty?</span>
+    <span class="ruby-identifier">send_with_mandrill</span>( <span class="ruby-identifier">receipients_with_names</span>, 
+                        <span class="ruby-string">&quot;news-email&quot;</span>, 
+                        <span class="ruby-string">&#39;DigiRAMP news&#39;</span>, 
+                        [<span class="ruby-string">&quot;news&quot;</span>, <span class="ruby-string">&quot;digiramp&quot;</span>], 
+                        <span class="ruby-identifier">merge_vars</span>,
+                        <span class="ruby-keyword">true</span>, 
+                        <span class="ruby-keyword">true</span>, 
+                        <span class="ruby-string">&quot;00-digiramp-news&quot;</span>,
+                        <span class="ruby-string">&quot;mailchimp&quot;</span>
+                      )
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-opportunity_created">
+            
+              <b>opportunity_created</b>(users, digiramp_email_id)
+            
+            <a href="../classes/DigirampEmailMailer.html#method-i-opportunity_created" name="method-i-opportunity_created" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-opportunity_created_source')" id="l_method-i-opportunity_created_source">show</a>
+                
+              </p>
+              <div id="method-i-opportunity_created_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File mailers/digiramp_email_mailer.rb, line 59</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">opportunity_created</span> <span class="ruby-identifier">users</span>, <span class="ruby-identifier">digiramp_email_id</span>
+  
+  <span class="ruby-comment">#error_msg(&quot;DigirampEmail:85:#{digiramp_email_id}&quot;)</span>
+  <span class="ruby-comment">#    unless digiramp_email   = DigirampEmail.cached_find(digiramp_email_id)</span>
+        
+        
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">digiramp_email</span>           = <span class="ruby-constant">DigirampEmail</span>.<span class="ruby-identifier">cached_find</span>(<span class="ruby-identifier">digiramp_email_id</span>)
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">opportunity</span>            = <span class="ruby-constant">Opportunity</span>.<span class="ruby-identifier">cached_find</span>(<span class="ruby-identifier">digiramp_email</span>.<span class="ruby-identifier">opportunity_id</span>)
+      <span class="ruby-identifier">opportunity_link</span>        = <span class="ruby-identifier">url_for</span>( <span class="ruby-identifier">controller</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;/public_opportunities&#39;</span>, <span class="ruby-identifier">action</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;show&#39;</span>, <span class="ruby-identifier">id</span><span class="ruby-operator">:</span> <span class="ruby-identifier">opportunity</span>.<span class="ruby-identifier">id</span>)
+      <span class="ruby-identifier">receipients_with_names</span>  = []
+      <span class="ruby-identifier">merge_vars</span>              = []
+      <span class="ruby-identifier">link</span>                    = <span class="ruby-identifier">url_for</span> <span class="ruby-identifier">unsubscribes_path</span>(<span class="ruby-identifier">uuid</span><span class="ruby-operator">:</span> <span class="ruby-identifier">digiramp_email</span>.<span class="ruby-identifier">email_group</span>.<span class="ruby-identifier">uuid</span>)
+      <span class="ruby-identifier">unsibscribe_link</span>        = (<span class="ruby-constant">URI</span>.<span class="ruby-identifier">parse</span>(<span class="ruby-identifier">root_url</span>) <span class="ruby-operator">+</span> <span class="ruby-identifier">link</span>).<span class="ruby-identifier">to_s</span>
+
+      <span class="ruby-identifier">users</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">user</span><span class="ruby-operator">|</span>
+        <span class="ruby-keyword">begin</span>
+          <span class="ruby-keyword">if</span> <span class="ruby-identifier">email</span> = <span class="ruby-constant">EmailSanitizer</span>.<span class="ruby-identifier">saintize</span>( <span class="ruby-identifier">user</span>.<span class="ruby-identifier">email</span> )
+            <span class="ruby-identifier">receipients_with_names</span>  <span class="ruby-operator">&lt;&lt;</span> { <span class="ruby-identifier">email</span><span class="ruby-operator">:</span> <span class="ruby-identifier">email</span>, <span class="ruby-identifier">name</span><span class="ruby-operator">:</span> <span class="ruby-identifier">user</span>.<span class="ruby-identifier">user_name</span>}
+            <span class="ruby-identifier">merge_vars</span>              <span class="ruby-operator">&lt;&lt;</span> { <span class="ruby-identifier">rcpt</span><span class="ruby-operator">:</span> <span class="ruby-identifier">email</span>,
+                                         <span class="ruby-identifier">vars</span><span class="ruby-operator">:</span> [ {<span class="ruby-identifier">name</span><span class="ruby-operator">:</span> <span class="ruby-string">&quot;USER_NAME&quot;</span>,              <span class="ruby-identifier">content</span><span class="ruby-operator">:</span>     <span class="ruby-identifier">user</span>.<span class="ruby-identifier">user_name</span>},
+                                                 {<span class="ruby-identifier">name</span><span class="ruby-operator">:</span> <span class="ruby-string">&quot;OPPORTUNITY_TITLE&quot;</span>,      <span class="ruby-identifier">content</span><span class="ruby-operator">:</span>     <span class="ruby-identifier">opportunity</span>.<span class="ruby-identifier">title</span>},
+                                                 {<span class="ruby-identifier">name</span><span class="ruby-operator">:</span> <span class="ruby-string">&quot;OPPORTUNITY_BODY&quot;</span>,       <span class="ruby-identifier">content</span><span class="ruby-operator">:</span>     <span class="ruby-identifier">opportunity</span>.<span class="ruby-identifier">body</span>},
+                                                 {<span class="ruby-identifier">name</span><span class="ruby-operator">:</span> <span class="ruby-string">&quot;OPPORTUNITY_LINK&quot;</span>,       <span class="ruby-identifier">content</span><span class="ruby-operator">:</span>     <span class="ruby-identifier">opportunity_link</span>},
+                                                 {<span class="ruby-identifier">name</span><span class="ruby-operator">:</span> <span class="ruby-string">&quot;UNSUBSCRIBE_LINK&quot;</span>,       <span class="ruby-identifier">content</span><span class="ruby-operator">:</span>     <span class="ruby-identifier">unsibscribe_link</span>}
+                                               ]
+                            }
+          <span class="ruby-keyword">end</span>
+        <span class="ruby-keyword">rescue</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
+          <span class="ruby-constant">Opbeat</span>.<span class="ruby-identifier">capture_message</span>( <span class="ruby-node">&quot;DigirampEmailMailer#opportunity_created #{opportunity.id}&quot;</span> )
+        <span class="ruby-keyword">end</span>
+      <span class="ruby-keyword">end</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+      
+  <span class="ruby-keyword">unless</span> <span class="ruby-identifier">receipients_with_names</span>.<span class="ruby-identifier">empty?</span>
+    <span class="ruby-identifier">send_with_mandrill</span>( <span class="ruby-identifier">receipients_with_names</span>, 
+                        <span class="ruby-string">&quot;opportunity-email&quot;</span>, 
+                        <span class="ruby-string">&#39;New opportunity on DigiRAMP&#39;</span>, 
+                        [<span class="ruby-string">&quot;digiramp&quot;</span>, <span class="ruby-string">&quot;opportunity&quot;</span>], 
+                        <span class="ruby-identifier">merge_vars</span>,
+                        <span class="ruby-keyword">true</span>, 
+                        <span class="ruby-keyword">true</span>, 
+                        <span class="ruby-string">&quot;01-digiramp-opportunity-created&quot;</span>,
+                        <span class="ruby-string">&quot;mailchimp&quot;</span>
+                      )
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+                    </div>
+
+    </div>
+  </body>
+</html>    

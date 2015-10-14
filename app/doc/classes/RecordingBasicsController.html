@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>RecordingBasicsController</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../css/github.css" type="text/css" media="screen" />
+<script src="../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            <span class="type">Class</span> 
+            RecordingBasicsController 
+            
+                <span class="parent">&lt; 
+                    
+                    <a href="ApplicationController.html">ApplicationController</a>
+                    
+                </span>
+            
+        </h1>
+        <ul class="files">
+            
+            <li><a href="../files/controllers/recording_basics_controller_rb.html">controllers/recording_basics_controller.rb</a></li>
+            
+        </ul>
+    </div>
+    <div id="bodyContent">
+        <div id="content">
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+    <!-- Method ref -->
+    <div class="sectiontitle">Methods</div>
+    <dl class="methods">
+      
+        <dt>E</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-edit">edit</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>U</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-update">update</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+    </dl>
+  
+
+  
+    <!-- Includes -->
+    <div class="sectiontitle">Included Modules</div>
+    <ul>
+      
+        <li>
+          
+            Transloadit::Rails::ParamsDecoder
+          
+        </li>
+      
+        <li>
+          
+            <a href="RecordingsHelper.html">
+              RecordingsHelper
+            </a>
+          
+        </li>
+      
+    </ul>
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+        
+      <div class="sectiontitle">Instance Public methods</div>
+      
+        <div class="method">
+          <div class="title method-title" id="method-i-edit">
+            
+              <b>edit</b>()
+            
+            <a href="../classes/RecordingBasicsController.html#method-i-edit" name="method-i-edit" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-edit_source')" id="l_method-i-edit_source">show</a>
+                
+              </p>
+              <div id="method-i-edit_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File controllers/recording_basics_controller.rb, line 8</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">edit</span>
+  
+  <span class="ruby-comment">#@user           = User.cached_find(params[:user_id])</span>
+  <span class="ruby-comment">#@recording      = Recording.cached_find(params[:id])</span>
+  
+
+  <span class="ruby-identifier">forbidden</span> <span class="ruby-keyword">unless</span> <span class="ruby-ivar">@user</span>.<span class="ruby-identifier">permits?</span>( <span class="ruby-identifier">current_user</span> )<span class="ruby-comment">#(current_user &amp;&amp; @recording.user_id == current_user.id) || super?</span>
+  <span class="ruby-ivar">@common_work</span> = <span class="ruby-ivar">@recording</span>.<span class="ruby-identifier">get_common_work</span>
+  
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-update">
+            
+              <b>update</b>()
+            
+            <a href="../classes/RecordingBasicsController.html#method-i-update" name="method-i-update" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-update_source')" id="l_method-i-update_source">show</a>
+                
+              </p>
+              <div id="method-i-update_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File controllers/recording_basics_controller.rb, line 19</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">update</span>
+
+  <span class="ruby-ivar">@recording</span>      = <span class="ruby-constant">Recording</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
+  
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:recording</span>][<span class="ruby-value">:featured</span>] <span class="ruby-operator">==</span> <span class="ruby-string">&#39;1&#39;</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-ivar">@recording</span>.<span class="ruby-identifier">featured</span> <span class="ruby-operator">==</span> <span class="ruby-keyword">false</span>
+    <span class="ruby-identifier">params</span>[<span class="ruby-value">:recording</span>][<span class="ruby-value">:featured_date</span>] = <span class="ruby-constant">DateTime</span>.<span class="ruby-identifier">now</span>
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-identifier">params</span>[<span class="ruby-value">:recording</span>][<span class="ruby-value">:uuid</span>] = <span class="ruby-constant">UUIDTools</span><span class="ruby-operator">::</span><span class="ruby-constant">UUID</span>.<span class="ruby-identifier">timestamp_create</span>().<span class="ruby-identifier">to_s</span>
+
+  <span class="ruby-keyword">if</span> <span class="ruby-ivar">@genre_category</span> = <span class="ruby-identifier">params</span>[<span class="ruby-value">:recording</span>][<span class="ruby-value">:genre_category</span>]
+    <span class="ruby-identifier">params</span>[<span class="ruby-value">:recording</span>].<span class="ruby-identifier">delete</span> <span class="ruby-value">:genre_category</span>
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-keyword">if</span> <span class="ruby-ivar">@recording</span>.<span class="ruby-identifier">update_attributes</span>(<span class="ruby-identifier">recording_params</span>)
+    
+    <span class="ruby-ivar">@recording</span>.<span class="ruby-identifier">extract_genres</span>
+    <span class="ruby-ivar">@recording</span>.<span class="ruby-identifier">extract_instruments</span>
+    <span class="ruby-ivar">@recording</span>.<span class="ruby-identifier">extract_moods</span>
+
+    <span class="ruby-comment"># artwork</span>
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:transloadit</span>]
+      <span class="ruby-keyword">if</span> <span class="ruby-identifier">artworks</span> = <span class="ruby-constant">TransloaditImageParser</span>.<span class="ruby-identifier">artwork</span>( <span class="ruby-identifier">params</span>[<span class="ruby-value">:transloadit</span>], <span class="ruby-ivar">@user</span>.<span class="ruby-identifier">account</span>.<span class="ruby-identifier">id</span>)
+        <span class="ruby-comment"># if there is no artwork file</span>
+        <span class="ruby-keyword">if</span> <span class="ruby-identifier">artworks</span> <span class="ruby-operator">==</span> []
+          <span class="ruby-comment"># if a drop down item is selected</span>
+          <span class="ruby-keyword">if</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:recording</span>][<span class="ruby-value">:image_file_id</span>].<span class="ruby-identifier">to_s</span> <span class="ruby-operator">!=</span> <span class="ruby-string">&#39;&#39;</span>   
+            <span class="ruby-identifier">artwork</span> = <span class="ruby-constant">Artwork</span>.<span class="ruby-identifier">cached_find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:recording</span>][<span class="ruby-value">:image_file_id</span>])
+            <span class="ruby-ivar">@recording</span>.<span class="ruby-identifier">cover_art</span>  = <span class="ruby-identifier">artwork</span>.<span class="ruby-identifier">thumb</span>
+            <span class="ruby-ivar">@recording</span>.<span class="ruby-identifier">save!</span>
+          <span class="ruby-keyword">end</span>
+        <span class="ruby-keyword">else</span>
+          <span class="ruby-comment"># add the uploaded artwork</span>
+          <span class="ruby-comment"># notice there is only one artwork file</span>
+          <span class="ruby-identifier">artworks</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">artwork</span><span class="ruby-operator">|</span>
+                                
+            <span class="ruby-constant">RecordingItem</span>.<span class="ruby-identifier">create</span>( <span class="ruby-identifier">recording_id</span><span class="ruby-operator">:</span> <span class="ruby-ivar">@recording</span>.<span class="ruby-identifier">id</span>, 
+                                  <span class="ruby-identifier">itemable_type</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;Artwork&#39;</span>,
+                                  <span class="ruby-identifier">itemable_id</span><span class="ruby-operator">:</span> <span class="ruby-identifier">artwork</span>.<span class="ruby-identifier">id</span>)
+                                
+            <span class="ruby-ivar">@recording</span>.<span class="ruby-identifier">cover_art</span>      = <span class="ruby-identifier">artwork</span>.<span class="ruby-identifier">thumb</span>
+            <span class="ruby-ivar">@recording</span>.<span class="ruby-identifier">image_file_id</span>  = <span class="ruby-identifier">artwork</span>.<span class="ruby-identifier">id</span>
+            <span class="ruby-ivar">@recording</span>.<span class="ruby-identifier">save!</span>
+          <span class="ruby-keyword">end</span>
+        <span class="ruby-keyword">end</span> 
+      <span class="ruby-keyword">end</span>
+    <span class="ruby-keyword">end</span>
+    <span class="ruby-ivar">@recording</span>.<span class="ruby-identifier">check_default_image</span>
+    <span class="ruby-ivar">@recording</span>.<span class="ruby-identifier">common_work</span>.<span class="ruby-identifier">update_completeness</span> <span class="ruby-keyword">if</span> <span class="ruby-ivar">@recording</span>.<span class="ruby-identifier">common_work</span>
+    <span class="ruby-comment">#@recording.update_stakes</span>
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-keyword">if</span> <span class="ruby-ivar">@recording</span>.<span class="ruby-identifier">privacy</span> <span class="ruby-operator">==</span> <span class="ruby-string">&#39;Only people I choose&#39;</span>
+    <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">user_user_recording_recording_users_path</span>(<span class="ruby-ivar">@user</span>, <span class="ruby-ivar">@recording</span>)
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">edit_user_recording_tag_path</span>( <span class="ruby-ivar">@user</span>, <span class="ruby-ivar">@recording</span> )
+  <span class="ruby-keyword">end</span>
+
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+                    </div>
+
+    </div>
+  </body>
+</html>    

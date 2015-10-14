@@ -1,0 +1,388 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>users.sass</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            users.sass
+        </h1>
+        <ul class="files">
+            <li>assets/stylesheets/users.sass</li>
+            <li>Last modified: 2015-09-24 23:31:55 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>//@import “row_machine” @import “colors” @import “truncate” @import
+“compass/css3/box-shadow”</p>
+
+<p>//.user_name //  display: block //  text-indent: 0px //  //margin-left:
+10px //  //margin-right: 10px</p>
+
+<p>.social-links</p>
+
+<pre><code>a
+  font-size: 12px
+  background-color: #FFF
+  color: #666
+  margin-right: 6px
+  margin-top: 8px
+  padding: 3px 5px 3px 5px
+  +box-shadow(#CACACA 1px 1px 1px)
+  border-top: solid 1px #C1C2C3
+  border-left: solid 1px #C1C2C3
+a:hover
+  background-color: #E8E8E8</code></pre>
+
+<p>//.avatar_name //  display: block //  text-indent: 0px //  margin-left:
+10px //  margin-right: 10px</p>
+
+<p>.all-users</p>
+
+<pre><code>width: 100%
+a
+  color: #666
+a:hover
+  color: #000
+
+.user-badge:hover
+  +box-shadow(#252F3F 1px 2px 1px)
+.user-badge
+  overflow: hidden
+  width: 220px
+  height: 303px
+  background-color: #ECEBEA
+  +box-shadow(#CACACA 1px 2px 1px)
+  border-top: solid 1px #C1C2C3
+  border-left: solid 1px #C1C2C3
+  margin: 0px 10px 10px 0px
+  display: inline
+
+  //padding: 6px
+  float: left
+  .avatar
+    img
+      border-bottom: solid 1px #C1C2C3
+    position: relative
+    .user-tags
+      position: absolute
+      top: 0px
+      .like-tag
+        padding: 0px
+        color: #EEE
+        background: rgb(32, 32, 32)
+        background: rgba(32, 32, 32, 0.5)
+        height: 18px
+        font-size: 12px
+        padding-left: 4px
+        padding-right: 4px
+        margin-bottom: 2px
+      .user-tag
+        //display: inline
+        padding: 0px
+        color: #EEE
+        background: rgb(32, 32, 32)
+        background: rgba(32, 32, 32, 0.5)
+        height: 18px
+        font-size: 12px
+        padding-left: 4px
+        padding-right: 4px
+        margin-bottom: 2px
+
+      .user-top-margin-0
+        height: 220px
+      .user-top-margin-1
+        height: 200px
+      .user-top-margin-2
+        height: 180px
+      .user-top-margin-3
+        height: 160px
+      .user-top-margin-4
+        height: 140px
+      .user-top-margin-5
+        height: 120px
+      .user-top-margin-6
+        height: 100px
+      .user-top-margin-7
+        height: 80px
+      .user-top-margin-8
+        height: 60px
+
+  .user-name
+    height: 26px
+    padding: 4px
+    @include truncate
+    font-size: 16px
+    font-weight: bold
+
+  .user-profession
+    height: 26px
+    padding: 4px
+    @include truncate
+
+  .small-symbols
+    //padding: 0px 6px 0px 6px
+    background-color: #E6E6E6
+    padding: 4px
+    margin-top: 6px
+    border-top: 1px solid #BBB
+    .fa-heart
+      color: #A40010
+
+    .fa-star
+      color: #FFAD00
+      font-size: 15px</code></pre>
+
+<p>.users</p>
+
+<pre><code>.row
+  .col-sm-3
+    .panel
+      background-color: #fff
+      .panel-body
+        padding: 4px
+        .center-block
+          padding: 4px
+          text-overflow: ellipsis
+          white-space: nowrap
+          overflow: hidden
+          height:       75px
+          line-height:  15px
+          font-size:    13px
+
+.table &gt; thead &gt; tr &gt; th, .table &gt; tbody &gt; tr &gt; th, .table &gt; tfoot &gt; tr &gt; th, .table &gt; thead &gt; tr &gt; td, .table &gt; tbody &gt; tr &gt; td, .table &gt; tfoot &gt; tr &gt; td 
+  padding-top:    2px
+  padding-bottom: 2px
+  border-top: 0px solid #C3C3C3
+
+ul 
+  margin-left: 0px
+
+.nav &gt; li &gt; a 
+  padding: 5px 15px</code></pre>
+
+<p>*</p>
+
+<pre><code>box-sizing: border-box</code></pre>
+
+<p>.follow-unfollow</p>
+
+<pre><code>display: inline-block</code></pre>
+
+<p>.message-person-badge</p>
+
+<pre><code>width: 100%
+.person 
+  padding: 4px
+  float: left
+  text-overflow: ellipsis
+  white-space: nowrap
+  overflow: hidden
+
+  .avatar
+    position: relative
+    .user-tags
+      position: absolute
+      top: 0px
+      .user-tag
+        //display: inline
+        padding: 0px
+        color: #EEE
+        background: rgb(0, 0, 0)
+        background: rgba(0, 0, 0, 0.5)
+        height: 17px
+        font-size: 12px
+        padding-left: 4px
+        padding-right: 4px
+        margin-bottom: 2px
+
+  a
+    color: #555
+  img 
+    max-width: 100%</code></pre>
+
+<p>.profile</p>
+
+<pre><code>//min-height: 150px
+@include panel-default-color
+padding: 10px
+margin-bottom: 10px
++box-shadow(#BBB 1px 1px 1px)
+//h4
+//  margin-top: 0px
+//.avatar
+//  width: 33%
+//  max-width: 145px
+//  float: left
+//  margin-right: 10px
+//  margin-bottom: 10px
+//  img
+//    max-width: 100%
+//    height: auto
+.info
+  //margin-left: 150px
+.connect-container
+  width: 100%
+  margin-bottom: 10px
+  //background-color: #dfd
+//.edit-buttons
+//  width: 100%
+//  background-color: #ddf
+.user-profile
+  width: 100%
+
+.complete
+  width: 100%
+  .improve-title
+    color: #F00
+  .improve-bar 
+    margin-bottom: 10px
+
+.profile-button
+  float: left
+  margin-right: 4px</code></pre>
+
+<p>.following</p>
+
+<pre><code>.following-container
+  -webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.3)
+  box-shadow: 0 1px 3px rgba(0,0,0,0.3)
+  padding: 5px 5px 0px 5px
+  background-color: #fff
+  display: inline-block
+  width: 100%
+  .following-avatar
+    width: 33%
+    max-width: 92px
+    float: left
+    display: inline
+    img
+      width: 100%
+      height: auto
+
+  .following-content
+    float: left
+    display: inline
+    width: 66%
+    padding-left: 5px
+    h4
+      @include truncate
+      margin-bottom: 6px
+    .following-profile
+      //height: 84px
+      overflow: hidden
+  .fotter
+    width: 100%
+    height: 20px
+    display: table
+    width: 100%
+    h5
+      margin-bottom: 2px
+
+//.footer
+//  height: 20px
+//  //padding-left: 5px
+//  margin-top: -25px
+//  width: 66%
+//  float: right
+//  color: #888
+//  background-color: #ff0 
+  //z-index: 1</code></pre>
+
+<p>.activities</p>
+
+<pre><code>@include panel-default-color
+padding: 5px
+margin-bottom: 10px</code></pre>
+
+<p>.users-container</p>
+
+<pre><code>.container
+  padding: 10px 0px 15px 30px</code></pre>
+
+<p>.recomended-users</p>
+
+<pre><code>.rimage
+  display: inline
+  float: left
+  width: 33%
+
+  img
+    width: 100%
+    height: auto
+.rprofile
+  width: 66%
+  display: inline
+  float: left
+  padding-left: 8px
+  line-height: 12px
+  font-size: 13px
+  overflow-wrap: break-word</code></pre>
+
+<p>.user_likes</p>
+
+<pre><code>h4
+  margin-top: 0px
+  font-size: 15px</code></pre>
+
+<p>//.social-relations //  color: #333 //  height: 200px //  overflow: hidden
+//  .fa  //    font-size: 18px //    margin-left: 0px !important //  li // 
+text-indent: 10px</p>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

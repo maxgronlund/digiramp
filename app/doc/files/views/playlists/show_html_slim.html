@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>show.html.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            show.html.slim
+        </h1>
+        <ul class="files">
+            <li>views/playlists/show.html.slim</li>
+            <li>Last modified: 2015-09-24 23:37:41 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>wrapper</p>
+
+<pre><code>.full-width-top
+  == render &#39;shared/navigationbar&#39;, page: &#39;user&#39; 
+
+#sidebar-wrapper
+  ul class=&quot;sidebar-nav&quot;
+    == render &#39;users/shared/sidebar&#39;, selected: &#39;playlists&#39;
+
+#page-content-wrapper
+  .container-fluid
+    .row
+      .col-sm-6
+        h2 = @playlist.title
+      - if current_user &amp;&amp; (current_user.manage? @user)
+        .col-sm-6
+          .pull-right.pull-down-10
+            = link_to edit_user_user_playlist_path(@user, @playlist) do
+              .btn.btn-default
+                i.fa.fa-pencil
+                &#39;&amp;nbsp;Edit
+    .pull-down-10
+    .row
+      .col-sm-8
+        .digi-box
+          .show-playlist
+            .playlist-image
+              = image_tag( @playlist.playlist_image_url :image_270x270)
+            .playlist-info
+              = simple_format @playlist.body
+
+          .row
+            .col-sm-12  
+              .pull-right
+                - if @playlist.playlists_recordings.count &gt; 0
+                  - if current_user &amp;&amp; \
+                       current_user.manage?( @user ) &amp;&amp; \
+                       (@user.account_type == &#39;Pro&#39;)
+
+                    =&gt; link_to new_account_account_opportunity_from_playlist_path( @user.account, playlist_id: @playlist.id) do
+                      .btn.btn-default.btn-xs
+                        i.fa.fa-envelope
+                        &#39;&amp;nbsp;
+                        &#39;Create review
+
+                  = link_to new_user_user_playlist_playlist_email_path(@user, @playlist) do
+                    .btn.btn-default.btn-xs
+                      i.fa.fa-envelope &amp;nbsp; Email playlist
+                - else
+                  .alert.alert-info
+                    &#39;Your playlist is ready to populate. Go ahead and surf DigiRAMP to find recordings you like
+
+        .row
+          .col-sm-12
+            .pull-down-10
+            .endless-pages
+            .add_songs
+
+               - @playlist.playlists_recordings.order(:position).each do |playlists_recording|
+                 - if recording = playlists_recording.recording
+                   #digiWhams  class=&quot;/recordings/#{recording.id.to_s}&quot;
+                     /#digiWhams class=&quot;/users/#{@user.slug}/playlists/#{@playlist.id.to_s}&quot;
+                     div id=&quot;remove_recording_#{recording.id.to_s}&quot;
+                       == render &#39;show&#39;, recording: recording  
+
+            /== paginate(@recordings)
+
+      .col-sm-4
+        .digi-box
+          == render &#39;shared/comments&#39;, commentable: @playlist
+
+== render &#39;shared/site_footer&#39;</code></pre>
+
+<p>/== render &#39;user/connections/modal&#39;, modal_id:
+“connect_modal_#{@user.id.to_s}”, recipient: @user, subjectable: @user</p>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

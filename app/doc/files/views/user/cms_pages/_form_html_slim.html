@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>_form.html.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            _form.html.slim
+        </h1>
+        <ul class="files">
+            <li>views/user/cms_pages/_form.html.slim</li>
+            <li>Last modified: 2015-09-29 11:37:35 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>.digi-box</p>
+
+<pre><code>= simple_form_for [:user, @user, @cms_page], turboboost: true do |f|
+  = f.hidden_field :user_id, value: @user.id
+  .row
+    .col-sm-6
+      = f.input :title, autofocus: true
+      = f.input :layout, collection: CmsPage::LAYOUTS
+      = f.input :hide_sidebar,  :input_html =&gt; { class: &#39;icheck-me&#39;, &#39;data-skin&#39;.to_sym =&gt; &quot;square&quot;, &#39;data-color&#39;.to_sym =&gt; &quot;blue&quot;     }  
+      = f.input :show_in_menu,  :input_html =&gt; { class: &#39;icheck-me&#39;, &#39;data-skin&#39;.to_sym =&gt; &quot;square&quot;, &#39;data-color&#39;.to_sym =&gt; &quot;blue&quot;     }  
+
+    .col-sm-6
+      = f.input :theme, collection: CmsPage::THEMES, include_blank: false
+      /.row
+      /  .col-sm-6
+      /    = f.input :background_color
+      /  .col-sm-6
+      /    = f.input :text_color
+
+  .row
+    .col-sm-12
+      .pull-right
+        = f.submit &#39;Save&#39;, class: &#39;btn btn-info&#39;, id: &#39;save-cms-page&#39;</code></pre>
+
+<p>.pull-down-20 .digi-layouts</p>
+
+<pre><code>h4 Layouts
+.row
+  .col-xs-3
+    h5 Alabama
+    = image_tag &#39;https://digiramp.com/uploads/raw_image/image/16/alabama.jpg&#39;
+  .col-xs-3
+    h5 Alaska
+    = image_tag &#39;https://digiramp.com/uploads/raw_image/image/17/alaska.jpg&#39;
+  .col-xs-3
+    h5 Arizona
+    = image_tag &#39;https://digiramp.com/uploads/raw_image/image/18/arizona.jpg&#39;
+  .col-xs-3
+    h5 Arkansas
+    = image_tag &#39;https://digiramp.com/uploads/raw_image/image/19/arkansas.jpg&#39;
+.row
+  .col-xs-3
+    h5 California
+    = image_tag &#39;https://digiramp.com/uploads/raw_image/image/23/california.jpg&#39;</code></pre>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

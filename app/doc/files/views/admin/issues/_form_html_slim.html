@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>_form.html.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            _form.html.slim
+        </h1>
+        <ul class="files">
+            <li>views/admin/issues/_form.html.slim</li>
+            <li>Last modified: 2015-09-24 20:35:34 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<h1 id="label-simple_form_for+-5B-3Aadmin-2C++-40issue-5D+do+-7Cf-7C">simple_form_for [:admin,  @issue] do |f|</h1>
+
+<pre><code>.row
+  /= f.hidden_field :user_id, value: @user.id
+
+  /- if @issue.errors.any?
+  /  #error_explanation
+  /    h2 = &quot;#{pluralize(@issue.errors.count, &quot;error&quot;)} prohibited this issue from being saved:&quot;
+  /    ul
+  /      - @issue.errors.full_messages.each do |message|
+  /        li = message
+  .col-sm-6
+    .panel.panel-primary
+      .panel-heading
+        &#39;Issue
+      .panel-body
+        = f.input :title, autofocus: true
+        div id=&quot;toolbar&quot; class=&quot;wysihtml5-toolbar&quot;
+          a data-wysihtml5-command=&quot;bold&quot; Bold
+          &#39;&amp;nbsp; 
+          a data-wysihtml5-command=&quot;italic&quot; Italic
+
+        = f.input :body, label: &#39;Description&#39;, :input_html =&gt; {  style: &quot;height: 284px;&quot;, placeholder: &quot;Write here&quot;, id: &#39;wysihtml5_editor&#39;}
+  .col-sm-6
+    .panel.panel-primary
+      .panel-heading
+        &#39;&amp;nbsp;
+      .panel-body
+        = f.input :image
+        = f.input :os, label: &#39;Operating Systems&#39;, :collection =&gt; Issue::OSS 
+        = f.input :link_to_page
+        = f.input :status , :collection =&gt; Issue::STATUS , include_blank: false
+        = f.input :priority , :collection =&gt; Issue::PRIORITY  , include_blank: false
+        = f.input :browser , :collection =&gt; Issue::BROWSERS  , include_blank: false
+        = f.input :symtom , :collection =&gt; Issue::SYMPTOMS  , include_blank: false
+.row
+  .col-sm-12
+    hr
+    .pull-right
+      = f.submit &#39;Save&#39;, class: &#39;btn btn-info btn-lg&#39;</code></pre>
+
+<p>/  = f.label :os /  = f.text_field :os /.field /  = f.label :browser /  =
+f.text_field :browser /.field /  = f.label :link_to_page /  = f.text_field
+:link_to_page /.field /  = f.label :can_reproducd /  = f.text_field
+:can_reproducd /.field /  = f.label :status /  = f.text_field :status
+/.field /  = f.label :priority /  = f.text_field :priority /.field /  =
+f.label :symtom /  = f.text_field :symtom /.actions = f.submit
+&#39;Save&#39; /</p>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

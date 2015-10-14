@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>_form.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            _form.slim
+        </h1>
+        <ul class="files">
+            <li>views/admin/users/_form.slim</li>
+            <li>Last modified: 2015-09-24 20:35:34 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<h1 id="label-simple_form_for+-5B-3Aadmin-2C++-40user-5D+do+-7Cf-7C">simple_form_for [:admin,  @user] do |f|</h1>
+
+<pre><code>= f.error_notification
+.row
+  .col-sm-6
+    .panel.panel-primary
+      .panel-heading
+        &#39;Settings
+      .panel-body
+        - if super?
+          = f.input :account_id , :include_blank =&gt; false, :collection =&gt; Account.all , label: &#39;Account&#39;
+          -unless (@user.email == &#39;max@synthmax.dk&#39;) || (@user.email == &#39;peter@digiramp.org&#39;)
+            = f.input :role, collection: User::ROLES, :include_blank =&gt; false
+        = f.input :administrator, label: &#39;Administrator&#39;, hint: &#39;User can administrate other accounts&#39;
+        = f.input :has_a_collection, label: &#39;Has a Collection&#39;, hint: &#39;Disable if the user only needs access to someone elses account &#39;
+        = f.input :user_name, hint: &#39;This name will be displayed on your profile.&#39;, label: &#39;Display name&#39;
+        = f.input :email
+        = f.input :password, autocomplete: :off
+        = f.input :password_confirmation, autocomplete: :off
+
+  .col-sm-6
+    .row
+      .col-sm-12
+        .panel.panel-primary
+          .panel-heading
+            &#39;Description
+          .panel-body
+            = f.input :image
+            div id=&quot;toolbar&quot; class=&quot;wysihtml5-toolbar&quot;
+              a data-wysihtml5-command=&quot;bold&quot; Bold
+              &#39;&amp;nbsp; 
+              a data-wysihtml5-command=&quot;italic&quot; Italic
+
+            =f.input :profile, label: false, :input_html =&gt; {  style: &quot;height: 250px;&quot;, placeholder: &quot;Profile&quot;, id: &#39;wysihtml5_editor&#39;}
+
+  .col-sm-12
+    .pull-right
+      = f.submit &#39;Save&#39;, class: &#39;btn btn-info btn-lg&#39;</code></pre>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

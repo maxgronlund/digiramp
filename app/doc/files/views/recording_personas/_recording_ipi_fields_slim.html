@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>_recording_ipi_fields.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            _recording_ipi_fields.slim
+        </h1>
+        <ul class="files">
+            <li>views/recording_personas/_recording_ipi_fields.slim</li>
+            <li>Last modified: 2015-07-05 15:22:06 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>.nested-fields</p>
+
+<pre><code>.row
+  = f.hidden_field :recording_id, value: @recording.id
+  /.col-sm-1
+  /  h4
+  /    i.fa.fa-check
+  /    &#39;&amp;nbsp;Confirmed
+  .col-sm-2
+    = f.input :role  , collection: RecordingIpi::ROLES, :include_blank =&gt; true
+  .col-sm-3
+    = f.input :name
+  .col-sm-4
+    = f.input :email
+  .col-sm-2
+     = f.input :share, label: &#39;Share in %&#39;
+.row
+  .col-sm-12
+    .pull-right
+    = link_to_remove_association &quot;Remove IPI&quot;, f  , class: &#39;btn btn-default btn-xs&#39;
+
+.row
+  .col-sm-12
+    .sexy_line</code></pre>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

@@ -1,0 +1,707 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>CommonWorksImport</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../css/github.css" type="text/css" media="screen" />
+<script src="../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            <span class="type">Class</span> 
+            CommonWorksImport 
+            
+                <span class="parent">&lt; 
+                    
+                    ActiveRecord::Base
+                    
+                </span>
+            
+        </h1>
+        <ul class="files">
+            
+            <li><a href="../files/models/common_works_import_rb.html">models/common_works_import.rb</a></li>
+            
+        </ul>
+    </div>
+    <div id="bodyContent">
+        <div id="content">
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+    <!-- Method ref -->
+    <div class="sectiontitle">Methods</div>
+    <dl class="methods">
+      
+        <dt>A</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-add_to_catalog">add_to_catalog</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>C</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-c-cached_find">cached_find</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>P</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-parse_bmi_ipis">parse_bmi_ipis</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-i-parse_common_works">parse_common_works</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-i-parse_ipis">parse_ipis</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-i-parse_works_from_bmi">parse_works_from_bmi</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-c-post_bmi_info">post_bmi_info</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-c-post_info">post_info</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+    </dl>
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+      <!-- Section constants -->
+      <div class="sectiontitle">Constants</div>
+      <table border='0' cellpadding='5'>
+        
+          <tr valign='top'>
+            <td class="attr-name">PROS</td>
+            <td>=</td>
+            <td class="attr-value">[&#39;ASCAP&#39;, &#39;BMI&#39;]</td>
+          </tr>
+          
+            <tr valign='top'>
+              <td>&nbsp;</td>
+              <td colspan="2" class="attr-desc"></td>
+            </tr>
+          
+        
+      </table>
+    
+
+
+    
+      <!-- Section attributes -->
+      <div class="sectiontitle">Attributes</div>
+      <table border='0' cellpadding='5'>
+        
+          <tr valign='top'>
+            <td class='attr-rw'>
+              [RW]
+            </td>
+            <td class='attr-name'>password</td>
+            <td class='attr-desc'></td>
+          </tr>
+        
+          <tr valign='top'>
+            <td class='attr-rw'>
+              [RW]
+            </td>
+            <td class='attr-name'>user_name</td>
+            <td class='attr-desc'></td>
+          </tr>
+        
+      </table>
+    
+
+
+    <!-- Methods -->
+    
+      <div class="sectiontitle">Class Public methods</div>
+      
+        <div class="method">
+          <div class="title method-title" id="method-c-cached_find">
+            
+              <b>cached_find</b>(id)
+            
+            <a href="../classes/CommonWorksImport.html#method-c-cached_find" name="method-c-cached_find" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-c-cached_find_source')" id="l_method-c-cached_find_source">show</a>
+                
+              </p>
+              <div id="method-c-cached_find_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/common_works_import.rb, line 271</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">self</span>.<span class="ruby-identifier">cached_find</span>(<span class="ruby-identifier">id</span>)
+  <span class="ruby-constant">Rails</span>.<span class="ruby-identifier">cache</span>.<span class="ruby-identifier">fetch</span>([<span class="ruby-identifier">name</span>, <span class="ruby-identifier">id</span>]) { <span class="ruby-identifier">find</span>(<span class="ruby-identifier">id</span>) }
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-c-post_bmi_info">
+            
+              <b>post_bmi_info</b>(user_email, work)
+            
+            <a href="../classes/CommonWorksImport.html#method-c-post_bmi_info" name="method-c-post_bmi_info" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-c-post_bmi_info_source')" id="l_method-c-post_bmi_info_source">show</a>
+                
+              </p>
+              <div id="method-c-post_bmi_info_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/common_works_import.rb, line 140</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">self</span>.<span class="ruby-identifier">post_bmi_info</span> <span class="ruby-identifier">user_email</span>, <span class="ruby-identifier">work</span>
+  
+  <span class="ruby-identifier">channel</span> = <span class="ruby-string">&#39;digiramp_radio_&#39;</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">user_email</span>
+  <span class="ruby-constant">Pusher</span>.<span class="ruby-identifier">trigger</span>(<span class="ruby-identifier">channel</span>, <span class="ruby-string">&#39;digiramp_event&#39;</span>, {<span class="ruby-string">&quot;title&quot;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&#39;Info&#39;</span>, 
+                                        <span class="ruby-string">&quot;message&quot;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;Importing From BMI&quot;</span>, 
+                                        <span class="ruby-string">&quot;time&quot;</span>    =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&#39;5000&#39;</span>, 
+                                        <span class="ruby-string">&quot;sticky&quot;</span>  =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&#39;false&#39;</span>, 
+                                        <span class="ruby-string">&quot;image&quot;</span>   =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&#39;progress&#39;</span>
+                                        })
+                                      
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-c-post_info">
+            
+              <b>post_info</b>(user_email, info)
+            
+            <a href="../classes/CommonWorksImport.html#method-c-post_info" name="method-c-post_info" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-c-post_info_source')" id="l_method-c-post_info_source">show</a>
+                
+              </p>
+              <div id="method-c-post_info_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/common_works_import.rb, line 230</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">self</span>.<span class="ruby-identifier">post_info</span> <span class="ruby-identifier">user_email</span>, <span class="ruby-identifier">info</span>
+
+  
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">info</span>[<span class="ruby-value">:error</span>]
+    <span class="ruby-identifier">channel</span> = <span class="ruby-string">&#39;digiramp_radio_&#39;</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">user_email</span>
+    <span class="ruby-constant">Pusher</span>.<span class="ruby-identifier">trigger</span>(<span class="ruby-identifier">channel</span>, <span class="ruby-string">&#39;digiramp_event&#39;</span>, {<span class="ruby-string">&quot;title&quot;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&#39;Error&#39;</span>, 
+                                          <span class="ruby-string">&quot;message&quot;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&#39;Unable to log in&#39;</span>, 
+                                          <span class="ruby-string">&quot;time&quot;</span>    =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&#39;500&#39;</span>, 
+                                          <span class="ruby-string">&quot;sticky&quot;</span>  =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&#39;true&#39;</span>, 
+                                          <span class="ruby-string">&quot;image&quot;</span>   =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&#39;error&#39;</span>
+                                          })
+ 
+  <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">info</span>[<span class="ruby-value">:stage_complete</span>] <span class="ruby-operator">==</span> <span class="ruby-value">:goto_works_from_dashboard</span>
+    <span class="ruby-identifier">channel</span> = <span class="ruby-string">&#39;digiramp_radio_&#39;</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">user_email</span>
+    <span class="ruby-constant">Pusher</span>.<span class="ruby-identifier">trigger</span>(<span class="ruby-identifier">channel</span>, <span class="ruby-string">&#39;digiramp_event&#39;</span>, {<span class="ruby-string">&quot;title&quot;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&#39;Info&#39;</span>, 
+                                          <span class="ruby-string">&quot;message&quot;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&#39;Password Accepted&#39;</span>, 
+                                          <span class="ruby-string">&quot;time&quot;</span>    =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&#39;4000&#39;</span>, 
+                                          <span class="ruby-string">&quot;sticky&quot;</span>  =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&#39;false&#39;</span>, 
+                                          <span class="ruby-string">&quot;image&quot;</span>   =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&#39;progress&#39;</span>
+                                          })
+  <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">info</span>[<span class="ruby-value">:start</span>] <span class="ruby-operator">==</span> <span class="ruby-value">:ascap_import</span>
+    <span class="ruby-identifier">channel</span> = <span class="ruby-string">&#39;digiramp_radio_&#39;</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">user_email</span>
+    <span class="ruby-constant">Pusher</span>.<span class="ruby-identifier">trigger</span>(<span class="ruby-identifier">channel</span>, <span class="ruby-string">&#39;digiramp_event&#39;</span>, {<span class="ruby-string">&quot;title&quot;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&#39;Info&#39;</span>, 
+                                          <span class="ruby-string">&quot;message&quot;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&#39;ASCAP Import Started&#39;</span>, 
+                                          <span class="ruby-string">&quot;time&quot;</span>    =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&#39;1000&#39;</span>, 
+                                          <span class="ruby-string">&quot;sticky&quot;</span>  =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&#39;false&#39;</span>, 
+                                          <span class="ruby-string">&quot;image&quot;</span>   =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&#39;notice&#39;</span>
+                                          })
+  <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">info</span>[<span class="ruby-value">:start</span>] <span class="ruby-operator">==</span> <span class="ruby-value">:bmi_import</span>
+
+    <span class="ruby-identifier">channel</span> = <span class="ruby-string">&#39;digiramp_radio_&#39;</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">user_email</span>
+    <span class="ruby-constant">Pusher</span>.<span class="ruby-identifier">trigger</span>(<span class="ruby-identifier">channel</span>, <span class="ruby-string">&#39;digiramp_event&#39;</span>, {<span class="ruby-string">&quot;title&quot;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&#39;Info&#39;</span>, 
+                                          <span class="ruby-string">&quot;message&quot;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&#39;BMI Import Started&#39;</span>, 
+                                          <span class="ruby-string">&quot;time&quot;</span>    =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&#39;4000&#39;</span>, 
+                                          <span class="ruby-string">&quot;sticky&quot;</span>  =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&#39;false&#39;</span>, 
+                                          <span class="ruby-string">&quot;image&quot;</span>   =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&#39;notice&#39;</span>
+                                          })
+  <span class="ruby-keyword">end</span>
+
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+                  
+      <div class="sectiontitle">Instance Public methods</div>
+      
+        <div class="method">
+          <div class="title method-title" id="method-i-add_to_catalog">
+            
+              <b>add_to_catalog</b>(common_work, catalog_id)
+            
+            <a href="../classes/CommonWorksImport.html#method-i-add_to_catalog" name="method-i-add_to_catalog" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-add_to_catalog_source')" id="l_method-i-add_to_catalog_source">show</a>
+                
+              </p>
+              <div id="method-i-add_to_catalog_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/common_works_import.rb, line 95</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">add_to_catalog</span> <span class="ruby-identifier">common_work</span>, <span class="ruby-identifier">catalog_id</span>
+
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">catalog_id</span> 
+
+    <span class="ruby-constant">CatalogsCommonWorks</span>.<span class="ruby-identifier">where</span>(<span class="ruby-identifier">catalog_id</span><span class="ruby-operator">:</span> <span class="ruby-identifier">catalog_id</span>, <span class="ruby-identifier">common_work_id</span><span class="ruby-operator">:</span> <span class="ruby-identifier">common_work</span>.<span class="ruby-identifier">id</span>)
+                       .<span class="ruby-identifier">first_or_create</span>(<span class="ruby-identifier">catalog_id</span><span class="ruby-operator">:</span> <span class="ruby-identifier">catalog_id</span>, <span class="ruby-identifier">common_work_id</span><span class="ruby-operator">:</span> <span class="ruby-identifier">common_work</span>.<span class="ruby-identifier">id</span>)
+                       
+
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-constant">ErrorNotification</span>.<span class="ruby-identifier">post</span> <span class="ruby-node">&quot;CommonWorksImport#add_to_catalog: ERROR: Unable to add common work to catalog&quot;</span>
+  <span class="ruby-keyword">end</span>
+  
+  
+    
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-parse_bmi_ipis">
+            
+              <b>parse_bmi_ipis</b>(common_work_id, role, info, bmi_work_id)
+            
+            <a href="../classes/CommonWorksImport.html#method-i-parse_bmi_ipis" name="method-i-parse_bmi_ipis" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              <p>parse ipi informations from BMI</p>
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-parse_bmi_ipis_source')" id="l_method-i-parse_bmi_ipis_source">show</a>
+                
+              </p>
+              <div id="method-i-parse_bmi_ipis_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/common_works_import.rb, line 153</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">parse_bmi_ipis</span> <span class="ruby-identifier">common_work_id</span>, <span class="ruby-identifier">role</span>, <span class="ruby-identifier">info</span>, <span class="ruby-identifier">bmi_work_id</span>
+  
+  <span class="ruby-identifier">ipi</span> = <span class="ruby-constant">Ipi</span>.<span class="ruby-identifier">where</span>(<span class="ruby-identifier">common_work_id</span><span class="ruby-operator">:</span> <span class="ruby-identifier">common_work_id</span>, 
+                  <span class="ruby-identifier">ipi_code</span><span class="ruby-operator">:</span> <span class="ruby-identifier">info</span>[<span class="ruby-value">:ipi_number</span>] )
+           .<span class="ruby-identifier">first_or_create</span>( <span class="ruby-identifier">common_work_id</span><span class="ruby-operator">:</span> <span class="ruby-identifier">common_work_id</span>, 
+                             <span class="ruby-identifier">ipi_code</span><span class="ruby-operator">:</span> <span class="ruby-identifier">info</span>[<span class="ruby-value">:ipi_number</span>] )
+  
+  <span class="ruby-identifier">ipi</span>.<span class="ruby-identifier">full_name</span>                = <span class="ruby-identifier">info</span>[<span class="ruby-value">:name</span>]
+  <span class="ruby-identifier">ipi</span>.<span class="ruby-identifier">role</span>                      = <span class="ruby-identifier">role</span>
+  <span class="ruby-identifier">ipi</span>.<span class="ruby-identifier">pro</span>                       = <span class="ruby-identifier">info</span>[<span class="ruby-value">:society</span>]
+  <span class="ruby-identifier">ipi</span>.<span class="ruby-identifier">perf_collected</span>            = <span class="ruby-identifier">info</span>[<span class="ruby-value">:share</span>]
+  <span class="ruby-identifier">ipi</span>.<span class="ruby-identifier">bmi_work_id</span>               = <span class="ruby-identifier">bmi_work_id</span>
+  <span class="ruby-comment">#ipi.perf_owned                = ipi_scrape[:own_percent]</span>
+  <span class="ruby-comment">#ipi.perf_collected            = ipi_scrape[:collect_percent]</span>
+  <span class="ruby-comment">#ipi.has_agreement             = ipi_scrape[:has_agreement]</span>
+  <span class="ruby-comment">#ipi.linked_to_ascap_member    = ipi_scrape[:linked_to_ascap_member]</span>
+  <span class="ruby-comment">#ipi.controlled_by_submitter   = ipi_scrape[:controlled_by_submitter]</span>
+  <span class="ruby-comment">#ipi.ascap_work_id             = ascap_work_id</span>
+  <span class="ruby-identifier">ipi</span>.<span class="ruby-identifier">save!</span>
+
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-parse_common_works">
+            
+              <b>parse_common_works</b>()
+            
+            <a href="../classes/CommonWorksImport.html#method-i-parse_common_works" name="method-i-parse_common_works" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-parse_common_works_source')" id="l_method-i-parse_common_works_source">show</a>
+                
+              </p>
+              <div id="method-i-parse_common_works_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/common_works_import.rb, line 17</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">parse_common_works</span>
+
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">imported_works</span> = <span class="ruby-number">0</span>
+  
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">params</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">param</span><span class="ruby-operator">|</span>
+    
+    <span class="ruby-keyword">begin</span>
+      <span class="ruby-identifier">common_work</span> = <span class="ruby-constant">CommonWork</span>.<span class="ruby-identifier">where</span>( <span class="ruby-identifier">ascap_work_id</span><span class="ruby-operator">:</span>  <span class="ruby-identifier">param</span>[<span class="ruby-value">:ascap_work_id</span>].<span class="ruby-identifier">to_i</span>,
+                                      <span class="ruby-identifier">account_id</span><span class="ruby-operator">:</span>     <span class="ruby-keyword">self</span>.<span class="ruby-identifier">account_id</span>
+                                    )
+                              .<span class="ruby-identifier">first_or_create</span>( <span class="ruby-identifier">ascap_work_id</span><span class="ruby-operator">:</span>  <span class="ruby-identifier">param</span>[<span class="ruby-value">:ascap_work_id</span>].<span class="ruby-identifier">to_i</span>,
+                                                <span class="ruby-identifier">account_id</span><span class="ruby-operator">:</span>     <span class="ruby-keyword">self</span>.<span class="ruby-identifier">account_id</span>
+                                              )
+      
+      <span class="ruby-identifier">common_work</span>.<span class="ruby-identifier">title</span>                   = <span class="ruby-identifier">param</span>[<span class="ruby-value">:title</span>]
+      <span class="ruby-identifier">common_work</span>.<span class="ruby-identifier">iswc_code</span>               = <span class="ruby-identifier">param</span>[<span class="ruby-value">:alternate_ids</span>][<span class="ruby-string">&quot;ISWC&quot;</span>]              <span class="ruby-keyword">if</span> <span class="ruby-identifier">common_work</span>[<span class="ruby-value">:alternate_ids</span>] <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">common_work</span>[<span class="ruby-value">:alternate_ids</span>][<span class="ruby-string">&quot;ISWC&quot;</span>]
+      <span class="ruby-identifier">common_work</span>.<span class="ruby-identifier">submitter_work_id</span>       = <span class="ruby-identifier">param</span>[<span class="ruby-value">:alternate_ids</span>][<span class="ruby-string">&quot;Submitter Work ID&quot;</span>] <span class="ruby-keyword">if</span> <span class="ruby-identifier">common_work</span>[<span class="ruby-value">:alternate_ids</span>] <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">common_work</span>[<span class="ruby-value">:alternate_ids</span>][<span class="ruby-string">&quot;Submitter Work ID&quot;</span>]
+      <span class="ruby-identifier">common_work</span>.<span class="ruby-identifier">common_works_import_id</span>  = <span class="ruby-keyword">self</span>.<span class="ruby-identifier">id</span>
+      <span class="ruby-identifier">common_work</span>.<span class="ruby-identifier">account_id</span>              = <span class="ruby-keyword">self</span>.<span class="ruby-identifier">account_id</span>
+      
+       
+      <span class="ruby-comment"># parse details</span>
+      <span class="ruby-keyword">if</span> <span class="ruby-identifier">details</span>    = <span class="ruby-identifier">param</span>[<span class="ruby-value">:details</span>]
+        <span class="ruby-identifier">common_work</span>.<span class="ruby-identifier">surveyed_work</span>                         = <span class="ruby-identifier">details</span>[<span class="ruby-string">&quot;Surveyed Work&quot;</span>]
+        <span class="ruby-identifier">common_worklast_distribution</span>                      = <span class="ruby-identifier">details</span>[<span class="ruby-string">&quot;Last Distribution Yr/Qtr&quot;</span>]
+        <span class="ruby-identifier">common_work</span>.<span class="ruby-identifier">work_status</span>                           = <span class="ruby-identifier">details</span>[<span class="ruby-string">&quot;Work Status&quot;</span>]
+        <span class="ruby-identifier">common_work</span>.<span class="ruby-identifier">ascap_award_winner</span>                    = <span class="ruby-identifier">details</span>[<span class="ruby-string">&quot;ASCAP Award Winner&quot;</span>]
+        
+        <span class="ruby-comment"># add to genre </span>
+        <span class="ruby-keyword">if</span> <span class="ruby-identifier">common_work</span>.<span class="ruby-identifier">genre</span>.<span class="ruby-identifier">to_s</span> <span class="ruby-operator">==</span> <span class="ruby-string">&#39;&#39;</span>
+          <span class="ruby-comment"># there is no genre so add it</span>
+          <span class="ruby-identifier">common_work</span>.<span class="ruby-identifier">genre</span>   = <span class="ruby-identifier">details</span>[<span class="ruby-string">&quot;Genre&quot;</span>]
+        <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">common_work</span>.<span class="ruby-identifier">genre</span>.<span class="ruby-identifier">include?</span> <span class="ruby-identifier">details</span>[<span class="ruby-string">&quot;Genre&quot;</span>]
+          <span class="ruby-comment"># do nothing genre is alreaddy added</span>
+        <span class="ruby-keyword">else</span>
+          <span class="ruby-comment"># add as comma seperated list</span>
+          <span class="ruby-identifier">common_work</span>.<span class="ruby-identifier">genre</span>   <span class="ruby-operator">+=</span> <span class="ruby-string">&#39;,&#39;</span>
+          <span class="ruby-identifier">common_work</span>.<span class="ruby-identifier">genre</span>   <span class="ruby-operator">+=</span> <span class="ruby-identifier">details</span>[<span class="ruby-string">&quot;Genre&quot;</span>]
+        <span class="ruby-keyword">end</span>
+        <span class="ruby-identifier">common_work</span>.<span class="ruby-identifier">work_type</span>                             = <span class="ruby-identifier">details</span>[<span class="ruby-string">&quot;Work Type&quot;</span>]
+        <span class="ruby-identifier">common_work</span>.<span class="ruby-identifier">composite_type</span>                        = <span class="ruby-identifier">details</span>[<span class="ruby-string">&quot;Composite Type&quot;</span>]
+        <span class="ruby-identifier">common_work</span>.<span class="ruby-identifier">arrangement</span>                           = (<span class="ruby-identifier">details</span>[<span class="ruby-string">&quot;Arrangement of Public Domain Work&quot;</span>] <span class="ruby-operator">!=</span> <span class="ruby-string">&#39;N&#39;</span>)
+      <span class="ruby-keyword">end</span>
+        
+      <span class="ruby-comment"># save</span>
+      <span class="ruby-identifier">common_work</span>.<span class="ruby-identifier">save!</span>
+      
+      <span class="ruby-comment"># parse ipis</span>
+      <span class="ruby-identifier">parse_ipis</span> <span class="ruby-identifier">common_work</span>.<span class="ruby-identifier">id</span>, <span class="ruby-identifier">param</span>[<span class="ruby-value">:ipis</span>], <span class="ruby-identifier">common_work</span>.<span class="ruby-identifier">ascap_work_id</span>
+      
+      
+      <span class="ruby-comment"># set health</span>
+      <span class="ruby-identifier">common_work</span>.<span class="ruby-identifier">update_completeness</span>
+      
+      <span class="ruby-comment"># update import count</span>
+      <span class="ruby-keyword">self</span>.<span class="ruby-identifier">imported_works</span> <span class="ruby-operator">+=</span> <span class="ruby-number">1</span>
+      
+      <span class="ruby-comment"># add to catalog</span>
+      <span class="ruby-identifier">add_to_catalog</span> <span class="ruby-identifier">common_work</span>, <span class="ruby-keyword">self</span>.<span class="ruby-identifier">catalog_id</span>
+
+    <span class="ruby-keyword">rescue</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
+      <span class="ruby-constant">ErrorNotification</span>.<span class="ruby-identifier">post_object</span> <span class="ruby-node">&quot;CommonWorksImport#parse_common_works&quot;</span>, <span class="ruby-identifier">e</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-comment"># not in progress any more</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">in_progress</span> = <span class="ruby-keyword">false</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">save!</span>
+  
+  <span class="ruby-identifier">channel</span> = <span class="ruby-string">&#39;digiramp_radio_&#39;</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">user_email</span>
+  <span class="ruby-constant">Pusher</span>.<span class="ruby-identifier">trigger</span>(<span class="ruby-identifier">channel</span>, <span class="ruby-string">&#39;digiramp_event&#39;</span>, {<span class="ruby-string">&quot;title&quot;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&#39;Success&#39;</span>, 
+                                        <span class="ruby-string">&quot;message&quot;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-node">&quot;#{self.imported_works} Common Works imported&quot;</span>, 
+                                        <span class="ruby-string">&quot;time&quot;</span>    =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&#39;5000&#39;</span>, 
+                                        <span class="ruby-string">&quot;sticky&quot;</span>  =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&#39;true&#39;</span>, 
+                                        <span class="ruby-string">&quot;image&quot;</span>   =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&#39;success&#39;</span>
+                                        })
+  
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-parse_ipis">
+            
+              <b>parse_ipis</b>(common_work_id, ipis, ascap_work_id)
+            
+            <a href="../classes/CommonWorksImport.html#method-i-parse_ipis" name="method-i-parse_ipis" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-parse_ipis_source')" id="l_method-i-parse_ipis_source">show</a>
+                
+              </p>
+              <div id="method-i-parse_ipis_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/common_works_import.rb, line 111</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">parse_ipis</span> <span class="ruby-identifier">common_work_id</span>, <span class="ruby-identifier">ipis</span>, <span class="ruby-identifier">ascap_work_id</span>
+
+  <span class="ruby-identifier">ipis</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">ipi_scrape</span><span class="ruby-operator">|</span>
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">ipi</span> = <span class="ruby-constant">Ipi</span>.<span class="ruby-identifier">where</span>(<span class="ruby-identifier">common_work_id</span><span class="ruby-operator">:</span> <span class="ruby-identifier">common_work_id</span>, 
+                       <span class="ruby-identifier">ipi_code</span><span class="ruby-operator">:</span> <span class="ruby-identifier">ipi_scrape</span>[<span class="ruby-value">:ipi_number</span>] ).<span class="ruby-identifier">first</span>
+    <span class="ruby-keyword">else</span>  <span class="ruby-identifier">ipi</span> = <span class="ruby-constant">Ipi</span>.<span class="ruby-identifier">new</span>( <span class="ruby-identifier">common_work_id</span><span class="ruby-operator">:</span>  <span class="ruby-identifier">common_work_id</span>, 
+                         <span class="ruby-identifier">ipi_code</span><span class="ruby-operator">:</span>        <span class="ruby-identifier">ipi_scrape</span>[<span class="ruby-value">:ipi_number</span>]
+                        )
+    <span class="ruby-keyword">end</span>
+    <span class="ruby-identifier">ap</span> <span class="ruby-identifier">ipi</span>
+    <span class="ruby-identifier">ipi</span>.<span class="ruby-identifier">full_name</span>                = <span class="ruby-identifier">ipi_scrape</span>[<span class="ruby-value">:full_name</span>]
+    <span class="ruby-identifier">ipi</span>.<span class="ruby-identifier">role</span>                      = <span class="ruby-identifier">ipi_scrape</span>[<span class="ruby-value">:role</span>]
+    
+    <span class="ruby-identifier">pro_affiliation</span> = <span class="ruby-constant">ProAffiliation</span>.<span class="ruby-identifier">where</span>(<span class="ruby-identifier">title</span><span class="ruby-operator">:</span> <span class="ruby-identifier">ipi_scrape</span>[<span class="ruby-value">:society</span>]).<span class="ruby-identifier">first_or_create</span>(<span class="ruby-identifier">title</span><span class="ruby-operator">:</span> <span class="ruby-identifier">ipi_scrape</span>[<span class="ruby-value">:society</span>])
+    
+    <span class="ruby-identifier">ipi</span>.<span class="ruby-identifier">pro_affiliation_id</span>        = <span class="ruby-identifier">pro_affiliation</span>.<span class="ruby-identifier">id</span>
+    <span class="ruby-identifier">ipi</span>.<span class="ruby-identifier">perf_owned</span>                = <span class="ruby-identifier">ipi_scrape</span>[<span class="ruby-value">:own_percent</span>]
+    <span class="ruby-identifier">ipi</span>.<span class="ruby-identifier">perf_collected</span>            = <span class="ruby-identifier">ipi_scrape</span>[<span class="ruby-value">:collect_percent</span>]
+    <span class="ruby-identifier">ipi</span>.<span class="ruby-identifier">has_agreement</span>             = <span class="ruby-identifier">ipi_scrape</span>[<span class="ruby-value">:has_agreement</span>]
+    <span class="ruby-identifier">ipi</span>.<span class="ruby-identifier">linked_to_ascap_member</span>    = <span class="ruby-identifier">ipi_scrape</span>[<span class="ruby-value">:linked_to_ascap_member</span>]
+    <span class="ruby-identifier">ipi</span>.<span class="ruby-identifier">controlled_by_submitter</span>   = <span class="ruby-identifier">ipi_scrape</span>[<span class="ruby-value">:controlled_by_submitter</span>]
+    <span class="ruby-identifier">ipi</span>.<span class="ruby-identifier">ascap_work_id</span>             = <span class="ruby-identifier">ascap_work_id</span>
+    <span class="ruby-identifier">ipi</span>.<span class="ruby-identifier">save!</span>(<span class="ruby-value">:validate</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">false</span>)
+
+  <span class="ruby-keyword">end</span>
+  
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-parse_works_from_bmi">
+            
+              <b>parse_works_from_bmi</b>()
+            
+            <a href="../classes/CommonWorksImport.html#method-i-parse_works_from_bmi" name="method-i-parse_works_from_bmi" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-parse_works_from_bmi_source')" id="l_method-i-parse_works_from_bmi_source">show</a>
+                
+              </p>
+              <div id="method-i-parse_works_from_bmi_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/common_works_import.rb, line 175</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">parse_works_from_bmi</span> 
+
+  
+  <span class="ruby-identifier">imports</span> = <span class="ruby-number">0</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">params</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">catalog</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">work</span>        = <span class="ruby-identifier">catalog</span>[<span class="ruby-value">:work</span>]
+ 
+    <span class="ruby-comment"># find or create the common work</span>
+    <span class="ruby-identifier">common_work</span> = <span class="ruby-constant">CommonWork</span>.<span class="ruby-identifier">where</span>( <span class="ruby-identifier">bmi_work_id</span><span class="ruby-operator">:</span>  <span class="ruby-identifier">work</span>[<span class="ruby-value">:bmi_work_id</span>],
+                                    <span class="ruby-identifier">account_id</span><span class="ruby-operator">:</span>   <span class="ruby-keyword">self</span>.<span class="ruby-identifier">account_id</span>)
+                            .<span class="ruby-identifier">first_or_create</span>( <span class="ruby-identifier">bmi_work_id</span><span class="ruby-operator">:</span>  <span class="ruby-identifier">work</span>[<span class="ruby-value">:bmi_work_id</span>],
+                                              <span class="ruby-identifier">account_id</span><span class="ruby-operator">:</span>   <span class="ruby-keyword">self</span>.<span class="ruby-identifier">account_id</span>)
+    
+
+    <span class="ruby-identifier">common_work</span>.<span class="ruby-identifier">common_works_import_id</span>    = <span class="ruby-keyword">self</span>.<span class="ruby-identifier">id</span>
+    <span class="ruby-identifier">common_work</span>.<span class="ruby-identifier">bmi_catalog</span>               = <span class="ruby-identifier">catalog</span>[<span class="ruby-value">:catalog</span>]
+    <span class="ruby-identifier">common_work</span>.<span class="ruby-identifier">iswc_code</span>                 = <span class="ruby-identifier">work</span>[<span class="ruby-value">:iswc</span>]
+    <span class="ruby-identifier">common_work</span>.<span class="ruby-identifier">title</span>                     = <span class="ruby-identifier">work</span>[<span class="ruby-value">:title</span>]
+    <span class="ruby-identifier">common_work</span>.<span class="ruby-identifier">registration_date</span>         = <span class="ruby-identifier">work</span>[<span class="ruby-value">:registration_date</span>]   
+    <span class="ruby-identifier">common_work</span>.<span class="ruby-identifier">registration_origin</span>       = <span class="ruby-identifier">work</span>[<span class="ruby-value">:registration_origin</span>] 
+    <span class="ruby-identifier">common_work</span>.<span class="ruby-identifier">update_completeness</span>
+    
+    
+    <span class="ruby-identifier">add_to_catalog</span> <span class="ruby-identifier">common_work</span>, <span class="ruby-keyword">self</span>.<span class="ruby-identifier">catalog_id</span>
+    
+    <span class="ruby-comment"># parse writers</span>
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">work</span>[<span class="ruby-value">:writers</span>]
+      <span class="ruby-identifier">work</span>[<span class="ruby-value">:writers</span>].<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">writer</span><span class="ruby-operator">|</span>
+        <span class="ruby-identifier">parse_bmi_ipis</span> <span class="ruby-identifier">common_work</span>.<span class="ruby-identifier">id</span>, <span class="ruby-string">&#39;Writer&#39;</span>, <span class="ruby-identifier">writer</span>, <span class="ruby-identifier">work</span>[<span class="ruby-value">:bmi_work_id</span>]
+      <span class="ruby-keyword">end</span> 
+    <span class="ruby-keyword">end</span>
+    
+    <span class="ruby-comment"># parse publishers</span>
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">work</span>[<span class="ruby-value">:publishers</span>]
+      <span class="ruby-identifier">work</span>[<span class="ruby-value">:publishers</span>].<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">publisher</span><span class="ruby-operator">|</span>
+        <span class="ruby-identifier">parse_bmi_ipis</span> <span class="ruby-identifier">common_work</span>.<span class="ruby-identifier">id</span>, <span class="ruby-string">&#39;Publisher&#39;</span>, <span class="ruby-identifier">publisher</span>, <span class="ruby-identifier">work</span>[<span class="ruby-value">:bmi_work_id</span>]
+      <span class="ruby-keyword">end</span> 
+    <span class="ruby-keyword">end</span>
+    <span class="ruby-identifier">imports</span>     <span class="ruby-operator">+=</span> <span class="ruby-number">1</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-comment"># not in progress any more</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">in_progress</span>    = <span class="ruby-keyword">false</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">imported_works</span> = <span class="ruby-identifier">imports</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">save!</span>
+  <span class="ruby-identifier">channel</span> = <span class="ruby-string">&#39;digiramp_radio_&#39;</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">user_email</span>
+  <span class="ruby-constant">Pusher</span>.<span class="ruby-identifier">trigger</span>(<span class="ruby-identifier">channel</span>, <span class="ruby-string">&#39;digiramp_event&#39;</span>, {<span class="ruby-string">&quot;title&quot;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&#39;Success&#39;</span>, 
+                                        <span class="ruby-string">&quot;message&quot;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-node">&quot;#{self.imported_works} Common Works Imported&quot;</span>, 
+                                        <span class="ruby-string">&quot;time&quot;</span>    =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&#39;5000&#39;</span>, 
+                                        <span class="ruby-string">&quot;sticky&quot;</span>  =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&#39;true&#39;</span>, 
+                                        <span class="ruby-string">&quot;image&quot;</span>   =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&#39;success&#39;</span>
+                                        })
+                                        
+                                        
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+                    </div>
+
+    </div>
+  </body>
+</html>    

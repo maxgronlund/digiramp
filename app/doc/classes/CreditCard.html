@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>CreditCard</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../css/github.css" type="text/css" media="screen" />
+<script src="../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            <span class="type">Class</span> 
+            CreditCard 
+            
+                <span class="parent">&lt; 
+                    
+                    Object
+                    
+                </span>
+            
+        </h1>
+        <ul class="files">
+            
+            <li><a href="../files/services/credit_card_rb.html">services/credit_card.rb</a></li>
+            
+        </ul>
+    </div>
+    <div id="bodyContent">
+        <div id="content">
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+    <!-- Method ref -->
+    <div class="sectiontitle">Methods</div>
+    <dl class="methods">
+      
+        <dt>M</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-c-months">months</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>Y</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-c-years">years</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+    </dl>
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+    
+      <div class="sectiontitle">Class Public methods</div>
+      
+        <div class="method">
+          <div class="title method-title" id="method-c-months">
+            
+              <b>months</b>()
+            
+            <a href="../classes/CreditCard.html#method-c-months" name="method-c-months" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-c-months_source')" id="l_method-c-months_source">show</a>
+                
+              </p>
+              <div id="method-c-months_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File services/credit_card.rb, line 7</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">self</span>.<span class="ruby-identifier">months</span>
+  <span class="ruby-identifier">months</span> = []
+  <span class="ruby-identifier">name</span> = [<span class="ruby-string">&quot;01 Jan&quot;</span>,<span class="ruby-string">&quot;02 Feb&quot;</span>,<span class="ruby-string">&quot;03 Mar&quot;</span>,<span class="ruby-string">&quot;04 Apr&quot;</span>,<span class="ruby-string">&quot;05 May&quot;</span>,<span class="ruby-string">&quot;06 June&quot;</span>,<span class="ruby-string">&quot;07 July&quot;</span>,<span class="ruby-string">&quot;08 Aug&quot;</span>,<span class="ruby-string">&quot;09 Sep&quot;</span>,<span class="ruby-string">&quot;10 Oct&quot;</span>,<span class="ruby-string">&quot;11 Nov&quot;</span>,<span class="ruby-string">&quot;12 Dec&quot;</span>]
+  <span class="ruby-identifier">name</span>.<span class="ruby-identifier">each_with_index</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">name</span>, <span class="ruby-identifier">index</span><span class="ruby-operator">|</span> <span class="ruby-identifier">months</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-node">&quot;#{name[index]} (#{ format(&#39;%02d&#39;, index+1)})&quot;</span> }
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-c-years">
+            
+              <b>years</b>()
+            
+            <a href="../classes/CreditCard.html#method-c-years" name="method-c-years" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-c-years_source')" id="l_method-c-years_source">show</a>
+                
+              </p>
+              <div id="method-c-years_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File services/credit_card.rb, line 3</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">self</span>.<span class="ruby-identifier">years</span>
+   <span class="ruby-identifier">years</span> = <span class="ruby-operator">*</span>( <span class="ruby-constant">Time</span>.<span class="ruby-identifier">now</span>.<span class="ruby-identifier">year</span>.<span class="ruby-identifier">to_i</span><span class="ruby-operator">..</span> <span class="ruby-constant">Time</span>.<span class="ruby-identifier">now</span>.<span class="ruby-identifier">year</span>.<span class="ruby-identifier">to_i</span><span class="ruby-operator">+</span><span class="ruby-number">14</span> )
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+                        </div>
+
+    </div>
+  </body>
+</html>    

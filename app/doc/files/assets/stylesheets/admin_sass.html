@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>admin.sass</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            admin.sass
+        </h1>
+        <ul class="files">
+            <li>assets/stylesheets/admin.sass</li>
+            <li>Last modified: 2015-10-06 09:46:18 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>@import “row_machine” @import “colors” @import “compass/css3/box-shadow”</p>
+
+<p>.sidebar</p>
+
+<pre><code>margin-top: 0px</code></pre>
+
+<p>.admin-account</p>
+
+<pre><code>#sidebar-wrapper 
+  h4
+    color: #AAA
+  background-color: #00445E
+  color: #AAAAAA  
+  .sidebar-nav li a 
+    color: #AAAAAA
+
+    .user-avatar 
+      margin-left: -2px
+      margin-bottom: 8px
+      img
+        width: 164px
+        height: auto
+
+  .sidebar-selected 
+    //background: rgba(200,200,200,0.2) 
+    background-color: #1C668D
+    a
+      color: #FFF !important
+      font-weight: 400
+
+    a:hover  
+      background-color: #1C668D
+
+  li  
+    a:hover  
+      background-color: #1C668D</code></pre>
+
+<p>.admin</p>
+
+<pre><code>.admin-badges
+  width: 100%
+  .admin-badge-container:hover
+    background-color: #F8F8F8
+  .admin-badge-container
+    @include rowMachine(7, 1.5%)
+    float: left
+    -webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.3)
+    box-shadow: 0 1px 3px rgba(0,0,0,0.3)
+    background-color: #FFF
+    margin-bottom: 20px !important
+
+    @media (max-width: 1473px) 
+      @include rowMachine(6, 1.5%)
+
+    @media (max-width: 1253px) 
+      @include rowMachine(5, 1.5%)
+
+    @media (max-width: 1133px) 
+      @include rowMachine(4, 01.75%)
+
+    @media (max-width: 963px) 
+      @include rowMachine(3, 2%)
+
+    @media (max-width: 768px) 
+      @include rowMachine(2, 2.5%)
+
+    @media (max-width: 544px) 
+      @include rowMachine(1, 0.0%)
+
+    a
+      color: #888
+    .admin-badge 
+      background-color: #ECEBEA
+      .title
+        min-height: 40px
+        //@include panel-title-green
+        background-color: #41638A
+        padding: 10px
+        h4
+          color: #fff
+          margin: 0px
+
+      .body
+        position: relative
+        padding: 10px
+        min-height: 100px
+
+    .admin-badge:hover
+      +box-shadow(#252F3F 1px 2px 1px)</code></pre>
+
+<p>//.admin //  width: 100% //  a //    color: #888 //  a:hover //    color:
+#333 //  .admin-badges</p>
+
+<p>//    width: 100% // //    .admin-badge  //      @include rowMachine(7, 2%)
+//      text-overflow: ellipsis //      overflow: hidden //      position:
+relative //      background-color: fff //      height: 150px //      float:
+left //</p>
+
+<p>//      .title //        min-height: 40px //        background-color:
+#5F9E79 //        padding: 10px //        h4 //          color: fff //     
+margin-top: 0px //          margin-bottom: 0px //</p>
+
+<p>//      .body //        position: relative //        padding: 10px //</p>
+
+<p>// //</p>
+
+<p>//      @media (min-width: 1800px)  //        @include rowMachine(8, 2%) //</p>
+
+<p>//      @media (max-width: 1800px)  //        @include rowMachine(6, 2%) //</p>
+
+<p>//      @media (max-width: 1440px)  //        @include rowMachine(5, 2%) //</p>
+
+<p>//      @media (max-width: 1216px)  //        @include rowMachine(4, 2%) //</p>
+
+<p>//      @media (max-width: 992px)  //        @include rowMachine(3, 4%) //</p>
+
+<p>//</p>
+
+<p>//      @media (max-width: 768px)  //        @include rowMachine(3, 4%) //</p>
+
+<p>//</p>
+
+<p>//      @media (max-width: 544px)  //        @include rowMachine(2, 4%) //</p>
+
+<p>//</p>
+
+<p>//      img  //        max-width: 100% //</p>
+
+<p>//    .admin-badge:hover</p>
+
+<p>//      background-color: f0f0f0 //</p>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

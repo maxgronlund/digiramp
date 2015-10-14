@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>_connected_not_logged_in.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            _connected_not_logged_in.slim
+        </h1>
+        <ul class="files">
+            <li>views/contact_invitations/_connected_not_logged_in.slim</li>
+            <li>Last modified: 2015-09-24 20:35:34 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>.full-width-top</p>
+
+<pre><code>.navbar.navbar-digiramp.navbar-fixed-top.navbar-collapse
+  .navbar-header
+    = image_tag &#39;logo2.png&#39;, size: &quot;128x50&quot;</code></pre>
+
+<p>.container</p>
+
+<pre><code>.contact-invitations
+  .digi-box
+
+    .sexy_line
+
+    .left-side
+      .avatar
+        =  image_tag @inviter.image_url(:avatar_64x64)
+      .title
+        b = @inviter.user_name 
+        br = @message
+      .clearfix
+      h5  
+        - if @inviter.composer
+          span class=&quot;label label-default&quot;
+            &#39;Composer  
+          &#39;&amp;nbsp;
+
+        - if @inviter.writer
+          span class=&quot;label label-default&quot;
+            &#39;Writer
+          &#39;&amp;nbsp;
+
+        - if @inviter.artist
+          span class=&quot;label label-default&quot;
+            &#39;Artist
+          &#39;&amp;nbsp;
+
+        - if @inviter.author
+          span class=&quot;label label-default&quot;
+            &#39;Author
+          &#39;&amp;nbsp;
+
+        - if @inviter.producer
+          span class=&quot;label label-default&quot;
+            &#39;Producer
+          &#39;&amp;nbsp;
+
+        - if @inviter.musician
+          span class=&quot;label label-default&quot;
+            &#39;Musician
+          &#39;&amp;nbsp;
+
+        - if @inviter.remixer
+          span class=&quot;label label-default&quot;
+            &#39;Remixer
+          &#39;&amp;nbsp;
+
+        - if @inviter.dj
+          span class=&quot;label label-default&quot;
+            &#39;DJ
+          &#39;&amp;nbsp;
+    .row
+      .col-sm-12
+        .pull-right
+          = link_to root_path do
+            .btn.btn-info
+              &#39;Ok</code></pre>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

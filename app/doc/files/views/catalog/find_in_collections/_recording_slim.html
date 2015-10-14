@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>_recording.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            _recording.slim
+        </h1>
+        <ul class="files">
+            <li>views/catalog/find_in_collections/_recording.slim</li>
+            <li>Last modified: 2015-07-05 15:22:06 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>/- <a href=":share_from_page">session</a> = request.url</p>
+
+<h2 id="label-render+-27audio_player-2Fshow-27-2C+recording-3A+recording+-2C+description-3A+description-2C+target-3A+target">render &#39;audio_player/show&#39;, recording: recording , description: description, target: target</h2>
+
+<p>.player-bottom</p>
+
+<pre><code>.btn-group
+  = simple_form_for [:catalog, @catalog, recording], remote: true, :url =&gt; url_for(:action =&gt; &#39;create&#39;, 
+                                                                     :controller =&gt; &#39;find_in_collections&#39;), 
+                                                                     :method =&gt; &#39;post&#39; do |f|
+    = f.hidden_field :recording_id, value: recording.id
+    = f.hidden_field :catalog_id, value: @catalog.id
+    = f.submit &#39;Add to catalog&#39; , class: &#39;btn btn-success btn-xs&#39;
+  /= link_to new_catalog_account_catalog_find_in_collection_path(@account, recording), class: &quot;btn btn-success btn-xs&quot;  do
+  /      i.fa.fa-plus-circle
+  /      &#39;&amp;nbsp;
+  /      &#39;Add to catalog</code></pre>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

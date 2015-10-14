@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>pages.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            pages.slim
+        </h1>
+        <ul class="files">
+            <li>views/admin/statistics/pages.slim</li>
+            <li>Last modified: 2015-09-26 13:35:32 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>wrapper</p>
+
+<pre><code>.full-width-top
+  == render &#39;shared/navigationbar&#39;, page: &#39;home&#39; 
+
+.admin-account
+  #sidebar-wrapper
+    ul class=&quot;sidebar-nav&quot;
+      == render &#39;admin/shared/sidebar&#39;, selected: &#39;statistic&#39;
+
+#page-content-wrapper
+  .container-fluid 
+    == render &#39;shared/breadcrumbs&#39;, breadcrumbs: { links: { admin: admin_index_path,\
+                                                            statistics: admin_statistics_path \
+                                                           }, current: &#39;&#39;}
+    h2 Page views
+    &#39;Selected index pages not related to a specific record
+    .pull-down-10
+    .digi-box
+      .row
+        .col-sm-6
+          h4 All times: #{ PageView.count}
+        .col-sm-6
+          h4 Last 4 weeks: #{@total_views}
+      .row
+        .col-sm-12
+          .sexy_line
+          h4 Landing page
+          = line_chart @landing_page_chart
+      .row
+        .col-sm-12
+          .sexy_line
+          h4 People page
+          &#39;Total: #{@people_page_views.count} view
+          = line_chart @people_page_chart
+      .row
+        .col-sm-12
+          .sexy_line
+          h4 Recordings page
+          &#39;Total: #{@recordings_page_views.count} view
+          = line_chart @recordings_page_chart
+      .row
+        .col-sm-12
+          .sexy_line
+          h4 Public opportunities
+          &#39;Viewed by guests
+          &#39;Total: #{@public_opportunities_views.count} view
+          = line_chart @public_opportunities_chart
+      .row
+        .col-sm-12
+          .sexy_line
+          h4 Opportunities
+          &#39;Viewed by users logged in
+          &#39;Total: #{@user_opportunities_views.count} view
+          = line_chart @user_opportunities_chart
+      /.row
+      /  .col-sm-12
+      /    .sexy_line
+      /    h4 Views
+      /    = line_chart @views_chart
+
+== render &#39;shared/site_footer&#39;</code></pre>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

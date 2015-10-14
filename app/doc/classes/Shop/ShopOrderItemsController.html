@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>Shop::ShopOrderItemsController</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../css/github.css" type="text/css" media="screen" />
+<script src="../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            <span class="type">Class</span> 
+            Shop::ShopOrderItemsController 
+            
+                <span class="parent">&lt; 
+                    
+                    <a href="../ApplicationController.html">ApplicationController</a>
+                    
+                </span>
+            
+        </h1>
+        <ul class="files">
+            
+            <li><a href="../../files/controllers/shop/shop_order_items_controller_rb.html">controllers/shop/shop_order_items_controller.rb</a></li>
+            
+        </ul>
+    </div>
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>general controller for adding a product to a basket/order</p>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+    <!-- Method ref -->
+    <div class="sectiontitle">Methods</div>
+    <dl class="methods">
+      
+        <dt>C</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-create">create</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>D</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-destroy">destroy</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>U</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-update">update</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+    </dl>
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+        
+      <div class="sectiontitle">Instance Public methods</div>
+      
+        <div class="method">
+          <div class="title method-title" id="method-i-create">
+            
+              <b>create</b>()
+            
+            <a href="../../classes/Shop/ShopOrderItemsController.html#method-i-create" name="method-i-create" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              <p>add product to basket</p>
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-create_source')" id="l_method-i-create_source">show</a>
+                
+              </p>
+              <div id="method-i-create_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File controllers/shop/shop_order_items_controller.rb, line 7</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">create</span>
+  
+  <span class="ruby-identifier">order_item_params</span> = <span class="ruby-identifier">params</span>[<span class="ruby-value">:shop_order_item</span>]
+
+  <span class="ruby-identifier">product</span>           = <span class="ruby-constant">Shop</span><span class="ruby-operator">::</span><span class="ruby-constant">Product</span>.<span class="ruby-identifier">cached_find</span>(<span class="ruby-identifier">order_item_params</span>[<span class="ruby-value">:shop_product_id</span>])
+  <span class="ruby-identifier">quantity</span>          = <span class="ruby-identifier">set_quantity</span>( <span class="ruby-identifier">current_order</span>, <span class="ruby-identifier">product</span>, <span class="ruby-identifier">order_item_params</span>[<span class="ruby-value">:quantity</span>].<span class="ruby-identifier">to_i</span>)
+  
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">order_item</span> = <span class="ruby-identifier">current_order</span>.<span class="ruby-identifier">order_items</span>.<span class="ruby-identifier">find_by</span>(<span class="ruby-identifier">shop_product_id</span><span class="ruby-operator">:</span> <span class="ruby-identifier">product</span>.<span class="ruby-identifier">id</span>)
+    <span class="ruby-comment"># add quantity </span>
+    <span class="ruby-identifier">order_item</span>.<span class="ruby-identifier">quantity</span> <span class="ruby-operator">+=</span> <span class="ruby-identifier">quantity</span>
+    <span class="ruby-identifier">order_item</span>.<span class="ruby-identifier">save</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-comment"># create new with the right quantity</span>
+    <span class="ruby-identifier">order_item</span> = <span class="ruby-identifier">current_order</span>.<span class="ruby-identifier">order_items</span>.<span class="ruby-identifier">create</span>(<span class="ruby-identifier">quantity</span><span class="ruby-operator">:</span> <span class="ruby-identifier">quantity</span>, <span class="ruby-identifier">shop_product_id</span><span class="ruby-operator">:</span> <span class="ruby-identifier">product</span>.<span class="ruby-identifier">id</span>, <span class="ruby-identifier">account_id</span><span class="ruby-operator">:</span> <span class="ruby-identifier">product</span>.<span class="ruby-identifier">account_id</span>)
+  <span class="ruby-keyword">end</span>
+  
+  <span class="ruby-identifier">flash</span>[<span class="ruby-value">:info</span>] = <span class="ruby-node">&quot;#{order_item.shop_product.product_title} is added to your basket&quot;</span> 
+
+  <span class="ruby-comment">#shop_order.order_items</span>
+  <span class="ruby-identifier">go_to</span> = <span class="ruby-identifier">session</span>[<span class="ruby-value">:return_url</span>]
+  <span class="ruby-identifier">session</span>[<span class="ruby-value">:return_url</span>] = <span class="ruby-keyword">nil</span>
+  <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">go_to</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-destroy">
+            
+              <b>destroy</b>()
+            
+            <a href="../../classes/Shop/ShopOrderItemsController.html#method-i-destroy" name="method-i-destroy" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-destroy_source')" id="l_method-i-destroy_source">show</a>
+                
+              </p>
+              <div id="method-i-destroy_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File controllers/shop/shop_order_items_controller.rb, line 43</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">destroy</span>
+  <span class="ruby-identifier">go_to</span> = <span class="ruby-identifier">session</span>[<span class="ruby-value">:return_url</span>]
+  <span class="ruby-identifier">session</span>[<span class="ruby-value">:return_url</span>] = <span class="ruby-keyword">nil</span>
+  <span class="ruby-identifier">order_item</span> = <span class="ruby-constant">Shop</span><span class="ruby-operator">::</span><span class="ruby-constant">OrderItem</span>.<span class="ruby-identifier">cached_find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
+  <span class="ruby-identifier">order_item</span>.<span class="ruby-identifier">destroy</span>
+  <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">go_to</span>
+  <span class="ruby-comment">#redirect_to_return_url user_product_path(shop_order_item[:user_id], shop_order_item[:shop_product_id])</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-update">
+            
+              <b>update</b>()
+            
+            <a href="../../classes/Shop/ShopOrderItemsController.html#method-i-update" name="method-i-update" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-update_source')" id="l_method-i-update_source">show</a>
+                
+              </p>
+              <div id="method-i-update_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File controllers/shop/shop_order_items_controller.rb, line 32</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">update</span>
+
+  <span class="ruby-identifier">order_item</span>          = <span class="ruby-constant">Shop</span><span class="ruby-operator">::</span><span class="ruby-constant">OrderItem</span>.<span class="ruby-identifier">cached_find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
+  <span class="ruby-constant">OrderValidator</span>.<span class="ruby-identifier">set_units_on_order_item</span>(<span class="ruby-identifier">order_item</span>, <span class="ruby-identifier">params</span>[<span class="ruby-value">:shop_order_item</span>][<span class="ruby-value">:quantity</span>].<span class="ruby-identifier">to_i</span>)
+
+  <span class="ruby-identifier">go_to</span> = <span class="ruby-identifier">session</span>[<span class="ruby-value">:return_url</span>]
+  <span class="ruby-identifier">session</span>[<span class="ruby-value">:return_url</span>] = <span class="ruby-keyword">nil</span>
+  <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">go_to</span>
+
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+                    </div>
+
+    </div>
+  </body>
+</html>    

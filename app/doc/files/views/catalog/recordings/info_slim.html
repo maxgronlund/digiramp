@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>info.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            info.slim
+        </h1>
+        <ul class="files">
+            <li>views/catalog/recordings/info.slim</li>
+            <li>Last modified: 2015-07-05 15:22:06 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>/- <a href=":return_url">session</a>  = request.url /#wrap /  div
+class=“#{&#39;profile&#39; if account_owner?}” /    .full-width-top /     
+== render &#39;admin/shared/navbar&#39;, page: &#39;account&#39;  /  .do</p>
+
+<p>/    .container /      == render &#39;admin/shared/messages&#39; /      ==
+render &#39;shared/breadcrumbs&#39;, breadcrumbs: { links: {
+@account.title.to_sym =&gt; account_path(@account), \ /                    
+catalogs: catalog_account_catalogs_path(@account), \ /                     
+@catalog.title.to_sym =&gt; catalog_account_catalog_path(@account,
+@catalog), \ /                                                             
+recordings: catalog_account_catalog_recordings_path(@account, @catalog), \
+/                                                              }, current:
+@recording.title} /</p>
+
+<p>/</p>
+
+<p>/ /      == render &#39;shared/recording_title&#39;, locals: {recording:
+@recording, body: &#39;Info&#39;}  /</p>
+
+<p>/      -index = @recording.id /      div class=“player” id=“#{index}” /    
+.just-load /      .panel.panel-primary /        .panel-heading /          =
+@recording.title /        .panel-body /          .digiramp_player /        
+div class=“permissions” value=“catalog_recordings” id=“#{@catalog.id}” /   
+== render &#39;players/digramp_player&#39;, locals: {index: index ,
+recording: @recording} / /      .row /        .col-sm-6 /          ==
+render &#39;recordings/shared/metadata&#39; /        .col-sm-6  /         
+== render &#39;recordings/shared/description&#39;   if
+@recording.comment.to_s != &#39;&#39; /          == render
+&#39;recordings/shared/lyrics&#39;        if @recording.lyrics.to_s !=
+&#39;&#39; / / / /</p>
+
+<p>/</p>
+
+<p>/-cache ([&#39;footer&#39;, <a
+href="../../../../classes/Admin.html#method-c-cached_find">Admin.cached_find</a>.version])
+do</p>
+
+<p>/  =render &#39;shared/footer&#39; /</p>
+
+<p>/</p>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

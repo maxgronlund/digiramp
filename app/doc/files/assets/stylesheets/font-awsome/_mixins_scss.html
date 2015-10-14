@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>_mixins.scss</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            _mixins.scss
+        </h1>
+        <ul class="files">
+            <li>assets/stylesheets/font-awsome/_mixins.scss</li>
+            <li>Last modified: 2015-07-05 15:22:03 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>// Mixins // ————————–</p>
+
+<p>@mixin fa-icon() {</p>
+
+<pre><code>display: inline-block;
+font: normal normal normal #{$fa-font-size-base}/1 FontAwesome; // shortening font declaration
+font-size: inherit; // can&#39;t have font-size inherit on line above, so need to override
+text-rendering: auto; // optimizelegibility throws things off #1094
+-webkit-font-smoothing: antialiased;
+-moz-osx-font-smoothing: grayscale;
+transform: translate(0, 0); // ensures no half-pixel rendering in firefox</code></pre>
+
+<p>}</p>
+
+<p>@mixin fa-icon-rotate($degrees, $rotation) {</p>
+
+<pre><code>filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=#{$rotation});
+-webkit-transform: rotate($degrees);
+    -ms-transform: rotate($degrees);
+        transform: rotate($degrees);</code></pre>
+
+<p>}</p>
+
+<p>@mixin fa-icon-flip($horiz, $vert, $rotation) {</p>
+
+<pre><code>filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=#{$rotation});
+-webkit-transform: scale($horiz, $vert);
+    -ms-transform: scale($horiz, $vert);
+        transform: scale($horiz, $vert);</code></pre>
+
+<p>}</p>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

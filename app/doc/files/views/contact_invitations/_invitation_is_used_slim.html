@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>_invitation_is_used.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            _invitation_is_used.slim
+        </h1>
+        <ul class="files">
+            <li>views/contact_invitations/_invitation_is_used.slim</li>
+            <li>Last modified: 2015-09-24 20:35:34 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>.full-width-top</p>
+
+<pre><code>.navbar.navbar-digiramp.navbar-fixed-top.navbar-collapse
+  .navbar-header
+    = image_tag &#39;logo2.png&#39;, size: &quot;128x50&quot;</code></pre>
+
+<p>.container</p>
+
+<pre><code>.row
+  .col-sm-6
+    .digi-box
+      - if current_user
+        .alert.alert-info
+          b Hi #{current_user.user_name}
+          br = @message.sub(&#39;Invitation is used: &#39;, &#39;&#39;)
+
+        .row
+          .col-sm-12
+            .pull-right.pull-down-12
+              &#39;Take me to my account
+              =&lt; link_to &#39;Ok&#39;, current_user, class: &#39;btn btn-info&#39;
+      - else
+
+        .alert.alert-info
+          b = @message.sub(&#39;Invitation is used: &#39;, &#39;&#39;)
+        .pull-right.pull-down-12
+          = link_to login_new_path do
+            .btn.btn-default
+              i class=&quot;fa fa-sign-in&quot;
+              &#39;&amp;nbsp;
+              &#39;Log in</code></pre>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

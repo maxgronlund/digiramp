@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>_user.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            _user.slim
+        </h1>
+        <ul class="files">
+            <li>views/wall_posts/_user.slim</li>
+            <li>Last modified: 2015-07-05 15:22:06 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      <ul><li>
+<p>if (user = wall_post.user)  &amp;&amp; ( user_on_user =
+wall_post.get_user_on_user )</p>
+
+<p>.comments-content</p>
+
+<pre><code>.row
+  .col-sm-12
+    / delete the user_follower_event
+    /- if current_user &amp;&amp; current_user.id == @user.id
+    /  .pull-right
+    /    = link_to follower_event_path(follower_event.id), data: { confirm: &#39;Are you sure?&#39; } , :method =&gt; :delete, remote: true do
+    /      i.fa.fa-times
+    .pull-left
+      .avatar
+        .thumbnail
+          = link_to image_tag( user.image_url :avatar_48x48),  user_path( user)
+
+    .comment-content
+      h5
+        = link_to user.user_name, user_path( user)
+        &#39;&amp;nbsp;
+        = &quot;#{time_ago_in_words(wall_post.created_at) } ago&quot;
+        br = wall_post.body</code></pre>
+
+<p>.row</p>
+
+<pre><code>.col-sm-12  
+  .following
+    .following-container
+      .following-avatar
+        = link_to image_tag( user_on_user.image_url :avatar_92x92),  user_path( user_on_user)
+
+      .following-content
+        h4 = user_on_user.user_name
+        .following-profile
+          .ellipsis_text
+            = simple_format strip_tags( user_on_user.profile)
+
+      .fotter
+        h5  
+          - if user_on_user.composer
+            span class=&quot;label label-default&quot;
+              &#39;Composer  
+            &#39;&amp;nbsp;
+
+          - if user_on_user.writer
+            span class=&quot;label label-default&quot;
+              &#39;Writer
+            &#39;&amp;nbsp;
+
+          - if user_on_user.artist
+            span class=&quot;label label-default&quot;
+              &#39;Artist
+            &#39;&amp;nbsp;
+
+          - if user_on_user.author
+            span class=&quot;label label-default&quot;
+              &#39;Author
+            &#39;&amp;nbsp;
+
+          - if user_on_user.producer
+            span class=&quot;label label-default&quot;
+              &#39;Producer
+            &#39;&amp;nbsp;
+
+          - if user_on_user.musician
+            span class=&quot;label label-default&quot;
+              &#39;Musician
+            &#39;&amp;nbsp;
+
+          - if user_on_user.remixer
+            span class=&quot;label label-default&quot;
+              &#39;Remixer
+            &#39;&amp;nbsp;
+
+          - if user_on_user.dj
+            span class=&quot;label label-default&quot;
+              &#39;DJ
+            &#39;&amp;nbsp;</code></pre>
+</li><li>
+<p>else</p>
+<ul><li>
+<p>Opbeat.capture_message(“check walpost: #{wall_post.id}”)</p>
+</li></ul>
+
+<p>/- wall_post.destroy</p>
+</li></ul>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

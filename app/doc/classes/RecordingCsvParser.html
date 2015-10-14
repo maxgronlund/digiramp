@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>RecordingCsvParser</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../css/github.css" type="text/css" media="screen" />
+<script src="../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            <span class="type">Class</span> 
+            RecordingCsvParser 
+            
+                <span class="parent">&lt; 
+                    
+                    Object
+                    
+                </span>
+            
+        </h1>
+        <ul class="files">
+            
+            <li><a href="../files/services/recording_csv_parser_rb.html">services/recording_csv_parser.rb</a></li>
+            
+        </ul>
+    </div>
+    <div id="bodyContent">
+        <div id="content">
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+    <!-- Method ref -->
+    <div class="sectiontitle">Methods</div>
+    <dl class="methods">
+      
+        <dt>P</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-c-process">process</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+    </dl>
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+    
+      <div class="sectiontitle">Class Public methods</div>
+      
+        <div class="method">
+          <div class="title method-title" id="method-c-process">
+            
+              <b>process</b>(recordings)
+            
+            <a href="../classes/RecordingCsvParser.html#method-c-process" name="method-c-process" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-c-process_source')" id="l_method-c-process_source">show</a>
+                
+              </p>
+              <div id="method-c-process_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File services/recording_csv_parser.rb, line 5</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">self</span>.<span class="ruby-identifier">process</span> <span class="ruby-identifier">recordings</span>
+  
+  <span class="ruby-constant">CSV</span>.<span class="ruby-identifier">generate</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">csv</span><span class="ruby-operator">|</span>
+
+    <span class="ruby-identifier">csv</span> <span class="ruby-operator">&lt;&lt;</span> [<span class="ruby-string">&#39;Account Id&#39;</span>,
+            <span class="ruby-string">&#39;Recording Id&#39;</span>, 
+            <span class="ruby-string">&#39;Work ID&#39;</span>, 
+            <span class="ruby-string">&#39;Title&#39;</span>, 
+            <span class="ruby-string">&#39;ISRC Code&#39;</span>, 
+            <span class="ruby-string">&#39;Artist&#39;</span>, 
+            <span class="ruby-string">&#39;Performer&#39;</span>, 
+            <span class="ruby-string">&#39;Band&#39;</span>, 
+            <span class="ruby-string">&#39;Year&#39;</span>, 
+            <span class="ruby-string">&#39;Album Name&#39;</span>,
+            <span class="ruby-string">&#39;Vocal&#39;</span>,
+            <span class="ruby-string">&#39;Genre&#39;</span>, 
+            <span class="ruby-string">&#39;Mood&#39;</span>, 
+            <span class="ruby-string">&#39;Instruments&#39;</span>, 
+            <span class="ruby-string">&#39;Disc&#39;</span>, 
+            <span class="ruby-string">&#39;Track&#39;</span>, 
+            <span class="ruby-string">&#39;BPM&#39;</span>, 
+            <span class="ruby-string">&#39;Tempo&#39;</span>,
+            <span class="ruby-string">&#39;Explicit&#39;</span>, 
+            <span class="ruby-string">&#39;Clearance&#39;</span>, 
+            <span class="ruby-string">&#39;Copyright&#39;</span>, 
+            <span class="ruby-string">&#39;Production Company&#39;</span>,
+            <span class="ruby-string">&#39;Composer&#39;</span>  
+          ]
+    
+    <span class="ruby-identifier">recordings</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">recording</span><span class="ruby-operator">|</span>
+
+      <span class="ruby-identifier">csv</span> <span class="ruby-operator">&lt;&lt;</span> [  <span class="ruby-identifier">recording</span>.<span class="ruby-identifier">account_id</span>, 
+                <span class="ruby-identifier">recording</span>.<span class="ruby-identifier">id</span>, 
+                <span class="ruby-identifier">recording</span>.<span class="ruby-identifier">common_work_id</span>,
+                <span class="ruby-identifier">recording</span>.<span class="ruby-identifier">title</span>,
+                <span class="ruby-identifier">recording</span>.<span class="ruby-identifier">isrc_code</span>,
+                <span class="ruby-identifier">recording</span>.<span class="ruby-identifier">artist</span>.<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">squish</span>,
+                <span class="ruby-identifier">recording</span>.<span class="ruby-identifier">performer</span>.<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">squish</span>,
+                <span class="ruby-identifier">recording</span>.<span class="ruby-identifier">band</span>.<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">squish</span>,
+                <span class="ruby-identifier">recording</span>.<span class="ruby-identifier">year</span>,
+                <span class="ruby-identifier">recording</span>.<span class="ruby-identifier">album_name</span>.<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">squish</span>,
+                <span class="ruby-identifier">recording</span>.<span class="ruby-identifier">vocal</span>,
+                <span class="ruby-identifier">recording</span>.<span class="ruby-identifier">genre_tags_as_csv_string</span>,
+                <span class="ruby-identifier">recording</span>.<span class="ruby-identifier">moods_tags_as_csv_string</span>,
+                <span class="ruby-identifier">recording</span>.<span class="ruby-identifier">instruments_tags_as_csv_string</span>,
+                <span class="ruby-identifier">recording</span>.<span class="ruby-identifier">disc</span>,
+                <span class="ruby-identifier">recording</span>.<span class="ruby-identifier">track</span>,
+                <span class="ruby-identifier">recording</span>.<span class="ruby-identifier">bpm</span>,
+                <span class="ruby-identifier">recording</span>.<span class="ruby-identifier">tempo</span>,
+                <span class="ruby-identifier">recording</span>.<span class="ruby-identifier">explicit</span>,
+                <span class="ruby-identifier">recording</span>.<span class="ruby-identifier">clearance</span>,
+                <span class="ruby-identifier">recording</span>.<span class="ruby-identifier">copyright</span>.<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">squish</span>,
+                <span class="ruby-identifier">recording</span>.<span class="ruby-identifier">production_company</span>,
+                <span class="ruby-identifier">recording</span>.<span class="ruby-identifier">composer</span>
+              
+              ]
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+                        </div>
+
+    </div>
+  </body>
+</html>    

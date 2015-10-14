@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>show.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            show.slim
+        </h1>
+        <ul class="files">
+            <li>views/users/show.slim</li>
+            <li>Last modified: 2015-09-27 16:04:20 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      <ul><li>
+<p><a href=":return_url">session</a>         = request.url</p>
+</li></ul>
+
+<p>.full-width-top</p>
+
+<pre><code>div class=&quot; default-style #{@user.page_style.css_tag} &quot;
+  == render &#39;shared/navigationbar&#39;, page: &#39;user&#39; 
+  .container-fluid
+    .cms-backdrop
+      = image_tag @image_url
+
+    .cms-content
+      .container-fluid
+        .row
+          .col-sm-8
+            - if current_user &amp;&amp; (current_user.id == @user.id) &amp;&amp; @user.user_configuration.show?
+              .pull-down-10
+                == render &#39;nudging&#39; , user: @user
+                .new-nudging
+
+            == render &#39;cms_pages/cms_profile&#39;
+            h3 Activities
+            == render &#39;user_activities&#39;
+            .endless_activities
+            == paginate(@wall_posts)
+
+          .col-sm-4.stick-to-top.hidden-xs
+            .digi-box
+              == render &#39;users/guest_book&#39;
+              br
+              .rec-comments
+                - @user.comments.order(&#39;created_at desc&#39;).each do |comment|
+                  == render &#39;comments/show&#39;, comment: comment
+
+  == render &#39;shared/site_footer&#39;</code></pre>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

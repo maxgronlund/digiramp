@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>bottoms_controller.coffee</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            bottoms_controller.coffee
+        </h1>
+        <ul class="files">
+            <li>assets/javascripts/digi_whams/controllers/bottoms_controller.coffee</li>
+            <li>Last modified: 2015-07-05 15:22:02 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>class @BottomsController</p>
+
+<pre><code>show_controller = &#39;&#39;
+
+constructor: -&gt;
+
+  $(&#39;.add_to_playlist&#39;).on &#39;click&#39;, -&gt;
+    show_playlists( $(this).attr &#39;id&#39; )
+
+  $(&#39;.like&#39;).on &#39;click&#39;, -&gt;
+    id = $(this).attr &#39;id&#39; 
+    #widget_id = $(this).attr &#39;widget_id&#39;
+    # count playbacks
+    #$.getScript(&quot;/digiwham/likes/&quot; + id+ &#39;?widget_id=&#39; + widget_id )
+    $.getScript(&quot;/digiwham/likes/&quot; + id )
+
+  $(&#39;.share&#39;).on &#39;click&#39;, -&gt;
+    # console.log $(this).attr &#39;show_controller&#39;
+    # window.location.href = &#39;http://google.com&#39;
+    id =  $(this).attr &#39;id&#39; 
+    console.log show_controller 
+    window.location.href = show_controller + id 
+
+  $(&#39;.comment&#39;).on &#39;click&#39;, -&gt;
+    show_comments( $(this).attr &#39;id&#39; )
+
+  $(&#39;.top-pane&#39;).on &#39;click&#39;, -&gt;
+    close_bottom_panes()
+    id = $(this).attr &#39;id&#39;
+    reset_buttom_buttons(id)
+
+  if $(&#39;#digiWhams&#39;)[0]
+
+    show_controller = $(&#39;#digiWhams&#39;).attr(&quot;show_controller&quot;)   
+
+  #$(window).resize -&gt;
+  #  if $( window ).width() &gt; 474
+  #     $(&#39;.digi-wham-buttons&#39;).each (index, element) =&gt;
+  #       $(&#39;#&#39; + id  + &#39;.digi-wham-buttons&#39;).css( &quot;display&quot;: &#39;block&#39; );
+  #  else
+  #    $(&#39;#&#39; + id  + &#39;.digi-wham-buttons&#39;).css( &quot;display&quot;: &#39;hidden&#39; );
+
+# expand the comments frame on a track
+show_playlists = (recording_id) -&gt;
+  close_bottom_panes()
+
+  if $(&#39;#&#39;+recording_id+&#39;.playlists&#39;).is(&quot;:hidden&quot;)
+    $(&#39;#&#39;+recording_id+&#39;.playlists&#39;).slideDown(400)
+  else
+    $(&#39;#&#39;+recording_id+&#39;.playlists&#39;).slideUp(400)
+
+# expand the comments frame on a track
+show_comments = (recording_id) -&gt;
+  close_bottom_panes()
+
+  if $(&#39;#&#39;+recording_id+&#39;.comments&#39;).is(&quot;:hidden&quot;)
+    $(&#39;#&#39;+recording_id+&#39;.comments&#39;).slideDown(400)
+  else
+    $(&#39;#&#39;+recording_id+&#39;.comments&#39;).slideUp(400)
+
+hide_comments =() -&gt;
+  $(&#39;.comments&#39;).each (index, element) =&gt;
+    $(element).slideUp(400)
+
+hide_playlists =() -&gt;
+  $(&#39;.playlists&#39;).each (index, element) =&gt;
+    $(element).slideUp(400)
+
+# close all bottom frames  
+close_bottom_panes =() -&gt;    
+  hide_comments()
+  hide_playlists()
+
+# close all buttom panes but the selected
+reset_buttom_buttons = (selected_id) -&gt;
+  $(&#39;.digi-wham-buttons&#39;).each (index, element) =&gt;
+    id = $(element).attr(&#39;id&#39;)
+    if id is selected_id 
+       open_buttom_buttons(id)
+    else
+      close_buttom_buttons(id)
+
+close_buttom_buttons = (id) -&gt;
+  $(&#39;#&#39; + id  + &#39;.digi-wham-buttons&#39;).slideUp(400)
+
+open_buttom_buttons = (id) -&gt;
+  $(&#39;#&#39; + id  + &#39;.digi-wham-buttons&#39;).slideDown(400)</code></pre>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

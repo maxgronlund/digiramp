@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>_form.html.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            _form.html.slim
+        </h1>
+        <ul class="files">
+            <li>views/admin/default_images/_form.html.slim</li>
+            <li>Last modified: 2015-09-24 20:35:34 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<h1 id="label-simple_form_for+-5B-3Aadmin-2C+-40default_image+-5D++do+-7Cf-7C">simple_form_for [:admin, @default_image ]  do |f|</h1>
+
+<pre><code>= f.error_notification
+
+.form-inputs
+  = f.input :title, autofocus: true
+  br
+  h4 Recordings
+  .fileinput.fileinput-new data-provides=&quot;fileinput&quot;
+    .fileinput-new.thumbnail style=&quot;width: 184px; height: 184px;&quot;
+      = image_tag @default_image.recording_artwork_url(:size_184x184), size: &#39;184x184&#39;
+
+    div.fileinput-preview.fileinput-exists.thumbnail style=&quot;max-width: 184px; max-height: 184px;&quot;
+    div
+      span.btn.btn-default.btn-file
+        span class=&quot;fileinput-new&quot;
+          &#39;Change image
+        &#39;&amp;nbsp;
+        span class=&quot;fileinput-exists&quot;
+          &#39;Change
+        = f.file_field :recording_artwork, multiple: false
+
+      &#39;&amp;nbsp;
+      a href=&quot;#&quot; class=&quot;btn btn-default fileinput-exists&quot; data-dismiss=&quot;fileinput&quot;
+        &#39;Remove
+
+  .sexy_line
+
+  h4 Users
+  .fileinput.fileinput-new data-provides=&quot;fileinput&quot;
+    .fileinput-new.thumbnail style=&quot;width: 184px; height: 184px;&quot;
+      = image_tag @default_image.user_avatar_url(:avatar_184x184), size: &#39;184x184&#39;
+
+    div.fileinput-preview.fileinput-exists.thumbnail style=&quot;max-width: 184px; max-height: 184px;&quot;
+    div
+      span.btn.btn-default.btn-file
+        span class=&quot;fileinput-new&quot;
+          &#39;Change image
+        &#39;&amp;nbsp;
+        span class=&quot;fileinput-exists&quot;
+          &#39;Change
+        = f.file_field :user_avatar, multiple: false
+
+      &#39;&amp;nbsp;
+      a href=&quot;#&quot; class=&quot;btn btn-default fileinput-exists&quot; data-dismiss=&quot;fileinput&quot;
+        &#39;Remove
+  .sexy_line
+
+  h4 Logos
+  .fileinput.fileinput-new data-provides=&quot;fileinput&quot;
+    .fileinput-new.thumbnail style=&quot;width: 184px; height: 184px;&quot;
+      = image_tag @default_image.company_logo_url(:size_184x184), size: &#39;184x184&#39;
+
+    div.fileinput-preview.fileinput-exists.thumbnail style=&quot;max-width: 184px; max-height: 184px;&quot;
+    div
+      span.btn.btn-default.btn-file
+        span class=&quot;fileinput-new&quot;
+          &#39;Change image
+        &#39;&amp;nbsp;
+        span class=&quot;fileinput-exists&quot;
+          &#39;Change
+        = f.file_field :company_logo, multiple: false
+
+      &#39;&amp;nbsp;
+      a href=&quot;#&quot; class=&quot;btn btn-default fileinput-exists&quot; data-dismiss=&quot;fileinput&quot;
+        &#39;Remove
+  .sexy_line  
+
+  /h4 Logos
+  /.fileinput.fileinput-new data-provides=&quot;fileinput&quot;
+  /  .fileinput-new.thumbnail style=&quot;width: 184px; height: 184px;&quot;
+  /    = image_tag @default_image.company_logo_url(:size_184x184), size: &#39;184x184&#39;
+  /
+  /  div.fileinput-preview.fileinput-exists.thumbnail style=&quot;max-width: 184px; max-height: 184px;&quot;
+  /  div
+  /    span.btn.btn-default.btn-file
+  /      span class=&quot;fileinput-new&quot;
+  /        &#39;Select image
+  /      &#39;&amp;nbsp;
+  /      span class=&quot;fileinput-exists&quot;
+  /        &#39;Change
+  /      = f.file_field :company_logo, multiple: false
+  /
+  /    &#39;&amp;nbsp;
+  /    a href=&quot;#&quot; class=&quot;btn btn-default fileinput-exists&quot; data-dismiss=&quot;fileinput&quot;
+  /      &#39;Remove
+
+.pull-right
+  .form-actions
+    = f.submit &#39;Save&#39;, class: &#39;btn btn-info&#39;</code></pre>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

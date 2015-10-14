@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>_sidebar.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            _sidebar.slim
+        </h1>
+        <ul class="files">
+            <li>views/catalog/catalogs/_sidebar.slim</li>
+            <li>Last modified: 2015-08-31 17:27:26 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>li</p>
+
+<pre><code>= link_to catalog_account_catalog_path(@account, @catalog) do
+  .avatar_name
+    h4 = @catalog.title
+
+  .user-avatar
+    = image_tag @catalog.image_url(:image_184x184)</code></pre>
+<ul><li>
+<p>if current_catalog_user.read_recording ||
+current_catalog_user.download_recording .link-to-recordings</p>
+
+<pre><code>== render &#39;catalog/catalogs/link_to_recordings&#39;, account: @account, catalog: @catalog, selected: selected</code></pre>
+</li><li>
+<p>if current_catalog_user.read_common_work .link-to-common-work</p>
+
+<pre><code>== render &#39;catalog/catalogs/link_to_common_works&#39;, account: @account, catalog: @catalog, selected: selected</code></pre>
+</li></ul>
+
+<p>-if current_catalog_user.access_assets?</p>
+
+<pre><code>== render &#39;catalog/catalogs/link_to_documents&#39;, account: @account, catalog: @catalog, selected: selected</code></pre>
+
+<p>-if current_catalog_user.read_user?</p>
+
+<pre><code>== render &#39;catalog/catalogs/link_to_users&#39;, account: @account, catalog: @catalog, selected: selected</code></pre>
+
+<p>-if super? || current_user.id == @account.administrator.id</p>
+
+<pre><code>li class=&quot;#{&#39;sidebar-selected&#39; if selected == &#39;move&#39;}&quot;
+  = link_to catalog_account_catalog_move_path(@account, @catalog) do
+    i class=&quot;fa fa-truck&quot;
+    &#39;&amp;nbsp;
+    &#39;Move
+
+.sexy_line
+li class=&quot;#{&#39;sidebar-selected&#39; if selected == &#39;na&#39;}&quot;
+  = link_to account_account_path( @account ) do
+    i.fa.fa-tachometer
+    &#39;&amp;nbsp;
+    &#39;Pro account</code></pre>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

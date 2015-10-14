@@ -1,0 +1,521 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>Label</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../css/github.css" type="text/css" media="screen" />
+<script src="../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            <span class="type">Class</span> 
+            Label 
+            
+                <span class="parent">&lt; 
+                    
+                    ActiveRecord::Base
+                    
+                </span>
+            
+        </h1>
+        <ul class="files">
+            
+            <li><a href="../files/models/label_rb.html">models/label.rb</a></li>
+            
+        </ul>
+    </div>
+    <div id="bodyContent">
+        <div id="content">
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+    <!-- Method ref -->
+    <div class="sectiontitle">Methods</div>
+    <dl class="methods">
+      
+        <dt>C</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-c-cached_find">cached_find</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-i-configure_distribution_payment">configure_distribution_payment</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-i-configure_ipi_fee">configure_ipi_fee</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-i-configure_payment">configure_payment</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>D</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-default_distribution_agreement">default_distribution_agreement</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>I</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-init_defaults">init_defaults</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>R</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-remove_from_shop">remove_from_shop</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+    </dl>
+  
+
+  
+    <!-- Includes -->
+    <div class="sectiontitle">Included Modules</div>
+    <ul>
+      
+        <li>
+          
+            <a href="AddressMix.html">
+              AddressMix
+            </a>
+          
+        </li>
+      
+    </ul>
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+    
+      <div class="sectiontitle">Class Public methods</div>
+      
+        <div class="method">
+          <div class="title method-title" id="method-c-cached_find">
+            
+              <b>cached_find</b>(id)
+            
+            <a href="../classes/Label.html#method-c-cached_find" name="method-c-cached_find" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              <p>def self.create_label account_id</p>
+
+<pre><code>account = Account.cached_find(account_id)
+#begin
+  label = Label.create( user_id: account.user_id, account_id: account_id, title: &quot;#{account.user.get_full_name}&#39;s Label&quot;)
+  account.user.update(default_label_id: label.id)
+#rescue =&gt; e
+#  ErrorNotification.post_object &#39;Label#create_label&#39;, e
+#end
+</code></pre>
+
+<p>end</p>
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-c-cached_find_source')" id="l_method-c-cached_find_source">show</a>
+                
+              </p>
+              <div id="method-c-cached_find_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/label.rb, line 145</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">self</span>.<span class="ruby-identifier">cached_find</span>(<span class="ruby-identifier">id</span>)
+  <span class="ruby-constant">Rails</span>.<span class="ruby-identifier">cache</span>.<span class="ruby-identifier">fetch</span>([<span class="ruby-identifier">name</span>, <span class="ruby-identifier">id</span>]) { <span class="ruby-identifier">find</span>(<span class="ruby-identifier">id</span>) }
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+                  
+      <div class="sectiontitle">Instance Public methods</div>
+      
+        <div class="method">
+          <div class="title method-title" id="method-i-configure_distribution_payment">
+            
+              <b>configure_distribution_payment</b>( price, rake, recording_id , distribution_agreement_id )
+            
+            <a href="../classes/Label.html#method-i-configure_distribution_payment" name="method-i-configure_distribution_payment" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-configure_distribution_payment_source')" id="l_method-i-configure_distribution_payment_source">show</a>
+                
+              </p>
+              <div id="method-i-configure_distribution_payment_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/label.rb, line 78</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">configure_distribution_payment</span>( <span class="ruby-identifier">price</span>, <span class="ruby-identifier">rake</span>, <span class="ruby-identifier">recording_id</span> , <span class="ruby-identifier">distribution_agreement_id</span> )
+  
+  <span class="ruby-keyword">begin</span>
+    <span class="ruby-identifier">distribution_agreement</span> = <span class="ruby-constant">DistributionAgreement</span>.<span class="ruby-identifier">cached_find</span>(<span class="ruby-identifier">distribution_agreement_id</span>)
+    <span class="ruby-identifier">distribution_rake</span>      = <span class="ruby-identifier">rake</span> <span class="ruby-operator">*</span> <span class="ruby-identifier">distribution_agreement</span>.<span class="ruby-identifier">split</span> <span class="ruby-operator">*</span> <span class="ruby-number">0.01</span>
+    
+    
+    <span class="ruby-identifier">amount_in_cent</span> =  <span class="ruby-identifier">distribution_rake</span>
+    <span class="ruby-identifier">amount_in_pct</span>  =  <span class="ruby-identifier">amount_in_cent</span> <span class="ruby-operator">/</span>  <span class="ruby-identifier">price</span>
+    
+    <span class="ruby-comment">#ap &quot;amount_in_cent: #{amount_in_cent}&quot;</span>
+    <span class="ruby-comment">#ap &quot;royalty; #{royalty}&quot;</span>
+    <span class="ruby-identifier">recording</span> = <span class="ruby-constant">Recording</span>.<span class="ruby-identifier">cached_find</span>(<span class="ruby-identifier">recording_id</span>)
+
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">stake</span> = <span class="ruby-constant">Stake</span>.<span class="ruby-identifier">find_by</span>( 
+        <span class="ruby-identifier">account_id</span><span class="ruby-operator">:</span>         <span class="ruby-keyword">self</span>.<span class="ruby-identifier">account</span>.<span class="ruby-identifier">id</span>,
+        <span class="ruby-identifier">asset_id</span><span class="ruby-operator">:</span>           <span class="ruby-identifier">recording</span>.<span class="ruby-identifier">uuid</span>,
+        <span class="ruby-identifier">asset_type</span><span class="ruby-operator">:</span>         <span class="ruby-string">&#39;Recording&#39;</span>,
+        <span class="ruby-identifier">ip_uuid</span><span class="ruby-operator">:</span>            <span class="ruby-identifier">distribution_agreement</span>.<span class="ruby-identifier">uuid</span>,
+        <span class="ruby-identifier">ip_type</span><span class="ruby-operator">:</span>            <span class="ruby-string">&#39;DistributionAgreement&#39;</span>
+      )
+      <span class="ruby-identifier">stake</span>.<span class="ruby-identifier">update</span>(
+        <span class="ruby-identifier">split</span><span class="ruby-operator">:</span>               <span class="ruby-identifier">amount_in_pct</span>,
+        <span class="ruby-identifier">flat_rate_in_cent</span><span class="ruby-operator">:</span>   <span class="ruby-identifier">amount_in_cent</span>,
+        <span class="ruby-identifier">currency</span><span class="ruby-operator">:</span>            <span class="ruby-string">&#39;usd&#39;</span>,
+        <span class="ruby-identifier">email</span><span class="ruby-operator">:</span>               <span class="ruby-keyword">self</span>.<span class="ruby-identifier">user</span>.<span class="ruby-identifier">email</span>,
+        <span class="ruby-identifier">unassigned</span><span class="ruby-operator">:</span>          <span class="ruby-keyword">false</span>
+      )
+    <span class="ruby-keyword">else</span>
+      <span class="ruby-identifier">stake</span> = <span class="ruby-constant">Stake</span>.<span class="ruby-identifier">create</span>(  
+        <span class="ruby-identifier">account_id</span><span class="ruby-operator">:</span>          <span class="ruby-keyword">self</span>.<span class="ruby-identifier">account</span>.<span class="ruby-identifier">id</span>,
+        <span class="ruby-identifier">user_id</span><span class="ruby-operator">:</span>             <span class="ruby-keyword">self</span>.<span class="ruby-identifier">user_id</span>,
+        <span class="ruby-identifier">asset_id</span><span class="ruby-operator">:</span>            <span class="ruby-identifier">recording</span>.<span class="ruby-identifier">uuid</span>,
+        <span class="ruby-identifier">asset_type</span><span class="ruby-operator">:</span>          <span class="ruby-string">&#39;Recording&#39;</span>,
+        <span class="ruby-identifier">ip_uuid</span><span class="ruby-operator">:</span>             <span class="ruby-identifier">distribution_agreement</span>.<span class="ruby-identifier">uuid</span>,
+        <span class="ruby-identifier">ip_type</span><span class="ruby-operator">:</span>             <span class="ruby-string">&#39;DistributionAgreement&#39;</span>,
+        <span class="ruby-identifier">split</span><span class="ruby-operator">:</span>               <span class="ruby-identifier">amount_in_pct</span>,
+        <span class="ruby-identifier">flat_rate_in_cent</span><span class="ruby-operator">:</span>   <span class="ruby-identifier">amount_in_cent</span>,
+        <span class="ruby-identifier">currency</span><span class="ruby-operator">:</span>            <span class="ruby-string">&#39;usd&#39;</span>,
+        <span class="ruby-identifier">email</span><span class="ruby-operator">:</span>               <span class="ruby-keyword">self</span>.<span class="ruby-identifier">user</span>.<span class="ruby-identifier">email</span>,
+        <span class="ruby-identifier">unassigned</span><span class="ruby-operator">:</span>          <span class="ruby-keyword">false</span>
+      )
+    <span class="ruby-keyword">end</span>
+    <span class="ruby-keyword">return</span> <span class="ruby-identifier">rake</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">distribution_rake</span>
+  <span class="ruby-keyword">rescue</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
+    <span class="ruby-constant">ErrorNotification</span>.<span class="ruby-identifier">post_object</span> <span class="ruby-string">&#39;Label#configure_distribution_payment&#39;</span>, <span class="ruby-identifier">e</span>
+    <span class="ruby-keyword">return</span> <span class="ruby-identifier">rake</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-configure_ipi_fee">
+            
+              <b>configure_ipi_fee</b>( price, ipis_rake, recording_id )
+            
+            <a href="../classes/Label.html#method-i-configure_ipi_fee" name="method-i-configure_ipi_fee" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-configure_ipi_fee_source')" id="l_method-i-configure_ipi_fee_source">show</a>
+                
+              </p>
+              <div id="method-i-configure_ipi_fee_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/label.rb, line 63</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">configure_ipi_fee</span>( <span class="ruby-identifier">price</span>, <span class="ruby-identifier">ipis_rake</span>, <span class="ruby-identifier">recording_id</span> )
+  
+  <span class="ruby-keyword">begin</span>
+    <span class="ruby-identifier">recording</span> = <span class="ruby-constant">Recording</span>.<span class="ruby-identifier">cached_find</span>(<span class="ruby-identifier">recording_id</span>)
+    
+    <span class="ruby-identifier">recording</span>.<span class="ruby-identifier">recording_ipis</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">recording_ipi</span><span class="ruby-operator">|</span>
+      <span class="ruby-identifier">recording_ipi</span>.<span class="ruby-identifier">configure_payment</span>( <span class="ruby-identifier">price</span>, <span class="ruby-identifier">ipis_rake</span>, <span class="ruby-identifier">recording</span>.<span class="ruby-identifier">uuid</span> )
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">rescue</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
+    <span class="ruby-constant">ErrorNotification</span>.<span class="ruby-identifier">post_object</span> <span class="ruby-string">&#39;Label#configure_payment&#39;</span>, <span class="ruby-identifier">e</span>
+  <span class="ruby-keyword">end</span>
+  
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-configure_payment">
+            
+              <b>configure_payment</b>( price, rake, recording_id , distribution_agreement_id)
+            
+            <a href="../classes/Label.html#method-i-configure_payment" name="method-i-configure_payment" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-configure_payment_source')" id="l_method-i-configure_payment_source">show</a>
+                
+              </p>
+              <div id="method-i-configure_payment_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/label.rb, line 47</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">configure_payment</span>( <span class="ruby-identifier">price</span>, <span class="ruby-identifier">rake</span>, <span class="ruby-identifier">recording_id</span> , <span class="ruby-identifier">distribution_agreement_id</span>)
+ 
+  
+  <span class="ruby-identifier">ipis_rake</span> = <span class="ruby-identifier">configure_distribution_payment</span>( 
+    <span class="ruby-identifier">price</span>, 
+    <span class="ruby-identifier">rake</span>, 
+    <span class="ruby-identifier">recording_id</span> , 
+    <span class="ruby-identifier">distribution_agreement_id</span> 
+  )
+  <span class="ruby-identifier">configure_ipi_fee</span>( 
+    <span class="ruby-identifier">price</span>, 
+    <span class="ruby-identifier">ipis_rake</span>, 
+    <span class="ruby-identifier">recording_id</span> 
+  )
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-default_distribution_agreement">
+            
+              <b>default_distribution_agreement</b>()
+            
+            <a href="../classes/Label.html#method-i-default_distribution_agreement" name="method-i-default_distribution_agreement" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-default_distribution_agreement_source')" id="l_method-i-default_distribution_agreement_source">show</a>
+                
+              </p>
+              <div id="method-i-default_distribution_agreement_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/label.rb, line 25</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">default_distribution_agreement</span>
+  <span class="ruby-keyword">begin</span>
+    <span class="ruby-keyword">if</span> <span class="ruby-ivar">@distribution_agreement</span> = <span class="ruby-constant">DistributionAgreement</span>.<span class="ruby-identifier">find_by</span>(<span class="ruby-identifier">id</span><span class="ruby-operator">:</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">default_distribution_agreement_id</span>)
+    <span class="ruby-keyword">else</span>
+      <span class="ruby-ivar">@distribution_agreement</span> = <span class="ruby-constant">DistributionAgreement</span>.<span class="ruby-identifier">create</span>(
+                           <span class="ruby-value">:label_id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">id</span>,
+                         <span class="ruby-value">:account_id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">account_id</span>,
+                     <span class="ruby-value">:distributor_id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">id</span>,
+                              <span class="ruby-value">:split</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-number">100</span>,
+                            <span class="ruby-value">:user_id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">user_id</span>,
+                              <span class="ruby-value">:title</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-node">&quot;#{self.user.full_name} distribution agreement&quot;</span>,
+                               <span class="ruby-value">:uuid</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">UUIDTools</span><span class="ruby-operator">::</span><span class="ruby-constant">UUID</span>.<span class="ruby-identifier">timestamp_create</span>().<span class="ruby-identifier">to_s</span>
+      
+      )
+      <span class="ruby-keyword">self</span>.<span class="ruby-identifier">update</span>(<span class="ruby-identifier">default_distribution_agreement_id</span><span class="ruby-operator">:</span> <span class="ruby-ivar">@distribution_agreement</span>.<span class="ruby-identifier">id</span>)
+    <span class="ruby-keyword">end</span>
+    <span class="ruby-ivar">@distribution_agreement</span>
+  <span class="ruby-keyword">rescue</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
+    <span class="ruby-constant">ErrorNotification</span>.<span class="ruby-identifier">post_object</span> <span class="ruby-string">&#39;Label#default_distribution_agreement&#39;</span>, <span class="ruby-identifier">e</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-init_defaults">
+            
+              <b>init_defaults</b>()
+            
+            <a href="../classes/Label.html#method-i-init_defaults" name="method-i-init_defaults" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-init_defaults_source')" id="l_method-i-init_defaults_source">show</a>
+                
+              </p>
+              <div id="method-i-init_defaults_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/label.rb, line 21</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">init_defaults</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">update</span>(<span class="ruby-identifier">uuid</span><span class="ruby-operator">:</span> <span class="ruby-constant">UUIDTools</span><span class="ruby-operator">::</span><span class="ruby-constant">UUID</span>.<span class="ruby-identifier">timestamp_create</span>().<span class="ruby-identifier">to_s</span>)
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-remove_from_shop">
+            
+              <b>remove_from_shop</b>()
+            
+            <a href="../classes/Label.html#method-i-remove_from_shop" name="method-i-remove_from_shop" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-remove_from_shop_source')" id="l_method-i-remove_from_shop_source">show</a>
+                
+              </p>
+              <div id="method-i-remove_from_shop_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/label.rb, line 129</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">remove_from_shop</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">distribution_agreements</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">distribution_agreement</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">distribution_agreement</span>.<span class="ruby-identifier">remove_from_shop</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+                    </div>
+
+    </div>
+  </body>
+</html>    

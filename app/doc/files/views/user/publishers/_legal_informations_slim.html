@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>_legal_informations.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            _legal_informations.slim
+        </h1>
+        <ul class="files">
+            <li>views/user/publishers/_legal_informations.slim</li>
+            <li>Last modified: 2015-10-01 10:53:31 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>.row</p>
+
+<pre><code>.col-sm-6
+
+  .table-responsive
+    h4 Legal information
+    table class=&quot;table table-hover&quot;
+      tbody
+        tr
+          th 
+            .pull-right
+              &#39;Email:
+          td = @publisher.email
+        tr
+          th 
+            .pull-right
+              &#39;Phone number:
+          td = @publisher.phone_number
+        tr
+          th 
+            .pull-right
+              &#39;IPI code:
+          td = @publisher.ipi_code
+        tr
+          th 
+            .pull-right
+              &#39;CAE code:
+          td = @publisher.cae_code
+        tr
+          th 
+            .pull-right 
+              &#39;Pro Affiliation:
+          td 
+            - if pro_affiliation = @publisher.pro_affiliation
+              = pro_affiliation.title
+        tr
+          td
+            .pull-right 
+              &#39;&amp;nbsp;
+          td &amp;nbsp;
+
+.col-sm-6
+  = render &#39;shared/address&#39;, address: @publisher.address
+
+  .table-responsive
+    h4 Address
+    table class=&quot;table table-hover&quot;
+      tbody
+        tr
+          th 
+            .pull-right
+              &#39;Address line 1:
+          td = @publisher.address_line_1
+        tr
+          th 
+            .pull-right
+              &#39;Address line 2:
+          td = @publisher.address_line_2 
+        tr
+          th 
+            .pull-right
+              &#39;City:
+          td = @publisher.city 
+        tr
+          th 
+            .pull-right
+              &#39;Zip code:
+          td = @publisher.zip_code 
+        tr
+          th 
+            .pull-right
+              &#39;State:
+          td = @publisher.state 
+        tr
+          th 
+            .pull-right
+              &#39;Country:
+          td = @publisher.country 
+
+/.row
+/  .col-sm-12
+/
+/    .pull-right
+/      - if (@user.id == @publisher.user_id) ||  @publisher.pending?
+/        - if @publisher.i_am_my_own_publisher
+/          = link_to &#39;Edit&#39;, edit_user_user_publisher_legal_info_path(@publisher.user, @publisher), class: &#39;btn btn-default&#39;
+/        - else
+/          = link_to &#39;Edit&#39;, edit_user_user_publisher_path(@publisher.user, @publisher), class: &#39;btn btn-default&#39;
+/  
+/</code></pre>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

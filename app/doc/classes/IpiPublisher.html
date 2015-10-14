@@ -1,0 +1,347 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>IpiPublisher</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../css/github.css" type="text/css" media="screen" />
+<script src="../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            <span class="type">Class</span> 
+            IpiPublisher 
+            
+                <span class="parent">&lt; 
+                    
+                    ActiveRecord::Base
+                    
+                </span>
+            
+        </h1>
+        <ul class="files">
+            
+            <li><a href="../files/models/ipi_publisher_rb.html">models/ipi_publisher.rb</a></li>
+            
+        </ul>
+    </div>
+    <div id="bodyContent">
+        <div id="content">
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+    <!-- Method ref -->
+    <div class="sectiontitle">Methods</div>
+    <dl class="methods">
+      
+        <dt>A</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-attach_to_common_work_ipis">attach_to_common_work_ipis</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-i-attach_to_user">attach_to_user</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>C</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-c-cached_find">cached_find</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>R</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-reset_common_work_ipis">reset_common_work_ipis</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>T</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-title">title</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+    </dl>
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+    
+      <div class="sectiontitle">Class Public methods</div>
+      
+        <div class="method">
+          <div class="title method-title" id="method-c-cached_find">
+            
+              <b>cached_find</b>(id)
+            
+            <a href="../classes/IpiPublisher.html#method-c-cached_find" name="method-c-cached_find" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-c-cached_find_source')" id="l_method-c-cached_find_source">show</a>
+                
+              </p>
+              <div id="method-c-cached_find_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/ipi_publisher.rb, line 27</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">self</span>.<span class="ruby-identifier">cached_find</span>(<span class="ruby-identifier">id</span>)
+  <span class="ruby-constant">Rails</span>.<span class="ruby-identifier">cache</span>.<span class="ruby-identifier">fetch</span>([<span class="ruby-identifier">name</span>, <span class="ruby-identifier">id</span>]) { <span class="ruby-identifier">find</span>(<span class="ruby-identifier">id</span>) }
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+                  
+      <div class="sectiontitle">Instance Public methods</div>
+      
+        <div class="method">
+          <div class="title method-title" id="method-i-attach_to_common_work_ipis">
+            
+              <b>attach_to_common_work_ipis</b>()
+            
+            <a href="../classes/IpiPublisher.html#method-i-attach_to_common_work_ipis" name="method-i-attach_to_common_work_ipis" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-attach_to_common_work_ipis_source')" id="l_method-i-attach_to_common_work_ipis_source">show</a>
+                
+              </p>
+              <div id="method-i-attach_to_common_work_ipis_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/ipi_publisher.rb, line 41</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">attach_to_common_work_ipis</span>
+  
+  <span class="ruby-constant">CommonWorkIpi</span>.<span class="ruby-identifier">where</span>(
+    <span class="ruby-identifier">email</span><span class="ruby-operator">:</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">email</span>, 
+    <span class="ruby-identifier">ipi_publisher_id</span><span class="ruby-operator">:</span> <span class="ruby-keyword">nil</span>
+  )
+  .<span class="ruby-identifier">update_all</span>(
+    <span class="ruby-identifier">email</span><span class="ruby-operator">:</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">email</span>, 
+    <span class="ruby-identifier">ipi_publisher_id</span><span class="ruby-operator">:</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">id</span>
+  )
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-attach_to_user">
+            
+              <b>attach_to_user</b>()
+            
+            <a href="../classes/IpiPublisher.html#method-i-attach_to_user" name="method-i-attach_to_user" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-attach_to_user_source')" id="l_method-i-attach_to_user_source">show</a>
+                
+              </p>
+              <div id="method-i-attach_to_user_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/ipi_publisher.rb, line 31</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">attach_to_user</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">user</span> = <span class="ruby-constant">User</span>.<span class="ruby-identifier">get_by_email</span>( <span class="ruby-keyword">self</span>.<span class="ruby-identifier">email</span> )
+    <span class="ruby-keyword">self</span>.<span class="ruby-identifier">update</span>(
+      <span class="ruby-identifier">ipi_id</span><span class="ruby-operator">:</span> <span class="ruby-identifier">user</span>.<span class="ruby-identifier">ipi</span>.<span class="ruby-identifier">id</span>,
+      <span class="ruby-identifier">user_id</span><span class="ruby-operator">:</span> <span class="ruby-identifier">user</span>.<span class="ruby-identifier">id</span>,
+      <span class="ruby-identifier">email</span><span class="ruby-operator">:</span>   <span class="ruby-identifier">user</span>.<span class="ruby-identifier">email</span>
+    )
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-reset_common_work_ipis">
+            
+              <b>reset_common_work_ipis</b>()
+            
+            <a href="../classes/IpiPublisher.html#method-i-reset_common_work_ipis" name="method-i-reset_common_work_ipis" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-reset_common_work_ipis_source')" id="l_method-i-reset_common_work_ipis_source">show</a>
+                
+              </p>
+              <div id="method-i-reset_common_work_ipis_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/ipi_publisher.rb, line 15</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">reset_common_work_ipis</span>
+  <span class="ruby-constant">CommonWorkIpi</span>.<span class="ruby-identifier">where</span>(
+    <span class="ruby-identifier">email</span><span class="ruby-operator">:</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">email</span>, 
+    <span class="ruby-identifier">ipi_publisher_id</span><span class="ruby-operator">:</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">id</span>
+  )
+  .<span class="ruby-identifier">update_all</span>(
+    <span class="ruby-identifier">email</span><span class="ruby-operator">:</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">email</span>, 
+    <span class="ruby-identifier">ipi_publisher_id</span><span class="ruby-operator">:</span> <span class="ruby-keyword">nil</span>
+  )
+  
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-title">
+            
+              <b>title</b>()
+            
+            <a href="../classes/IpiPublisher.html#method-i-title" name="method-i-title" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-title_source')" id="l_method-i-title_source">show</a>
+                
+              </p>
+              <div id="method-i-title_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/ipi_publisher.rb, line 53</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">title</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">publisher</span>.<span class="ruby-identifier">legal_name</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">publisher</span>
+  <span class="ruby-string">&#39;na&#39;</span>  
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+                    </div>
+
+    </div>
+  </body>
+</html>    

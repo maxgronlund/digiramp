@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>index.html.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            index.html.slim
+        </h1>
+        <ul class="files">
+            <li>views/admin/system_settings/index.html.slim</li>
+            <li>Last modified: 2015-09-24 20:35:34 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>/h1 Listing system_settings / /table /  thead /    tr /      th <a
+href="../../../../classes/Recording.html">Recording</a> artwork /      th
+<a href="../../../../classes/User.html">User</a> avatar /      th Company
+logo /      th /      th /      th / /  tbody /    - @system_settings.each
+do |system_setting| /      tr /        td =
+system_setting.recording_artwork_id /        td =
+system_setting.user_avatar_id /        td = system_setting.company_logo_id
+/        td = link_to &#39;Show&#39;, system_setting /        td = link_to
+&#39;Edit&#39;, edit_system_setting_path(system_setting) /        td =
+link_to &#39;Destroy&#39;, system_setting, data: {:confirm =&gt; &#39;Are
+you sure?&#39;}, :method =&gt; :delete / /br / /= link_to &#39;New System
+setting&#39;, new_system_setting_path</p>
+
+<p>wrapper</p>
+
+<pre><code>.full-width-top
+  == render &#39;shared/navigationbar&#39;, page: &#39;home&#39; 
+
+#sidebar-wrapper
+  ul class=&quot;sidebar-nav&quot;
+    == render &#39;users/shared/sidebar&#39;, selected: &#39;user&#39;
+
+#page-content-wrapper
+  .container-fluid
+    == render &#39;shared/breadcrumbs&#39;, breadcrumbs: { links: { &quot;admin&quot;.to_sym =&gt; admin_index_path}, current: &#39;&#39;}
+    == render &#39;admin/shared/messages&#39;
+    h3 System settings
+    &#39;Default settings
+    .sexy_line
+    h4 Default Images
+    .row
+      .col-sm-6
+        = simple_form_for [:admin, @system_setting] do |f|
+          = f.error_notification
+
+          .form-inputs
+            = f.input :recording_artwork_id, collection: DefaultImage.all, value_method: :id,  include_blank: false
+            = f.input :user_avatar_id, collection: DefaultImage.all, value_method: :id,  include_blank: false
+            = f.input :company_logo_id, collection: DefaultImage.all, value_method: :id,  include_blank: false
+
+          .form-actions
+            .pull-right
+              = f.submit &#39;Save&#39;, class: &#39;btn btn-info&#39;
+
+== render &#39;shared/site_footer&#39;</code></pre>
+
+<p>/== simple_form_for(@system_setting) do |f| /=  = f.error_notification /=
+/=  .form-inputs /=    = f.input :defatul_artwork, collection:
+DefaultImage.all, value_method: :id, include_blank: false /=    /= f.input
+:recording_artwork_id, collection: 18..60 /=    = f.input :user_avatar_id
+/=    = f.input :company_logo_id /= /=  .form-actions /=    = f.button
+:submit /=</p>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

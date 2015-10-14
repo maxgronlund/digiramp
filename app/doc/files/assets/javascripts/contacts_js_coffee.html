@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>contacts.js.coffee</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            contacts.js.coffee
+        </h1>
+        <ul class="files">
+            <li>assets/javascripts/contacts.js.coffee</li>
+            <li>Last modified: 2015-07-05 15:22:02 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p># Place all the behaviors and hooks related to the matching controller
+here. # All this logic will automatically be available in application.js. #
+You can use CoffeeScript in this file: <a
+href="http://coffeescript.org">coffeescript.org</a>/ ready = -&gt;</p>
+
+<pre><code>endless_contacts()
+
+$(&quot;.add-selected&quot;).click -&gt;
+  #console.log $( &quot;input:checkbox:checked&quot; ).val()
+  user_id = $(this).attr &#39;id&#39;
+  contact_group_id  = $(this).attr &#39;contact_group_id&#39;
+  console.log contact_group_id
+  $(&quot;:checkbox:checked&quot;).each -&gt;
+    contact_id = $(this).val()
+
+    $.getScript(&quot;add_contacts/new?contact_id=&quot; + contact_id)
+
+$(&quot;.select-all&quot;).click -&gt;
+  $.getScript(&quot;toggle_selection&quot;)
+
+  $(&quot;:checkbox&quot;).each -&gt;
+    @checked = not @checked
+
+    return
+
+$(&quot;#client_import_file&quot;).change -&gt;
+  #alert &#39;fo&#39;
+  if $(&quot;#client_import_file&quot;).val() == &#39;&#39;
+    $(&quot;.btn-save&quot;).attr(&#39;disabled&#39;, &#39;disabled&#39;);
+  else
+    $(&quot;.btn-save&quot;).removeAttr(&quot;disabled&quot;)</code></pre>
+
+<p>$(document).ready(ready) $(document).on(&#39;page:load&#39;, ready)</p>
+
+<p>@endless_contacts =() -&gt;</p>
+
+<pre><code>if $(&#39;.endless-contacts&#39;).length
+  if $(&#39;.pagination&#39;).length
+    $(window).scroll -&gt;
+      url = $(&#39;.pagination .next a&#39;).attr(&#39;href&#39;)
+
+      if url &amp;&amp;  $(window).scrollTop() &gt; $(document).height() - $(window).height() - 200
+        $(&#39;.pagination&#39;).text(&#39;...&#39;)
+        $.getScript(url)
+    $(window).scroll()</code></pre>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

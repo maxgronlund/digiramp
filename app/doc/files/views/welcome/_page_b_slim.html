@@ -1,0 +1,313 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>_page_b.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            _page_b.slim
+        </h1>
+        <ul class="files">
+            <li>views/welcome/_page_b.slim</li>
+            <li>Last modified: 2015-10-01 08:38:02 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>/#wrap /  .full-width-top /    == render &#39;shared/navigationbar&#39;,
+page: &#39;settings&#39; /</p>
+
+<p>/  .page_b_banner /    img src=“<img
+src="https://digiramp.s3.amazonaws.com/uploads/page_style/backdrop_image/1/music-enthusiasts.jpg"
+/>” alt=“Music enthusiasts” /</p>
+
+<p>/</p>
+
+<p>.full-width-top</p>
+
+<pre><code>== render &#39;shared/navigationbar&#39;, page: &#39;settings&#39;
+
+.container-fluid
+  .page_b_banner
+    img alt=&quot;Music enthusiasts&quot; src=&quot;https://digiramp.s3.amazonaws.com/uploads/page_style/backdrop_image/1/music-enthusiasts.jpg&quot; 
+  .cms-content
+    .container-fluid
+      .row
+        .col-sm-3
+        .col-sm-6
+          .digi-box.pull-down-48.text-align-center
+            h2 Take control of your music
+            h3 Publish, promote, manage, share
+            = link_to &#39;Create Account&#39;, signup_index_path, class: &#39;btn btn-lg btn-warning&#39;
+
+            .pull-down-12
+              &#39;Free, secure, &amp; super easy. After signup, the site helps you setup.
+        .col-sm-3
+
+        .col-sm-12.pull-down-24.white-back
+          .row
+            .col-sm-12.text-align-center
+              h2 For music creators, industry pros, and fans.
+          .person-badges.pull-down-10
+            .all-users
+              .util-carousel.normal-imglist id=&quot;users-imglist&quot;
+                - @users.each do |user|
+                  == render &#39;users/show&#39;, user: user
+      javascript:
+              $(&#39;#users-imglist&#39;).utilCarousel({
+                      pagination : false,
+                      navigationText : [&#39;&lt;i class=&quot;fa fa-chevron-left&quot;&gt;&lt;/i&gt;&#39;, &#39;&lt;i class=&quot;fa fa-chevron-right&quot;&gt;&lt;/i&gt;&#39;],
+                      navigation : true,
+                      rewind : false,
+                      responsiveMode : &#39;itemWidthRange&#39;,
+                      itemWidthRange : [200, 315],
+          lazyLoad: true
+              });
+
+      .row.pull-down-24
+        .col-sm-12
+          #digiWhams  class=&quot;/recordings/#{@recording.id.to_s}&quot;
+            == render &#39;show&#39;, recording: @recording
+          /- recordings = []
+          /- recordings &lt;&lt; @recordings.first
+          /- unless recordings.size &lt; 1
+          /  == render &#39;recordings/index&#39;, recordings: recordings
+
+      .pull-down-24
+      .row
+        .front-page-box
+          .row
+            .col-sm-4
+              h4
+                i.fa.fa-check.green-font&amp;nbsp;
+                &#39;Share &amp; sell music
+                br
+                i.fa.fa-check.green-font&amp;nbsp;
+                &#39;Be your own label
+                br
+                i.fa.fa-check.green-font&amp;nbsp;
+                &#39;Get more fans &amp; gigs
+            .col-sm-4
+              h4
+                i.fa.fa-check.green-font&amp;nbsp;
+                &#39;License work quickly, easily
+                br
+                i.fa.fa-check.green-font&amp;nbsp;
+                &#39;Manage artists &amp; catalogs
+                br
+                i.fa.fa-check.green-font&amp;nbsp;
+                &#39;Network privately
+            .col-sm-4
+              h4
+                i.fa.fa-check.green-font&amp;nbsp;
+                &#39;Best way to support artists
+                br
+                i.fa.fa-check.green-font&amp;nbsp;
+                &#39;Free. Listen &amp; discover great music
+                br
+                i.fa.fa-check.green-font&amp;nbsp;
+                &#39;Connect with artists
+                br
+
+          == render &#39;create_account&#39;
+          .pull-down-16
+
+      .row.full-width-color.pull-up-10
+        h3 Opportunities
+      .row
+        .front-page-box
+          .row
+            .col-sm-12
+
+              .opportunity
+                == render &#39;public_opportunities/index&#39;
+
+              .pull-down-16
+              == render &#39;create_account&#39;
+              .pull-down-16
+
+      .row.full-width-color.pull-up-10
+        h3 Features
+      .row
+        .front-page-box
+
+          .row
+            .col-sm-4
+              h4
+                i.fa.fa-check.green-font&amp;nbsp;
+                &#39;High quality audio
+                br
+                i.fa.fa-check.green-font&amp;nbsp;
+                &#39;Custom profile &amp; store
+                br
+                i.fa.fa-check.green-font&amp;nbsp;
+                &#39;Playlists
+                br
+                i.fa.fa-check.green-font&amp;nbsp;
+                &#39;Sell music &amp; merch
+            .col-sm-4
+              h4
+                i.fa.fa-check.green-font&amp;nbsp;
+                &#39;Catalogs
+                br
+                i.fa.fa-check.green-font&amp;nbsp;
+                &#39;Special offers
+                br
+                i.fa.fa-check.green-font&amp;nbsp;
+                &#39;Community
+                br
+                i.fa.fa-check.green-font&amp;nbsp;
+                &#39;Collaboration
+                br
+                i.fa.fa-check.green-font&amp;nbsp;
+                &#39;Projects
+            .col-sm-4
+              h4
+                i.fa.fa-check.green-font&amp;nbsp;
+                &#39;Publishing
+                br
+                i.fa.fa-check.green-font&amp;nbsp;
+                &#39;Licenses
+                br
+                i.fa.fa-check.green-font&amp;nbsp;
+                &#39;Rights management
+                br
+                i.fa.fa-check.green-font&amp;nbsp;
+                &#39;Splits
+                br
+                i.fa.fa-check.green-font&amp;nbsp;
+                &#39;Reports
+          == render &#39;create_account&#39;
+          .pull-down-16
+
+      .row.full-width-color.pull-up-10
+        h3 Our story
+      .row
+        .front-page-box
+
+          .row
+            .col-sm-12
+              .text-align-center
+                h3 Founder &amp; CEO Peter Rafelson
+              .row
+                .col-sm-2
+                .col-sm-8
+                  #welcome-videos.pull-down-24.
+                    iframe src=&quot;https://www.youtube.com/embed/lOCJL2M3IzM&quot; width=&quot;1280&quot; height=&quot;720&quot; frameborder=&quot;0&quot; webkitallowfullscreen mozallowfullscreen allowfullscreen
+
+              == render &#39;create_account&#39;
+              .pull-down-16
+
+      .row.full-width-color.pull-up-10
+        h3 Industry Pro&#39;s
+      .row
+        .front-page-box
+          .row.pull-down-16
+            .col-sm-2
+            .col-sm-8
+              .media
+                .media-left
+                  = link_to image_tag(&quot;https://digiramp.s3.amazonaws.com/uploads/user/image/50/avatar_184x184_Lynn_Fainchtein.jpg&quot;), &#39;https://digiramp.com/users/lynn-fainchtein&#39;
+                .media-body
+                  h4.media-heading &quot;They always deliver.&quot;
+                  &#39;&quot;DigiRAMP has been wonderful in helping to provide music for my projects.&quot;
+                  .pull-down-16
+                  = link_to &#39;Lynn Fainchtein&#39;, &#39;https://digiramp.com/users/lynn-fainchtein&#39;
+                  &#39;&amp;nbsp;Music Supervisor, HBO, The Butler, Babel
+            .col-sm-2
+          .row.pull-down-16
+            .col-sm-2
+            .col-sm-8
+              .media
+                .media-left
+                  = link_to image_tag(&quot;https://digiramp.s3.amazonaws.com/uploads/user/image/1139/avatar_184x184_Screen_Shot_2015-07-21_at_11.15.13_AM.jpg&quot;), &#39;https://digiramp.com/users/kirotechnics&#39;
+                .media-body
+                  h4.media-heading &quot;A revolutionary stride for the music world.&quot;
+                  &#39;&quot;The networking capabilities are wonderful and protecting artists rights at the same time.&quot;
+                  .pull-down-16
+                  = link_to &#39;Kirotechnics&#39;, &#39;https://digiramp.com/users/kirotechnics&#39;
+                  &#39;&amp;nbsp;Artist, musician
+
+            .col-sm-2
+          .row.pull-down-16
+            .col-sm-2
+            .col-sm-8
+              .media
+                .media-left
+                  = link_to image_tag(&quot;https://digiramp.s3.amazonaws.com/uploads/user/image/356/avatar_184x184_djlw1-800x800.jpg&quot;), &#39;https://digiramp.com/users/dj-lynnwood&#39;
+                .media-body
+                  h4.media-heading &quot;Finally everyone can share music and revenues fairly.&quot;
+                  &#39;&quot;In my business, music rights is everything. DJ’s have never had a legal way to easily use other artists’ tracks and still make a living. DigiRAMP solves a huge problem.&quot;
+                  .pull-down-16
+                  = link_to &#39;DJ Lynnwood&#39;, &#39;https://digiramp.com/users/dj-lynnwood&#39;
+                  &#39;&amp;nbsp;DJ, Producer &amp; Radio Personality
+            .col-sm-2
+
+          .row.pull-down-16
+
+            .col-sm-2
+            .col-sm-8
+              .sexy_line
+              h2 
+                &#39;DigiRAMP
+                br 
+                br
+
+== render &#39;shared/site_footer&#39;</code></pre>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

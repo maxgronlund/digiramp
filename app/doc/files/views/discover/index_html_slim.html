@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>index.html.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            index.html.slim
+        </h1>
+        <ul class="files">
+            <li>views/discover/index.html.slim</li>
+            <li>Last modified: 2015-09-24 20:35:34 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>wrapper.discover</p>
+
+<pre><code>.full-width-top
+  == render &#39;shared/navigationbar&#39;, page: &#39;discover&#39; 
+
+#sidebar-wrapper
+  ul class=&quot;sidebar-nav&quot;
+    .visible-xs
+      li id=&quot;sidebar-toggle&quot;
+         = link_to &#39;#&#39; do
+          i.fa.fa-caret-square-o-left
+          &#39;&amp;nbsp;
+          &#39;Hide
+    li
+      .covers        
+        = link_to songs_path(@user) do
+          h4 All recordings
+          = image_tag &#39;recording-covers.jpg&#39;
+    li 
+      .covers        
+        = link_to users_path(@user) do
+          h4 All users
+          = image_tag &#39;user-badges.jpg&#39;
+      /.avatars
+      /  h4 More users
+      /  = link_to users_path(@user) do
+      /    -@users.last(36).each do |avatar|
+      /      .micro-avatar
+      /        = image_tag avatar.image_url(:avatar_32x32)
+
+#page-content-wrapper
+  .container-fluid
+    .row
+      .col-sm-5
+        h3 = link_to &#39;Featured Recordings&#39;, songs_path
+      .col-sm-7
+        .search-recording
+
+          = simple_form_for :recording, :url =&gt; url_for(:action =&gt; &#39;index&#39;, \
+                                                      :controller =&gt; &#39;songs&#39;), \
+                                                      :method =&gt; &#39;get&#39; do |f|
+
+            .input-group
+              span class=&quot;input-group-addon&quot;
+                i class= &#39;fa fa-search&#39;
+              = text_field_tag &quot;query&quot;, &quot;&quot;, :class =&gt; &#39;search-query form-control&#39;, \
+                                            :placeholder =&gt; &#39;Search&#39;, \
+                                            value: params[:query], autofocus: true
+
+              .input-group-btn
+                = f.submit &#39;Go&#39;, class: &quot;btn btn-info&quot;
+                &#39;&amp;nbsp;
+                = link_to &#39;Clear&#39;, songs_path, class: &#39;btn btn-default&#39;
+
+    br
+
+    .util-carousel.normal-imglist id=&quot;recordings-imglist&quot;
+      - @recordings.each do |recording|
+        .item
+          == render &#39;discover/recording&#39;, recording: recording
+
+      .item
+        = link_to songs_path do
+          .recording
+            h4 Discover more
+            = image_tag( &#39;default-cover.jpg&#39;, class: &quot;img-lazy&quot;)
+            br
+
+    br
+    .sexy_line
+    h3 = link_to &#39;Featured Users&#39;, users_path
+    .util-carousel.normal-imglist id=&quot;users-imglist&quot;
+      - @users.each do |user|
+        .item
+          = link_to user_path(user) do
+            .recording
+              h4 = user.user_name
+              = image_tag user.image_url(:avatar_92x92, class: &quot;img-lazy&quot;)
+              .pull-right
+                .small-symbols
+                  i class=&quot;fa fa-headphones&quot;
+                  &#39;&amp;nbsp;
+                  = user.recordings.count
+                  &#39;&amp;nbsp;|&amp;nbsp;
+                  i class=&quot;fa fa-heart red-heart&quot;
+                  &#39;&amp;nbsp;
+                  = user.likes.count
+                  &#39;&amp;nbsp;|&amp;nbsp;
+                  i class=&quot;fa fa-users&quot;
+                  &#39;&amp;nbsp;
+                  = user.followers.count
+
+== render &#39;shared/site_footer&#39;</code></pre>
+
+<p>javascript:</p>
+
+<pre><code>    $(&#39;#recordings-imglist&#39;).utilCarousel({
+            pagination : false,
+            navigationText : [&#39;&lt;i class=&quot;fa fa-chevron-left&quot;&gt;&lt;/i&gt;&#39;, &#39;&lt;i class=&quot;fa fa-chevron-right&quot;&gt;&lt;/i&gt;&#39;],
+            navigation : true,
+            rewind : false,
+            responsiveMode : &#39;itemWidthRange&#39;,
+            itemWidthRange : [140, 200],
+lazyLoad: true
+    });
+
+    $(&#39;#users-imglist&#39;).utilCarousel({
+            pagination : false,
+            navigationText : [&#39;&lt;i class=&quot;fa fa-chevron-left&quot;&gt;&lt;/i&gt;&#39;, &#39;&lt;i class=&quot;fa fa-chevron-right&quot;&gt;&lt;/i&gt;&#39;],
+            navigation : true,
+            rewind : false,
+            responsiveMode : &#39;itemWidthRange&#39;,
+            itemWidthRange : [140, 200],
+lazyLoad: true
+    });</code></pre>
+
+<p>/#wrap /  .full-width-top /    == render &#39;shared/navigationbar&#39;,
+page: &#39;account&#39;  /  .container /    .explore-badges /     
+.explore-badge /        = link_to songs_path do /</p>
+
+<p>/          = image_tag &#39;discover-music.jpg&#39; /          h3
+Recordings /      .explore-badge /        = link_to users_path do</p>
+
+<p>/</p>
+
+<p>/          = image_tag &#39;discover-people.jpg&#39; /          h3 Users / 
+.explore-badge /        = link_to users_path do  /          = image_tag
+&#39;discover-playlists.jpg&#39; /          h3 Playlists /     
+.explore-badge /        = link_to users_path do  /          = image_tag
+&#39;discover-people.jpg&#39; /          h3 Artists /</p>
+
+<p>/ /== render &#39;shared/site_footer&#39;</p>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

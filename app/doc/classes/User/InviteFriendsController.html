@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>User::InviteFriendsController</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../css/github.css" type="text/css" media="screen" />
+<script src="../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            <span class="type">Class</span> 
+            User::InviteFriendsController 
+            
+                <span class="parent">&lt; 
+                    
+                    <a href="../ApplicationController.html">ApplicationController</a>
+                    
+                </span>
+            
+        </h1>
+        <ul class="files">
+            
+            <li><a href="../../files/controllers/user/invite_friends_controller_rb.html">controllers/user/invite_friends_controller.rb</a></li>
+            
+        </ul>
+    </div>
+    <div id="bodyContent">
+        <div id="content">
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+    <!-- Method ref -->
+    <div class="sectiontitle">Methods</div>
+    <dl class="methods">
+      
+        <dt>C</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-create">create</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>N</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-new">new</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+    </dl>
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+        
+      <div class="sectiontitle">Instance Public methods</div>
+      
+        <div class="method">
+          <div class="title method-title" id="method-i-create">
+            
+              <b>create</b>()
+            
+            <a href="../../classes/User/InviteFriendsController.html#method-i-create" name="method-i-create" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-create_source')" id="l_method-i-create_source">show</a>
+                
+              </p>
+              <div id="method-i-create_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File controllers/user/invite_friends_controller.rb, line 7</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">create</span>
+  
+  <span class="ruby-identifier">invitations_send_to_index</span> = <span class="ruby-number">0</span>
+  <span class="ruby-identifier">invitations_send_to</span>       = []
+  
+  <span class="ruby-identifier">already_invited_index</span>     = <span class="ruby-number">0</span>
+  <span class="ruby-identifier">already_invited</span>           = []
+  
+  <span class="ruby-identifier">params</span>[<span class="ruby-value">:emails</span>].<span class="ruby-identifier">split</span>(<span class="ruby-string">&#39;,&#39;</span>).<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">raw_email</span><span class="ruby-operator">|</span>
+    <span class="ruby-comment">#raw_email.split(&#39; &#39;).each do |email|</span>
+      <span class="ruby-keyword">if</span> <span class="ruby-identifier">email</span> = <span class="ruby-constant">EmailSanitizer</span>.<span class="ruby-identifier">saintize</span>( <span class="ruby-identifier">raw_email</span> )
+        
+        <span class="ruby-identifier">client</span> = <span class="ruby-constant">Client</span>.<span class="ruby-identifier">where</span>(<span class="ruby-identifier">email</span><span class="ruby-operator">:</span> <span class="ruby-identifier">email</span>, 
+                              <span class="ruby-identifier">user_id</span><span class="ruby-operator">:</span> <span class="ruby-ivar">@user</span>.<span class="ruby-identifier">id</span>)
+                      .<span class="ruby-identifier">first_or_create</span>(<span class="ruby-identifier">email</span><span class="ruby-operator">:</span> <span class="ruby-identifier">email</span>, 
+                                       <span class="ruby-identifier">user_id</span><span class="ruby-operator">:</span> <span class="ruby-ivar">@user</span>.<span class="ruby-identifier">id</span>, 
+                                       <span class="ruby-identifier">account_id</span><span class="ruby-operator">:</span> <span class="ruby-ivar">@user</span>.<span class="ruby-identifier">account</span>.<span class="ruby-identifier">id</span>)
+        
+        <span class="ruby-keyword">if</span> <span class="ruby-identifier">client</span>.<span class="ruby-identifier">name</span>.<span class="ruby-identifier">to_s</span> <span class="ruby-operator">==</span> <span class="ruby-string">&#39;&#39;</span>
+          <span class="ruby-identifier">client</span>.<span class="ruby-identifier">name</span> =  <span class="ruby-constant">User</span>.<span class="ruby-identifier">create_uniq_user_name_from_email</span>( <span class="ruby-identifier">email</span> )  
+          <span class="ruby-identifier">client</span>.<span class="ruby-identifier">save!</span>
+        <span class="ruby-keyword">end</span>
+        
+        <span class="ruby-keyword">unless</span> <span class="ruby-ivar">@client_invitation</span> = <span class="ruby-constant">ClientInvitation</span>.<span class="ruby-identifier">where</span>( <span class="ruby-identifier">account_id</span><span class="ruby-operator">:</span> <span class="ruby-ivar">@user</span>.<span class="ruby-identifier">account</span>.<span class="ruby-identifier">id</span>, <span class="ruby-identifier">client_id</span><span class="ruby-operator">:</span> <span class="ruby-identifier">client</span>.<span class="ruby-identifier">id</span>).<span class="ruby-identifier">first</span>
+               <span class="ruby-identifier">client_invitation</span> = <span class="ruby-constant">ClientInvitation</span>.<span class="ruby-identifier">create</span>( <span class="ruby-identifier">account_id</span><span class="ruby-operator">:</span> <span class="ruby-ivar">@user</span>.<span class="ruby-identifier">account</span>.<span class="ruby-identifier">id</span>, 
+                                                            <span class="ruby-identifier">client_id</span><span class="ruby-operator">:</span>  <span class="ruby-identifier">client</span>.<span class="ruby-identifier">id</span>,
+                                                            <span class="ruby-identifier">user_id</span><span class="ruby-operator">:</span>    <span class="ruby-ivar">@user</span>.<span class="ruby-identifier">id</span>,
+                                                            <span class="ruby-identifier">uuid</span><span class="ruby-operator">:</span>       <span class="ruby-constant">UUIDTools</span><span class="ruby-operator">::</span><span class="ruby-constant">UUID</span>.<span class="ruby-identifier">timestamp_create</span>().<span class="ruby-identifier">to_s</span>,
+                                                            <span class="ruby-identifier">email</span><span class="ruby-operator">:</span>      <span class="ruby-identifier">client</span>.<span class="ruby-identifier">email</span> )
+           <span class="ruby-identifier">client_invitation</span>.<span class="ruby-identifier">send_one_with_avatar</span>
+           <span class="ruby-identifier">invitations_send_to</span>[<span class="ruby-identifier">invitations_send_to_index</span>] = <span class="ruby-identifier">email</span> 
+           <span class="ruby-identifier">invitations_send_to_index</span>                      <span class="ruby-operator">+=</span> <span class="ruby-number">1</span>
+        <span class="ruby-keyword">else</span>
+          <span class="ruby-identifier">already_invited</span>[<span class="ruby-identifier">already_invited_index</span>]  = <span class="ruby-identifier">email</span>
+          <span class="ruby-identifier">already_invited_index</span>     <span class="ruby-operator">+=</span> <span class="ruby-number">1</span>
+        <span class="ruby-keyword">end</span>
+
+      <span class="ruby-keyword">end</span>
+      <span class="ruby-comment">#end</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-ivar">@invitations_send_to</span>  = <span class="ruby-identifier">invitations_send_to</span>
+  <span class="ruby-ivar">@already_invited</span>      = <span class="ruby-identifier">already_invited</span>
+  <span class="ruby-ivar">@invitations_send</span>     = <span class="ruby-identifier">invitations_send_to_index</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-new">
+            
+              <b>new</b>()
+            
+            <a href="../../classes/User/InviteFriendsController.html#method-i-new" name="method-i-new" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-new_source')" id="l_method-i-new_source">show</a>
+                
+              </p>
+              <div id="method-i-new_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File controllers/user/invite_friends_controller.rb, line 4</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">new</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+                    </div>
+
+    </div>
+  </body>
+</html>    

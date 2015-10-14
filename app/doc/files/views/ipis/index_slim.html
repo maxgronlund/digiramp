@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>index.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            index.slim
+        </h1>
+        <ul class="files">
+            <li>views/ipis/index.slim</li>
+            <li>Last modified: 2015-09-24 20:35:34 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>wrapper</p>
+
+<pre><code>.full-width-top
+  == render &#39;shared/navigationbar&#39;, page: &#39;home&#39; 
+
+#sidebar-wrapper
+  ul class=&quot;sidebar-nav&quot;
+    == render &#39;users/shared/sidebar&#39;, selected: &#39;credits&#39;
+  #terms
+    = link_to &#39;Terms And Conditions&#39;, terms_and_conditions_path 
+
+#page-content-wrapper
+  .container-fluid 
+    .row
+      .col-sm-5
+        .help
+          .help-text
+            h2 Credits
+          .help-button
+            == render &#39;admin/helps/help&#39;, identifier: &#39;user credits&#39;
+
+      .col-sm-7
+        .search-credits
+          /= simple_form_for  [ @user ], :url =&gt; url_for(:action =&gt; &#39;index&#39;, \
+          /                                              :controller =&gt; &#39;recordings&#39;), \
+          /                                              :method =&gt; &#39;get&#39;,\
+          /                                              remote: true do |f|
+          /
+          /  .input-group
+          /    span class=&quot;input-group-addon&quot;
+          /      i class= &#39;fa fa-search&#39;
+          /    = text_field_tag &quot;query&quot;, &quot;&quot;, :class =&gt; &#39;search-query form-control&#39;, \
+          /                                  :placeholder =&gt; &quot;Search #{@user.user_name}&#39;s recordings&quot;, \
+          /                                  value: params[:query]
+          /    .input-group-btn
+          /      = f.submit &#39;Go&#39;, class: &quot;btn btn-info&quot;
+          /      &#39;&amp;nbsp;
+          /      = link_to &#39;Clear&#39;, user_recordings_path(@user, clear: &#39;clear&#39;), class: &#39;btn btn-default&#39;
+          /      
+          /
+
+    .sexy_line
+    /.digi-box
+    /  - @user_credits.each do |user_credit|
+    /    == render &quot;ipis/#{user_credit.ipiable_type.underscore}&quot;, user_credit: user_credit
+    /    .sexy_line
+
+== render &#39;shared/site_footer&#39;</code></pre>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

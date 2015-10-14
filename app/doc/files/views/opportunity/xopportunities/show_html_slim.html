@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>show.html.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            show.html.slim
+        </h1>
+        <ul class="files">
+            <li>views/opportunity/xopportunities/show.html.slim</li>
+            <li>Last modified: 2015-08-01 19:07:18 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>/= debug @opportunity wrapper</p>
+
+<pre><code>.full-width-top
+  == render &#39;shared/navigationbar&#39;, page: &#39;home&#39; 
+
+#sidebar-wrapper
+  ul class=&quot;sidebar-nav&quot;
+    == render &#39;users/shared/sidebar&#39;, selected: &#39;opportunities&#39;
+
+#page-content-wrapper
+  .container-fluid 
+    .row
+      .col-sm-12
+        .help
+          .help-text
+            h2 = @opportunity.title
+
+          .help-button
+            == render &#39;admin/helps/help&#39;, identifier: &#39;show account opportunity&#39;
+    .sexy_line
+    .opportunity.pull-down-4
+      == render &#39;opportunities/opportunity&#39;, opportunity: @opportunity
+
+    h3 Requests
+    /== render &#39;opportunity/music_requests/index&#39;
+    - @opportunity.music_requests.order(&#39;created_at asc&#39;).each do |music_request|
+      == render &#39;opportunity/music_requests/music_request&#39;, music_request: music_request
+
+== render &#39;shared/site_footer&#39;</code></pre>
+
+<p>/      /.opportunity /      /  .row /      /    .col-sm-2 /      /     
+.opportunity-image /      /        = image_tag
+@opportunity.image_url(:size_184x184) /      /    .col-sm-10 /      /     
+h4 = @opportunity.title /      /</p>
+
+<p>/      /</p>
+
+<p>/      /      .row /      /        .col-sm-6 /      /           =
+simple_format @opportunity.body /      /</p>
+
+<p>/      /        .col-sm-6 /      /          .oppoptunity-info /      /     
+/&#39;From: /      /            /.pull-right /      /            /  =
+@opportunity.account.title /      /            /.sexy_line /      /        
+&#39;Kind: /      /            .pull-right /      /              =
+@opportunity.kind /      /            .sexy_line /      /           
+&#39;Budget: /      /            .pull-right /      /              =
+@opportunity.budget /      /            .sexy_line /      /           
+&#39;Deadline: /      /            .pull-right /      /              - if
+@opportunity.deadline &amp;&amp; @opportunity.deadline &lt; Date.current / 
+/                .expired /      /                  i class=“fa
+fa-exclamation-circle” /      /                  &#39;&amp;nbsp; /      /  
+= @opportunity.deadline /      /              - else /      /              
+= @opportunity.deadline /      /            - unless @opportunity.territory
+== &#39;&#39; /      /              .sexy_line /      /             
+&#39;Territory: /      /              .pull-right /      /                =
+@opportunity.territory /      /</p>
+
+<p>/      /</p>
+
+<p>/      /  /= debug opportunity /</p>
+
+<p>/      /  .clearfix /      /  .sexy_line /      /.opportunity /      /  -
+@opportunity.music_requests.order(&#39;created_at asc&#39;).each_with_index
+do |music_request, index| /      /    .request-info /      /      /= debug
+music_request.mp3 /      /      /== render
+&#39;audio_player/play_botton&#39;, recording: music_request.mp3  /      / 
+.row /      /        .col-sm-6 /      /          h4 = music_request.title /
+/          = simple_format music_request.body /      /        .col-sm-6 /  
+/</p>
+
+<p>/      /          .no-borders.table-responsive /      /            table
+class=“table table-condensed” /      /              tr /      /            
+th.description Value: /      /                td = music_request.fee /     
+/</p>
+
+<p>/      /              - unless  music_request.link.to_s == &#39;&#39; /    
+/                tr /      /                  th.description Duration: /   
+/                  td = music_request.duration_text /      /              -
+unless  music_request.link.to_s == &#39;&#39; /      /                tr / 
+/                  th.description Sound like: /      /                  td
+= link_to &#39;click here&#39;, music_request.link /      /      .row /    
+/</p>
+
+<p>/      /</p>
+
+<p>/          /= debug music_request /      /== render
+&#39;opportunity/music_requests/requests&#39; /      /.opportunity  /     
+/  .row /      /    .col-sm-6 /      /      == render
+&#39;account/opportunities/description&#39;, opportunity: @opportunity,
+show_full_description: true /      /</p>
+
+<p>/      /      /- if current_account_user.update_opportunity /      /      /
+.pull-right /      /      /    = link_to edit_opportunity_opportunity_path(
+@opportunity) do /      /      /      .btn.btn-xs.btn-default /      /     
+/        i class=“fa fa-pencil” /      /      /        &#39;&amp;nbsp; /   
+/      /        &#39;Edit /      /    .col-sm-6</p>
+
+<p>/      /      == render &#39;opportunity/music_requests/requests&#39; /</p>
+
+<p>/ /</p>
+
+<p>/ / //#wrap //  div class=“#{&#39;profile&#39; if account_owner?}” //   
+.full-width-top //      == render &#39;admin/shared/navbar&#39;, page:
+&#39;account&#39;</p>
+
+<p>//  .container //    == render &#39;admin/shared/messages&#39;  //    ==
+render &#39;shared/breadcrumbs&#39;, breadcrumbs: { links: { home:
+user_path( @account.user), \ //                                            
+opportunities: user_user_opportunities_path(@account.user)  \ //           
+}, current: @opportunity.title}  //</p>
+
+<p>//    == render &#39;shared/page_title_text&#39;, locals: {title:
+@opportunity.title, body: &#39;&#39;} // //    .row //      .col-sm-6 //   
+.panel.panel-primary //          .panel-heading //            =
+@opportunity.title //          .panel-body //            = simple_format
+@opportunity.body //            /.table-responsive //            table
+class=“table” //              tr //                td Kind: //             
+td = @opportunity.kind //              tr //                td Budget: //  
+td = number_to_currency(@opportunity.budget, locale: :en, precision: 2) // 
+tr //                td Deadline: //                td =
+@opportunity.deadline //</p>
+
+<p>//</p>
+
+<p>//      .col-sm-6</p>
+
+<p>//</p>
+
+<p>//</p>
+
+<p>//      .col-sm-6 //        - if @opportunity.deadline &lt; Date.current //
+div class=“alert alert-danger” //            button type=“button”
+class=“close” data-dismiss=“alert” × //            h4 Expired! //          
+&#39;This opportunity is no longer open for submissions. //        -
+@opportunity.music_requests.order(&#39;created_at asc&#39;).each do
+|music_request| //          .panel.panel-primary //           
+.panel-heading //              = music_request.title //             
+&#39;&amp;nbsp; //            .panel-body //             
+/.table-responsive //              table class=“table” //                tr
+//                  th Fee: //                  td =
+number_to_currency(music_request.fee, locale: :en, precision: 2) //        
+- unless  music_request.link.to_s == &#39;&#39; //                  tr //  
+th Duration: //                    td = music_request.duration_text //     
+- unless  music_request.link.to_s == &#39;&#39; //                  tr //  
+th Sound like: //                    td = link_to &#39;click here&#39;,
+music_request.link //</p>
+
+<p>// //              b Description: //              br //              =
+simple_format music_request.body //              br //</p>
+
+<p>//              .pull-right //                - unless
+@opportunity.opportunity_users.empty? //                  - unless
+@opportunity.opportunity_users.where(user_id: current_user.id).first.nil?
+//                    = link_to
+opportunity_opportunity_music_request_submit_from_index_path(@opportunity,
+\ //                                                                       
+music_request) do  //                      .btn.btn-success.btn-lg //      
+i class=“fa fa-plus-circle” //                        &#39;&amp;nbsp;Add
+Submission //                &#39;&amp;nbsp; //                = link_to
+opportunity_opportunity_music_request_path( @opportunity, music_request) do
+//                  .btn.btn-default.btn-lg //                    i
+class=“fa fa-eye” // //</p>
+
+<p>// //</p>
+
+<p>//</p>
+
+<p>//    == render &#39;shared/back&#39;, locals: {link:
+user_user_opportunities_path(@account.user)}  //-cache ([&#39;footer&#39;,
+<a
+href="../../../../classes/Admin.html#method-c-cached_find">Admin.cached_find</a>.version])
+do</p>
+
+<p>//  =render &#39;shared/footer&#39; //</p>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

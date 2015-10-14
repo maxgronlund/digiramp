@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>jquery.fitvids.js</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            jquery.fitvids.js
+        </h1>
+        <ul class="files">
+            <li>assets/javascripts/jquery.fitvids.js</li>
+            <li>Last modified: 2015-07-05 15:22:02 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<pre><code>global jQuery   
+jshint browser:true
+</code></pre>
+
+<p>/*!</p>
+
+<pre><code> FitVids 1.1
+
+ Copyright 2013, Chris Coyier - http://css-tricks.com + Dave Rupert - http://daverupert.com
+ Credit to Thierry Koblentz - http://www.alistapart.com/articles/creating-intrinsic-ratios-for-video/
+ Released under the WTFPL license - http://sam.zoy.org/wtfpl/
+
+/</code></pre>
+
+<p>;(function( $ ){</p>
+
+<pre><code>&#39;use strict&#39;;
+
+$.fn.fitVids = function( options ) {
+  var settings = {
+    customSelector: null,
+    ignore: null
+  };
+
+  if(!document.getElementById(&#39;fit-vids-style&#39;)) {
+    // appendStyles: https://github.com/toddmotto/fluidvids/blob/master/dist/fluidvids.js
+    var head = document.head || document.getElementsByTagName(&#39;head&#39;)[0];
+    var css = &#39;.fluid-width-video-wrapper{width:100%;position:relative;padding:0;}.fluid-width-video-wrapper iframe,.fluid-width-video-wrapper object,.fluid-width-video-wrapper embed {position:absolute;top:0;left:0;width:100%;height:100%;}&#39;;
+    var div = document.createElement(&quot;div&quot;);
+    div.innerHTML = &#39;&lt;p&gt;x&lt;/p&gt;&lt;style id=&quot;fit-vids-style&quot;&gt;&#39; + css + &#39;&lt;/style&gt;&#39;;
+    head.appendChild(div.childNodes[1]);
+  }
+
+  if ( options ) {
+    $.extend( settings, options );
+  }
+
+  return this.each(function(){
+    var selectors = [
+      &#39;iframe[src*=&quot;player.vimeo.com&quot;]&#39;,
+      &#39;iframe[src*=&quot;youtube.com&quot;]&#39;,
+      &#39;iframe[src*=&quot;youtube-nocookie.com&quot;]&#39;,
+      &#39;iframe[src*=&quot;kickstarter.com&quot;][src*=&quot;video.html&quot;]&#39;,
+      &#39;object&#39;,
+      &#39;embed&#39;
+    ];
+
+    if (settings.customSelector) {
+      selectors.push(settings.customSelector);
+    }
+
+    var ignoreList = &#39;.fitvidsignore&#39;;
+
+    if(settings.ignore) {
+      ignoreList = ignoreList + &#39;, &#39; + settings.ignore;
+    }
+
+    var $allVideos = $(this).find(selectors.join(&#39;,&#39;));
+    $allVideos = $allVideos.not(&#39;object object&#39;); // SwfObj conflict patch
+    $allVideos = $allVideos.not(ignoreList); // Disable FitVids on this video.
+
+    $allVideos.each(function(){
+      var $this = $(this);
+      if($this.parents(ignoreList).length &gt; 0) {
+        return; // Disable FitVids on this video.
+      }
+      if (this.tagName.toLowerCase() === &#39;embed&#39; &amp;&amp; $this.parent(&#39;object&#39;).length || $this.parent(&#39;.fluid-width-video-wrapper&#39;).length) { return; }
+      if ((!$this.css(&#39;height&#39;) &amp;&amp; !$this.css(&#39;width&#39;)) &amp;&amp; (isNaN($this.attr(&#39;height&#39;)) || isNaN($this.attr(&#39;width&#39;))))
+      {
+        $this.attr(&#39;height&#39;, 9);
+        $this.attr(&#39;width&#39;, 16);
+      }
+      var height = ( this.tagName.toLowerCase() === &#39;object&#39; || ($this.attr(&#39;height&#39;) &amp;&amp; !isNaN(parseInt($this.attr(&#39;height&#39;), 10))) ) ? parseInt($this.attr(&#39;height&#39;), 10) : $this.height(),
+          width = !isNaN(parseInt($this.attr(&#39;width&#39;), 10)) ? parseInt($this.attr(&#39;width&#39;), 10) : $this.width(),
+          aspectRatio = height / width;
+      if(!$this.attr(&#39;id&#39;)){
+        var videoID = &#39;fitvid&#39; + Math.floor(Math.random()*999999);
+        $this.attr(&#39;id&#39;, videoID);
+      }
+      $this.wrap(&#39;&lt;div class=&quot;fluid-width-video-wrapper&quot;&gt;&lt;/div&gt;&#39;).parent(&#39;.fluid-width-video-wrapper&#39;).css(&#39;padding-top&#39;, (aspectRatio * 100)+&#39;%&#39;);
+      $this.removeAttr(&#39;height&#39;).removeAttr(&#39;width&#39;);
+    });
+  });
+};</code></pre>
+
+<p>// Works with either jQuery or Zepto })( window.jQuery || window.Zepto );</p>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

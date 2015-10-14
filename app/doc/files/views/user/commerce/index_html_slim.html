@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>index.html.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            index.html.slim
+        </h1>
+        <ul class="files">
+            <li>views/user/commerce/index.html.slim</li>
+            <li>Last modified: 2015-10-03 19:33:14 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>wrapper</p>
+
+<pre><code>.full-width-top
+  == render &#39;shared/navigationbar&#39;, page: &#39;dashboard&#39; 
+
+#sidebar-wrapper
+  ul class=&quot;sidebar-nav&quot;
+    == render &#39;users/shared/sidebar&#39;, selected: &#39;dashboard&#39;
+
+#page-content-wrapper
+  .container-fluid
+    == render &#39;shared/breadcrumbs&#39;, breadcrumbs: { links: { &#39;Dashboard&#39;.to_sym =&gt; user_user_control_panel_index_path(@user)}}
+    == render &#39;shared/flash_message&#39;
+    .container-fluid
+      .row
+        .col-sm-6
+          .help
+            .help-text
+              h2 Commerce engine
+            .help-button
+              == render &#39;admin/helps/help&#39;, identifier: &#39;user commerce engine&#39;
+        .col-sm-6
+          .pull-right.pull-down-10
+            = link_to  user_user_control_panel_index_path(@user) do
+                .btn.btn-default
+                  i.fa.fa-chevron-left
+                  &#39;&amp;nbsp;Back
+
+    .pull-down-10
+
+    .row
+      .col-sm-12
+        .control-panel.pull-down-10
+          .control-panel-badge
+
+            - shop_link = @user.is_stripe_connected ? user_user_shop_admin_index_path(@user) : user_user_create_shop_index_path(@user)
+            = link_to  shop_link, id: &#39;shop-administration&#39; do
+              .content
+                .icon.icon-blue
+                  i.fa.fa-shopping-cart
+                .title
+                  h4 Shop administration
+                .body
+                  &#39;Manage your personal shop
+
+          .control-panel-badge
+            = link_to  user_user_payouts_path(@user) do
+              .content
+                .icon.icon-blue
+                  i.fa.fa-money
+                .title
+                  h4 Payments
+                .body
+                  &#39;Transfers send to you
+
+          .control-panel-badge
+            = link_to  user_user_revenue_streams_path(@user) do
+              .content
+                .icon.icon-blue
+                  i.fa.fa-money
+                .title
+                  h4 Revenue streams
+                .body
+                  &#39;Manage and redistribute income
+
+          .control-panel-badge
+            = link_to  user_user_special_offer_index_path(@user) do
+              .content
+                .icon.icon-blue
+                  i.fa.fa-shopping-cart
+
+                .title
+                  h4 Special offers
+                .body
+                  &#39;Products and servces only you can buy
+
+          .control-panel-badge
+            = link_to  user_user_purchases_path(@user) do
+              .content
+                .icon.icon-blue
+                  i.fa.fa-shopping-cart
+
+                .title
+                  h4 Purchases
+                .body
+                  &#39;Coupons, services, downloads and othere resources you have bought
+
+          .control-panel-badge
+            = link_to  user_user_publishers_path(@user) do
+              .content
+                .icon.icon-blue
+                  i.fa.fa-truck
+
+                .title
+                  h4 Publishing
+                .body
+                  &#39;Works I publish on behalf of creators
+
+          .control-panel-badge
+            = link_to  user_user_labels_path(@user) do
+              .content
+                .icon.icon-blue
+                  i.fa.fa-book
+
+                .title
+                  h4 Labels
+                .body
+                  &#39;Manage masters
+
+== render &#39;shared/site_footer&#39;</code></pre>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

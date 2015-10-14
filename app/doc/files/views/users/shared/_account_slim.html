@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>_account.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            _account.slim
+        </h1>
+        <ul class="files">
+            <li>views/users/shared/_account.slim</li>
+            <li>Last modified: 2015-07-05 15:22:06 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>-account = <a href=":account">locals</a> -account_user = <a
+href=":account_user">locals</a></p>
+
+<p>tr</p>
+
+<pre><code>td = link_to account.title, account_path(account), id: &quot;#{account.title}&quot;, class: &#39;btn btn-default btn-lg&#39;
+td = simple_format account.description
+td 
+  = account_user.role
+  -if account_user.role == &#39;Associate&#39;
+    br
+    ul
+      -if account_user.access_to_all_recordings 
+        li Access to Recordings
+      -if account_user.access_to_all_common_works
+        li Access to Works
+      -if account_user.access_to_all_rights
+        li Access to Rights
+      -if account_user.access_to_all_documents
+        li Access to Documents
+      -if account_user.access_to_collect
+        li Access to Collect
+
+td
+  .pull-right
+    -unless account_user.user.id == account.user_id
+      &#39;&amp;nbsp;
+      = link_to account_account_user_path(account, account_user), data: { confirm: &#39;Are you sure?&#39; } , method: :delete, id: &quot;delete_customer_#{account_user.id.to_s}&quot; do
+        .btn.btn-danger.btn-lg
+          i class=&quot;fa fa-times&quot;
+    -else
+      &#39;&amp;nbsp;
+      = link_to &#39;#&#39; do
+        .btn.btn-danger.btn-lg.disabled
+          i class=&quot;fa fa-times&quot;</code></pre>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

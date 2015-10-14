@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>_recordings.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            _recordings.slim
+        </h1>
+        <ul class="files">
+            <li>views/account/common_works/shared/_recordings.slim</li>
+            <li>Last modified: 2015-09-24 20:35:34 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>.row</p>
+
+<pre><code>.col-sm-12
+  .panel
+    .panel-body.digiramp_player
+      div class=&quot;panel-group&quot; id=&quot;accordion&quot;
+        /- @common_work.recordings.each do |recording|
+        /  /-cache([&#39;digiramp_player&#39;, Admin.cached_find(1).version, recording.id, recording.cache_version]) do
+        /  .do
+        /    -index = recording.id
+        /    div class=&quot;player&quot; id=&quot;#{index}&quot;
+        /    
+        /    div class=&quot;panel panel-default&quot;
+        /      .row
+        /        .col-sm-12
+        /          h4 class=&quot;panel-title&quot;
+        /            a data-toggle=&quot;collapse&quot; data-parent=&quot;#accordion&quot; href=&quot;#recording_#{index.to_s}&quot; class=&quot;#{index}&quot;
+        /              .row
+        /                .btn.btn-default.btn-lg.col-sm-4
+        /                  = recording.title
+        /                .col-sm-3
+        /                  -if recording.genre.to_s != &#39;&#39;
+        /                    .label.label-success
+        /                      &#39;Genre: #{recording.genre}
+        /
+        /                  -if recording.artists.to_s != &#39;&#39;
+        /                    .label.label-primary
+        /                      &#39;Artists: #{recording.artists}
+        /                .col-sm-3
+        /                  - if recording.instrumental
+        /                    .label.label-warning
+        /                      &#39;Instrumental
+        /
+        /                  - if recording.explicit
+        /                    .label.label-danger
+        /                      &#39;Explicit
+        /
+        /                .col-sm-2
+        /                  - if recording.bpm != 0
+        /                    .label.label-default
+        /                      &#39;BPM: #{recording.bpm}
+        /   
+        /      div id=&quot;load-player&quot;
+        /      div id=&quot;recording_#{index.to_s}&quot; class=&quot;multi_player panel-collapse collapse&quot; index=&quot;#{index}&quot;
+        /        .panel-body
+        /          == render &#39;players/digramp_player&#39;, locals: {index: index, recording: recording}
+        /    hr</code></pre>
+
+<p>-if current_user.can_administrate @account</p>
+
+<pre><code>hr
+.pull-right
+  = link_to &quot;Add Recording&quot;, new_account_common_work_recording_path(@account, @common_work), class: &#39;btn btn-info btn-lg&#39;</code></pre>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

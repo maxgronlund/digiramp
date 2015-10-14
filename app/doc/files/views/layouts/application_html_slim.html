@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>application.html.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            application.html.slim
+        </h1>
+        <ul class="files">
+            <li>views/layouts/application.html.slim</li>
+            <li>Last modified: 2015-09-11 10:48:12 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>doctype html html</p>
+
+<pre><code>head prefix=&quot;og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# music: http://ogp.me/ns/music#&quot;
+ title DigiRAMP
+ = content_for?(:head) ? yield(:head) : &#39;&#39;
+
+ / fonts for  signatures
+ /= stylesheet_link_tag &quot;http://fonts.googleapis.com/css?family=La+Belle+Aurore|Swanky+and+Moo+Moo|Over+the+Rainbow|Cedarville+Cursive&quot; , media: &quot;all&quot;
+
+ = stylesheet_link_tag &quot;application&quot;, media: &quot;all&quot;, &quot;data-turbolinks-track&quot; =&gt; true
+ /= stylesheet_link_tag &#39;http://fonts.googleapis.com/css?family=Cinzel|Junge&#39;
+
+ = javascript_include_tag &quot;//www.google.com/jsapi&quot;, &quot;chartkick&quot;
+ = javascript_include_tag &quot;application&quot;, &quot;data-turbolinks-track&quot; =&gt; true
+ = javascript_include_tag &quot;assets.transloadit.com/js/jquery.transloadit2-v2-latest.js&quot; =&gt; true
+ /= javascript_include_tag &quot;//cdn.sublimevideo.net/js/w21x4dlf.js&quot;
+ = favicon_link_tag &#39;favicon.ico&#39;
+
+ / gritter
+ /= javascript_include_tag &quot;html5-realtime-push-notifications/src/js/gritter/js/jquery.gritter.min.js&quot;
+ /= stylesheet_link_tag &quot;html5-realtime-push-notifications/src/js/gritter/css/jquery.gritter.css&quot;, media: &quot;all&quot;
+
+ / pusher
+ /- if Rails.env.production?
+ = javascript_include_tag &quot;//js.pusher.com/2.2/pusher.min.js&quot;
+ /= javascript_include_tag &quot;//js/jquery.gritter.js&quot;
+
+ /= javascript_include_tag &quot;//realtime-notifications/src/PusherNotifier.js&quot;
+
+ meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no&quot;
+ = csrf_meta_tags
+
+- if current_user
+  == render &#39;layouts/pusher&#39;
+
+body bgcolor=&quot;#{@body_color}&quot;
+  /== render &#39;layouts/facebook&#39;
+  - unless request.url.include?(&#39;/login/new&#39;) || request.url.include?(&#39;/signup/index&#39;) || request.url.include?(&#39;/admin/&#39;)
+    - session[:current_page]    = request.url
+
+  - if Rails.env.development?
+    == render &#39;layouts/test_fb&#39; 
+  - else
+    == render &#39;layouts/fb&#39;
+
+  /== render &#39;layouts/fb_share&#39;
+
+  = yield :charts_js
+  = yield
+
+  .open-dialog
+
+  .fb-root</code></pre>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

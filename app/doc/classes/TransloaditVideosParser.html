@@ -1,0 +1,499 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>TransloaditVideosParser</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../css/github.css" type="text/css" media="screen" />
+<script src="../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            <span class="type">Class</span> 
+            TransloaditVideosParser 
+            
+                <span class="parent">&lt; 
+                    
+                    Object
+                    
+                </span>
+            
+        </h1>
+        <ul class="files">
+            
+            <li><a href="../files/services/transloadit_videos_parser_rb.html">services/transloadit_videos_parser.rb</a></li>
+            
+        </ul>
+    </div>
+    <div id="bodyContent">
+        <div id="content">
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+    <!-- Method ref -->
+    <div class="sectiontitle">Methods</div>
+    <dl class="methods">
+      
+        <dt>E</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-c-extract">extract</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>N</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-c-new">new</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>P</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-c-parse">parse</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>U</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-c-update">update</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+    </dl>
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+    
+      <div class="sectiontitle">Class Public methods</div>
+      
+        <div class="method">
+          <div class="title method-title" id="method-c-extract">
+            
+              <b>extract</b>(uploads)
+            
+            <a href="../classes/TransloaditVideosParser.html#method-c-extract" name="method-c-extract" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-c-extract_source')" id="l_method-c-extract_source">show</a>
+                
+              </p>
+              <div id="method-c-extract_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File services/transloadit_videos_parser.rb, line 9</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">self</span>.<span class="ruby-identifier">extract</span> <span class="ruby-identifier">uploads</span>
+
+  
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">uploads</span>.<span class="ruby-identifier">nil?</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">uploads</span>[<span class="ruby-string">&quot;uploads&quot;</span>].<span class="ruby-identifier">nil?</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">uploads</span>[<span class="ruby-string">&quot;results&quot;</span>][<span class="ruby-string">&quot;mp4_video&quot;</span>].<span class="ruby-identifier">nil?</span>
+    <span class="ruby-identifier">puts</span> <span class="ruby-string">&#39;+++++++++++++++++++++++++++++++++++++++++++++++++&#39;</span>
+    <span class="ruby-identifier">puts</span> <span class="ruby-string">&#39;ERROR: Unable to extract video: uploads nil&#39;</span>
+    <span class="ruby-identifier">puts</span> <span class="ruby-string">&#39;In TransloaditVideosParser#extract&#39;</span>
+    <span class="ruby-identifier">puts</span> <span class="ruby-string">&#39;+++++++++++++++++++++++++++++++++++++++++++++++++&#39;</span>
+    <span class="ruby-keyword">return</span> <span class="ruby-keyword">nil</span> 
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-identifier">transloadets</span>  = []
+  <span class="ruby-identifier">extracted</span>     = {}
+
+  <span class="ruby-comment">#puts &#39;==================== uploads =================================&#39;</span>
+  <span class="ruby-identifier">uploads</span>[<span class="ruby-string">&quot;uploads&quot;</span>].<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">upload</span><span class="ruby-operator">|</span>
+    
+    <span class="ruby-identifier">extracted</span>[ <span class="ruby-identifier">upload</span>[<span class="ruby-string">&quot;original_id&quot;</span>] ] = {
+                                          <span class="ruby-identifier">name</span><span class="ruby-operator">:</span>                 <span class="ruby-identifier">upload</span>[<span class="ruby-value">:name</span>], 
+                                          <span class="ruby-identifier">base_name</span><span class="ruby-operator">:</span>            <span class="ruby-identifier">upload</span>[<span class="ruby-string">&quot;basename&quot;</span>], 
+                                          <span class="ruby-identifier">ext</span><span class="ruby-operator">:</span>                  <span class="ruby-identifier">upload</span>[<span class="ruby-string">&quot;ext&quot;</span>], 
+                                          <span class="ruby-identifier">size</span><span class="ruby-operator">:</span>                 <span class="ruby-identifier">upload</span>[<span class="ruby-string">&quot;size&quot;</span>], 
+                                          <span class="ruby-identifier">mime</span><span class="ruby-operator">:</span>                 <span class="ruby-identifier">upload</span>[<span class="ruby-string">&quot;mime&quot;</span>], 
+                                          <span class="ruby-identifier">video_type</span><span class="ruby-operator">:</span>           <span class="ruby-identifier">upload</span>[<span class="ruby-string">&quot;type&quot;</span>], 
+                                          <span class="ruby-identifier">md5hash</span><span class="ruby-operator">:</span>              <span class="ruby-identifier">upload</span>[<span class="ruby-string">&quot;md5hash&quot;</span>], 
+                                          <span class="ruby-identifier">original_id</span><span class="ruby-operator">:</span>          <span class="ruby-identifier">upload</span>[<span class="ruby-string">&quot;original_id&quot;</span>], 
+                                          <span class="ruby-identifier">original_basename</span><span class="ruby-operator">:</span>    <span class="ruby-identifier">upload</span>[<span class="ruby-string">&quot;original_basename&quot;</span>], 
+                                          <span class="ruby-identifier">original_md5hash</span><span class="ruby-operator">:</span>     <span class="ruby-identifier">upload</span>[<span class="ruby-string">&quot;original_md5hash&quot;</span>], 
+                                          <span class="ruby-identifier">meta</span><span class="ruby-operator">:</span>                 <span class="ruby-identifier">upload</span>[<span class="ruby-string">&quot;meta&quot;</span>]
+                                         }
+    
+    
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-identifier">uploads</span>[<span class="ruby-string">&quot;results&quot;</span>][<span class="ruby-string">&quot;mp4_video&quot;</span>].<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">mp4_video</span><span class="ruby-operator">|</span>
+    
+    <span class="ruby-identifier">extracted</span>[ <span class="ruby-identifier">mp4_video</span>[<span class="ruby-string">&quot;original_id&quot;</span>] ][<span class="ruby-value">:mp4_video_url</span>] = <span class="ruby-identifier">mp4_video</span>[<span class="ruby-string">&quot;url&quot;</span>] 
+  
+    
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-identifier">uploads</span>[<span class="ruby-string">&quot;results&quot;</span>][<span class="ruby-string">&quot;webm_video&quot;</span>].<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">webm_video</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">extracted</span>[ <span class="ruby-identifier">webm_video</span>[<span class="ruby-string">&quot;original_id&quot;</span>] ][<span class="ruby-value">:webm_video_url</span>] =  <span class="ruby-identifier">webm_video</span>[<span class="ruby-string">&quot;url&quot;</span>]
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-identifier">extracted</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span> <span class="ruby-identifier">k</span>, <span class="ruby-identifier">v</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">transloadets</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">v</span>
+  <span class="ruby-keyword">end</span>
+  
+  <span class="ruby-comment"># copy meta hash in to transloaded hash</span>
+  <span class="ruby-identifier">transloadets</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">transloadet</span><span class="ruby-operator">|</span>
+
+    <span class="ruby-identifier">meta</span>                                  = <span class="ruby-identifier">transloadet</span>[<span class="ruby-value">:meta</span>]
+    
+    <span class="ruby-identifier">transloadet</span>[<span class="ruby-value">:duration</span>]                = <span class="ruby-identifier">meta</span>[<span class="ruby-value">:duration</span>].<span class="ruby-identifier">to_f</span>.<span class="ruby-identifier">round</span>(<span class="ruby-number">2</span>)
+    <span class="ruby-identifier">transloadet</span>[<span class="ruby-value">:width</span>]                   = <span class="ruby-identifier">meta</span>[<span class="ruby-value">:width</span>].<span class="ruby-identifier">to_i</span>
+    <span class="ruby-identifier">transloadet</span>[<span class="ruby-value">:height</span>]                  = <span class="ruby-identifier">meta</span>[<span class="ruby-value">:height</span>].<span class="ruby-identifier">to_i</span>
+    <span class="ruby-identifier">transloadet</span>[<span class="ruby-value">:framerate</span>]               = <span class="ruby-identifier">meta</span>[<span class="ruby-value">:framerate</span>].<span class="ruby-identifier">to_i</span> 
+    <span class="ruby-identifier">transloadet</span>[<span class="ruby-value">:video_bitrate</span>]           = <span class="ruby-identifier">meta</span>[<span class="ruby-value">:video_bitrate</span>].<span class="ruby-identifier">to_i</span> 
+    <span class="ruby-identifier">transloadet</span>[<span class="ruby-value">:overall_bitrate</span>]         = <span class="ruby-identifier">meta</span>[<span class="ruby-value">:overall_bitrate</span>].<span class="ruby-identifier">to_i</span> 
+    <span class="ruby-identifier">transloadet</span>[<span class="ruby-value">:video_codec</span>]             = <span class="ruby-identifier">meta</span>[<span class="ruby-value">:video_codec</span>].<span class="ruby-identifier">to_s</span> 
+    <span class="ruby-identifier">transloadet</span>[<span class="ruby-value">:audio_bitrate</span>]           = <span class="ruby-identifier">meta</span>[<span class="ruby-value">:audio_bitrate</span>].<span class="ruby-identifier">to_s</span>  
+    <span class="ruby-identifier">transloadet</span>[<span class="ruby-value">:audio_samplerate</span>]        = <span class="ruby-identifier">meta</span>[<span class="ruby-value">:audio_samplerate</span>].<span class="ruby-identifier">to_i</span>
+    <span class="ruby-identifier">transloadet</span>[<span class="ruby-value">:audio_channels</span>]          = <span class="ruby-identifier">meta</span>[<span class="ruby-value">:audio_channels</span>].<span class="ruby-identifier">to_i</span> 
+    <span class="ruby-identifier">transloadet</span>[<span class="ruby-value">:audio_codec</span>]             = <span class="ruby-identifier">meta</span>[<span class="ruby-value">:audio_codec</span>].<span class="ruby-identifier">to_s</span>  
+    <span class="ruby-identifier">transloadet</span>[<span class="ruby-value">:seekable</span>]                = <span class="ruby-identifier">meta</span>[<span class="ruby-value">:seekable</span>].<span class="ruby-identifier">to_s</span>  
+    <span class="ruby-identifier">transloadet</span>[<span class="ruby-value">:date_recorded</span>]           = <span class="ruby-identifier">meta</span>[<span class="ruby-value">:date_recorded</span>].<span class="ruby-identifier">to_s</span>  
+    <span class="ruby-identifier">transloadet</span>[<span class="ruby-value">:date_file_created</span>]       = <span class="ruby-identifier">meta</span>[<span class="ruby-value">:date_file_created</span>].<span class="ruby-identifier">to_s</span>  
+    <span class="ruby-identifier">transloadet</span>[<span class="ruby-value">:date_file_modified</span>]      = <span class="ruby-identifier">meta</span>[<span class="ruby-value">:date_file_modified</span>].<span class="ruby-identifier">to_s</span>  
+    <span class="ruby-identifier">transloadet</span>[<span class="ruby-value">:device_vendor</span>]           = <span class="ruby-identifier">meta</span>[<span class="ruby-value">:device_vendor</span>].<span class="ruby-identifier">to_s</span>  
+    <span class="ruby-identifier">transloadet</span>[<span class="ruby-value">:device_name</span>]             = <span class="ruby-identifier">meta</span>[<span class="ruby-value">:device_name</span>].<span class="ruby-identifier">to_s</span>  
+    <span class="ruby-identifier">transloadet</span>[<span class="ruby-value">:device_software</span>]         = <span class="ruby-identifier">meta</span>[<span class="ruby-value">:device_software</span>].<span class="ruby-identifier">to_s</span>  
+    <span class="ruby-identifier">transloadet</span>[<span class="ruby-value">:latitude</span>]                = <span class="ruby-identifier">meta</span>[<span class="ruby-value">:latitude</span>].<span class="ruby-identifier">to_s</span>  
+    <span class="ruby-identifier">transloadet</span>[<span class="ruby-value">:longitude</span>]               = <span class="ruby-identifier">meta</span>[<span class="ruby-value">:longitude</span>].<span class="ruby-identifier">to_s</span>  
+    <span class="ruby-identifier">transloadet</span>[<span class="ruby-value">:rotation</span>]                = <span class="ruby-identifier">meta</span>[<span class="ruby-value">:rotation</span>].<span class="ruby-identifier">to_i</span>
+    <span class="ruby-identifier">transloadet</span>[<span class="ruby-value">:album</span>]                   = <span class="ruby-identifier">meta</span>[<span class="ruby-value">:album</span>].<span class="ruby-identifier">to_s</span>  
+    <span class="ruby-identifier">transloadet</span>[<span class="ruby-value">:comment</span>]                 = <span class="ruby-identifier">meta</span>[<span class="ruby-value">:comment</span>].<span class="ruby-identifier">to_s</span> 
+    <span class="ruby-identifier">transloadet</span>[<span class="ruby-value">:year</span>]                    = <span class="ruby-identifier">meta</span>[<span class="ruby-value">:year</span>].<span class="ruby-identifier">to_s</span> 
+    <span class="ruby-identifier">transloadet</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-value">:meta</span>)
+
+  <span class="ruby-keyword">end</span>
+  
+  <span class="ruby-identifier">transloadets</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-c-new">
+            
+              <b>new</b>()
+            
+            <a href="../classes/TransloaditVideosParser.html#method-c-new" name="method-c-new" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-c-new_source')" id="l_method-c-new_source">show</a>
+                
+              </p>
+              <div id="method-c-new_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File services/transloadit_videos_parser.rb, line 3</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">initialize</span>
+  
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-c-parse">
+            
+              <b>parse</b>(params, account_id, video_blog_id)
+            
+            <a href="../classes/TransloaditVideosParser.html#method-c-parse" name="method-c-parse" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-c-parse_source')" id="l_method-c-parse_source">show</a>
+                
+              </p>
+              <div id="method-c-parse_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File services/transloadit_videos_parser.rb, line 94</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">self</span>.<span class="ruby-identifier">parse</span> <span class="ruby-identifier">params</span>, <span class="ruby-identifier">account_id</span>, <span class="ruby-identifier">video_blog_id</span>
+
+  <span class="ruby-identifier">transloadets</span>  = <span class="ruby-identifier">extract</span>( <span class="ruby-identifier">params</span>[<span class="ruby-value">:transloadit</span>] )
+  
+
+  <span class="ruby-identifier">videos</span>  = []
+  <span class="ruby-identifier">errors</span>  = []
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">transloadets</span>.<span class="ruby-identifier">nil?</span>
+    <span class="ruby-identifier">errors</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-string">&#39;No valid files uploaded&#39;</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">transloadets</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">transloaded</span><span class="ruby-operator">|</span>
+    
+      <span class="ruby-keyword">begin</span>
+        <span class="ruby-identifier">video</span> =   <span class="ruby-constant">Video</span>.<span class="ruby-identifier">create!</span>(    <span class="ruby-identifier">title</span><span class="ruby-operator">:</span>                <span class="ruby-identifier">params</span>[<span class="ruby-value">:video</span>][<span class="ruby-value">:title</span>],
+                                    <span class="ruby-identifier">body</span><span class="ruby-operator">:</span>                 <span class="ruby-identifier">params</span>[<span class="ruby-value">:video</span>][<span class="ruby-value">:body</span>],
+                                    <span class="ruby-identifier">identifyer</span><span class="ruby-operator">:</span>           <span class="ruby-identifier">params</span>[<span class="ruby-value">:video</span>][<span class="ruby-value">:identifyer</span>],
+                                    <span class="ruby-identifier">account_id</span><span class="ruby-operator">:</span>           <span class="ruby-identifier">account_id</span>,
+                                    <span class="ruby-identifier">video_blog_id</span><span class="ruby-operator">:</span>        <span class="ruby-identifier">video_blog_id</span>,
+                                    <span class="ruby-identifier">duration</span><span class="ruby-operator">:</span>             <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:duration</span>],               
+                                    <span class="ruby-identifier">width</span><span class="ruby-operator">:</span>                <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:width</span>],                  
+                                    <span class="ruby-identifier">height</span><span class="ruby-operator">:</span>               <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:height</span>],                 
+                                    <span class="ruby-identifier">framerate</span><span class="ruby-operator">:</span>            <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:framerate</span>],              
+                                    <span class="ruby-identifier">video_bitrate</span><span class="ruby-operator">:</span>        <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:video_bitrate</span>],          
+                                    <span class="ruby-identifier">overall_bitrate</span><span class="ruby-operator">:</span>      <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:overall_bitrate</span>],        
+                                    <span class="ruby-identifier">video_codec</span><span class="ruby-operator">:</span>          <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:video_codec</span>],           
+                                    <span class="ruby-identifier">audio_bitrate</span><span class="ruby-operator">:</span>        <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:audio_bitrate</span>],         
+                                    <span class="ruby-identifier">audio_samplerate</span><span class="ruby-operator">:</span>     <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:audio_samplerate</span>],      
+                                    <span class="ruby-identifier">audio_channels</span><span class="ruby-operator">:</span>       <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:audio_channels</span>],    
+                                    <span class="ruby-identifier">audio_codec</span><span class="ruby-operator">:</span>          <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:audio_codec</span>],            
+                                    <span class="ruby-identifier">seekable</span><span class="ruby-operator">:</span>             <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:seekable</span>],               
+                                    <span class="ruby-identifier">date_recorded</span><span class="ruby-operator">:</span>        <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:date_recorded</span>],          
+                                    <span class="ruby-identifier">date_file_created</span><span class="ruby-operator">:</span>    <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:date_file_created</span>],      
+                                    <span class="ruby-identifier">date_file_modified</span><span class="ruby-operator">:</span>   <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:date_file_modified</span>],    
+                                    <span class="ruby-identifier">device_vendor</span><span class="ruby-operator">:</span>        <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:device_vendor</span>],        
+                                    <span class="ruby-identifier">device_name</span><span class="ruby-operator">:</span>          <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:device_name</span>],           
+                                    <span class="ruby-identifier">device_software</span><span class="ruby-operator">:</span>      <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:device_software</span>],       
+                                    <span class="ruby-identifier">latitude</span><span class="ruby-operator">:</span>             <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:latitude</span>],              
+                                    <span class="ruby-identifier">longitude</span><span class="ruby-operator">:</span>            <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:longitude</span>],             
+                                    <span class="ruby-identifier">rotation</span><span class="ruby-operator">:</span>             <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:rotation</span>],               
+                                    <span class="ruby-identifier">album</span><span class="ruby-operator">:</span>                <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:album</span>],              
+                                    <span class="ruby-identifier">comment</span><span class="ruby-operator">:</span>              <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:comment</span>],                
+                                    <span class="ruby-identifier">year</span><span class="ruby-operator">:</span>                 <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:year</span>],                
+                                    <span class="ruby-identifier">mp4_video_url</span><span class="ruby-operator">:</span>        <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:mp4_video_url</span>],                  
+                                    <span class="ruby-identifier">webm_video_url</span><span class="ruby-operator">:</span>       <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:webm_video_url</span>],                  
+                                    <span class="ruby-identifier">name</span><span class="ruby-operator">:</span>                 <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:name</span>],                  
+                                    <span class="ruby-identifier">basename</span><span class="ruby-operator">:</span>             <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:basename</span>],                  
+                                    <span class="ruby-identifier">ext</span><span class="ruby-operator">:</span>                  <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:ext</span>],                  
+                                    <span class="ruby-identifier">size</span><span class="ruby-operator">:</span>                 <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:size</span>],                  
+                                    <span class="ruby-identifier">mime</span><span class="ruby-operator">:</span>                 <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:mime</span>],                  
+                                    <span class="ruby-identifier">video_type</span><span class="ruby-operator">:</span>           <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:video_type</span>],                  
+                                    <span class="ruby-identifier">md5hash</span><span class="ruby-operator">:</span>              <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:md5hash</span>],                  
+                                    <span class="ruby-identifier">original_id</span><span class="ruby-operator">:</span>          <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:original_id</span>],                  
+                                    <span class="ruby-identifier">original_basename</span><span class="ruby-operator">:</span>    <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:original_basename</span>],                  
+                                    <span class="ruby-identifier">original_md5hash</span><span class="ruby-operator">:</span>     <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:original_md5hash</span>]
+                                  )
+        
+        
+        
+        <span class="ruby-comment">#if account_id</span>
+        <span class="ruby-comment">#  #add_artwork_to recording unless recording.thumbnail.nil?</span>
+        <span class="ruby-comment">#  #recording.extract_genres                                 </span>
+        <span class="ruby-comment">#  #recording.update_completeness</span>
+        <span class="ruby-comment">#end</span>
+        <span class="ruby-identifier">videos</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">video</span>
+      <span class="ruby-keyword">rescue</span>
+        <span class="ruby-identifier">errors</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-node">&quot;!Unable to import: #{transloaded[:name]}&quot;</span>
+      <span class="ruby-keyword">end</span>
+    
+    
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+  { <span class="ruby-identifier">videos</span><span class="ruby-operator">:</span> <span class="ruby-identifier">videos</span>, <span class="ruby-identifier">errors</span><span class="ruby-operator">:</span> <span class="ruby-identifier">errors</span> }
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-c-update">
+            
+              <b>update</b>(uploads, video)
+            
+            <a href="../classes/TransloaditVideosParser.html#method-c-update" name="method-c-update" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-c-update_source')" id="l_method-c-update_source">show</a>
+                
+              </p>
+              <div id="method-c-update_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File services/transloadit_videos_parser.rb, line 168</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">self</span>.<span class="ruby-identifier">update</span> <span class="ruby-identifier">uploads</span>, <span class="ruby-identifier">video</span>
+  
+  <span class="ruby-identifier">transloadets</span>  = <span class="ruby-identifier">extract</span>( <span class="ruby-identifier">uploads</span> )
+  
+
+  <span class="ruby-identifier">videos</span>  = []
+  <span class="ruby-identifier">errors</span>  = []
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">transloadets</span>.<span class="ruby-identifier">nil?</span>
+    <span class="ruby-identifier">errors</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-string">&#39;No valid files uploaded&#39;</span>
+  <span class="ruby-keyword">else</span>
+    
+    <span class="ruby-identifier">transloadets</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">transloaded</span><span class="ruby-operator">|</span>
+    
+      <span class="ruby-keyword">begin</span>
+        
+       <span class="ruby-identifier">video</span>.<span class="ruby-identifier">update_attributes!</span>(    <span class="ruby-identifier">title</span><span class="ruby-operator">:</span>                <span class="ruby-identifier">params</span>[<span class="ruby-value">:video</span>][<span class="ruby-value">:title</span>],
+                                    <span class="ruby-identifier">body</span><span class="ruby-operator">:</span>                 <span class="ruby-identifier">params</span>[<span class="ruby-value">:video</span>][<span class="ruby-value">:body</span>],
+                                    <span class="ruby-identifier">identifyer</span><span class="ruby-operator">:</span>           <span class="ruby-identifier">params</span>[<span class="ruby-value">:video</span>][<span class="ruby-value">:identifyer</span>],
+                                    <span class="ruby-identifier">duration</span><span class="ruby-operator">:</span>             <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:duration</span>],               
+                                    <span class="ruby-identifier">width</span><span class="ruby-operator">:</span>                <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:width</span>],                  
+                                    <span class="ruby-identifier">height</span><span class="ruby-operator">:</span>               <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:height</span>],                 
+                                    <span class="ruby-identifier">framerate</span><span class="ruby-operator">:</span>            <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:framerate</span>],              
+                                    <span class="ruby-identifier">video_bitrate</span><span class="ruby-operator">:</span>        <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:video_bitrate</span>],          
+                                    <span class="ruby-identifier">overall_bitrate</span><span class="ruby-operator">:</span>      <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:overall_bitrate</span>],        
+                                    <span class="ruby-identifier">video_codec</span><span class="ruby-operator">:</span>          <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:video_codec</span>],           
+                                    <span class="ruby-identifier">audio_bitrate</span><span class="ruby-operator">:</span>        <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:audio_bitrate</span>],         
+                                    <span class="ruby-identifier">audio_samplerate</span><span class="ruby-operator">:</span>     <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:audio_samplerate</span>],      
+                                    <span class="ruby-identifier">audio_channels</span><span class="ruby-operator">:</span>       <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:audio_channels</span>],    
+                                    <span class="ruby-identifier">audio_codec</span><span class="ruby-operator">:</span>          <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:audio_codec</span>],            
+                                    <span class="ruby-identifier">seekable</span><span class="ruby-operator">:</span>             <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:seekable</span>],               
+                                    <span class="ruby-identifier">date_recorded</span><span class="ruby-operator">:</span>        <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:date_recorded</span>],          
+                                    <span class="ruby-identifier">date_file_created</span><span class="ruby-operator">:</span>    <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:date_file_created</span>],      
+                                    <span class="ruby-identifier">date_file_modified</span><span class="ruby-operator">:</span>   <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:date_file_modified</span>],    
+                                    <span class="ruby-identifier">device_vendor</span><span class="ruby-operator">:</span>        <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:device_vendor</span>],        
+                                    <span class="ruby-identifier">device_name</span><span class="ruby-operator">:</span>          <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:device_name</span>],           
+                                    <span class="ruby-identifier">device_software</span><span class="ruby-operator">:</span>      <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:device_software</span>],       
+                                    <span class="ruby-identifier">latitude</span><span class="ruby-operator">:</span>             <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:latitude</span>],              
+                                    <span class="ruby-identifier">longitude</span><span class="ruby-operator">:</span>            <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:longitude</span>],             
+                                    <span class="ruby-identifier">rotation</span><span class="ruby-operator">:</span>             <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:rotation</span>],               
+                                    <span class="ruby-identifier">album</span><span class="ruby-operator">:</span>                <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:album</span>],              
+                                    <span class="ruby-identifier">comment</span><span class="ruby-operator">:</span>              <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:comment</span>],                
+                                    <span class="ruby-identifier">year</span><span class="ruby-operator">:</span>                 <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:year</span>],                
+                                    <span class="ruby-identifier">mp4_video_url</span><span class="ruby-operator">:</span>        <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:mp4_video_url</span>],                  
+                                    <span class="ruby-identifier">webm_video_url</span><span class="ruby-operator">:</span>       <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:webm_video_url</span>],                  
+                                    <span class="ruby-identifier">name</span><span class="ruby-operator">:</span>                 <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:name</span>],                  
+                                    <span class="ruby-identifier">basename</span><span class="ruby-operator">:</span>             <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:basename</span>],                  
+                                    <span class="ruby-identifier">ext</span><span class="ruby-operator">:</span>                  <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:ext</span>],                  
+                                    <span class="ruby-identifier">size</span><span class="ruby-operator">:</span>                 <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:size</span>],                  
+                                    <span class="ruby-identifier">mime</span><span class="ruby-operator">:</span>                 <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:mime</span>],                  
+                                    <span class="ruby-identifier">video_type</span><span class="ruby-operator">:</span>           <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:video_type</span>],                  
+                                    <span class="ruby-identifier">md5hash</span><span class="ruby-operator">:</span>              <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:md5hash</span>],                  
+                                    <span class="ruby-identifier">original_id</span><span class="ruby-operator">:</span>          <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:original_id</span>],                  
+                                    <span class="ruby-identifier">original_basename</span><span class="ruby-operator">:</span>    <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:original_basename</span>],                  
+                                    <span class="ruby-identifier">original_md5hash</span><span class="ruby-operator">:</span>     <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:original_md5hash</span>]
+                                  )
+        
+        
+        
+        <span class="ruby-comment">#if account_id</span>
+        <span class="ruby-comment">#  #add_artwork_to recording unless recording.thumbnail.nil?</span>
+        <span class="ruby-comment">#  #recording.extract_genres                                 </span>
+        <span class="ruby-comment">#  #recording.update_completeness</span>
+        <span class="ruby-comment">#end</span>
+        <span class="ruby-identifier">videos</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">video</span>
+      <span class="ruby-keyword">rescue</span>
+        <span class="ruby-identifier">errors</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-node">&quot;!Unable to update: #{video.title}&quot;</span>
+      <span class="ruby-keyword">end</span>
+    
+    
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+  { <span class="ruby-identifier">videos</span><span class="ruby-operator">:</span> <span class="ruby-identifier">videos</span>, <span class="ruby-identifier">errors</span><span class="ruby-operator">:</span> <span class="ruby-identifier">errors</span> }
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+                        </div>
+
+    </div>
+  </body>
+</html>    

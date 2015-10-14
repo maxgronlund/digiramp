@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>_relationship.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            _relationship.slim
+        </h1>
+        <ul class="files">
+            <li>views/wall_posts/_relationship.slim</li>
+            <li>Last modified: 2015-09-26 13:28:47 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>h1 <a href="../../../classes/Relationship.html">Relationship</a></p>
+
+<h1 id="label-debug+follower_event">debug follower_event</h1>
+
+<p>/- if follower_event.postable_id.to_s == &#39;&#39; /  h1 = follower_event
+/  = follower_event.destroy /- else /  - user = follower_event.user / /</p>
+
+<p>/</p>
+
+<p>/ .sexy_line .comments-content</p>
+
+<pre><code>.row
+  .col-sm-12
+    - if current_user.id == @user.id
+      .pull-right
+        = link_to follower_event_path(follower_event.id), data: { confirm: &#39;Are you sure?&#39; } , :method =&gt; :delete, remote: true do
+            i.fa.fa-times</code></pre>
+
+<p>/        .pull-left /          .avatar /            .thumbnail /           
+= link_to image_tag( user.image_url :avatar_48x48),  user_path( user) /</p>
+
+<p>/</p>
+
+<p>/  = debug follower_event.postable_id /  /- if user_id  <a
+href="../../../classes/Relationship.html#method-c-cached_find">Relationship.cached_find</a>.followed_id
+/  /  = debug <a
+href="../../../classes/User.html#method-c-cached_find">User.cached_find</a></p>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

@@ -1,0 +1,4829 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>animate.css</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            animate.css
+        </h1>
+        <ul class="files">
+            <li>assets/stylesheets/apulum/animate.css</li>
+            <li>Last modified: 2015-07-05 15:22:02 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>@charset “UTF-8”;</p>
+
+<p>body {</p>
+
+<pre><code>-webkit-backface-visibility: hidden;</code></pre>
+
+<p>}</p>
+
+<p>.animated {</p>
+
+<pre><code>-webkit-animation-duration: 1s;
+-moz-animation-duration: 1s;
+-o-animation-duration: 1s;
+animation-duration: 1s;    
+    -webkit-animation-fill-mode: both;
+-moz-animation-fill-mode: both;
+-o-animation-fill-mode: both;
+animation-fill-mode: both;</code></pre>
+
+<p>}</p>
+
+<p>.animated.hinge {</p>
+
+<pre><code>-webkit-animation-duration: 2s;
+-moz-animation-duration: 2s;
+-o-animation-duration: 2s;
+animation-duration: 2s;</code></pre>
+
+<p>}</p>
+
+<p>@-webkit-keyframes flash {</p>
+
+<pre><code>0%,50%,100% {
+    opacity: 1;
+}
+
+25%,75% {
+    opacity: 0;
+}</code></pre>
+
+<p>}</p>
+
+<p>@-moz-keyframes flash {</p>
+
+<pre><code>0%,50%,100% {
+    opacity: 1;
+}
+
+25%,75% {
+    opacity: 0;
+}</code></pre>
+
+<p>}</p>
+
+<p>@-o-keyframes flash {</p>
+
+<pre><code>0%,50%,100% {
+    opacity: 1;
+}
+
+25%,75% {
+    opacity: 0;
+}</code></pre>
+
+<p>}</p>
+
+<p>@keyframes flash {</p>
+
+<pre><code>0%,50%,100% {
+    opacity: 1;
+}
+
+25%,75% {
+    opacity: 0;
+}</code></pre>
+
+<p>}</p>
+
+<p>.animated.flash {</p>
+
+<pre><code>-webkit-animation-name: flash;
+-moz-animation-name: flash;
+-o-animation-name: flash;
+animation-name: flash;</code></pre>
+
+<p>}</p>
+
+<p>@-webkit-keyframes shake {</p>
+
+<pre><code>0%,100% {
+    -webkit-transform: translateX(0);
+}
+
+10%,30%,50%,70%,90% {
+    -webkit-transform: translateX(-10px);
+}
+
+20%,40%,60%,80% {
+    -webkit-transform: translateX(10px);
+}</code></pre>
+
+<p>}</p>
+
+<p>@-moz-keyframes shake {</p>
+
+<pre><code>0%,100% {
+    -moz-transform: translateX(0);
+}
+
+10%,30%,50%,70%,90% {
+    -moz-transform: translateX(-10px);
+}
+
+20%,40%,60%,80% {
+    -moz-transform: translateX(10px);
+}</code></pre>
+
+<p>}</p>
+
+<p>@-o-keyframes shake {</p>
+
+<pre><code>0%,100% {
+    -o-transform: translateX(0);
+}
+
+10%,30%,50%,70%,90% {
+    -o-transform: translateX(-10px);
+}
+
+20%,40%,60%,80% {
+    -o-transform: translateX(10px);
+}</code></pre>
+
+<p>}</p>
+
+<p>@keyframes shake {</p>
+
+<pre><code>0%,100% {
+    transform: translateX(0);
+}
+
+10%,30%,50%,70%,90% {
+    transform: translateX(-10px);
+}
+
+20%,40%,60%,80% {
+    transform: translateX(10px);
+}</code></pre>
+
+<p>}</p>
+
+<p>.animated.shake {</p>
+
+<pre><code>-webkit-animation-name: shake;
+-moz-animation-name: shake;
+-o-animation-name: shake;
+animation-name: shake;</code></pre>
+
+<p>}</p>
+
+<p>@-webkit-keyframes bounce {</p>
+
+<pre><code>0%,20%,50%,80%,100% {
+    -webkit-transform: translateY(0);
+}
+
+40% {
+    -webkit-transform: translateY(-30px);
+}
+
+60% {
+    -webkit-transform: translateY(-15px);
+}</code></pre>
+
+<p>}</p>
+
+<p>@-moz-keyframes bounce {</p>
+
+<pre><code>0%,20%,50%,80%,100% {
+    -moz-transform: translateY(0);
+}
+
+40% {
+    -moz-transform: translateY(-30px);
+}
+
+60% {
+    -moz-transform: translateY(-15px);
+}</code></pre>
+
+<p>}</p>
+
+<p>@-o-keyframes bounce {</p>
+
+<pre><code>0%,20%,50%,80%,100% {
+    -o-transform: translateY(0);
+}
+
+40% {
+    -o-transform: translateY(-30px);
+}
+
+60% {
+    -o-transform: translateY(-15px);
+}</code></pre>
+
+<p>}</p>
+
+<p>@keyframes bounce {</p>
+
+<pre><code>0%,20%,50%,80%,100% {
+    transform: translateY(0);
+}
+
+40% {
+    transform: translateY(-30px);
+}
+
+60% {
+    transform: translateY(-15px);
+}</code></pre>
+
+<p>}</p>
+
+<p>.animated.bounce {</p>
+
+<pre><code>-webkit-animation-name: bounce;
+-moz-animation-name: bounce;
+-o-animation-name: bounce;
+animation-name: bounce;</code></pre>
+
+<p>}</p>
+
+<p>@-webkit-keyframes tada {</p>
+
+<pre><code>0% {
+    -webkit-transform: scale(1);
+}
+
+10%,20% {
+    -webkit-transform: scale(0.9) rotate(-3deg);
+}
+
+30%,50%,70%,90% {
+    -webkit-transform: scale(1.1) rotate(3deg);
+}
+
+40%,60%,80% {
+    -webkit-transform: scale(1.1) rotate(-3deg);
+}
+
+100% {
+    -webkit-transform: scale(1) rotate(0);
+}</code></pre>
+
+<p>}</p>
+
+<p>@-moz-keyframes tada {</p>
+
+<pre><code>0% {
+    -moz-transform: scale(1);
+}
+
+10%,20% {
+    -moz-transform: scale(0.9) rotate(-3deg);
+}
+
+30%,50%,70%,90% {
+    -moz-transform: scale(1.1) rotate(3deg);
+}
+
+40%,60%,80% {
+    -moz-transform: scale(1.1) rotate(-3deg);
+}
+
+100% {
+    -moz-transform: scale(1) rotate(0);
+}</code></pre>
+
+<p>}</p>
+
+<p>@-o-keyframes tada {</p>
+
+<pre><code>0% {
+    -o-transform: scale(1);
+}
+
+10%,20% {
+    -o-transform: scale(0.9) rotate(-3deg);
+}
+
+30%,50%,70%,90% {
+    -o-transform: scale(1.1) rotate(3deg);
+}
+
+40%,60%,80% {
+    -o-transform: scale(1.1) rotate(-3deg);
+}
+
+100% {
+    -o-transform: scale(1) rotate(0);
+}</code></pre>
+
+<p>}</p>
+
+<p>@keyframes tada {</p>
+
+<pre><code>0% {
+    transform: scale(1);
+}
+
+10%,20% {
+    transform: scale(0.9) rotate(-3deg);
+}
+
+30%,50%,70%,90% {
+    transform: scale(1.1) rotate(3deg);
+}
+
+40%,60%,80% {
+    transform: scale(1.1) rotate(-3deg);
+}
+
+100% {
+    transform: scale(1) rotate(0);
+}</code></pre>
+
+<p>}</p>
+
+<p>.animated.tada {</p>
+
+<pre><code>-webkit-animation-name: tada;
+-moz-animation-name: tada;
+-o-animation-name: tada;
+animation-name: tada;</code></pre>
+
+<p>}</p>
+
+<p>@-webkit-keyframes swing {</p>
+
+<pre><code>20%,40%,60%,80%,100% {
+    -webkit-transform-origin: top center;
+}
+
+20% {
+    -webkit-transform: rotate(15deg);
+}
+
+40% {
+    -webkit-transform: rotate(-10deg);
+}
+
+60% {
+    -webkit-transform: rotate(5deg);
+}
+
+80% {
+    -webkit-transform: rotate(-5deg);
+}
+
+100% {
+    -webkit-transform: rotate(0deg);
+}</code></pre>
+
+<p>}</p>
+
+<p>@-moz-keyframes swing {</p>
+
+<pre><code>20% {
+    -moz-transform: rotate(15deg);
+}
+
+40% {
+    -moz-transform: rotate(-10deg);
+}
+
+60% {
+    -moz-transform: rotate(5deg);
+}
+
+80% {
+    -moz-transform: rotate(-5deg);
+}
+
+100% {
+    -moz-transform: rotate(0deg);
+}</code></pre>
+
+<p>}</p>
+
+<p>@-o-keyframes swing {</p>
+
+<pre><code>20% {
+    -o-transform: rotate(15deg);
+}
+
+40% {
+    -o-transform: rotate(-10deg);
+}
+
+60% {
+    -o-transform: rotate(5deg);
+}
+
+80% {
+    -o-transform: rotate(-5deg);
+}
+
+100% {
+    -o-transform: rotate(0deg);
+}</code></pre>
+
+<p>}</p>
+
+<p>@keyframes swing {</p>
+
+<pre><code>20% {
+    transform: rotate(15deg);
+}
+
+40% {
+    transform: rotate(-10deg);
+}
+
+60% {
+    transform: rotate(5deg);
+}
+
+80% {
+    transform: rotate(-5deg);
+}
+
+100% {
+    transform: rotate(0deg);
+}</code></pre>
+
+<p>}</p>
+
+<p>.animated.swing {</p>
+
+<pre><code>-webkit-transform-origin: top center;
+-moz-transform-origin: top center;
+-o-transform-origin: top center;
+transform-origin: top center;
+-webkit-animation-name: swing;
+-moz-animation-name: swing;
+-o-animation-name: swing;
+animation-name: swing;</code></pre>
+
+<p>}</p>
+
+<p>@-webkit-keyframes wobble {</p>
+
+<pre><code>0% {
+    -webkit-transform: translateX(0%);
+}
+
+15% {
+    -webkit-transform: translateX(-25%) rotate(-5deg);
+}
+
+30% {
+    -webkit-transform: translateX(20%) rotate(3deg);
+}
+
+45% {
+    -webkit-transform: translateX(-15%) rotate(-3deg);
+}
+
+60% {
+    -webkit-transform: translateX(10%) rotate(2deg);
+}
+
+75% {
+    -webkit-transform: translateX(-5%) rotate(-1deg);
+}
+
+100% {
+    -webkit-transform: translateX(0%);
+}</code></pre>
+
+<p>}</p>
+
+<p>@-moz-keyframes wobble {</p>
+
+<pre><code>0% {
+    -moz-transform: translateX(0%);
+}
+
+15% {
+    -moz-transform: translateX(-25%) rotate(-5deg);
+}
+
+30% {
+    -moz-transform: translateX(20%) rotate(3deg);
+}
+
+45% {
+    -moz-transform: translateX(-15%) rotate(-3deg);
+}
+
+60% {
+    -moz-transform: translateX(10%) rotate(2deg);
+}
+
+75% {
+    -moz-transform: translateX(-5%) rotate(-1deg);
+}
+
+100% {
+    -moz-transform: translateX(0%);
+}</code></pre>
+
+<p>}</p>
+
+<p>@-o-keyframes wobble {</p>
+
+<pre><code>0% {
+    -o-transform: translateX(0%);
+}
+
+15% {
+    -o-transform: translateX(-25%) rotate(-5deg);
+}
+
+30% {
+    -o-transform: translateX(20%) rotate(3deg);
+}
+
+45% {
+    -o-transform: translateX(-15%) rotate(-3deg);
+}
+
+60% {
+    -o-transform: translateX(10%) rotate(2deg);
+}
+
+75% {
+    -o-transform: translateX(-5%) rotate(-1deg);
+}
+
+100% {
+    -o-transform: translateX(0%);
+}</code></pre>
+
+<p>}</p>
+
+<p>@keyframes wobble {</p>
+
+<pre><code>0% {
+    transform: translateX(0%);
+}
+
+15% {
+    transform: translateX(-25%) rotate(-5deg);
+}
+
+30% {
+    transform: translateX(20%) rotate(3deg);
+}
+
+45% {
+    transform: translateX(-15%) rotate(-3deg);
+}
+
+60% {
+    transform: translateX(10%) rotate(2deg);
+}
+
+75% {
+    transform: translateX(-5%) rotate(-1deg);
+}
+
+100% {
+    transform: translateX(0%);
+}</code></pre>
+
+<p>}</p>
+
+<p>.animated.wobble {</p>
+
+<pre><code>-webkit-animation-name: wobble;
+-moz-animation-name: wobble;
+-o-animation-name: wobble;
+animation-name: wobble;</code></pre>
+
+<p>}</p>
+
+<p>@-webkit-keyframes pulse {</p>
+
+<pre><code>0% {
+    -webkit-transform: scale(1);
+}
+
+50% {
+    -webkit-transform: scale(1.1);
+}
+
+100% {
+    -webkit-transform: scale(1);
+}</code></pre>
+
+<p>}</p>
+
+<p>@-moz-keyframes pulse {</p>
+
+<pre><code>0% {
+    -moz-transform: scale(1);
+}
+
+50% {
+    -moz-transform: scale(1.1);
+}
+
+100% {
+    -moz-transform: scale(1);
+}</code></pre>
+
+<p>}</p>
+
+<p>@-o-keyframes pulse {</p>
+
+<pre><code>0% {
+    -o-transform: scale(1);
+}
+
+50% {
+    -o-transform: scale(1.1);
+}
+
+100% {
+    -o-transform: scale(1);
+}</code></pre>
+
+<p>}</p>
+
+<p>@keyframes pulse {</p>
+
+<pre><code>0% {
+    transform: scale(1);
+}
+
+50% {
+    transform: scale(1.1);
+}
+
+100% {
+    transform: scale(1);
+}</code></pre>
+
+<p>}</p>
+
+<p>.animated.pulse {</p>
+
+<pre><code>-webkit-animation-name: pulse;
+-moz-animation-name: pulse;
+-o-animation-name: pulse;
+animation-name: pulse;</code></pre>
+
+<p>}</p>
+
+<p>@-webkit-keyframes flip {</p>
+
+<pre><code>0% {
+    -webkit-transform: perspective(400px) translateZ(0) rotateY(0) scale(1);
+    -webkit-animation-timing-function: ease-out;
+}
+
+40% {
+    -webkit-transform: perspective(400px) translateZ(150px) rotateY(170deg) scale(1);
+    -webkit-animation-timing-function: ease-out;
+}
+
+50% {
+    -webkit-transform: perspective(400px) translateZ(150px) rotateY(190deg) scale(1);
+    -webkit-animation-timing-function: ease-in;
+}
+
+80% {
+    -webkit-transform: perspective(400px) translateZ(0) rotateY(360deg) scale(.95);
+    -webkit-animation-timing-function: ease-in;
+}
+
+100% {
+    -webkit-transform: perspective(400px) translateZ(0) rotateY(360deg) scale(1);
+    -webkit-animation-timing-function: ease-in;
+}</code></pre>
+
+<p>}</p>
+
+<p>@-moz-keyframes flip {</p>
+
+<pre><code>0% {
+    -moz-transform: perspective(400px) translateZ(0) rotateY(0) scale(1);
+    -moz-animation-timing-function: ease-out;
+}
+
+40% {
+    -moz-transform: perspective(400px) translateZ(150px) rotateY(170deg) scale(1);
+    -moz-animation-timing-function: ease-out;
+}
+
+50% {
+    -moz-transform: perspective(400px) translateZ(150px) rotateY(190deg) scale(1);
+    -moz-animation-timing-function: ease-in;
+}
+
+80% {
+    -moz-transform: perspective(400px) translateZ(0) rotateY(360deg) scale(.95);
+    -moz-animation-timing-function: ease-in;
+}
+
+100% {
+    -moz-transform: perspective(400px) translateZ(0) rotateY(360deg) scale(1);
+    -moz-animation-timing-function: ease-in;
+}</code></pre>
+
+<p>}</p>
+
+<p>@-o-keyframes flip {</p>
+
+<pre><code>0% {
+    -o-transform: perspective(400px) translateZ(0) rotateY(0) scale(1);
+    -o-animation-timing-function: ease-out;
+}
+
+40% {
+    -o-transform: perspective(400px) translateZ(150px) rotateY(170deg) scale(1);
+    -o-animation-timing-function: ease-out;
+}
+
+50% {
+    -o-transform: perspective(400px) translateZ(150px) rotateY(190deg) scale(1);
+    -o-animation-timing-function: ease-in;
+}
+
+80% {
+    -o-transform: perspective(400px) translateZ(0) rotateY(360deg) scale(.95);
+    -o-animation-timing-function: ease-in;
+}
+
+100% {
+    -o-transform: perspective(400px) translateZ(0) rotateY(360deg) scale(1);
+    -o-animation-timing-function: ease-in;
+}</code></pre>
+
+<p>}</p>
+
+<p>@keyframes flip {</p>
+
+<pre><code>0% {
+    transform: perspective(400px) translateZ(0) rotateY(0) scale(1);
+    animation-timing-function: ease-out;
+}
+
+40% {
+    transform: perspective(400px) translateZ(150px) rotateY(170deg) scale(1);
+    animation-timing-function: ease-out;
+}
+
+50% {
+    transform: perspective(400px) translateZ(150px) rotateY(190deg) scale(1);
+    animation-timing-function: ease-in;
+}
+
+80% {
+    transform: perspective(400px) translateZ(0) rotateY(360deg) scale(.95);
+    animation-timing-function: ease-in;
+}
+
+100% {
+    transform: perspective(400px) translateZ(0) rotateY(360deg) scale(1);
+    animation-timing-function: ease-in;
+}</code></pre>
+
+<p>}</p>
+
+<p>.animated.flip {</p>
+
+<pre><code>-webkit-backface-visibility: visible !important;
+-webkit-animation-name: flip;
+-moz-backface-visibility: visible !important;
+-moz-animation-name: flip;
+-o-backface-visibility: visible !important;
+-o-animation-name: flip;
+backface-visibility: visible !important;
+animation-name: flip;</code></pre>
+
+<p>}</p>
+
+<p>@-webkit-keyframes flipInX {</p>
+
+<pre><code>0% {
+    -webkit-transform: perspective(400px) rotateX(90deg);
+    opacity: 0;
+}
+
+40% {
+    -webkit-transform: perspective(400px) rotateX(-10deg);
+}
+
+70% {
+    -webkit-transform: perspective(400px) rotateX(10deg);
+}
+
+100% {
+    -webkit-transform: perspective(400px) rotateX(0deg);
+    opacity: 1;
+}</code></pre>
+
+<p>}</p>
+
+<p>@-moz-keyframes flipInX {</p>
+
+<pre><code>0% {
+    -moz-transform: perspective(400px) rotateX(90deg);
+    opacity: 0;
+}
+
+40% {
+    -moz-transform: perspective(400px) rotateX(-10deg);
+}
+
+70% {
+    -moz-transform: perspective(400px) rotateX(10deg);
+}
+
+100% {
+    -moz-transform: perspective(400px) rotateX(0deg);
+    opacity: 1;
+}</code></pre>
+
+<p>}</p>
+
+<p>@-o-keyframes flipInX {</p>
+
+<pre><code>0% {
+    -o-transform: perspective(400px) rotateX(90deg);
+    opacity: 0;
+}
+
+40% {
+    -o-transform: perspective(400px) rotateX(-10deg);
+}
+
+70% {
+    -o-transform: perspective(400px) rotateX(10deg);
+}
+
+100% {
+    -o-transform: perspective(400px) rotateX(0deg);
+    opacity: 1;
+}</code></pre>
+
+<p>}</p>
+
+<p>@keyframes flipInX {</p>
+
+<pre><code>0% {
+    transform: perspective(400px) rotateX(90deg);
+    opacity: 0;
+}
+
+40% {
+    transform: perspective(400px) rotateX(-10deg);
+}
+
+70% {
+    transform: perspective(400px) rotateX(10deg);
+}
+
+100% {
+    transform: perspective(400px) rotateX(0deg);
+    opacity: 1;
+}</code></pre>
+
+<p>}</p>
+
+<p>.animated.flipInX {</p>
+
+<pre><code>-webkit-backface-visibility: visible !important;
+-webkit-animation-name: flipInX;
+-moz-backface-visibility: visible !important;
+-moz-animation-name: flipInX;
+-o-backface-visibility: visible !important;
+-o-animation-name: flipInX;
+backface-visibility: visible !important;
+animation-name: flipInX;</code></pre>
+
+<p>}</p>
+
+<p>@-webkit-keyframes flipOutX {</p>
+
+<pre><code>0% {
+    -webkit-transform: perspective(400px) rotateX(0deg);
+    opacity: 1;
+}
+
+100% {
+    -webkit-transform: perspective(400px) rotateX(90deg);
+    opacity: 0;
+}</code></pre>
+
+<p>}</p>
+
+<p>@-moz-keyframes flipOutX {</p>
+
+<pre><code>0% {
+    -moz-transform: perspective(400px) rotateX(0deg);
+    opacity: 1;
+}
+
+100% {
+    -moz-transform: perspective(400px) rotateX(90deg);
+    opacity: 0;
+}</code></pre>
+
+<p>}</p>
+
+<p>@-o-keyframes flipOutX {</p>
+
+<pre><code>0% {
+    -o-transform: perspective(400px) rotateX(0deg);
+    opacity: 1;
+}
+
+100% {
+    -o-transform: perspective(400px) rotateX(90deg);
+    opacity: 0;
+}</code></pre>
+
+<p>}</p>
+
+<p>@keyframes flipOutX {</p>
+
+<pre><code>0% {
+    transform: perspective(400px) rotateX(0deg);
+    opacity: 1;
+}
+
+100% {
+    transform: perspective(400px) rotateX(90deg);
+    opacity: 0;
+}</code></pre>
+
+<p>}</p>
+
+<p>.animated.flipOutX {</p>
+
+<pre><code>-webkit-animation-name: flipOutX;
+-webkit-backface-visibility: visible !important;
+-moz-animation-name: flipOutX;
+-moz-backface-visibility: visible !important;
+-o-animation-name: flipOutX;
+-o-backface-visibility: visible !important;
+animation-name: flipOutX;
+backface-visibility: visible !important;</code></pre>
+
+<p>}</p>
+
+<p>@-webkit-keyframes flipInY {</p>
+
+<pre><code>0% {
+    -webkit-transform: perspective(400px) rotateY(90deg);
+    opacity: 0;
+}
+
+40% {
+    -webkit-transform: perspective(400px) rotateY(-10deg);
+}
+
+70% {
+    -webkit-transform: perspective(400px) rotateY(10deg);
+}
+
+100% {
+    -webkit-transform: perspective(400px) rotateY(0deg);
+    opacity: 1;
+}</code></pre>
+
+<p>}</p>
+
+<p>@-moz-keyframes flipInY {</p>
+
+<pre><code>0% {
+    -moz-transform: perspective(400px) rotateY(90deg);
+    opacity: 0;
+}
+
+40% {
+    -moz-transform: perspective(400px) rotateY(-10deg);
+}
+
+70% {
+    -moz-transform: perspective(400px) rotateY(10deg);
+}
+
+100% {
+    -moz-transform: perspective(400px) rotateY(0deg);
+    opacity: 1;
+}</code></pre>
+
+<p>}</p>
+
+<p>@-o-keyframes flipInY {</p>
+
+<pre><code>0% {
+    -o-transform: perspective(400px) rotateY(90deg);
+    opacity: 0;
+}
+
+40% {
+    -o-transform: perspective(400px) rotateY(-10deg);
+}
+
+70% {
+    -o-transform: perspective(400px) rotateY(10deg);
+}
+
+100% {
+    -o-transform: perspective(400px) rotateY(0deg);
+    opacity: 1;
+}</code></pre>
+
+<p>}</p>
+
+<p>@keyframes flipInY {</p>
+
+<pre><code>0% {
+    transform: perspective(400px) rotateY(90deg);
+    opacity: 0;
+}
+
+40% {
+    transform: perspective(400px) rotateY(-10deg);
+}
+
+70% {
+    transform: perspective(400px) rotateY(10deg);
+}
+
+100% {
+    transform: perspective(400px) rotateY(0deg);
+    opacity: 1;
+}</code></pre>
+
+<p>}</p>
+
+<p>.animated.flipInY {</p>
+
+<pre><code>-webkit-backface-visibility: visible !important;
+-webkit-animation-name: flipInY;
+-moz-backface-visibility: visible !important;
+-moz-animation-name: flipInY;
+-o-backface-visibility: visible !important;
+-o-animation-name: flipInY;
+backface-visibility: visible !important;
+animation-name: flipInY;</code></pre>
+
+<p>}</p>
+
+<p>@-webkit-keyframes flipOutY {</p>
+
+<pre><code>0% {
+    -webkit-transform: perspective(400px) rotateY(0deg);
+    opacity: 1;
+}
+
+100% {
+    -webkit-transform: perspective(400px) rotateY(90deg);
+    opacity: 0;
+}</code></pre>
+
+<p>}</p>
+
+<p>@-moz-keyframes flipOutY {</p>
+
+<pre><code>0% {
+    -moz-transform: perspective(400px) rotateY(0deg);
+    opacity: 1;
+}
+
+100% {
+    -moz-transform: perspective(400px) rotateY(90deg);
+    opacity: 0;
+}</code></pre>
+
+<p>}</p>
+
+<p>@-o-keyframes flipOutY {</p>
+
+<pre><code>0% {
+    -o-transform: perspective(400px) rotateY(0deg);
+    opacity: 1;
+}
+
+100% {
+    -o-transform: perspective(400px) rotateY(90deg);
+    opacity: 0;
+}</code></pre>
+
+<p>}</p>
+
+<p>@keyframes flipOutY {</p>
+
+<pre><code>0% {
+    transform: perspective(400px) rotateY(0deg);
+    opacity: 1;
+}
+
+100% {
+    transform: perspective(400px) rotateY(90deg);
+    opacity: 0;
+}</code></pre>
+
+<p>}</p>
+
+<p>.animated.flipOutY {</p>
+
+<pre><code>-webkit-backface-visibility: visible !important;
+-webkit-animation-name: flipOutY;
+-moz-backface-visibility: visible !important;
+-moz-animation-name: flipOutY;
+-o-backface-visibility: visible !important;
+-o-animation-name: flipOutY;
+backface-visibility: visible !important;
+animation-name: flipOutY;</code></pre>
+
+<p>}</p>
+
+<p>@-webkit-keyframes fadeIn {</p>
+
+<pre><code>0% {
+    opacity: 0;
+}
+
+100% {
+    opacity: 1;
+}</code></pre>
+
+<p>}</p>
+
+<p>@-moz-keyframes fadeIn {</p>
+
+<pre><code>0% {
+    opacity: 0;
+}
+
+100% {
+    opacity: 1;
+}</code></pre>
+
+<p>}</p>
+
+<p>@-o-keyframes fadeIn {</p>
+
+<pre><code>0% {
+    opacity: 0;
+}
+
+100% {
+    opacity: 1;
+}</code></pre>
+
+<p>}</p>
+
+<p>@keyframes fadeIn {</p>
+
+<pre><code>0% {
+    opacity: 0;
+}
+
+100% {
+    opacity: 1;
+}</code></pre>
+
+<p>}</p>
+
+<p>.animated.fadeIn {</p>
+
+<pre><code>-webkit-animation-name: fadeIn;
+-moz-animation-name: fadeIn;
+-o-animation-name: fadeIn;
+animation-name: fadeIn;</code></pre>
+
+<p>}</p>
+
+<p>@-webkit-keyframes fadeInUp {</p>
+
+<pre><code>0% {
+    opacity: 0;
+    -webkit-transform: translateY(20px);
+}
+
+100% {
+    opacity: 1;
+    -webkit-transform: translateY(0);
+}</code></pre>
+
+<p>}</p>
+
+<p>@-moz-keyframes fadeInUp {</p>
+
+<pre><code>0% {
+    opacity: 0;
+    -moz-transform: translateY(20px);
+}
+
+100% {
+    opacity: 1;
+    -moz-transform: translateY(0);
+}</code></pre>
+
+<p>}</p>
+
+<p>@-o-keyframes fadeInUp {</p>
+
+<pre><code>0% {
+    opacity: 0;
+    -o-transform: translateY(20px);
+}
+
+100% {
+    opacity: 1;
+    -o-transform: translateY(0);
+}</code></pre>
+
+<p>}</p>
+
+<p>@keyframes fadeInUp {</p>
+
+<pre><code>0% {
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+100% {
+    opacity: 1;
+    transform: translateY(0);
+}</code></pre>
+
+<p>}</p>
+
+<p>.animated.fadeInUp {</p>
+
+<pre><code>-webkit-animation-name: fadeInUp;
+-moz-animation-name: fadeInUp;
+-o-animation-name: fadeInUp;
+animation-name: fadeInUp;</code></pre>
+
+<p>}</p>
+
+<p>@-webkit-keyframes fadeInDown {</p>
+
+<pre><code>0% {
+    opacity: 0;
+    -webkit-transform: translateY(-20px);
+}
+
+100% {
+    opacity: 1;
+    -webkit-transform: translateY(0);
+}</code></pre>
+
+<p>}</p>
+
+<p>@-moz-keyframes fadeInDown {</p>
+
+<pre><code>0% {
+    opacity: 0;
+    -moz-transform: translateY(-20px);
+}
+
+100% {
+    opacity: 1;
+    -moz-transform: translateY(0);
+}</code></pre>
+
+<p>}</p>
+
+<p>@-o-keyframes fadeInDown {</p>
+
+<pre><code>0% {
+    opacity: 0;
+    -o-transform: translateY(-20px);
+}
+
+100% {
+    opacity: 1;
+    -o-transform: translateY(0);
+}</code></pre>
+
+<p>}</p>
+
+<p>@keyframes fadeInDown {</p>
+
+<pre><code>0% {
+    opacity: 0;
+    transform: translateY(-20px);
+}
+
+100% {
+    opacity: 1;
+    transform: translateY(0);
+}</code></pre>
+
+<p>}</p>
+
+<p>.animated.fadeInDown {</p>
+
+<pre><code>-webkit-animation-name: fadeInDown;
+-moz-animation-name: fadeInDown;
+-o-animation-name: fadeInDown;
+animation-name: fadeInDown;</code></pre>
+
+<p>}</p>
+
+<p>@-webkit-keyframes fadeInLeft {</p>
+
+<pre><code>0% {
+    opacity: 0;
+    -webkit-transform: translateX(-20px);
+}
+
+100% {
+    opacity: 1;
+    -webkit-transform: translateX(0);
+}</code></pre>
+
+<p>}</p>
+
+<p>@-moz-keyframes fadeInLeft {</p>
+
+<pre><code>0% {
+    opacity: 0;
+    -moz-transform: translateX(-20px);
+}
+
+100% {
+    opacity: 1;
+    -moz-transform: translateX(0);
+}</code></pre>
+
+<p>}</p>
+
+<p>@-o-keyframes fadeInLeft {</p>
+
+<pre><code>0% {
+    opacity: 0;
+    -o-transform: translateX(-20px);
+}
+
+100% {
+    opacity: 1;
+    -o-transform: translateX(0);
+}</code></pre>
+
+<p>}</p>
+
+<p>@keyframes fadeInLeft {</p>
+
+<pre><code>0% {
+    opacity: 0;
+    transform: translateX(-20px);
+}
+
+100% {
+    opacity: 1;
+    transform: translateX(0);
+}</code></pre>
+
+<p>}</p>
+
+<p>.animated.fadeInLeft {</p>
+
+<pre><code>-webkit-animation-name: fadeInLeft;
+-moz-animation-name: fadeInLeft;
+-o-animation-name: fadeInLeft;
+animation-name: fadeInLeft;</code></pre>
+
+<p>}</p>
+
+<p>@-webkit-keyframes fadeInRight {</p>
+
+<pre><code>0% {
+    opacity: 0;
+    -webkit-transform: translateX(20px);
+}
+
+100% {
+    opacity: 1;
+    -webkit-transform: translateX(0);
+}</code></pre>
+
+<p>}</p>
+
+<p>@-moz-keyframes fadeInRight {</p>
+
+<pre><code>0% {
+    opacity: 0;
+    -moz-transform: translateX(20px);
+}
+
+100% {
+    opacity: 1;
+    -moz-transform: translateX(0);
+}</code></pre>
+
+<p>}</p>
+
+<p>@-o-keyframes fadeInRight {</p>
+
+<pre><code>0% {
+    opacity: 0;
+    -o-transform: translateX(20px);
+}
+
+100% {
+    opacity: 1;
+    -o-transform: translateX(0);
+}</code></pre>
+
+<p>}</p>
+
+<p>@keyframes fadeInRight {</p>
+
+<pre><code>0% {
+    opacity: 0;
+    transform: translateX(20px);
+}
+
+100% {
+    opacity: 1;
+    transform: translateX(0);
+}</code></pre>
+
+<p>}</p>
+
+<p>.animated.fadeInRight {</p>
+
+<pre><code>-webkit-animation-name: fadeInRight;
+-moz-animation-name: fadeInRight;
+-o-animation-name: fadeInRight;
+animation-name: fadeInRight;</code></pre>
+
+<p>}</p>
+
+<p>@-webkit-keyframes fadeInUpBig {</p>
+
+<pre><code>0% {
+    opacity: 0;
+    -webkit-transform: translateY(2000px);
+}
+
+100% {
+    opacity: 1;
+    -webkit-transform: translateY(0);
+}</code></pre>
+
+<p>}</p>
+
+<p>@-moz-keyframes fadeInUpBig {</p>
+
+<pre><code>0% {
+    opacity: 0;
+    -moz-transform: translateY(2000px);
+}
+
+100% {
+    opacity: 1;
+    -moz-transform: translateY(0);
+}</code></pre>
+
+<p>}</p>
+
+<p>@-o-keyframes fadeInUpBig {</p>
+
+<pre><code>0% {
+    opacity: 0;
+    -o-transform: translateY(2000px);
+}
+
+100% {
+    opacity: 1;
+    -o-transform: translateY(0);
+}</code></pre>
+
+<p>}</p>
+
+<p>@keyframes fadeInUpBig {</p>
+
+<pre><code>0% {
+    opacity: 0;
+    transform: translateY(2000px);
+}
+
+100% {
+    opacity: 1;
+    transform: translateY(0);
+}</code></pre>
+
+<p>}</p>
+
+<p>.animated.fadeInUpBig {</p>
+
+<pre><code>-webkit-animation-name: fadeInUpBig;
+-moz-animation-name: fadeInUpBig;
+-o-animation-name: fadeInUpBig;
+animation-name: fadeInUpBig;</code></pre>
+
+<p>}</p>
+
+<p>@-webkit-keyframes fadeInDownBig {</p>
+
+<pre><code>0% {
+    opacity: 0;
+    -webkit-transform: translateY(-2000px);
+}
+
+100% {
+    opacity: 1;
+    -webkit-transform: translateY(0);
+}</code></pre>
+
+<p>}</p>
+
+<p>@-moz-keyframes fadeInDownBig {</p>
+
+<pre><code>0% {
+    opacity: 0;
+    -moz-transform: translateY(-2000px);
+}
+
+100% {
+    opacity: 1;
+    -moz-transform: translateY(0);
+}</code></pre>
+
+<p>}</p>
+
+<p>@-o-keyframes fadeInDownBig {</p>
+
+<pre><code>0% {
+    opacity: 0;
+    -o-transform: translateY(-2000px);
+}
+
+100% {
+    opacity: 1;
+    -o-transform: translateY(0);
+}</code></pre>
+
+<p>}</p>
+
+<p>@keyframes fadeInDownBig {</p>
+
+<pre><code>0% {
+    opacity: 0;
+    transform: translateY(-2000px);
+}
+
+100% {
+    opacity: 1;
+    transform: translateY(0);
+}</code></pre>
+
+<p>}</p>
+
+<p>.animated.fadeInDownBig {</p>
+
+<pre><code>-webkit-animation-name: fadeInDownBig;
+-moz-animation-name: fadeInDownBig;
+-o-animation-name: fadeInDownBig;
+animation-name: fadeInDownBig;</code></pre>
+
+<p>}</p>
+
+<p>@-webkit-keyframes fadeInLeftBig {</p>
+
+<pre><code>0% {
+    opacity: 0;
+    -webkit-transform: translateX(-2000px);
+}
+
+100% {
+    opacity: 1;
+    -webkit-transform: translateX(0);
+}</code></pre>
+
+<p>}</p>
+
+<p>@-moz-keyframes fadeInLeftBig {</p>
+
+<pre><code>0% {
+    opacity: 0;
+    -moz-transform: translateX(-2000px);
+}
+
+100% {
+    opacity: 1;
+    -moz-transform: translateX(0);
+}</code></pre>
+
+<p>}</p>
+
+<p>@-o-keyframes fadeInLeftBig {</p>
+
+<pre><code>0% {
+    opacity: 0;
+    -o-transform: translateX(-2000px);
+}
+
+100% {
+    opacity: 1;
+    -o-transform: translateX(0);
+}</code></pre>
+
+<p>}</p>
+
+<p>@keyframes fadeInLeftBig {</p>
+
+<pre><code>0% {
+    opacity: 0;
+    transform: translateX(-2000px);
+}
+
+100% {
+    opacity: 1;
+    transform: translateX(0);
+}</code></pre>
+
+<p>}</p>
+
+<p>.animated.fadeInLeftBig {</p>
+
+<pre><code>-webkit-animation-name: fadeInLeftBig;
+-moz-animation-name: fadeInLeftBig;
+-o-animation-name: fadeInLeftBig;
+animation-name: fadeInLeftBig;</code></pre>
+
+<p>}</p>
+
+<p>@-webkit-keyframes fadeInRightBig {</p>
+
+<pre><code>0% {
+    opacity: 0;
+    -webkit-transform: translateX(2000px);
+}
+
+100% {
+    opacity: 1;
+    -webkit-transform: translateX(0);
+}</code></pre>
+
+<p>}</p>
+
+<p>@-moz-keyframes fadeInRightBig {</p>
+
+<pre><code>0% {
+    opacity: 0;
+    -moz-transform: translateX(2000px);
+}
+
+100% {
+    opacity: 1;
+    -moz-transform: translateX(0);
+}</code></pre>
+
+<p>}</p>
+
+<p>@-o-keyframes fadeInRightBig {</p>
+
+<pre><code>0% {
+    opacity: 0;
+    -o-transform: translateX(2000px);
+}
+
+100% {
+    opacity: 1;
+    -o-transform: translateX(0);
+}</code></pre>
+
+<p>}</p>
+
+<p>@keyframes fadeInRightBig {</p>
+
+<pre><code>0% {
+    opacity: 0;
+    transform: translateX(2000px);
+}
+
+100% {
+    opacity: 1;
+    transform: translateX(0);
+}</code></pre>
+
+<p>}</p>
+
+<p>.animated.fadeInRightBig {</p>
+
+<pre><code>-webkit-animation-name: fadeInRightBig;
+-moz-animation-name: fadeInRightBig;
+-o-animation-name: fadeInRightBig;
+animation-name: fadeInRightBig;</code></pre>
+
+<p>}</p>
+
+<p>@-webkit-keyframes fadeOut {</p>
+
+<pre><code>0% {
+    opacity: 1;
+}
+
+100% {
+    opacity: 0;
+}</code></pre>
+
+<p>}</p>
+
+<p>@-moz-keyframes fadeOut {</p>
+
+<pre><code>0% {
+    opacity: 1;
+}
+
+100% {
+    opacity: 0;
+}</code></pre>
+
+<p>}</p>
+
+<p>@-o-keyframes fadeOut {</p>
+
+<pre><code>0% {
+    opacity: 1;
+}
+
+100% {
+    opacity: 0;
+}</code></pre>
+
+<p>}</p>
+
+<p>@keyframes fadeOut {</p>
+
+<pre><code>0% {
+    opacity: 1;
+}
+
+100% {
+    opacity: 0;
+}</code></pre>
+
+<p>}</p>
+
+<p>.animated.fadeOut {</p>
+
+<pre><code>-webkit-animation-name: fadeOut;
+-moz-animation-name: fadeOut;
+-o-animation-name: fadeOut;
+animation-name: fadeOut;</code></pre>
+
+<p>}</p>
+
+<p>@-webkit-keyframes fadeOutUp {</p>
+
+<pre><code>0% {
+    opacity: 1;
+    -webkit-transform: translateY(0);
+}
+
+100% {
+    opacity: 0;
+    -webkit-transform: translateY(-20px);
+}</code></pre>
+
+<p>}</p>
+
+<p>@-moz-keyframes fadeOutUp {</p>
+
+<pre><code>0% {
+    opacity: 1;
+    -moz-transform: translateY(0);
+}
+
+100% {
+    opacity: 0;
+    -moz-transform: translateY(-20px);
+}</code></pre>
+
+<p>}</p>
+
+<p>@-o-keyframes fadeOutUp {</p>
+
+<pre><code>0% {
+    opacity: 1;
+    -o-transform: translateY(0);
+}
+
+100% {
+    opacity: 0;
+    -o-transform: translateY(-20px);
+}</code></pre>
+
+<p>}</p>
+
+<p>@keyframes fadeOutUp {</p>
+
+<pre><code>0% {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+100% {
+    opacity: 0;
+    transform: translateY(-20px);
+}</code></pre>
+
+<p>}</p>
+
+<p>.animated.fadeOutUp {</p>
+
+<pre><code>-webkit-animation-name: fadeOutUp;
+-moz-animation-name: fadeOutUp;
+-o-animation-name: fadeOutUp;
+animation-name: fadeOutUp;</code></pre>
+
+<p>}</p>
+
+<p>@-webkit-keyframes fadeOutDown {</p>
+
+<pre><code>0% {
+    opacity: 1;
+    -webkit-transform: translateY(0);
+}
+
+100% {
+    opacity: 0;
+    -webkit-transform: translateY(20px);
+}</code></pre>
+
+<p>}</p>
+
+<p>@-moz-keyframes fadeOutDown {</p>
+
+<pre><code>0% {
+    opacity: 1;
+    -moz-transform: translateY(0);
+}
+
+100% {
+    opacity: 0;
+    -moz-transform: translateY(20px);
+}</code></pre>
+
+<p>}</p>
+
+<p>@-o-keyframes fadeOutDown {</p>
+
+<pre><code>0% {
+    opacity: 1;
+    -o-transform: translateY(0);
+}
+
+100% {
+    opacity: 0;
+    -o-transform: translateY(20px);
+}</code></pre>
+
+<p>}</p>
+
+<p>@keyframes fadeOutDown {</p>
+
+<pre><code>0% {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+100% {
+    opacity: 0;
+    transform: translateY(20px);
+}</code></pre>
+
+<p>}</p>
+
+<p>.animated.fadeOutDown {</p>
+
+<pre><code>-webkit-animation-name: fadeOutDown;
+-moz-animation-name: fadeOutDown;
+-o-animation-name: fadeOutDown;
+animation-name: fadeOutDown;</code></pre>
+
+<p>}</p>
+
+<p>@-webkit-keyframes fadeOutLeft {</p>
+
+<pre><code>0% {
+    opacity: 1;
+    -webkit-transform: translateX(0);
+}
+
+100% {
+    opacity: 0;
+    -webkit-transform: translateX(-20px);
+}</code></pre>
+
+<p>}</p>
+
+<p>@-moz-keyframes fadeOutLeft {</p>
+
+<pre><code>0% {
+    opacity: 1;
+    -moz-transform: translateX(0);
+}
+
+100% {
+    opacity: 0;
+    -moz-transform: translateX(-20px);
+}</code></pre>
+
+<p>}</p>
+
+<p>@-o-keyframes fadeOutLeft {</p>
+
+<pre><code>0% {
+    opacity: 1;
+    -o-transform: translateX(0);
+}
+
+100% {
+    opacity: 0;
+    -o-transform: translateX(-20px);
+}</code></pre>
+
+<p>}</p>
+
+<p>@keyframes fadeOutLeft {</p>
+
+<pre><code>0% {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+100% {
+    opacity: 0;
+    transform: translateX(-20px);
+}</code></pre>
+
+<p>}</p>
+
+<p>.animated.fadeOutLeft {</p>
+
+<pre><code>-webkit-animation-name: fadeOutLeft;
+-moz-animation-name: fadeOutLeft;
+-o-animation-name: fadeOutLeft;
+animation-name: fadeOutLeft;</code></pre>
+
+<p>}</p>
+
+<p>@-webkit-keyframes fadeOutRight {</p>
+
+<pre><code>0% {
+    opacity: 1;
+    -webkit-transform: translateX(0);
+}
+
+100% {
+    opacity: 0;
+    -webkit-transform: translateX(20px);
+}</code></pre>
+
+<p>}</p>
+
+<p>@-moz-keyframes fadeOutRight {</p>
+
+<pre><code>0% {
+    opacity: 1;
+    -moz-transform: translateX(0);
+}
+
+100% {
+    opacity: 0;
+    -moz-transform: translateX(20px);
+}</code></pre>
+
+<p>}</p>
+
+<p>@-o-keyframes fadeOutRight {</p>
+
+<pre><code>0% {
+    opacity: 1;
+    -o-transform: translateX(0);
+}
+
+100% {
+    opacity: 0;
+    -o-transform: translateX(20px);
+}</code></pre>
+
+<p>}</p>
+
+<p>@keyframes fadeOutRight {</p>
+
+<pre><code>0% {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+100% {
+    opacity: 0;
+    transform: translateX(20px);
+}</code></pre>
+
+<p>}</p>
+
+<p>.animated.fadeOutRight {</p>
+
+<pre><code>-webkit-animation-name: fadeOutRight;
+-moz-animation-name: fadeOutRight;
+-o-animation-name: fadeOutRight;
+animation-name: fadeOutRight;</code></pre>
+
+<p>}</p>
+
+<p>@-webkit-keyframes fadeOutUpBig {</p>
+
+<pre><code>0% {
+    opacity: 1;
+    -webkit-transform: translateY(0);
+}
+
+100% {
+    opacity: 0;
+    -webkit-transform: translateY(-2000px);
+}</code></pre>
+
+<p>}</p>
+
+<p>@-moz-keyframes fadeOutUpBig {</p>
+
+<pre><code>0% {
+    opacity: 1;
+    -moz-transform: translateY(0);
+}
+
+100% {
+    opacity: 0;
+    -moz-transform: translateY(-2000px);
+}</code></pre>
+
+<p>}</p>
+
+<p>@-o-keyframes fadeOutUpBig {</p>
+
+<pre><code>0% {
+    opacity: 1;
+    -o-transform: translateY(0);
+}
+
+100% {
+    opacity: 0;
+    -o-transform: translateY(-2000px);
+}</code></pre>
+
+<p>}</p>
+
+<p>@keyframes fadeOutUpBig {</p>
+
+<pre><code>0% {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+100% {
+    opacity: 0;
+    transform: translateY(-2000px);
+}</code></pre>
+
+<p>}</p>
+
+<p>.animated.fadeOutUpBig {</p>
+
+<pre><code>-webkit-animation-name: fadeOutUpBig;
+-moz-animation-name: fadeOutUpBig;
+-o-animation-name: fadeOutUpBig;
+animation-name: fadeOutUpBig;</code></pre>
+
+<p>}</p>
+
+<p>@-webkit-keyframes fadeOutDownBig {</p>
+
+<pre><code>0% {
+    opacity: 1;
+    -webkit-transform: translateY(0);
+}
+
+100% {
+    opacity: 0;
+    -webkit-transform: translateY(2000px);
+}</code></pre>
+
+<p>}</p>
+
+<p>@-moz-keyframes fadeOutDownBig {</p>
+
+<pre><code>0% {
+    opacity: 1;
+    -moz-transform: translateY(0);
+}
+
+100% {
+    opacity: 0;
+    -moz-transform: translateY(2000px);
+}</code></pre>
+
+<p>}</p>
+
+<p>@-o-keyframes fadeOutDownBig {</p>
+
+<pre><code>0% {
+    opacity: 1;
+    -o-transform: translateY(0);
+}
+
+100% {
+    opacity: 0;
+    -o-transform: translateY(2000px);
+}</code></pre>
+
+<p>}</p>
+
+<p>@keyframes fadeOutDownBig {</p>
+
+<pre><code>0% {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+100% {
+    opacity: 0;
+    transform: translateY(2000px);
+}</code></pre>
+
+<p>}</p>
+
+<p>.animated.fadeOutDownBig {</p>
+
+<pre><code>-webkit-animation-name: fadeOutDownBig;
+-moz-animation-name: fadeOutDownBig;
+-o-animation-name: fadeOutDownBig;
+animation-name: fadeOutDownBig;</code></pre>
+
+<p>}</p>
+
+<p>@-webkit-keyframes fadeOutLeftBig {</p>
+
+<pre><code>0% {
+    opacity: 1;
+    -webkit-transform: translateX(0);
+}
+
+100% {
+    opacity: 0;
+    -webkit-transform: translateX(-2000px);
+}</code></pre>
+
+<p>}</p>
+
+<p>@-moz-keyframes fadeOutLeftBig {</p>
+
+<pre><code>0% {
+    opacity: 1;
+    -moz-transform: translateX(0);
+}
+
+100% {
+    opacity: 0;
+    -moz-transform: translateX(-2000px);
+}</code></pre>
+
+<p>}</p>
+
+<p>@-o-keyframes fadeOutLeftBig {</p>
+
+<pre><code>0% {
+    opacity: 1;
+    -o-transform: translateX(0);
+}
+
+100% {
+    opacity: 0;
+    -o-transform: translateX(-2000px);
+}</code></pre>
+
+<p>}</p>
+
+<p>@keyframes fadeOutLeftBig {</p>
+
+<pre><code>0% {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+100% {
+    opacity: 0;
+    transform: translateX(-2000px);
+}</code></pre>
+
+<p>}</p>
+
+<p>.animated.fadeOutLeftBig {</p>
+
+<pre><code>-webkit-animation-name: fadeOutLeftBig;
+-moz-animation-name: fadeOutLeftBig;
+-o-animation-name: fadeOutLeftBig;
+animation-name: fadeOutLeftBig;</code></pre>
+
+<p>}</p>
+
+<p>@-webkit-keyframes fadeOutRightBig {</p>
+
+<pre><code>0% {
+    opacity: 1;
+    -webkit-transform: translateX(0);
+}
+
+100% {
+    opacity: 0;
+    -webkit-transform: translateX(2000px);
+}</code></pre>
+
+<p>}</p>
+
+<p>@-moz-keyframes fadeOutRightBig {</p>
+
+<pre><code>0% {
+    opacity: 1;
+    -moz-transform: translateX(0);
+}
+
+100% {
+    opacity: 0;
+    -moz-transform: translateX(2000px);
+}</code></pre>
+
+<p>}</p>
+
+<p>@-o-keyframes fadeOutRightBig {</p>
+
+<pre><code>0% {
+    opacity: 1;
+    -o-transform: translateX(0);
+}
+
+100% {
+    opacity: 0;
+    -o-transform: translateX(2000px);
+}</code></pre>
+
+<p>}</p>
+
+<p>@keyframes fadeOutRightBig {</p>
+
+<pre><code>0% {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+100% {
+    opacity: 0;
+    transform: translateX(2000px);
+}</code></pre>
+
+<p>}</p>
+
+<p>.animated.fadeOutRightBig {</p>
+
+<pre><code>-webkit-animation-name: fadeOutRightBig;
+-moz-animation-name: fadeOutRightBig;
+-o-animation-name: fadeOutRightBig;
+animation-name: fadeOutRightBig;</code></pre>
+
+<p>}</p>
+
+<p>@-webkit-keyframes bounceIn {</p>
+
+<pre><code>0% {
+    opacity: 0;
+    -webkit-transform: scale(.3);
+}
+
+50% {
+    opacity: 1;
+    -webkit-transform: scale(1.05);
+}
+
+70% {
+    -webkit-transform: scale(.9);
+}
+
+100% {
+    -webkit-transform: scale(1);
+}</code></pre>
+
+<p>}</p>
+
+<p>@-moz-keyframes bounceIn {</p>
+
+<pre><code>0% {
+    opacity: 0;
+    -moz-transform: scale(.3);
+}
+
+50% {
+    opacity: 1;
+    -moz-transform: scale(1.05);
+}
+
+70% {
+    -moz-transform: scale(.9);
+}
+
+100% {
+    -moz-transform: scale(1);
+}</code></pre>
+
+<p>}</p>
+
+<p>@-o-keyframes bounceIn {</p>
+
+<pre><code>0% {
+    opacity: 0;
+    -o-transform: scale(.3);
+}
+
+50% {
+    opacity: 1;
+    -o-transform: scale(1.05);
+}
+
+70% {
+    -o-transform: scale(.9);
+}
+
+100% {
+    -o-transform: scale(1);
+}</code></pre>
+
+<p>}</p>
+
+<p>@keyframes bounceIn {</p>
+
+<pre><code>0% {
+    opacity: 0;
+    transform: scale(.3);
+}
+
+50% {
+    opacity: 1;
+    transform: scale(1.05);
+}
+
+70% {
+    transform: scale(.9);
+}
+
+100% {
+    transform: scale(1);
+}</code></pre>
+
+<p>}</p>
+
+<p>@-webkit-keyframes slideInDown {</p>
+
+<pre><code>0% {
+    opacity: 0;
+    -webkit-transform: translateY(-2000px);
+}
+
+100% {
+    -webkit-transform: translateY(0);
+}</code></pre>
+
+<p>}</p>
+
+<p>@-moz-keyframes slideInDown {</p>
+
+<pre><code>0% {
+    opacity: 0;
+    -moz-transform: translateY(-2000px);
+}
+
+100% {
+    -moz-transform: translateY(0);
+}</code></pre>
+
+<p>}</p>
+
+<p>@-o-keyframes slideInDown {</p>
+
+<pre><code>0% {
+    opacity: 0;
+    -o-transform: translateY(-2000px);
+}
+
+100% {
+    -o-transform: translateY(0);
+}</code></pre>
+
+<p>}</p>
+
+<p>@keyframes slideInDown {</p>
+
+<pre><code>0% {
+    opacity: 0;
+    transform: translateY(-2000px);
+}
+
+100% {
+    transform: translateY(0);
+}</code></pre>
+
+<p>}</p>
+
+<p>.slideInDown {</p>
+
+<pre><code>-webkit-animation-name: slideInDown;
+-moz-animation-name: slideInDown;
+-o-animation-name: slideInDown;
+animation-name: slideInDown;</code></pre>
+
+<p>}</p>
+
+<p>@-webkit-keyframes slideInLeft {</p>
+
+<pre><code>0% {
+    opacity: 0;
+    -webkit-transform: translateX(-2000px);
+}
+
+100% {
+    -webkit-transform: translateX(0);
+}</code></pre>
+
+<p>}</p>
+
+<p>@-moz-keyframes slideInLeft {</p>
+
+<pre><code>0% {
+    opacity: 0;
+    -moz-transform: translateX(-2000px);
+}
+
+100% {
+    -moz-transform: translateX(0);
+}</code></pre>
+
+<p>}</p>
+
+<p>@-o-keyframes slideInLeft {</p>
+
+<pre><code>0% {
+    opacity: 0;
+    -o-transform: translateX(-2000px);
+}
+
+100% {
+    -o-transform: translateX(0);
+}</code></pre>
+
+<p>}</p>
+
+<p>@keyframes slideInLeft {</p>
+
+<pre><code>0% {
+    opacity: 0;
+    transform: translateX(-2000px);
+}
+
+100% {
+    transform: translateX(0);
+}</code></pre>
+
+<p>}</p>
+
+<p>.slideInLeft {</p>
+
+<pre><code>-webkit-animation-name: slideInLeft;
+-moz-animation-name: slideInLeft;
+-o-animation-name: slideInLeft;
+animation-name: slideInLeft;</code></pre>
+
+<p>}</p>
+
+<p>@-webkit-keyframes slideInRight {</p>
+
+<pre><code>0% {
+    opacity: 0;
+    -webkit-transform: translateX(2000px);
+}
+
+100% {
+    -webkit-transform: translateX(0);
+}</code></pre>
+
+<p>}</p>
+
+<p>@-moz-keyframes slideInRight {</p>
+
+<pre><code>0% {
+    opacity: 0;
+    -moz-transform: translateX(2000px);
+}
+
+100% {
+    -moz-transform: translateX(0);
+}</code></pre>
+
+<p>}</p>
+
+<p>@-o-keyframes slideInRight {</p>
+
+<pre><code>0% {
+    opacity: 0;
+    -o-transform: translateX(2000px);
+}
+
+100% {
+    -o-transform: translateX(0);
+}</code></pre>
+
+<p>}</p>
+
+<p>@keyframes slideInRight {</p>
+
+<pre><code>0% {
+    opacity: 0;
+    transform: translateX(2000px);
+}
+
+100% {
+    transform: translateX(0);
+}</code></pre>
+
+<p>}</p>
+
+<p>.slideInRight {</p>
+
+<pre><code>-webkit-animation-name: slideInRight;
+-moz-animation-name: slideInRight;
+-o-animation-name: slideInRight;
+animation-name: slideInRight;</code></pre>
+
+<p>}</p>
+
+<p>@-webkit-keyframes slideOutLeft {</p>
+
+<pre><code>0% {
+    -webkit-transform: translateX(0);
+}
+
+100% {
+    opacity: 0;
+    -webkit-transform: translateX(-2000px);
+}</code></pre>
+
+<p>}</p>
+
+<p>@-moz-keyframes slideOutLeft {</p>
+
+<pre><code>0% {
+    -moz-transform: translateX(0);
+}
+
+100% {
+    opacity: 0;
+    -moz-transform: translateX(-2000px);
+}</code></pre>
+
+<p>}</p>
+
+<p>@-o-keyframes slideOutLeft {</p>
+
+<pre><code>0% {
+    -o-transform: translateX(0);
+}
+
+100% {
+    opacity: 0;
+    -o-transform: translateX(-2000px);
+}</code></pre>
+
+<p>}</p>
+
+<p>@keyframes slideOutLeft {</p>
+
+<pre><code>0% {
+    transform: translateX(0);
+}
+
+100% {
+    opacity: 0;
+    transform: translateX(-2000px);
+}</code></pre>
+
+<p>}</p>
+
+<p>.slideOutLeft {</p>
+
+<pre><code>-webkit-animation-name: slideOutLeft;
+-moz-animation-name: slideOutLeft;
+-o-animation-name: slideOutLeft;
+animation-name: slideOutLeft;</code></pre>
+
+<p>}</p>
+
+<p>@-webkit-keyframes slideOutRight {</p>
+
+<pre><code>0% {
+    -webkit-transform: translateX(0);
+}
+
+100% {
+    opacity: 0;
+    -webkit-transform: translateX(2000px);
+}</code></pre>
+
+<p>}</p>
+
+<p>@-moz-keyframes slideOutRight {</p>
+
+<pre><code>0% {
+    -moz-transform: translateX(0);
+}
+
+100% {
+    opacity: 0;
+    -moz-transform: translateX(2000px);
+}</code></pre>
+
+<p>}</p>
+
+<p>@-o-keyframes slideOutRight {</p>
+
+<pre><code>0% {
+    -o-transform: translateX(0);
+}
+
+100% {
+    opacity: 0;
+    -o-transform: translateX(2000px);
+}</code></pre>
+
+<p>}</p>
+
+<p>@keyframes slideOutRight {</p>
+
+<pre><code>0% {
+    transform: translateX(0);
+}
+
+100% {
+    opacity: 0;
+    transform: translateX(2000px);
+}</code></pre>
+
+<p>}</p>
+
+<p>.slideOutRight {</p>
+
+<pre><code>-webkit-animation-name: slideOutRight;
+-moz-animation-name: slideOutRight;
+-o-animation-name: slideOutRight;
+animation-name: slideOutRight;</code></pre>
+
+<p>}</p>
+
+<p>@-webkit-keyframes slideOutUp {</p>
+
+<pre><code>0% {
+    -webkit-transform: translateY(0);
+}
+
+100% {
+    opacity: 0;
+    -webkit-transform: translateY(-2000px);
+}</code></pre>
+
+<p>}</p>
+
+<p>@-moz-keyframes slideOutUp {</p>
+
+<pre><code>0% {
+    -moz-transform: translateY(0);
+}
+
+100% {
+    opacity: 0;
+    -moz-transform: translateY(-2000px);
+}</code></pre>
+
+<p>}</p>
+
+<p>@-o-keyframes slideOutUp {</p>
+
+<pre><code>0% {
+    -o-transform: translateY(0);
+}
+
+100% {
+    opacity: 0;
+    -o-transform: translateY(-2000px);
+}</code></pre>
+
+<p>}</p>
+
+<p>@keyframes slideOutUp {</p>
+
+<pre><code>0% {
+    transform: translateY(0);
+}
+
+100% {
+    opacity: 0;
+    transform: translateY(-2000px);
+}</code></pre>
+
+<p>}</p>
+
+<p>.slideOutUp {</p>
+
+<pre><code>-webkit-animation-name: slideOutUp;
+-moz-animation-name: slideOutUp;
+-o-animation-name: slideOutUp;
+animation-name: slideOutUp;</code></pre>
+
+<p>}</p>
+
+<p>.animated.bounceIn {</p>
+
+<pre><code>-webkit-animation-name: bounceIn;
+-moz-animation-name: bounceIn;
+-o-animation-name: bounceIn;
+animation-name: bounceIn;</code></pre>
+
+<p>}</p>
+
+<p>@-webkit-keyframes bounceInUp {</p>
+
+<pre><code>0% {
+    opacity: 0;
+    -webkit-transform: translateY(2000px);
+}
+
+60% {
+    opacity: 1;
+    -webkit-transform: translateY(-30px);
+}
+
+80% {
+    -webkit-transform: translateY(10px);
+}
+
+100% {
+    -webkit-transform: translateY(0);
+}</code></pre>
+
+<p>}</p>
+
+<p>@-moz-keyframes bounceInUp {</p>
+
+<pre><code>0% {
+    opacity: 0;
+    -moz-transform: translateY(2000px);
+}
+
+60% {
+    opacity: 1;
+    -moz-transform: translateY(-30px);
+}
+
+80% {
+    -moz-transform: translateY(10px);
+}
+
+100% {
+    -moz-transform: translateY(0);
+}</code></pre>
+
+<p>}</p>
+
+<p>@-o-keyframes bounceInUp {</p>
+
+<pre><code>0% {
+    opacity: 0;
+    -o-transform: translateY(2000px);
+}
+
+60% {
+    opacity: 1;
+    -o-transform: translateY(-30px);
+}
+
+80% {
+    -o-transform: translateY(10px);
+}
+
+100% {
+    -o-transform: translateY(0);
+}</code></pre>
+
+<p>}</p>
+
+<p>@keyframes bounceInUp {</p>
+
+<pre><code>0% {
+    opacity: 0;
+    transform: translateY(2000px);
+}
+
+60% {
+    opacity: 1;
+    transform: translateY(-30px);
+}
+
+80% {
+    transform: translateY(10px);
+}
+
+100% {
+    transform: translateY(0);
+}</code></pre>
+
+<p>}</p>
+
+<p>.animated.bounceInUp {</p>
+
+<pre><code>-webkit-animation-name: bounceInUp;
+-moz-animation-name: bounceInUp;
+-o-animation-name: bounceInUp;
+animation-name: bounceInUp;</code></pre>
+
+<p>}</p>
+
+<p>@-webkit-keyframes bounceInDown {</p>
+
+<pre><code>0% {
+    opacity: 0;
+    -webkit-transform: translateY(-2000px);
+}
+
+60% {
+    opacity: 1;
+    -webkit-transform: translateY(30px);
+}
+
+80% {
+    -webkit-transform: translateY(-10px);
+}
+
+100% {
+    -webkit-transform: translateY(0);
+}</code></pre>
+
+<p>}</p>
+
+<p>@-moz-keyframes bounceInDown {</p>
+
+<pre><code>0% {
+    opacity: 0;
+    -moz-transform: translateY(-2000px);
+}
+
+60% {
+    opacity: 1;
+    -moz-transform: translateY(30px);
+}
+
+80% {
+    -moz-transform: translateY(-10px);
+}
+
+100% {
+    -moz-transform: translateY(0);
+}</code></pre>
+
+<p>}</p>
+
+<p>@-o-keyframes bounceInDown {</p>
+
+<pre><code>0% {
+    opacity: 0;
+    -o-transform: translateY(-2000px);
+}
+
+60% {
+    opacity: 1;
+    -o-transform: translateY(30px);
+}
+
+80% {
+    -o-transform: translateY(-10px);
+}
+
+100% {
+    -o-transform: translateY(0);
+}</code></pre>
+
+<p>}</p>
+
+<p>@keyframes bounceInDown {</p>
+
+<pre><code>0% {
+    opacity: 0;
+    transform: translateY(-2000px);
+}
+
+60% {
+    opacity: 1;
+    transform: translateY(30px);
+}
+
+80% {
+    transform: translateY(-10px);
+}
+
+100% {
+    transform: translateY(0);
+}</code></pre>
+
+<p>}</p>
+
+<p>.animated.bounceInDown {</p>
+
+<pre><code>-webkit-animation-name: bounceInDown;
+-moz-animation-name: bounceInDown;
+-o-animation-name: bounceInDown;
+animation-name: bounceInDown;</code></pre>
+
+<p>}</p>
+
+<p>@-webkit-keyframes bounceInLeft {</p>
+
+<pre><code>0% {
+    opacity: 0;
+    -webkit-transform: translateX(-2000px);
+}
+
+60% {
+    opacity: 1;
+    -webkit-transform: translateX(30px);
+}
+
+80% {
+    -webkit-transform: translateX(-10px);
+}
+
+100% {
+    -webkit-transform: translateX(0);
+}</code></pre>
+
+<p>}</p>
+
+<p>@-moz-keyframes bounceInLeft {</p>
+
+<pre><code>0% {
+    opacity: 0;
+    -moz-transform: translateX(-2000px);
+}
+
+60% {
+    opacity: 1;
+    -moz-transform: translateX(30px);
+}
+
+80% {
+    -moz-transform: translateX(-10px);
+}
+
+100% {
+    -moz-transform: translateX(0);
+}</code></pre>
+
+<p>}</p>
+
+<p>@-o-keyframes bounceInLeft {</p>
+
+<pre><code>0% {
+    opacity: 0;
+    -o-transform: translateX(-2000px);
+}
+
+60% {
+    opacity: 1;
+    -o-transform: translateX(30px);
+}
+
+80% {
+    -o-transform: translateX(-10px);
+}
+
+100% {
+    -o-transform: translateX(0);
+}</code></pre>
+
+<p>}</p>
+
+<p>@keyframes bounceInLeft {</p>
+
+<pre><code>0% {
+    opacity: 0;
+    transform: translateX(-2000px);
+}
+
+60% {
+    opacity: 1;
+    transform: translateX(30px);
+}
+
+80% {
+    transform: translateX(-10px);
+}
+
+100% {
+    transform: translateX(0);
+}</code></pre>
+
+<p>}</p>
+
+<p>.animated.bounceInLeft {</p>
+
+<pre><code>-webkit-animation-name: bounceInLeft;
+-moz-animation-name: bounceInLeft;
+-o-animation-name: bounceInLeft;
+animation-name: bounceInLeft;</code></pre>
+
+<p>}</p>
+
+<p>@-webkit-keyframes bounceInRight {</p>
+
+<pre><code>0% {
+    opacity: 0;
+    -webkit-transform: translateX(2000px);
+}
+
+60% {
+    opacity: 1;
+    -webkit-transform: translateX(-30px);
+}
+
+80% {
+    -webkit-transform: translateX(10px);
+}
+
+100% {
+    -webkit-transform: translateX(0);
+}</code></pre>
+
+<p>}</p>
+
+<p>@-moz-keyframes bounceInRight {</p>
+
+<pre><code>0% {
+    opacity: 0;
+    -moz-transform: translateX(2000px);
+}
+
+60% {
+    opacity: 1;
+    -moz-transform: translateX(-30px);
+}
+
+80% {
+    -moz-transform: translateX(10px);
+}
+
+100% {
+    -moz-transform: translateX(0);
+}</code></pre>
+
+<p>}</p>
+
+<p>@-o-keyframes bounceInRight {</p>
+
+<pre><code>0% {
+    opacity: 0;
+    -o-transform: translateX(2000px);
+}
+
+60% {
+    opacity: 1;
+    -o-transform: translateX(-30px);
+}
+
+80% {
+    -o-transform: translateX(10px);
+}
+
+100% {
+    -o-transform: translateX(0);
+}</code></pre>
+
+<p>}</p>
+
+<p>@keyframes bounceInRight {</p>
+
+<pre><code>0% {
+    opacity: 0;
+    transform: translateX(2000px);
+}
+
+60% {
+    opacity: 1;
+    transform: translateX(-30px);
+}
+
+80% {
+    transform: translateX(10px);
+}
+
+100% {
+    transform: translateX(0);
+}</code></pre>
+
+<p>}</p>
+
+<p>.animated.bounceInRight {</p>
+
+<pre><code>-webkit-animation-name: bounceInRight;
+-moz-animation-name: bounceInRight;
+-o-animation-name: bounceInRight;
+animation-name: bounceInRight;</code></pre>
+
+<p>}</p>
+
+<p>@-webkit-keyframes bounceOut {</p>
+
+<pre><code>0% {
+    -webkit-transform: scale(1);
+}
+
+25% {
+    -webkit-transform: scale(.95);
+}
+
+50% {
+    opacity: 1;
+    -webkit-transform: scale(1.1);
+}
+
+100% {
+    opacity: 0;
+    -webkit-transform: scale(.3);
+}</code></pre>
+
+<p>}</p>
+
+<p>@-moz-keyframes bounceOut {</p>
+
+<pre><code>0% {
+    -moz-transform: scale(1);
+}
+
+25% {
+    -moz-transform: scale(.95);
+}
+
+50% {
+    opacity: 1;
+    -moz-transform: scale(1.1);
+}
+
+100% {
+    opacity: 0;
+    -moz-transform: scale(.3);
+}</code></pre>
+
+<p>}</p>
+
+<p>@-o-keyframes bounceOut {</p>
+
+<pre><code>0% {
+    -o-transform: scale(1);
+}
+
+25% {
+    -o-transform: scale(.95);
+}
+
+50% {
+    opacity: 1;
+    -o-transform: scale(1.1);
+}
+
+100% {
+    opacity: 0;
+    -o-transform: scale(.3);
+}</code></pre>
+
+<p>}</p>
+
+<p>@keyframes bounceOut {</p>
+
+<pre><code>0% {
+    transform: scale(1);
+}
+
+25% {
+    transform: scale(.95);
+}
+
+50% {
+    opacity: 1;
+    transform: scale(1.1);
+}
+
+100% {
+    opacity: 0;
+    transform: scale(.3);
+}</code></pre>
+
+<p>}</p>
+
+<p>.animated.bounceOut {</p>
+
+<pre><code>-webkit-animation-name: bounceOut;
+-moz-animation-name: bounceOut;
+-o-animation-name: bounceOut;
+animation-name: bounceOut;</code></pre>
+
+<p>}</p>
+
+<p>@-webkit-keyframes bounceOutUp {</p>
+
+<pre><code>0% {
+    -webkit-transform: translateY(0);
+}
+
+20% {
+    opacity: 1;
+    -webkit-transform: translateY(20px);
+}
+
+100% {
+    opacity: 0;
+    -webkit-transform: translateY(-2000px);
+}</code></pre>
+
+<p>}</p>
+
+<p>@-moz-keyframes bounceOutUp {</p>
+
+<pre><code>0% {
+    -moz-transform: translateY(0);
+}
+
+20% {
+    opacity: 1;
+    -moz-transform: translateY(20px);
+}
+
+100% {
+    opacity: 0;
+    -moz-transform: translateY(-2000px);
+}</code></pre>
+
+<p>}</p>
+
+<p>@-o-keyframes bounceOutUp {</p>
+
+<pre><code>0% {
+    -o-transform: translateY(0);
+}
+
+20% {
+    opacity: 1;
+    -o-transform: translateY(20px);
+}
+
+100% {
+    opacity: 0;
+    -o-transform: translateY(-2000px);
+}</code></pre>
+
+<p>}</p>
+
+<p>@keyframes bounceOutUp {</p>
+
+<pre><code>0% {
+    transform: translateY(0);
+}
+
+20% {
+    opacity: 1;
+    transform: translateY(20px);
+}
+
+100% {
+    opacity: 0;
+    transform: translateY(-2000px);
+}</code></pre>
+
+<p>}</p>
+
+<p>.animated.bounceOutUp {</p>
+
+<pre><code>-webkit-animation-name: bounceOutUp;
+-moz-animation-name: bounceOutUp;
+-o-animation-name: bounceOutUp;
+animation-name: bounceOutUp;</code></pre>
+
+<p>}</p>
+
+<p>@-webkit-keyframes bounceOutDown {</p>
+
+<pre><code>0% {
+    -webkit-transform: translateY(0);
+}
+
+20% {
+    opacity: 1;
+    -webkit-transform: translateY(-20px);
+}
+
+100% {
+    opacity: 0;
+    -webkit-transform: translateY(2000px);
+}</code></pre>
+
+<p>}</p>
+
+<p>@-moz-keyframes bounceOutDown {</p>
+
+<pre><code>0% {
+    -moz-transform: translateY(0);
+}
+
+20% {
+    opacity: 1;
+    -moz-transform: translateY(-20px);
+}
+
+100% {
+    opacity: 0;
+    -moz-transform: translateY(2000px);
+}</code></pre>
+
+<p>}</p>
+
+<p>@-o-keyframes bounceOutDown {</p>
+
+<pre><code>0% {
+    -o-transform: translateY(0);
+}
+
+20% {
+    opacity: 1;
+    -o-transform: translateY(-20px);
+}
+
+100% {
+    opacity: 0;
+    -o-transform: translateY(2000px);
+}</code></pre>
+
+<p>}</p>
+
+<p>@keyframes bounceOutDown {</p>
+
+<pre><code>0% {
+    transform: translateY(0);
+}
+
+20% {
+    opacity: 1;
+    transform: translateY(-20px);
+}
+
+100% {
+    opacity: 0;
+    transform: translateY(2000px);
+}</code></pre>
+
+<p>}</p>
+
+<p>.animated.bounceOutDown {</p>
+
+<pre><code>-webkit-animation-name: bounceOutDown;
+-moz-animation-name: bounceOutDown;
+-o-animation-name: bounceOutDown;
+animation-name: bounceOutDown;</code></pre>
+
+<p>}</p>
+
+<p>@-webkit-keyframes bounceOutLeft {</p>
+
+<pre><code>0% {
+    -webkit-transform: translateX(0);
+}
+
+20% {
+    opacity: 1;
+    -webkit-transform: translateX(20px);
+}
+
+100% {
+    opacity: 0;
+    -webkit-transform: translateX(-2000px);
+}</code></pre>
+
+<p>}</p>
+
+<p>@-moz-keyframes bounceOutLeft {</p>
+
+<pre><code>0% {
+    -moz-transform: translateX(0);
+}
+
+20% {
+    opacity: 1;
+    -moz-transform: translateX(20px);
+}
+
+100% {
+    opacity: 0;
+    -moz-transform: translateX(-2000px);
+}</code></pre>
+
+<p>}</p>
+
+<p>@-o-keyframes bounceOutLeft {</p>
+
+<pre><code>0% {
+    -o-transform: translateX(0);
+}
+
+20% {
+    opacity: 1;
+    -o-transform: translateX(20px);
+}
+
+100% {
+    opacity: 0;
+    -o-transform: translateX(-2000px);
+}</code></pre>
+
+<p>}</p>
+
+<p>@keyframes bounceOutLeft {</p>
+
+<pre><code>0% {
+    transform: translateX(0);
+}
+
+20% {
+    opacity: 1;
+    transform: translateX(20px);
+}
+
+100% {
+    opacity: 0;
+    transform: translateX(-2000px);
+}</code></pre>
+
+<p>}</p>
+
+<p>.animated.bounceOutLeft {</p>
+
+<pre><code>-webkit-animation-name: bounceOutLeft;
+-moz-animation-name: bounceOutLeft;
+-o-animation-name: bounceOutLeft;
+animation-name: bounceOutLeft;</code></pre>
+
+<p>}</p>
+
+<p>@-webkit-keyframes bounceOutRight {</p>
+
+<pre><code>0% {
+    -webkit-transform: translateX(0);
+}
+
+20% {
+    opacity: 1;
+    -webkit-transform: translateX(-20px);
+}
+
+100% {
+    opacity: 0;
+    -webkit-transform: translateX(2000px);
+}</code></pre>
+
+<p>}</p>
+
+<p>@-moz-keyframes bounceOutRight {</p>
+
+<pre><code>0% {
+    -moz-transform: translateX(0);
+}
+
+20% {
+    opacity: 1;
+    -moz-transform: translateX(-20px);
+}
+
+100% {
+    opacity: 0;
+    -moz-transform: translateX(2000px);
+}</code></pre>
+
+<p>}</p>
+
+<p>@-o-keyframes bounceOutRight {</p>
+
+<pre><code>0% {
+    -o-transform: translateX(0);
+}
+
+20% {
+    opacity: 1;
+    -o-transform: translateX(-20px);
+}
+
+100% {
+    opacity: 0;
+    -o-transform: translateX(2000px);
+}</code></pre>
+
+<p>}</p>
+
+<p>@keyframes bounceOutRight {</p>
+
+<pre><code>0% {
+    transform: translateX(0);
+}
+
+20% {
+    opacity: 1;
+    transform: translateX(-20px);
+}
+
+100% {
+    opacity: 0;
+    transform: translateX(2000px);
+}</code></pre>
+
+<p>}</p>
+
+<p>.animated.bounceOutRight {</p>
+
+<pre><code>-webkit-animation-name: bounceOutRight;
+-moz-animation-name: bounceOutRight;
+-o-animation-name: bounceOutRight;
+animation-name: bounceOutRight;</code></pre>
+
+<p>}</p>
+
+<p>@-webkit-keyframes rotateIn {</p>
+
+<pre><code>0% {
+    -webkit-transform-origin: center center;
+    -webkit-transform: rotate(-200deg);
+    opacity: 0;
+}
+
+100% {
+    -webkit-transform-origin: center center;
+    -webkit-transform: rotate(0);
+    opacity: 1;
+}</code></pre>
+
+<p>}</p>
+
+<p>@-moz-keyframes rotateIn {</p>
+
+<pre><code>0% {
+    -moz-transform-origin: center center;
+    -moz-transform: rotate(-200deg);
+    opacity: 0;
+}
+
+100% {
+    -moz-transform-origin: center center;
+    -moz-transform: rotate(0);
+    opacity: 1;
+}</code></pre>
+
+<p>}</p>
+
+<p>@-o-keyframes rotateIn {</p>
+
+<pre><code>0% {
+    -o-transform-origin: center center;
+    -o-transform: rotate(-200deg);
+    opacity: 0;
+}
+
+100% {
+    -o-transform-origin: center center;
+    -o-transform: rotate(0);
+    opacity: 1;
+}</code></pre>
+
+<p>}</p>
+
+<p>@keyframes rotateIn {</p>
+
+<pre><code>0% {
+    transform-origin: center center;
+    transform: rotate(-200deg);
+    opacity: 0;
+}
+
+100% {
+    transform-origin: center center;
+    transform: rotate(0);
+    opacity: 1;
+}</code></pre>
+
+<p>}</p>
+
+<p>.animated.rotateIn {</p>
+
+<pre><code>-webkit-animation-name: rotateIn;
+-moz-animation-name: rotateIn;
+-o-animation-name: rotateIn;
+animation-name: rotateIn;</code></pre>
+
+<p>}</p>
+
+<p>@-webkit-keyframes rotateInUpLeft {</p>
+
+<pre><code>0% {
+    -webkit-transform-origin: left bottom;
+    -webkit-transform: rotate(90deg);
+    opacity: 0;
+}
+
+100% {
+    -webkit-transform-origin: left bottom;
+    -webkit-transform: rotate(0);
+    opacity: 1;
+}</code></pre>
+
+<p>}</p>
+
+<p>@-moz-keyframes rotateInUpLeft {</p>
+
+<pre><code>0% {
+    -moz-transform-origin: left bottom;
+    -moz-transform: rotate(90deg);
+    opacity: 0;
+}
+
+100% {
+    -moz-transform-origin: left bottom;
+    -moz-transform: rotate(0);
+    opacity: 1;
+}</code></pre>
+
+<p>}</p>
+
+<p>@-o-keyframes rotateInUpLeft {</p>
+
+<pre><code>0% {
+    -o-transform-origin: left bottom;
+    -o-transform: rotate(90deg);
+    opacity: 0;
+}
+
+100% {
+    -o-transform-origin: left bottom;
+    -o-transform: rotate(0);
+    opacity: 1;
+}</code></pre>
+
+<p>}</p>
+
+<p>@keyframes rotateInUpLeft {</p>
+
+<pre><code>0% {
+    transform-origin: left bottom;
+    transform: rotate(90deg);
+    opacity: 0;
+}
+
+100% {
+    transform-origin: left bottom;
+    transform: rotate(0);
+    opacity: 1;
+}</code></pre>
+
+<p>}</p>
+
+<p>.animated.rotateInUpLeft {</p>
+
+<pre><code>-webkit-animation-name: rotateInUpLeft;
+-moz-animation-name: rotateInUpLeft;
+-o-animation-name: rotateInUpLeft;
+animation-name: rotateInUpLeft;</code></pre>
+
+<p>}</p>
+
+<p>@-webkit-keyframes rotateInDownLeft {</p>
+
+<pre><code>0% {
+    -webkit-transform-origin: left bottom;
+    -webkit-transform: rotate(-90deg);
+    opacity: 0;
+}
+
+100% {
+    -webkit-transform-origin: left bottom;
+    -webkit-transform: rotate(0);
+    opacity: 1;
+}</code></pre>
+
+<p>}</p>
+
+<p>@-moz-keyframes rotateInDownLeft {</p>
+
+<pre><code>0% {
+    -moz-transform-origin: left bottom;
+    -moz-transform: rotate(-90deg);
+    opacity: 0;
+}
+
+100% {
+    -moz-transform-origin: left bottom;
+    -moz-transform: rotate(0);
+    opacity: 1;
+}</code></pre>
+
+<p>}</p>
+
+<p>@-o-keyframes rotateInDownLeft {</p>
+
+<pre><code>0% {
+    -o-transform-origin: left bottom;
+    -o-transform: rotate(-90deg);
+    opacity: 0;
+}
+
+100% {
+    -o-transform-origin: left bottom;
+    -o-transform: rotate(0);
+    opacity: 1;
+}</code></pre>
+
+<p>}</p>
+
+<p>@keyframes rotateInDownLeft {</p>
+
+<pre><code>0% {
+    transform-origin: left bottom;
+    transform: rotate(-90deg);
+    opacity: 0;
+}
+
+100% {
+    transform-origin: left bottom;
+    transform: rotate(0);
+    opacity: 1;
+}</code></pre>
+
+<p>}</p>
+
+<p>.animated.rotateInDownLeft {</p>
+
+<pre><code>-webkit-animation-name: rotateInDownLeft;
+-moz-animation-name: rotateInDownLeft;
+-o-animation-name: rotateInDownLeft;
+animation-name: rotateInDownLeft;</code></pre>
+
+<p>}</p>
+
+<p>@-webkit-keyframes rotateInUpRight {</p>
+
+<pre><code>0% {
+    -webkit-transform-origin: right bottom;
+    -webkit-transform: rotate(-90deg);
+    opacity: 0;
+}
+
+100% {
+    -webkit-transform-origin: right bottom;
+    -webkit-transform: rotate(0);
+    opacity: 1;
+}</code></pre>
+
+<p>}</p>
+
+<p>@-moz-keyframes rotateInUpRight {</p>
+
+<pre><code>0% {
+    -moz-transform-origin: right bottom;
+    -moz-transform: rotate(-90deg);
+    opacity: 0;
+}
+
+100% {
+    -moz-transform-origin: right bottom;
+    -moz-transform: rotate(0);
+    opacity: 1;
+}</code></pre>
+
+<p>}</p>
+
+<p>@-o-keyframes rotateInUpRight {</p>
+
+<pre><code>0% {
+    -o-transform-origin: right bottom;
+    -o-transform: rotate(-90deg);
+    opacity: 0;
+}
+
+100% {
+    -o-transform-origin: right bottom;
+    -o-transform: rotate(0);
+    opacity: 1;
+}</code></pre>
+
+<p>}</p>
+
+<p>@keyframes rotateInUpRight {</p>
+
+<pre><code>0% {
+    transform-origin: right bottom;
+    transform: rotate(-90deg);
+    opacity: 0;
+}
+
+100% {
+    transform-origin: right bottom;
+    transform: rotate(0);
+    opacity: 1;
+}</code></pre>
+
+<p>}</p>
+
+<p>.animated.rotateInUpRight {</p>
+
+<pre><code>-webkit-animation-name: rotateInUpRight;
+-moz-animation-name: rotateInUpRight;
+-o-animation-name: rotateInUpRight;
+animation-name: rotateInUpRight;</code></pre>
+
+<p>}</p>
+
+<p>@-webkit-keyframes rotateInDownRight {</p>
+
+<pre><code>0% {
+    -webkit-transform-origin: right bottom;
+    -webkit-transform: rotate(90deg);
+    opacity: 0;
+}
+
+100% {
+    -webkit-transform-origin: right bottom;
+    -webkit-transform: rotate(0);
+    opacity: 1;
+}</code></pre>
+
+<p>}</p>
+
+<p>@-moz-keyframes rotateInDownRight {</p>
+
+<pre><code>0% {
+    -moz-transform-origin: right bottom;
+    -moz-transform: rotate(90deg);
+    opacity: 0;
+}
+
+100% {
+    -moz-transform-origin: right bottom;
+    -moz-transform: rotate(0);
+    opacity: 1;
+}</code></pre>
+
+<p>}</p>
+
+<p>@-o-keyframes rotateInDownRight {</p>
+
+<pre><code>0% {
+    -o-transform-origin: right bottom;
+    -o-transform: rotate(90deg);
+    opacity: 0;
+}
+
+100% {
+    -o-transform-origin: right bottom;
+    -o-transform: rotate(0);
+    opacity: 1;
+}</code></pre>
+
+<p>}</p>
+
+<p>@keyframes rotateInDownRight {</p>
+
+<pre><code>0% {
+    transform-origin: right bottom;
+    transform: rotate(90deg);
+    opacity: 0;
+}
+
+100% {
+    transform-origin: right bottom;
+    transform: rotate(0);
+    opacity: 1;
+}</code></pre>
+
+<p>}</p>
+
+<p>.animated.rotateInDownRight {</p>
+
+<pre><code>-webkit-animation-name: rotateInDownRight;
+-moz-animation-name: rotateInDownRight;
+-o-animation-name: rotateInDownRight;
+animation-name: rotateInDownRight;</code></pre>
+
+<p>}</p>
+
+<p>@-webkit-keyframes rotateOut {</p>
+
+<pre><code>0% {
+    -webkit-transform-origin: center center;
+    -webkit-transform: rotate(0);
+    opacity: 1;
+}
+
+100% {
+    -webkit-transform-origin: center center;
+    -webkit-transform: rotate(200deg);
+    opacity: 0;
+}</code></pre>
+
+<p>}</p>
+
+<p>@-moz-keyframes rotateOut {</p>
+
+<pre><code>0% {
+    -moz-transform-origin: center center;
+    -moz-transform: rotate(0);
+    opacity: 1;
+}
+
+100% {
+    -moz-transform-origin: center center;
+    -moz-transform: rotate(200deg);
+    opacity: 0;
+}</code></pre>
+
+<p>}</p>
+
+<p>@-o-keyframes rotateOut {</p>
+
+<pre><code>0% {
+    -o-transform-origin: center center;
+    -o-transform: rotate(0);
+    opacity: 1;
+}
+
+100% {
+    -o-transform-origin: center center;
+    -o-transform: rotate(200deg);
+    opacity: 0;
+}</code></pre>
+
+<p>}</p>
+
+<p>@keyframes rotateOut {</p>
+
+<pre><code>0% {
+    transform-origin: center center;
+    transform: rotate(0);
+    opacity: 1;
+}
+
+100% {
+    transform-origin: center center;
+    transform: rotate(200deg);
+    opacity: 0;
+}</code></pre>
+
+<p>}</p>
+
+<p>.animated.rotateOut {</p>
+
+<pre><code>-webkit-animation-name: rotateOut;
+-moz-animation-name: rotateOut;
+-o-animation-name: rotateOut;
+animation-name: rotateOut;</code></pre>
+
+<p>}</p>
+
+<p>@-webkit-keyframes rotateOutUpLeft {</p>
+
+<pre><code>0% {
+    -webkit-transform-origin: left bottom;
+    -webkit-transform: rotate(0);
+    opacity: 1;
+}
+
+100% {
+    -webkit-transform-origin: left bottom;
+    -webkit-transform: rotate(-90deg);
+    opacity: 0;
+}</code></pre>
+
+<p>}</p>
+
+<p>@-moz-keyframes rotateOutUpLeft {</p>
+
+<pre><code>0% {
+    -moz-transform-origin: left bottom;
+    -moz-transform: rotate(0);
+    opacity: 1;
+}
+
+100% {
+    -moz-transform-origin: left bottom;
+    -moz-transform: rotate(-90deg);
+    opacity: 0;
+}</code></pre>
+
+<p>}</p>
+
+<p>@-o-keyframes rotateOutUpLeft {</p>
+
+<pre><code>0% {
+    -o-transform-origin: left bottom;
+    -o-transform: rotate(0);
+    opacity: 1;
+}
+
+100% {
+    -o-transform-origin: left bottom;
+    -o-transform: rotate(-90deg);
+    opacity: 0;
+}</code></pre>
+
+<p>}</p>
+
+<p>@keyframes rotateOutUpLeft {</p>
+
+<pre><code>0% {
+    transform-origin: left bottom;
+    transform: rotate(0);
+    opacity: 1;
+}
+
+100% {
+    transform-origin: left bottom;
+    transform: rotate(-90deg);
+    opacity: 0;
+}</code></pre>
+
+<p>}</p>
+
+<p>.animated.rotateOutUpLeft {</p>
+
+<pre><code>-webkit-animation-name: rotateOutUpLeft;
+-moz-animation-name: rotateOutUpLeft;
+-o-animation-name: rotateOutUpLeft;
+animation-name: rotateOutUpLeft;</code></pre>
+
+<p>}</p>
+
+<p>@-webkit-keyframes rotateOutDownLeft {</p>
+
+<pre><code>0% {
+    -webkit-transform-origin: left bottom;
+    -webkit-transform: rotate(0);
+    opacity: 1;
+}
+
+100% {
+    -webkit-transform-origin: left bottom;
+    -webkit-transform: rotate(90deg);
+    opacity: 0;
+}</code></pre>
+
+<p>}</p>
+
+<p>@-moz-keyframes rotateOutDownLeft {</p>
+
+<pre><code>0% {
+    -moz-transform-origin: left bottom;
+    -moz-transform: rotate(0);
+    opacity: 1;
+}
+
+100% {
+    -moz-transform-origin: left bottom;
+    -moz-transform: rotate(90deg);
+    opacity: 0;
+}</code></pre>
+
+<p>}</p>
+
+<p>@-o-keyframes rotateOutDownLeft {</p>
+
+<pre><code>0% {
+    -o-transform-origin: left bottom;
+    -o-transform: rotate(0);
+    opacity: 1;
+}
+
+100% {
+    -o-transform-origin: left bottom;
+    -o-transform: rotate(90deg);
+    opacity: 0;
+}</code></pre>
+
+<p>}</p>
+
+<p>@keyframes rotateOutDownLeft {</p>
+
+<pre><code>0% {
+    transform-origin: left bottom;
+    transform: rotate(0);
+    opacity: 1;
+}
+
+100% {
+    transform-origin: left bottom;
+    transform: rotate(90deg);
+    opacity: 0;
+}</code></pre>
+
+<p>}</p>
+
+<p>.animated.rotateOutDownLeft {</p>
+
+<pre><code>-webkit-animation-name: rotateOutDownLeft;
+-moz-animation-name: rotateOutDownLeft;
+-o-animation-name: rotateOutDownLeft;
+animation-name: rotateOutDownLeft;</code></pre>
+
+<p>}</p>
+
+<p>@-webkit-keyframes rotateOutUpRight {</p>
+
+<pre><code>0% {
+    -webkit-transform-origin: right bottom;
+    -webkit-transform: rotate(0);
+    opacity: 1;
+}
+
+100% {
+    -webkit-transform-origin: right bottom;
+    -webkit-transform: rotate(90deg);
+    opacity: 0;
+}</code></pre>
+
+<p>}</p>
+
+<p>@-moz-keyframes rotateOutUpRight {</p>
+
+<pre><code>0% {
+    -moz-transform-origin: right bottom;
+    -moz-transform: rotate(0);
+    opacity: 1;
+}
+
+100% {
+    -moz-transform-origin: right bottom;
+    -moz-transform: rotate(90deg);
+    opacity: 0;
+}</code></pre>
+
+<p>}</p>
+
+<p>@-o-keyframes rotateOutUpRight {</p>
+
+<pre><code>0% {
+    -o-transform-origin: right bottom;
+    -o-transform: rotate(0);
+    opacity: 1;
+}
+
+100% {
+    -o-transform-origin: right bottom;
+    -o-transform: rotate(90deg);
+    opacity: 0;
+}</code></pre>
+
+<p>}</p>
+
+<p>@keyframes rotateOutUpRight {</p>
+
+<pre><code>0% {
+    transform-origin: right bottom;
+    transform: rotate(0);
+    opacity: 1;
+}
+
+100% {
+    transform-origin: right bottom;
+    transform: rotate(90deg);
+    opacity: 0;
+}</code></pre>
+
+<p>}</p>
+
+<p>.animated.rotateOutUpRight {</p>
+
+<pre><code>-webkit-animation-name: rotateOutUpRight;
+-moz-animation-name: rotateOutUpRight;
+-o-animation-name: rotateOutUpRight;
+animation-name: rotateOutUpRight;</code></pre>
+
+<p>}</p>
+
+<p>@-webkit-keyframes rotateOutDownRight {</p>
+
+<pre><code>0% {
+    -webkit-transform-origin: right bottom;
+    -webkit-transform: rotate(0);
+    opacity: 1;
+}
+
+100% {
+    -webkit-transform-origin: right bottom;
+    -webkit-transform: rotate(-90deg);
+    opacity: 0;
+}</code></pre>
+
+<p>}</p>
+
+<p>@-moz-keyframes rotateOutDownRight {</p>
+
+<pre><code>0% {
+    -moz-transform-origin: right bottom;
+    -moz-transform: rotate(0);
+    opacity: 1;
+}
+
+100% {
+    -moz-transform-origin: right bottom;
+    -moz-transform: rotate(-90deg);
+    opacity: 0;
+}</code></pre>
+
+<p>}</p>
+
+<p>@-o-keyframes rotateOutDownRight {</p>
+
+<pre><code>0% {
+    -o-transform-origin: right bottom;
+    -o-transform: rotate(0);
+    opacity: 1;
+}
+
+100% {
+    -o-transform-origin: right bottom;
+    -o-transform: rotate(-90deg);
+    opacity: 0;
+}</code></pre>
+
+<p>}</p>
+
+<p>@keyframes rotateOutDownRight {</p>
+
+<pre><code>0% {
+    transform-origin: right bottom;
+    transform: rotate(0);
+    opacity: 1;
+}
+
+100% {
+    transform-origin: right bottom;
+    transform: rotate(-90deg);
+    opacity: 0;
+}</code></pre>
+
+<p>}</p>
+
+<p>.animated.rotateOutDownRight {</p>
+
+<pre><code>-webkit-animation-name: rotateOutDownRight;
+-moz-animation-name: rotateOutDownRight;
+-o-animation-name: rotateOutDownRight;
+animation-name: rotateOutDownRight;</code></pre>
+
+<p>}</p>
+
+<p>@-webkit-keyframes hinge {</p>
+
+<pre><code>0% {
+    -webkit-transform: rotate(0);
+    -webkit-transform-origin: top left;
+    -webkit-animation-timing-function: ease-in-out;
+}
+
+20%,60% {
+    -webkit-transform: rotate(80deg);
+    -webkit-transform-origin: top left;
+    -webkit-animation-timing-function: ease-in-out;
+}
+
+40% {
+    -webkit-transform: rotate(60deg);
+    -webkit-transform-origin: top left;
+    -webkit-animation-timing-function: ease-in-out;
+}
+
+80% {
+    -webkit-transform: rotate(60deg) translateY(0);
+    opacity: 1;
+    -webkit-transform-origin: top left;
+    -webkit-animation-timing-function: ease-in-out;
+}
+
+100% {
+    -webkit-transform: translateY(700px);
+    opacity: 0;
+}</code></pre>
+
+<p>}</p>
+
+<p>@-moz-keyframes hinge {</p>
+
+<pre><code>0% {
+    -moz-transform: rotate(0);
+    -moz-transform-origin: top left;
+    -moz-animation-timing-function: ease-in-out;
+}
+
+20%,60% {
+    -moz-transform: rotate(80deg);
+    -moz-transform-origin: top left;
+    -moz-animation-timing-function: ease-in-out;
+}
+
+40% {
+    -moz-transform: rotate(60deg);
+    -moz-transform-origin: top left;
+    -moz-animation-timing-function: ease-in-out;
+}
+
+80% {
+    -moz-transform: rotate(60deg) translateY(0);
+    opacity: 1;
+    -moz-transform-origin: top left;
+    -moz-animation-timing-function: ease-in-out;
+}
+
+100% {
+    -moz-transform: translateY(700px);
+    opacity: 0;
+}</code></pre>
+
+<p>}</p>
+
+<p>@-o-keyframes hinge {</p>
+
+<pre><code>0% {
+    -o-transform: rotate(0);
+    -o-transform-origin: top left;
+    -o-animation-timing-function: ease-in-out;
+}
+
+20%,60% {
+    -o-transform: rotate(80deg);
+    -o-transform-origin: top left;
+    -o-animation-timing-function: ease-in-out;
+}
+
+40% {
+    -o-transform: rotate(60deg);
+    -o-transform-origin: top left;
+    -o-animation-timing-function: ease-in-out;
+}
+
+80% {
+    -o-transform: rotate(60deg) translateY(0);
+    opacity: 1;
+    -o-transform-origin: top left;
+    -o-animation-timing-function: ease-in-out;
+}
+
+100% {
+    -o-transform: translateY(700px);
+    opacity: 0;
+}</code></pre>
+
+<p>}</p>
+
+<p>@keyframes hinge {</p>
+
+<pre><code>0% {
+    transform: rotate(0);
+    transform-origin: top left;
+    animation-timing-function: ease-in-out;
+}
+
+20%,60% {
+    transform: rotate(80deg);
+    transform-origin: top left;
+    animation-timing-function: ease-in-out;
+}
+
+40% {
+    transform: rotate(60deg);
+    transform-origin: top left;
+    animation-timing-function: ease-in-out;
+}
+
+80% {
+    transform: rotate(60deg) translateY(0);
+    opacity: 1;
+    transform-origin: top left;
+    animation-timing-function: ease-in-out;
+}
+
+100% {
+    transform: translateY(700px);
+    opacity: 0;
+}</code></pre>
+
+<p>}</p>
+
+<p>.animated.hinge {</p>
+
+<pre><code>-webkit-animation-name: hinge;
+-moz-animation-name: hinge;
+-o-animation-name: hinge;
+animation-name: hinge;</code></pre>
+
+<p>}</p>
+
+<p>@-webkit-keyframes rollIn {</p>
+
+<pre><code>0% {
+    opacity: 0;
+    -webkit-transform: translateX(-100%) rotate(-120deg);
+}
+
+100% {
+    opacity: 1;
+    -webkit-transform: translateX(0px) rotate(0deg);
+}</code></pre>
+
+<p>}</p>
+
+<p>@-moz-keyframes rollIn {</p>
+
+<pre><code>0% {
+    opacity: 0;
+    -moz-transform: translateX(-100%) rotate(-120deg);
+}
+
+100% {
+    opacity: 1;
+    -moz-transform: translateX(0px) rotate(0deg);
+}</code></pre>
+
+<p>}</p>
+
+<p>@-o-keyframes rollIn {</p>
+
+<pre><code>0% {
+    opacity: 0;
+    -o-transform: translateX(-100%) rotate(-120deg);
+}
+
+100% {
+    opacity: 1;
+    -o-transform: translateX(0px) rotate(0deg);
+}</code></pre>
+
+<p>}</p>
+
+<p>@keyframes rollIn {</p>
+
+<pre><code>0% {
+    opacity: 0;
+    transform: translateX(-100%) rotate(-120deg);
+}
+
+100% {
+    opacity: 1;
+    transform: translateX(0px) rotate(0deg);
+}</code></pre>
+
+<p>}</p>
+
+<p>.animated.rollIn {</p>
+
+<pre><code>-webkit-animation-name: rollIn;
+-moz-animation-name: rollIn;
+-o-animation-name: rollIn;
+animation-name: rollIn;</code></pre>
+
+<p>}</p>
+
+<p>@-webkit-keyframes rollOut {</p>
+
+<pre><code>0% {
+    opacity: 1;
+    -webkit-transform: translateX(0px) rotate(0deg);
+}
+
+100% {
+    opacity: 0;
+    -webkit-transform: translateX(100%) rotate(120deg);
+}</code></pre>
+
+<p>}</p>
+
+<p>@-moz-keyframes rollOut {</p>
+
+<pre><code>0% {
+    opacity: 1;
+    -moz-transform: translateX(0px) rotate(0deg);
+}
+
+100% {
+    opacity: 0;
+    -moz-transform: translateX(100%) rotate(120deg);
+}</code></pre>
+
+<p>}</p>
+
+<p>@-o-keyframes rollOut {</p>
+
+<pre><code>0% {
+    opacity: 1;
+    -o-transform: translateX(0px) rotate(0deg);
+}
+
+100% {
+    opacity: 0;
+    -o-transform: translateX(100%) rotate(120deg);
+}</code></pre>
+
+<p>}</p>
+
+<p>@keyframes rollOut {</p>
+
+<pre><code>0% {
+    opacity: 1;
+    transform: translateX(0px) rotate(0deg);
+}
+
+100% {
+    opacity: 0;
+    transform: translateX(100%) rotate(120deg);
+}</code></pre>
+
+<p>}</p>
+
+<p>.animated.rollOut {</p>
+
+<pre><code>-webkit-animation-name: rollOut;
+-moz-animation-name: rollOut;
+-o-animation-name: rollOut;
+animation-name: rollOut;</code></pre>
+
+<p>}</p>
+
+<p>@-webkit-keyframes lightSpeedIn {</p>
+
+<pre><code>0% {
+    -webkit-transform: translateX(100%) skewX(-30deg);
+    opacity: 0;
+}
+
+60% {
+    -webkit-transform: translateX(-20%) skewX(30deg);
+    opacity: 1;
+}
+
+80% {
+    -webkit-transform: translateX(0%) skewX(-15deg);
+    opacity: 1;
+}
+
+100% {
+    -webkit-transform: translateX(0%) skewX(0deg);
+    opacity: 1;
+}</code></pre>
+
+<p>}</p>
+
+<p>@-moz-keyframes lightSpeedIn {</p>
+
+<pre><code>0% {
+    -moz-transform: translateX(100%) skewX(-30deg);
+    opacity: 0;
+}
+
+60% {
+    -moz-transform: translateX(-20%) skewX(30deg);
+    opacity: 1;
+}
+
+80% {
+    -moz-transform: translateX(0%) skewX(-15deg);
+    opacity: 1;
+}
+
+100% {
+    -moz-transform: translateX(0%) skewX(0deg);
+    opacity: 1;
+}</code></pre>
+
+<p>}</p>
+
+<p>@-o-keyframes lightSpeedIn {</p>
+
+<pre><code>0% {
+    -o-transform: translateX(100%) skewX(-30deg);
+    opacity: 0;
+}
+
+60% {
+    -o-transform: translateX(-20%) skewX(30deg);
+    opacity: 1;
+}
+
+80% {
+    -o-transform: translateX(0%) skewX(-15deg);
+    opacity: 1;
+}
+
+100% {
+    -o-transform: translateX(0%) skewX(0deg);
+    opacity: 1;
+}</code></pre>
+
+<p>}</p>
+
+<p>@keyframes lightSpeedIn {</p>
+
+<pre><code>0% {
+    transform: translateX(100%) skewX(-30deg);
+    opacity: 0;
+}
+
+60% {
+    transform: translateX(-20%) skewX(30deg);
+    opacity: 1;
+}
+
+80% {
+    transform: translateX(0%) skewX(-15deg);
+    opacity: 1;
+}
+
+100% {
+    transform: translateX(0%) skewX(0deg);
+    opacity: 1;
+}</code></pre>
+
+<p>}</p>
+
+<p>.animated.lightSpeedIn {</p>
+
+<pre><code>-webkit-animation-name: lightSpeedIn;
+-moz-animation-name: lightSpeedIn;
+-o-animation-name: lightSpeedIn;
+animation-name: lightSpeedIn;
+-webkit-animation-timing-function: ease-out;
+-moz-animation-timing-function: ease-out;
+-o-animation-timing-function: ease-out;
+animation-timing-function: ease-out;</code></pre>
+
+<p>}</p>
+
+<p>.animated.lightSpeedIn {</p>
+
+<pre><code>-webkit-animation-duration: 0.5s;
+-moz-animation-duration: 0.5s;
+-o-animation-duration: 0.5s;
+animation-duration: 0.5s;</code></pre>
+
+<p>}</p>
+
+<p>@-webkit-keyframes lightSpeedOut {</p>
+
+<pre><code>0% {
+    -webkit-transform: translateX(0%) skewX(0deg);
+    opacity: 1;
+}
+
+100% {
+    -webkit-transform: translateX(100%) skewX(-30deg);
+    opacity: 0;
+}</code></pre>
+
+<p>}</p>
+
+<p>@-moz-keyframes lightSpeedOut {</p>
+
+<pre><code>0% {
+    -moz-transform: translateX(0%) skewX(0deg);
+    opacity: 1;
+}
+
+100% {
+    -moz-transform: translateX(100%) skewX(-30deg);
+    opacity: 0;
+}</code></pre>
+
+<p>}</p>
+
+<p>@-o-keyframes lightSpeedOut {</p>
+
+<pre><code>0% {
+    -o-transform: translateX(0%) skewX(0deg);
+    opacity: 1;
+}
+
+100% {
+    -o-transform: translateX(100%) skewX(-30deg);
+    opacity: 0;
+}</code></pre>
+
+<p>}</p>
+
+<p>@keyframes lightSpeedOut {</p>
+
+<pre><code>0% {
+    transform: translateX(0%) skewX(0deg);
+    opacity: 1;
+}
+
+100% {
+    transform: translateX(100%) skewX(-30deg);
+    opacity: 0;
+}</code></pre>
+
+<p>}</p>
+
+<p>.animated.lightSpeedOut {</p>
+
+<pre><code>-webkit-animation-name: lightSpeedOut;
+-moz-animation-name: lightSpeedOut;
+-o-animation-name: lightSpeedOut;
+animation-name: lightSpeedOut;
+-webkit-animation-timing-function: ease-in;
+-moz-animation-timing-function: ease-in;
+-o-animation-timing-function: ease-in;
+animation-timing-function: ease-in;</code></pre>
+
+<p>}</p>
+
+<p>.animated.lightSpeedOut {</p>
+
+<pre><code>-webkit-animation-duration: 0.25s;
+-moz-animation-duration: 0.25s;
+-o-animation-duration: 0.25s;
+animation-duration: 0.25s;</code></pre>
+
+<p>}</p>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

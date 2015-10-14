@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>_reply_form.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            _reply_form.slim
+        </h1>
+        <ul class="files">
+            <li>views/forum_posts/_reply_form.slim</li>
+            <li>Last modified: 2015-07-05 15:22:06 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>.digi-box</p>
+
+<pre><code>h4 Write a new post
+.sexy_line
+.row  
+  .col-sm-12
+    = simple_form_for [ Reply.new ], turboboost: true do |f|
+      /.row
+      /  .col-sm-6
+      /    = f.input :title
+      /  .col-sm-6
+      /    = f.input :image
+      .row
+        .col-sm-12
+          div id=&quot;toolbar&quot; class=&quot;wysihtml5-toolbar&quot;
+            a data-wysihtml5-command=&quot;bold&quot; Bold
+            &#39;&amp;nbsp; 
+            a data-wysihtml5-command=&quot;italic&quot; Italic
+            .pull-right
+              a data-wysihtml5-action=&quot;change_view&quot;  Html 
+
+          =f.input :body, label: false, :input_html =&gt; {  style: &quot;height: 240px;&quot;, placeholder: &quot;Description&quot;, id: &#39;wysihtml5_editor&#39;}, autofocus: true
+          /= f.input :image
+          = f.hidden_field :user_id, value: current_user.id
+          = f.hidden_field :replyable_id, value: forum_post.id
+          = f.hidden_field :replyable_type, value: forum_post.class.name
+          = f.input :image
+          /= f.input :uniq_likes
+          /= f.input :published
+
+      .row  
+        .col-sm-12
+          .pull-right
+            = f.submit &#39;Save&#39;, class: &#39;btn btn-default&#39;</code></pre>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

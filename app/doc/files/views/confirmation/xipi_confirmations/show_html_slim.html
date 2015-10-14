@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>show.html.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            show.html.slim
+        </h1>
+        <ul class="files">
+            <li>views/confirmation/xipi_confirmations/show.html.slim</li>
+            <li>Last modified: 2015-09-24 20:35:34 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>/ this view is rendered when the user and current_user and ipi is valid
+wrapper</p>
+
+<pre><code>.full-width-top
+  == render &#39;shared/navigationbar&#39;, page: &#39;user&#39; 
+
+#sidebar-wrapper
+  ul class=&quot;sidebar-nav&quot;
+    == render &#39;users/shared/sidebar&#39;, selected: &#39;projects&#39;
+
+#page-content-wrapper
+  .container-fluid
+    /== render &#39;shared/breadcrumbs&#39;, breadcrumbs: { links: { &#39;settings&#39;.to_sym =&gt; user_user_control_panel_index_path(@user) }, current: &#39;&#39;}
+    .row
+      .col-sm-6
+        .help
+          .help-text
+            h2 Confirm IPI / Credit 
+          .help-button
+            == render &#39;admin/helps/help&#39;, identifier: &#39;confirm ipi&#39;
+      /.col-sm-6
+      /  .pull-right.pull-down-10
+      /    - if @user.manage?(current_user)
+      /      = link_to &#39;New project&#39;, new_user_user_creative_project_path(@user), class: &#39;btn btn-info&#39;
+
+    .sexy_line
+    - if @ipi.confirmation == &#39;Confirmed&#39;
+      .alert.alert-info
+        b Request confirmed
+    .digi-box.ipi-confirmations
+      .row
+        .col-sm-6
+          - if @ipi.full_name.to_s != &#39;&#39;        
+            .panel.panel-default
+              .panel-heading
+                &#39;Full name:
+              .panel-body
+                b = @ipi.full_name
+
+          .panel.panel-default
+            .panel-heading
+              &#39;Work title
+            .panel-body
+              b = @common_work.title
+
+          - if @ipi.address.to_s != &#39;&#39;
+            .panel.panel-default
+              .panel-heading
+                &#39;Address:
+              .panel-body
+                b = @ipi.address
+
+          - if @ipi.phone_number.to_s != &#39;&#39;
+            .panel.panel-default
+              .panel-heading
+                &#39;Phone number:
+              .panel-body
+                b = @ipi.phone_number
+
+          .row
+            .col-sm-6
+              - if @ipi.mech_owned.to_i != 0
+                .panel.panel-default
+                  .panel-heading
+                    &#39;Mech owned:
+                  .panel-body
+                    b 
+                      = @ipi.mech_owned
+                      &#39;&amp;nbsp;%
+
+              - if @ipi.mech_collected.to_i != 0
+                .panel.panel-default
+                  .panel-heading
+                    &#39;Mech collected:
+                  .panel-body
+                    b 
+                      = @ipi.mech_collected
+                      &#39;&amp;nbsp;%
+            .col-sm-6            
+              - if @ipi.perf_owned.to_i != 0
+                .panel.panel-default
+                  .panel-heading
+                    &#39;Perf owned:
+                  .panel-body
+                    b 
+                      = @ipi.perf_owned
+                      &#39;&amp;nbsp;%
+
+              - if @ipi.perf_collected.to_i != 0
+                .panel.panel-default
+                  .panel-heading
+                    &#39;Perf collected:
+                  .panel-body
+                    b 
+                      = @ipi.perf_collected
+                      &#39;&amp;nbsp;%
+
+        .col-sm-6
+
+          - unless @ipi.share.to_i == 0
+            .panel.panel-default
+              .panel-heading
+                &#39;Share:
+              .panel-body
+                b
+                  = @ipi.share
+                  &#39;&amp;nbsp;%
+
+          - unless  @ipi.ipi_code.to_s == &#39;&#39;        
+            .panel.panel-default
+              .panel-heading
+                &#39;IPI Code:
+              .panel-body
+                b = @ipi.ipi_code
+
+          - unless  @ipi.pro_affiliation.to_s == &#39;&#39;      
+            .panel.panel-default
+              .panel-heading
+                &#39;Performance Rights Organization:
+              .panel-body
+                b = @ipi.pro_affiliation.title
+
+          - unless  @ipi.territory.to_s == &#39;&#39;      
+            .panel.panel-default
+              .panel-heading
+                &#39;Territory:
+              .panel-body
+                b = @ipi.territory
+
+          - unless  @ipi.notes.to_s == &#39;&#39;      
+            .panel.panel-default
+              .panel-heading
+                &#39;Notes:
+              .panel-body
+                = simple_format @ipi.notes  
+
+          - if @requester
+            .panel.panel-default
+              .panel-heading
+                &#39;Confirmation requested by:
+              .panel-body
+                = link_to @requester.user_name, @requester
+
+      .row.pull-down-12
+        .col-sm-12
+          .sexy_line
+          .pull-down-12
+          - if @ipi.confirmation == &#39;Pending&#39;
+            /- if true
+            .row
+              .col-sm-8
+                &#39;Click the &#39;Confirm&#39; button to confirm that you are #{@ipi.full_name}. You can update the address informations, claim another share and contact the DigiRAMP IP administrator later
+              .col-sm-4
+                .pull-right
+                  = link_to &#39;Confirm&#39;, confirmation_ipi_confirmation_path(@ipi.uuid), turboboost: true, :method =&gt; &#39;put&#39;, class: &#39;btn btn-success&#39;
+          - else
+            .pull-right
+              .btn.btn-success disabled=&#39;disabled&#39;
+                  &#39;Confirmed
+    /.sexy_line
+    /= debug @ipi
+
+== render &#39;shared/site_footer&#39;</code></pre>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

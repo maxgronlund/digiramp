@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>index.html.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            index.html.slim
+        </h1>
+        <ul class="files">
+            <li>views/user/legal/index.html.slim</li>
+            <li>Last modified: 2015-10-04 09:37:15 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>wrapper</p>
+
+<pre><code>.full-width-top
+  == render &#39;shared/navigationbar&#39;, page: &#39;dashboard&#39; 
+
+#sidebar-wrapper
+  ul class=&quot;sidebar-nav&quot;
+    == render &#39;users/shared/sidebar&#39;, selected: &#39;dashboard&#39;
+
+#page-content-wrapper
+  .container-fluid
+    == render &#39;shared/breadcrumbs&#39;, breadcrumbs: { links: { dashboard: user_user_control_panel_index_path(@user) } }
+    == render &#39;shared/flash_message&#39;
+    .row
+      .col-sm-6
+        .help
+          .help-text
+            h2 Legal
+
+          .help-button
+            == render &#39;admin/helps/help&#39;, identifier: &#39;user legal information&#39;
+      .col-sm-6
+        .pull-right.pull-down-10
+          =&gt; link_to  user_user_control_panel_index_path(@user) do
+                .btn.btn-default
+                  i.fa.fa-chevron-left
+                  &#39;&amp;nbsp;Back
+
+          = link_to &#39;Edit&#39;, user_user_legal_informations_path(@user), :class =&gt; &quot;btn btn-success&quot;
+
+    .table-responsive
+      table.table.table-bordered
+        tr
+          td
+              b First name
+              br = @user.first_name
+
+          td
+            b Middle name
+            br = @user.middle_name
+
+          td
+            b Last name
+            br = @user.last_name
+        tr
+          td
+            b IPI code
+            br = @user.ipi_code
+          td
+            b Email
+            br = @user.email
+
+          td
+            b Phone number
+            br = @user.phone_number
+
+        tr
+          td
+            b Address
+            - unless @user.address_line_1.blank?
+              br
+              = @user.address_line_1
+
+            - unless @user.address_line_2.blank?
+              br
+              = @user.address_line_2
+
+            - unless @user.city.blank?
+              br
+              = @user.city
+
+            - unless @user.zip_code.blank?
+              br
+              = @user.zip_code
+
+            - unless @user.country.blank?
+              br
+              = @user.country
+
+          td
+            b Publishing
+            - @user.publishers.each do |publisher|  
+              .sexy_line  
+              = publisher.legal_name
+              - if ipi_code = publisher.ipi_code
+                br
+                = &quot;IPI CODE: #{ipi_code}&quot;
+
+              - if pro_affiliation = publisher.pro_affiliation
+                br
+                = &quot;PRO: #{pro_affiliation.title}&quot;
+
+          td
+            - blog = Blog.cached_find(&#39;Legal information&#39;)
+            - blog_post             = BlogPost.cached_find( &#39;add digital signature&#39; , blog )
+            - if editor?
+              .pull-right
+                = link_to edit_admin_blog_blog_post_path(blog, blog_post) do
+                  .btn.btn-default.btn-xs
+                    i.fa.fa-pencil
+
+            - if @user.digital_signature
+              b Default signature
+              br
+              .pull-down-10
+                = image_tag @user.digital_signature.image_url(:image_300x50), 
+                  class: &#39;img-thumbnail img-responsive&#39;
+            - else
+              .alert.alert-warning
+                b = blog_post.title
+                = simple_format blog_post.body
+
+            .pull-down-12.pull-right
+              - if @user.digital_signatures.count &gt; 0
+                = link_to &#39;Manage signatures&#39;, user_user_digital_signatures_path(@user), 
+                  class: &#39;btn btn-default&#39;
+              - else
+                = link_to &#39;Manage signatures&#39;, new_user_user_digital_signature_path(@user), 
+                  class: &#39;btn btn-default&#39;
+
+    .control-panel.pull-down-10
+
+      .control-panel-badge
+        = link_to  user_user_creative_rights_path(@user) do
+          .content
+            .icon.icon-blue
+              i.fa.fa-copyright
+
+            .title
+              h4 Works
+            .body
+              &#39;Manage rights for your assets
+
+      .control-panel-badge
+        = link_to  user_user_common_work_ipis_path(@user) do
+          .content
+            .icon.icon-blue
+              i.fa.fa-user
+
+            .title
+              h4 Creations
+            .body
+              &#39;Works where you are registered as a creator / IP
+
+      .control-panel-badge
+        = link_to  user_user_legal_documents_path(@user) do
+          .content
+            .icon.icon-blue
+              i.fa.fa-file
+
+            .title
+              h4 Documents
+            .body
+              &#39;Legal documents related to you
+
+      .control-panel-badge
+        = link_to  user_user_unsigned_documents_path(@user) do
+          .content
+            .icon.icon-blue
+              i.fa.fa-pencil
+
+            .title
+              h4 Pending documents
+            .body
+              &#39;Legal documents waiting for you to sign
+
+      .control-panel-badge
+        = link_to  user_user_admin_masters_path(@user) do
+          .content
+            .icon.icon-blue
+              i.fa.fa-headphones
+
+            .title
+              h4 Masters
+            .body
+              &#39;Edit and administrate resordings
+
+      .control-panel-badge
+        = link_to  user_user_personal_publishers_path(@user) do
+          .content
+            .icon.icon-blue
+              i.fa.fa-truck
+
+            .title
+              h4 Personal pushing
+            .body
+              &#39;Publishing of my works
+              &#39;Co-Publisher / Exclusive / Non exclusive
+
+== render &#39;shared/site_footer&#39;</code></pre>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

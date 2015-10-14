@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>index.html.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            index.html.slim
+        </h1>
+        <ul class="files">
+            <li>views/account/common_work_files/index.html.slim</li>
+            <li>Last modified: 2015-09-24 20:35:34 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>/= debug @recording.audio_upload</p>
+<ul><li>
+<p><a href=":return_url">session</a>  = request.url</p>
+</li><li>
+<p>blog = <a
+href="../../../../classes/Blog.html#method-c-cached_find">Blog.cached_find</a>(&#39;COMMON
+WORK FILES&#39;)</p>
+</li></ul>
+
+<p>wrap</p>
+
+<pre><code>div class=&quot;#{&#39;profile&#39; if account_owner?}&quot;
+  .full-width-top
+    == render &#39;admin/shared/navbar&#39;, page: &#39;account&#39; 
+.do           
+  .container
+    == render &#39;admin/shared/messages&#39;
+    == render &#39;shared/breadcrumbs&#39;, breadcrumbs: { links: {@account.title.to_sym =&gt; account_path(@account),
+                                                           dashboard: account_account_path(@account), \
+                                                           common_works: account_account_common_works_path(@account),\
+                                                           @common_work.title.to_sym =&gt; account_account_common_work_path(@account, @common_work)\
+                                                           }, current: &#39;files&#39; }
+
+    == render &#39;shared/page_title_text&#39;, locals: {title: @common_work.title, body: &#39;Files&#39;}
+
+    .row                          
+      -if current_account_user.read_file?
+        .col-sm-6
+          == render &#39;shared/badge&#39;, locals: {  \
+                                              blog: blog, \
+                                              post: BlogPost.cached_find( &quot;ARTWORK&quot; , blog ), \
+                                              link: account_account_common_work_common_work_artworks_path(@account, @common_work), \
+                                              css_class: &#39;btn btn-default&#39;, \
+                                              icon: &#39;fa fa-picture-o&#39;, \
+                                              no_turbo: true \
+                                            }
+
+    /      
+    /
+    /
+    /  -if current_account_user.read_legal_document?
+    /    .col-sm-6
+    /      == render &#39;shared/badge&#39;, locals: {  \
+    /                                          blog: blog, \
+    /                                          post: BlogPost.cached_find( &quot;LEGAL DOCUMENTS&quot; , blog ), \
+    /                                          link: legal_documents_account_account_recording_path(@account, @recording), \
+    /                                          css_class: &#39;btn btn-danger&#39;, \
+    /                                          icon: &#39;fa fa-gavel&#39;, \
+    /                                          id: &#39;legal-document&#39; \
+    /                                        }
+    /
+    /
+    /  -if current_account_user.read_financial_document?
+    /    .col-sm-6
+    /      == render &#39;shared/badge&#39;, locals: {  \
+    /                                          blog: blog, \
+    /                                          post: BlogPost.cached_find( &quot;FINANCIAL DOCUMENTS&quot; , blog ), \
+    /                                          link: financial_documents_account_account_recording_path(@account, @recording), \
+    /                                          css_class: &#39;btn btn-info&#39;, \
+    /                                          icon: &#39;fa fa-money&#39;, \
+    /                                          id: &#39;money&#39; \
+    /                                        }
+    /
+    /
+    /  -if current_account_user.read_file?
+    /    .col-sm-6
+    /      == render &#39;shared/badge&#39;, locals: {  \
+    /                                          blog: blog, \
+    /                                          post: BlogPost.cached_find( &quot;DOCUMENTS AND FILES&quot; , blog ), \
+    /                                          link: documents_account_account_recording_path(@account, @recording), \
+    /                                          css_class: &#39;btn btn-warning&#39;, \
+    /                                          icon: &#39;fa fa-archive&#39;, \
+    /                                          id: &#39;file&#39; \
+    /                                        }
+    /                                        
+    /                                
+    /</code></pre>
+
+<p>-cache ([&#39;footer&#39;, <a
+href="../../../../classes/Admin.html#method-c-cached_find">Admin.cached_find</a>.version])
+do</p>
+
+<pre><code>=render &#39;shared/footer&#39;</code></pre>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

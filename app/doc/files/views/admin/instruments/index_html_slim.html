@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>index.html.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            index.html.slim
+        </h1>
+        <ul class="files">
+            <li>views/admin/instruments/index.html.slim</li>
+            <li>Last modified: 2015-09-24 20:35:34 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>wrapper</p>
+
+<pre><code>.full-width-top
+  == render &#39;shared/navigationbar&#39;, page: &#39;admin&#39; 
+
+.admin-account
+  #sidebar-wrapper
+    ul class=&quot;sidebar-nav&quot;
+      == render &#39;admin/shared/sidebar&#39;, selected: &#39;content&#39;
+
+#page-content-wrapper
+  .container-fluid
+    == render &#39;shared/breadcrumbs&#39;, breadcrumbs: { links: { content: admin_content_index_path, \
+                                                            tags: admin_tags_path, \
+                                                            }, current:  &#39;&#39;}
+    .row
+      .col-sm-5
+
+        h2 Instruments
+
+      .col-sm-7
+        .pull-down-10
+          = simple_form_for  [ @user ], :url =&gt; url_for(:action =&gt; &#39;index&#39;, \
+                                                        :controller =&gt; &#39;instruments&#39;), \
+                                                        turboboost: true,\
+                                                        :method =&gt; &#39;get&#39; do |f|
+
+            .input-group
+              span class=&quot;input-group-addon&quot;
+                i class= &#39;fa fa-search&#39;
+              = text_field_tag &quot;query&quot;, &quot;&quot;, :class =&gt; &#39;search-query form-control&#39;, \
+                                            :placeholder =&gt; &#39;Search for instruments&#39;, \
+                                            value: params[:query], autofocus: true
+              .input-group-btn
+                = f.submit &#39;Search&#39;, class: &quot;btn btn-info&quot;
+                &#39;&amp;nbsp;
+                = link_to &#39;Clear&#39;, admin_instruments_path, class: &#39;btn btn-default&#39;
+    .sexy_line
+    .row
+       .col-sm-12
+         == paginate(@instruments)
+         .pull-right
+           =&lt; link_to &#39;Export CSV&#39;, admin_export_instruments_path( format: &quot;csv&quot;), class: &#39;btn btn-default&#39;             
+           =&lt; link_to &#39;Import CSV&#39;, new_admin_instruments_import_path, class: &#39;btn btn-default&#39;
+           =&lt; link_to &#39;User Instruments&#39;, admin_user_instruments_path, class: &#39;btn btn-default&#39;
+           =&lt; link_to &#39;New&#39;, new_admin_instrument_path, class: &#39;btn btn-info&#39;
+    .digi-box.pull-down-8
+      table class=&quot;table table-striped&quot;
+        thead
+          tr
+            th Instrument
+            th Category
+            th User Tag
+            th
+        tbody
+          - @instruments.each do |instrument|
+            tr
+              td = instrument.title
+              td = instrument.category
+              td 
+                -if instrument.user_tag
+                  &#39;User Instrument!
+              td 
+                .pull-right
+                  = link_to edit_admin_instrument_path(instrument), id: instrument.title do
+                    .btn.btn-default.btn-xs
+                      i class=&quot;fa fa-pencil&quot;
+                      &#39;&amp;nbsp;Edit
+
+                  =&lt; link_to admin_instrument_path(instrument)  , data: { confirm: &#39;Are you sure?&#39; } , method: :delete do
+                    .btn.btn-danger.btn-xs
+                      i.fa.fa-times
+
+== render &#39;shared/site_footer&#39;</code></pre>
+
+<p>/#wrap /  .admin /    .full-width-top /      == render
+&#39;admin/shared/navbar&#39;, page: &#39;admin&#39;  / /</p>
+
+<p>/  .container /    == render &#39;shared/breadcrumbs&#39;, breadcrumbs: {
+links: { “admin”.to_sym =&gt; admin_index_path, \ /                        
+content: admin_content_index_path, \ /                                     
+tags: admin_tags_path, \ /                                                 
+}, current:  &#39;instruments&#39;} /</p>
+
+<p>/    == render &#39;admin/shared/messages&#39; /</p>
+
+<p>/    == render &#39;shared/page_title&#39;, locals: {blog: <a
+href="../../../../classes/Blog.html#method-c-cached_find">Blog.cached_find</a>(&#39;Tags&#39;),
+blog_post: &#39;Instruments&#39;} /</p>
+
+<p>/    .row /      .col-sm-12 /        .panel /          .panel-body /       
+= form_tag admin_instruments_path, :method =&gt; &#39;get&#39; do /        
+.row /                .col-sm-6 /                  br /                  =
+text_field_tag “query”, “”, :class =&gt; &#39;search-query
+form-control&#39;, :placeholder =&gt; &#39;Search&#39;, value: <a
+href=":query">params</a> /                .col-sm-6 /                  br /
+= submit_tag &#39;Search&#39;, class: &#39;btn btn-info btn-lg&#39; /      
+&#39;&amp;nbsp; /                  = link_to &#39;Show All&#39;,
+admin_instruments_path, class: &#39;btn btn-default btn-lg&#39; /          
+hr /            .hidden-xs /              == paginate(@instruments) /      
+.visible-xs /              br /              .btn-group.btn-group-sm /     
+= link_to_previous_page @instruments, &#39;« Prev Page&#39;, class:
+&#39;btn btn-default mobile_pagination&#39; /                =
+link_to_next_page @instruments, &#39;Next Page »&#39;, class: &#39;btn
+btn-default mobile_pagination&#39; /              br /              b /   
+.row  /      .col-sm-12 /        .panel /          .panel-body /           
+table class=“table table-striped” /              thead /                tr
+/                  th <a
+href="../../../../classes/Instrument.html">Instrument</a> /                
+th Category /                  th <a
+href="../../../../classes/User.html">User</a> Tag /                  th /  
+tbody /                -@instruments.each do |instrument| /                
+tr /                    td = instrument.title /                    td =
+instrument.category /                    td  /                      -if
+instrument.user_tag /                        &#39;User <a
+href="../../../../classes/Instrument.html">Instrument</a>! /               
+td  /                      .pull-right /                        = link_to
+edit_admin_instrument_path(instrument) do /                         
+.btn.btn-info.btn-lg /                            i class=“fa fa-pencil” / 
+&#39;&amp;nbsp; /                        = link_to
+admin_instrument_path(instrument)  , data: { confirm: &#39;Are you
+sure?&#39; } , method: :delete do /                         
+.btn.btn-danger.btn-lg /                            i class=“fa fa-trash-o”
+/</p>
+
+<p>/</p>
+
+<p>/    .row /       .col-sm-12 /         .pull-right /           = link_to
+&#39;New&#39;, new_admin_instrument_path, class: &#39;btn btn-info
+btn-lg&#39; /           &#39;&amp;nbsp; /           = link_to &#39;Export
+CSV&#39;, admin_export_instruments_path( format: “csv”), class: &#39;btn
+btn-default btn-lg&#39; /           &#39;&amp;nbsp; /           = link_to
+&#39;Import CSV&#39;, new_admin_instruments_import_path, class: &#39;btn
+btn-default btn-lg&#39; /           &#39;&amp;nbsp; /           = link_to
+&#39;User Instruments&#39;, admin_user_instruments_path, class: &#39;btn
+btn-default btn-lg&#39; /</p>
+
+<p>/-cache ([&#39;footer&#39;, <a
+href="../../../../classes/Admin.html#method-c-cached_find">Admin.cached_find</a>.version])
+do</p>
+
+<p>/  =render &#39;shared/footer&#39; / /</p>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

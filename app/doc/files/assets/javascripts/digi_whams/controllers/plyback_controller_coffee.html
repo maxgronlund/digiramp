@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>plyback_controller.coffee</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            plyback_controller.coffee
+        </h1>
+        <ul class="files">
+            <li>assets/javascripts/digi_whams/controllers/plyback_controller.coffee</li>
+            <li>Last modified: 2015-07-05 15:22:02 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>class @PlaybackController</p>
+
+<pre><code># keep track of the need for showing the spinner
+sounds_loaded = {}
+window.global_id    = -1
+window.global_mp3   = &#39;&#39;
+window.song_title   = &#39;&#39;
+window.song_artist  = &#39;&#39;
+
+constructor: -&gt;
+
+  # listen for clicks on play button
+  $(&#39;.play&#39;).on &#39;click&#39;, -&gt;
+
+    reset_play_buttons()
+    window.global_id   = $(this).attr &#39;id&#39;
+    window.global_mp3  = $(this).attr &#39;mp3&#39;
+    $.getScript(&quot;/digiwham/recordings/&quot; + window.global_id    )
+    window.audio_engine.play(window.global_id   , window.global_mp3)
+    show_loading_button( window.global_id )
+    set_title_artist_on_global_player(window.global_id )
+
+  # Set all players to default  
+  $(&#39;.loading&#39;).on &#39;click&#39;, -&gt;
+    window.audio_engine.pause()
+    reset_play_buttons()
+    window.global_id   = $(this).attr &#39;id&#39;
+    show_play_button(window.global_id   )
+
+  $(&#39;.pause&#39;).on &#39;click&#39;, -&gt;
+    window.audio_engine.pause()
+    reset_play_buttons()
+    window.global_id   = $(this).attr &#39;id&#39;
+    show_play_button(window.global_id   )
+
+  $(&#39;.audio-waveform&#39;).click (event) -&gt;
+    move_playhead( $(this), event)
+
+  connect_global_buttons()  
+  #$(&#39;.global-stop-button&#39;).on &#39;click&#39;, -&gt;
+  #  console.log &#39;global-stop-button&#39;
+  #  window.audio_engine.pause()
+  #  reset_play_buttons()
+  #  show_play_button(window.global_id )
+  #  #set_global_play(false)
+  #  #console.log global_id  
+  #  
+  #$(&#39;.global-play-button&#39;).on &#39;click&#39;, -&gt;
+  #  console.log window.global_id
+  #  if( window.global_id != -1)
+  #    reset_play_buttons()
+  #    $.getScript(&quot;/digiwham/recordings/&quot; +      window.global_id  )
+  #    window.audio_engine.play(window.global_id, window.global_mp3 )
+  #    
+  #    show_loading_button( window.global_id )
+
+# when a play button is pressed reset all buttons    
+reset_play_buttons = () -&gt;
+  $(&#39;.play&#39;).each (index, element) =&gt;
+    id = $(element).attr(&#39;id&#39;)
+    show_play_button(id)
+
+set_loadbar: (id, progress) -&gt;
+  $(&#39;#&#39;+ id + &#39;.loadbar&#39;).css &#39;width&#39;: (progress * 100) + &quot;%&quot;   
+
+sound_loaded: (id ) -&gt;
+  sounds_loaded[id] = true
+  show_stop_button(id)
+
+show_play_button = (id) -&gt;
+  # player
+  $(&#39;#&#39;+ id + &#39;.play&#39;).css(&quot;display&quot;, &#39;block&#39;)
+  $(&#39;#&#39;+ id + &#39;.loading&#39;).css(&quot;display&quot;, &#39;none&#39;)
+  $(&#39;#&#39;+ id + &#39;.pause&#39;).css(&quot;display&quot;, &#39;none&#39;)
+  # global player
+  $(&#39;.global-play-button&#39;).css  &#39;display&#39;: &#39;inline&#39;
+  $(&#39;.global-spinner&#39;).css      &#39;display&#39;: &#39;none&#39;
+  $(&#39;.global-stop-button&#39;).css  &#39;display&#39;: &#39;none&#39;
+
+  #set_global_play(false)
+
+show_loading_button = (id) -&gt;
+
+  if( sounds_loaded[id]?)
+    show_stop_button(id)
+    #set_global_play(true)
+  else
+    # sound not loaded show the spinner
+    $(&#39;#&#39;+ id + &#39;.play&#39;).css(&quot;display&quot;, &#39;none&#39;)
+    $(&#39;#&#39;+ id + &#39;.loading&#39;).css(&quot;display&quot;, &#39;block&#39;)
+    $(&#39;#&#39;+ id + &#39;.pause&#39;).css(&quot;display&quot;, &#39;none&#39;)
+    # global player
+    $(&#39;.global-play-button&#39;).css  &#39;display&#39;: &#39;none&#39;
+    $(&#39;.global-spinner&#39;).css      &#39;display&#39;: &#39;inline&#39;
+    $(&#39;.global-stop-button&#39;).css  &#39;display&#39;: &#39;none&#39;
+    #set_global_play(false)
+
+show_stop_button = (id) -&gt;
+  $(&#39;#&#39;+ id + &#39;.play&#39;).css(&quot;display&quot;, &#39;none&#39;)
+  $(&#39;#&#39;+ id + &#39;.loading&#39;).css(&quot;display&quot;, &#39;none&#39;)
+  $(&#39;#&#39;+ id + &#39;.pause&#39;).css(&quot;display&quot;, &#39;block&#39;)
+  # global player
+  $(&#39;.global-play-button&#39;).css  &#39;display&#39;: &#39;none&#39;
+  $(&#39;.global-spinner&#39;).css      &#39;display&#39;: &#39;none&#39;
+  $(&#39;.global-stop-button&#39;).css  &#39;display&#39;: &#39;inline&#39;
+
+set_title_artist_on_global_player = (id) -&gt;
+  window.song_title   =  $(&quot;.recording_title_&quot;  + id).text()
+  window.song_artist  =  $(&quot;.recording_artist_&quot; + id).text()
+  $(&#39;.global-player-song-title&#39;).text( window.song_title)
+  $(&#39;.global-player-song-artist&#39;).text(window.song_artist)
+
+set_playhead: (id, position) -&gt;
+   set_playhead(id, position)
+
+set_playhead = (id, position) -&gt;
+  width =  $(&#39;#&#39;+ id + &#39;.audio-waveform&#39;).width() - 1
+  $(&#39;#&#39;+ id + &#39;.playhead&#39;).css &#39;margin-left&#39;: (position * width )
+
+move_playhead = (waveform, event) -&gt;
+
+  if window.audio_engine.is_playing()
+    id        = waveform.attr &#39;id&#39;
+    width     = waveform.width()
+    offset    = waveform.offset()
+    position = (event.pageX - offset.left) / width
+    window.audio_engine.set_position(id, position)
+
+connect_global_buttons = () -&gt;
+  $(&#39;.global-stop-button&#39;).on &#39;click&#39;, -&gt;
+    window.audio_engine.pause()
+    reset_play_buttons()
+    show_play_button(window.global_id )
+
+  $(&#39;.global-play-button&#39;).on &#39;click&#39;, -&gt;
+    if( window.global_id != -1)
+      reset_play_buttons()
+      $.getScript(&quot;/digiwham/recordings/&quot; +      window.global_id  )
+      window.audio_engine.play(window.global_id, window.global_mp3 )
+      show_loading_button( window.global_id )
+
+# maintain playstate when entering a new page
+refresh_global_player: () -&gt;
+  # play button
+  if window.audio_engine.is_playing()
+    $(&#39;.global-play-button&#39;).css &#39;display&#39;: &#39;none&#39;
+    $(&#39;.global-stop-button&#39;).css &#39;display&#39;: &#39;inline&#39;
+  else
+    $(&#39;.global-play-button&#39;).css &#39;display&#39;: &#39;inline&#39;
+    $(&#39;.global-stop-button&#39;).css &#39;display&#39;: &#39;none&#39;
+  # title artist
+  $(&#39;.global-player-song-title&#39;).text( window.song_title)
+  $(&#39;.global-player-song-artist&#39;).text(window.song_artist)
+  connect_global_buttons()</code></pre>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

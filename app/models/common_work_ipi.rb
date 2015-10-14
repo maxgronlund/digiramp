@@ -62,16 +62,33 @@ class CommonWorkIpi < ActiveRecord::Base
     Rails.cache.fetch([name, id]) { find(id) }
   end
 
+  # Attach to the users ip
   def attach_to_ip
-    
-    return if self.ipi
-    
     if user = User.get_by_email(self.email)
-      if user_ipi = user.ipi
-        self.ipi_id = user_ipi.id
-        self.save(validate: false)
-        # temp !!!
-        self.accepted!
+      self.ipi_id = user.ipi.id
+      self.save(validate: false)
+      self.attach_to_publishers user
+    end
+  end
+  
+  def attach_to_publishers user
+    
+    #self.publisher_id
+    if user.personal_publishing_status == "I have an exclusive publisher" || 
+       user.personal_publishing_status == "I own and control my own publishing"
+      self.publisher_id  = user.personal_publisher_id
+      self.save(validate: false)
+      attach_to_publishing_agreement
+    else
+      ap 'something fancy here'
+    end 
+  end
+  
+  def attach_to_publishing_agreement
+    
+    if ipi_publishers   = publisher.ipi_publishers
+      if ipi_publisher  = ipi_publishers.find_by(ipi_id: ipi_id)
+        self.update(publishing_agreement_id: ipi_publisher.publishing_agreement_id)
       end
     end
   end

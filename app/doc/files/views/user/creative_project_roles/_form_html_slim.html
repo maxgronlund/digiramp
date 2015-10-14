@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>_form.html.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            _form.html.slim
+        </h1>
+        <ul class="files">
+            <li>views/user/creative_project_roles/_form.html.slim</li>
+            <li>Last modified: 2015-09-24 20:35:34 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>.digi-box</p>
+
+<pre><code>= simple_form_for [:user, @user, @creative_project, @creative_project_role], turboboost: true do |f|
+  = f.hidden_field :creative_project_id, value: @creative_project.id
+  = f.hidden_field :role, value: params[:role]
+  /= f.hidden_field :creative_project_user
+  = f.error_notification
+  .form-inputs
+    .row
+      .col-sm-6
+
+        - if @creative_project_role.role == &#39;musician&#39;
+          = f.input :instrument, collection: CreativeProjectRole::INSTRUMENTS, :include_blank =&gt; false
+          = f.input :other_instrument
+        - elsif @creative_project_role.role == &#39;vocal&#39; 
+          = f.input :instrument, collection: CreativeProjectRole::VOCALS, :include_blank =&gt; false
+          = f.input :other_instrument, label: &#39;Other vocals&#39;
+
+        = f.input :description
+        .row
+          .col-sm-6
+            = f.input :budget, label: &#39;Budget (USD)&#39;
+          .col-sm-6
+            - if @creative_project_role.role == &#39;musician&#39; || \
+                 @creative_project_role.role == &#39;vocal&#39; 
+              = f.input :master_split, placeholder: &#39;i.e. 25%&#39;, label: &#39;Master split %&#39;
+              = f.hidden_field :copyright_split, value: 0.0
+
+            - elsif @creative_project_role.role == &#39;writer&#39;  || \
+                    @creative_project_role.role == &#39;composer&#39;  
+              = f.input :copyright_split, placeholder: &#39;i.e. 25%&#39;
+              = f.hidden_field :master_split, value: 0.0
+
+        .sexy_line
+        b Work locations
+        = f.input :live_performance,          :input_html     =&gt; { class: &#39;icheck-me&#39;, &#39;data-skin&#39;.to_sym =&gt; &quot;square&quot;, &#39;data-color&#39;.to_sym =&gt; &quot;blue&quot;     }  
+        = f.input :online_collaboration,      :input_html     =&gt; { class: &#39;icheck-me&#39;, &#39;data-skin&#39;.to_sym =&gt; &quot;square&quot;, &#39;data-color&#39;.to_sym =&gt; &quot;blue&quot;     }  
+        = f.input :studio_sessions,           :input_html     =&gt; { class: &#39;icheck-me&#39;, &#39;data-skin&#39;.to_sym =&gt; &quot;square&quot;, &#39;data-color&#39;.to_sym =&gt; &quot;blue&quot;     }  
+        = f.input :location, placeholder: &#39;i.e. LA&#39;
+      .col-sm-6
+        b Genre
+        = f.input :jazz,          :input_html     =&gt; { class: &#39;icheck-me&#39;, &#39;data-skin&#39;.to_sym =&gt; &quot;square&quot;, &#39;data-color&#39;.to_sym =&gt; &quot;blue&quot;     }  
+        = f.input :rock,          :input_html     =&gt; { class: &#39;icheck-me&#39;, &#39;data-skin&#39;.to_sym =&gt; &quot;square&quot;, &#39;data-color&#39;.to_sym =&gt; &quot;blue&quot;     }  
+        = f.input :classical,     :input_html     =&gt; { class: &#39;icheck-me&#39;, &#39;data-skin&#39;.to_sym =&gt; &quot;square&quot;, &#39;data-color&#39;.to_sym =&gt; &quot;blue&quot;     }  
+        = f.input :pop,           :input_html     =&gt; { class: &#39;icheck-me&#39;, &#39;data-skin&#39;.to_sym =&gt; &quot;square&quot;, &#39;data-color&#39;.to_sym =&gt; &quot;blue&quot;     }  
+        = f.input :hip_hop,       :input_html     =&gt; { class: &#39;icheck-me&#39;, &#39;data-skin&#39;.to_sym =&gt; &quot;square&quot;, &#39;data-color&#39;.to_sym =&gt; &quot;blue&quot;     }  
+        = f.input :edm, label: &#39;EDM&#39;,          :input_html     =&gt; { class: &#39;icheck-me&#39;, &#39;data-skin&#39;.to_sym =&gt; &quot;square&quot;, &#39;data-color&#39;.to_sym =&gt; &quot;blue&quot;     }  
+        = f.input :experimental,  :input_html     =&gt; { class: &#39;icheck-me&#39;, &#39;data-skin&#39;.to_sym =&gt; &quot;square&quot;, &#39;data-color&#39;.to_sym =&gt; &quot;blue&quot;     }  
+        .row
+          .col-sm-6
+            = f.input :other_genre,   :input_html     =&gt; { class: &#39;icheck-me&#39;, &#39;data-skin&#39;.to_sym =&gt; &quot;square&quot;, &#39;data-color&#39;.to_sym =&gt; &quot;blue&quot;     }  
+
+  .row
+    .col-sm-12
+      .pull-right
+        .form-actions
+          = f.submit &#39;Save&#39;, class: &#39;btn btn-info&#39;</code></pre>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

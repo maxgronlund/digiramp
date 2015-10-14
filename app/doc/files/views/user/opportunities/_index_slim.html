@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>_index.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            _index.slim
+        </h1>
+        <ul class="files">
+            <li>views/user/opportunities/_index.slim</li>
+            <li>Last modified: 2015-08-08 20:52:10 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>.old_opportunities</p>
+
+<pre><code>- @opportunities.each do |opportunity|
+  /- if selected_opportunity =  SelectedOpportunity.where(user_id: @user.id, opportunity_id: opportunity.id).first
+  /  - viewed = true
+  /-else
+  /  - viewed = false
+  - viewed = SelectedOpportunity.where(user_id: @user.id, opportunity_id: opportunity.id).first ? true : false
+
+  .opportunity-box id=&quot;opportunity_#{opportunity.id}&quot;
+    = render &#39;user/opportunities/show&#39;, opportunity: opportunity, viewed: viewed
+    .row
+      .col-sm-12
+        - submissions = opportunity.submissions.where(user_id: @user.id)
+        - submissions_count = submissions.count
+        - if submissions_count &gt; 0  
+          =&gt; link_to user_user_selected_opportunity_path(@user, opportunity) do
+            .btn.btn-success
+              = pluralize(submissions_count, &#39;Submission&#39;)  
+
+        .pull-right
+
+          - if opportunity_user = OpportunityUser.find_by(opportunity_id: opportunity.id, user_id: @user)
+            - if opportunity_user.reviewer
+              =&gt; link_to &#39;Review&#39;, 
+                        user_user_opportunities_for_review_path(@user, 
+                                                              opportunity_user.uuid), class: &#39;btn btn-default&#39;
+
+          =&gt; link_to user_user_selected_opportunity_path(@user, opportunity) do
+            .btn.btn-default
+              &#39;View
+          -if submissions_count &gt; 0    
+            .btn.btn-danger disabled=&#39;disabled&#39;
+              i.fa.fa-times
+
+          - else
+            =&lt; link_to user_user_opportunity_path(@user, opportunity, remove: true), method: :delete, remote: true do
+              .btn.btn-danger
+                i.fa.fa-times
+
+    .clearfix</code></pre>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

@@ -1,0 +1,752 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>UserAssetsFactory</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../css/github.css" type="text/css" media="screen" />
+<script src="../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            <span class="type">Class</span> 
+            UserAssetsFactory 
+            
+                <span class="parent">&lt; 
+                    
+                    Object
+                    
+                </span>
+            
+        </h1>
+        <ul class="files">
+            
+            <li><a href="../files/services/user_assets_factory_rb.html">services/user_assets_factory.rb</a></li>
+            
+        </ul>
+    </div>
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p><a href="UserAssetsFactory.html#method-c-new">::new</a> user</p>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+    <!-- Method ref -->
+    <div class="sectiontitle">Methods</div>
+    <dl class="methods">
+      
+        <dt>A</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-attach_to_documents">attach_to_documents</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>C</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-create_account">create_account</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-i-create_distribution_agreement">create_distribution_agreement</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-i-create_distribution_agreement_document">create_distribution_agreement_document</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-i-create_ipi">create_ipi</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-i-create_ipi_publisher">create_ipi_publisher</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-i-create_label">create_label</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-i-create_mp3_term_of_usage">create_mp3_term_of_usage</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-i-create_publisher">create_publisher</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-i-create_publishing_agreement">create_publishing_agreement</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-i-create_publishing_agreement_document">create_publishing_agreement_document</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>N</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-c-new">new</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+    </dl>
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+    
+      <div class="sectiontitle">Class Public methods</div>
+      
+        <div class="method">
+          <div class="title method-title" id="method-c-new">
+            
+              <b>new</b>(user)
+            
+            <a href="../classes/UserAssetsFactory.html#method-c-new" name="method-c-new" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-c-new_source')" id="l_method-c-new_source">show</a>
+                
+              </p>
+              <div id="method-c-new_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File services/user_assets_factory.rb, line 5</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">initialize</span> <span class="ruby-identifier">user</span>
+  <span class="ruby-ivar">@user</span> = <span class="ruby-identifier">user</span>
+  <span class="ruby-identifier">create_account</span>
+  <span class="ruby-identifier">create_label</span>
+  <span class="ruby-identifier">create_distribution_agreement</span>
+  <span class="ruby-identifier">create_distribution_agreement_document</span>
+  <span class="ruby-identifier">create_ipi</span>
+  <span class="ruby-identifier">create_publisher</span>
+  <span class="ruby-identifier">create_publishing_agreement</span>
+  <span class="ruby-identifier">create_publishing_agreement_document</span>
+  <span class="ruby-identifier">create_ipi_publisher</span>
+  <span class="ruby-identifier">create_mp3_term_of_usage</span>
+  <span class="ruby-identifier">attach_to_documents</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+                  
+      <div class="sectiontitle">Instance Public methods</div>
+      
+        <div class="method">
+          <div class="title method-title" id="method-i-attach_to_documents">
+            
+              <b>attach_to_documents</b>()
+            
+            <a href="../classes/UserAssetsFactory.html#method-i-attach_to_documents" name="method-i-attach_to_documents" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-attach_to_documents_source')" id="l_method-i-attach_to_documents_source">show</a>
+                
+              </p>
+              <div id="method-i-attach_to_documents_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File services/user_assets_factory.rb, line 183</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">attach_to_documents</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">document_users</span> = <span class="ruby-constant">DocumentUser</span>.<span class="ruby-identifier">where</span>(<span class="ruby-identifier">email</span><span class="ruby-operator">:</span> <span class="ruby-ivar">@user</span>.<span class="ruby-identifier">email</span>)
+    <span class="ruby-identifier">document_users</span>.<span class="ruby-identifier">update_all</span>(<span class="ruby-identifier">user_id</span><span class="ruby-operator">:</span> <span class="ruby-ivar">@user</span>.<span class="ruby-identifier">id</span>, <span class="ruby-identifier">account_id</span><span class="ruby-operator">:</span> <span class="ruby-ivar">@user</span>.<span class="ruby-identifier">account_id</span>)
+    <span class="ruby-ivar">@user</span>.<span class="ruby-identifier">update</span>(<span class="ruby-identifier">has_unsigned_documents</span><span class="ruby-operator">:</span> <span class="ruby-keyword">true</span>)
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-create_account">
+            
+              <b>create_account</b>()
+            
+            <a href="../classes/UserAssetsFactory.html#method-i-create_account" name="method-i-create_account" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-create_account_source')" id="l_method-i-create_account_source">show</a>
+                
+              </p>
+              <div id="method-i-create_account_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File services/user_assets_factory.rb, line 21</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">create_account</span>
+
+  <span class="ruby-ivar">@account</span> = <span class="ruby-constant">Account</span>.<span class="ruby-identifier">new</span>(   
+    <span class="ruby-identifier">title</span><span class="ruby-operator">:</span> <span class="ruby-ivar">@user</span>.<span class="ruby-identifier">user_name</span>, 
+    <span class="ruby-identifier">user_id</span><span class="ruby-operator">:</span> <span class="ruby-ivar">@user</span>.<span class="ruby-identifier">id</span>, 
+    <span class="ruby-identifier">expiration_date</span><span class="ruby-operator">:</span> <span class="ruby-constant">Date</span>.<span class="ruby-identifier">current</span>()<span class="ruby-operator">&gt;&gt;</span><span class="ruby-number">1</span>,
+    <span class="ruby-identifier">contact_email</span><span class="ruby-operator">:</span> <span class="ruby-ivar">@user</span>.<span class="ruby-identifier">email</span>,
+    <span class="ruby-identifier">visits</span><span class="ruby-operator">:</span> <span class="ruby-number">1</span>,
+    <span class="ruby-identifier">account_type</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;Social&#39;</span>,
+    <span class="ruby-identifier">administrator_id</span><span class="ruby-operator">:</span> <span class="ruby-ivar">@user</span>.<span class="ruby-identifier">id</span>,
+    <span class="ruby-identifier">create_opportunities</span><span class="ruby-operator">:</span> <span class="ruby-keyword">false</span>,
+    <span class="ruby-identifier">read_opportunities</span><span class="ruby-operator">:</span> <span class="ruby-keyword">false</span>
+  )
+                    
+  <span class="ruby-ivar">@account</span>.<span class="ruby-identifier">save</span>(<span class="ruby-identifier">validate</span><span class="ruby-operator">:</span> <span class="ruby-keyword">false</span>)    
+
+  <span class="ruby-comment"># set permissions</span>
+  <span class="ruby-constant">AccessManager</span>.<span class="ruby-identifier">add_users_to_new_account</span> <span class="ruby-ivar">@account</span>
+  <span class="ruby-ivar">@user</span>.<span class="ruby-identifier">update</span>(<span class="ruby-identifier">current_account_id</span><span class="ruby-operator">:</span> <span class="ruby-ivar">@account</span>.<span class="ruby-identifier">id</span>)
+
+
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-create_distribution_agreement">
+            
+              <b>create_distribution_agreement</b>()
+            
+            <a href="../classes/UserAssetsFactory.html#method-i-create_distribution_agreement" name="method-i-create_distribution_agreement" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-create_distribution_agreement_source')" id="l_method-i-create_distribution_agreement_source">show</a>
+                
+              </p>
+              <div id="method-i-create_distribution_agreement_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File services/user_assets_factory.rb, line 50</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">create_distribution_agreement</span>
+  <span class="ruby-ivar">@distribution_agreement</span> = <span class="ruby-constant">DistributionAgreement</span>.<span class="ruby-identifier">create</span>(
+    <span class="ruby-value">:label_id</span>           =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@label</span>.<span class="ruby-identifier">id</span>,
+    <span class="ruby-value">:account_id</span>         =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@account</span>.<span class="ruby-identifier">id</span>,
+    <span class="ruby-value">:distributor_id</span>     =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@label</span>.<span class="ruby-identifier">id</span>,
+    <span class="ruby-value">:split</span>              =<span class="ruby-operator">&gt;</span> <span class="ruby-number">50</span>,
+    <span class="ruby-value">:user_id</span>            =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@user</span>.<span class="ruby-identifier">id</span>,
+    <span class="ruby-value">:title</span>              =<span class="ruby-operator">&gt;</span> <span class="ruby-node">&quot;Label agreement for #{@user.user_name}&quot;</span>,
+    <span class="ruby-value">:uuid</span>               =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">UUIDTools</span><span class="ruby-operator">::</span><span class="ruby-constant">UUID</span>.<span class="ruby-identifier">timestamp_create</span>().<span class="ruby-identifier">to_s</span>
+    
+  )
+  <span class="ruby-ivar">@label</span>.<span class="ruby-identifier">update</span>(<span class="ruby-identifier">default_distribution_agreement_id</span><span class="ruby-operator">:</span> <span class="ruby-ivar">@distribution_agreement</span>.<span class="ruby-identifier">id</span>)
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-create_distribution_agreement_document">
+            
+              <b>create_distribution_agreement_document</b>()
+            
+            <a href="../classes/UserAssetsFactory.html#method-i-create_distribution_agreement_document" name="method-i-create_distribution_agreement_document" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-create_distribution_agreement_document_source')" id="l_method-i-create_distribution_agreement_document_source">show</a>
+                
+              </p>
+              <div id="method-i-create_distribution_agreement_document_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File services/user_assets_factory.rb, line 64</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">create_distribution_agreement_document</span>
+  <span class="ruby-identifier">template</span>  = <span class="ruby-constant">Document</span>.<span class="ruby-identifier">where</span>(<span class="ruby-identifier">uuid</span><span class="ruby-operator">:</span> <span class="ruby-string">&quot;38e2814a-45ce-11e5-b8b5-d43d7eecec4d&quot;</span>)
+  .<span class="ruby-identifier">first_or_create</span>(
+    <span class="ruby-identifier">title</span><span class="ruby-operator">:</span> <span class="ruby-string">&quot;Self Distribution&quot;</span>,
+    <span class="ruby-identifier">document_type</span><span class="ruby-operator">:</span> <span class="ruby-string">&quot;Template&quot;</span>,
+    <span class="ruby-identifier">body</span><span class="ruby-operator">:</span> <span class="ruby-string">&quot;You represent and warrant that you are free to enter into and abide by the \r\nterms of this Agreement and that you are the sole owner of the master recordings embodying the following compositions&quot;</span>,
+    <span class="ruby-identifier">text_content</span><span class="ruby-operator">:</span> <span class="ruby-string">&quot;DISTRIBUTION AGREEMENT&quot;</span>,
+    <span class="ruby-identifier">tag</span><span class="ruby-operator">:</span> <span class="ruby-string">&quot;Distribution&quot;</span>,
+    <span class="ruby-identifier">uuid</span><span class="ruby-operator">:</span> <span class="ruby-string">&quot;38e2814a-45ce-11e5-b8b5-d43d7eecec4d&quot;</span>,
+  )
+
+  <span class="ruby-identifier">doc</span>       = <span class="ruby-constant">CopyMachine</span>.<span class="ruby-identifier">copy_document</span>( <span class="ruby-identifier">template</span> )
+  
+  <span class="ruby-identifier">doc</span>.<span class="ruby-identifier">update</span>( 
+    <span class="ruby-value">:belongs_to_id</span>    =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@distribution_agreement</span>.<span class="ruby-identifier">id</span>,
+    <span class="ruby-value">:belongs_to_type</span>  =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@distribution_agreement</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">name</span>,
+    <span class="ruby-value">:account_id</span>       =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@account</span>.<span class="ruby-identifier">id</span>,
+    <span class="ruby-value">:template_id</span>      =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">template</span>.<span class="ruby-identifier">id</span>,
+    <span class="ruby-identifier">title</span><span class="ruby-operator">:</span>            <span class="ruby-ivar">@distribution_agreement</span>.<span class="ruby-identifier">title</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-string">&#39; COPY&#39;</span>, <span class="ruby-string">&#39;&#39;</span>),
+    <span class="ruby-identifier">expires</span><span class="ruby-operator">:</span> <span class="ruby-keyword">false</span>
+  )
+  
+  <span class="ruby-constant">CopyMachine</span>.<span class="ruby-identifier">create_document_users</span> <span class="ruby-identifier">template</span>, <span class="ruby-identifier">doc</span>
+  
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-create_ipi">
+            
+              <b>create_ipi</b>()
+            
+            <a href="../classes/UserAssetsFactory.html#method-i-create_ipi" name="method-i-create_ipi" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-create_ipi_source')" id="l_method-i-create_ipi_source">show</a>
+                
+              </p>
+              <div id="method-i-create_ipi_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File services/user_assets_factory.rb, line 90</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">create_ipi</span>
+  <span class="ruby-ivar">@ipi</span> = <span class="ruby-constant">Ipi</span>.<span class="ruby-identifier">create</span>(
+    <span class="ruby-identifier">user_id</span><span class="ruby-operator">:</span>    <span class="ruby-ivar">@user</span>.<span class="ruby-identifier">id</span>, 
+    <span class="ruby-identifier">master_ipi</span><span class="ruby-operator">:</span> <span class="ruby-keyword">true</span>,
+    <span class="ruby-identifier">uuid</span><span class="ruby-operator">:</span>       <span class="ruby-constant">UUIDTools</span><span class="ruby-operator">::</span><span class="ruby-constant">UUID</span>.<span class="ruby-identifier">timestamp_create</span>().<span class="ruby-identifier">to_s</span>,
+    <span class="ruby-identifier">email</span><span class="ruby-operator">:</span>      <span class="ruby-ivar">@user</span>.<span class="ruby-identifier">email</span>,
+    <span class="ruby-identifier">full_name</span><span class="ruby-operator">:</span>  <span class="ruby-ivar">@user</span>.<span class="ruby-identifier">full_name</span>
+  )
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-create_ipi_publisher">
+            
+              <b>create_ipi_publisher</b>()
+            
+            <a href="../classes/UserAssetsFactory.html#method-i-create_ipi_publisher" name="method-i-create_ipi_publisher" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-create_ipi_publisher_source')" id="l_method-i-create_ipi_publisher_source">show</a>
+                
+              </p>
+              <div id="method-i-create_ipi_publisher_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File services/user_assets_factory.rb, line 150</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">create_ipi_publisher</span>
+  <span class="ruby-constant">IpiPublisher</span>.<span class="ruby-identifier">create</span>(
+    <span class="ruby-identifier">publisher_id</span><span class="ruby-operator">:</span> <span class="ruby-ivar">@publisher</span>.<span class="ruby-identifier">id</span>,
+    <span class="ruby-identifier">ipi_id</span><span class="ruby-operator">:</span>       <span class="ruby-ivar">@ipi</span>.<span class="ruby-identifier">id</span>,
+    <span class="ruby-identifier">publishing_agreement_id</span><span class="ruby-operator">:</span> <span class="ruby-ivar">@publishing_agreement</span>.<span class="ruby-identifier">id</span>
+  )
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-create_label">
+            
+              <b>create_label</b>()
+            
+            <a href="../classes/UserAssetsFactory.html#method-i-create_label" name="method-i-create_label" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-create_label_source')" id="l_method-i-create_label_source">show</a>
+                
+              </p>
+              <div id="method-i-create_label_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File services/user_assets_factory.rb, line 44</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">create_label</span>
+  <span class="ruby-ivar">@label</span> = <span class="ruby-constant">Label</span>.<span class="ruby-identifier">create</span>( <span class="ruby-identifier">user_id</span><span class="ruby-operator">:</span> <span class="ruby-ivar">@user</span>.<span class="ruby-identifier">id</span>, <span class="ruby-identifier">account_id</span><span class="ruby-operator">:</span> <span class="ruby-ivar">@account</span>.<span class="ruby-identifier">id</span>, <span class="ruby-identifier">title</span><span class="ruby-operator">:</span> <span class="ruby-node">&quot;#{@user.user_name}&#39;s Label&quot;</span>)
+  <span class="ruby-ivar">@user</span>.<span class="ruby-identifier">update</span>(<span class="ruby-identifier">default_label_id</span><span class="ruby-operator">:</span> <span class="ruby-ivar">@label</span>.<span class="ruby-identifier">id</span>)
+   
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-create_mp3_term_of_usage">
+            
+              <b>create_mp3_term_of_usage</b>()
+            
+            <a href="../classes/UserAssetsFactory.html#method-i-create_mp3_term_of_usage" name="method-i-create_mp3_term_of_usage" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-create_mp3_term_of_usage_source')" id="l_method-i-create_mp3_term_of_usage_source">show</a>
+                
+              </p>
+              <div id="method-i-create_mp3_term_of_usage_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File services/user_assets_factory.rb, line 158</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">create_mp3_term_of_usage</span>
+  <span class="ruby-identifier">template</span>  = <span class="ruby-constant">Document</span>.<span class="ruby-identifier">where</span>(<span class="ruby-identifier">uuid</span><span class="ruby-operator">:</span> <span class="ruby-string">&quot;38e2fddc-45ce-11e5-b8b5-d43d7eecec4d&quot;</span>)
+  .<span class="ruby-identifier">first_or_create</span>(
+    <span class="ruby-identifier">title</span><span class="ruby-operator">:</span> <span class="ruby-string">&quot;Term of usage for a mp3 file bought in the shop&quot;</span>,
+    <span class="ruby-identifier">document_type</span><span class="ruby-operator">:</span> <span class="ruby-string">&quot;Template&quot;</span>,
+    <span class="ruby-identifier">body</span><span class="ruby-operator">:</span> <span class="ruby-string">&quot;You what you can use a mp3 for&quot;</span>,
+    <span class="ruby-identifier">text_content</span><span class="ruby-operator">:</span> <span class="ruby-string">&quot;MP3 usage agreement&quot;</span>,
+    <span class="ruby-identifier">account_id</span><span class="ruby-operator">:</span> <span class="ruby-constant">User</span>.<span class="ruby-identifier">system_user</span>.<span class="ruby-identifier">account_id</span>,
+    <span class="ruby-identifier">file_size</span><span class="ruby-operator">:</span> <span class="ruby-number">0</span>,
+    <span class="ruby-identifier">tag</span><span class="ruby-operator">:</span> <span class="ruby-string">&quot;Recording&quot;</span>,
+    <span class="ruby-identifier">uuid</span><span class="ruby-operator">:</span> <span class="ruby-string">&quot;38e2fddc-45ce-11e5-b8b5-d43d7eecec4d&quot;</span>,
+  )
+  <span class="ruby-identifier">doc</span>       = <span class="ruby-constant">CopyMachine</span>.<span class="ruby-identifier">copy_document</span>( <span class="ruby-identifier">template</span> )
+  
+  <span class="ruby-identifier">doc</span>.<span class="ruby-identifier">update</span>( 
+    <span class="ruby-value">:belongs_to_id</span>    =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@account</span>.<span class="ruby-identifier">id</span>,
+    <span class="ruby-value">:belongs_to_type</span>  =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@account</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">name</span>,
+    <span class="ruby-value">:account_id</span>       =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@account</span>.<span class="ruby-identifier">id</span>,
+    <span class="ruby-value">:template_id</span>      =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">template</span>.<span class="ruby-identifier">id</span>,
+    <span class="ruby-identifier">title</span><span class="ruby-operator">:</span>            <span class="ruby-identifier">template</span>.<span class="ruby-identifier">title</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-string">&#39; COPY&#39;</span>, <span class="ruby-string">&#39;&#39;</span>),
+    <span class="ruby-identifier">expires</span><span class="ruby-operator">:</span> <span class="ruby-keyword">false</span>
+  )
+  <span class="ruby-constant">CopyMachine</span>.<span class="ruby-identifier">create_document_users</span> <span class="ruby-identifier">template</span>, <span class="ruby-identifier">doc</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-create_publisher">
+            
+              <b>create_publisher</b>()
+            
+            <a href="../classes/UserAssetsFactory.html#method-i-create_publisher" name="method-i-create_publisher" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-create_publisher_source')" id="l_method-i-create_publisher_source">show</a>
+                
+              </p>
+              <div id="method-i-create_publisher_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File services/user_assets_factory.rb, line 101</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">create_publisher</span>
+  <span class="ruby-ivar">@publisher</span> = <span class="ruby-constant">Publisher</span>.<span class="ruby-identifier">create</span>(
+    <span class="ruby-identifier">user_id</span><span class="ruby-operator">:</span> <span class="ruby-ivar">@user</span>.<span class="ruby-identifier">id</span>,
+    <span class="ruby-identifier">account_id</span><span class="ruby-operator">:</span> <span class="ruby-ivar">@account</span>.<span class="ruby-identifier">id</span>,
+    <span class="ruby-identifier">legal_name</span><span class="ruby-operator">:</span> <span class="ruby-node">&quot;#{@user.user_name} Publishing&quot;</span>,
+    <span class="ruby-identifier">email</span><span class="ruby-operator">:</span>      <span class="ruby-ivar">@user</span>.<span class="ruby-identifier">email</span>,
+    <span class="ruby-identifier">personal_publisher</span><span class="ruby-operator">:</span> <span class="ruby-keyword">true</span>,
+    <span class="ruby-identifier">show_on_public_page</span><span class="ruby-operator">:</span> <span class="ruby-keyword">false</span> 
+  )
+  <span class="ruby-ivar">@user</span>.<span class="ruby-identifier">update</span>(<span class="ruby-identifier">personal_publisher_id</span><span class="ruby-operator">:</span> <span class="ruby-ivar">@publisher</span>.<span class="ruby-identifier">id</span>)
+  <span class="ruby-ivar">@publisher</span>.<span class="ruby-identifier">confirmed!</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-create_publishing_agreement">
+            
+              <b>create_publishing_agreement</b>()
+            
+            <a href="../classes/UserAssetsFactory.html#method-i-create_publishing_agreement" name="method-i-create_publishing_agreement" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-create_publishing_agreement_source')" id="l_method-i-create_publishing_agreement_source">show</a>
+                
+              </p>
+              <div id="method-i-create_publishing_agreement_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File services/user_assets_factory.rb, line 114</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">create_publishing_agreement</span>
+  
+  <span class="ruby-ivar">@publishing_agreement</span> = <span class="ruby-constant">PublishingAgreement</span>.<span class="ruby-identifier">create</span>(
+    <span class="ruby-identifier">publisher_id</span><span class="ruby-operator">:</span>       <span class="ruby-ivar">@publisher</span>.<span class="ruby-identifier">id</span>,
+    <span class="ruby-identifier">split</span><span class="ruby-operator">:</span>              <span class="ruby-number">50.0</span>,
+    <span class="ruby-identifier">title</span><span class="ruby-operator">:</span>              <span class="ruby-node">&quot;Publishing agreement for #{@user.user_name}&quot;</span>,
+    <span class="ruby-identifier">personal_agreement</span><span class="ruby-operator">:</span> <span class="ruby-keyword">true</span>,
+    <span class="ruby-identifier">user_id</span><span class="ruby-operator">:</span>            <span class="ruby-ivar">@user</span>.<span class="ruby-identifier">id</span>,
+    <span class="ruby-identifier">account_id</span><span class="ruby-operator">:</span>         <span class="ruby-ivar">@account</span>.<span class="ruby-identifier">id</span>, 
+    <span class="ruby-identifier">uuid</span><span class="ruby-operator">:</span> <span class="ruby-constant">UUIDTools</span><span class="ruby-operator">::</span><span class="ruby-constant">UUID</span>.<span class="ruby-identifier">timestamp_create</span>().<span class="ruby-identifier">to_s</span>
+  )
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-create_publishing_agreement_document">
+            
+              <b>create_publishing_agreement_document</b>()
+            
+            <a href="../classes/UserAssetsFactory.html#method-i-create_publishing_agreement_document" name="method-i-create_publishing_agreement_document" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-create_publishing_agreement_document_source')" id="l_method-i-create_publishing_agreement_document_source">show</a>
+                
+              </p>
+              <div id="method-i-create_publishing_agreement_document_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File services/user_assets_factory.rb, line 127</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">create_publishing_agreement_document</span>
+  <span class="ruby-identifier">template</span>  = <span class="ruby-constant">Document</span>.<span class="ruby-identifier">where</span>(<span class="ruby-identifier">uuid</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;5dcab336-5dd6-11e5-88f3-d43d7eecec4d&#39;</span>)
+  .<span class="ruby-identifier">first_or_create</span>(
+    <span class="ruby-identifier">title</span><span class="ruby-operator">:</span> <span class="ruby-string">&quot;Self publishing&quot;</span>,
+    <span class="ruby-identifier">document_type</span><span class="ruby-operator">:</span> <span class="ruby-string">&quot;Template&quot;</span>,
+    <span class="ruby-identifier">body</span><span class="ruby-operator">:</span> <span class="ruby-string">&quot;Self publishing ( I validate i&#39;m my own rightful publisher )&quot;</span>,
+    <span class="ruby-identifier">text_content</span><span class="ruby-operator">:</span> <span class="ruby-string">&quot;Self publishing ( I validate i&#39;m my own rightful publisher )&quot;</span>,
+    <span class="ruby-identifier">tag</span><span class="ruby-operator">:</span> <span class="ruby-string">&quot;Publishing&quot;</span>,
+    <span class="ruby-identifier">uuid</span><span class="ruby-operator">:</span> <span class="ruby-string">&quot;5dcab336-5dd6-11e5-88f3-d43d7eecec4d&quot;</span>,
+  )
+  <span class="ruby-identifier">doc</span>       = <span class="ruby-constant">CopyMachine</span>.<span class="ruby-identifier">copy_document</span>( <span class="ruby-identifier">template</span> )
+  
+  <span class="ruby-identifier">doc</span>.<span class="ruby-identifier">update</span>( 
+    <span class="ruby-value">:belongs_to_id</span>    =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@publishing_agreement</span>.<span class="ruby-identifier">id</span>,
+    <span class="ruby-value">:belongs_to_type</span>  =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@publishing_agreement</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">name</span>,
+    <span class="ruby-value">:account_id</span>       =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@account</span>.<span class="ruby-identifier">id</span>,
+    <span class="ruby-value">:template_id</span>      =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">template</span>.<span class="ruby-identifier">id</span>,
+    <span class="ruby-identifier">title</span><span class="ruby-operator">:</span>            <span class="ruby-identifier">template</span>.<span class="ruby-identifier">title</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-string">&#39; COPY&#39;</span>, <span class="ruby-string">&#39;&#39;</span>),
+    <span class="ruby-identifier">expires</span><span class="ruby-operator">:</span> <span class="ruby-keyword">false</span>
+  )
+  <span class="ruby-constant">CopyMachine</span>.<span class="ruby-identifier">create_document_users</span> <span class="ruby-identifier">template</span>, <span class="ruby-identifier">doc</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+                    </div>
+
+    </div>
+  </body>
+</html>    

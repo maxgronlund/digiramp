@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>index.html.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            index.html.slim
+        </h1>
+        <ul class="files">
+            <li>views/admin/legal_templates/index.html.slim</li>
+            <li>Last modified: 2015-10-03 06:26:00 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>wrapper</p>
+
+<pre><code>.full-width-top
+  == render &#39;shared/navigationbar&#39;, page: &#39;home&#39; 
+
+.admin-account
+  #sidebar-wrapper
+    ul class=&quot;sidebar-nav&quot;
+      == render &#39;admin/shared/sidebar&#39;, selected: &#39;content&#39;
+
+#page-content-wrapper
+  .container-fluid
+    == render &#39;shared/breadcrumbs&#39;, breadcrumbs: { links: { &quot;admin&quot;.to_sym =&gt; admin_index_path,
+                                                            content: admin_content_index_path}, current: &#39;&#39;}
+    == render &#39;admin/shared/messages&#39;
+    .row
+      .col-sm-6
+        h3 Templates for legal documents
+      .col-sm-6
+        .pull-right.pull-down-10
+
+          =&gt; link_to admin_content_index_path do
+            .btn.btn-default
+              i.fa.fa-chevron-left
+              &#39;&amp;nbsp;Back
+          =&gt; link_to &#39;New document template&#39;, new_admin_legal_template_path, class: &#39;btn btn-default&#39;, id: &#39;new-document-template&#39;
+          = link_to &#39;Legal tags&#39;, admin_legal_tags_path, class: &#39;btn btn-default&#39;
+
+    .pull-down-10
+    .table-responsive
+      table class=&quot;table table-hover&quot;
+        thead
+          tr
+            th
+            th Title/ Description
+            th Tag
+            th Default signatures
+        tbody
+          - @documents.each do |document|
+            tr
+              td style=&quot;min-width: 100px&quot;
+                =&gt; link_to admin_legal_template_path(document.uuid), 
+                      id: &quot;delete-#{document.title.downcase.gsub(&#39; &#39;, &#39;-&#39;)}&quot; , 
+                      data: {:confirm =&gt; &#39;Are you sure?&#39;}, 
+                      turboboost: true, 
+                      :method =&gt; :delete do
+                  .btn.btn-danger.btn-xs
+                    i.fa.fa-times
+
+                =&gt; link_to admin_legal_template_path(document.uuid, :format =&gt; &#39;pdf&#39;) do 
+                  .btn.btn-default.btn-xs
+                    i.fa.fa-file-pdf-o
+
+                = link_to edit_admin_legal_template_path( document.uuid), id: &quot;edit-#{document.title.downcase.gsub(&#39; &#39;, &#39;-&#39;)}&quot; do
+                  .btn.btn-default.btn-xs
+                    i.fa.fa-pencil
+
+              td 
+                .div style=&quot;max-width: 480px&quot;
+                  h5 =  document.title
+                  = simple_format document.body
+
+              td =  document.tag
+              td 
+                - document.digital_signatures.each do |digital_signature|
+                  b style=&quot;text-transform: uppercase;&quot; 
+                    = digital_signature.role
+                  br
+
+                .pull-right
+                  =&gt; link_to admin_legal_template_path(document.uuid) do 
+                    .btn.btn-default.btn-xs
+                      i.fa.fa-pencil&amp;nbsp;Signatures
+
+== render &#39;shared/site_footer&#39;</code></pre>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>_page_title.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            _page_title.slim
+        </h1>
+        <ul class="files">
+            <li>views/shared/_page_title.slim</li>
+            <li>Last modified: 2015-07-05 15:22:06 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      <ul><li>
+<p><a href=":return_url">session</a>  = request.url</p>
+</li><li>
+<p>blog                  = <a href=":blog">locals</a></p>
+</li><li>
+<p>blog_post             = <a
+href="../../../classes/BlogPost.html#method-c-cached_find">BlogPost.cached_find</a>(
+<a href=":blog_post">locals</a> , blog )</p>
+</li><li>
+<p>insert                = <a href=":insert">locals</a></p>
+</li></ul>
+
+<p>.row</p>
+
+<pre><code>.col-sm-8
+  .page-title
+    h1 
+      =blog_post.title
+      -if super?
+        &#39;&amp;nbsp;
+        = link_to edit_admin_blog_blog_post_path(blog, blog_post) do
+           i class=&quot;fa fa-pencil&quot;
+  = simple_format  locals[:body] || blog_post.body
+.col-sm-4
+  == render insert if insert</code></pre>
+
+<p>.row</p>
+
+<pre><code>.col-sm-12
+  hr</code></pre>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

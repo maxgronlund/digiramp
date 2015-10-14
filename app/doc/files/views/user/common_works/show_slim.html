@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>show.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            show.slim
+        </h1>
+        <ul class="files">
+            <li>views/user/common_works/show.slim</li>
+            <li>Last modified: 2015-10-08 15:19:12 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>wrapper</p>
+
+<pre><code>.full-width-top
+  == render &#39;shared/navigationbar&#39;, page: &#39;user&#39; 
+
+#sidebar-wrapper
+  ul class=&quot;sidebar-nav&quot;
+    == render &#39;users/shared/sidebar&#39;, selected: &#39;recordings&#39;
+
+#page-content-wrapper
+  .container-fluid
+    /== render &#39;shared/breadcrumbs&#39;, breadcrumbs: { links: { &#39;Dashboard&#39;.to_sym =&gt; user_user_control_panel_index_path(@user),
+    /                                                        &#39;common work&#39;.to_sym =&gt; user_user_common_work_path(@user, @common_work) }}
+    == render &#39;shared/breadcrumbs&#39;, breadcrumbs: { links: { &#39;Dashboard&#39;.to_sym =&gt; user_user_control_panel_index_path(@user),
+                                                             legal: user_user_legal_index_path(@user),
+                                                             &#39;common works&#39;.to_sym =&gt; user_user_creative_rights_path(@user)} }
+    .row
+      .col-sm-7
+        .help
+          .help-text
+            /h2 = @common_work.title
+            h2 
+             b © Creators on&amp;nbsp;
+             = @common_work.title
+          .help-button
+            == render &#39;admin/helps/help&#39;, identifier: &#39;common work credits&#39;
+      .col-sm-5
+        .pull-right
+          .pull-down-10
+            = link_to edit_user_user_common_work_lyric_path(@user, @common_work) do
+              .btn.btn-default
+                i.fa.fa-chevron-left
+                &#39;&amp;nbsp;
+                &#39;Back
+            =&lt; link_to user_user_common_work_recording_path(@user, @common_work) do
+              .btn.btn-default
+                &#39;Skip&amp;nbsp;
+                i.fa.fa-chevron-right
+
+    /          
+    /        /= link_to &#39;Export CSV&#39;, user_user_export_work_and_master_path(@user, @common_work, format: &quot;csv&quot;), class: &#39;btn btn-default&#39;
+    /
+    /  
+    / 
+    .pull-down-10
+    == render &#39;user/common_works/wizard_step&#39;, step: 3
+    - unless @common_work.is_registered?
+      - blog      = Blog.cached_find(&#39;Common work rights&#39;)
+      - blog_post = BlogPost.cached_find(&#39;Work is not registered&#39;, blog)
+      .digi-box
+        .row
+          .col-sm-8
+            h4 
+              = blog_post.title
+              - if editor?
+                = link_to edit_admin_blog_blog_post_path(blog, blog_post) do
+                  &#39;&amp;nbsp;
+                  i.fa.fa-pencil
+            = simple_format blog_post.body
+
+          .col-sm-4
+            .pull-right
+
+        .row
+          .col-sm-12
+            .pull-right
+              = link_to &quot;I own and control all publishing and master rights &quot;,user_user_publishing_designee_path(@user, @common_work.id),
+                                    turboboost: true, 
+                                    data: {confirm: &quot;By clicking OK you confirm that: 1) You are the only writer/composer/producer/performer on this recording. 2) There is no other publisher or label besides your own. 3) There are no other owners or contributors to any portion of this copyright or recording.4) There are no samples or parts of any other song or recoding in this work.&quot;},
+                                    class: &#39;btn btn-warning&#39;
+
+    - if( @common_work.total_share != 100.0) &amp;&amp; (@common_work.common_work_ipis.count &gt; 0)
+      .alert.alert-danger
+        &#39;The creators split has to add up to 100%
+      .pull-down-10
+    .table-responsive
+      .row.pull-down-10  
+        .col-sm-12
+          .pull-right
+            =&lt; link_to new_user_user_common_work_common_work_ipi_path(@user, @common_work) do
+              .btn.btn-default
+                i.fa.fa-user-plus&amp;nbsp;Add creator
+      table class=&quot;table table-hover&quot;
+        thead
+          tr
+            th
+            th Name/ email
+            th Roles
+            th Publisher
+            th Creators split
+            th 
+              .pull-right
+                &#39;Status
+
+        tbody
+          - @common_work.common_work_ipis.each do |common_work_ipi|
+            - publishing_agreement = common_work_ipi.publishing_agreement
+            tr
+              td  style=&quot;width: 64px;&quot;
+                =&gt; link_to user_user_common_work_common_work_ipi_path(@user, @common_work, common_work_ipi),
+                                                          turboboost: true,
+                                                          data: { confirm: &#39;Are you sure?&#39; }, 
+                                                          method: :delete do
+                                          .btn.btn-danger.btn-xs
+                                            i.fa.fa-times
+                = link_to edit_user_user_common_work_common_work_ipi_path(@user, @common_work, common_work_ipi) do
+                  .btn.btn-default.btn-xs
+                    i.fa.fa-pencil
+
+              td 
+                = common_work_ipi.get_full_name
+                br = common_work_ipi.get_email
+
+              td 
+                - if common_work_ipi.music
+                  &#39;Music
+                  br
+                - if common_work_ipi.lyric
+                  &#39;Lyric
+                  br
+                - if common_work_ipi.melody
+                  &#39;Melody
+                  br
+                - if common_work_ipi.arrangement
+                  &#39;Arrangement
+              td
+                - if common_work_ipi.publisher
+                  = common_work_ipi.publisher.legal_name
+
+              td
+
+                = number_to_percentage(common_work_ipi.share, precision: 0)   
+
+              td   
+                .pull-right
+                  div class=&quot;confirmation-button-#{common_work_ipi.id.to_s}&quot;
+                    == render &#39;user/common_works/common_work_ipi_buttons&#39;, user: @user, common_work: @common_work, common_work_ipi: common_work_ipi
+
+    /.pull-down-10
+    /.digi-box
+    /  .row
+    /    .col-sm-6
+    /      h4 Masters / Recordings
+    /    .col-sm-6
+    /      .pull-right
+    /        = link_to &#39;#&#39; do
+    /          .btn.btn-default
+    /            i.fa.fa-plus&amp;nbsp;Add master
+    /  .table-responsive
+    /    table class=&quot;table table-hover&quot;
+    /      thead
+    /        tr
+    /          th
+    /          th Title
+    /          th Artist
+    /          th ISRC
+    /          th Contributors
+    /          th
+    /            .pull-right
+    /              &#39;Status
+    /      tbody
+    /        - @common_work.recordings.each do |recording|
+    /          tr
+    /            td style=&quot;width: 64px;&quot;
+    /              =&gt; link_to &#39;#&#39; do
+    /                .btn.btn-danger.btn-xs
+    /                  i.fa.fa-times
+    /              = link_to edit_user_recording_basic_path(@user, recording) do
+    /                .btn.btn-default.btn-xs
+    /                  i.fa.fa-pencil
+    /            td = link_to recording.title, user_recording_path(@user, recording), class: &#39;btn btn-default btn-xs&#39;
+    /            td = recording.artist
+    /            td = recording.isrc_code
+    /            td
+    /              - recording.recording_ipis.each do |recording_ipi|
+    /                  = recording_ipi.name
+    /            td
+    /              .pull-right
+    /                - recording.recording_ipis.each do |recording_ipi|
+    /                    = recording_ipi.status
+    /              
+    /  /div id=&quot;delete_recording_#{recording.id.to_s}&quot;
+    /  /  #digiWhams  class=&quot;/recordings/#{recording.id.to_s}&quot;
+    /  /    == render &#39;audio_player/show&#39;, recording: recording , description: true, target: &#39;&#39; 
+    /  /    /== render &#39;recordings/recording_with_icons&#39;, recording: recording,
+    /  /    /                                             info: true,
+    /  /    /                                             add_to_playlist: false, 
+    /  /    /                                             remove_from_playlist: false, 
+    /  /    /                                             edit: true, 
+    /  /    /                                             delete: false,
+    /  /    /                                             description: true,
+    /  /    /                                             share: false,
+    /  /    /                                             target: &quot;&quot;,
+    /  /    /                                             music_request_link: false,
+    /  /    /                                             remove_from_request: false
+    /  /    /
+    /
+== render &#39;shared/site_footer&#39;</code></pre>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

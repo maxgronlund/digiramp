@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>facebook.js.coffee</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            facebook.js.coffee
+        </h1>
+        <ul class="files">
+            <li>assets/javascripts/facebook.js.coffee</li>
+            <li>Last modified: 2015-07-05 15:22:02 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>https://developers.facebook.com/docs/javascript/howto/jquery</p>
+
+<p>ready = -&gt;</p>
+
+<pre><code>$(&#39;body&#39;).prepend(&#39;&lt;div id=&quot;fb-root&quot;&gt;&lt;/div&gt;&#39;)
+
+$(&quot;#login_with_facebook&quot;).click -&gt;
+  FB.getLoginStatus (response) -&gt;
+    if response.status is &quot;connected&quot;
+      console.log &quot;Logged in.&quot;
+      console.log(response.authResponse.accessToken)
+
+    else
+      FB.login (response) -&gt;
+        window.location = &#39;/auth/facebook/callback&#39; if response.authResponse
+        scope: &quot;publish_actions&quot;
+    return
+
+ #FB.login (-&gt;
+ #  FB.api &quot;/me/feed&quot;, &quot;post&quot;,
+ #    message: &quot;Hello, world!&quot;
+ #  return
+ #),
+ #  scope: &quot;publish_actions&quot;
+
+#$.ajax
+#  url: &quot;#{window.location.protocol}//connect.facebook.net/en_US/all.js&quot;
+#  dataType: &#39;script&#39;
+#  cache: true</code></pre>
+
+<p>$(document).ready(ready) $(document).on(&#39;page:load&#39;, ready)</p>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>_form.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            _form.slim
+        </h1>
+        <ul class="files">
+            <li>views/account/account_users/_form.slim</li>
+            <li>Last modified: 2015-07-05 15:22:05 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>.table-responsive</p>
+
+<pre><code>table class=&quot;table table-hover&quot;
+  tbody
+    tr
+      td Recordings
+      td = f.input :create_recording, label: &#39;Create&#39;
+      td = f.input :read_recording,   label: &#39;Read&#39;
+      td = f.input :update_recording, label: &#39;Update&#39;
+      td = f.input :delete_recording, label: &#39;Delete&#39;
+    tr
+      td Recordings IPI&#39;s
+      td = f.input :create_recording_ipi, label: &#39;Create&#39;
+      td = f.input :read_recording_ipi,   label: &#39;Read&#39;
+      td = f.input :update_recording_ipi, label: &#39;Update&#39;
+      td = f.input :delete_recording_ipi, label: &#39;Delete&#39;
+    tr
+      td Files
+      td = f.input :create_file, label: &#39;Create&#39;
+      td = f.input :read_file,   label: &#39;Read&#39;
+      td = f.input :update_file, label: &#39;Update&#39;
+      td = f.input :delete_file, label: &#39;Delete&#39;
+    tr
+      td Artwork
+      td = f.input :create_artwork, label: &#39;Create&#39;
+      td = f.input   :read_artwork,   label: &#39;Read&#39;
+      td = f.input :update_artwork, label: &#39;Update&#39;
+      td = f.input :delete_artwork, label: &#39;Delete&#39;
+    tr
+      td Legal Documents
+      td = f.input :create_legal_document, label: &#39;Create&#39;
+      td = f.input :read_legal_document,   label: &#39;Read&#39;
+      td = f.input :update_legal_document, label: &#39;Update&#39;
+      td = f.input :delete_legal_document, label: &#39;Delete&#39;
+    tr
+      td Financial Documents
+      td = f.input :create_financial_document, label: &#39;Create&#39;
+      td = f.input :read_financial_document,   label: &#39;Read&#39;
+      td = f.input :update_financial_document, label: &#39;Update&#39;
+      td = f.input :delete_financial_document, label: &#39;Delete&#39;
+    tr
+      td Common Works
+      td = f.input :create_common_work, label: &#39;Create&#39;
+      td = f.input :read_common_work,   label: &#39;Read&#39;
+      td = f.input :update_common_work, label: &#39;Update&#39;
+      td = f.input :delete_common_work, label: &#39;Delete&#39;
+    tr
+      td Common Works IPI&#39;s
+      td = f.input :create_common_work_ipi, label: &#39;Create&#39;
+      td = f.input :read_common_work_ipi,   label: &#39;Read&#39;
+      td = f.input :update_common_work_ipi, label: &#39;Update&#39;
+      td = f.input :delete_common_work_ipi, label: &#39;Delete&#39;
+    tr
+      td Users
+      td = f.input :createx_user, label: &#39;Create&#39;
+      td = f.input   :read_user, label: &#39;Read&#39;
+      td = f.input :update_user, label: &#39;Update&#39;
+      td = f.input :delete_user, label: &#39;Delete&#39;
+    tr
+      td Catalogs
+      td = f.input :createx_catalog, label: &#39;Create&#39;
+      td = f.input   :read_catalog, label: &#39;Read&#39;
+      td = f.input :update_catalog, label: &#39;Update&#39;
+      td = f.input :delete_catalog, label: &#39;Delete&#39;
+    tr
+      td Playlists
+      td = f.input :create_playlist, label: &#39;Create&#39;
+      td = f.input   :read_playlist, label: &#39;Read&#39;
+      td = f.input :update_playlist, label: &#39;Update&#39;
+      td = f.input :delete_playlist, label: &#39;Delete&#39;
+
+    -if @account.create_opportunities || @account.read_opportunities 
+      tr
+        td Opportunities
+        td
+          -if @account.create_opportunities
+            = f.input :create_opportunity, label: &#39;Create&#39;
+        td 
+          = f.input   :read_opportunity, label: &#39;Read&#39;
+        td 
+          -if @account.create_opportunities
+            = f.input :update_opportunity, label: &#39;Update&#39;
+        td
+          -if @account.create_opportunities
+            = f.input :delete_opportunity, label: &#39;Delete&#39;
+    tr
+      td CRM
+      td = f.input :create_crm, label: &#39;Create&#39;
+      td = f.input   :read_crm, label: &#39;Read&#39;
+      td = f.input :update_crm, label: &#39;Update&#39;
+      td = f.input :delete_crm, label: &#39;Delete&#39;</code></pre>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

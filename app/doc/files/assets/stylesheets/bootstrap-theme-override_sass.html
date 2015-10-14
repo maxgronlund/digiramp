@@ -1,0 +1,698 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>bootstrap-theme-override.sass</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            bootstrap-theme-override.sass
+        </h1>
+        <ul class="files">
+            <li>assets/stylesheets/bootstrap-theme-override.sass</li>
+            <li>Last modified: 2015-10-07 11:18:59 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>@import “compass/css3/opacity” @import “colors”</p>
+
+<p>html, body</p>
+
+<pre><code>height: 100%
+  background-color: transparent  
+line-height: 1.3</code></pre>
+
+<p>a</p>
+
+<pre><code>color: #3675C4 
+text-decoration: none</code></pre>
+
+<p>a:hover</p>
+
+<pre><code>color: #26538D
+text-decoration: none</code></pre>
+
+<p>//a  //  color: #DA6F00  //  text-decoration: none //</p>
+
+<p>//a:hover  //  color: #D03200 //  text-decoration: none</p>
+
+<p>hr</p>
+
+<pre><code>margin-top: 8px
+margin-bottom: 20px
+border: 0
+border-top: 1px solid #999</code></pre>
+
+<p>//* use full screen  //.navbar //  margin-top:-15px //  margin-bottom:15px
+//  border-radius: 0px //  margin-bottom: 15px // // .container</p>
+
+<pre><code>padding: 55px 0px 15px 30px
+margin: 0 -15px
+width: 100%</code></pre>
+
+<p>.btn, .btn-lg</p>
+
+<pre><code>border-radius: 0px
+margin-bottom: 0px
+min-width: 52px</code></pre>
+
+<p>.btn-orange</p>
+
+<pre><code>color: #ffffff
+background-color: #F4922D
+border-color: #DB8023</code></pre>
+
+<p>.btn-green</p>
+
+<pre><code>color: #ffffff
+background-color: #43B44E
+border-color: #43B44E</code></pre>
+
+<p>//.form-control  //  height: 45px</p>
+
+<p>.input-group-addon</p>
+
+<pre><code>//height: 45px
+color: #999 !important
+//font-size: 150% !important</code></pre>
+
+<p>.table &gt; thead &gt; tr &gt; th, .table &gt; tbody &gt; tr &gt; th,
+.table &gt; tfoot &gt; tr &gt; th, .table &gt; thead &gt; tr &gt; td,
+.table &gt; tbody &gt; tr &gt; td, .table &gt; tfoot &gt; tr &gt; td</p>
+
+<pre><code>padding: 8px
+line-height: 1.428571429
+vertical-align: top
+border-top: 1px solid #545E77</code></pre>
+
+<p>.radio <a href="type="radio"">input</a>, .radio-inline <a
+href="type="radio"">input</a>, .checkbox <a
+href="type="checkbox"">input</a>, .checkbox-inline <a
+href="type="checkbox"">input</a></p>
+
+<pre><code>position: relative
+margin-right: 10px
+margin-left: 0px</code></pre>
+
+<p>.center-block</p>
+
+<pre><code>display: block
+margin-left: auto
+margin-right: auto
+text-align: center
+.twitter, .facebook, .linkedin, .google
+  display: block
+  margin-left: auto
+  margin-right: auto</code></pre>
+
+<p>.table-hover &gt; tbody &gt; tr:hover &gt; td, .table-hover &gt; tbody &gt;
+tr:hover &gt; th</p>
+
+<pre><code>background-color: #E3E3E3</code></pre>
+
+<p>.table &gt; thead &gt; tr &gt; th</p>
+
+<pre><code>vertical-align: bottom
+border-bottom: 1px solid #333</code></pre>
+
+<p>.panel-default &gt; .panel-heading</p>
+
+<pre><code>background-image: -webkit-linear-gradient(top, #f5f5f5 0%, #f5f5f5 100%)
+background-image: linear-gradient(to bottom, #f5f5f5 0%, #f5f5f5 100%)
+background-repeat: repeat-x
+filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=&#39;#fff5f5f5&#39;, endColorstr=&#39;#fff5f5f5&#39;, GradientType=0)</code></pre>
+
+<p>.panel</p>
+
+<pre><code>border-radius: 0px
+border: 1px solid
+border-color: #DDD
+.panel-body
+  hr
+    border-top: 0px solid #27303B
+
+background-color: #FFF
+color: #474747
+.panel-title
+  a:hover
+    color: #f0f0f0
+
+h3
+  text-transform: uppercase
+  a:hover
+    color: #f0f0f0
+
+.panel-heading 
+  background-color: #5C6B75
+  border-color: #5C6B75
+  border-top-right-radius: 0px
+  border-top-left-radius: 0px
+  .panel-title
+    color: #888
+    font-size: 14px
+    //a:hover
+    //  color: #eee</code></pre>
+
+<p>.panel-warning</p>
+
+<pre><code>.panel-heading 
+  background-color: #E86D56
+  border-color: #E86D56
+  color: #FFF</code></pre>
+
+<p>.panel .digiramp_player</p>
+
+<pre><code>background: none
+border: none</code></pre>
+
+<p>.panel-group .panel</p>
+
+<pre><code>margin-bottom: 0
+overflow: hidden
+border-radius: 0px
+background-color: #FFF
+padding: 0px
+padding-top: 0px
+margin-bottom: 6px</code></pre>
+
+<p>.logo</p>
+
+<pre><code>.thumbnail 
+  padding: 4px
+  border: 0px solid #fff
+  border-radius: 0px
+  background: none</code></pre>
+
+<p>.panel .panel-title a:hover</p>
+
+<pre><code>color: #26538D</code></pre>
+
+<p>.panel .panel-body hr</p>
+
+<pre><code>margin-top: 16px
+border-top: 1px solid #ddd</code></pre>
+
+<p>.progress</p>
+
+<pre><code>height: 20px
+background-color: #D5D5D5</code></pre>
+
+<p>.alert</p>
+
+<pre><code>color: #5a5a5a !important
+margin-bottom: 10px
+padding: 8px
+border-radius: 0px
+
+h4, .h4, h5, .h5, h6, .h6 
+  margin-top: 0px
+
+tr
+  td
+    h4 p
+      vertical-align: top !important
+      margin-bottom: 0px !important</code></pre>
+
+<p>.alert-info</p>
+
+<pre><code>border: solid 1px #B5D6E9 !important</code></pre>
+
+<p>.alert-notice</p>
+
+<pre><code>border: solid 1px #B5D6E9 !important</code></pre>
+
+<p>.alert-success</p>
+
+<pre><code>background-color: #dff0d8
+
+background-image: -webkit-linear-gradient(top, #dff0d8 0%, #dff0d8 100%)
+background-image: linear-gradient(to bottom, #dff0d8 0%, #dff0d8 100%)
+filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=&#39;#ffdff0d8&#39;, endColorstr=&#39;#ffdff0d8&#39;, GradientType=0)</code></pre>
+
+<p>.alert-danger</p>
+
+<pre><code>background-color: #f2dede 
+
+background-image: -webkit-linear-gradient(top, #f2dede 0%, #f2dede 100%)
+background-image: linear-gradient(to bottom, #f2dede 0%, #f2dede 100%)
+filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=&#39;#fff2dede&#39;, endColorstr=&#39;#fff2dede&#39;, GradientType=0)</code></pre>
+
+<p>.alert-warning</p>
+
+<pre><code>background-color: #FFF6DD 
+background-image: -webkit-linear-gradient(top, #FFF6DD  0%, #FFF6DD  100%)
+background-image: linear-gradient(to bottom, #FFF6DD  0%, #FFF6DD  100%)
+filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=&#39;#FFF6DD &#39;, endColorstr=&#39;#FFF6DD &#39;, GradientType=0)
+h3
+  color: #5A5A5A !important</code></pre>
+
+<p>//.alert-danger { //    background-image: -webkit-linear-gradient(top,
+f2dede 0%, e7c3c3 100%); //    background-image: -o-linear-gradient(top,
+f2dede 0%, e7c3c3 100%); //    background-image: -webkit-gradient(linear,
+left top, left bottom, from(#f2dede), to(#e7c3c3)); //    background-image:
+linear-gradient(to bottom, f2dede 0%, e7c3c3 100%); //    filter:
+progid:DXImageTransform.Microsoft.gradient(startColorstr=&#39;#fff2dede&#39;,
+endColorstr=&#39;#ffe7c3c3&#39;, GradientType=0); //    background-repeat:
+repeat-x; //    border-color: dca7a7; //}</p>
+
+<p>.avatar</p>
+
+<pre><code>.thumbnail 
+  border: 0px solid #fff
+  -webkit-box-shadow: 0 0px 0px rgba(0, 0, 0, 0.0)
+  box-shadow: 0 0px 0px rgba(0, 0, 0, 0.00 )
+  padding: 0px
+  img
+    margin-left: 0px</code></pre>
+
+<p>hr</p>
+
+<pre><code>border-top: 1px solid #CDCDCD
+margin-bottom: 8px</code></pre>
+
+<p>.pagination &gt; .active &gt; a, .pagination &gt; .active &gt; span,
+.pagination &gt; .active &gt; a:hover, .pagination &gt; .active &gt;
+span:hover, .pagination &gt; .active &gt; a:focus, .pagination &gt; .active
+&gt; span:focus</p>
+
+<pre><code>background-color: #3D3D3D
+border-color: #3D3D3D</code></pre>
+
+<p>.label</p>
+
+<pre><code>line-height: 2</code></pre>
+
+<p>.navbar-fixed-top .navbar-collapse, .navbar-fixed-bottom .navbar-collapse</p>
+
+<pre><code>max-height: none</code></pre>
+
+<p>.dropdown-menu &gt; li &gt; a</p>
+
+<pre><code>color: #888</code></pre>
+
+<p>.navbar-brand, .navbar-nav &gt; li &gt; a</p>
+
+<pre><code>text-shadow: none</code></pre>
+
+<p>// ———————- default button —————————–</p>
+
+<p>.btn-default</p>
+
+<pre><code>background-image: -webkit-linear-gradient(top, #FFFFFF 0%, #E5E5E5 100%)
+background-image: linear-gradient(to bottom, #FFFFFF 0%, #E5E5E5 100%)
+filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=&#39;#FFFFFFFF&#39;, endColorstr=&#39;#FFE5E5E5&#39;, GradientType=0)
+filter: progid:DXImageTransform.Microsoft.gradient(enabled = false)
+
+webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15), 0 1px 1px rgba(0, 0, 0, 0.0)
+box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15), 0 1px 1px rgba(0, 0, 0, 0.0)
+
+text-shadow: 0 0px 0 #fff
+border-color: #ccc
+color: #555
+.fa
+  color: #555</code></pre>
+
+<p>.btn-default:hover, .btn-default:focus</p>
+
+<pre><code>background-color: #E8E8E8
+background-position: 0 -15px</code></pre>
+
+<p>.btn-default:active, .btn-default.active</p>
+
+<pre><code>background-color: #E8E8E8
+border-color: #d2d2ac</code></pre>
+
+<p>// ———————- danger button —————————–</p>
+
+<p>.btn-danger</p>
+
+<pre><code>background-image: -webkit-linear-gradient(top, $danger-color 0%, $danger-color 100%)
+background-image: linear-gradient(to bottom, $danger-color 0%, $danger-color 100%)
+filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=&#39;#FFE45642&#39;, endColorstr=&#39;#FFE45642&#39;, GradientType=0)
+filter: progid:DXImageTransform.Microsoft.gradient(enabled = false)
+
+webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15), 0 1px 1px rgba(0, 0, 0, 0.0)
+box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15), 0 1px 1px rgba(0, 0, 0, 0.0)
+
+text-shadow: 0 0px 0 $danger-color
+border-color: $danger-color
+color: #fff
+.fa
+  color: #fff</code></pre>
+
+<p>.btn-danger:hover, .btn-danger:focus</p>
+
+<pre><code>background-color: $danger-active-color
+background-position: 0 -15px</code></pre>
+
+<p>.btn-danger:active, .btn-danger.active</p>
+
+<pre><code>background-color: $danger-active-color
+border-color: #danger-active-color</code></pre>
+
+<p>.btn-warning</p>
+
+<pre><code>background-image: -webkit-linear-gradient(top, #FFA55C 0%, #D98000 100%)
+background-image:      -o-linear-gradient(top, #FFA55C 0%, #D98000 100%)
+background-image: -webkit-gradient(linear, left top, left bottom, from(#FFA55C), to(#D98000))
+background-image:         linear-gradient(to bottom, #FFA55C 0%, #D98000 100%)
+filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=&#39;#ffFFA55C&#39;, endColorstr=&#39;#ffD98000&#39;, GradientType=0)
+filter: progid:DXImageTransform.Microsoft.gradient(enabled = false)
+background-repeat: repeat-x
+border-color: #FD8615</code></pre>
+
+<p>.btn-warning:hover, .btn-warning:focus</p>
+
+<pre><code>background-color: #D98000
+background-position: 0 -15px</code></pre>
+
+<p>.btn-warning:active, .btn-warning.active</p>
+
+<pre><code>background-color: #eb9316
+border-color: #FD7315</code></pre>
+
+<p>.btn-warning:disabled, .<a href="disabled">btn-warning</a></p>
+
+<pre><code>background-color: #eb9316
+background-image: none</code></pre>
+
+<p>// ———————- warning button —————————–</p>
+
+<p>//.btn-warning  //  background-image: -webkit-linear-gradient(top,
+$warning-color 0%, $warning-color 100%) //  background-image:
+linear-gradient(to bottom, $warning-color 0%, $warning-color 100%) // 
+filter:
+progid:DXImageTransform.Microsoft.gradient(startColorstr=&#39;#FFE45642&#39;,
+endColorstr=&#39;#FFE45642&#39;, GradientType=0) //  filter:
+progid:DXImageTransform.Microsoft.gradient(enabled = false) //</p>
+
+<p>//  webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15), 0 1px 1px
+rgba(0, 0, 0, 0.0) //  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15),
+0 1px 1px rgba(0, 0, 0, 0.0) //</p>
+
+<p>//  text-shadow: 0 0px 0 $warning-color //  border-color: $warning-color //
+color: fff //  .fa //    color: fff // //.btn-warning:hover,
+.btn-danger:focus //  background-color: $warning-active-color // 
+background-position: 0 -15px //.btn-warning:active, .btn-warning.active  //
+background-color: $warning-active-color //  border-color:
+warning-active-color</p>
+
+<p>//.btn-info  //  background-image: -webkit-linear-gradient(top, #70c8c4 0%,
+#46b5b0 100%) //  background-image: linear-gradient(to bottom, #70c8c4 0%,
+#46b5b0 100%) //  filter:
+progid:DXImageTransform.Microsoft.gradient(startColorstr=&#39;#ff70c8c4&#39;,
+endColorstr=&#39;#ff46b5b0&#39;, GradientType=0) //  filter:
+progid:DXImageTransform.Microsoft.gradient(enabled = false) // 
+background-repeat: repeat-x //  border-color: #43aea9 // //.btn-info:hover,
+//.btn-info:focus  //  background-color: #46b5b0 //  background-position: 0
+-15px // //.btn-info:active, //.btn-info.active  //  background-color:
+#46b5b0 //  border-color: #43aea9 //</p>
+
+<p>.form-control</p>
+
+<pre><code>border-radius: 0px</code></pre>
+
+<p>.btn-xs, .btn-group-xs &gt; .btn</p>
+
+<pre><code>border-radius: 0px</code></pre>
+
+<p>.btn, .btn-lg</p>
+
+<pre><code>min-width: 16px</code></pre>
+
+<p>.modal-header</p>
+
+<pre><code>border-bottom: none</code></pre>
+
+<p>.modal-footer</p>
+
+<pre><code>border-top: none</code></pre>
+
+<p>.modal-content</p>
+
+<pre><code>border-radius: 0px</code></pre>
+
+<p>.btn-primary.disabled, .<a href="disabled">btn-primary</a>, <a
+href="disabled">fieldset</a> .btn-primary, .btn-primary.disabled:hover, .<a
+href="disabled">btn-primary</a>:hover, <a href="disabled">fieldset</a>
+.btn-primary:hover, .btn-primary.disabled:focus, .<a
+href="disabled">btn-primary</a>:focus, <a href="disabled">fieldset</a>
+.btn-primary:focus, .btn-primary.disabled:active, .<a
+href="disabled">btn-primary</a>:active, <a href="disabled">fieldset</a>
+.btn-primary:active, .btn-primary.disabled.active, .<a
+href="disabled">btn-primary</a>.active, <a href="disabled">fieldset</a>
+.btn-primary.active</p>
+
+<pre><code>background-color: #ACCDEA
+border-color: #ACCDEA</code></pre>
+
+<p>h1, .h1, h2, .h2, h3, .h3</p>
+
+<pre><code>margin-top: 10px
+margin-bottom: 10px
+color: #4F5A64</code></pre>
+
+<p>h6, .h6</p>
+
+<pre><code>font-size: 13px</code></pre>
+
+<p>h4, .h4</p>
+
+<pre><code>color: #666</code></pre>
+
+<p>h5, .h5</p>
+
+<pre><code>//font-size: 16px
+//font-weight: bold
+color: #5C5C5C</code></pre>
+
+<p>.table &gt; thead &gt; tr &gt; th, .table &gt; tbody &gt; tr &gt; th,
+.table &gt; tfoot &gt; tr &gt; th, .table &gt; thead &gt; tr &gt; td,
+.table &gt; tbody &gt; tr &gt; td, .table &gt; tfoot &gt; tr &gt; td</p>
+
+<pre><code>border-top: 1px solid #C3C3C3</code></pre>
+
+<p>.no-borders</p>
+
+<pre><code>.table &gt; thead &gt; tr &gt; th, .table &gt; tbody &gt; tr &gt; th, .table &gt; tfoot &gt; tr &gt; th, .table &gt; thead &gt; tr &gt; td, .table &gt; tbody &gt; tr &gt; td, .table &gt; tfoot &gt; tr &gt; td 
+  border-top: 0px solid #C3C3C3</code></pre>
+
+<p>.table-responsive</p>
+
+<pre><code>border: 0px solid #ddd</code></pre>
+
+<p>.table-condensed &gt; thead &gt; tr &gt; th, .table-condensed &gt; tbody
+&gt; tr &gt; th, .table-condensed &gt; tfoot &gt; tr &gt; th,
+.table-condensed &gt; thead &gt; tr &gt; td, .table-condensed &gt; tbody
+&gt; tr &gt; td, .table-condensed &gt; tfoot &gt; tr &gt; td</p>
+
+<pre><code>padding: 0px 8px 4px 0px</code></pre>
+
+<p>.fileinput-button</p>
+
+<pre><code>position: relative
+overflow: hidden
+float: left
+margin-right: 4px
+width: 110px
+height: 32px
+input
+  opacity: 0
+  //filter: alpha(opacity=0)
+  transform: translate(-300px, 0) scale(4)
+  direction: ltr
+  cursor: pointer</code></pre>
+
+<p>.alert</p>
+
+<pre><code>text-shadow: 0 0px 0 rgba(255, 255, 255, 0.0)
+-webkit-box-shadow: inset 0 0px 0 rgba(255, 255, 255, 0.0), 0 0px 0px rgba(0, 0, 0, 0.0)
+box-shadow: inset 0 0px 0 rgba(255, 255, 255, 0.0), 0 0px 0px rgba(0, 0, 0, 0.0)</code></pre>
+
+<p>.alert-info</p>
+
+<pre><code>background-image: -webkit-linear-gradient(top, #d9edf7 0%, #d9edf7 100%)
+background-image: linear-gradient(to bottom, #d9edf7 0%, #d9edf7 100%)
+background-repeat: repeat-x
+filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=&#39;#ffd9edf7&#39;, endColorstr=&#39;#ffd9edf7&#39;, GradientType=0)
+border-color: #d9edf7</code></pre>
+
+<p>h1 funky, .h1 funky, h2 funky, .h2 funky, h3 funky, .h3 funky, h1 .funky,
+.h1 .funky, h2 .funky, .h2 .funky, h3 .funky, .h3 .funky , h4 .funky, .h4
+.funky</p>
+
+<pre><code>font-size: 70%
+color: #FF8710</code></pre>
+
+<p>.tooltip.left .tooltip-arrow</p>
+
+<pre><code>border-left-color: #408EB0</code></pre>
+
+<p>.tooltip-inner</p>
+
+<pre><code>color: #fff
+background-color: #408EB0
+border-radius: 0px</code></pre>
+
+<p>.navbar-default</p>
+
+<pre><code>background-color: #FAFAFA
+border-color: #FAFAFA</code></pre>
+
+<p>.progress</p>
+
+<pre><code>height: 10px
+background-color: #D5D5D5
+margin-bottom: 0px
+border-radius: 0px
+-webkit-box-shadow: inset 0 0px 0px rgba(0,0,0,.1)
+box-shadow: inset 0 0px 0px rgba(0,0,0,.1)</code></pre>
+
+<p>.progress-bar</p>
+
+<pre><code>color: #fff
+text-align: center
+background-color: #D1694E
+-webkit-box-shadow: inset 0 -1px 0 rgba(0,0,0,.15)
+box-shadow: inset 0 -1px 0 rgba(0,0,0,.15)
+-webkit-transition: width .6s ease
+-o-transition: width .6s ease
+transition: width .6s ease</code></pre>
+
+<p>//.navbar-nav &gt; li &gt; a  //  font-size: 16px //</p>
+
+<p>//.nav &gt; li &gt; a  //  padding: 15px 10px .navbar-default
+.navbar-collapse, .navbar-default .navbar-form</p>
+
+<pre><code>background-color: #07304C</code></pre>
+
+<p>.center-block</p>
+
+<pre><code>display: block
+margin-left: auto
+margin-right: auto</code></pre>
+
+<p>//h1, .h1, h2, .h2, h3, .h3  //  color: #888 //  margin-bottom: 6px // 
+color: #517FA5</p>
+
+<p>.nav-pills &gt; li.active &gt; a, .nav-pills &gt; li.active &gt; a:hover,
+.nav-pills &gt; li.active &gt; a:focus</p>
+
+<pre><code>color: #fff
+background-color: #337ab7</code></pre>
+
+<p>.nav-pills &gt; li &gt; a</p>
+
+<pre><code>border-radius: 0px</code></pre>
+
+<p>.top-nav</p>
+
+<pre><code>.nav &gt; li &gt; a 
+  position: relative
+  display: block
+  padding: 6px 15px
+  margin-top: 4px
+  margin-bottom: 2px</code></pre>
+
+<p>//.navbar-nav  //  li.active  //    background-color:  #415F8E  //  li
+a:hover //    background-color:  #415F8E</p>
+
+<p>.panel-warning .panel-heading</p>
+
+<pre><code>border-color: #B7B7B7
+color: #333</code></pre>
+
+<p>.panel-default .panel-heading</p>
+
+<pre><code>border-color: #B7B7B7
+color: #333</code></pre>
+
+<p>h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6</p>
+
+<pre><code>font-weight: 300</code></pre>
+
+<p>.table-responsive</p>
+
+<pre><code>background-color: #ECEBEA
+border: 0px solid #C1C2C3
+.row
+  margin-right: 0px
+h4
+  margin-left: 10px</code></pre>
+
+<p>.table &gt; thead &gt; tr &gt; th</p>
+
+<pre><code>border-bottom: 1px solid #A0A0A0</code></pre>
+
+<p>.table &gt; thead &gt; tr &gt; th, .table &gt; tbody &gt; tr &gt; th,
+.table &gt; tfoot &gt; tr &gt; th, .table &gt; thead &gt; tr &gt; td,
+.table &gt; tbody &gt; tr &gt; td, .table &gt; tfoot &gt; tr &gt; td</p>
+
+<pre><code>border-top: 1px solid #FFFFFF</code></pre>
+
+<p>.table</p>
+
+<pre><code>margin-bottom: 0px</code></pre>
+
+<p>//.form-control  //  height: 30px //</p>
+
+<p>//.form-group  //  margin-bottom: 10px //</p>
+
+<p>//.btn  //  padding: 3px 12px</p>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>digi_whams_controller.coffee</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            digi_whams_controller.coffee
+        </h1>
+        <ul class="files">
+            <li>assets/javascripts/digi_whams/controllers/digi_whams_controller.coffee</li>
+            <li>Last modified: 2015-07-05 15:22:02 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p># <a
+href="http://css-tricks.com/jquery-coffeescript">css-tricks.com/jquery-coffeescript</a>/
+# keep everything inside a namespace</p>
+
+<p>class @DigiWhamsController</p>
+
+<pre><code>playback_controller = {}
+#comments_controller = {}
+#bottoms_controller  = {}
+
+constructor: -&gt;
+  # request recordings from backend
+  if $(&#39;#digiWhams&#39;)[0]
+
+    controller = $(&#39;#digiWhams&#39;).attr(&quot;class&quot;)
+
+    if(controller?) 
+      $.getScript( controller)
+
+# public function called when all players are loaded    
+initialize: (root) -&gt;
+
+  playback_controller   = new PlaybackController
+  #comments_controller   = new CommentsController
+  #bottoms_controller    = new BottomsController
+
+# wrapper function
+set_loadbar: (id, progress) -&gt;
+  playback_controller.set_loadbar id, progress
+sound_loaded: (id) -&gt;
+  playback_controller.sound_loaded( id )
+
+set_playhead: (id, position) -&gt;
+  playback_controller.set_playhead( id, position )
+
+set_width =() -&gt;
+  width =  $(&quot;#digi_width&quot;).width()
+  $(&quot;.digiwham_iframe&quot;).each (index, element) =&gt;
+    $(element).css(&quot;width&quot;, width )
+
+$( window ).resize -&gt;
+  if $(&quot;#digi_width&quot;)[0] 
+    set_width()
+
+$(document).ready(set_width)
+$(document).on(&#39;page:load&#39;, set_width)
+
+refresh_global_player: () -&gt;
+
+  if(playback_controller.refresh_global_player?)
+    playback_controller.refresh_global_player()</code></pre>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

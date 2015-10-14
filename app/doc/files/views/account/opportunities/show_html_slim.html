@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>show.html.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            show.html.slim
+        </h1>
+        <ul class="files">
+            <li>views/account/opportunities/show.html.slim</li>
+            <li>Last modified: 2015-09-26 08:32:13 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      <ul><li>
+<p><a href=":return_url">session</a>         = request.url</p>
+</li></ul>
+
+<p>wrapper</p>
+
+<pre><code>.full-width-top
+  == render &#39;shared/navigationbar&#39;, page: &#39;account&#39; 
+
+.pro-account
+  #sidebar-wrapper
+    ul class=&quot;sidebar-nav&quot;
+      == render &#39;account/shared/sidebar&#39;, selected: &#39;opportunity&#39;
+
+#page-content-wrapper
+
+  .container-fluid
+    == render &#39;shared/breadcrumbs&#39;, breadcrumbs: { \
+                                    links: { account: account_account_path(@account), \
+                                    opportunities: account_account_opportunities_path(@account) }, current: &#39;&#39;}
+
+    == render &#39;admin/shared/messages&#39;
+    .row
+      .col-sm-8
+        .help
+          .help-text
+            h2 = @opportunity.title
+
+          .help-button
+            == render &#39;admin/helps/help&#39;, identifier: &#39;show account opportunity&#39;
+
+      .col-sm-4
+        .pull-right
+          .pull-down-10
+            =&gt; link_to account_account_opportunity_opportunity_users_path(@account, @opportunity) do          
+              .btn.btn-default
+                i.fa.fa-group&amp;nbsp;Users
+
+            = link_to edit_account_account_opportunity_path(@account, @opportunity) do
+              .btn.btn-default
+                i.fa.fa-pencil&amp;nbsp;Edit
+
+    .pull-down-10 
+    .row
+      .col-sm-12
+        /= link_to &#39;Selections&#39;, account_account_opportunity_selection_path(@account, @opportunity), class: &#39;btn btn-default&#39;
+        .pull-right
+          - if @opportunity.music_requests.count == 0
+            .alert.alert-danger
+              &#39;Please add a music request from the botton below                
+          - else
+            - unless @opportunity.opportunity_email_send 
+              -if  @opportunity.public_opportunity 
+                =&gt; link_to account_account_send_opportunity_email_path(@account, @opportunity), \
+                                                      id: &#39;send-opportunity-emails&#39;, \
+                                                      data: {confirm: &#39;You can only notify subscribers one time. Are you sure?&#39;}, \
+                                                      remote: true do          
+                  .btn.btn-default
+                    i.fa.fa-envelope
+                    &#39;&amp;nbsp;
+                    &#39;Send to subscribers
+
+            /=&gt; link_to account_account_opportunity_opportunity_reviewers_path(@account, @opportunity) do          
+            /  .btn.btn-default
+            /    i.fa.fa-group
+            /    &#39;&amp;nbsp;
+            /    &#39;Reviewers
+            /
+            /= link_to account_account_opportunity_opportunity_providers_path(@account, @opportunity) do          
+            /  .btn.btn-default
+            /    i.fa.fa-group
+            /    &#39;&amp;nbsp;
+            /    &#39;Users
+    .opportunity.pull-down-4
+      == render &#39;opportunities/opportunity&#39;, opportunity: @opportunity
+
+    == render &#39;account/opportunities/requests&#39;
+
+== render &#39;shared/site_footer&#39;</code></pre>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

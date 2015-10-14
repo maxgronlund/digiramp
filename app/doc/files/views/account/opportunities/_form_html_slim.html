@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>_form.html.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            _form.html.slim
+        </h1>
+        <ul class="files">
+            <li>views/account/opportunities/_form.html.slim</li>
+            <li>Last modified: 2015-09-24 20:35:34 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<h1 id="label-simple_form_for+-5B+-3Aaccount-2C+-40account-2C+-40opportunity-5D+do+-7Cf-7C">simple_form_for [ :account, @account, @opportunity] do |f|</h1>
+
+<pre><code>= f.hidden_field :account_id, value: @account.id
+.digi-box
+  .row
+    .col-sm-6
+      = f.input :title, autofocus:  true
+      = f.input :public_opportunity,  :input_html =&gt; { class: &#39;icheck-me&#39;, &#39;data-skin&#39;.to_sym =&gt; &quot;square&quot;, &#39;data-color&#39;.to_sym =&gt; &quot;blue&quot;     }  
+      .row
+        .col-sm-6
+          = f.input :kind
+        .col-sm-6
+          = f.input :budget
+
+      = f.input :body, label: &#39;Description&#39;, :input_html =&gt; {  style: &quot;height: 150px;&quot;, placeholder: &quot;Description&quot;}
+    .col-sm-6
+      .fileinput.fileinput-new data-provides=&quot;fileinput&quot;
+        .fileinput-new.thumbnail style=&quot;width: 184px; height: 184px;&quot;
+          - if @opportunity.image
+            = image_tag @opportunity.image, size: &#39;184x184&#39;
+          - else
+            = image_tag &#39;default-cover.jpg&#39;
+
+        div.fileinput-preview.fileinput-exists.thumbnail style=&quot;max-width: 184px; max-height: 184px;&quot;
+        div
+          span.btn.btn-default.btn-file
+            span class=&quot;fileinput-new&quot;
+              &#39;Change image
+            &#39;&amp;nbsp;
+            span class=&quot;fileinput-exists&quot;
+              &#39;Change
+            = f.file_field :image
+
+          &#39;&amp;nbsp;
+          a href=&quot;#&quot; class=&quot;btn btn-default fileinput-exists&quot; data-dismiss=&quot;fileinput&quot;
+            &#39;Remove
+
+      br
+      .row
+        .col-sm-6
+          b Deadline
+          = f.text_field :deadline, class: &quot;form-control&quot;, &#39;data-date-format&#39;.to_sym =&gt; &quot;YYYY/MM/DD&quot;, id: &#39;datetimepicker5&#39;
+        .col-sm-6
+          = f.input :territory
+      = f.input :max_submisions_pr_user
+
+  .row
+
+  .row
+    .col-sm-12
+      .pull-right
+        /= link_to_add_association &#39;Add request&#39;, f, :music_requests, class: &#39;btn btn-default&#39;
+        /&#39;&amp;nbsp;
+        - unless @opportunity.new_record?
+          =&gt; link_to &#39;Cancel&#39;,account_account_opportunity_path(@account, @opportunity), class: &#39;btn btn-default&#39;
+        = f.submit &#39;Save&#39;, class: &#39;btn btn-info&#39;</code></pre>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

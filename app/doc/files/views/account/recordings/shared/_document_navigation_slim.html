@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>_document_navigation.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            _document_navigation.slim
+        </h1>
+        <ul class="files">
+            <li>views/account/recordings/shared/_document_navigation.slim</li>
+            <li>Last modified: 2015-07-05 15:22:06 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>.btn-group.btn-group-justified</p>
+
+<pre><code>- if current_account_user.read_file?
+  = link_to account_account_recording_recording_files_path(@account, @recording), class: &quot;btn btn-default #{&#39;active&#39; if selected == &#39;files&#39;}&quot;
+    i.fa.fa-archive
+    &#39;&amp;nbsp;Files
+
+- if current_account_user.read_file?
+  = link_to account_account_recording_recording_documents_path(@account, @recording), class: &quot;btn btn-default #{&#39;active&#39; if selected == &#39;documents&#39;}&quot;
+    i.fa.fa-archive
+    &#39;&amp;nbsp;Documents
+
+- if current_account_user.read_financial_document?
+  = link_to account_account_recording_recording_financial_documents_path(@account, @recording), class: &quot;btn btn-default #{&#39;active&#39; if selected == &#39;financial&#39;}&quot;
+    i.fa.fa-money
+    &#39;&amp;nbsp;Financial
+
+- if current_account_user.read_artwork
+  = link_to account_account_recording_recording_artworks_path(@account, @recording), class: &quot;btn btn-default #{&#39;active&#39; if selected == &#39;artwork&#39;}&quot;
+    i.fa.fa-picture-o
+    &#39;&amp;nbsp;
+    = pluralize(@recording.image_files.count, &#39;Artwork&#39;)
+
+- if current_account_user.read_legal_document?
+  = link_to account_account_recording_recording_legal_documents_path(@account, @recording), class: &quot;btn btn-default #{&#39;active&#39; if selected == &#39;legal&#39;}&quot;
+    i.fa.fa-gavel
+    &#39;&amp;nbsp;Legal</code></pre>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

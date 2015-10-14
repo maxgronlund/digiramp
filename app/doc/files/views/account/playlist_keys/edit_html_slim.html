@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>edit.html.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            edit.html.slim
+        </h1>
+        <ul class="files">
+            <li>views/account/playlist_keys/edit.html.slim</li>
+            <li>Last modified: 2015-09-24 20:35:34 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>/div class=“playlist_id” id=“#{@playlist.id}”</p>
+
+<p>wrap</p>
+
+<pre><code>div class=&quot;#{&#39;profile&#39; if account_owner?}&quot;
+  .full-width-top
+    == render &#39;admin/shared/navbar&#39;, page: &#39;account&#39; 
+/-cache([ @account.id, @account.works_uuid, params]) do  
+.do   
+  .container
+
+    /==render &#39;admin/shared/messages&#39;
+    /== render &#39;shared/breadcrumbs&#39;, breadcrumbs: { links: { @account.title.to_sym =&gt; account_path(@account), \
+    /                                                        assets: account_assets_path(@account), \
+    /                                                        playlists: account_playlists_path(@account), \
+    /                                                        @playlist_key.playlist.title.to_sym =&gt; account_playlist_path(@account, @playlist_key.playlist), \
+    /                                                        }, current: &#39;Edit Key&#39;}
+    /                                                        
+    /
+    == render &#39;shared/breadcrumbs&#39;, breadcrumbs: { links: {dashboard: account_account_path(@account),\
+                                                           playlists: account_account_playlists_path(@account), \
+                                                           @playlist_key.playlist.title.to_sym =&gt; account_account_playlist_path(@account, @playlist_key.playlist)\
+                                                           }, current:  &#39;edit key&#39;}
+
+    == render &#39;shared/page_title&#39;, locals: {blog: Blog.cached_find(&#39;PLAYLISTS&#39;), blog_post: &#39;EDIT KEY&#39;}
+    .row
+
+      .col-sm-3
+      .col-sm-6
+        = simple_form_for [ :account, @account, @playlist_key] do |f|
+          .panel.panel-primary
+            .panel-heading
+              &#39;Edit Key
+              /= @playlist_key.user.email
+            .panel-body
+              = f.input :enable
+              = f.input :title
+              div id=&quot;toolbar&quot; class=&quot;wysihtml5-toolbar&quot;
+                a data-wysihtml5-command=&quot;bold&quot; Bold
+                &#39;&amp;nbsp; 
+                a data-wysihtml5-command=&quot;italic&quot; Italic
+
+              =f.input :body, label: false, :input_html =&gt; {  style: &quot;height: 244px;&quot;, placeholder: &quot;Description&quot;, id: &#39;wysihtml5_editor&#39;}
+
+              .row
+                .col-sm-4
+                  = f.input :expires 
+                .col-sm-8
+                  = f.input :secure_access, label: &#39;Password Protection&#39;
+              .row
+                .col-sm-4
+                  = f.input :expiration_date, type: &quot;text&quot;, &quot;data-behaviour&quot;.to_sym =&gt;&#39;datepicker&#39;
+                .col-md-8
+                  b Password
+                  .input-group
+                    span class=&quot;input-group-addon&quot; 
+                      i class= &#39;fa fa-key&#39;
+                    = f.input_field :password, placeholder: &#39;Password&#39;, autocomplete: :off, value: @playlist_key.password
+                  br
+                  .input-group
+                    span class=&quot;input-group-addon&quot; 
+                      i class= &#39;fa fa-key&#39;
+                    = f.input_field :password_btn btn-defaultation, placeholder: &#39;Password Confirmation&#39;, autocomplete: :off, value: @playlist_key.password
+                  br
+                  - if @playlist_key.password
+                    b Current Password
+
+                    .panel
+                      = @playlist_key.password
+
+          .pull-right
+            /-if @playlist_key.status == &#39;new&#39;
+            /  = f.hidden_field :status, value: &#39;send&#39;
+            /  = f.submit &#39;Send Invitation&#39;, class: &#39;btn btn-info btn-lg&#39;
+            /-else
+            /= f.hidden_field :status, value: &#39;updated&#39;
+            = link_to &#39;Cancel&#39;, account_account_playlist_path(@account, @playlist_key.playlist), class: &#39;btn btn-default btn-lg&#39;
+            &#39;&amp;nbsp;
+            = f.submit &#39;Save&#39;, class: &#39;btn btn-info btn-lg&#39;
+      .col-sm-3
+
+  == render &#39;shared/back&#39;, locals: {link: account_account_playlist_path(@account, @playlist_key.playlist)}</code></pre>
+
+<p>/-cache ([&#39;footer&#39;, <a
+href="../../../../classes/Admin.html#method-c-cached_find">Admin.cached_find</a>.version])
+do</p>
+
+<p>/  =render &#39;shared/footer&#39;</p>
+
+<h2 id="label-render+-27shared-2Finit_wysiwyg5-27">render &#39;shared/init_wysiwyg5&#39;</h2>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

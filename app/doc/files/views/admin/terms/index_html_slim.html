@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>index.html.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            index.html.slim
+        </h1>
+        <ul class="files">
+            <li>views/admin/terms/index.html.slim</li>
+            <li>Last modified: 2015-09-26 13:35:22 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>wrapper</p>
+
+<pre><code>.full-width-top
+  == render &#39;shared/navigationbar&#39;, page: &#39;home&#39; 
+
+.admin-account
+  #sidebar-wrapper
+    ul class=&quot;sidebar-nav&quot;
+      == render &#39;admin/shared/sidebar&#39;, selected: &#39;user&#39;
+
+#page-content-wrapper
+  .container-fluid
+    == render &#39;shared/breadcrumbs&#39;, breadcrumbs: { links: { admin: admin_index_path }, current: &#39;&#39;}
+    .row
+      .col-sm-5
+        h2 Terms
+
+      .col-sm-7
+        .pull-right.pull-down-10
+          = link_to &#39;New Term&#39;, new_admin_term_path, class: &#39;btn btn-info&#39;
+    .row
+      .col-sm-5
+      .col-sm-7
+        .pull-down-10
+          = simple_form_for  [ @user ], :url =&gt; url_for(:action =&gt; &#39;index&#39;, \
+                                                        :controller =&gt; &#39;admin/terms&#39;), \
+                                                        :method =&gt; &#39;get&#39;,
+                                                        turboboost: true do |f|
+
+            .input-group
+              span class=&quot;input-group-addon&quot;
+                i class= &#39;fa fa-search&#39;
+              = text_field_tag &quot;query&quot;, &quot;&quot;, :class =&gt; &#39;search-query form-control&#39;, \
+                                            :placeholder =&gt; &#39;Search for term&#39;, \
+                                            value: params[:query], autofocus: true
+              .input-group-btn
+                = f.submit &#39;Search&#39;, class: &quot;btn btn-info&quot;
+                &#39;&amp;nbsp;
+                = link_to &#39;Clear&#39;, admin_terms_path, class: &#39;btn btn-default&#39;        
+
+    .pull-down-10
+    .digi-box
+      .table-responsive
+        table class=&quot;table table-hover&quot;
+          thead
+            tr
+              th Title
+              th
+          tbody
+            - @admin_terms.each do |admin_term|
+              tr
+                td 
+                  =link_to admin_term.title, admin_term
+                td
+                  .pull-right
+                    =&gt; link_to &#39;Show&#39;, admin_term, class: &#39;btn btn-default btn-xs&#39;
+                    =&gt; link_to &#39;Edit&#39;, edit_admin_term_path(admin_term), class: &#39;btn btn-default btn-xs&#39;
+                    = link_to  admin_term, data: {:confirm =&gt; &#39;Are you sure?&#39;}, 
+                                                    :method =&gt; :delete,
+                                                    turboboost: true do
+                          .btn.btn-danger.btn-xs
+                            i.fa.fa-times
+
+== render &#39;shared/site_footer&#39;</code></pre>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

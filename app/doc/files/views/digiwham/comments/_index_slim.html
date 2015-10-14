@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>_index.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            _index.slim
+        </h1>
+        <ul class="files">
+            <li>views/digiwham/comments/_index.slim</li>
+            <li>Last modified: 2015-07-05 15:22:06 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>.comments id=“#{recording.id}”</p>
+
+<pre><code>- if current_user
+  = simple_form_for [ recording, Comment.new], url: url_for(action:&#39;create&#39;, controller: &#39;digiwham/comments&#39;), \
+                                                            remote: true, \
+                                                            method: &#39;post&#39; do |f|
+
+    = f.hidden_field  :commentable_id,    value: recording.id
+    = f.hidden_field  :commentable_type,  value: recording.class.name
+    - if current_user
+      = f.hidden_field  :user_id,  value: current_user.id
+      /= f.hidden_field :authenticity_token
+    = f.input :title, placeholder: &#39;Post a Comment&#39;, label: false, class: &#39;comment&#39;, input_html: {id: &quot;#{recording.id}&quot;}, autofocus: true
+- else
+  - if Rails.env == &#39;development&#39;
+    - link_to_digiramp = &quot;http://localhost:3000/login/new?login_from_widget=true&quot;
+  -else
+    - link_to_digiramp = &quot;http://digiramp.com/login/new?login_from_widget=true&quot;
+  .widget-signup
+    table
+      tr
+        td
+          .social-icons
+            = link_to link_to_digiramp, :target =&gt; &quot;_blank&quot; do
+              .signup-login
+        td
+          = link_to &quot;Signup / Login to Comment&quot;, link_to_digiramp, :target =&gt; &quot;_blank&quot; 
+
+.list
+  table class=&#39;recording_comments&#39; id=&quot;#{recording.id}&quot;
+    - recording.comments.order(&#39;created_at desc&#39;).first(20).each do |comment|
+      == render &#39;digiwham/comments/show&#39;, comment: comment</code></pre>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

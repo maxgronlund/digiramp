@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>_nudging.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            _nudging.slim
+        </h1>
+        <ul class="files">
+            <li>views/users/_nudging.slim</li>
+            <li>Last modified: 2015-09-27 23:46:44 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>.old-nudging</p>
+
+<pre><code>- blog      = Blog.cached_find(&#39;Nudge users&#39;)
+- if user.user_configuration.pending?
+  .alert.alert-warning
+    .row
+      - blog_post   = BlogPost.cached_find( &#39;configuration pending&#39; , blog )
+      .col-sm-8
+        h3 = blog_post.title
+        = simple_format blog.body
+      .col-sm-4.pull-down-12
+        .pull-right
+          = link_to &quot;Lets start&quot;, user_user_user_configurations_path(user), class: &#39;btn btn-info&#39;, style: &quot;color:#FFF;&quot;
+- else
+  - case user.next_up?
+
+  - when &#39;upload_recordings&#39;
+    == render &#39;/users/nudge&#39;, user: user, blog: blog, link: new_user_recording_path(user), icon: &#39;headphones&#39;
+
+  - when &#39;create_a_playlist&#39;
+    == render &#39;/users/nudge&#39;, user: user, blog: blog, link: new_user_playlist_path(user), icon: &#39;list&#39;
+
+  - when &#39;post_on_facebook&#39;
+    == render &#39;/users/nudge&#39;, user: user, blog: blog, link: songs_path(clear: &#39;clear&#39;), icon: &#39;share-alt&#39;
+
+  - when &#39;post_on_twitter&#39;
+    == render &#39;/users/nudge&#39;, user: user, blog: blog, link: songs_path(clear: &#39;clear&#39;), icon: &#39;share-alt&#39;
+
+  - when &#39;invite_friends&#39;
+    == render &#39;/users/nudge&#39;, user: user, blog: blog, link: new_user_user_invite_friend_path(user), icon: &#39;users&#39;
+
+  - when &#39;enable_shop&#39;
+    == render &#39;/users/nudge&#39;, user: user, blog: blog, link: user_user_create_shop_index_path(user), icon: &#39;money&#39;
+
+  - when &#39;add_physical_product&#39;
+    == render &#39;/users/nudge&#39;, user: user, blog: blog, link: new_user_user_product_path(user, category: &#39;physical-product&#39;), icon: &#39;users&#39;
+
+  - when &#39;register_a_publisher&#39;
+    == render &#39;/users/nudge&#39;, user: user, blog: blog, link: new_user_user_publisher_path(user), icon: &#39;truck&#39;
+
+  - when &#39;submit_to_an_opportunity&#39;
+    == render &#39;/users/nudge&#39;, user: user, blog: blog, link: user_user_opportunities_path(user), icon: &#39;money&#39;
+
+  - when &#39;like_a_recording&#39;
+    == render &#39;/users/nudge&#39;, user: user, blog: blog, link: songs_path(clear: &#39;clear&#39;), icon: &#39;thumbs-up&#39;
+
+  - when &#39;create_a_playlist&#39;
+    == render &#39;/users/nudge&#39;, user: user, blog: blog, link: new_user_playlist_path(user), icon: &#39;list-alt&#39;
+
+  - when &#39;add_recording_to_a_playlist&#39;
+    == render &#39;/users/nudge&#39;, user: user, blog: blog, link: songs_path(clear: &#39;clear&#39;), icon: &#39;thumbs-up&#39;
+
+  - when &#39;add_legal_informations&#39;
+     == render &#39;/users/nudge&#39;, user: user, blog: blog, link: user_user_legal_informations_path(user), icon: &#39;gavel&#39;
+
+  - when &#39;add_digital_signature&#39;
+      == render &#39;/users/nudge&#39;, user: user, blog: blog, link: new_user_user_digital_signature_path(user), icon: &#39;pencil&#39;
+
+  /- when &#39;like a recording&#39;
+  /  .col-sm-8
+  /    h3 
+  /      &#39;Like a few recordings&amp;nbsp;
+  /      i.fa.fa-thumbs-up 
+  /  .col-sm-4
+  /    .pull-right.pull-down-12
+  /      = link_to &quot;Take me there&quot;, songs_path(clear: &#39;clear&#39;), class: &#39;btn btn-info&#39;, style: &quot;color:#FFF;&quot; 
+  /
+  /
+  /
+  /- when &#39;create_a_playlist&#39;
+  /  .col-sm-8
+  /    h3 
+  /      &#39;Create a playlist&amp;nbsp;
+  /      i.fa.fa-plus 
+  /  .col-sm-4
+  /    .pull-right.pull-down-12
+  /      
+  /      =&gt; link_to &#39;Later&#39;, user_user_user_configuration_path(user, 
+  /                                                        user.user_configuration, 
+  /                                                        current_user_id: current_user.id,
+  /                                                        later: &#39;create_a_playlist&#39;), 
+  /                                                        class: &#39;btn btn-default&#39;, 
+  /                                                        style: &quot;color:#333;&quot;, 
+  /                                                        remote: true
+  /      = link_to &quot;Great sugestion&quot;, new_user_playlist_path(user), class: &#39;btn btn-info&#39;, style: &quot;color:#FFF;&quot;
+  /
+  /- when &#39;add a recording to a playlist&#39;
+  /  .col-sm-8
+  /    h3 
+  /      &#39;Add a recording to a playlist&amp;nbsp;
+  /      i.fa.fa-plus 
+  /  .col-sm-4
+  /    .pull-right.pull-down-12
+  /      = link_to &quot;Find a recording&quot;, songs_path(clear: &#39;clear&#39;), class: &#39;btn btn-info&#39;, style: &quot;color:#FFF;&quot;
+  /
+  /- when &#39;post on facebook&#39;
+  /  .col-sm-8
+  /    h3 
+  /      &#39;Share what you like on Facebook&amp;nbsp;
+  /      i.fa.fa-facebook-official 
+  /  .col-sm-4
+  /    .pull-right.pull-down-12
+  /      = link_to &quot;Yes&quot;, user_likes_path(user), class: &#39;btn btn-info&#39;, style: &quot;color:#FFF;&quot;
+  /
+  /- when &#39;post on twitter&#39;
+  /  .col-sm-8
+  /    h3 
+  /      &#39;Share what you like on Twitter&amp;nbsp;
+  /      i.fa.fa-facebook-official 
+  /  .col-sm-4
+  /    .pull-right.pull-down-12
+  /      = link_to &quot;Let me tweet&quot;, user_likes_path(user), class: &#39;btn btn-info&#39;, style: &quot;color:#FFF;&quot;
+  /      
+  /
+  /- when &#39;enable shop&#39;
+  /  .col-sm-8
+  /    h3 
+  /      &#39;Open your shop and receive money directly&amp;nbsp;
+  /      i.fa.fa-money 
+  /  .col-sm-4
+  /    .pull-right.pull-down-12
+  /      = link_to &quot;Enable shop&quot;, user_user_create_shop_index_path(user), class: &#39;btn btn-info&#39;, style: &quot;color:#FFF;&quot;
+  /
+  /
+  /- when &#39;upload_recordings&#39;
+  /  - blog_post   = BlogPost.cached_find( &#39;upload_recordings&#39; , blog )
+  /  .col-sm-8
+  /    h3 
+  /      = blog_post.title
+  /      &#39;&amp;nbsp;
+  /      i.fa.fa-cloud-upload 
+  /    = simple_format blog_post.body
+  /  .col-sm-4
+  /    .pull-right.pull-down-12
+  /      =&gt; link_to &#39;Later&#39;, user_user_user_configuration_path(user, 
+  /                                                        user.user_configuration, 
+  /                                                        current_user_id: current_user.id,
+  /                                                        later: &#39;upload_recordings_later&#39;), 
+  /                                                        class: &#39;btn btn-default&#39;, 
+  /                                                        style: &quot;color:#333;&quot;, 
+  /                                                        remote: true
+  /      
+  /      
+  /      = link_to blog_post.teaser, new_user_recording_path(user), class: &#39;btn btn-info&#39;, style: &quot;color:#FFF;&quot;
+  /      
+  /- when &#39;add a recording to the shop&#39;
+  /  .col-sm-8
+  /    h3 
+  /      &#39;Add recording to your shop&amp;nbsp;
+  /      i.fa.fa-basket 
+  /  .col-sm-4
+  /    .pull-right.pull-down-12
+  /      =&gt; link_to &#39;Later&#39;, user_user_user_configuration_path(user, 
+  /                                                        user.user_configuration, 
+  /                                                        current_user_id: current_user.id,
+  /                                                        later: &#39;add_a_recording_to_the_shop&#39;), 
+  /                                                        class: &#39;btn btn-default&#39;, 
+  /                                                        style: &quot;color:#333;&quot;, 
+  /                                                        remote: true
+  /      
+  /      
+  /      = link_to &quot;Yes&quot;, new_user_user_product_path(user,category: &#39;recording&#39;), class: &#39;btn btn-info&#39;, style: &quot;color:#FFF;&quot;
+  /</code></pre>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

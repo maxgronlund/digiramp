@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>show.html.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            show.html.slim
+        </h1>
+        <ul class="files">
+            <li>views/account/accounts/show.html.slim</li>
+            <li>Last modified: 2015-09-26 07:48:54 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>wrapper</p>
+
+<pre><code>.full-width-top
+  == render &#39;shared/navigationbar&#39;, page: &#39;account&#39; 
+
+.pro-account
+  #sidebar-wrapper
+    ul class=&quot;sidebar-nav&quot;
+      == render &#39;account/shared/sidebar&#39;, selected: &#39;account&#39;
+
+#page-content-wrapper
+  .container-fluid
+    == render &#39;shared/breadcrumbs&#39;, breadcrumbs: { links: {   }, current:&#39;account&#39; }
+    .row
+      .col-sm-8
+        .help
+          .help-text
+            h2 = @account.title
+
+          .help-button
+            == render &#39;admin/helps/help&#39;, identifier: &#39;pro account&#39;
+      .col-sm-4.pull-down-10
+        .pull-right
+          - if super? || (current_user.account.id == @account.id)
+            = link_to edit_account_account_path(@account) do
+              .btn.btn-info
+                i.fa.fa-pencil
+                &#39;&amp;nbsp;Edit
+
+    .pull-down-10
+    .row
+      .col-sm-8
+        .digi-box
+          = simple_format @account.description
+
+        h4 Users
+        .digi-box
+          - @account.account_users.non_catalog_users.each do |account_user|
+
+            - if user = account_user.user
+              =&gt; link_to image_tag( user.image_url(:avatar_32x32)), user_path( user )
+              = user.user_name
+              .sexy_line
+
+        h4 Catalogs
+        .digi-box
+          - @account.catalogs.each do |catalog|
+            = link_to catalog_account_catalog_path(@account, catalog) do
+              = image_tag catalog.image_url(:image_32x32)
+              &#39;&amp;nbsp;
+              = catalog.title
+              .pull-right
+                = catalog.recordings.count
+            .sexy_line
+
+      .col-sm-4
+        .comments
+          = simple_form_for [ Comment.new ], remote: true do |f|
+            .row
+              .col-sm-12
+                = f.hidden_field  :commentable_id,    value: @account.id
+                = f.hidden_field  :commentable_type,  value: @account.class.name
+                = f.hidden_field  :user_id,  value: current_user.id
+                h4 Comments
+                /= f.input :title, placeholder: &#39;Title&#39;, label: false
+                = f.input :body, label: false, :input_html =&gt; {  style: &quot;height: 60px;&quot;, placeholder: &quot;Write Comment&quot;}, autofocus: true
+            .row
+              .col-sm-12
+                .pull-right
+                  = f.submit &#39;Post&#39;, class: &#39;btn btn-info&#39;
+
+          br
+          .rec-comments
+            - @account.comments.order(&#39;created_at desc&#39;).each do |comment|
+              == render &#39;comments/show&#39;, comment: comment
+
+        /-if current_account_user.read_playlist  
+        /   == render &#39;account/shared/badge&#39;, locals: {  blog: blog, 
+        /                                               post: BlogPost.cached_find( &quot;PLAY LISTS&quot; , blog ),
+        /                                               link: account_account_playlists_path(@account) ,
+        /                                               icon:         &#39;fa fa-list-alt&#39;,
+        /                                               title_color:  &#39;title recordings-title&#39;}
+        /                                             
+        /                                             
+
+        /-if current_account_user.read_common_work_ipi        
+        /   == render &#39;account/shared/badge&#39;, locals: {  blog: blog, 
+        /                                               post: BlogPost.cached_find( &quot;IPI CODES&quot; , blog ),
+        /                                               link: account_account_account_ipis_path(@account) ,
+        /                                               icon:         &#39;fa fa-barcode&#39;,
+        /                                               title_color:  &#39;title admin-title&#39;}
+        /                                             
+        /-if current_account_user.read_file 
+        /   == render &#39;account/shared/badge&#39;, locals: {  blog: blog, 
+        /                                               post: BlogPost.cached_find( &quot;DOCUMENTS AND FILES&quot; , blog ),
+        /                                               link: account_account_documents_path(@account)  ,
+        /                                               icon:         &#39;fa fa-folder-o&#39;,
+        /                                               title_color:  &#39;title common-works-title&#39;}
+        /                                             
+
+        /                                             
+        /-if current_account_user.read_recording 
+        /   == render &#39;account/shared/badge&#39;, locals: {  blog: blog, 
+        /                                               post: BlogPost.cached_find( &quot;RECORDINGS BUCKET&quot; , blog ),
+        /                                               link: account_account_recordings_bucket_index_path(@account)  ,
+        /                                               icon:         &#39;fa fa-archive&#39;,
+        /                                               title_color:  &#39;title crm-title&#39;}
+        /                                             
+        /-if true 
+        /   == render &#39;account/shared/badge&#39;, locals: {  blog: blog, 
+        /                                               post: BlogPost.cached_find( &quot;UPLOAD&quot; , blog ),
+        /                                               link: account_account_uploads_path(@account),
+        /                                               icon:         &#39;fa fa-cloud-upload&#39;,
+        /                                               title_color:  &#39;title opportunity-title&#39;}
+        /                                             
+        /-if current_account_user.read_catalog
+        /   == render &#39;account/shared/badge&#39;, locals: {  blog: blog, 
+        /                                               post: BlogPost.cached_find( &quot;CATALOGS&quot; , blog ),
+        /                                               link: account_account_catalogs_path(@account),
+        /                                               icon:         &#39;fa fa-list-alt&#39;,
+        /                                               title_color:  &#39;title crm-title&#39;}
+        /                                             
+        /-if current_account_user.read_catalog  
+        /   == render &#39;account/shared/badge&#39;, locals: {  blog: blog, 
+        /                                               post: BlogPost.cached_find( &quot;WIDGETS&quot; , blog ),
+        /                                               link: account_account_widgets_path(@account) }
+        /                                            
+        /                                              
+        /- if super?
+        /  .row
+        /    .col-sm-12
+        /      .pull-right
+        /        = link_to &#39;Edit Badges&#39;, admin_blog_path(blog), class: &#39;btn btn-info&#39;
+
+== render &#39;shared/site_footer&#39;</code></pre>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

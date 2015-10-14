@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>show.html.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            show.html.slim
+        </h1>
+        <ul class="files">
+            <li>views/account/playlist_previews/show.html.slim</li>
+            <li>Last modified: 2015-07-05 15:22:06 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>/= debug @playlist_key.playlist /-<a href=":return_url">session</a> =
+request.url wrap</p>
+
+<pre><code>/.full-width-top
+/  == render &#39;admin/shared/navbar&#39;, page: &#39;account&#39;         
+.container
+  //==render &#39;admin/shared/messages&#39;
+  /== render &#39;shared/page_title_text&#39;, locals: {title: @playlist_key.playlist.title, body: &#39;&#39;}
+  /- if @show_login
+  /  == render &#39;login&#39;
+  /- else
+  /  = link_to &#39;Unauthorize&#39;, account_account_private_playlist_path( @account, @playlist_key.id) , method: :delete, class: &#39;btn btn-warning btn-lg&#39;
+  /    /h4 Expires: #{@playlist_key.expiration_date} 
+
+  .row
+    .col-sm-3
+      h3 = @playlist.title
+      hr
+    .col-sm-9  id=&quot;digi_width&quot;
+      #digiWhams class=&quot;#{&#39;/digiwham/recordings/?key=&#39;+@playlist_key.playlist.default_widget.secret_key}&quot;
+       /- if Rails.env == &#39;development&#39;
+       /  &lt;iframe width=&quot;660&quot; height=&quot;1000&quot; src=&quot;http://localhost:3000/embed/#{@playlist_key.playlist.default_widget.secret_key}&quot; frameborder=&quot;0&quot; allowfullscreen id=&quot;digiwham_width&quot; class=&quot;digiwham_iframe&quot;&gt;&lt;/iframe&gt;
+       /- else 
+       /  &lt;iframe width=&quot;660&quot; height=&quot;1000&quot; src=&quot;http://digiramp.com/embed/#{@playlist_key.playlist.default_widget.secret_key}&quot; frameborder=&quot;0&quot; allowfullscreen id=&quot;digiwham_width&quot; class=&quot;digiwham_iframe&quot;&gt;&lt;/iframe&gt;
+       /  hr</code></pre>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

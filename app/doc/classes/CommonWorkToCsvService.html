@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>CommonWorkToCsvService</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../css/github.css" type="text/css" media="screen" />
+<script src="../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            <span class="type">Class</span> 
+            CommonWorkToCsvService 
+            
+                <span class="parent">&lt; 
+                    
+                    Object
+                    
+                </span>
+            
+        </h1>
+        <ul class="files">
+            
+            <li><a href="../files/services/common_work_to_csv_service_rb.html">services/common_work_to_csv_service.rb</a></li>
+            
+        </ul>
+    </div>
+    <div id="bodyContent">
+        <div id="content">
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+    <!-- Method ref -->
+    <div class="sectiontitle">Methods</div>
+    <dl class="methods">
+      
+        <dt>P</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-c-process">process</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+    </dl>
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+    
+      <div class="sectiontitle">Class Public methods</div>
+      
+        <div class="method">
+          <div class="title method-title" id="method-c-process">
+            
+              <b>process</b>(selector)
+            
+            <a href="../classes/CommonWorkToCsvService.html#method-c-process" name="method-c-process" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-c-process_source')" id="l_method-c-process_source">show</a>
+                
+              </p>
+              <div id="method-c-process_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File services/common_work_to_csv_service.rb, line 4</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">self</span>.<span class="ruby-identifier">process</span> <span class="ruby-identifier">selector</span>
+  <span class="ruby-comment"># please dry this up</span>
+  <span class="ruby-constant">CSV</span>.<span class="ruby-identifier">generate</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">csv</span><span class="ruby-operator">|</span>
+    <span class="ruby-comment">#csv &lt;&lt; column_names</span>
+    <span class="ruby-identifier">csv</span> <span class="ruby-operator">&lt;&lt;</span> [<span class="ruby-string">&#39;DigiRAMP CVS&#39;</span>, <span class="ruby-string">&#39;&#39;</span>, <span class="ruby-string">&#39;&#39;</span>, <span class="ruby-string">&#39;&#39;</span>, <span class="ruby-string">&#39;&#39;</span>, <span class="ruby-string">&#39;&#39;</span>, <span class="ruby-string">&#39;&#39;</span> ]
+    <span class="ruby-identifier">csv</span> <span class="ruby-operator">&lt;&lt;</span> [<span class="ruby-string">&#39;&#39;</span>]
+    <span class="ruby-identifier">csv</span> <span class="ruby-operator">&lt;&lt;</span> [<span class="ruby-string">&#39;&#39;</span>]
+    <span class="ruby-identifier">selector</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">common_work</span><span class="ruby-operator">|</span>
+      <span class="ruby-comment">#recording_ids = &#39;&#39;</span>
+      <span class="ruby-comment">#common_work.recordings.each do |recording|</span>
+      <span class="ruby-comment">#  recording_ids &lt;&lt; recording.id.to_s</span>
+      <span class="ruby-comment">#  recording_ids &lt;&lt; &#39;,&#39;</span>
+      <span class="ruby-comment">#end</span>
+      <span class="ruby-comment"># work info</span>
+      <span class="ruby-identifier">csv</span> <span class="ruby-operator">&lt;&lt;</span> [<span class="ruby-string">&#39;COMMON WORK&#39;</span>]
+      <span class="ruby-identifier">csv</span> <span class="ruby-operator">&lt;&lt;</span> [  <span class="ruby-string">&#39;&#39;</span>,<span class="ruby-string">&#39;Title&#39;</span>, <span class="ruby-string">&#39;ISWC Code&#39;</span>,<span class="ruby-string">&#39;Alternative Titles&#39;</span>, <span class="ruby-string">&#39;Description&#39;</span>,<span class="ruby-string">&#39;&#39;</span>,<span class="ruby-string">&#39;&#39;</span>,<span class="ruby-string">&#39;&#39;</span>,<span class="ruby-string">&#39;&#39;</span>,<span class="ruby-string">&#39;&#39;</span>,<span class="ruby-string">&#39;&#39;</span>,<span class="ruby-string">&#39;&#39;</span>,<span class="ruby-string">&#39;&#39;</span>,<span class="ruby-string">&#39;&#39;</span>,<span class="ruby-string">&#39;&#39;</span>,<span class="ruby-string">&#39;&#39;</span>,<span class="ruby-string">&#39;&#39;</span>,<span class="ruby-string">&#39;&#39;</span>,<span class="ruby-string">&#39;&#39;</span>,<span class="ruby-string">&#39;&#39;</span>,<span class="ruby-string">&#39;&#39;</span>,<span class="ruby-string">&#39;&#39;</span>,<span class="ruby-string">&#39;&#39;</span>,<span class="ruby-string">&#39;&#39;</span>,<span class="ruby-string">&#39;&#39;</span>,<span class="ruby-string">&#39;&#39;</span>,<span class="ruby-string">&#39;&#39;</span>,<span class="ruby-string">&#39;&#39;</span>,<span class="ruby-string">&#39;&#39;</span>,<span class="ruby-string">&#39;&#39;</span>,<span class="ruby-string">&#39;&#39;</span>,<span class="ruby-string">&#39;&#39;</span>,<span class="ruby-string">&#39;&#39;</span>,<span class="ruby-string">&#39;&#39;</span>,<span class="ruby-string">&#39;&#39;</span>,  <span class="ruby-string">&#39;UUID&#39;</span> ]
+      <span class="ruby-identifier">csv</span> <span class="ruby-operator">&lt;&lt;</span> [  <span class="ruby-string">&#39;&#39;</span>,
+                <span class="ruby-identifier">common_work</span>.<span class="ruby-identifier">title</span>,
+                <span class="ruby-identifier">common_work</span>.<span class="ruby-identifier">iswc_code</span>,
+                <span class="ruby-identifier">common_work</span>.<span class="ruby-identifier">alternative_titles</span>,
+                <span class="ruby-identifier">common_work</span>.<span class="ruby-identifier">description</span>.<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">squish</span>,
+                <span class="ruby-string">&#39;&#39;</span>,<span class="ruby-string">&#39;&#39;</span>,<span class="ruby-string">&#39;&#39;</span>,<span class="ruby-string">&#39;&#39;</span>,<span class="ruby-string">&#39;&#39;</span>,<span class="ruby-string">&#39;&#39;</span>,<span class="ruby-string">&#39;&#39;</span>,<span class="ruby-string">&#39;&#39;</span>,<span class="ruby-string">&#39;&#39;</span>,<span class="ruby-string">&#39;&#39;</span>,<span class="ruby-string">&#39;&#39;</span>,<span class="ruby-string">&#39;&#39;</span>,<span class="ruby-string">&#39;&#39;</span>,<span class="ruby-string">&#39;&#39;</span>,<span class="ruby-string">&#39;&#39;</span>,<span class="ruby-string">&#39;&#39;</span>,<span class="ruby-string">&#39;&#39;</span>,<span class="ruby-string">&#39;&#39;</span>,<span class="ruby-string">&#39;&#39;</span>,<span class="ruby-string">&#39;&#39;</span>,<span class="ruby-string">&#39;&#39;</span>,<span class="ruby-string">&#39;&#39;</span>,<span class="ruby-string">&#39;&#39;</span>,<span class="ruby-string">&#39;&#39;</span>,<span class="ruby-string">&#39;&#39;</span>,<span class="ruby-string">&#39;&#39;</span>,<span class="ruby-string">&#39;&#39;</span>,<span class="ruby-string">&#39;&#39;</span>,<span class="ruby-string">&#39;&#39;</span>,<span class="ruby-string">&#39;&#39;</span>, 
+                <span class="ruby-identifier">common_work</span>.<span class="ruby-identifier">uuid</span>.<span class="ruby-identifier">to_s</span>, 
+              ]
+      <span class="ruby-comment"># ipis</span>
+      <span class="ruby-comment">#if common_work.ipis.size &gt; 0</span>
+      <span class="ruby-keyword">if</span> <span class="ruby-keyword">true</span>
+        <span class="ruby-identifier">csv</span> <span class="ruby-operator">&lt;&lt;</span> [<span class="ruby-string">&#39;&#39;</span> ]
+        <span class="ruby-identifier">csv</span> <span class="ruby-operator">&lt;&lt;</span> [<span class="ruby-string">&#39;&#39;</span> ]
+        <span class="ruby-identifier">csv</span> <span class="ruby-operator">&lt;&lt;</span> [<span class="ruby-string">&#39;IPI\S&#39;</span> ]
+        <span class="ruby-identifier">csv</span> <span class="ruby-operator">&lt;&lt;</span> [  <span class="ruby-string">&#39;&#39;</span>,
+                  <span class="ruby-string">&#39;IPI Code&#39;</span>,
+                  <span class="ruby-string">&#39;Full Name&#39;</span>,
+                  <span class="ruby-string">&#39;Role&#39;</span>, 
+                  <span class="ruby-string">&#39;Address&#39;</span>, 
+                  <span class="ruby-string">&#39;Email&#39;</span>, 
+                  <span class="ruby-string">&#39;Phone Number&#39;</span>, 
+                  <span class="ruby-string">&#39;Controlled&#39;</span>, 
+                  <span class="ruby-string">&#39;Territory&#39;</span>, 
+                  <span class="ruby-string">&#39;Share&#39;</span>, 
+                  <span class="ruby-string">&#39;Mech Owned %&#39;</span>, 
+                  <span class="ruby-string">&#39;Mech Collected %&#39;</span>, 
+                  <span class="ruby-string">&#39;Performance Owned %&#39;</span>, 
+                  <span class="ruby-string">&#39;Performance Collected %&#39;</span>, 
+                  <span class="ruby-string">&#39;Notes&#39;</span>,
+                  <span class="ruby-string">&#39;CAE Code&#39;</span>,
+                  <span class="ruby-string">&#39;&#39;</span>,<span class="ruby-string">&#39;&#39;</span>,<span class="ruby-string">&#39;&#39;</span>,<span class="ruby-string">&#39;&#39;</span>,<span class="ruby-string">&#39;&#39;</span>,<span class="ruby-string">&#39;&#39;</span>,<span class="ruby-string">&#39;&#39;</span>,<span class="ruby-string">&#39;&#39;</span>,<span class="ruby-string">&#39;&#39;</span>,<span class="ruby-string">&#39;&#39;</span>,<span class="ruby-string">&#39;&#39;</span>,<span class="ruby-string">&#39;&#39;</span>,<span class="ruby-string">&#39;&#39;</span>,<span class="ruby-string">&#39;&#39;</span>,<span class="ruby-string">&#39;&#39;</span>,<span class="ruby-string">&#39;&#39;</span>,<span class="ruby-string">&#39;&#39;</span>,<span class="ruby-string">&#39;&#39;</span>,<span class="ruby-string">&#39;&#39;</span>, 
+                  <span class="ruby-string">&#39;Common Work UUID&#39;</span>,
+                ]
+        <span class="ruby-identifier">common_work</span>.<span class="ruby-identifier">ipis</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">ipi</span><span class="ruby-operator">|</span>
+          <span class="ruby-identifier">csv</span> <span class="ruby-operator">&lt;&lt;</span>  [
+                    <span class="ruby-string">&#39;&#39;</span>,
+                    <span class="ruby-identifier">ipi</span>.<span class="ruby-identifier">ipi_code</span>.<span class="ruby-identifier">to_s</span>,
+                    <span class="ruby-identifier">ipi</span>.<span class="ruby-identifier">full_name</span>.<span class="ruby-identifier">to_s</span>,
+                    <span class="ruby-identifier">ipi</span>.<span class="ruby-identifier">role</span>.<span class="ruby-identifier">to_s</span>,
+                    <span class="ruby-identifier">ipi</span>.<span class="ruby-identifier">address</span>.<span class="ruby-identifier">to_s</span>,
+                    <span class="ruby-identifier">ipi</span>.<span class="ruby-identifier">email</span>.<span class="ruby-identifier">to_s</span>,
+                    <span class="ruby-identifier">ipi</span>.<span class="ruby-identifier">phone_number</span>.<span class="ruby-identifier">to_s</span>,
+                    <span class="ruby-identifier">ipi</span>.<span class="ruby-identifier">controlled</span>.<span class="ruby-identifier">to_s</span>,
+                    <span class="ruby-identifier">ipi</span>.<span class="ruby-identifier">territory</span>.<span class="ruby-identifier">to_s</span>,
+                    <span class="ruby-identifier">ipi</span>.<span class="ruby-identifier">share</span>.<span class="ruby-identifier">to_s</span>,
+                    <span class="ruby-identifier">ipi</span>.<span class="ruby-identifier">mech_owned</span>.<span class="ruby-identifier">to_s</span>,
+                    <span class="ruby-identifier">ipi</span>.<span class="ruby-identifier">mech_collected</span>.<span class="ruby-identifier">to_s</span>,
+                    <span class="ruby-identifier">ipi</span>.<span class="ruby-identifier">perf_owned</span>.<span class="ruby-identifier">to_s</span>,
+                    <span class="ruby-identifier">ipi</span>.<span class="ruby-identifier">perf_collected</span>.<span class="ruby-identifier">to_s</span>,
+                    <span class="ruby-identifier">ipi</span>.<span class="ruby-identifier">notes</span>.<span class="ruby-identifier">to_s</span>,
+                    <span class="ruby-identifier">ipi</span>.<span class="ruby-identifier">cae_code</span>.<span class="ruby-identifier">to_s</span>,
+                    <span class="ruby-string">&#39;&#39;</span>,<span class="ruby-string">&#39;&#39;</span>,<span class="ruby-string">&#39;&#39;</span>,<span class="ruby-string">&#39;&#39;</span>,<span class="ruby-string">&#39;&#39;</span>,<span class="ruby-string">&#39;&#39;</span>,<span class="ruby-string">&#39;&#39;</span>,<span class="ruby-string">&#39;&#39;</span>,<span class="ruby-string">&#39;&#39;</span>,<span class="ruby-string">&#39;&#39;</span>,<span class="ruby-string">&#39;&#39;</span>,<span class="ruby-string">&#39;&#39;</span>,<span class="ruby-string">&#39;&#39;</span>,<span class="ruby-string">&#39;&#39;</span>,<span class="ruby-string">&#39;&#39;</span>,<span class="ruby-string">&#39;&#39;</span>,<span class="ruby-string">&#39;&#39;</span>,<span class="ruby-string">&#39;&#39;</span>, <span class="ruby-string">&#39;&#39;</span>, 
+                    <span class="ruby-identifier">common_work</span>.<span class="ruby-identifier">uuid</span>
+                  ]
+        <span class="ruby-keyword">end</span>
+        <span class="ruby-comment"># recordings</span>
+        <span class="ruby-comment">#if common_work.recordings.size &gt; 0</span>
+        <span class="ruby-keyword">if</span> <span class="ruby-keyword">true</span>
+          <span class="ruby-identifier">csv</span> <span class="ruby-operator">&lt;&lt;</span> [<span class="ruby-string">&#39;&#39;</span> ]
+          <span class="ruby-identifier">csv</span> <span class="ruby-operator">&lt;&lt;</span> [<span class="ruby-string">&#39;&#39;</span> ]
+          <span class="ruby-identifier">csv</span> <span class="ruby-operator">&lt;&lt;</span> [<span class="ruby-string">&#39;RECORDINGS&#39;</span> ]
+          <span class="ruby-identifier">csv</span> <span class="ruby-operator">&lt;&lt;</span> [  <span class="ruby-string">&#39;&#39;</span>,
+                    <span class="ruby-string">&quot;Title&quot;</span>,            
+                    <span class="ruby-string">&quot;ISRC CODE&quot;</span>,        
+                    <span class="ruby-string">&quot;Artist&quot;</span>,                   
+                    <span class="ruby-string">&quot;BPM&quot;</span>,              
+                    <span class="ruby-string">&quot;Comment&quot;</span>,          
+                    <span class="ruby-string">&quot;Explicit&quot;</span>,         
+                    <span class="ruby-string">&quot;Clearance&quot;</span>,        
+                    <span class="ruby-string">&quot;Version&quot;</span>,
+                    <span class="ruby-string">&quot;Copyright&quot;</span>,        
+                    <span class="ruby-string">&quot;Production Company&quot;</span>,
+                    <span class="ruby-string">&quot;Available Date&quot;</span>,
+                    <span class="ruby-string">&quot;UPC CODE&quot;</span>,         
+                    <span class="ruby-string">&quot;Album Artist&quot;</span>,
+                    <span class="ruby-string">&quot;Album Title&quot;</span>,
+                    <span class="ruby-string">&quot;Grouping&quot;</span>,
+                    <span class="ruby-string">&quot;Composer&quot;</span>,
+                    <span class="ruby-string">&quot;Compilation&quot;</span>,
+                    <span class="ruby-string">&quot;Bitrate&quot;</span>,
+                    <span class="ruby-string">&quot;Samplerate&quot;</span>,
+                    <span class="ruby-string">&quot;Channels&quot;</span>,
+                    <span class="ruby-string">&quot;Year&quot;</span>,             
+                    <span class="ruby-string">&quot;Duration&quot;</span>,         
+                    <span class="ruby-string">&quot;Album Name&quot;</span>,       
+                    <span class="ruby-string">&quot;Genre&quot;</span>,            
+                    <span class="ruby-string">&quot;Performer&quot;</span>,        
+                    <span class="ruby-string">&quot;Band&quot;</span>,             
+                    <span class="ruby-string">&quot;Disc&quot;</span>,             
+                    <span class="ruby-string">&quot;Track&quot;</span>, 
+                    <span class="ruby-string">&quot;Vocal&quot;</span>,            
+                    <span class="ruby-string">&quot;Mood&quot;</span>,             
+                    <span class="ruby-string">&quot;instruments&quot;</span>,      
+                    <span class="ruby-string">&quot;Tempo&quot;</span>,
+                    <span class="ruby-string">&quot;MP3 File&quot;</span>,
+                    <span class="ruby-string">&#39;UUDI&#39;</span>, 
+                    <span class="ruby-string">&#39;Common Work UUID&#39;</span>
+                  ]
+          <span class="ruby-identifier">common_work</span>.<span class="ruby-identifier">recordings</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">recording</span><span class="ruby-operator">|</span>
+            <span class="ruby-identifier">csv</span> <span class="ruby-operator">&lt;&lt;</span>  [
+                      <span class="ruby-string">&#39;&#39;</span>,
+                      <span class="ruby-identifier">recording</span>.<span class="ruby-identifier">title</span>.<span class="ruby-identifier">to_s</span>,            
+                      <span class="ruby-identifier">recording</span>.<span class="ruby-identifier">isrc_code</span>.<span class="ruby-identifier">to_s</span>,        
+                      <span class="ruby-identifier">recording</span>.<span class="ruby-identifier">artist</span>.<span class="ruby-identifier">to_s</span>,                   
+                      <span class="ruby-identifier">recording</span>.<span class="ruby-identifier">bpm</span>.<span class="ruby-identifier">to_s</span>,              
+                      <span class="ruby-identifier">recording</span>.<span class="ruby-identifier">comment</span>.<span class="ruby-identifier">to_s</span>,          
+                      <span class="ruby-identifier">recording</span>.<span class="ruby-identifier">explicit</span>.<span class="ruby-identifier">to_s</span>,         
+                      <span class="ruby-identifier">recording</span>.<span class="ruby-identifier">clearance</span>.<span class="ruby-identifier">to_s</span>,        
+                      <span class="ruby-identifier">recording</span>.<span class="ruby-identifier">version</span>.<span class="ruby-identifier">to_s</span>,
+                      <span class="ruby-identifier">recording</span>.<span class="ruby-identifier">copyright</span>.<span class="ruby-identifier">to_s</span>,        
+                      <span class="ruby-identifier">recording</span>.<span class="ruby-identifier">production_company</span>.<span class="ruby-identifier">to_s</span>,
+                      <span class="ruby-identifier">recording</span>.<span class="ruby-identifier">available_date</span>.<span class="ruby-identifier">to_s</span>,
+                      <span class="ruby-identifier">recording</span>.<span class="ruby-identifier">upc_code</span>.<span class="ruby-identifier">to_s</span>,         
+                      <span class="ruby-identifier">recording</span>.<span class="ruby-identifier">album_artist</span>.<span class="ruby-identifier">to_s</span>,
+                      <span class="ruby-identifier">recording</span>.<span class="ruby-identifier">album_title</span>.<span class="ruby-identifier">to_s</span>,
+                      <span class="ruby-identifier">recording</span>.<span class="ruby-identifier">grouping</span>.<span class="ruby-identifier">to_s</span>,
+                      <span class="ruby-identifier">recording</span>.<span class="ruby-identifier">composer</span>.<span class="ruby-identifier">to_s</span>,
+                      <span class="ruby-identifier">recording</span>.<span class="ruby-identifier">compilation</span>.<span class="ruby-identifier">to_s</span>,
+                      <span class="ruby-identifier">recording</span>.<span class="ruby-identifier">bitrate</span>.<span class="ruby-identifier">to_s</span>,
+                      <span class="ruby-identifier">recording</span>.<span class="ruby-identifier">samplerate</span>.<span class="ruby-identifier">to_s</span>,
+                      <span class="ruby-identifier">recording</span>.<span class="ruby-identifier">channels</span>.<span class="ruby-identifier">to_s</span>,
+                      <span class="ruby-identifier">recording</span>.<span class="ruby-identifier">year</span>.<span class="ruby-identifier">to_s</span>,             
+                      <span class="ruby-identifier">recording</span>.<span class="ruby-identifier">duration</span>.<span class="ruby-identifier">to_s</span>,         
+                      <span class="ruby-identifier">recording</span>.<span class="ruby-identifier">album_name</span>.<span class="ruby-identifier">to_s</span>,       
+                      <span class="ruby-identifier">recording</span>.<span class="ruby-identifier">genre</span>.<span class="ruby-identifier">to_s</span>,            
+                      <span class="ruby-identifier">recording</span>.<span class="ruby-identifier">performer</span>.<span class="ruby-identifier">to_s</span>,        
+                      <span class="ruby-identifier">recording</span>.<span class="ruby-identifier">band</span>.<span class="ruby-identifier">to_s</span>,             
+                      <span class="ruby-identifier">recording</span>.<span class="ruby-identifier">disc</span>.<span class="ruby-identifier">to_s</span>,             
+                      <span class="ruby-identifier">recording</span>.<span class="ruby-identifier">track</span>.<span class="ruby-identifier">to_s</span>,      
+                      <span class="ruby-identifier">recording</span>.<span class="ruby-identifier">vocal</span>.<span class="ruby-identifier">to_s</span>,            
+                      <span class="ruby-identifier">recording</span>.<span class="ruby-identifier">mood</span>.<span class="ruby-identifier">to_s</span>,             
+                      <span class="ruby-identifier">recording</span>.<span class="ruby-identifier">instruments</span>.<span class="ruby-identifier">to_s</span>,      
+                      <span class="ruby-identifier">recording</span>.<span class="ruby-identifier">tempo</span>.<span class="ruby-identifier">to_s</span>,
+                      <span class="ruby-identifier">recording</span>.<span class="ruby-identifier">mp3</span>,
+                      <span class="ruby-identifier">recording</span>.<span class="ruby-identifier">uuid</span>,
+                      <span class="ruby-identifier">common_work</span>.<span class="ruby-identifier">uuid</span>
+                    ]
+            <span class="ruby-keyword">end</span>
+          <span class="ruby-keyword">end</span>
+      <span class="ruby-keyword">end</span>
+      <span class="ruby-identifier">csv</span> <span class="ruby-operator">&lt;&lt;</span> [<span class="ruby-string">&#39;&#39;</span>]
+      <span class="ruby-identifier">csv</span> <span class="ruby-operator">&lt;&lt;</span> [<span class="ruby-string">&#39;&#39;</span>]
+      <span class="ruby-identifier">csv</span> <span class="ruby-operator">&lt;&lt;</span> [<span class="ruby-string">&#39;&#39;</span>]
+      <span class="ruby-identifier">csv</span> <span class="ruby-operator">&lt;&lt;</span> [<span class="ruby-string">&#39;&#39;</span>]
+    <span class="ruby-keyword">end</span>
+  
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+                        </div>
+
+    </div>
+  </body>
+</html>    

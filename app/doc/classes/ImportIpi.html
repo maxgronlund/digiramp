@@ -1,0 +1,394 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>ImportIpi</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../css/github.css" type="text/css" media="screen" />
+<script src="../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            <span class="type">Class</span> 
+            ImportIpi 
+            
+                <span class="parent">&lt; 
+                    
+                    ActiveRecord::Base
+                    
+                </span>
+            
+        </h1>
+        <ul class="files">
+            
+            <li><a href="../files/models/import_ipi_rb.html">models/import_ipi.rb</a></li>
+            
+        </ul>
+    </div>
+    <div id="bodyContent">
+        <div id="content">
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+    <!-- Method ref -->
+    <div class="sectiontitle">Methods</div>
+    <dl class="methods">
+      
+        <dt>C</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-create_common_works_from_ascap">create_common_works_from_ascap</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>I</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-is_publisher-3F">is_publisher?</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-i-is_selected_publisher-3F">is_selected_publisher?</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>S</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-scrape_common_works_from_ascap">scrape_common_works_from_ascap</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-i-should_scrape-3F">should_scrape?</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>W</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-work_ids">work_ids</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+    </dl>
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+        
+      <div class="sectiontitle">Instance Public methods</div>
+      
+        <div class="method">
+          <div class="title method-title" id="method-i-create_common_works_from_ascap">
+            
+              <b>create_common_works_from_ascap</b>()
+            
+            <a href="../classes/ImportIpi.html#method-i-create_common_works_from_ascap" name="method-i-create_common_works_from_ascap" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-create_common_works_from_ascap_source')" id="l_method-i-create_common_works_from_ascap_source">show</a>
+                
+              </p>
+              <div id="method-i-create_common_works_from_ascap_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/import_ipi.rb, line 6</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">create_common_works_from_ascap</span>
+  
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-is_publisher-3F">
+            
+              <b>is_publisher?</b>(interested_party)
+            
+            <a href="../classes/ImportIpi.html#method-i-is_publisher-3F" name="method-i-is_publisher-3F" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-is_publisher-3F_source')" id="l_method-i-is_publisher-3F_source">show</a>
+                
+              </p>
+              <div id="method-i-is_publisher-3F_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/import_ipi.rb, line 56</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">is_publisher?</span> <span class="ruby-identifier">interested_party</span>
+  <span class="ruby-identifier">interested_party</span>[<span class="ruby-value">:role_code</span>].<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">upcase</span>.<span class="ruby-identifier">include?</span> <span class="ruby-string">&quot;P&quot;</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-is_selected_publisher-3F">
+            
+              <b>is_selected_publisher?</b>(interested_party)
+            
+            <a href="../classes/ImportIpi.html#method-i-is_selected_publisher-3F" name="method-i-is_selected_publisher-3F" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-is_selected_publisher-3F_source')" id="l_method-i-is_selected_publisher-3F_source">show</a>
+                
+              </p>
+              <div id="method-i-is_selected_publisher-3F_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/import_ipi.rb, line 50</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">is_selected_publisher?</span> <span class="ruby-identifier">interested_party</span>
+  <span class="ruby-identifier">selected_name</span>, <span class="ruby-identifier">selected_ascap_party_id</span> = <span class="ruby-operator">*</span><span class="ruby-keyword">self</span>.<span class="ruby-identifier">scrape_only_by_this_publisher</span>.<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">upcase</span>.<span class="ruby-identifier">strip</span>.<span class="ruby-identifier">split</span>(<span class="ruby-string">&#39;;&#39;</span>) 
+  (<span class="ruby-identifier">interested_party</span>[<span class="ruby-value">:full_name</span>].<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">upcase</span>.<span class="ruby-identifier">strip</span>      <span class="ruby-operator">==</span> <span class="ruby-identifier">selected_name</span>.<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">upcase</span>.<span class="ruby-identifier">strip</span>) <span class="ruby-operator">&amp;&amp;</span>
+  (<span class="ruby-identifier">interested_party</span>[<span class="ruby-value">:ascap_party_id</span>].<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">upcase</span>.<span class="ruby-identifier">strip</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">selected_ascap_party_id</span>.<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">upcase</span>.<span class="ruby-identifier">strip</span>)
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-scrape_common_works_from_ascap">
+            
+              <b>scrape_common_works_from_ascap</b>(&amp;block)
+            
+            <a href="../classes/ImportIpi.html#method-i-scrape_common_works_from_ascap" name="method-i-scrape_common_works_from_ascap" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-scrape_common_works_from_ascap_source')" id="l_method-i-scrape_common_works_from_ascap_source">show</a>
+                
+              </p>
+              <div id="method-i-scrape_common_works_from_ascap_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/import_ipi.rb, line 10</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">scrape_common_works_from_ascap</span> <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>
+  <span class="ruby-identifier">ascap_ipi</span>   = <span class="ruby-constant">Scraper</span><span class="ruby-operator">::</span><span class="ruby-constant">AscapScraper</span><span class="ruby-operator">::</span><span class="ruby-constant">Ipi</span>[ <span class="ruby-identifier">party_id</span><span class="ruby-operator">:</span> <span class="ruby-identifier">ascap_party_id</span>, <span class="ruby-identifier">scrape_type</span><span class="ruby-operator">:</span> <span class="ruby-identifier">scrape_type</span> ] <span class="ruby-keyword">unless</span> <span class="ruby-identifier">ascap_party_id</span>.<span class="ruby-identifier">contains_nothing?</span>
+  <span class="ruby-identifier">ascap_ipi</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">Scraper</span><span class="ruby-operator">::</span><span class="ruby-constant">AscapScraper</span><span class="ruby-operator">::</span><span class="ruby-constant">Ipi</span>[ <span class="ruby-identifier">full_name</span><span class="ruby-operator">:</span> <span class="ruby-identifier">full_name</span>,     <span class="ruby-identifier">scrape_type</span><span class="ruby-operator">:</span> <span class="ruby-identifier">scrape_type</span> ] <span class="ruby-keyword">unless</span> <span class="ruby-identifier">full_name</span>.<span class="ruby-identifier">contains_nothing?</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">ascap_ipi</span>
+
+  <span class="ruby-identifier">ascap_ipi</span>.<span class="ruby-identifier">scrape_all_works</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">work</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">should_scrape</span> = <span class="ruby-identifier">should_scrape?</span> <span class="ruby-identifier">work</span>
+    <span class="ruby-keyword">yield</span> <span class="ruby-identifier">work</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">should_scrape</span>
+  <span class="ruby-keyword">end</span>
+  
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">scrape_common_works</span> = <span class="ruby-keyword">false</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">save</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-should_scrape-3F">
+            
+              <b>should_scrape?</b>(work)
+            
+            <a href="../classes/ImportIpi.html#method-i-should_scrape-3F" name="method-i-should_scrape-3F" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-should_scrape-3F_source')" id="l_method-i-should_scrape-3F_source">show</a>
+                
+              </p>
+              <div id="method-i-should_scrape-3F_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/import_ipi.rb, line 30</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">should_scrape?</span> <span class="ruby-identifier">work</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">work</span>
+  <span class="ruby-identifier">should_scrape</span> = <span class="ruby-keyword">false</span>
+
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">work</span>.<span class="ruby-identifier">parsed_data?</span>   
+    <span class="ruby-keyword">if</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">scrape_only_by_this_publisher</span>.<span class="ruby-identifier">contains_nothing?</span> <span class="ruby-operator">||</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">scrape_only_by_this_publisher</span>.<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">strip</span> <span class="ruby-operator">==</span> <span class="ruby-string">&quot;;&quot;</span>
+      <span class="ruby-identifier">should_scrape</span> = <span class="ruby-keyword">true</span>
+    <span class="ruby-keyword">else</span>
+      <span class="ruby-identifier">work</span>.<span class="ruby-identifier">parsed_data</span>.<span class="ruby-identifier">interested_parties</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">interested_party</span><span class="ruby-operator">|</span>
+        <span class="ruby-identifier">should_scrape</span> = <span class="ruby-identifier">is_publisher?</span>(<span class="ruby-identifier">interested_party</span>) <span class="ruby-operator">&amp;&amp;</span>
+                        <span class="ruby-identifier">is_selected_publisher?</span>(<span class="ruby-identifier">interested_party</span>)
+      <span class="ruby-keyword">end</span>        
+    <span class="ruby-keyword">end</span>   
+  <span class="ruby-keyword">else</span>  
+    <span class="ruby-constant">Rails</span>.<span class="ruby-identifier">logger</span>.<span class="ruby-identifier">info</span> <span class="ruby-string">&quot;No parsed data for work!&quot;</span>
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-identifier">should_scrape</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-work_ids">
+            
+              <b>work_ids</b>()
+            
+            <a href="../classes/ImportIpi.html#method-i-work_ids" name="method-i-work_ids" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-work_ids_source')" id="l_method-i-work_ids_source">show</a>
+                
+              </p>
+              <div id="method-i-work_ids_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/import_ipi.rb, line 24</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">work_ids</span>
+  <span class="ruby-identifier">ascap_ipi</span>   = <span class="ruby-constant">Scraper</span><span class="ruby-operator">::</span><span class="ruby-constant">AscapScraper</span><span class="ruby-operator">::</span><span class="ruby-constant">Ipi</span>[<span class="ruby-identifier">party_id</span><span class="ruby-operator">:</span> <span class="ruby-identifier">ascap_party_id</span>, <span class="ruby-identifier">scrape_type</span><span class="ruby-operator">:</span> <span class="ruby-identifier">scrape_type</span>] <span class="ruby-keyword">unless</span> <span class="ruby-identifier">ascap_party_id</span>.<span class="ruby-identifier">contains_nothing?</span>
+  <span class="ruby-identifier">ascap_ipi</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">Scraper</span><span class="ruby-operator">::</span><span class="ruby-constant">AscapScraper</span><span class="ruby-operator">::</span><span class="ruby-constant">Ipi</span>[<span class="ruby-identifier">full_name</span><span class="ruby-operator">:</span> <span class="ruby-identifier">full_name</span>,     <span class="ruby-identifier">scrape_type</span><span class="ruby-operator">:</span> <span class="ruby-identifier">scrape_type</span>] <span class="ruby-keyword">unless</span> <span class="ruby-identifier">full_name</span>.<span class="ruby-identifier">contains_nothing?</span>    
+  <span class="ruby-identifier">ascap_ipi</span> <span class="ruby-operator">?</span> <span class="ruby-identifier">ascap_ipi</span>.<span class="ruby-identifier">work_ids</span> <span class="ruby-operator">:</span> []
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+                    </div>
+
+    </div>
+  </body>
+</html>    

@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>show.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            show.slim
+        </h1>
+        <ul class="files">
+            <li>views/cms_pages/show.slim</li>
+            <li>Last modified: 2015-09-24 20:35:34 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>//sass: //  .orange //    .digi-box //      background-color: ff0 // 
+//body //  //  background-color: #00f //</p>
+<ul><li>
+<p>if @cms_page.hide_sidebar .orange</p>
+
+<pre><code>.default-style
+  /#wrap
+  .full-width-top
+    == render &#39;shared/navigationbar&#39;, page: @cms_page.title 
+
+  .container-fluid
+    .cms-backdrop
+      = image_tag @image_url
+      /== render &quot;user/cms_pages/themes/#{@cms_page.theme.downcase}&quot;
+
+    .cms-content
+      .container-fluid
+
+        == render &quot;cms_pages/layouts/#{@cms_page.layout.downcase}&quot;
+
+        -if (current_user &amp;&amp; current_user.id == @user.id) || super?
+          .row
+            .col-sm-12.pull-down-10
+              .pull-right
+                = link_to &#39;Edit&#39;, edit_user_user_cms_page_path(@user, @cms_page), class: &#39;btn btn-info&#39;
+          .row
+            .col-sm-12.pull-down-48
+
+  == render &#39;shared/site_footer&#39;</code></pre>
+</li></ul>
+
+<p>-else</p>
+
+<pre><code>#wrapper
+  .full-width-top
+    == render &#39;shared/navigationbar&#39;, page: &#39;user&#39; 
+
+  #sidebar-wrapper
+    ul class=&quot;sidebar-nav&quot;
+      == render &#39;users/shared/sidebar&#39;, selected: &#39;user&#39;
+  .orangex
+    #page-content-wrapper
+      .container-fluid
+        == render &quot;user/cms_pages/themes/#{@cms_page.theme.downcase}&quot;
+        == render &quot;cms_pages/layouts/#{@cms_page.layout.downcase}&quot;
+        -if (current_user &amp;&amp; current_user.id == @user.id) || super? 
+          .row
+            .col-sm-12.pull-down-10
+              .pull-right
+                = link_to &#39;Edit page&#39;, edit_user_user_cms_page_path(@user, @cms_page), class: &#39;btn btn-info&#39;
+
+  == render &#39;shared/site_footer&#39;</code></pre>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

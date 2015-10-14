@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>new.html.erb.template</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            new.html.erb.template
+        </h1>
+        <ul class="files">
+            <li>views/user/registrations/new.html.erb.template</li>
+            <li>Last modified: 2015-07-05 15:22:06 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>&lt;%- if @plan %&gt; &lt;h2&gt;Subscribing to &lt;%= @plan.name
+%&gt;&lt;/h2&gt;</p>
+
+<pre><code>&lt;%= simple_form_for [:user, @user, @subscription], html: { id: &#39;payment-form&#39; } do |f| %&gt;
+  &lt;input type=&quot;hidden&quot; name=&quot;plan_id&quot; value=&quot;&lt;%= @plan.id %&gt;&quot; /&gt;
+  &lt;span class=&quot;payment-errors&quot;&gt;&lt;/span&gt;
+
+  &lt;div class=&quot;form-row&quot;&gt;
+    &lt;label&gt;
+      &lt;span&gt;Email Address&lt;/span&gt;
+      &lt;input type=&quot;email&quot; size=&quot;20&quot; name=&quot;email_address&quot;/&gt;
+    &lt;/label&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;form-row&quot;&gt;
+    &lt;label&gt;
+      &lt;span&gt;Card Number&lt;/span&gt;
+      &lt;input type=&quot;text&quot; size=&quot;20&quot; data-stripe=&quot;number&quot;/&gt;
+    &lt;/label&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;form-row&quot;&gt;
+    &lt;label&gt;
+      &lt;span&gt;CVC&lt;/span&gt;
+      &lt;input type=&quot;text&quot; size=&quot;4&quot; data-stripe=&quot;cvc&quot;/&gt;
+    &lt;/label&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;form-row&quot;&gt;
+    &lt;label&gt;
+      &lt;span&gt;Expiration (MM/YYYY)&lt;/span&gt;
+      &lt;input type=&quot;text&quot; size=&quot;2&quot; data-stripe=&quot;exp-month&quot;/&gt;
+    &lt;/label&gt;
+    &lt;span&gt; / &lt;/span&gt;
+    &lt;input type=&quot;text&quot; size=&quot;4&quot; data-stripe=&quot;exp-year&quot;/&gt;
+  &lt;/div&gt;
+  &lt;button type=&quot;submit&quot; class=&quot;btn btn-primary&quot;&gt;Pay&lt;/button&gt;
+&lt;% end %&gt;</code></pre>
+
+<p>&lt;% end %&gt;</p>
+
+<p>&lt;div class=“payment-well” style=“margin-top: 0px; margin-bottom:
+0px;”&gt;</p>
+
+<pre><code>&lt;div class=&quot;row&quot;&gt;
+  &lt;div id=&quot;powered-by-stripe&quot; style=&quot;&lt;%= @subscription.errors.any? ? &#39;display: none;&#39; : &#39;&#39; %&gt; margin-left: auto; margin-right: auto; text-align: center; margin-top: 15px;&quot;&gt;
+    &lt;img src=&quot;&lt;%= asset_path(&#39;powered_by_stripe.png&#39;) %&gt;&quot;&gt;
+  &lt;/div&gt;
+  &lt;div id=&quot;payment-errors&quot; class=&quot;alert payment-alert&quot; style=&quot;&lt;%= @subscription.errors.any? ? &#39;&#39; : &#39;display: none;&#39; %&gt; margin-bottom: 0px;&quot;&gt;
+    &lt;% @subscription.errors.full_messages.each do |msg| %&gt;
+      &lt;span&gt;&lt;%= msg %&gt;&lt;/span&gt;
+    &lt;% end %&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+
+<p>&lt;/div&gt;</p>
+
+<p>&lt;script type=“text/javascript” src=“<a
+href="https://js.stripe.com/v2/"></script">js.stripe.com/v2/”></script</a>&gt;</p>
+
+<p>&lt;script type=“text/javascript”&gt;</p>
+
+<pre><code>Stripe.setPublishableKey(&#39;&lt;%= Rails.application.secrets.stripe_publishable_key %&gt;&#39;);
+jQuery(function($) {
+  $(&#39;#payment-form&#39;).submit(function(event) {
+    var $form = $(this);
+    $form.find(&#39;button&#39;).prop(&#39;disabled&#39;, true);
+    Stripe.card.createToken($form, stripeResponseHandler);
+    return false;
+  });
+});
+
+function stripeResponseHandler(status, response) {
+  var $form = $(&#39;#payment-form&#39;);
+  if (response.error) {
+    showError(response.error.message);
+    // Show the errors on the form
+
+    $form.find(&#39;.payment-errors&#39;).text(response.error.message);
+    $form.find(&#39;button&#39;).prop(&#39;disabled&#39;, false);
+
+  } else {
+    // response contains id and card, which contains additional card details
+    var token = response.id;
+    // Insert the token into the form so it gets submitted to the server
+    $form.append($(&#39;&lt;input type=&quot;hidden&quot; name=&quot;stripeToken&quot; /&gt;&#39;).val(token));
+    // and submit
+    //$form.get(0).submit();
+
+    $.ajax({
+      type: &quot;POST&quot;,
+        /user/users/max-groenlund/subscriptions  
+      url: &quot;/user/users/&lt;%=@user.slug%&gt;/subscriptions/&lt;%= @subscription %&gt;&quot;,
+      data: $(&#39;#payment-form&#39;).serialize(),
+      success: function(data) { /*console.log(data);*/ poll(data.guid, 30) },
+      error: function(data)   { /*console.log(data);*/ showError(data.responseJSON.error) }
+    });
+
+  }
+};
+
+// Recursively poll for completion.
+function poll(guid, num_retries_left) {
+  console.log(num_retries_left);
+  if (num_retries_left === 0) {
+    showError(&quot;This seems to be taking too long. Email max@digiramp.com and reference subscription &quot; + guid + &quot; and we&#39;ll take a look.&quot;);
+    return;
+  }
+
+  //$.get(&quot;/user/users/&quot;&lt;%=@user.slug%&gt;&quot;/subsctiption_status/&quot; + guid, function(data)) {
+  $.get(&quot;/user/users/&lt;%=@user.slug%&gt;/subsctiption_status/&quot; + guid, function(data) {
+    console.log(data.status);
+    if (data.status === &quot;finished&quot;) {
+        /*window.location = &quot;/pickup/&quot; + guid;*/
+      window.location = &quot;/&quot;
+    } else if (data.status === &quot;errored&quot;) {
+      showError(data.error)
+    } else {
+      setTimeout(function() { poll(guid, num_retries_left - 1) }, 500);
+    }
+  });
+}
+
+function showError(error) {
+  var form = $(&#39;#payment-form&#39;);
+  form.find(&#39;button&#39;).prop(&#39;disabled&#39;, false);
+  $(&#39;#payment-errors&#39;).html(error);
+  $(&#39;#payment-errors&#39;).show();
+  $(&#39;#pay-button&#39;).show();
+  $(&#39;#powered-by-stripe&#39;).hide();
+  $(&#39;#spinner-button&#39;).hide();
+};</code></pre>
+
+<p>&lt;/script&gt;</p>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

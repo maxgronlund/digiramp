@@ -1,0 +1,328 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>UploadSharedCatalogRecordingsController</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../css/github.css" type="text/css" media="screen" />
+<script src="../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            <span class="type">Class</span> 
+            UploadSharedCatalogRecordingsController 
+            
+                <span class="parent">&lt; 
+                    
+                    <a href="ApplicationController.html">ApplicationController</a>
+                    
+                </span>
+            
+        </h1>
+        <ul class="files">
+            
+            <li><a href="../files/controllers/upload_shared_catalog_recordings_controller_rb.html">controllers/upload_shared_catalog_recordings_controller.rb</a></li>
+            
+        </ul>
+    </div>
+    <div id="bodyContent">
+        <div id="content">
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+    <!-- Method ref -->
+    <div class="sectiontitle">Methods</div>
+    <dl class="methods">
+      
+        <dt>A</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-add_to_catalog">add_to_catalog</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>C</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-create">create</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>N</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-new">new</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>S</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-show">show</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+    </dl>
+  
+
+  
+    <!-- Includes -->
+    <div class="sectiontitle">Included Modules</div>
+    <ul>
+      
+        <li>
+          
+            Transloadit::Rails::ParamsDecoder
+          
+        </li>
+      
+    </ul>
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+        
+      <div class="sectiontitle">Instance Public methods</div>
+      
+        <div class="method">
+          <div class="title method-title" id="method-i-add_to_catalog">
+            
+              <b>add_to_catalog</b>(import_batch, catalog_id)
+            
+            <a href="../classes/UploadSharedCatalogRecordingsController.html#method-i-add_to_catalog" name="method-i-add_to_catalog" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-add_to_catalog_source')" id="l_method-i-add_to_catalog_source">show</a>
+                
+              </p>
+              <div id="method-i-add_to_catalog_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File controllers/upload_shared_catalog_recordings_controller.rb, line 50</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">add_to_catalog</span> <span class="ruby-identifier">import_batch</span>, <span class="ruby-identifier">catalog_id</span>
+  
+  
+  <span class="ruby-identifier">import_batch</span>.<span class="ruby-identifier">recordings</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">recording</span><span class="ruby-operator">|</span>
+    <span class="ruby-constant">CatalogsRecordings</span>.<span class="ruby-identifier">where</span>(<span class="ruby-identifier">catalog_id</span><span class="ruby-operator">:</span> <span class="ruby-identifier">catalog_id</span>, <span class="ruby-identifier">recording_id</span><span class="ruby-operator">:</span> <span class="ruby-identifier">recording</span>.<span class="ruby-identifier">id</span>)
+                      .<span class="ruby-identifier">first_or_create</span>(<span class="ruby-identifier">catalog_id</span><span class="ruby-operator">:</span> <span class="ruby-identifier">catalog_id</span>, <span class="ruby-identifier">recording_id</span><span class="ruby-operator">:</span> <span class="ruby-identifier">recording</span>.<span class="ruby-identifier">id</span>)
+
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-create">
+            
+              <b>create</b>()
+            
+            <a href="../classes/UploadSharedCatalogRecordingsController.html#method-i-create" name="method-i-create" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              <p>called when an  import is completed</p>
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-create_source')" id="l_method-i-create_source">show</a>
+                
+              </p>
+              <div id="method-i-create_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File controllers/upload_shared_catalog_recordings_controller.rb, line 20</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">create</span>
+  <span class="ruby-comment"># get the catalog</span>
+  <span class="ruby-ivar">@catalog</span>      = <span class="ruby-constant">Catalog</span>.<span class="ruby-identifier">cached_find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:shared_catalog_id</span>])
+  <span class="ruby-ivar">@catalog_user</span> = <span class="ruby-constant">CatalogUser</span>.<span class="ruby-identifier">cached_where</span>(<span class="ruby-ivar">@catalog</span>.<span class="ruby-identifier">id</span>, <span class="ruby-ivar">@user</span>.<span class="ruby-identifier">id</span>)
+  
+  <span class="ruby-keyword">if</span> <span class="ruby-ivar">@catalog_user</span>.<span class="ruby-identifier">create_recordings</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-ivar">@catalog_user</span>
+    
+    <span class="ruby-comment"># parse the hash returned from www.transloadit.com</span>
+    <span class="ruby-comment"># and add the recordings to the catalog owners account</span>
+    <span class="ruby-ivar">@import_batch</span>         = <span class="ruby-constant">TransloaditParser</span>.<span class="ruby-identifier">parse_recordings</span>( <span class="ruby-identifier">params</span>[<span class="ruby-value">:transloadit</span>], <span class="ruby-ivar">@catalog</span>.<span class="ruby-identifier">account</span>.<span class="ruby-identifier">id</span>, <span class="ruby-identifier">current_user</span> )
+    
+    <span class="ruby-comment"># add to the catalog</span>
+    <span class="ruby-identifier">add_to_catalog</span> <span class="ruby-ivar">@import_batch</span>, <span class="ruby-ivar">@catalog</span>.<span class="ruby-identifier">id</span>
+
+    <span class="ruby-comment"># post message</span>
+    <span class="ruby-identifier">flash</span>[<span class="ruby-value">:info</span>]          =  <span class="ruby-string">&quot;Import completed&quot;</span> 
+    
+    <span class="ruby-comment"># bounce back to the shared catalog</span>
+    <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">user_shared_catalog_upload_shared_catalog_recording_path</span>(<span class="ruby-ivar">@user</span>, <span class="ruby-ivar">@catalog</span>,  <span class="ruby-ivar">@import_batch</span>)
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">forbidden</span>
+  <span class="ruby-keyword">end</span>
+  
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-new">
+            
+              <b>new</b>()
+            
+            <a href="../classes/UploadSharedCatalogRecordingsController.html#method-i-new" name="method-i-new" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-new_source')" id="l_method-i-new_source">show</a>
+                
+              </p>
+              <div id="method-i-new_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File controllers/upload_shared_catalog_recordings_controller.rb, line 6</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">new</span>
+  <span class="ruby-ivar">@catalog_user</span>      = <span class="ruby-constant">CatalogUser</span>.<span class="ruby-identifier">where</span>(<span class="ruby-identifier">user_id</span><span class="ruby-operator">:</span> <span class="ruby-ivar">@user</span>.<span class="ruby-identifier">id</span>, <span class="ruby-identifier">catalog_id</span><span class="ruby-operator">:</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:shared_catalog_id</span>]).<span class="ruby-identifier">first</span>
+  <span class="ruby-ivar">@catalog</span>           = <span class="ruby-ivar">@catalog_user</span>.<span class="ruby-identifier">catalog</span>
+  
+  <span class="ruby-keyword">if</span> <span class="ruby-ivar">@catalog_user</span>.<span class="ruby-identifier">create_recordings</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-ivar">@catalog_user</span>
+    
+    <span class="ruby-ivar">@recording</span>         = <span class="ruby-constant">Recording</span>.<span class="ruby-identifier">new</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">forbidden</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-show">
+            
+              <b>show</b>()
+            
+            <a href="../classes/UploadSharedCatalogRecordingsController.html#method-i-show" name="method-i-show" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-show_source')" id="l_method-i-show_source">show</a>
+                
+              </p>
+              <div id="method-i-show_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File controllers/upload_shared_catalog_recordings_controller.rb, line 45</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">show</span>
+  <span class="ruby-ivar">@catalog</span>              = <span class="ruby-constant">Catalog</span>.<span class="ruby-identifier">cached_find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:shared_catalog_id</span>])
+  <span class="ruby-ivar">@import_batch</span>         = <span class="ruby-constant">ImportBatch</span>.<span class="ruby-identifier">cached_find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+                    </div>
+
+    </div>
+  </body>
+</html>    

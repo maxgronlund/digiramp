@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>_twitter.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            _twitter.slim
+        </h1>
+        <ul class="files">
+            <li>views/user/authorization_providers/_twitter.slim</li>
+            <li>Last modified: 2015-07-05 15:22:06 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>.digi-box</p>
+
+<pre><code>.icon
+  .twitter
+.info
+  - if twitter  = @user.authorization_providers.where(provider: &#39;twitter&#39;).first
+    /= debug twitter
+    - twitter_instructions = BlogPost.cached_find(&#39;Your Twitter account is linked to your DigiRAMP account&#39;, blog)
+    h4 = twitter_instructions.title
+    &#39;Twitter account:
+    &#39;&amp;nbsp;
+    -if twitter.info
+      = link_to twitter.info[&#39;urls&#39;][&#39;Twitter&#39;] do
+      i.fa.fa-eye
+      &#39;&amp;nbsp;
+      =  twitter.info[&#39;name&#39;]
+    - else
+      &#39; Please relink to get more informations
+    br
+    = twitter_instructions.body 
+
+  - else   
+    - twitter_instructions = BlogPost.cached_find(&#39;Link you Twitter account to DigiRAMP&#39;, blog)
+    h4 = twitter_instructions.title
+    = simple_format twitter_instructions.body
+
+br
+.clearfix
+- if twitter
+  = link_to user_user_authorization_provider_path(@user, twitter), data: { confirm: &#39;Are you sure?&#39; } , :method =&gt; :delete do 
+          .btn.btn-danger.btn-xs
+            i class=&quot;fa fa-lock&quot;
+            &#39;&amp;nbsp;
+            &#39;Unlink
+- else
+  = link_to &quot;/auth/twitter&quot; do
+      .btn.btn-default.brn.btn-xs
+        i class=&quot;fa fa-unlock&quot;
+        &#39;&amp;nbsp;
+        &#39;Link
+
+-if super?
+  = link_to edit_admin_blog_blog_post_path(blog, twitter_instructions) do
+    .btn.btn-default.btn-xs
+      i.fa.fa-pencil
+      &#39;&amp;nbsp;
+      &#39;Edit instruction</code></pre>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>_form.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            _form.slim
+        </h1>
+        <ul class="files">
+            <li>views/user/distribution_agreements/_form.slim</li>
+            <li>Last modified: 2015-09-29 19:14:15 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<h1 id="label-simple_form_for+-5B-3Auser-2C+-40user-2C+-40label-2C+-40distribution_agreement+-5D-2C+turboboost-3A+true+do+-7Cf-7C">simple_form_for [:user, @user, @label, @distribution_agreement ], turboboost: true do |f|</h1>
+
+<pre><code>= f.error_notification
+.form-inputs
+  = f.hidden_field :user_id, value: @user.id
+  = f.hidden_field :account_id, value: @user.account.id
+  = f.hidden_field :distributor_id, value: @label.id
+  = f.hidden_field :label_id, value: @label.id
+  = f.input :title
+  = f.input :split, label: &#39;Labels fee in percentage&#39;, hint: &#39;The remainder is distributed to contributors&#39;
+  - if @distribution_agreement.original_label
+    .alert.alert-info
+      &#39;Only fill the following fields if this agreement is for redistribution by another label
+
+    = f.input :distribution_agreement_uuid, 
+                label: &#39;Distributers Label UUID ( found on the label page)&#39;, 
+                placeholder: &#39;Optional&#39;,
+                hint: &#39;Fill only if this agreement is for redistribution&#39;
+
+  - else
+
+    b Distributor
+    .pull-down-6
+    = link_to @distribution_agreement.distributor.title, label_path( @distribution_agreement.distributor), class: &#39;btn btn-default btn-xs&#39;
+.form-actions
+  .row
+    .col-sm-12
+      .pull-right
+        =&gt; link_to &#39;Cancel&#39;, user_user_label_path(@user, @label), class: &#39;btn btn-default&#39;
+        = f.submit &#39;Save&#39;, class: &#39;btn btn-info&#39;</code></pre>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

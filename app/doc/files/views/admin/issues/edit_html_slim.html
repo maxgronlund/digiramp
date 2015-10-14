@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>edit.html.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            edit.html.slim
+        </h1>
+        <ul class="files">
+            <li>views/admin/issues/edit.html.slim</li>
+            <li>Last modified: 2015-09-26 13:33:44 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>wrapper</p>
+
+<pre><code>.full-width-top
+  == render &#39;shared/navigationbar&#39;, page: &#39;user&#39; 
+
+.admin-account
+  #sidebar-wrapper
+    ul class=&quot;sidebar-nav&quot;
+      == render &#39;admin/shared/sidebar&#39;, selected: &#39;issue&#39;
+
+#page-content-wrapper
+  .container-fluid
+    == render &#39;shared/breadcrumbs&#39;, breadcrumbs: { links: { &#39;support&#39;.to_sym =&gt; support_index_path,\
+                                                            &#39;issues&#39;.to_sym =&gt; user_issues_path(@issue.user)\
+                                                          }, current: &#39;&#39;}
+    .row
+      .col-sm-8
+        h2 = @issue.title
+      .col-sm-4.pull-down-10
+
+        -if super? || current_user.id == @user.id
+          .pull-right
+            = link_to &#39;Edit&#39;, edit_user_issue_path(@user, @issue), class: &#39;btn btn-info&#39;
+            - if super?
+              =&lt; link_to &#39;Admin&#39;, edit_admin_issue_path(@issue), class: &#39;btn btn-default&#39;
+    .pull-down-10
+    .digi-box
+      = simple_form_for [:admin,  @issue] do |f|
+        .row
+          .col-sm-6
+
+            = f.input :title, autofocus: true
+            div id=&quot;toolbar&quot; class=&quot;wysihtml5-toolbar&quot;
+              a data-wysihtml5-command=&quot;bold&quot; Bold
+              &#39;&amp;nbsp; 
+              a data-wysihtml5-command=&quot;italic&quot; Italic
+              .pull-right
+                a data-wysihtml5-action=&quot;change_view&quot;  Html
+            =f.input :body, label: false, :input_html =&gt; {  style: &quot;height: 480px;&quot;, placeholder: &quot;Text&quot;, id: &#39;wysihtml5_editor&#39;}
+            /div id=&quot;toolbar&quot; class=&quot;wysihtml5-toolbar&quot;
+            /  a data-wysihtml5-command=&quot;bold&quot; Bold
+            /  &#39;&amp;nbsp; 
+            /  a data-wysihtml5-command=&quot;italic&quot; Italic
+            /
+            /= f.input :body, label: &#39;Description&#39;, :input_html =&gt; {  style: &quot;height: 284px;&quot;, placeholder: &quot;Write here&quot;, id: &#39;wysihtml5_editor&#39;}
+          .col-sm-6
+
+            = f.input :image
+            = f.input :os, label: &#39;Operating Systems&#39;, :collection =&gt; Issue::OSS 
+            = f.input :link_to_page
+            = f.input :status , :collection =&gt; Issue::STATUS , include_blank: false
+            = f.input :priority , :collection =&gt; Issue::PRIORITY  , include_blank: false
+            = f.input :browser , :collection =&gt; Issue::BROWSERS  , include_blank: false
+            = f.input :symtom , :collection =&gt; Issue::SYMPTOMS  , include_blank: false
+        .row
+          .col-sm-12
+            hr
+            .pull-right
+              = f.submit &#39;Save&#39;, class: &#39;btn btn-info&#39;
+
+== render &#39;shared/site_footer&#39;</code></pre>
+
+<h2 id="label-render+-27shared-2Finit_wysiwyg5-27">render &#39;shared/init_wysiwyg5&#39;</h2>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

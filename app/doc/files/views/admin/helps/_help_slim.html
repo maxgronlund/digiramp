@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>_help.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            _help.slim
+        </h1>
+        <ul class="files">
+            <li>views/admin/helps/_help.slim</li>
+            <li>Last modified: 2015-09-24 20:35:34 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      <ul><li>
+<p><a href=":return_url">session</a>         = request.url</p>
+</li><li>
+<p>help = Help.where(identifier: identifier).first_or_create(identifier:
+identifier)</p>
+</li><li>
+<p>help.update(request_url: request.url)</p>
+</li></ul>
+
+<p>.modal.fade  id=“helpModal_#{help.id.to_s}” tabindex=“-1” role=“dialog”
+aria-labelledby=“helpModalLabel” aria-hidden=“true”</p>
+
+<pre><code>.modal-dialog
+  .modal-content
+    .modal-header
+      button type=&quot;button&quot; class=&quot;close&quot; data-dismiss=&quot;modal&quot;
+        span aria-hidden=&quot;true&quot;
+          i.fa.fa-times
+
+      h4 class=&quot;modal-title&quot; id=&quot;helpModalLabel&quot;
+        = help.title 
+
+    .share-dialog
+      .modal-body
+        - if help.snippet
+          = raw help.snippet
+          br
+        = simple_format help.body
+
+      .modal-footer
+
+        - if editor?
+          =&gt; link_to &#39;Edit&#39;,  edit_admin_help_path(help), class: &#39;btn btn-default&#39;
+
+        button type=&quot;button&quot; class=&quot;btn btn-info&quot; data-dismiss=&quot;modal&quot;
+          &#39;Ok</code></pre>
+
+<p>button class=“btn btn-default” data-toggle=“modal”
+data-target=“#helpModal_#{help.id.to_s}”</p>
+
+<pre><code>i.fa.fa-question&amp;nbsp;Help
+/=&lt; help.button</code></pre>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

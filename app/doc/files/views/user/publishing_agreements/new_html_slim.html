@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>new.html.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            new.html.slim
+        </h1>
+        <ul class="files">
+            <li>views/user/publishing_agreements/new.html.slim</li>
+            <li>Last modified: 2015-10-03 08:41:36 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>wrapper</p>
+
+<pre><code>.full-width-top
+  == render &#39;shared/navigationbar&#39;, page: &#39;dashboard&#39; 
+
+#sidebar-wrapper
+  ul class=&quot;sidebar-nav&quot;
+    == render &#39;users/shared/sidebar&#39;, selected: &#39;dashboard&#39;
+
+#page-content-wrapper
+  .container-fluid
+    == render &#39;shared/flash_message&#39;
+    == render &#39;shared/breadcrumbs&#39;, breadcrumbs: { links: { &#39;Dashboard&#39;.to_sym =&gt; user_user_control_panel_index_path(@user),
+                                                             publisher: user_user_publisher_path(@user, @publisher)}}
+    .row
+      .col-sm-9
+        .help
+          .help-text
+            h2
+              b New revenue stream for:&amp;nbsp;
+
+          .help-button
+            == render &#39;admin/helps/help&#39;, identifier: &#39;user new publishing agreement&#39;
+      .col-sm-3
+        .pull-right.pull-down-10
+          =&gt; link_to  user_user_publisher_publishing_agreements_path(@user, @publisher) do
+              .btn.btn-default
+                i.fa.fa-chevron-left
+                &#39;&amp;nbsp;Back
+    h2 = @publisher.legal_name
+    .pull-down-10
+    = render &#39;form&#39;
+    /= simple_form_for [:user, @user, @publisher, @publishing_agreement], turboboost: true do |f|
+    /  = f.error_notification
+    /
+    /  .form-inputs
+    /    = f.hidden_field :publisher_id, value: @publisher.id
+    /    = f.hidden_field :personal_agreemen, value: false
+    /    - if @document
+    /      = f.hidden_field :document_id, value: @document.id
+    /      
+    /      
+    /    = f.input :title, hint: &quot;Make a descriptive name so it&#39;s easy to find this agreement&quot; 
+    /    /= f.input :email, hint: &quot;Receipients email&quot; 
+    /    
+    /    /.chosen-label
+    /    /  = f.input :document_id, 
+    /    /            collection: @documents,
+    /    /            include_blank: true,
+    /    /            label: false,
+    /    /            input_html: { class: &#39;chosen-select&#39;, &#39;data-placeholder&#39;.to_sym =&gt; &quot;Select from legal documents...&quot; }
+    /    /
+    /  .row
+    /    .col-sm-12
+    /      .pull-right
+    /        .form-actions
+    /          = f.submit &#39;Save&#39;, class: &#39;btn btn-default&#39;
+    /
+    /
+    /== render &#39;form&#39;
+
+== render &#39;shared/site_footer&#39;</code></pre>
+
+<p>/== render &#39;form&#39; / /= link_to &#39;Back&#39;,
+publishing_agreements_path</p>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

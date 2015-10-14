@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>show.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            show.slim
+        </h1>
+        <ul class="files">
+            <li>views/admin/accounts/show.slim</li>
+            <li>Last modified: 2015-09-26 13:33:44 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>wrapper</p>
+
+<pre><code>.full-width-top
+  == render &#39;shared/navigationbar&#39;, page: &#39;home&#39; 
+
+.admin-account
+  #sidebar-wrapper
+    ul class=&quot;sidebar-nav&quot;
+      == render &#39;admin/shared/sidebar&#39;, selected: &#39;account&#39;
+
+#page-content-wrapper
+  .container-fluid
+    == render &#39;shared/breadcrumbs&#39;, breadcrumbs: { links: { accounts: admin_accounts_path }, current: &#39;&#39;}
+    .row
+      .col-sm-8
+        h3 Account info
+        = @account.title
+      .col-sm-4
+        .pull-right.pull-down-10
+          = link_to edit_admin_account_path(@account) do
+             .btn.btn-info
+               i.fa.fa-pencil
+               &#39;&amp;nbsp;
+               &#39;Edit Account
+    .pull-down-10
+    .digi-box
+      .row
+        .col-sm-6
+          .users
+            .table-responsive
+              table class=&quot;table table-hover&quot;
+                tbody
+                  tr
+                    td Account
+                    td 
+                      = link_to @account do
+                        .btn.btn-default.btn-xs
+                          i.fa.fa-tachometer
+                          &#39;&amp;nbsp;
+                          =@account.title
+                  - unless false
+                    tr
+                      td Pro Account
+                      td 
+                        = link_to account_account_path(@account) do
+                          .btn.btn-default.btn-xs
+                            i.fa.fa-tachometer
+                            &#39;&amp;nbsp;
+                            =@account.title
+                  tr
+                    td Owner
+                    td 
+                      - if @account.user
+                        = link_to @account.user do
+                          .btn.btn-default.btn-xs
+                            i.fa.fa-user
+                            &#39;&amp;nbsp;
+                            =@account.user.user_name
+                      - else
+                        .expired
+                          i class=&quot;fa fa-exclamation-circle&quot;
+                          &#39;&amp;nbsp;Missing
+                  tr
+                    td Administrator
+                    td 
+                      - if @account.administrator
+                        = link_to @account.administrator do
+                          .btn.btn-default.btn-xs
+                            i.fa.fa-eye
+                            &#39;&amp;nbsp;
+                            = @account.administrator.user_name
+                      - else
+                        &#39;Error: no user / no admin
+
+                  tr
+                    td Account Type:
+                    td = @account.account_type
+                  tr
+                    td Expires:
+                    td 
+                      - if @account.expiration_date &lt; Date.current
+                        .expired
+                          i class=&quot;fa fa-exclamation-circle&quot;
+                          &#39;&amp;nbsp;Expired  
+                      - else
+                        = @account.expiration_date
+                  tr
+                    td Contact Email:
+                    td = @account.contact_email
+
+        .col-sm-6
+          b Address
+          .users
+            .table-responsive
+              table class=&quot;table table-hover&quot;
+                tbody
+                  tr
+                    td Fax:
+                    td = @account.fax
+                  tr
+                    td Country:
+                    td  = @account.country
+                  tr
+                    td Street Address:
+                    td  = @account.street_address
+                  tr
+                    td Postal code
+                    td = @account.postal_code
+                  tr
+                    td Contact First Name:
+                    td  = @account.contact_first_name
+                  tr
+                    td Contact Last Name:
+                    td  = @account.contact_last_name
+      .row
+        .col-sm-12
+          h4 Content
+          .table-responsive
+            table class=&quot;table table-hover&quot;
+              tbody
+                tr
+                  td = pluralize(@account.recordings.count, &#39;Recording&#39;)    
+                  td
+                    .pull-right
+                      = link_to = link_to admin_account_delete_recordings_path(@account) ,data: { confirm: &#39;Are you sure?&#39; }  do
+                        .btn.btn-danger.btn-xs
+                          i class=&quot;fa fa-times&quot;
+                          &#39;&amp;nbsp;
+                          &#39;Delete all
+
+                tr      
+                  td = pluralize(@account.attachments.count, &#39;Document&#39;)    
+                  td
+                    .pull-right
+                      = link_to admin_account_delete_documents_path(@account) ,data: { confirm: &#39;Are you sure?&#39; }  do
+                        .btn.btn-danger.btn-xs
+                          i class=&quot;fa fa-times&quot;
+                          &#39;&amp;nbsp;
+                          &#39;Delete all
+
+                tr
+                  td = pluralize(@account.clients.count, &#39;Client&#39;)     
+                  td
+                    .pull-right
+                      = link_to admin_account_delete_clients_path(@account) ,data: { confirm: &#39;Are you sure?&#39; }  do
+                        .btn.btn-danger.btn-xs
+                          i class=&quot;fa fa-times&quot;
+                          &#39;&amp;nbsp;
+                          &#39;Delete all
+
+                tr
+                  td = pluralize(@account.common_works.count, &#39;Work&#39;)      
+                  td
+                    .pull-right
+                      = link_to admin_account_delete_common_works_path(@account) ,data: { confirm: &#39;Are you sure?&#39; } do
+                        .btn.btn-danger.btn-xs
+                          i class=&quot;fa fa-times&quot;
+                          &#39;&amp;nbsp;
+                          &#39;Delete all
+
+      /.row  
+      /  .col-sm-12  
+      /    .sexy_line
+      /    .pull-right
+      /
+      /      = link_to edit_admin_account_path(@account) do
+      /         .btn.btn-info
+      /           i.fa.fa-pencil
+      /           &#39;&amp;nbsp;
+      /           &#39;Edit Account
+      /
+      /          
+== render &#39;shared/site_footer&#39;</code></pre>
+
+<p>/</p>
+
+<p>/</p>
+
+<p>/        /.panel.panel-primary /        /  .panel-heading /        /   
+&#39;Repair <a href="../../../../classes/Permissions.html">Permissions</a>
+/        /  .panel-body /        /    .table-responsive /        /     
+table class=“table table-hover” /        /        tbody /        /         
+tr /        /              th Users  /        /              td  /        /
+.pull-right /        /                  = link_to &#39;Repair&#39;,
+admin_account_repair_users_path(@account), class: &#39;btn btn-info
+btn-lg&#39; /        /            tr /        /              th Recordings 
+/        /              td  /        /                .pull-right /       
+/                  = link_to &#39;Repair&#39;,
+admin_account_repair_recordings_path(@account), class: &#39;btn btn-info
+btn-lg&#39; /        /            tr /        /              th Works  /   
+/              td  /        /                .pull-right /        /        
+= link_to &#39;Repair&#39;, admin_account_repair_works_path(@account),
+class: &#39;btn btn-info btn-lg&#39; /        /            tr /        /   
+th Catalogs  /        /              td  /        /               
+.pull-right /        /                  = link_to &#39;Repair&#39;,
+admin_account_repair_catalogs_path(@account), class: &#39;btn btn-info
+btn-lg&#39; /        / /        / / /</p>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

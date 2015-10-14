@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>show.html.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            show.html.slim
+        </h1>
+        <ul class="files">
+            <li>views/shop/orders/show.html.slim</li>
+            <li>Last modified: 2015-10-06 09:43:43 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      <ul><li>
+<p><a href=":return_url">session</a> = request.url</p>
+</li></ul>
+
+<p>/ this is the public shop wrapper</p>
+
+<pre><code>.full-width-top
+  == render &#39;shared/navigationbar&#39;, page: &#39;home&#39; 
+
+#sidebar-wrapper
+  ul class=&quot;sidebar-nav&quot;
+    == render &#39;shop/shared/sidebar&#39;, selected: &#39;basket&#39;
+
+#page-content-wrapper
+  .container-fluid
+    == render &#39;admin/shared/messages&#39;
+    h2 Basket
+    .pull-down-10 
+      .table-responsive
+        table class=&quot;table table-hover&quot;
+          thead
+            tr
+
+              th Title
+              th Price
+              th style=&quot;width: 160px;&quot;
+                &#39;Units
+              th 
+              th
+              th Total
+
+          tbody    
+            - @shop_order.order_items.order(&#39;created_at asc&#39;).each do |order_item|
+              - if product = order_item.shop_product
+                tr
+                  /= user_product_path(product.user_id, product)
+                  /td = link_to image_tag(product.image_url(:thumb_120x120)), user_product_path(product.user_id, product)
+                  td 
+                    b = product.title
+                  td = number_to_currency(product.price * 0.01, locale: :en, precision: 2)
+                  td 
+                    - if product.category == &#39;physical-product&#39;
+                      - if product.units_on_stock == 1
+                        &#39;1
+                      - else
+
+                        = simple_form_for  [ :shop, order_item], turboboost: true do |f|
+                          - unless f.error_notification.blank?
+                            .alert.alert-danger
+                              = f.error_notification
+
+                          .form-inputs
+
+                            = f.hidden_field :shop_order_id,   value: @shop_order.id
+                            = f.hidden_field :shop_product_id, value: order_item.shop_product_id
+                            /= f.hidden_field :user_id, value: @user.id
+                            .input-group
+                              = f.input :quantity, label: false, input_html: { min: 1} 
+                              span class=&quot;input-group-btn&quot;
+                                = f.submit &#39;update&#39;, class: &#39;btn btn-info&#39;
+
+                    - else
+                      &#39;1
+
+                  td
+                  td = link_to shop_shop_order_item_path(order_item), data: { confirm: &#39;Are you sure?&#39; } , 
+                                                                                            turboboost: true, 
+                                                                                            :method =&gt; :delete do
+                      .btn.btn-default
+                        &#39;Remove
+                  td = number_to_currency(product.price * order_item.quantity * 0.01, locale: :en, precision: 2)
+
+            tr
+              th Total
+              td
+              td
+              td
+              td
+              th = number_to_currency(@shop_order.total_price * 0.01, locale: :en, precision: 2) 
+
+      .row.pull-down-10
+        .col-sm-12
+          .pull-right
+            - if @shop_order.require_shipping_address
+              =&gt; link_to new_shop_order_shipping_address_path(@shop_order), id: &#39;checkout-button&#39; do
+                .btn.btn-warning.btn-lg
+                  &#39;Checkout
+
+            - else
+              =&gt; link_to edit_shop_order_path(@shop_order), id: &#39;checkout-button&#39; , &#39;data-no-turbolink&#39;=&gt;&#39;true&#39; do
+                .btn.btn-warning.btn-lg
+                  &#39;Checkout</code></pre>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

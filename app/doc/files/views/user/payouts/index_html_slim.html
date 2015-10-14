@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>index.html.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            index.html.slim
+        </h1>
+        <ul class="files">
+            <li>views/user/payouts/index.html.slim</li>
+            <li>Last modified: 2015-10-01 19:09:31 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>wrapper</p>
+
+<pre><code>.full-width-top
+  == render &#39;shared/navigationbar&#39;, page: &#39;dashboard&#39; 
+
+#sidebar-wrapper
+  ul class=&quot;sidebar-nav&quot;
+    == render &#39;users/shared/sidebar&#39;, selected: &#39;dashboard&#39;
+
+#page-content-wrapper
+  .container-fluid
+    == render &#39;shared/flash_message&#39;
+    == render &#39;shared/breadcrumbs&#39;, breadcrumbs: { links: { &#39;Dashboard&#39;.to_sym =&gt; user_user_control_panel_index_path(@user),
+                                                            &#39;Commerce engine&#39;.to_sym =&gt; user_user_commerce_index_path(@user)}}
+    .row
+      .col-sm-6
+        .help
+          .help-text
+            h2 Payments
+          .help-button
+            == render &#39;admin/helps/help&#39;, identifier: &#39;user payments&#39;
+      .col-sm-6
+        .pull-right.pull-down-10
+          = link_to  user_user_commerce_index_path(@user) do
+              .btn.btn-default
+                i.fa.fa-chevron-left
+                &#39;&amp;nbsp;Back  
+
+    .pull-down-10
+    .table-responsive
+      /= debug @stripe_transfers
+      table class=&quot;table table-hover&quot;
+        thead
+          tr
+            /th
+            /th Type
+            th Date
+            th Source
+            th Amount
+            th Status
+            /th Amount
+            /th Income
+            /th
+        tbody
+          - @stripe_transfers.each do |stripe_transfer|
+            - unless stripe_transfer.state == &#39;errored&#39; &amp;&amp; !super?
+              tr
+                td = l stripe_transfer.created_at, format: :date
+                td = stripe_transfer.stake.title
+                td = number_to_currency( stripe_transfer.amount * 0.01, precision: 4, locale: &#39;en&#39;)
+                td 
+                  - case stripe_transfer.state
+                  - when &#39;pending&#39;
+                    &#39;Pending
+                  - when &#39;finished&#39;
+                    &#39;Paid
+                  - when &#39;errored&#39;
+                    &#39;! Error
+                  - when &#39;processing&#39;
+                    &#39;Processing
+                /td = number_to_percentage(stake.split, precision: 0) 
+                /td = number_to_currency( stake.unit_price, precision: 4, locale: &#39;en&#39;)
+                /th = number_to_currency( stake.generated_income, precision: 4, locale: &#39;en&#39;)
+                /td
+                /  .pull-right
+                /    = link_to user_user_revenue_stream_path(@user, stake) do
+                /      .btn.btn-default.btn-xs
+                /        i.fa.fa-share&amp;nbsp;Share
+
+== render &#39;shared/site_footer&#39;</code></pre>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

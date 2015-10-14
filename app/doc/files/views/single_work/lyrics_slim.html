@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>lyrics.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            lyrics.slim
+        </h1>
+        <ul class="files">
+            <li>views/single_work/lyrics.slim</li>
+            <li>Last modified: 2015-09-24 20:35:34 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>wrap</p>
+
+<pre><code>div class=&quot;#{&#39;profile&#39; if account_owner?}&quot;
+  .full-width-top
+    == render &#39;admin/shared/navbar&#39;, page: &#39;account&#39; 
+.container
+  == render &#39;admin/shared/messages&#39;
+  == render &#39;shared/breadcrumbs&#39;, breadcrumbs: { links: { @account.title.to_sym =&gt; account_path(@account), \
+                                                          assets: account_assets_path(@account), \
+                                                          &#39;create content&#39;.to_sym =&gt; account_add_content_index_path(@account),\
+                                                          }, current:  &#39;lyrics&#39;}
+
+  == render &#39;admin/shared/messages&#39;
+  == render &#39;shared/page_title&#39;, locals: {blog: Blog.cached_find(&#39;Single Work&#39;), blog_post: &#39;Lyrics&#39;} 
+  = simple_form_for [@account, @common_work], url: url_for(action: &#39;update&#39;, controller: &#39;single_work&#39;), method: &#39;post&#39; do |f|
+    = f.error_notification
+    = f.hidden_field :account_id, value: @account.id
+    = f.hidden_field :step, value: &#39;lyrics added&#39;
+    .row
+      .col-sm-12
+        div id=&quot;toolbar&quot; class=&quot;wysihtml5-toolbar&quot;
+          a data-wysihtml5-command=&quot;bold&quot; Bold
+          &#39;&amp;nbsp; 
+          a data-wysihtml5-command=&quot;italic&quot; Italic
+
+        =f.input :lyrics, label: false, :input_html =&gt; {  style: &quot;height: 360px;&quot;, placeholder: &quot;Lyrics&quot;, id: &#39;wysihtml5_editor&#39;}, autofocus: true
+
+        hr
+        .pull-right
+          = link_to &#39;Back&#39;, account_single_work_edit_path(@account, @common_work), class: &#39;btn btn-default btn-lg&#39;
+          &#39;&amp;nbsp;
+          = link_to &#39;Skip&#39;, account_single_work_recordings_path(@account, @common_work), class: &#39;btn btn-default btn-lg&#39;
+          &#39;&amp;nbsp;
+          = f.submit &#39;Next&#39;, class: &#39;btn btn-info btn-lg&#39;
+
+== render &#39;shared/site_footer&#39;</code></pre>
+
+<h2 id="label-render+-27shared-2Finit_wysiwyg5-27">render &#39;shared/init_wysiwyg5&#39;</h2>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>index.html.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            index.html.slim
+        </h1>
+        <ul class="files">
+            <li>views/user/select_product_type/index.html.slim</li>
+            <li>Last modified: 2015-09-27 09:35:37 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>wrapper</p>
+
+<pre><code>.full-width-top
+  == render &#39;shared/navigationbar&#39;, page: &#39;edit_profile&#39; 
+
+#sidebar-wrapper
+  ul class=&quot;sidebar-nav&quot;
+    == render &#39;users/shared/sidebar&#39;, selected: &#39;profile&#39;
+
+/&#39;Streaming&#39;, &#39;download&#39;, &#39;Service&#39;, &#39;Physical product&#39;, &#39;Coupon&#39;
+#page-content-wrapper
+  .container-fluid 
+    == render &#39;shared/breadcrumbs&#39;, breadcrumbs: { links: { &#39;Dashboard&#39;.to_sym =&gt;user_user_control_panel_index_path(@user),
+                                                            &#39;Shop admin&#39;.to_sym =&gt; user_user_shop_admin_index_path(@user)}, current: &#39;&#39;}
+    .row
+      .col-sm-8
+        .help
+          .help-text
+            h2 Select product type
+          .help-button
+            == render &#39;admin/helps/help&#39;, identifier: &#39;user select product type to create&#39;
+      .col-sm-4
+        .pull-down-10.pull-right
+          = link_to &#39;Edit language&#39;, admin_blog_path(@blog), class: &#39;btn btn-default&#39;, id: &#39;edit-language&#39;
+
+    .pull-down-10
+    .row
+      = link_to new_user_user_product_path(@user, category: &#39;recording&#39;) , id: &#39;new-recording-download&#39;
+        .col-sm-6
+          .panel.panel-default
+            .panel-body
+              h4 = @recording_product.title
+              = simple_format @recording_product.body
+              .pull-right
+                .btn.btn-default
+                  &#39;Create
+
+      /= link_to new_user_user_product_path(@user, category: &#39;playlist&#39;) , id: &#39;new-playlist-download&#39;
+      /  .col-sm-6
+      /    .panel.panel-default
+      /      .panel-body
+      /        h4 = @playlist_product.title
+      /        = simple_format @playlist_product.body
+      /        .pull-right
+      /          .btn.btn-default
+      /            &#39;Create
+
+      /.row
+      = link_to new_user_user_product_path(@user, category: &#39;physical-product&#39;) , id: &#39;new-physical-product&#39;
+        .col-sm-6
+          .panel.panel-default
+            .panel-body
+              h4 = @physical_product.title
+              = simple_format @physical_product.body
+              .pull-right
+                .btn.btn-default
+                  &#39;Create
+
+      /= link_to new_user_user_product_path(@user, category: &#39;download&#39;) , id: &#39;new-download-product&#39;
+      /  .col-sm-6
+      /    .panel.panel-default
+      /      .panel-body
+      /        h4 = @download_product.title
+      /        = simple_format @download_product.body
+      /        .pull-right
+      /          .btn.btn-default
+      /            &#39;Create
+      /
+    /.row
+    /  = link_to new_user_user_product_path(@user, category: &#39;service&#39;) , id: &#39;new-servic-product&#39;
+    /    .col-sm-6
+    /      .panel.panel-default
+    /        .panel-body
+    /          h4 = @service_product.title
+    /          = simple_format @service_product.body
+    /          .pull-right
+    /            .btn.btn-default
+    /              &#39;Create
+    /        
+    /  = link_to new_user_user_product_path(@user, category: &#39;streaming&#39;) , id: &#39;new-streaming-product&#39;
+    /    .col-sm-6
+    /      .panel.panel-default
+    /        .panel-body
+    /          h4 = @streaming_product.title
+    /          = simple_format @streaming_product.body
+    /          .pull-right
+    /            .btn.btn-default
+    /              &#39;Create
+    /
+    /.row
+    /  = link_to new_user_user_product_path(@user, product_type: &#39;coupon) , id: &#39;new-coupon-product&#39;
+    /    .col-sm-6
+    /      .digi-box
+    /        &#39;New coupon
+    /        
+    /  = link_to new_user_user_product_path(@user, product_type: &#39;coupon-batch) , id: &#39;new-coupon-batch-product&#39;
+    /    .col-sm-6
+    /      .digi-box
+    /        &#39;New coupon batch
+    /
+
+== render &#39;shared/site_footer&#39;</code></pre>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

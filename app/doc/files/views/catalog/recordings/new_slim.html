@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>new.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            new.slim
+        </h1>
+        <ul class="files">
+            <li>views/catalog/recordings/new.slim</li>
+            <li>Last modified: 2015-09-24 20:35:34 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>wrap</p>
+
+<pre><code>div class=&quot;#{&#39;profile&#39; if account_owner?}&quot;
+  .full-width-top
+    == render &#39;admin/shared/navbar&#39;, page: &#39;account&#39; 
+
+.container
+
+  == render &#39;admin/shared/messages&#39;
+  == render &#39;shared/breadcrumbs&#39;, breadcrumbs: { links: { @account.title.to_sym =&gt; account_path(@account), \
+                                                          assets: account_assets_path(@account), \
+                                                          &#39;create content&#39;.to_sym =&gt; account_add_content_index_path(@account),\
+                                                          }, current:  &#39;upload recording&#39;}
+
+  == render &#39;shared/page_title&#39;, locals: {blog: Blog.cached_find(&#39;Add Content&#39;), blog_post: &#39;Add Recording to work&#39;}
+  .row
+    .col-sm-3
+
+    .col-sm-6
+      .panel.panel-primary
+        .panel-heading
+          &#39;SELECT FILE
+        .panel-body
+          /= simple_form_for [ @account, @recording ],  :html =&gt; { :id =&gt; &#39;recording&#39; } do |f| 
+          = simple_form_for [ @account, @common_work, @recording ], :url =&gt; url_for(:action =&gt; &#39;create&#39;, :controller =&gt; &#39;recordings&#39;), :method =&gt; &#39;post&#39;,  :html =&gt; { :id =&gt; &#39;recording&#39; } do |f| 
+            = transloadit :recording_with_thumbs 
+            /= form.label      :file, &#39;File to upload&#39; 
+            = f.hidden_field :common_work_id, value: @common_work_id
+            = f.file_field :file
+            hr
+            .pull-right
+              = f.submit &#39;Done&#39;, class: &#39;btn btn-info btn-lg&#39;
+
+          = transloadit_jquerify :recording, :wait =&gt; true
+
+    .col-sm-3</code></pre>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

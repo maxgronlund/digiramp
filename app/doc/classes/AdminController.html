@@ -1,0 +1,298 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>AdminController</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../css/github.css" type="text/css" media="screen" />
+<script src="../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            <span class="type">Class</span> 
+            AdminController 
+            
+                <span class="parent">&lt; 
+                    
+                    <a href="ApplicationController.html">ApplicationController</a>
+                    
+                </span>
+            
+        </h1>
+        <ul class="files">
+            
+            <li><a href="../files/controllers/admin_controller_rb.html">controllers/admin_controller.rb</a></li>
+            
+        </ul>
+    </div>
+    <div id="bodyContent">
+        <div id="content">
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+    <!-- Method ref -->
+    <div class="sectiontitle">Methods</div>
+    <dl class="methods">
+      
+        <dt>F</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-flush_cache">flush_cache</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>I</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-index">index</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>R</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-repair_permissions">repair_permissions</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>Z</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-zapp_shop">zapp_shop</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+    </dl>
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+        
+      <div class="sectiontitle">Instance Public methods</div>
+      
+        <div class="method">
+          <div class="title method-title" id="method-i-flush_cache">
+            
+              <b>flush_cache</b>()
+            
+            <a href="../classes/AdminController.html#method-i-flush_cache" name="method-i-flush_cache" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-flush_cache_source')" id="l_method-i-flush_cache_source">show</a>
+                
+              </p>
+              <div id="method-i-flush_cache_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File controllers/admin_controller.rb, line 29</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">flush_cache</span>
+  <span class="ruby-constant">FlushCacheWorker</span>.<span class="ruby-identifier">perform_async</span>()
+  <span class="ruby-identifier">redirect_to</span> <span class="ruby-value">:back</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-index">
+            
+              <b>index</b>()
+            
+            <a href="../classes/AdminController.html#method-i-index" name="method-i-index" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-index_source')" id="l_method-i-index_source">show</a>
+                
+              </p>
+              <div id="method-i-index_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File controllers/admin_controller.rb, line 17</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">index</span>
+  <span class="ruby-ivar">@users</span>      = <span class="ruby-constant">User</span>.<span class="ruby-identifier">where</span>(<span class="ruby-identifier">role</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;super&#39;</span>)
+  <span class="ruby-ivar">@user</span>       = <span class="ruby-identifier">current_user</span>
+  <span class="ruby-comment">#@authorized = true</span>
+  <span class="ruby-comment">#where.(&#39;lower(email) ASC&#39;)</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-repair_permissions">
+            
+              <b>repair_permissions</b>()
+            
+            <a href="../classes/AdminController.html#method-i-repair_permissions" name="method-i-repair_permissions" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-repair_permissions_source')" id="l_method-i-repair_permissions_source">show</a>
+                
+              </p>
+              <div id="method-i-repair_permissions_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File controllers/admin_controller.rb, line 24</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">repair_permissions</span>
+  <span class="ruby-constant">RepairPermissionsWorker</span>.<span class="ruby-identifier">perform_async</span>()
+  <span class="ruby-identifier">redirect_to</span> <span class="ruby-value">:back</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-zapp_shop">
+            
+              <b>zapp_shop</b>()
+            
+            <a href="../classes/AdminController.html#method-i-zapp_shop" name="method-i-zapp_shop" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-zapp_shop_source')" id="l_method-i-zapp_shop_source">show</a>
+                
+              </p>
+              <div id="method-i-zapp_shop_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File controllers/admin_controller.rb, line 34</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">zapp_shop</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-constant">Rails</span>.<span class="ruby-identifier">env</span>.<span class="ruby-identifier">development?</span>
+    
+    <span class="ruby-constant">RecordingDownload</span>.<span class="ruby-identifier">destroy_all</span>
+    <span class="ruby-constant">Stake</span>.<span class="ruby-identifier">destroy_all</span>
+    <span class="ruby-constant">Shop</span><span class="ruby-operator">::</span><span class="ruby-constant">OrderItem</span>.<span class="ruby-identifier">destroy_all</span>
+    <span class="ruby-constant">Shop</span><span class="ruby-operator">::</span><span class="ruby-constant">StripeTransfer</span>.<span class="ruby-identifier">destroy_all</span>
+    <span class="ruby-constant">Shop</span><span class="ruby-operator">::</span><span class="ruby-constant">Order</span>.<span class="ruby-identifier">destroy_all</span>
+    <span class="ruby-constant">Shop</span><span class="ruby-operator">::</span><span class="ruby-constant">Product</span>.<span class="ruby-identifier">destroy_all</span>
+    
+    
+    
+    <span class="ruby-identifier">ap</span> <span class="ruby-string">&#39;shebang!&#39;</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-identifier">redirect_to</span> <span class="ruby-value">:back</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+                    </div>
+
+    </div>
+  </body>
+</html>    

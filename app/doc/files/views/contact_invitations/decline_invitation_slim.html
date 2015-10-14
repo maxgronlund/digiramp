@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>decline_invitation.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            decline_invitation.slim
+        </h1>
+        <ul class="files">
+            <li>views/contact_invitations/decline_invitation.slim</li>
+            <li>Last modified: 2015-09-24 20:35:34 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>.full-width-top</p>
+
+<pre><code>.navbar.navbar-digiramp.navbar-fixed-top.navbar-collapse
+  .navbar-header
+    = link_to image_tag(&#39;logo2.png&#39;, size: &quot;128x50&quot;), root_path</code></pre>
+
+<p>.container</p>
+
+<pre><code>.contact-invitations
+  - if @client_invitation
+    - unless @client_invitation.status == &#39;Declined&#39;
+      .declined-confirmed  style=&quot;visibility: hidden&quot;
+          .alert.alert-info
+            h4 Your invitation has been declined
+    - else
+      .declined-confirmed
+          .alert.alert-info
+            h4 Your invitation has been declined
+
+    .row
+      .col-sm-12
+        .digi-box
+          - if params[:error_message]
+            .alert.alert-danger
+              = params[:error_message]
+          h4 I don&#39;t know #{@inviter.user_name} 
+          .sexy_line
+          == render &#39;profile&#39;
+          .sexy_line
+          .row
+            .col-sm-6.pull-down-12
+              - unless @client_invitation.status == &#39;Declined&#39;
+                .declined-confirmed-form  style=&quot;visibility: visible&quot;
+
+                  h4 Dismiss request
+                  &#39;By pressing &#39;No thanks&#39; #{@inviter.user_name} will not be able to contact you again.
+                  = simple_form_for [ @client ], :url =&gt; url_for(:action =&gt; &#39;confirm_decline_of_invitation&#39;, \
+                                                                :controller =&gt; &#39;contact_invitations&#39;), \
+                                                                :method =&gt; &#39;post&#39;, \
+                                                                remote: true do |f|
+
+                    .row
+                      .col-sm-12.pull-down-12
+                        .pull-right
+
+                          = f.submit &quot;No thanks&quot;, class: &#39;btn btn-info&#39;
+                    .row
+                      .col-sm-12.pull-down-12
+
+            .col-sm-6.pull-down-12
+              h4 DigiRAMP
+              &#39;An online network for music professionals and music lovers. 
+              &#39;DigiRAMP offers everyone the opportunity to share and distribute music for professional usage with all necessary rights. 
+              &#39;Benefit from direct access to whatever you want.
+
+  - else
+    .alert.alert-info
+      h4 Info;
+      &#39;No invitation found
+      /.row
+      /  .col-sm-12
+      /    .center
+      /      .smal-gray-text
+      /        
+      /        = link_to &#39;unsubscribe&#39;, &#39;#&#39;
+      /= debug @message
+      /= debug @client_invitatio</code></pre>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

@@ -1,0 +1,669 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>Genre</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../css/github.css" type="text/css" media="screen" />
+<script src="../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            <span class="type">Class</span> 
+            Genre 
+            
+                <span class="parent">&lt; 
+                    
+                    ActiveRecord::Base
+                    
+                </span>
+            
+        </h1>
+        <ul class="files">
+            
+            <li><a href="../files/models/genre_rb.html">models/genre.rb</a></li>
+            
+        </ul>
+    </div>
+    <div id="bodyContent">
+        <div id="content">
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+    <!-- Method ref -->
+    <div class="sectiontitle">Methods</div>
+    <dl class="methods">
+      
+        <dt>C</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-c-cached_find">cached_find</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-i-category_name">category_name</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>I</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-c-import_csv">import_csv</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>O</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-ordered_recordings">ordered_recordings</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-i-ordered_recordings_with_public_access">ordered_recordings_with_public_access</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>R</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-recordings">recordings</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-i-reset_count">reset_count</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>S</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-c-search">search</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>T</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-c-to_csv">to_csv</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+    </dl>
+  
+
+  
+    <!-- Includes -->
+    <div class="sectiontitle">Included Modules</div>
+    <ul>
+      
+        <li>
+          
+            PgSearch
+          
+        </li>
+      
+    </ul>
+  
+
+
+
+  
+
+    
+
+    
+
+    
+      <!-- Section constants -->
+      <div class="sectiontitle">Constants</div>
+      <table border='0' cellpadding='5'>
+        
+          <tr valign='top'>
+            <td class="attr-name">GENRE_CATEGORY</td>
+            <td>=</td>
+            <td class="attr-value">[&quot;Popular Music&quot;, &quot;Cinematic&quot;, &quot;Classical&quot;, &quot;Ethnic World&quot;, &quot;Jazz&quot;, &quot;Other&quot;]</td>
+          </tr>
+          
+            <tr valign='top'>
+              <td>&nbsp;</td>
+              <td colspan="2" class="attr-desc"></td>
+            </tr>
+          
+        
+          <tr valign='top'>
+            <td class="attr-name">ITUNES_CATEGORY</td>
+            <td>=</td>
+            <td class="attr-value">[
+&quot;Blues&quot;,
+&quot;Comedy&quot;,
+&quot;Classical&quot;,
+&quot;Country&quot;,
+&quot;Electronic&quot;,
+&quot;Holiday&quot;,
+&quot;Opera&quot;,
+&quot;Jazz&quot;,
+&quot;Latino&quot;,
+&quot;New Age&quot;,
+&quot;Pop&quot;,
+&quot;R&amp;B/Soul&quot;,
+&quot;Soundtrack&quot;,
+&quot;Dance&quot;,
+&quot;Hip-Hop/Rap&quot;,
+&quot;World&quot;,
+&quot;Alternative&quot;,
+&quot;Rock&quot;,
+&quot;Christian &amp; Gospel&quot;,
+&quot;Vocal&quot;,
+&quot;Easy Listening&quot;,
+&quot;J-Pop&quot;,
+&quot;Enka&quot;,
+&quot;Anime&quot;,
+&quot;Kayokyoku&quot;,
+&quot;Fitness &amp; Workout&quot;,
+&quot;K-Pop&quot;,
+&quot;Karaoke&quot;,
+&quot;Instrumental&quot;,
+&quot;Brazilian&quot;]</td>
+          </tr>
+          
+            <tr valign='top'>
+              <td>&nbsp;</td>
+              <td colspan="2" class="attr-desc"></td>
+            </tr>
+          
+        
+          <tr valign='top'>
+            <td class="attr-name">INGROOVES_CATEGORY</td>
+            <td>=</td>
+            <td class="attr-value">[
+&quot;Adult Contemporary&quot;,
+&quot;Audio Books&quot;,
+&quot;Blues&quot;, 
+&quot;Children&#39;s Music&quot;, 
+&quot;Christian&quot;, 
+&quot;Classical&quot;, 
+&quot;Comedy&quot;, 
+&quot;Country&quot;, 
+&quot;Easy Listening&quot;,
+&quot;Educational&quot;,
+&quot;Electronic&quot;,
+&quot;Folk&quot;,
+&quot;Industrial&quot;,
+&quot;Jazz&quot;,
+&quot;Latin&quot;,
+&quot;Oldies&quot;,
+&quot;Pop&quot;,
+&quot;R&amp;B/Soul&quot;,
+&quot;Rap/Hip-Hop&quot;,
+&quot;Reggae&quot;,
+&quot;Rock&quot;,
+&quot;Soundtrack&quot;,
+&quot;Spoken Word&quot;,
+&quot;World&quot;
+]</td>
+          </tr>
+          
+            <tr valign='top'>
+              <td>&nbsp;</td>
+              <td colspan="2" class="attr-desc"></td>
+            </tr>
+          
+        
+      </table>
+    
+
+
+    
+
+
+    <!-- Methods -->
+    
+      <div class="sectiontitle">Class Public methods</div>
+      
+        <div class="method">
+          <div class="title method-title" id="method-c-cached_find">
+            
+              <b>cached_find</b>(id)
+            
+            <a href="../classes/Genre.html#method-c-cached_find" name="method-c-cached_find" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-c-cached_find_source')" id="l_method-c-cached_find_source">show</a>
+                
+              </p>
+              <div id="method-c-cached_find_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/genre.rb, line 120</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">self</span>.<span class="ruby-identifier">cached_find</span>(<span class="ruby-identifier">id</span>)
+  <span class="ruby-constant">Rails</span>.<span class="ruby-identifier">cache</span>.<span class="ruby-identifier">fetch</span>([<span class="ruby-identifier">name</span>, <span class="ruby-identifier">id</span>]) { <span class="ruby-identifier">find</span>(<span class="ruby-identifier">id</span>) }
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-c-import_csv">
+            
+              <b>import_csv</b>(csv_file)
+            
+            <a href="../classes/Genre.html#method-c-import_csv" name="method-c-import_csv" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-c-import_csv_source')" id="l_method-c-import_csv_source">show</a>
+                
+              </p>
+              <div id="method-c-import_csv_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/genre.rb, line 143</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">self</span>.<span class="ruby-identifier">import_csv</span>(<span class="ruby-identifier">csv_file</span>)
+  <span class="ruby-constant">CSV</span>.<span class="ruby-identifier">foreach</span>(<span class="ruby-identifier">csv_file</span>.<span class="ruby-identifier">path</span>, <span class="ruby-identifier">headers</span><span class="ruby-operator">:</span> <span class="ruby-keyword">true</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">row</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">genre_row</span>   = <span class="ruby-identifier">row</span>.<span class="ruby-identifier">to_hash</span>
+    <span class="ruby-keyword">begin</span>
+      <span class="ruby-identifier">genre_id</span>    = <span class="ruby-identifier">genre_row</span>[<span class="ruby-string">&quot;Id&quot;</span>].<span class="ruby-identifier">to_i</span> 
+      <span class="ruby-identifier">genre_title</span> = <span class="ruby-identifier">genre_row</span>[<span class="ruby-string">&quot;Genre&quot;</span>].<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">titleize</span> 
+      
+      <span class="ruby-keyword">if</span> <span class="ruby-constant">Genre</span>.<span class="ruby-identifier">exists?</span>( <span class="ruby-identifier">genre_id</span>  )
+        <span class="ruby-ivar">@genre</span>  = <span class="ruby-constant">Genre</span>.<span class="ruby-identifier">cached_find</span>( <span class="ruby-identifier">genre_id</span> )
+        
+      <span class="ruby-keyword">else</span>             
+        <span class="ruby-ivar">@genre</span>  = <span class="ruby-constant">Genre</span>.<span class="ruby-identifier">where</span>( <span class="ruby-identifier">title</span><span class="ruby-operator">:</span> <span class="ruby-identifier">genre_title</span> ).<span class="ruby-identifier">first_or_create</span>( <span class="ruby-identifier">title</span><span class="ruby-operator">:</span> <span class="ruby-identifier">genre_title</span> )
+      <span class="ruby-keyword">end</span>
+        
+      <span class="ruby-identifier">import_category</span>            = <span class="ruby-identifier">genre_row</span>[<span class="ruby-string">&quot;Category&quot;</span>].<span class="ruby-identifier">to_s</span> <span class="ruby-operator">==</span> <span class="ruby-string">&#39;&#39;</span> <span class="ruby-operator">?</span> <span class="ruby-string">&#39;Other&#39;</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">genre_row</span>[<span class="ruby-string">&quot;Category&quot;</span>].<span class="ruby-identifier">to_s</span> 
+      <span class="ruby-ivar">@genre</span>.<span class="ruby-identifier">title</span>               = <span class="ruby-ivar">@genre</span>.<span class="ruby-identifier">title</span>.<span class="ruby-identifier">titleize</span>  
+      <span class="ruby-ivar">@genre</span>.<span class="ruby-identifier">category</span>            = <span class="ruby-identifier">import_category</span>.<span class="ruby-identifier">strip</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-string">&#39;_&#39;</span>,<span class="ruby-string">&#39; &#39;</span>).<span class="ruby-identifier">titleize</span>                              
+      <span class="ruby-ivar">@genre</span>.<span class="ruby-identifier">ingrooves_category</span>  = <span class="ruby-identifier">genre_row</span>[<span class="ruby-string">&quot;INgrooves Category&quot;</span>].<span class="ruby-identifier">to_s</span>                    
+      <span class="ruby-ivar">@genre</span>.<span class="ruby-identifier">ingrooves_genre</span>     = <span class="ruby-identifier">genre_row</span>[<span class="ruby-string">&quot;INgrooves Genre&quot;</span>].<span class="ruby-identifier">to_s</span>                
+      <span class="ruby-ivar">@genre</span>.<span class="ruby-identifier">itunes_category</span>     = <span class="ruby-identifier">genre_row</span>[<span class="ruby-string">&quot;iTunes Category&quot;</span>].<span class="ruby-identifier">to_s</span>                    
+      <span class="ruby-ivar">@genre</span>.<span class="ruby-identifier">itunes_genre</span>        = <span class="ruby-identifier">genre_row</span>[<span class="ruby-string">&quot;iTunes Genre&quot;</span>].<span class="ruby-identifier">to_s</span>        
+      <span class="ruby-ivar">@genre</span>.<span class="ruby-identifier">user_tag</span>            = <span class="ruby-identifier">genre_row</span>[<span class="ruby-string">&quot;User Genre&quot;</span>].<span class="ruby-identifier">to_s</span> <span class="ruby-operator">==</span> <span class="ruby-string">&#39;true&#39;</span>
+    
+      <span class="ruby-ivar">@genre</span>.<span class="ruby-identifier">save</span>
+    <span class="ruby-keyword">rescue</span>
+      <span class="ruby-ivar">@genre</span>.<span class="ruby-identifier">destroy</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-c-search">
+            
+              <b>search</b>( query)
+            
+            <a href="../classes/Genre.html#method-c-search" name="method-c-search" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-c-search_source')" id="l_method-c-search_source">show</a>
+                
+              </p>
+              <div id="method-c-search_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/genre.rb, line 112</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">self</span>.<span class="ruby-identifier">search</span>( <span class="ruby-identifier">query</span>)
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">query</span>.<span class="ruby-identifier">present?</span>
+    <span class="ruby-keyword">return</span> <span class="ruby-constant">Genre</span>.<span class="ruby-identifier">search_genre</span>(<span class="ruby-identifier">query</span>)
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-keyword">return</span> <span class="ruby-identifier">all</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-c-to_csv">
+            
+              <b>to_csv</b>()
+            
+            <a href="../classes/Genre.html#method-c-to_csv" name="method-c-to_csv" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-c-to_csv_source')" id="l_method-c-to_csv_source">show</a>
+                
+              </p>
+              <div id="method-c-to_csv_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/genre.rb, line 124</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">self</span>.<span class="ruby-identifier">to_csv</span>
+  <span class="ruby-constant">CSV</span>.<span class="ruby-identifier">generate</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">csv</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">csv</span> <span class="ruby-operator">&lt;&lt;</span> [<span class="ruby-string">&#39;Id&#39;</span>,<span class="ruby-string">&#39;Category&#39;</span>, <span class="ruby-string">&#39;Genre&#39;</span>, <span class="ruby-string">&#39;INgrooves Category&#39;</span>, <span class="ruby-string">&#39;INgrooves Genre&#39;</span>, <span class="ruby-string">&#39;iTunes Category&#39;</span>, <span class="ruby-string">&#39;iTunes Genre&#39;</span>, <span class="ruby-string">&#39;User Genre&#39;</span>, <span class="ruby-string">&#39;Delete&#39;</span> ]
+  
+    <span class="ruby-identifier">all</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">genre</span><span class="ruby-operator">|</span>
+      <span class="ruby-identifier">csv</span> <span class="ruby-operator">&lt;&lt;</span> [  <span class="ruby-identifier">genre</span>.<span class="ruby-identifier">id</span>.<span class="ruby-identifier">to_s</span>, 
+                <span class="ruby-identifier">genre</span>.<span class="ruby-identifier">category</span>, 
+                <span class="ruby-identifier">genre</span>.<span class="ruby-identifier">title</span>, 
+                <span class="ruby-identifier">genre</span>.<span class="ruby-identifier">ingrooves_category</span>, 
+                <span class="ruby-identifier">genre</span>.<span class="ruby-identifier">ingrooves_genre</span>, 
+                <span class="ruby-identifier">genre</span>.<span class="ruby-identifier">itunes_category</span>, 
+                <span class="ruby-identifier">genre</span>.<span class="ruby-identifier">itunes_genre</span>,
+                <span class="ruby-identifier">genre</span>.<span class="ruby-identifier">user_tag</span>,
+                <span class="ruby-string">&#39;&#39;</span>
+              ]
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+                  
+      <div class="sectiontitle">Instance Public methods</div>
+      
+        <div class="method">
+          <div class="title method-title" id="method-i-category_name">
+            
+              <b>category_name</b>()
+            
+            <a href="../classes/Genre.html#method-i-category_name" name="method-i-category_name" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              <p>def delete_genre_tags</p>
+
+<pre><code>genre_tags.delete_all
+</code></pre>
+
+<p>end</p>
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-category_name_source')" id="l_method-i-category_name_source">show</a>
+                
+              </p>
+              <div id="method-i-category_name_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/genre.rb, line 108</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">category_name</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">category</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-string">&#39;_&#39;</span>, <span class="ruby-string">&#39; &#39;</span>).<span class="ruby-identifier">capitalize</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-ordered_recordings">
+            
+              <b>ordered_recordings</b>(order)
+            
+            <a href="../classes/Genre.html#method-i-ordered_recordings" name="method-i-ordered_recordings" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-ordered_recordings_source')" id="l_method-i-ordered_recordings_source">show</a>
+                
+              </p>
+              <div id="method-i-ordered_recordings_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/genre.rb, line 88</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">ordered_recordings</span> <span class="ruby-identifier">order</span>
+  <span class="ruby-identifier">recording_ids</span> = <span class="ruby-keyword">self</span>.<span class="ruby-identifier">genre_tags</span>.<span class="ruby-identifier">where</span>(<span class="ruby-identifier">genre_tagable_type</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;Recording&#39;</span>).<span class="ruby-identifier">pluck</span>(<span class="ruby-value">:genre_tagable_id</span>)
+  <span class="ruby-constant">Recording</span>.<span class="ruby-identifier">order</span>(<span class="ruby-identifier">order</span>).<span class="ruby-identifier">where</span>(<span class="ruby-identifier">id</span><span class="ruby-operator">:</span> <span class="ruby-identifier">recording_ids</span>)
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-ordered_recordings_with_public_access">
+            
+              <b>ordered_recordings_with_public_access</b>(order)
+            
+            <a href="../classes/Genre.html#method-i-ordered_recordings_with_public_access" name="method-i-ordered_recordings_with_public_access" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-ordered_recordings_with_public_access_source')" id="l_method-i-ordered_recordings_with_public_access_source">show</a>
+                
+              </p>
+              <div id="method-i-ordered_recordings_with_public_access_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/genre.rb, line 93</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">ordered_recordings_with_public_access</span> <span class="ruby-identifier">order</span>
+  <span class="ruby-identifier">recording_ids</span> = <span class="ruby-keyword">self</span>.<span class="ruby-identifier">genre_tags</span>.<span class="ruby-identifier">where</span>(<span class="ruby-identifier">genre_tagable_type</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;Recording&#39;</span>).<span class="ruby-identifier">pluck</span>(<span class="ruby-value">:genre_tagable_id</span>)
+  <span class="ruby-constant">Recording</span>.<span class="ruby-identifier">public_access</span>.<span class="ruby-identifier">order</span>(<span class="ruby-identifier">order</span>).<span class="ruby-identifier">where</span>(<span class="ruby-identifier">id</span><span class="ruby-operator">:</span> <span class="ruby-identifier">recording_ids</span>, <span class="ruby-identifier">privacy</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;Anyone&#39;</span>)
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-recordings">
+            
+              <b>recordings</b>()
+            
+            <a href="../classes/Genre.html#method-i-recordings" name="method-i-recordings" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-recordings_source')" id="l_method-i-recordings_source">show</a>
+                
+              </p>
+              <div id="method-i-recordings_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/genre.rb, line 83</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">recordings</span>
+  <span class="ruby-identifier">recording_ids</span> = <span class="ruby-keyword">self</span>.<span class="ruby-identifier">genre_tags</span>.<span class="ruby-identifier">where</span>(<span class="ruby-identifier">genre_tagable_type</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;Recording&#39;</span>).<span class="ruby-identifier">pluck</span>(<span class="ruby-value">:genre_tagable_id</span>)
+  <span class="ruby-constant">Recording</span>.<span class="ruby-identifier">where</span>(<span class="ruby-identifier">id</span><span class="ruby-operator">:</span> <span class="ruby-identifier">recording_ids</span>)
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-reset_count">
+            
+              <b>reset_count</b>()
+            
+            <a href="../classes/Genre.html#method-i-reset_count" name="method-i-reset_count" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-reset_count_source')" id="l_method-i-reset_count_source">show</a>
+                
+              </p>
+              <div id="method-i-reset_count_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/genre.rb, line 173</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">reset_count</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">recordings_count</span> = <span class="ruby-keyword">self</span>.<span class="ruby-identifier">recordings</span>.<span class="ruby-identifier">count</span>
+  <span class="ruby-identifier">save</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+                    </div>
+
+    </div>
+  </body>
+</html>    

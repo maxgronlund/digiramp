@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>_activities.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            _activities.slim
+        </h1>
+        <ul class="files">
+            <li>views/users/_activities.slim</li>
+            <li>Last modified: 2015-07-05 15:22:06 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>.activities</p>
+
+<pre><code>h4
+  a data-toggle=&quot;collapse&quot; data-parent=&quot;#accordion&quot; href=&quot;#collapse_activities&quot;
+    &#39;My recent activities
+    &#39;&amp;nbsp;
+    i.fa.fa-eye
+
+div id=&quot;collapse_activities&quot; class=&quot;panel-collapse collapse&quot;   
+  .box-content.scrollable  style=&quot;height: 312px; overflow-y: auto&quot;
+    .activities
+      - @user.activities.where(recipient_type: [&#39;Recording&#39;, &#39;Relationship&#39;, &#39;User&#39;, &#39;MusicSubmission&#39;]).order(&#39;id desc&#39;).first(64).each do |activity|
+        /.sexy_line
+        /= debug activity
+        -case activity.owner_type
+
+        -when &#39;Comment&#39;
+
+          - if activity.recipient_type == &#39;Playback&#39;
+            - if recording = Recording.where(id: activity.recipient_id).first
+              i.fa.fa-comment
+              .activity-title Recording
+              .activity-link
+                = link_to recording.title, user_recording_path(recording.user, recording)
+            - else
+              i.fa.fa-headphones
+              .activity-title Recording
+              .activity-link.red-text.line-through
+                &#39;Removed
+
+          - elsif  activity.recipient_type == &#39;User&#39;
+            - if user = User.where(id: activity.recipient_id).first
+                i.fa.fa-comment
+                .activity-title User
+                .activity-link
+                  = link_to user.user_name, user_path(user)
+            - else
+              i.fa.fa-headphones
+              .activity-title Recording
+              .activity-link.red-text.line-through
+                &#39;Not a Member
+
+          - elsif  activity.recipient_type == &#39;Recording&#39;
+            - if recording = Recording.where(id: activity.recipient_id).first
+              i.fa.fa-comment
+              .activity-title Recording
+              .activity-link
+                = link_to recording.title, user_recording_path( activity.trackable, recording)
+            - else
+              i.fa.fa-headphones
+              .activity-title Recording
+              .activity-link.red-text.line-through
+                &#39;Removed
+
+        -when &#39;Like&#39;
+          - if recording = Recording.where(id: activity.recipient_id).first
+            i class=&quot;fa fa-heart&quot;
+            .activity-title Recording
+            .activity-link
+              = link_to recording.title, user_recording_path(recording.user, recording)
+          - else
+            i.fa.fa-headphones
+            .activity-title Recording
+            .activity-link.red-text.line-through
+              &#39;Removed
+
+        -when &#39;Playback&#39;
+          - if recording = Recording.where(id: activity.recipient_id).first
+            i.fa.fa-headphones
+            .activity-title Recording
+            .activity-link
+              = link_to recording.title, user_recording_path(recording.user, recording)
+          - else
+            i.fa.fa-headphones
+            .activity-title Recording
+            .activity-link.red-text.line-through
+              &#39;Removed
+
+        -when &#39;Relationship&#39;
+          - if user = User.where(id: activity.recipient_id).first
+            i class=&quot;fa fa-user&quot;
+            &#39;&amp;nbsp; Following
+            = link_to user.user_name, user_path(user)
+          - else
+            i.fa.fa-headphones
+            .activity-title Recording
+            .activity-link.red-text.line-through
+              &#39;Not a Member
+
+        -when &#39;User&#39;
+          -if activity.key == &#39;user.signed_in&#39;
+            i.fa.fa-user
+            .activity-title Signed in
+            .activity-link
+              = time_ago_in_words(activity.created_at).titleize 
+          /= debug activity.key == &#39;user.signed_in&#39;
+        -when &#39;Recording&#39;
+          - if activity.recipient_type ==  &#39;MusicSubmission&#39;
+            i.fa.fa-plus-circle
+            .activity-title Submsn...
+            .activity-link
+              ruby: 
+                begin
+                  music_submission = activity.recipient
+                  music_request    = music_submission.music_request
+                  opportunity      = music_request.opportunity
+                  url              = opportunity_opportunity_music_request_path(opportunity, music_request)
+                rescue
+                  url              = nil
+                end
+              = link_to( music_request.title, url) if url
+
+        - else
+          i.fa.fa-exclamation-triangle
+          .activity-title  
+            = activity.owner_type
+
+          /- if user = User.where(id: activity.recipient_id).first
+          /  h6 
+          /    i class=&quot;fa fa-comment&quot;
+          /    &#39;&amp;nbsp; User
+          /  = link_to user.full_name, user_path(user)
+        .clearfix</code></pre>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

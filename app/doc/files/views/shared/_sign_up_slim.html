@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>_sign_up.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            _sign_up.slim
+        </h1>
+        <ul class="files">
+            <li>views/shared/_sign_up.slim</li>
+            <li>Last modified: 2015-07-05 15:22:06 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>.panel.panel-default</p>
+
+<pre><code>.panel-heading
+  h3 class=&quot;panel-title&quot;
+    i class= &#39;fa fa-lock&#39;
+    &#39;&amp;nbsp;
+    &#39;SIGN UP
+.panel-body
+
+  = simple_form_for(User.new)    do |f|
+
+    .input-group
+      span class=&quot;input-group-addon&quot; @
+      = f.input_field :email, input_html: {autocomplete: :off}, placeholder: &#39;Email&#39;, autocomplete: :off
+    br
+    .input-group
+      span class=&quot;input-group-addon&quot; 
+        i class= &#39;fa fa-key&#39;
+      = f.input_field :password, placeholder: &#39;Password Confirmation&#39;, autocomplete: :off
+
+    br
+    .input-group
+      span class=&quot;input-group-addon&quot; 
+        i class= &#39;fa fa-key&#39;
+      = f.input_field :password_confirmation, placeholder: &#39;Password&#39;, autocomplete: :off
+
+    .pull-right
+      br
+      = f.submit &#39;Sign Up&#39;, class: &#39;btn btn-orange btn-lg&#39;, id: &#39;sign_up_form_button&#39;
+
+    /= link_to &#39;Forgot password?&#39;,&#39;#&#39;</code></pre>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

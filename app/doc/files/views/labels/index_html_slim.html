@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>index.html.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            index.html.slim
+        </h1>
+        <ul class="files">
+            <li>views/labels/index.html.slim</li>
+            <li>Last modified: 2015-10-01 21:58:06 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>wrapper</p>
+
+<pre><code>== render &#39;shared/navigationbar&#39;, page: &#39;songs&#39; 
+
+#sidebar-wrapper
+  ul class=&quot;sidebar-nav&quot;
+    .sidebar
+      /li class=&quot;#{&#39;sidebar-selected&#39; if params[:recording][:order] ==  &#39;created_at&#39;}&quot;
+      /  = link_to songs_path(recording: {order: &#39;created_at&#39;, direction: &#39;desc&#39;, clear: &#39;clear&#39;}, genre: params[:genre]) do
+      /    i class=&quot;fa fa-clock-o&quot;
+      /    &#39;&amp;nbsp;
+      /    &#39;Latest
+      /li class=&quot;#{&#39;sidebar-selected&#39; if params[:recording][:order] ==  &#39;featured_date&#39;}&quot;
+      /  = link_to songs_path(recording: {order: &#39;featured_date&#39;, direction: &#39;desc&#39;, clear: &#39;clear&#39;, featured: &#39;true&#39;}, genre: params[:genre]) do
+      /    i class=&quot;fa fa-star&quot;
+      /    &#39;&amp;nbsp;
+      /    &#39;Featured
+      /li class=&quot;#{&#39;sidebar-selected&#39; if params[:recording][:order] == &#39;uniq_likes_count&#39;}&quot;
+      /  = link_to songs_path(recording: {order: &#39;uniq_likes_count&#39;, direction: &#39;desc&#39;, clear: &#39;clear&#39;}, genre: params[:genre]) do
+      /    i class=&quot;fa fa-heart&quot;
+      /    &#39;&amp;nbsp;
+      /    &#39;Most Popular
+      /li class=&quot;#{&#39;sidebar-selected&#39; if params[:recording][:order] ==  &#39;uniq_playbacks_count&#39;}&quot;
+      /  = link_to songs_path(recording: {order: &#39;uniq_playbacks_count&#39;, direction: &#39;desc&#39;, clear: &#39;clear&#39;}, genre: params[:genre]) do
+      /    i class=&quot;fa fa-headphones&quot;
+      /    &#39;&amp;nbsp;
+      /    &#39;Most Played
+      /li class=&quot;#{&#39;sidebar-selected&#39; if false}&quot;
+      /  = link_to &#39;#&#39; do
+      /    i class=&quot;fa fa-thumbs-o-up&quot;
+      /    &#39;&amp;nbsp;
+      /    &#39;Featured
+  /.clearfix
+  /.sexy_line
+  /
+  /.static-content
+  /  h4 Genre
+  /
+  /= link_to  songs_path(recording: {order: params[:recording][:order], direction: params[:recording][:direction]})  do 
+  /  .tag
+  /    div class=&quot;#{&#39;tag-selected&#39; unless params[:genre]}&quot;
+  /      .tag-title
+  /         &#39;All
+  /      .tag-count
+  /  
+  /.clearfix
+  /- Genre.where(&#39;recordings_count &gt; 0&#39;).order(&#39;recordings_count desc&#39;).first(20).each do |genre|
+  /  - parameters = { recording: {order: params[:recording][:order], direction: params[:recording][:direction]}, genre: genre.title }
+  /  = link_to songs_path( parameters ) do
+  /    .tag
+  /      div class=&quot;#{&#39;tag-selected&#39; if params[:genre] == genre.title}&quot;
+  /        .tag-title
+  /          = genre.title
+  /        .tag-count
+  /          = genre.genre_tags.count
+  /    .clearfix
+  /
+  /
+  / 
+  /  
+  / 
+  /
+  /#terms
+  /  = link_to &#39;Terms And Conditions&#39;, terms_and_conditions_path
+  /
+#page-content-wrapper
+  .container-fluid
+    h2 Labels
+    .pull-down-10
+    .table-responsive
+      table class=&quot;table table-hover&quot;
+        thead
+          tr
+
+            th Title
+            th Recordings
+            /th Body
+            /th Image
+
+            /th
+            /th
+            /th
+
+        tbody
+          - @labels.each do |label|
+            tr
+              td 
+                =&gt; link_to image_tag(label.image_url(:default)), label
+                = link_to label.title, label, class: &#39;btn btn-default btn-xs&#39;
+              td = label.recordings.count
+              /td = label.body
+              /td = label.image
+              /td = link_to &#39;Show&#39;, label
+              /td = link_to &#39;Edit&#39;, edit_label_path(label)
+              /td = link_to &#39;Destroy&#39;, label, data: {:confirm =&gt; &#39;Are you sure?&#39;}, :method =&gt; :delete
+
+    br    
+    == paginate(@labels)
+    /= link_to &#39;New Label&#39;, new_label_path
+
+== render &#39;shared/site_footer&#39;</code></pre>
+
+<p>/javascript: /  initialize_digi_wahms();</p>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

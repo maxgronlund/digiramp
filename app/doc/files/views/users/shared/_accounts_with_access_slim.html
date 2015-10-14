@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>_accounts_with_access.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            _accounts_with_access.slim
+        </h1>
+        <ul class="files">
+            <li>views/users/shared/_accounts_with_access.slim</li>
+            <li>Last modified: 2015-07-05 15:22:06 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>/- blog      = <a
+href="../../../../classes/Blog.html#method-c-cached_find">Blog.cached_find</a>(&#39;User
+Account&#39;) /- blog_post = <a
+href="../../../../classes/BlogPost.html#method-c-cached_find">BlogPost.cached_find</a>(
+&#39;Accounts I can access&#39; , blog ) / /.panel /  .panel-body /    h3 
+/      =blog_post.title /      -if super? /        &#39;&amp;nbsp; /       
+= link_to edit_admin_blog_blog_post_path(blog, blog_post) do /          i
+class=“fa fa-pencil” /    = simple_format blog_post.body /</p>
+
+<p>/</p>
+
+<p>/    .table-responsive /      table class=“table table-hover” /       thead
+/         tr /           th <a
+href="../../../../classes/Account.html">Account</a> /           th Role  / 
+th /       tbody /         tr /</p>
+
+<p>/           td = link_to user_account.title, account_path(user_account),
+id: “#{user_account.title}” /           td <a
+href="../../../../classes/Account.html">Account</a> Owner /</p>
+
+<p>/       - @user.account_users.each do |account_user| /         -unless
+account_user.account.id == @user.account.id /          tr /           
+-account = <a
+href="../../../../classes/Account.html#method-c-cached_find">Account.cached_find</a>
+/            td =link_to account.title, account_path(account), id:
+“#{account.title}” /            td = account_user.role /            td  /  
+.pull-right /                = link_to
+account_leave_account_path(user_account, account_user) , data: { confirm:
+&#39;Are you sure?&#39; } , :method =&gt; :delete do /                 
+.btn.btn-danger.btn-lg /                    i class=“fa fa-times”</p>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

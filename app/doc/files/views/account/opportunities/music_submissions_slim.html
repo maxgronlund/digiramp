@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>music_submissions.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            music_submissions.slim
+        </h1>
+        <ul class="files">
+            <li>views/account/opportunities/music_submissions.slim</li>
+            <li>Last modified: 2015-07-05 15:22:06 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>wrap</p>
+
+<pre><code>div class=&quot;#{&#39;profile&#39; if account_owner?}&quot;
+  .full-width-top
+    == render &#39;admin/shared/navbar&#39;, page: &#39;account&#39;     
+.container
+  /==render &#39;admin/shared/messages&#39;
+  == render &#39;shared/breadcrumbs&#39;, breadcrumbs: { links: {@account.title.to_sym =&gt; account_path(@account),
+                                                         dashboard: account_account_path(@account), \
+                                                         crm: account_account_crm_index_path(@account),\
+                                                         opportunities: account_account_opportunities_path(@account), \
+                                                         @opportunity.title.to_sym =&gt; account_account_opportunity_path(@account, @opportunity)\
+                                                         }, current: &#39;music submissions&#39; }
+
+  == render &#39;shared/page_title_text&#39;, locals: {title: @opportunity.title, body: &#39;Submissions&#39;, insert: &#39;show_request&#39;}
+
+  - @opportunity.music_requests.each_with_index do |music_request, |
+    .panel.panel-primary
+      .panel-heading
+        = music_request.title
+        &#39;&amp;nbsp;
+      .panel-body
+        .row
+          .col-sm-4
+            = simple_format music_request.body
+          .col-sm-4
+            .table-responsive
+              table class=&quot;table&quot;
+                tr
+                  td Value:
+                  td = music_request.fee
+                - unless  music_request.link.to_s == &#39;&#39;
+                  tr
+                    td Duration:
+                    td = music_request.duration_text
+          .col-sm-4
+            .pull-right
+              = link_to new_account_account_opportunity_music_request_music_submission_path(@account, \
+                                                                                            @opportunity, \
+                                                                                            music_request) do 
+                .btn.btn-success.btn-lg
+                  i class=&quot;fa fa-plus-circle&quot;
+                  &#39;&amp;nbsp;Make Submission
+
+    -if music_request.music_submissions
+      .digiramp_player
+        div class=&quot;panel-group&quot; id=&quot;accordion&quot;
+          div class=&quot;permissions&quot; value=&quot;submission_recordings&quot; id=&quot;#{@opportunity.id}&quot;
+
+          - music_request.music_submissions.each_with_index do |music_submission, index|
+              /- music_request_index = (100000 + music_request_index + index)
+              - recording = Recording.cached_find(music_submission.recording_id)
+              == render &#39;players/submission_recording&#39;, recording: recording
+
+        /.panel.panel-primary
+        /  .panel-heading
+        /    = music_request.title
+        /  .panel-body
+        /    -if music_request.music_submissions
+        /      div class=&quot;permissions&quot; value=&quot;submissions&quot; id=&quot;#{@opportunity.id}&quot;
+        /      - music_request.music_submissions.each_with_index do |music_submission, index|
+        /        - recording = Recording.cached_find(music_submission.recording_id)
+        /        == render &#39;recordings/recording&#39;, recording: recording
+        /    
+        /    
+        /    .pull-right
+        /      = link_to new_account_account_opportunity_music_request_music_submission_path(@account, \
+        /                                                                                    @opportunity, \
+        /                                                                                    music_request) do 
+        /        .btn.btn-success.btn-lg
+        /          i class=&quot;fa fa-plus-circle&quot;
+        /          &#39;&amp;nbsp;Make Submission
+        /      &#39;&amp;nbsp;
+
+  == render &#39;shared/back&#39;, locals: {link: account_account_opportunities_path(@account)}</code></pre>
+
+<p>-cache ([&#39;footer&#39;, <a
+href="../../../../classes/Admin.html#method-c-cached_find">Admin.cached_find</a>.version])
+do</p>
+
+<pre><code>=render &#39;shared/footer&#39;</code></pre>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

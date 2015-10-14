@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>index.html.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            index.html.slim
+        </h1>
+        <ul class="files">
+            <li>views/admin/client_groups/index.html.slim</li>
+            <li>Last modified: 2015-09-26 13:33:44 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>wrapper</p>
+
+<pre><code>.full-width-top
+  == render &#39;shared/navigationbar&#39;, page: &#39;admin&#39; 
+
+.admin-account
+  #sidebar-wrapper
+    ul class=&quot;sidebar-nav&quot;
+      == render &#39;admin/shared/sidebar&#39;, selected: &#39;admin&#39;
+
+#page-content-wrapper
+  .container-fluid
+    == render &#39;shared/breadcrumbs&#39;, breadcrumbs: { links: { admin: admin_index_path }, current: &#39;&#39;}
+    h2 Client groups
+    &#39;Handle with care
+    .pull-down-10
+    .digi-box
+      .table-responsive
+        table class=&quot;table table-hover&quot;
+          thead
+            tr
+              th Title
+              th Account
+              th Date
+              th Invited
+              th Clients
+              th
+
+          tbody
+            - @client_groups.each do |client_group|
+              tr
+                td = client_group.title
+                td = client_group.account.title
+                td = client_group.created_at.to_formatted_s(:short)
+                td 
+                  = client_group.invited
+                  &#39;:
+                  = client_group.invitation_count
+                td = client_group.clients.count
+                td 
+                  .pull-right
+                    = simple_form_for [:admin, client_group], turboboost: true do |f|
+                      - if client_group.invited
+                        = f.submit &#39;Reinvite&#39;, class: &#39;btn btn-default&#39;
+                      - else
+                        = f.submit &#39;Invite&#39;, class: &#39;btn btn-default&#39;
+
+    .sexy_line
+    == paginate(@client_groups)
+== render &#39;shared/site_footer&#39;</code></pre>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

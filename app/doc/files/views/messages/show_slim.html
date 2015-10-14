@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>show.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            show.slim
+        </h1>
+        <ul class="files">
+            <li>views/messages/show.slim</li>
+            <li>Last modified: 2015-09-26 13:39:43 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      <ul><li>
+<p>received_message = @message.receiver != @user.id</p>
+</li></ul>
+
+<p>wrapper</p>
+
+<pre><code>.full-width-top
+  == render &#39;shared/navigationbar&#39;, page: &#39;messages&#39; 
+
+#sidebar-wrapper
+  ul class=&quot;sidebar-nav&quot;
+    == render &#39;users/shared/sidebar&#39;, selected: &#39;user&#39;
+
+#page-content-wrapper
+  .container-fluid
+    .row
+      .col-sm-5
+        .help
+          .help-text
+            h2 Message center
+          .help-button
+            == render &#39;admin/helps/help&#39;, identifier: &#39;user messages&#39;
+
+      .col-sm-7
+        == render &#39;messages/navigation&#39;, selected: &#39;&#39;
+
+    .pull-down-10
+    .digi-box 
+      - if @message.sender
+        - unless  @message.sender.id == @user.id
+          .row
+            .col-sm-12
+              -if received_message  &amp;&amp;  @message.user_can_reply( @user )
+
+                / Send message
+                = link_to new_message_digalog_path( sender: current_user, 
+                                                    receiver: @message.sender,
+                                                    title: &quot;re: #{@message.title}&quot;,
+                                                    subjectable_id: @message.id,
+                                                    subjectable_type: &#39;Message&#39;), remote: true do
+                      .btn.btn-default
+                        i.fa.fa-reply
+                          &#39;&amp;nbsp;Reply
+
+              - elsif @message.subjectable_type == &#39;Connection&#39;
+                .row
+                  .col-sm-12.pull-down-12
+                    = link_to new_message_digalog_path(sender: current_user, 
+                                                      receiver: @message.sender, 
+                                                      title: &quot;re: #{@message.title}&quot;,
+                                                      subjectable_id: @message.id,
+                                                      subjectable_type: &#39;Message&#39;), remote: true do
+                          .btn.btn-default
+                            i.fa.fa-reply
+                              &#39;&amp;nbsp;Reply
+                    .alert.alert-info
+                      b You can reply to this invitation without accepting connecting to the inviter
+                      ul
+                         li The inviter can only contact you again if you accept this invitaion
+                         li If you accept this invitation you can dismiss it at any time, and the inviter will be unable to contact you again
+
+        .pull-down-12
+        .sexy_line
+      .row
+        .col-sm-12
+          .sender-avatar
+            = link_to image_tag( @message.sender.image_url(:avatar_48x48) ), user_path( @message.sender )
+          .sender-info
+            b = @message.sender.user_name
+
+      .row
+        .col-sm-12
+
+          h4 = @message.title
+          = simple_format @message.body
+
+      .row
+        .col-sm-9
+          - case @message.subjectable_type
+          - when &#39;Publisher&#39;
+            - if publisher = Publisher.cached_find(@message.subjectable_id)
+              = link_to &#39;Show me&#39;, confirmation_publisher_path(publisher.transfer_uuid), class: &#39;btn btn-info&#39; rescue &#39;&#39;
+          - when &#39;User&#39;
+            &#39;&amp;nbsp;
+          - when &#39;Ipi&#39;
+            &#39;&amp;nbsp;
+          - when &#39;Recording&#39;
+            &#39;&amp;nbsp;
+          - when &#39;RecordingIpi&#39;
+
+            - if recording_ipi = RecordingIpi.cached_find(@message.subjectable_id)
+              - if recording = recording_ipi.recording
+                #digiWhams  class=&quot;/recordings/#{recording.id.to_s}&quot;
+                  == render &#39;recording&#39;, recording: recording
+            - else
+              .alert.alert-danger
+                &#39;!Recording removed
+          - when &#39;MusicSubmission&#39;
+            ruby:
+              begin
+                if music_submission = MusicSubmission.cached_find(@message.subjectable_id)
+                  if recording = music_submission.recording
+
+                  end
+                end
+              rescue
+
+              end
+            - if recording
+              #digiWhams  class=&quot;/recordings/#{recording.id.to_s}&quot;
+                == render &#39;recording&#39;, recording: recording
+            - else
+              .alert.alert-danger
+                &#39;!Recording removed
+
+          - when &#39;Connection&#39;
+            - if connection = Connection.where( id: @message.subjectable_id ).first
+              .connection-invitation
+              == render &#39;messages/connection_invitation&#39;, receiver: @message.receiver, connection: connection
+                /= simple_form_for [ @message.receiver , connection ], remote: true do |f|
+                /  = f.hidden_field :approved, value: true
+                /  = link_to &quot;Dismiss&quot;, &#39;#&#39;, class: &#39;btn btn-default&#39;
+                /  &#39;&amp;nbsp;
+                  /  = f.submit &#39;Accept invitation&#39;, class: &#39;btn btn-info&#39;
+            - else
+              .alert.alert-warning
+                &#39;! Connection deleted
+
+          - when &#39;Opportunity&#39;
+            = link_to &#39;Show me the opportunity&#39;, opportunity_opportunity_path(@message.subjectable_id, opportunity_invitation: &#39;true&#39;, user_id: @user.id), class: &#39;btn btn-info&#39;
+
+          - when &#39;OpportunityUser&#39;
+            - if opportunity_user = OpportunityUser.cached_find( @message.subjectable_id ) rescue nil
+              = link_to &#39;Show me&#39;, user_user_opportunities_for_review_path(opportunity_user.user, opportunity_user.uuid), class: &#39;btn btn-warning&#39;
+            - else
+              .alert.alert-warning
+                &#39;! The review has been deleted by the inviter
+
+== render &#39;shared/site_footer&#39;</code></pre>
+<ul><li>
+<p>if @message.sender</p>
+
+<h2 id="label-render+-27messages-2Fmodal-27-2C+modal_id-3A+-22message_modal_-23-7B-40message.id.to_s-7D-22-2C+recipient-3A+-40message.sender-2C+subjectable-3A+-40message-2C+title-3A+-22re-3A+-23-7B-40message.title-7D-22">render &#39;messages/modal&#39;, modal_id: “message_modal_#{@message.id.to_s}”, recipient: @message.sender, subjectable: @message, title: “re: #{@message.title}”</h2>
+</li></ul>
+
+<p>javascript:</p>
+
+<pre><code>update_count();
+</code></pre>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

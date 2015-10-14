@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>mindmup-editabletable.js</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            mindmup-editabletable.js
+        </h1>
+        <ul class="files">
+            <li>assets/javascripts/mindmup-editabletable.js</li>
+            <li>Last modified: 2015-07-05 15:22:02 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<pre><code>global $, window</code></pre>
+
+<p>$.fn.editableTableWidget = function (options) {</p>
+
+<pre><code>&#39;use strict&#39;;
+return $(this).each(function () {
+        var buildDefaultOptions = function () {
+                        var opts = $.extend({}, $.fn.editableTableWidget.defaultOptions);
+                        opts.editor = opts.editor.clone();
+                        return opts;
+                },
+                activeOptions = $.extend(buildDefaultOptions(), options),
+                ARROW_LEFT = 37, ARROW_UP = 38, ARROW_RIGHT = 39, ARROW_DOWN = 40, ENTER = 13, ESC = 27, TAB = 9,
+                element = $(this),
+                editor = activeOptions.editor.css(&#39;position&#39;, &#39;absolute&#39;).hide().appendTo(element.parent()),
+                active,
+                showEditor = function (select) {
+                        active = element.find(&#39;td:focus&#39;);
+                        if (active.length) {
+                                editor.val(active.text())
+                                        .removeClass(&#39;error&#39;)
+                                        .show()
+                                        .offset(active.offset())
+                                        .css(active.css(activeOptions.cloneProperties))
+                                        .width(active.width())
+                                        .height(active.height())
+                                        .focus();
+                                if (select) {
+                                        editor.select();
+                                }
+                        }
+                },
+                setActiveText = function () {
+                        var text = editor.val(),
+                                evt = $.Event(&#39;change&#39;),
+                                originalContent;
+                        if (active.text() === text || editor.hasClass(&#39;error&#39;)) {
+                                return true;
+                        }
+                        originalContent = active.html();
+                        active.text(text).trigger(evt, text);
+                        if (evt.result === false) {
+                                active.html(originalContent);
+                        }
+                },
+                movement = function (element, keycode) {
+                        if (keycode === ARROW_RIGHT) {
+                                return element.next(&#39;td&#39;);
+                        } else if (keycode === ARROW_LEFT) {
+                                return element.prev(&#39;td&#39;);
+                        } else if (keycode === ARROW_UP) {
+                                return element.parent().prev().children().eq(element.index());
+                        } else if (keycode === ARROW_DOWN) {
+                                return element.parent().next().children().eq(element.index());
+                        }
+                        return [];
+                };
+        editor.blur(function () {
+                setActiveText();
+                editor.hide();
+        }).keydown(function (e) {
+                if (e.which === ENTER) {
+                        setActiveText();
+                        editor.hide();
+                        active.focus();
+                        e.preventDefault();
+                        e.stopPropagation();
+                } else if (e.which === ESC) {
+                        editor.val(active.text());
+                        e.preventDefault();
+                        e.stopPropagation();
+                        editor.hide();
+                        active.focus();
+                } else if (e.which === TAB) {
+                        active.focus();
+                } else if (this.selectionEnd - this.selectionStart === this.value.length) {
+                        var possibleMove = movement(active, e.which);
+                        if (possibleMove.length &gt; 0) {
+                                possibleMove.focus();
+                                e.preventDefault();
+                                e.stopPropagation();
+                        }
+                }
+        })
+        .on(&#39;input paste&#39;, function () {
+                var evt = $.Event(&#39;validate&#39;);
+                active.trigger(evt, editor.val());
+                if (evt.result === false) {
+                        editor.addClass(&#39;error&#39;);
+                } else {
+                        editor.removeClass(&#39;error&#39;);
+                }
+        });
+        element.on(&#39;click keypress dblclick&#39;, showEditor)
+        .css(&#39;cursor&#39;, &#39;pointer&#39;)
+        .keydown(function (e) {
+                var prevent = true,
+                        possibleMove = movement($(e.target), e.which);
+                if (possibleMove.length &gt; 0) {
+                        possibleMove.focus();
+                } else if (e.which === ENTER) {
+                        showEditor(false);
+                } else if (e.which === 17 || e.which === 91 || e.which === 93) {
+                        showEditor(true);
+                        prevent = false;
+                } else {
+                        prevent = false;
+                }
+                if (prevent) {
+                        e.stopPropagation();
+                        e.preventDefault();
+                }
+        });
+
+        element.find(&#39;td&#39;).prop(&#39;tabindex&#39;, 1);
+
+        $(window).on(&#39;resize&#39;, function () {
+                if (editor.is(&#39;:visible&#39;)) {
+                        editor.offset(active.offset())
+                        .width(active.width())
+                        .height(active.height());
+                }
+        });
+});</code></pre>
+
+<p>}; $.fn.editableTableWidget.defaultOptions = {</p>
+
+<pre><code>cloneProperties: [&#39;padding&#39;, &#39;padding-top&#39;, &#39;padding-bottom&#39;, &#39;padding-left&#39;, &#39;padding-right&#39;,
+                                  &#39;text-align&#39;, &#39;font&#39;, &#39;font-size&#39;, &#39;font-family&#39;, &#39;font-weight&#39;,
+                                  &#39;border&#39;, &#39;border-top&#39;, &#39;border-bottom&#39;, &#39;border-left&#39;, &#39;border-right&#39;],
+editor: $(&#39;&lt;input&gt;&#39;)</code></pre>
+
+<p>};</p>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

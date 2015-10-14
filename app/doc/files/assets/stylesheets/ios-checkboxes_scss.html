@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>ios-checkboxes.scss</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            ios-checkboxes.scss
+        </h1>
+        <ul class="files">
+            <li>assets/stylesheets/ios-checkboxes.scss</li>
+            <li>Last modified: 2015-07-05 15:22:03 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>.iPhoneCheckContainer {</p>
+
+<pre><code>position: relative;
+height: 27px;
+cursor: pointer;
+overflow: hidden; }
+.iPhoneCheckContainer input {
+  position: absolute;
+  top: 5px;
+  left: 30px;
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+  opacity: 0; }
+.iPhoneCheckContainer label {
+  white-space: nowrap;
+  font-size: 17px;
+  line-height: 17px;
+  font-weight: bold;
+  font-family: &quot;Helvetica Neue&quot;, Arial, Helvetica, sans-serif;
+  cursor: pointer;
+  display: block;
+  height: 27px;
+  position: absolute;
+  width: auto;
+  top: 0;
+  padding-top: 5px;
+  overflow: hidden; }
+.iPhoneCheckContainer, .iPhoneCheckContainer label {
+  user-select: none;
+  -moz-user-select: none;
+  -khtml-user-select: none; }</code></pre>
+
+<p>.iPhoneCheckDisabled {</p>
+
+<pre><code>filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=50);
+opacity: 0.5; }</code></pre>
+
+<p>label.iPhoneCheckLabelOn {</p>
+
+<pre><code>color: white;
+background: url(&quot;iphone-style-checkboxes/on.png&quot;) no-repeat;
+text-shadow: 0px 0px 2px rgba(0, 0, 0, 0.6);
+left: 0;
+padding-top: 5px; }
+label.iPhoneCheckLabelOn span {
+  padding-left: 8px; }</code></pre>
+
+<p>label.iPhoneCheckLabelOff {</p>
+
+<pre><code>color: #8b8b8b;
+background: url(&quot;iphone-style-checkboxes/off.png&quot;) no-repeat right 0;
+text-shadow: 0px 0px 2px rgba(255, 255, 255, 0.6);
+text-align: right;
+right: 0; }
+label.iPhoneCheckLabelOff span {
+  padding-right: 8px; }</code></pre>
+
+<p>.iPhoneCheckHandle {</p>
+
+<pre><code>display: block;
+height: 27px;
+cursor: pointer;
+position: absolute;
+top: 0;
+left: 0;
+width: 0;
+background: url(&quot;iphone-style-checkboxes/slider_left.png&quot;) no-repeat;
+padding-left: 3px; }</code></pre>
+
+<p>.iPhoneCheckHandleRight {</p>
+
+<pre><code>height: 100%;
+width: 100%;
+padding-right: 3px;
+background: url(&quot;iphone-style-checkboxes/slider_right.png&quot;) no-repeat right 0; }</code></pre>
+
+<p>.iPhoneCheckHandleCenter {</p>
+
+<pre><code>height: 100%;
+width: 100%;
+background: url(&quot;iphone-style-checkboxes/slider_center.png&quot;); }</code></pre>
+
+<p>.iOSCheckContainer {</p>
+
+<pre><code>position: relative;
+height: 27px;
+cursor: pointer;
+overflow: hidden; }
+.iOSCheckContainer input {
+  position: absolute;
+  top: 5px;
+  left: 30px;
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+  opacity: 0; }
+.iOSCheckContainer label {
+  white-space: nowrap;
+  font-size: 17px;
+  line-height: 17px;
+  font-weight: bold;
+  font-family: &quot;Helvetica Neue&quot;, Arial, Helvetica, sans-serif;
+  cursor: pointer;
+  display: block;
+  height: 27px;
+  position: absolute;
+  width: auto;
+  top: 0;
+  padding-top: 5px;
+  overflow: hidden; }
+.iOSCheckContainer, .iOSCheckContainer label {
+  user-select: none;
+  -moz-user-select: none;
+  -khtml-user-select: none; }</code></pre>
+
+<p>.iOSCheckDisabled {</p>
+
+<pre><code>filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=50);
+opacity: 0.5; }</code></pre>
+
+<p>label.iOSCheckLabelOn {</p>
+
+<pre><code>color: white;
+background: url(&quot;ios-style-checkboxes/on.png&quot;) no-repeat;
+text-shadow: 0px 0px 2px rgba(0, 0, 0, 0.6);
+left: 0;
+padding-top: 5px; }
+label.iOSCheckLabelOn span {
+  padding-left: 8px; }</code></pre>
+
+<p>label.iOSCheckLabelOff {</p>
+
+<pre><code>color: #8b8b8b;
+background: url(&quot;ios-style-checkboxes/off.png&quot;) no-repeat right 0;
+text-shadow: 0px 0px 2px rgba(255, 255, 255, 0.6);
+text-align: right;
+right: 0; }
+label.iOSCheckLabelOff span {
+  padding-right: 8px; }</code></pre>
+
+<p>.iOSCheckHandle {</p>
+
+<pre><code>display: block;
+height: 27px;
+cursor: pointer;
+position: absolute;
+top: 0;
+left: 0;
+width: 0;
+background: url(&quot;ios-style-checkboxes/slider_left.png&quot;) no-repeat;
+padding-left: 3px; }</code></pre>
+
+<p>.iOSCheckHandleRight {</p>
+
+<pre><code>height: 100%;
+width: 100%;
+padding-right: 3px;
+background: url(&quot;ios-style-checkboxes/slider_right.png&quot;) no-repeat right 0; }</code></pre>
+
+<p>.iOSCheckHandleCenter {</p>
+
+<pre><code>height: 100%;
+width: 100%;
+background: url(&quot;ios-style-checkboxes/slider_center.png&quot;); }</code></pre>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

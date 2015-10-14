@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>legal_documents.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            legal_documents.slim
+        </h1>
+        <ul class="files">
+            <li>views/account/recordings/legal_documents.slim</li>
+            <li>Last modified: 2015-08-03 19:36:39 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>wrapper</p>
+
+<pre><code>.full-width-top
+  == render &#39;shared/navigationbar&#39;, page: &#39;account&#39; 
+
+.pro-account
+  #sidebar-wrapper
+    ul class=&quot;sidebar-nav&quot;
+      == render &#39;account/shared/sidebar&#39;, selected: &#39;recording&#39;
+
+#page-content-wrapper
+  .container-fluid
+    == render &#39;shared/breadcrumbs&#39;, breadcrumbs: { links: {recordings: account_account_recordings_path(@account),\
+                                                           @recording.title.to_sym =&gt; account_account_recording_path(@account, @recording) \
+                                                           },current:  &#39;&#39;}
+
+    .row
+      .col-sm-8
+        h2 Legal
+      .col-sm-4
+
+    .sexy_line
+    .row
+      .col-sm-12
+        #digiWhams  class=&quot;/recordings/#{@recording.id.to_s}&quot;
+
+          == render &#39;account/recordings/account_recording&#39;, recording: @recording,
+                                                       info: true,
+                                                       add_to_playlist: true, 
+                                                       remove_from_playlist: false, 
+                                                       edit: true, 
+                                                       delete: false,
+                                                       description: false,
+                                                       share: true,
+                                                       target: &quot;&quot;,
+                                                       music_request_link: false,
+                                                       remove_from_request: false
+
+    == render &#39;account/recordings/shared/document_navigation&#39;, selected: &#39;legal&#39;
+
+== render &#39;shared/site_footer&#39;</code></pre>
+
+<p>//= debug @recording.audio_upload /- <a href=":return_url">session</a>  =
+request.url /- blog = <a
+href="../../../../classes/Blog.html#method-c-cached_find">Blog.cached_find</a>(&#39;RECORDING
+documents&#39;) /#wrap /  div class=“#{&#39;profile&#39; if
+account_owner?}” /    .full-width-top /      == render
+&#39;admin/shared/navbar&#39;, page: &#39;account&#39;  /  .do</p>
+
+<p>/    .container /      == render &#39;admin/shared/messages&#39; /      ==
+render &#39;shared/breadcrumbs&#39;, breadcrumbs: { links:
+{@account.title.to_sym =&gt; account_path(@account), /                     
+dashboard: account_account_path(@account), \ /                             
+recordings: account_account_recordings_path(@account),\ /                  
+@recording.title.to_sym =&gt; account_account_recording_path(@account,
+@recording), \ /                                                           
+files: files_account_account_recording_path(@account, @recording) \ /      
+}, current: &#39;lagal documents&#39; } /      /== render
+&#39;shared/breadcrumbs&#39;, breadcrumbs: { links: { @account.title.to_sym
+=&gt; account_path(@account), \ /      /                                   
+assets: account_assets_path(@account), \ /      /                          
+recordings: account_account_recordings_path(@account), \ /      /          
+}, current: @recording.title} /      / /      / /      / /      / add a
+link to  /      / <a
+href="http://localhost:3000/accounts/6/common_works/6468/recordings/434/edit">localhost:3000/accounts/6/common_works/6468/recordings/434/edit</a>
+/      -body = link_to &#39;COMMON WORK&#39;, account_work_path(@account,
+@recording.get_common_work) /      - insert =
+&#39;account/recordings/edit&#39; /      == render
+&#39;shared/recording_title&#39;, locals: {recording: @recording, body:
+@recording.comment, insert: insert}  /      .row /</p>
+
+<p>/ /</p>
+
+<p>/</p>
+
+<p>/</p>
+
+<p>/</p>
+
+<p>/</p>
+
+<p>/</p>
+
+<p>/</p>
+
+<p>/-cache ([&#39;footer&#39;, <a
+href="../../../../classes/Admin.html#method-c-cached_find">Admin.cached_find</a>.version])
+do</p>
+
+<p>/  =render &#39;shared/footer&#39; /</p>
+
+<p>/</p>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

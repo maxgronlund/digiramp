@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>new.html.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            new.html.slim
+        </h1>
+        <ul class="files">
+            <li>views/user/digital_signatures/new.html.slim</li>
+            <li>Last modified: 2015-10-02 23:23:23 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>wrapper</p>
+
+<pre><code>.full-width-top
+  == render &#39;shared/navigationbar&#39;, page: &#39;dashboard&#39; 
+
+#sidebar-wrapper
+  ul class=&quot;sidebar-nav&quot;
+    == render &#39;users/shared/sidebar&#39;, selected: &#39;dashboard&#39;
+
+#page-content-wrapper
+  .container-fluid
+    == render &#39;shared/flash_message&#39;
+    .row
+      .col-sm-6
+        .help
+          .help-text
+            h2 New digital signatures
+
+          .help-button
+            == render &#39;admin/helps/help&#39;, identifier: &#39;digital signatures&#39;
+      .col-sm-6
+        .pull-right.pull-down-10
+          = link_to  user_user_digital_signatures_path(@user) do
+              .btn.btn-default
+                i.fa.fa-chevron-left
+                &#39;&amp;nbsp;Back
+    .pull-down-10
+    .row
+      .col-sm-12
+        .digi-box
+          h4 Upload image 
+          br
+          == render &#39;form&#39;
+
+    .row
+      .col-sm-12
+        .digi-box
+          h4 Online editors that might help you
+          &#39;If you don&#39;t have an image of your signature these links might help you
+          .pull-down-10
+          =&gt; link_to &#39;Edit an image online&#39;, &#39;https://pixlr.com/editor/&#39;, :target =&gt; &quot;_blank&quot;, class: &#39;btn btn-default&#39;
+          = link_to &#39;Create a signature online&#39;, &#39;http://onlinesignature.in/&#39;, :target =&gt; &quot;_blank&quot;, class: &#39;btn btn-default&#39;      
+
+== render &#39;shared/site_footer&#39;</code></pre>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

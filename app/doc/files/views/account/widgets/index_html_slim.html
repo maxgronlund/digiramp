@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>index.html.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            index.html.slim
+        </h1>
+        <ul class="files">
+            <li>views/account/widgets/index.html.slim</li>
+            <li>Last modified: 2015-09-24 20:35:34 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>/h1 Listing widgets / /table /  thead /    tr /      th Title /      th
+Body /      th Image /      th Secret key /      th Width /      th Height
+/      th <a href="../../../../classes/Catalog.html">Catalog</a> /      th
+Layout /      th /      th /      th / /  tbody /    - @widgets.each do
+|widget| /      tr /        td = widget.title /        td = widget.body /  
+td = widget.image /        td = widget.secret_key /        td =
+widget.width /        td = widget.height /        td = widget.catalog_id / 
+td = widget.layout /        td = link_to &#39;Show&#39;, widget /        td
+= link_to &#39;Edit&#39;, edit_widget_path(widget) /        td = link_to
+&#39;Destroy&#39;, widget, data: {:confirm =&gt; &#39;Are you sure?&#39;},
+:method =&gt; :delete / /br / /= link_to &#39;New Widget&#39;,
+new_account_account_widget_path( @account ) wrap</p>
+
+<pre><code>div class=&quot;#{&#39;profile&#39; if account_owner?}&quot;
+  .full-width-top
+    == render &#39;admin/shared/navbar&#39;, page: &#39;account&#39; 
+.container
+  == render &#39;admin/shared/messages&#39;
+  == render &#39;shared/breadcrumbs&#39;, breadcrumbs: { links: { @account.title.to_sym =&gt; account_path(@account), \
+                                                          dashboard: account_account_path(@account) \
+                                                         }, \
+                                                  current:  &#39;widgets&#39;}
+  == render &#39;shared/page_title&#39;, locals: {blog: Blog.cached_find(&#39;Widgets&#39;), blog_post: &#39;Widgets&#39;, insert: &#39;new&#39;}
+  .do
+    .row
+      .col-sm-12
+        .panel.panel-primary
+          .panel-heading
+            &#39;Widgets
+          .panel-body
+            .table-responsive
+              table class=&quot;table table-hover&quot;
+                thead
+                  tr
+                    th
+                    th Title
+                    th Playbacks
+                    th Catalog
+                    th 
+
+                tbody
+                  - @account.widgets.each do |widget|
+
+                   tr
+                     td 
+                       = image_tag widget.image_url(:thumbnail)
+                     td = widget.title
+                     td = widget.playback_count
+                     td = widget.catalog.title if widget.catalog
+                     td
+                       .pull-right
+                         = link_to account_account_widget_path(@account, widget) do
+                           .btn.btn-info.btn-lg
+                             i class=&quot;fa fa-pencil&quot;
+                         &#39;&amp;nbsp;
+                         = link_to account_account_widget_path(@account, widget), data: { confirm: &#39;Are you sure?&#39; },turboboost: true , :method =&gt; :delete do
+                           .btn.btn-danger.btn-lg
+                             i class=&quot;fa fa-times&quot;</code></pre>
+
+<p>/    == render &#39;shared/back&#39;, locals: {link:
+account_account_path(@account)} /-cache ([&#39;footer&#39;, <a
+href="../../../../classes/Admin.html#method-c-cached_find">Admin.cached_find</a>.version])
+do</p>
+
+<p>/  =render &#39;shared/footer&#39;</p>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

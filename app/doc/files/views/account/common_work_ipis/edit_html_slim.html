@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>edit.html.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            edit.html.slim
+        </h1>
+        <ul class="files">
+            <li>views/account/common_work_ipis/edit.html.slim</li>
+            <li>Last modified: 2015-09-26 08:28:11 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>wrapper</p>
+
+<pre><code>.full-width-top
+  == render &#39;shared/navigationbar&#39;, page: &#39;account&#39; 
+
+.pro-account
+  #sidebar-wrapper
+
+    ul class=&quot;sidebar-nav&quot;
+      == render &#39;account/shared/sidebar&#39;, selected: &#39;common_work&#39;
+
+#page-content-wrapper
+  .container-fluid
+    == render &#39;shared/breadcrumbs&#39;, breadcrumbs: { links: { @common_work.title.to_sym =&gt; account_account_common_work_path(@account, @common_work),\ 
+                                                           ipis: account_account_common_work_common_work_ipis_path(@account, @common_work)}, current:&#39;&#39; }
+    .row
+      .col-sm-7
+        .help
+          .help-text
+            h2 Edit IPI
+
+          .help-button
+            == render &#39;admin/helps/help&#39;, identifier: &#39;edit account common_work ipi&#39;
+
+      .col-sm-5
+        .pull-right
+          .pull_down_10
+            = link_to  account_account_common_work_common_work_ipis_path(@account, @common_work) do
+                .btn.btn-default
+                  i.fa.fa-chevron-left
+                  &#39;&amp;nbsp;Back
+
+            - if current_account_user.create_common_work_ipi
+              =&lt; link_to &#39;New IP&#39;, new_account_account_common_work_common_work_ipi_path(@account, @common_work),\
+                        class: &#39;btn btn-info&#39;
+    .pull-down-10
+    h3 = @common_work.title
+    = simple_form_for [@account, @common_work, @common_work_ip], :url =&gt; url_for(:action =&gt; &#39;update&#39;, :controller =&gt; &#39;common_work_ipis&#39;), :method =&gt; &#39;put&#39; do |f|
+      = f.hidden_field :common_work_id, value: @common_work.id
+      == render &#39;form&#39;, f: f
+
+== render &#39;shared/site_footer&#39;</code></pre>
+
+<h2 id="label-render+-27shared-2Finit_wysiwyg5-27">render &#39;shared/init_wysiwyg5&#39;</h2>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

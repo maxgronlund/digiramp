@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>_profile.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            _profile.slim
+        </h1>
+        <ul class="files">
+            <li>views/users/shared/_profile.slim</li>
+            <li>Last modified: 2015-09-24 20:35:34 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>.profile</p>
+
+<pre><code>/ encourage users to update their profile
+- if current_user &amp;&amp; current_user.id == @user.id
+  - if @authorized &amp;&amp; @user.completeness &lt; 100  &amp;&amp; session[:show_profile_completeness]
+    - session[:show_profile_completeness] = false
+    .complete
+      .improve-title
+        /.alert.alert-danger role=&quot;alert&quot;
+        = &quot;Your profile is #{@user.completeness}% complete &quot;
+      .improve-bar 
+        .progress
+          .progress-bar role=&quot;progressbar&quot; aria-valuenow=&quot;60&quot; aria-valuemin=&quot;0&quot; aria-valuemax=&quot;100&quot; style=&quot;width: #{@user.completeness}%;&quot;
+
+      .improve-button
+        .pull-right
+          = link_to edit_user_path(@user) do
+            .btn.btn-info.btn-xs
+              &#39;Improve now  
+
+- if @user.country.to_s != &#39;&#39;
+  .location
+    - c = Country.find_country_by_alpha2(@user.country)
+    = &quot; #{@user.city}, #{c.name}&quot;
+br
+i
+  &#39;Member since:
+  = @user.created_at.strftime(&quot;%Y-%m-%d&quot;)
+.pull-down-4
+i class=&quot;fa fa-eye&quot;
+&#39;&amp;nbsp;
+= pluralize(@user.views, &#39;View&#39;)
+br
+i class=&quot;fa fa-users&quot;
+&#39;&amp;nbsp;
+= pluralize(@user.connections_count, &#39;Connection&#39;)
+br
+
+.pull-down-10
+  - if current_user &amp;&amp; current_user.id != @user.id
+    /.profile-button
+    /  == render &#39;users/shared/follow&#39; , user: @user
+    /.profile-button
+    /  .connect-container
+    /    .connect-buttons
+    /    == render &#39;users/connect&#39;, user: @user 
+    /
+- if @user.profile.to_s != &#39;&#39;
+  .row
+    .col-sm-12
+      .user-profile
+        = simple_format @user.profile
+
+- if @user.link_to_facebook.to_s +  @user.link_to_twitter.to_s +  @user.link_to_linkedin.to_s +  @user.link_to_google_plus.to_s != &#39;&#39; + @user.link_to_homepage.to_s
+
+  .row.pull-down-8
+    .col-sm-12
+
+      .social-links
+        - if @user.link_to_facebook != &#39;&#39;
+          =&gt; link_to LinkValidator.validate( @user.link_to_facebook ) do
+            .fa.fa-facebook
+            &#39;&amp;nbsp;Facebook
+
+        - if @user.link_to_twitter != &#39;&#39;
+
+          =&gt; link_to LinkValidator.validate( @user.link_to_twitter ) do
+            .fa.fa-twitter
+            &#39;&amp;nbsp;Twitter
+
+        - if @user.link_to_linkedin != &#39;&#39;
+
+          =&gt; link_to LinkValidator.validate( @user.link_to_linkedin ) do
+            .fa.fa-linkedin
+            &#39;&amp;nbsp;Linkedin
+
+        - if @user.link_to_google_plus != &#39;&#39;
+
+          =&gt; link_to LinkValidator.validate( @user.link_to_google_plus ) do
+            .fa.fa-google-plus
+            &#39;&amp;nbsp;Google+
+
+        - if @user.link_to_homepage != &#39;&#39;
+          =&gt; link_to LinkValidator.validate( @user.link_to_homepage ) do
+            .fa.fa-home
+            &#39;&amp;nbsp;www
+
+.row
+  .col-sm-12
+    h5  
+      - if @user.composer
+        span class=&quot;label label-default&quot;
+          &#39;Composer  
+        &#39;&amp;nbsp;
+
+      - if @user.writer
+        span class=&quot;label label-default&quot;
+          &#39;Writer
+        &#39;&amp;nbsp;
+
+      - if @user.artist
+        span class=&quot;label label-default&quot;
+          &#39;Artist
+        &#39;&amp;nbsp;
+
+      - if @user.author
+        span class=&quot;label label-default&quot;
+          &#39;Author
+        &#39;&amp;nbsp;
+
+      - if @user.producer
+        span class=&quot;label label-default&quot;
+          &#39;Producer
+        &#39;&amp;nbsp;
+
+      - if @user.musician
+        span class=&quot;label label-default&quot;
+          &#39;Musician
+        &#39;&amp;nbsp;
+
+      - if @user.remixer
+        span class=&quot;label label-default&quot;
+          &#39;Remixer
+        &#39;&amp;nbsp;
+
+      - if @user.dj
+        span class=&quot;label label-default&quot;
+          &#39;DJ
+        &#39;&amp;nbsp;</code></pre>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

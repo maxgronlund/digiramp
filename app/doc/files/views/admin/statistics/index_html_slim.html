@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>index.html.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            index.html.slim
+        </h1>
+        <ul class="files">
+            <li>views/admin/statistics/index.html.slim</li>
+            <li>Last modified: 2015-07-05 15:22:06 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>wrapper</p>
+
+<pre><code>.full-width-top
+  == render &#39;shared/navigationbar&#39;, page: &#39;home&#39; 
+
+.admin-account
+  #sidebar-wrapper
+    ul class=&quot;sidebar-nav&quot;
+      == render &#39;admin/shared/sidebar&#39;, selected: &#39;statistic&#39;
+
+#page-content-wrapper
+  .container-fluid
+    == render &#39;shared/breadcrumbs&#39;, breadcrumbs: { links: { admin: admin_index_path }, current: &#39;&#39;}
+
+    h2 Statitics
+    .sexy_line
+    .admin
+      .admin-badges
+        .admin-badge-container
+          = link_to recordings_admin_statistic_path(0) do
+            .admin-badge
+              .title
+                h4
+                  i.fa.fa-headphones
+                  &#39;&amp;nbsp;Recording
+              .body
+                ul
+                  li Uploads
+                  li Playbacks
+                  li Views
+                  li Likes
+
+        .admin-badge-container
+          = link_to users_admin_statistic_path(0) do
+            .admin-badge
+              .title
+                h4
+                  i.fa.fa-group
+                  &#39;&amp;nbsp;Users
+              .body
+                ul
+                  li Signed up
+                  li Views
+                  li Following
+                  li Connections
+
+        .admin-badge-container
+          = link_to common_works_admin_statistic_path(0) do
+            .admin-badge
+              .title
+                h4
+                  i.fa.fa-folder-o
+                  &#39;&amp;nbsp;Commen Works
+              .body
+                ul
+                  li Created
+                  li Views
+
+        .admin-badge-container
+          = link_to opportunities_admin_statistic_path(0) do
+            .admin-badge
+              .title
+                h4
+                  i.fa.fa-folder-o
+                  &#39;&amp;nbsp;Opportunities
+              .body
+                ul
+                  li Created
+                  li Views
+                  li Requests
+                  li Submissions
+
+        .admin-badge-container
+          = link_to pages_admin_statistic_path(0) do
+            .admin-badge
+              .title
+                h4
+                  i.fa.fa-folder-o
+                  &#39;&amp;nbsp;Pages
+              .body
+                ul
+                  li Landing page
+                  li People
+                  li Recordings
+                  li And other..
+
+        .admin-badge-container
+          = link_to tutorials_admin_statistic_path(0) do
+            .admin-badge
+              .title
+                h4
+                  i.fa.fa-folder-o
+                  &#39;&amp;nbsp;Turotials
+              .body
+                ul
+                  li Landing page
+                  li Tutorials
+
+== render &#39;shared/site_footer&#39;</code></pre>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

@@ -57,6 +57,7 @@ class User < ActiveRecord::Base
   validates_formatting_of :link_to_homepage        , :using => :url, :allow_blank => true      # URLs
 
 
+  has_one :ipi
   has_one :address
   has_one :publisher
   accepts_nested_attributes_for :address
@@ -790,7 +791,7 @@ class User < ActiveRecord::Base
   def publishing_agreement_document() end
   def publishing_agreements() PublishingAgreement.where(account_id: self.account.id) end
   def get_publishing_agreements() account.get_publishing_agreements end
-  def ipi() Ipi.find_by( user_id: self.id,  master_ipi: true) end
+  #def ipi() Ipi.find_by( user_id: self.id,  master_ipi: true) end
   
  
   def label

@@ -1,0 +1,754 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>AddressMix</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../css/github.css" type="text/css" media="screen" />
+<script src="../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            <span class="type">Module</span> 
+            AddressMix 
+            
+        </h1>
+        <ul class="files">
+            
+            <li><a href="../files/classes/address_mix_rb.html">classes/address_mix.rb</a></li>
+            
+        </ul>
+    </div>
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<pre><code>usage
+</code></pre>
+<ol><li>
+<p>add the following tree line to the parrent model</p>
+</li></ol>
+
+<pre><code>has_one :address
+accepts_nested_attributes_for :address
+include AddressMix
+</code></pre>
+<ol><li>
+<p>in the controller strong parameters</p>
+</li></ol>
+
+<p>address_attributes: [  :first_name,</p>
+
+<pre><code>  :middle_name,
+  :last_name,
+  :address_line_1,
+  :address_line_2,
+  :city,
+  :state,
+  :country,
+  :id,
+  :zip_code
+]</code></pre>
+<ol><li>
+<p>in the form</p>
+</li></ol>
+
+<h1 id="module-AddressMix-label-f.simple_fields_for+-3Aaddress+do+-7Caddress_form-7C">f.simple_fields_for :address do |address_form|</h1>
+
+<pre><code>= address_form.input :first_name
+= address_form.input :middle_name
+= address_form.input :last_name
+= address_form.input :address_line_1
+= address_form.input :address_line_2
+= address_form.input :city
+= address_form.input :state
+= address_form.input :country
+= address_form.input :zip_code</code></pre>
+<ol><li>
+<p>look in <a
+href="../files/views/shared/_address_slim.html">views/shared/_address.slim</a></p>
+</li></ol>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+    <!-- Method ref -->
+    <div class="sectiontitle">Methods</div>
+    <dl class="methods">
+      
+        <dt>A</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-address">address</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-i-address_attributes-3D">address_attributes=</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-i-address_line_1">address_line_1</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-i-address_line_2">address_line_2</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>C</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-city">city</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-i-copy_address_to">copy_address_to</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-i-country">country</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>F</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-first_name">first_name</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-i-full_name">full_name</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>L</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-last_name">last_name</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>M</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-middle_name">middle_name</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>S</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-state">state</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>Z</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-zip_code">zip_code</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+    </dl>
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+        
+      <div class="sectiontitle">Instance Public methods</div>
+      
+        <div class="method">
+          <div class="title method-title" id="method-i-address">
+            
+              <b>address</b>()
+            
+            <a href="../classes/AddressMix.html#method-i-address" name="method-i-address" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-address_source')" id="l_method-i-address_source">show</a>
+                
+              </p>
+              <div id="method-i-address_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File classes/address_mix.rb, line 52</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">address</span>
+  <span class="ruby-ivar">@address</span> <span class="ruby-operator">||=</span>  <span class="ruby-identifier">get_address</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-address_attributes-3D">
+            
+              <b>address_attributes=</b>(attributes)
+            
+            <a href="../classes/AddressMix.html#method-i-address_attributes-3D" name="method-i-address_attributes-3D" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-address_attributes-3D_source')" id="l_method-i-address_attributes-3D_source">show</a>
+                
+              </p>
+              <div id="method-i-address_attributes-3D_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File classes/address_mix.rb, line 35</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">address_attributes=</span>(<span class="ruby-identifier">attributes</span>)
+
+  <span class="ruby-identifier">addr</span>                   = <span class="ruby-identifier">get_address</span>
+  <span class="ruby-identifier">addr</span>.<span class="ruby-identifier">first_name</span>        = <span class="ruby-identifier">attributes</span>[<span class="ruby-value">:first_name</span> ]
+  <span class="ruby-identifier">addr</span>.<span class="ruby-identifier">middle_name</span>       = <span class="ruby-identifier">attributes</span>[<span class="ruby-value">:middle_name</span> ]
+  <span class="ruby-identifier">addr</span>.<span class="ruby-identifier">last_name</span>         = <span class="ruby-identifier">attributes</span>[<span class="ruby-value">:last_name</span> ]
+  <span class="ruby-identifier">addr</span>.<span class="ruby-identifier">address_line_1</span>    = <span class="ruby-identifier">attributes</span>[<span class="ruby-value">:address_line_1</span> ]
+  <span class="ruby-identifier">addr</span>.<span class="ruby-identifier">address_line_2</span>    = <span class="ruby-identifier">attributes</span>[<span class="ruby-value">:address_line_2</span> ]
+  <span class="ruby-identifier">addr</span>.<span class="ruby-identifier">city</span>              = <span class="ruby-identifier">attributes</span>[<span class="ruby-value">:city</span> ]
+  <span class="ruby-identifier">addr</span>.<span class="ruby-identifier">zip_code</span>          = <span class="ruby-identifier">attributes</span>[<span class="ruby-value">:zip_code</span> ]
+  <span class="ruby-identifier">addr</span>.<span class="ruby-identifier">state</span>             = <span class="ruby-identifier">attributes</span>[<span class="ruby-value">:state</span> ]
+  <span class="ruby-identifier">addr</span>.<span class="ruby-identifier">country</span>           = <span class="ruby-identifier">attributes</span>[<span class="ruby-value">:country</span> ]
+  <span class="ruby-identifier">addr</span>.<span class="ruby-identifier">save!</span>
+  <span class="ruby-ivar">@address</span> = <span class="ruby-identifier">addr</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-address_line_1">
+            
+              <b>address_line_1</b>()
+            
+            <a href="../classes/AddressMix.html#method-i-address_line_1" name="method-i-address_line_1" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-address_line_1_source')" id="l_method-i-address_line_1_source">show</a>
+                
+              </p>
+              <div id="method-i-address_line_1_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File classes/address_mix.rb, line 59</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">address_line_1</span>()    <span class="ruby-identifier">address</span>.<span class="ruby-identifier">address_line_1</span> <span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-address_line_2">
+            
+              <b>address_line_2</b>()
+            
+            <a href="../classes/AddressMix.html#method-i-address_line_2" name="method-i-address_line_2" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-address_line_2_source')" id="l_method-i-address_line_2_source">show</a>
+                
+              </p>
+              <div id="method-i-address_line_2_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File classes/address_mix.rb, line 60</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">address_line_2</span>()    <span class="ruby-identifier">address</span>.<span class="ruby-identifier">address_line_2</span> <span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-city">
+            
+              <b>city</b>()
+            
+            <a href="../classes/AddressMix.html#method-i-city" name="method-i-city" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-city_source')" id="l_method-i-city_source">show</a>
+                
+              </p>
+              <div id="method-i-city_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File classes/address_mix.rb, line 61</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">city</span>()              <span class="ruby-identifier">address</span>.<span class="ruby-identifier">city</span> <span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-copy_address_to">
+            
+              <b>copy_address_to</b>(destination)
+            
+            <a href="../classes/AddressMix.html#method-i-copy_address_to" name="method-i-copy_address_to" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-copy_address_to_source')" id="l_method-i-copy_address_to_source">show</a>
+                
+              </p>
+              <div id="method-i-copy_address_to_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File classes/address_mix.rb, line 70</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">copy_address_to</span> <span class="ruby-identifier">destination</span>
+
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">destination</span>.<span class="ruby-identifier">first_name</span>.<span class="ruby-identifier">nil?</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-operator">!</span><span class="ruby-keyword">self</span>.<span class="ruby-identifier">first_name</span>.<span class="ruby-identifier">nil?</span> 
+    <span class="ruby-identifier">destination</span>.<span class="ruby-identifier">first_name</span> = <span class="ruby-keyword">self</span>.<span class="ruby-identifier">first_name</span>
+  <span class="ruby-keyword">end</span>
+  
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">destination</span>.<span class="ruby-identifier">middle_name</span>.<span class="ruby-identifier">nil?</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-operator">!</span><span class="ruby-keyword">self</span>.<span class="ruby-identifier">middle_name</span>.<span class="ruby-identifier">nil?</span> 
+    <span class="ruby-identifier">destination</span>.<span class="ruby-identifier">middle_name</span> = <span class="ruby-keyword">self</span>.<span class="ruby-identifier">middle_name</span>
+  <span class="ruby-keyword">end</span>
+  
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">destination</span>.<span class="ruby-identifier">last_name</span>.<span class="ruby-identifier">nil?</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-operator">!</span><span class="ruby-keyword">self</span>.<span class="ruby-identifier">last_name</span>.<span class="ruby-identifier">nil?</span> 
+    <span class="ruby-identifier">destination</span>.<span class="ruby-identifier">last_name</span> = <span class="ruby-keyword">self</span>.<span class="ruby-identifier">last_name</span>
+  <span class="ruby-keyword">end</span>
+  
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">destination</span>.<span class="ruby-identifier">address_line_1</span>.<span class="ruby-identifier">nil?</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-operator">!</span><span class="ruby-keyword">self</span>.<span class="ruby-identifier">address_line_1</span>.<span class="ruby-identifier">nil?</span> 
+    <span class="ruby-identifier">destination</span>.<span class="ruby-identifier">address_line_1</span> = <span class="ruby-keyword">self</span>.<span class="ruby-identifier">address_line_1</span>
+  <span class="ruby-keyword">end</span>
+  
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">destination</span>.<span class="ruby-identifier">address_line_2</span>.<span class="ruby-identifier">nil?</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-operator">!</span><span class="ruby-keyword">self</span>.<span class="ruby-identifier">address_line_2</span>.<span class="ruby-identifier">nil?</span> 
+    <span class="ruby-identifier">destination</span>.<span class="ruby-identifier">address_line_2</span> = <span class="ruby-keyword">self</span>.<span class="ruby-identifier">address_line_2</span>
+  <span class="ruby-keyword">end</span>
+  
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">destination</span>.<span class="ruby-identifier">city</span>.<span class="ruby-identifier">nil?</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-operator">!</span><span class="ruby-keyword">self</span>.<span class="ruby-identifier">city</span>.<span class="ruby-identifier">nil?</span> 
+    <span class="ruby-identifier">destination</span>.<span class="ruby-identifier">city</span> = <span class="ruby-keyword">self</span>.<span class="ruby-identifier">city</span>
+  <span class="ruby-keyword">end</span>
+  
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">destination</span>.<span class="ruby-identifier">zip_code</span>.<span class="ruby-identifier">nil?</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-operator">!</span><span class="ruby-keyword">self</span>.<span class="ruby-identifier">zip_code</span>.<span class="ruby-identifier">nil?</span> 
+    <span class="ruby-identifier">destination</span>.<span class="ruby-identifier">zip_code</span> = <span class="ruby-keyword">self</span>.<span class="ruby-identifier">zip_code</span>
+  <span class="ruby-keyword">end</span>
+  
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">destination</span>.<span class="ruby-identifier">state</span>.<span class="ruby-identifier">nil?</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-operator">!</span><span class="ruby-keyword">self</span>.<span class="ruby-identifier">state</span>.<span class="ruby-identifier">nil?</span> 
+    <span class="ruby-identifier">destination</span>.<span class="ruby-identifier">state</span> = <span class="ruby-keyword">self</span>.<span class="ruby-identifier">state</span>
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">destination</span>.<span class="ruby-identifier">country</span>.<span class="ruby-identifier">nil?</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-operator">!</span><span class="ruby-keyword">self</span>.<span class="ruby-identifier">country</span>.<span class="ruby-identifier">nil?</span> 
+    <span class="ruby-identifier">destination</span>.<span class="ruby-identifier">country</span> = <span class="ruby-keyword">self</span>.<span class="ruby-identifier">country</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-identifier">destination</span>.<span class="ruby-identifier">save</span>
+
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-country">
+            
+              <b>country</b>()
+            
+            <a href="../classes/AddressMix.html#method-i-country" name="method-i-country" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-country_source')" id="l_method-i-country_source">show</a>
+                
+              </p>
+              <div id="method-i-country_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File classes/address_mix.rb, line 64</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">country</span>()           <span class="ruby-identifier">address</span>.<span class="ruby-identifier">country</span> <span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-first_name">
+            
+              <b>first_name</b>()
+            
+            <a href="../classes/AddressMix.html#method-i-first_name" name="method-i-first_name" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-first_name_source')" id="l_method-i-first_name_source">show</a>
+                
+              </p>
+              <div id="method-i-first_name_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File classes/address_mix.rb, line 56</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">first_name</span>()        <span class="ruby-identifier">address</span>.<span class="ruby-identifier">first_name</span> <span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-full_name">
+            
+              <b>full_name</b>()
+            
+            <a href="../classes/AddressMix.html#method-i-full_name" name="method-i-full_name" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-full_name_source')" id="l_method-i-full_name_source">show</a>
+                
+              </p>
+              <div id="method-i-full_name_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File classes/address_mix.rb, line 66</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">full_name</span>
+  [<span class="ruby-identifier">address</span>.<span class="ruby-identifier">first_name</span>, <span class="ruby-identifier">address</span>.<span class="ruby-identifier">middle_name</span>, <span class="ruby-identifier">address</span>.<span class="ruby-identifier">last_name</span>].<span class="ruby-identifier">join</span>(<span class="ruby-string">&#39; &#39;</span>).<span class="ruby-identifier">gsub</span>(<span class="ruby-string">&#39;  &#39;</span>, <span class="ruby-string">&#39; &#39;</span>)
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-last_name">
+            
+              <b>last_name</b>()
+            
+            <a href="../classes/AddressMix.html#method-i-last_name" name="method-i-last_name" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-last_name_source')" id="l_method-i-last_name_source">show</a>
+                
+              </p>
+              <div id="method-i-last_name_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File classes/address_mix.rb, line 58</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">last_name</span>()         <span class="ruby-identifier">address</span>.<span class="ruby-identifier">last_name</span> <span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-middle_name">
+            
+              <b>middle_name</b>()
+            
+            <a href="../classes/AddressMix.html#method-i-middle_name" name="method-i-middle_name" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-middle_name_source')" id="l_method-i-middle_name_source">show</a>
+                
+              </p>
+              <div id="method-i-middle_name_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File classes/address_mix.rb, line 57</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">middle_name</span>()       <span class="ruby-identifier">address</span>.<span class="ruby-identifier">middle_name</span> <span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-state">
+            
+              <b>state</b>()
+            
+            <a href="../classes/AddressMix.html#method-i-state" name="method-i-state" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-state_source')" id="l_method-i-state_source">show</a>
+                
+              </p>
+              <div id="method-i-state_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File classes/address_mix.rb, line 63</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">state</span>()             <span class="ruby-identifier">address</span>.<span class="ruby-identifier">state</span> <span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-zip_code">
+            
+              <b>zip_code</b>()
+            
+            <a href="../classes/AddressMix.html#method-i-zip_code" name="method-i-zip_code" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-zip_code_source')" id="l_method-i-zip_code_source">show</a>
+                
+              </p>
+              <div id="method-i-zip_code_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File classes/address_mix.rb, line 62</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">zip_code</span>()          <span class="ruby-identifier">address</span>.<span class="ruby-identifier">zip_code</span> <span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+                    </div>
+
+    </div>
+  </body>
+</html>    

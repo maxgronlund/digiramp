@@ -1,0 +1,337 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>index.html.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            index.html.slim
+        </h1>
+        <ul class="files">
+            <li>views/user/control_panel/index.html.slim</li>
+            <li>Last modified: 2015-10-03 19:38:51 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>wrapper</p>
+
+<pre><code>.full-width-top
+  == render &#39;shared/navigationbar&#39;, page: &#39;dashboard&#39; 
+
+#sidebar-wrapper
+  ul class=&quot;sidebar-nav&quot;
+    == render &#39;users/shared/sidebar&#39;, selected: &#39;dashboard&#39;
+
+#page-content-wrapper
+  .container-fluid
+    == render &#39;shared/flash_message&#39;
+    .container-fluid
+      .row
+        .col-sm-12
+          .help
+            .help-text
+              h2 
+                b Dashboard
+            .help-button
+              == render &#39;admin/helps/help&#39;, identifier: &#39;user dashboard&#39;
+
+    .pull-down-10
+
+    .row
+      .col-sm-12
+        .control-panel.pull-down-10
+
+          .control-panel-badge
+            = link_to user_user_contacts_path(@user), id: &#39;user_contacts&#39; do
+              .content
+                .icon-box
+                  .icon.icon-blue
+                    i.fa.fa-list-ul
+
+                .title
+                  h4 
+                    &#39;Contacts
+                    br
+                    .pull-right
+                      span class=&quot;label label-default&quot;
+                        .i.fa.fa-book&amp;nbsp;
+                        = @user.clients.count
+                .body
+                  &#39;Email, address, phone..
+
+          /.control-panel-badge
+          /  = link_to user_user_import_contacts_path(@user) do 
+          /    .content
+          /      .icon.icon-blue
+          /        i.fa.fa-cloud-upload
+          /        
+          /      .title
+          /        h4 Import contacts
+          /      
+          /    
+          /.control-panel-badge
+          /  = link_to user_user_contact_groups_path(@user) do
+          /    .content
+          /      .icon.icon-red
+          /        i.fa.fa-users
+          /        
+          /      .title
+          /        h4 Contact groups
+          /      
+          /
+          .control-panel-badge
+            = link_to user_user_catalogs_path(@user) do
+              .content
+                .icon.icon-blue
+                  i.fa.fa-book
+
+                .title
+                  h4 Catalogs
+
+          .control-panel-badge
+            = link_to user_user_campaigns_path(@user) do
+              .content
+                .icon.icon-blue
+                  i.fa.fa-envelope
+
+                .title
+                  h4 Campaigns
+
+          .control-panel-badge
+            = link_to  user_user_cms_pages_path(@user) do
+              .content
+                .icon.icon-blue
+                  i.fa.fa-share-alt
+
+                .title
+                  h4 Custom Pages
+                .body
+                  &#39;Build you own custom pages
+
+          /.control-panel-badge
+          /  = link_to  user_user_creative_rights_path(@user) do
+          /    .content
+          /      .icon.icon-red
+          /        i.fa.fa-gavel
+          /        
+          /      .title
+          /        h4 Creative rights
+          /      .body
+          /        &#39;Manage rights for your assets
+          /      
+          /  
+          /.control-panel-badge
+          /  = link_to  user_user_ipis_path(@user) do
+          /    .content
+          /      .icon.icon-green
+          /        i.fa.fa-tags
+          /        
+          /      .title
+          /        h4 IPI&#39; &amp; Credits
+          /      .body
+          /        &#39;Manage IPI&#39;s and credits
+          /      
+
+          .control-panel-badge
+            = link_to  user_user_user_positions_path(@user) do
+              .content
+                .icon.icon-blue
+                  i.fa.fa-university
+
+                .title
+                  h4 Positions
+                .body
+                  &#39;Projects where you fulfill a role
+
+          .control-panel-badge
+            = link_to  user_user_user_emails_path(@user) do
+              .content
+                .icon.icon-blue
+                  i.fa.fa-at
+
+                .title
+                  h4 Email administration
+                .body
+                  &#39;Link aditional emails to your account. Mails you receive from DigiRAMP
+
+          .control-panel-badge
+            = link_to  edit_user_social_link_path(@user) do
+              .content
+                .icon.icon-blue
+                  i.fa.fa-link
+
+                .title
+                  h4 Social integration
+                .body
+                  &#39;Links to your social accounts and authorizations to post
+
+          /.control-panel-badge
+          /  = link_to  edit_user_user_address_path(@user) do
+          /    .content
+          /      .icon.icon-orange
+          /        i.fa.fa-link
+          /        
+          /      .title
+          /        h4 Contact info
+          /      .body
+          /        &#39;Use this to update your IPI&#39;s and find people in your array
+          /
+          .control-panel-badge
+            = link_to  user_user_accounts_path(@user) do
+              .content
+                .icon.icon-blue
+                  i.fa.fa-home
+
+                .title
+                  h4 Accounts
+                .body
+                  &#39;Account you have access to
+
+          .control-panel-badge
+            = link_to  user_user_subscriptions_path(@user) do
+              .content
+                .icon.icon-blue
+                  i.fa.fa-trophy
+
+                .title
+                  h4 Subscription
+                .body
+                  &#39;Your DigiRAMP plan
+
+          .control-panel-badge
+
+            = link_to  user_user_commerce_index_path(@user), id: &#39;commerce&#39; do
+              .content
+                .icon.icon-blue
+                  i.fa.fa-money
+                .title
+                  h4 Commerce engine
+                .body
+                  &#39;Management of micro transations, products and services
+
+            /- shop_link = @user.is_stripe_connected ? user_user_shop_admin_index_path(@user) : user_user_create_shop_index_path(@user)
+            /= link_to  shop_link, id: &#39;shop-administration&#39; do
+            /  .content
+            /    .icon.icon-red
+            /      i.fa.fa-shopping-cart
+            /    .title
+            /      h4 Shop administration
+            /    .body
+            /      &#39;Manage your personal shop
+            /      
+          /.control-panel-badge
+          /  = link_to  user_user_revenue_streams_path(@user) do
+          /    .content
+          /      .icon.icon-red
+          /        i.fa.fa-money
+          /      .title
+          /        h4 Revenue streams
+          /      .body
+          /        &#39;Manage and redistribute income
+          / 
+          /          
+          /.control-panel-badge
+          /  = link_to  user_user_special_offer_index_path(@user) do
+          /    .content
+          /      .icon.icon-green
+          /        i.fa.fa-shopping-cart
+          /        
+          /      .title
+          /        h4 Special offers
+          /      .body
+          /        &#39;Products and servces only you can buy
+          /        
+          /.control-panel-badge
+          /  = link_to  user_user_purchases_path(@user) do
+          /    .content
+          /      .icon.icon-green
+          /        i.fa.fa-shopping-cart
+          /        
+          /      .title
+          /        h4 Purchases
+          /      .body
+          /        &#39;Coupons, services, downloads and othere resources you have bought
+          /        
+          .control-panel-badge
+            = link_to  user_user_creative_projects_path(@user) do
+              .content
+                .icon.icon-blue
+                  i.fa.fa-exchange
+
+                .title
+                  h4 Projects
+                .body
+                  &#39;Collaboration projects you administrates
+
+          .control-panel-badge
+            = link_to  user_user_legal_index_path(@user) do
+              .content
+                .icon.icon-blue
+                  i.fa.fa-gavel
+
+                .title
+                  h4 Legal
+                .body
+                  &#39;Legal information, Rights, Splits, Licences, and more
+
+    .pull-down-10
+
+== render &#39;shared/site_footer&#39;</code></pre>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

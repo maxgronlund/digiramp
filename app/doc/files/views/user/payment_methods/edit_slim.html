@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>edit.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            edit.slim
+        </h1>
+        <ul class="files">
+            <li>views/user/payment_methods/edit.slim</li>
+            <li>Last modified: 2015-07-21 23:34:10 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>wrapper</p>
+
+<pre><code>.full-width-top
+  == render &#39;shared/navigationbar&#39;, page: &#39;contacts&#39; 
+
+#sidebar-wrapper
+  ul class=&quot;sidebar-nav&quot;
+    == render &#39;users/shared/sidebar&#39;, selected: &#39;control panel&#39;
+
+#page-content-wrapper
+  .container-fluid
+    == render &#39;shared/breadcrumbs&#39;, breadcrumbs: { links: { &#39;Dashboard&#39;.to_sym =&gt;user_user_control_panel_index_path(@user),
+                                                           plans: user_user_subscriptions_path(@user)}, current: &#39;&#39;}
+    - if @plan 
+      .row
+        .col-sm-8
+          h2 #{@plan.name} Subscription
+          b =  number_to_currency(@plan.amount * 0.01, locale: :en, precision: 2)
+        .col-sm-4
+
+      .sexy_line
+      .digi-box
+        .row
+          .col-sm-12
+              #payment-errors.alert.payment-alert style=(&quot;#{ @subscription.errors.any? ? &#39;&#39; : &#39;display: none;&#39; } margin-bottom: 0px;&quot;) 
+
+                - @subscription.errors.full_messages.each do |msg| 
+                  span = msg
+        = simple_form_for [:user, @user, @subscription], :url =&gt; url_for(:action =&gt; &#39;update&#39;, :controller =&gt; &#39;user/payment_methods&#39;), 
+                                                                          html: { id: &#39;payment-form&#39;, class: &#39;form-horizontal&#39;},
+                                                                          method: &#39;put&#39; do |f| 
+          input name=&quot;plan_id&quot; type=&quot;hidden&quot; value=&quot;#{@plan.id}&quot;
+          input name=&quot;id&quot; type=&quot;hidden&quot; value=&quot;#{@subscription.id}&quot;
+          == render &#39;sales/shared/stripe_form&#39;, f: f, show_coupon_code: true
+          /fieldset
+          /
+          /  h3 Credit card   
+          /  .row.pull-down-10.cc-input
+          /    label.col-sm-3.control-label for=&quot;name&quot;  * Name on Card
+          /    .col-sm-9
+          /      input#card-holder-name.form-control data-stripe=&quot;name&quot; placeholder=(&quot;Card holder&#39;s name&quot;) type=&quot;text&quot; 
+          /
+          /  .row.pull-down-10.cc-input
+          /    label.col-sm-3.control-label for=&quot;card-number&quot; data-stripe=&quot;number&quot; * Card Number
+          /    .col-sm-9
+          /      input#card-number.form-control data-stripe=&quot;number&quot; placeholder=(&quot;Debit/Credit Card Number&quot;) type=&quot;text&quot;
+          /  .row.pull-down-10
+          /    label.col-sm-3.control-label for=&quot;expiry-month&quot; * Expiration Date
+          /    .col-sm-9
+          /      .row.cc-col-xs-3
+          /        .col-xs-3
+          /          select.cc-expiry-dropdown name=&quot;expiry-month&quot; data-stripe=&quot;exp-month&quot;
+          /            
+          /            - @months.each_with_index do |month, index|
+          /              option value=&quot;#{ format(&#39;%02d&#39;, index+1)}&quot;  #{month}
+          /            
+          /        .col-xs-3
+          /          select.cc-expiry-dropdown name=&quot;expiry-year&quot; data-stripe=&quot;exp-year&quot;
+          /            - @years.each do |year|
+          /              option value=&quot;#{ format(&#39;%02d&#39;,year-2000)}&quot;  #{year}
+          /
+          /  
+          /          
+          /  .row.pull-down-10
+          /    label.col-sm-3#expiry-month.control-label for=&quot;cvv&quot;  * Card CVV
+          /    .cc-security-code
+          /      .col-sm-3
+          /        input#cvv.form-control name=&quot;cvv&quot; data-stripe=&quot;cvc&quot; placeholder=(&quot;Security Code&quot;) type=&quot;text&quot; /
+          /  
+          /  .sexy_line 
+          /  h3 Billing address
+          /  .row.pull-down-10.cc-input
+          /    label.col-sm-3.control-label for=&quot;address_line1&quot;  Address line 1
+          /    .col-sm-9
+          /      input#card-holder-name.form-control data-stripe=&quot;address_line1&quot; placeholder=(&quot;Address line 1&quot;) type=&quot;text&quot; 
+          /      
+          /  .row.pull-down-10.cc-input
+          /    label.col-sm-3.control-label for=&quot;address_line2&quot;  Address line 2
+          /    .col-sm-9
+          /      input#card-holder-name.form-control data-stripe=&quot;address_line2&quot; placeholder=(&quot;Address line 2&quot;) type=&quot;text&quot; 
+          /      
+          /  .row.pull-down-10.cc-input
+          /    label.col-sm-3.control-label for=&quot;address_city&quot;  City
+          /    .col-sm-9
+          /      input#card-holder-name.form-control data-stripe=&quot;address_city&quot; placeholder=(&quot;City&quot;) type=&quot;text&quot; 
+          /      
+          /  .row.pull-down-10.cc-input
+          /    label.col-sm-3.control-label for=&quot;address_zip&quot;  Zip
+          /    .col-sm-9
+          /      input#card-holder-name.form-control data-stripe=&quot;address_zip&quot; placeholder=(&quot;Zip&quot;) type=&quot;text&quot; 
+          /      
+          /  .row.pull-down-10.cc-input
+          /    label.col-sm-3.control-label for=&quot;address_country&quot;  Country
+          /    .col-sm-9
+          /      input#card-holder-name.form-control data-stripe=&quot;address_country&quot; placeholder=(&quot;Country&quot;) type=&quot;text&quot; 
+          /  
+          /  
+          /  
+          /  
+          /  .row.pull-down-10
+          /    .col-sm-offset-3.col-sm-9
+          /      .pull-right
+          /        button.btn.btn-success type=&quot;submit&quot;  Update
+          /      
+          /      
+        .row
+          .col-sm-12
+            #powered-by-stripe
+              = image_tag &#39;powered_by_stripe.png&#39;
+
+        == render &#39;user/payment_methods/stripe_integration&#39;</code></pre>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

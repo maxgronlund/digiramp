@@ -1,0 +1,1513 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>Account::RecordingsController</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../css/github.css" type="text/css" media="screen" />
+<script src="../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            <span class="type">Class</span> 
+            Account::RecordingsController 
+            
+                <span class="parent">&lt; 
+                    
+                    <a href="../ApplicationController.html">ApplicationController</a>
+                    
+                </span>
+            
+        </h1>
+        <ul class="files">
+            
+            <li><a href="../../files/controllers/account/recordings_controller_rb.html">controllers/account/recordings_controller.rb</a></li>
+            
+        </ul>
+    </div>
+    <div id="bodyContent">
+        <div id="content">
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+    <!-- Method ref -->
+    <div class="sectiontitle">Methods</div>
+    <dl class="methods">
+      
+        <dt>A</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-add_description">add_description</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-i-add_genre">add_genre</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-i-add_instruments">add_instruments</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-i-add_lyrics">add_lyrics</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-i-add_mood">add_mood</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-i-add_more_meta_data">add_more_meta_data</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-i-artwork">artwork</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>C</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-create">create</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-i-create_artwork">create_artwork</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>D</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-destroy">destroy</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-i-documents">documents</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-i-download">download</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>E</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-edit">edit</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>F</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-files">files</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-i-financial_documents">financial_documents</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-i-find_in_bucket">find_in_bucket</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>I</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-index">index</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>L</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-legal_documents">legal_documents</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>N</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-new">new</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-i-new_artwork">new_artwork</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>O</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-overview">overview</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>S</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-select_category">select_category</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-i-show">show</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>U</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-update">update</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-i-upload_completed">upload_completed</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+    </dl>
+  
+
+  
+    <!-- Includes -->
+    <div class="sectiontitle">Included Modules</div>
+    <ul>
+      
+        <li>
+          
+            Transloadit::Rails::ParamsDecoder
+          
+        </li>
+      
+        <li>
+          
+            <a href="../RecordingsHelper.html">
+              RecordingsHelper
+            </a>
+          
+        </li>
+      
+        <li>
+          
+            <a href="../AccountsHelper.html">
+              AccountsHelper
+            </a>
+          
+        </li>
+      
+    </ul>
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+        
+      <div class="sectiontitle">Instance Public methods</div>
+      
+        <div class="method">
+          <div class="title method-title" id="method-i-add_description">
+            
+              <b>add_description</b>()
+            
+            <a href="../../classes/Account/RecordingsController.html#method-i-add_description" name="method-i-add_description" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-add_description_source')" id="l_method-i-add_description_source">show</a>
+                
+              </p>
+              <div id="method-i-add_description_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File controllers/account/recordings_controller.rb, line 294</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">add_description</span>
+
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-add_genre">
+            
+              <b>add_genre</b>()
+            
+            <a href="../../classes/Account/RecordingsController.html#method-i-add_genre" name="method-i-add_genre" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-add_genre_source')" id="l_method-i-add_genre_source">show</a>
+                
+              </p>
+              <div id="method-i-add_genre_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File controllers/account/recordings_controller.rb, line 259</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">add_genre</span>
+  <span class="ruby-ivar">@blog</span>           = <span class="ruby-constant">Blog</span>.<span class="ruby-identifier">recordings</span>
+  <span class="ruby-ivar">@recording</span>      = <span class="ruby-constant">Recording</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:recording_id</span>])
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:recording</span>]
+    <span class="ruby-comment">#@recording.category = params[:recording][:category]</span>
+    <span class="ruby-ivar">@recording</span>.<span class="ruby-identifier">cache_version</span> <span class="ruby-operator">+=</span> <span class="ruby-number">1</span>
+    <span class="ruby-ivar">@recording</span>.<span class="ruby-identifier">save</span>
+    <span class="ruby-ivar">@recording</span>.<span class="ruby-identifier">get_common_work</span>.<span class="ruby-identifier">update_completeness</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-ivar">@blog</span>               = <span class="ruby-constant">Blog</span>.<span class="ruby-identifier">recordings</span>
+  
+
+  
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-add_instruments">
+            
+              <b>add_instruments</b>()
+            
+            <a href="../../classes/Account/RecordingsController.html#method-i-add_instruments" name="method-i-add_instruments" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-add_instruments_source')" id="l_method-i-add_instruments_source">show</a>
+                
+              </p>
+              <div id="method-i-add_instruments_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File controllers/account/recordings_controller.rb, line 287</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">add_instruments</span>
+
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-add_lyrics">
+            
+              <b>add_lyrics</b>()
+            
+            <a href="../../classes/Account/RecordingsController.html#method-i-add_lyrics" name="method-i-add_lyrics" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-add_lyrics_source')" id="l_method-i-add_lyrics_source">show</a>
+                
+              </p>
+              <div id="method-i-add_lyrics_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File controllers/account/recordings_controller.rb, line 291</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">add_lyrics</span>
+
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-add_mood">
+            
+              <b>add_mood</b>()
+            
+            <a href="../../classes/Account/RecordingsController.html#method-i-add_mood" name="method-i-add_mood" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-add_mood_source')" id="l_method-i-add_mood_source">show</a>
+                
+              </p>
+              <div id="method-i-add_mood_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File controllers/account/recordings_controller.rb, line 275</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">add_mood</span>
+  <span class="ruby-ivar">@blog</span>           = <span class="ruby-constant">Blog</span>.<span class="ruby-identifier">recordings</span>
+  <span class="ruby-ivar">@recording</span>      = <span class="ruby-constant">Recording</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:recording_id</span>])
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:recording</span>]
+    <span class="ruby-comment">#@recording.category = params[:recording][:category]</span>
+    <span class="ruby-ivar">@recording</span>.<span class="ruby-identifier">cache_version</span> <span class="ruby-operator">+=</span> <span class="ruby-number">1</span>
+    <span class="ruby-ivar">@recording</span>.<span class="ruby-identifier">save</span>
+    <span class="ruby-ivar">@recording</span>.<span class="ruby-identifier">get_common_work</span>.<span class="ruby-identifier">update_completeness</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-ivar">@blog</span>               = <span class="ruby-constant">Blog</span>.<span class="ruby-identifier">recordings</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-add_more_meta_data">
+            
+              <b>add_more_meta_data</b>()
+            
+            <a href="../../classes/Account/RecordingsController.html#method-i-add_more_meta_data" name="method-i-add_more_meta_data" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-add_more_meta_data_source')" id="l_method-i-add_more_meta_data_source">show</a>
+                
+              </p>
+              <div id="method-i-add_more_meta_data_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File controllers/account/recordings_controller.rb, line 298</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">add_more_meta_data</span>
+
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-artwork">
+            
+              <b>artwork</b>()
+            
+            <a href="../../classes/Account/RecordingsController.html#method-i-artwork" name="method-i-artwork" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-artwork_source')" id="l_method-i-artwork_source">show</a>
+                
+              </p>
+              <div id="method-i-artwork_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File controllers/account/recordings_controller.rb, line 324</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">artwork</span>
+  <span class="ruby-identifier">forbidden</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">current_account_user</span>.<span class="ruby-identifier">read_recording</span>
+  <span class="ruby-ivar">@artwork</span> = <span class="ruby-constant">Artwork</span>.<span class="ruby-identifier">new</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-create">
+            
+              <b>create</b>()
+            
+            <a href="../../classes/Account/RecordingsController.html#method-i-create" name="method-i-create" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-create_source')" id="l_method-i-create_source">show</a>
+                
+              </p>
+              <div id="method-i-create_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File controllers/account/recordings_controller.rb, line 64</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">create</span>
+  
+
+  <span class="ruby-identifier">forbidden</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">current_account_user</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">current_account_user</span>.<span class="ruby-identifier">create_recording?</span>
+
+  <span class="ruby-identifier">result</span> = <span class="ruby-constant">TransloaditRecordingsParser</span>.<span class="ruby-identifier">parse</span>( <span class="ruby-identifier">params</span>[<span class="ruby-value">:transloadit</span>],  <span class="ruby-ivar">@account</span>.<span class="ruby-identifier">id</span>, <span class="ruby-keyword">false</span>, <span class="ruby-ivar">@account</span>.<span class="ruby-identifier">user_id</span>)
+  <span class="ruby-identifier">title</span> = <span class="ruby-identifier">params</span>[<span class="ruby-value">:recording</span>][<span class="ruby-value">:title</span>]
+  
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">result</span>[<span class="ruby-value">:recordings</span>].<span class="ruby-identifier">size</span> <span class="ruby-operator">!=</span> <span class="ruby-number">0</span>
+    
+    <span class="ruby-identifier">result</span>[<span class="ruby-value">:recordings</span>].<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">recording</span><span class="ruby-operator">|</span>     
+      <span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">create_activity</span>(  <span class="ruby-value">:created</span>, 
+                                 <span class="ruby-identifier">owner</span><span class="ruby-operator">:</span> <span class="ruby-identifier">recording</span>,
+                             <span class="ruby-identifier">recipient</span><span class="ruby-operator">:</span> <span class="ruby-ivar">@user</span>,
+                        <span class="ruby-identifier">recipient_type</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;Recording&#39;</span>,
+                            <span class="ruby-identifier">account_id</span><span class="ruby-operator">:</span> <span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">account</span>.<span class="ruby-identifier">id</span>) 
+                            
+      
+      
+      <span class="ruby-identifier">recording</span>.<span class="ruby-identifier">mount_common_work</span>
+      <span class="ruby-identifier">recording</span>.<span class="ruby-identifier">title</span> = <span class="ruby-identifier">title</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">title</span> <span class="ruby-operator">==</span> <span class="ruby-string">&#39;no title&#39;</span>
+      
+      <span class="ruby-keyword">if</span> <span class="ruby-identifier">last_recording</span> = <span class="ruby-ivar">@account</span>.<span class="ruby-identifier">user</span>.<span class="ruby-identifier">recordings</span>.<span class="ruby-identifier">order</span>(<span class="ruby-string">&#39;position asc&#39;</span>).<span class="ruby-identifier">last</span>
+        <span class="ruby-keyword">begin</span>
+          <span class="ruby-identifier">recording</span>.<span class="ruby-identifier">position</span> = <span class="ruby-identifier">last_recording</span>.<span class="ruby-identifier">position</span> <span class="ruby-operator">+</span> <span class="ruby-number">100</span>
+        <span class="ruby-keyword">rescue</span>
+        <span class="ruby-keyword">end</span>
+      <span class="ruby-keyword">end</span>
+      
+      <span class="ruby-keyword">if</span> <span class="ruby-identifier">recording</span>.<span class="ruby-identifier">title</span>.<span class="ruby-identifier">to_s</span> <span class="ruby-operator">==</span> <span class="ruby-string">&#39;&#39;</span>
+        <span class="ruby-identifier">recording</span>.<span class="ruby-identifier">title</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">basename</span>(<span class="ruby-identifier">recording</span>.<span class="ruby-identifier">original_file_name</span>, <span class="ruby-string">&quot;.*&quot;</span>) 
+      <span class="ruby-keyword">end</span>
+      <span class="ruby-identifier">recording</span>.<span class="ruby-identifier">save</span>
+      <span class="ruby-identifier">recording</span>.<span class="ruby-identifier">check_default_image</span>
+      <span class="ruby-identifier">recording</span>.<span class="ruby-identifier">get_common_work</span>.<span class="ruby-identifier">update_completeness</span>
+      <span class="ruby-ivar">@recording</span> = <span class="ruby-identifier">recording</span>
+    <span class="ruby-keyword">end</span>
+    <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">edit_account_account_recording_basic_path</span>(<span class="ruby-ivar">@account</span>, <span class="ruby-ivar">@recording</span> )
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">flash</span>[<span class="ruby-value">:danger</span>]      = <span class="ruby-string">&quot;Please check it&#39;s a real audio file you are uploading&quot;</span> 
+    <span class="ruby-identifier">redirect_to</span> <span class="ruby-value">:back</span>
+  <span class="ruby-keyword">end</span>
+
+  
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-create_artwork">
+            
+              <b>create_artwork</b>()
+            
+            <a href="../../classes/Account/RecordingsController.html#method-i-create_artwork" name="method-i-create_artwork" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-create_artwork_source')" id="l_method-i-create_artwork_source">show</a>
+                
+              </p>
+              <div id="method-i-create_artwork_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File controllers/account/recordings_controller.rb, line 335</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">create_artwork</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:transloadit</span>]
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">artworks</span> = <span class="ruby-constant">TransloaditImageParser</span>.<span class="ruby-identifier">artwork</span>( <span class="ruby-identifier">params</span>[<span class="ruby-value">:transloadit</span>], <span class="ruby-ivar">@account</span>.<span class="ruby-identifier">id</span> )
+      <span class="ruby-identifier">artworks</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">artwork</span><span class="ruby-operator">|</span>
+        <span class="ruby-constant">RecordingItem</span>.<span class="ruby-identifier">create</span>( <span class="ruby-identifier">recording_id</span><span class="ruby-operator">:</span> <span class="ruby-ivar">@recording</span>.<span class="ruby-identifier">id</span>, 
+                              <span class="ruby-identifier">itemable_type</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;Artwork&#39;</span>,
+                              <span class="ruby-identifier">itemable_id</span><span class="ruby-operator">:</span> <span class="ruby-identifier">artwork</span>.<span class="ruby-identifier">id</span>)
+      <span class="ruby-keyword">end</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">artwork_account_account_recording_path</span>(<span class="ruby-ivar">@account</span>, <span class="ruby-ivar">@recording</span>)
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-destroy">
+            
+              <b>destroy</b>()
+            
+            <a href="../../classes/Account/RecordingsController.html#method-i-destroy" name="method-i-destroy" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-destroy_source')" id="l_method-i-destroy_source">show</a>
+                
+              </p>
+              <div id="method-i-destroy_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File controllers/account/recordings_controller.rb, line 187</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">destroy</span>
+  <span class="ruby-identifier">forbidden</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">current_account_user</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">current_account_user</span>.<span class="ruby-identifier">delete_recording?</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-ivar">@recording</span>  = <span class="ruby-constant">Recording</span>.<span class="ruby-identifier">cached_find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
+    <span class="ruby-identifier">common_work</span> = <span class="ruby-ivar">@recording</span>.<span class="ruby-identifier">get_common_work</span>
+    
+    <span class="ruby-ivar">@recording</span>.<span class="ruby-identifier">create_activity</span>(  <span class="ruby-value">:deleted</span>, 
+                              <span class="ruby-identifier">owner</span><span class="ruby-operator">:</span> <span class="ruby-identifier">current_user</span>,
+                          <span class="ruby-identifier">recipient</span><span class="ruby-operator">:</span> <span class="ruby-ivar">@recording</span>,
+                     <span class="ruby-identifier">recipient_type</span><span class="ruby-operator">:</span> <span class="ruby-ivar">@recording</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">name</span>,
+                         <span class="ruby-identifier">account_id</span><span class="ruby-operator">:</span> <span class="ruby-ivar">@account</span>.<span class="ruby-identifier">id</span>)
+                         
+                         
+                         
+    <span class="ruby-comment">#@recording.destroy!</span>
+    <span class="ruby-ivar">@recording</span>.<span class="ruby-identifier">user_id</span>    = <span class="ruby-constant">User</span>.<span class="ruby-identifier">system_user</span>
+    <span class="ruby-ivar">@recording</span>.<span class="ruby-identifier">account_id</span> = <span class="ruby-constant">User</span>.<span class="ruby-identifier">system_user</span>.<span class="ruby-identifier">account_id</span>
+    <span class="ruby-ivar">@recording</span>.<span class="ruby-identifier">privacy</span>    = <span class="ruby-string">&#39;Only me&#39;</span>
+    <span class="ruby-ivar">@recording</span>.<span class="ruby-identifier">remove_from_collections</span>
+    <span class="ruby-ivar">@recording</span>.<span class="ruby-identifier">save</span>(<span class="ruby-identifier">validate</span><span class="ruby-operator">:</span> <span class="ruby-keyword">false</span>)
+    
+    
+    <span class="ruby-identifier">common_work</span>.<span class="ruby-identifier">update_completeness</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">common_work</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-comment"># jump back to recordings or common work</span>
+  <span class="ruby-identifier">redirect_to_return_url</span> <span class="ruby-identifier">account_account_recordings_path</span>( <span class="ruby-ivar">@account</span>, <span class="ruby-identifier">page</span><span class="ruby-operator">:</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:page</span>], <span class="ruby-identifier">query</span><span class="ruby-operator">:</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:query</span>])
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-documents">
+            
+              <b>documents</b>()
+            
+            <a href="../../classes/Account/RecordingsController.html#method-i-documents" name="method-i-documents" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-documents_source')" id="l_method-i-documents_source">show</a>
+                
+              </p>
+              <div id="method-i-documents_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File controllers/account/recordings_controller.rb, line 314</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">documents</span>
+  <span class="ruby-identifier">forbidden</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">current_account_user</span>.<span class="ruby-identifier">read_recording</span>
+  <span class="ruby-ivar">@recording</span>      = <span class="ruby-constant">Recording</span>.<span class="ruby-identifier">cached_find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-download">
+            
+              <b>download</b>()
+            
+            <a href="../../classes/Account/RecordingsController.html#method-i-download" name="method-i-download" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              <pre><code>use the original file if it was a mp3
+else use the converted file</code></pre>
+
+<p>def download</p>
+
+<pre><code>if current_user
+  @recording                                = Recording.cached_find(params[:id])
+
+  original_file_name                        = Pathname.new(@recording.mp3).basename 
+  response.headers[&#39;Content-Type&#39;]          = &#39;audio/mp3&#39;
+  response.headers[&#39;Content-Disposition&#39;]   = &quot;attachment; filename=#{original_file_name}&quot;
+  response.headers[&#39;Cache-Control&#39;]         =  &quot;private&quot;
+  #response.headers[&#39;X-Accel-Redirect&#39;]      = @recording.download_url
+end
+render :nothing=&gt;true
+</code></pre>
+
+<p>end</p>
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-download_source')" id="l_method-i-download_source">show</a>
+                
+              </p>
+              <div id="method-i-download_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File controllers/account/recordings_controller.rb, line 394</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">download</span>
+
+  <span class="ruby-ivar">@recording</span>                  = <span class="ruby-constant">Recording</span>.<span class="ruby-identifier">cached_find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
+  <span class="ruby-identifier">original_file_name</span>          = <span class="ruby-constant">Pathname</span>.<span class="ruby-identifier">new</span>(<span class="ruby-ivar">@recording</span>.<span class="ruby-identifier">mp3</span>).<span class="ruby-identifier">basename</span> 
+  <span class="ruby-identifier">data</span>                        = <span class="ruby-identifier">open</span>(<span class="ruby-node">&quot;#{@recording.download_url}&quot;</span>) 
+  
+  <span class="ruby-identifier">respond_to</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">format</span>.<span class="ruby-identifier">html</span>
+    <span class="ruby-identifier">format</span>.<span class="ruby-identifier">mp3</span> { 
+      <span class="ruby-identifier">send_data</span>(
+        <span class="ruby-identifier">data</span>.<span class="ruby-identifier">read</span>, 
+        <span class="ruby-identifier">disposition</span><span class="ruby-operator">:</span> <span class="ruby-node">&quot;attachment; filename=#{original_file_name}&quot;</span>,
+        <span class="ruby-identifier">filename</span><span class="ruby-operator">:</span> <span class="ruby-identifier">original_file_name</span>, 
+        <span class="ruby-identifier">type</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;audio/mp3&#39;</span>, 
+        <span class="ruby-identifier">stream</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;true&#39;</span>, 
+        <span class="ruby-identifier">buffer_size</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;4096&#39;</span> 
+      )  
+    }
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-edit">
+            
+              <b>edit</b>()
+            
+            <a href="../../classes/Account/RecordingsController.html#method-i-edit" name="method-i-edit" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-edit_source')" id="l_method-i-edit_source">show</a>
+                
+              </p>
+              <div id="method-i-edit_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File controllers/account/recordings_controller.rb, line 41</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">edit</span>
+  <span class="ruby-identifier">forbidden</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">current_account_user</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">current_account_user</span>.<span class="ruby-identifier">update_recording?</span>
+  <span class="ruby-ivar">@user</span>           = <span class="ruby-identifier">current_user</span>
+  <span class="ruby-comment">#@common_work    = CommonWork.find(params[:common_work_id])</span>
+  <span class="ruby-ivar">@recording</span>              = <span class="ruby-constant">Recording</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
+  
+  <span class="ruby-ivar">@recording</span>.<span class="ruby-identifier">genre</span>        = <span class="ruby-ivar">@recording</span>.<span class="ruby-identifier">genre_tags_as_csv_string</span>
+  <span class="ruby-ivar">@recording</span>.<span class="ruby-identifier">instruments</span>  = <span class="ruby-ivar">@recording</span>.<span class="ruby-identifier">instruments_tags_as_csv_string</span>
+  <span class="ruby-ivar">@recording</span>.<span class="ruby-identifier">mood</span>         = <span class="ruby-ivar">@recording</span>.<span class="ruby-identifier">moods_tags_as_csv_string</span>
+  
+  
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:genre_category</span>]
+    <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">account_common_work_recording_genre_tags_path</span>(<span class="ruby-ivar">@account</span>, <span class="ruby-ivar">@common_work</span>, <span class="ruby-ivar">@recording</span>, <span class="ruby-identifier">genre_category</span><span class="ruby-operator">:</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:genre_category</span>])
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-files">
+            
+              <b>files</b>()
+            
+            <a href="../../classes/Account/RecordingsController.html#method-i-files" name="method-i-files" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-files_source')" id="l_method-i-files_source">show</a>
+                
+              </p>
+              <div id="method-i-files_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File controllers/account/recordings_controller.rb, line 309</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">files</span>
+  <span class="ruby-identifier">forbidden</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">current_account_user</span>.<span class="ruby-identifier">read_recording</span>
+  <span class="ruby-comment">#@recording      = Recording.cached_find(params[:id])</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-financial_documents">
+            
+              <b>financial_documents</b>()
+            
+            <a href="../../classes/Account/RecordingsController.html#method-i-financial_documents" name="method-i-financial_documents" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              <h6 id="method-i-financial_documents-label-"></h6>
+
+<p>financial documents</p>
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-financial_documents_source')" id="l_method-i-financial_documents_source">show</a>
+                
+              </p>
+              <div id="method-i-financial_documents_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File controllers/account/recordings_controller.rb, line 352</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">financial_documents</span>
+  <span class="ruby-identifier">forbidden</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">current_account_user</span>.<span class="ruby-identifier">read_recording</span>
+  <span class="ruby-ivar">@recording</span>      = <span class="ruby-constant">Recording</span>.<span class="ruby-identifier">cached_find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-find_in_bucket">
+            
+              <b>find_in_bucket</b>()
+            
+            <a href="../../classes/Account/RecordingsController.html#method-i-find_in_bucket" name="method-i-find_in_bucket" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-find_in_bucket_source')" id="l_method-i-find_in_bucket_source">show</a>
+                
+              </p>
+              <div id="method-i-find_in_bucket_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File controllers/account/recordings_controller.rb, line 305</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">find_in_bucket</span>
+  
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-index">
+            
+              <b>index</b>()
+            
+            <a href="../../classes/Account/RecordingsController.html#method-i-index" name="method-i-index" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-index_source')" id="l_method-i-index_source">show</a>
+                
+              </p>
+              <div id="method-i-index_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File controllers/account/recordings_controller.rb, line 14</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">index</span>
+  <span class="ruby-identifier">forbidden</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">current_account_user</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">current_account_user</span>.<span class="ruby-identifier">read_recording?</span>
+  <span class="ruby-ivar">@recordings</span>     = <span class="ruby-constant">Recording</span>.<span class="ruby-identifier">not_in_bucket</span>.<span class="ruby-identifier">account_search</span>(<span class="ruby-ivar">@account</span>, <span class="ruby-identifier">params</span>[<span class="ruby-value">:query</span>]).<span class="ruby-identifier">order</span>(<span class="ruby-string">&#39;title asc&#39;</span>).<span class="ruby-identifier">page</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:page</span>]).<span class="ruby-identifier">per</span>(<span class="ruby-number">48</span>)
+  <span class="ruby-ivar">@show_more</span>      = <span class="ruby-keyword">true</span>
+  <span class="ruby-ivar">@user</span>           = <span class="ruby-identifier">current_user</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-legal_documents">
+            
+              <b>legal_documents</b>()
+            
+            <a href="../../classes/Account/RecordingsController.html#method-i-legal_documents" name="method-i-legal_documents" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-legal_documents_source')" id="l_method-i-legal_documents_source">show</a>
+                
+              </p>
+              <div id="method-i-legal_documents_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File controllers/account/recordings_controller.rb, line 319</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">legal_documents</span>
+  <span class="ruby-identifier">forbidden</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">current_account_user</span>.<span class="ruby-identifier">read_recording</span>
+  <span class="ruby-ivar">@recording</span>      = <span class="ruby-constant">Recording</span>.<span class="ruby-identifier">cached_find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-new">
+            
+              <b>new</b>()
+            
+            <a href="../../classes/Account/RecordingsController.html#method-i-new" name="method-i-new" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-new_source')" id="l_method-i-new_source">show</a>
+                
+              </p>
+              <div id="method-i-new_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File controllers/account/recordings_controller.rb, line 57</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">new</span>
+  <span class="ruby-identifier">forbidden</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">current_account_user</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">current_account_user</span>.<span class="ruby-identifier">create_recording?</span>
+  <span class="ruby-ivar">@user</span>           = <span class="ruby-identifier">current_user</span>
+  <span class="ruby-comment">#@common_work    = CommonWork.cached_find(params[:common_work_id])</span>
+  <span class="ruby-ivar">@recording</span>      = <span class="ruby-constant">Recording</span>.<span class="ruby-identifier">new</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-new_artwork">
+            
+              <b>new_artwork</b>()
+            
+            <a href="../../classes/Account/RecordingsController.html#method-i-new_artwork" name="method-i-new_artwork" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-new_artwork_source')" id="l_method-i-new_artwork_source">show</a>
+                
+              </p>
+              <div id="method-i-new_artwork_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File controllers/account/recordings_controller.rb, line 330</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">new_artwork</span>
+  <span class="ruby-identifier">forbidden</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">current_account_user</span>.<span class="ruby-identifier">read_recording</span>
+  <span class="ruby-ivar">@recording</span>      = <span class="ruby-constant">Recording</span>.<span class="ruby-identifier">cached_find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])    
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-overview">
+            
+              <b>overview</b>()
+            
+            <a href="../../classes/Account/RecordingsController.html#method-i-overview" name="method-i-overview" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-overview_source')" id="l_method-i-overview_source">show</a>
+                
+              </p>
+              <div id="method-i-overview_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File controllers/account/recordings_controller.rb, line 301</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">overview</span>
+
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-select_category">
+            
+              <b>select_category</b>()
+            
+            <a href="../../classes/Account/RecordingsController.html#method-i-select_category" name="method-i-select_category" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-select_category_source')" id="l_method-i-select_category_source">show</a>
+                
+              </p>
+              <div id="method-i-select_category_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File controllers/account/recordings_controller.rb, line 243</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">select_category</span>
+  <span class="ruby-ivar">@blog</span>               = <span class="ruby-constant">Blog</span>.<span class="ruby-identifier">recordings</span>
+  <span class="ruby-ivar">@recording</span>          = <span class="ruby-constant">Recording</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:recording_id</span>])
+
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:recording</span>]
+    <span class="ruby-ivar">@recording</span>.<span class="ruby-identifier">title</span>        = <span class="ruby-identifier">params</span>[<span class="ruby-value">:recording</span>][<span class="ruby-value">:title</span>]      <span class="ruby-keyword">if</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:recording</span>][<span class="ruby-value">:title</span>]
+    <span class="ruby-ivar">@recording</span>.<span class="ruby-identifier">has_lyrics</span>   = <span class="ruby-identifier">params</span>[<span class="ruby-value">:recording</span>][<span class="ruby-value">:has_lyrics</span>] <span class="ruby-keyword">if</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:recording</span>][<span class="ruby-value">:has_lyrics</span>]
+    <span class="ruby-ivar">@recording</span>.<span class="ruby-identifier">explicit</span>     = <span class="ruby-identifier">params</span>[<span class="ruby-value">:recording</span>][<span class="ruby-value">:explicit</span>]   <span class="ruby-keyword">if</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:recording</span>][<span class="ruby-value">:explicit</span>]
+    <span class="ruby-comment">#@recording.category     = params[:recording][:category]   if params[:recording][:category]</span>
+    <span class="ruby-ivar">@recording</span>.<span class="ruby-identifier">cache_version</span> <span class="ruby-operator">+=</span> <span class="ruby-number">1</span>
+    <span class="ruby-ivar">@recording</span>.<span class="ruby-identifier">save</span>
+    <span class="ruby-ivar">@recording</span>.<span class="ruby-identifier">get_common_work</span>.<span class="ruby-identifier">update_completeness</span>
+  <span class="ruby-keyword">end</span>
+  
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-show">
+            
+              <b>show</b>()
+            
+            <a href="../../classes/Account/RecordingsController.html#method-i-show" name="method-i-show" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-show_source')" id="l_method-i-show_source">show</a>
+                
+              </p>
+              <div id="method-i-show_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File controllers/account/recordings_controller.rb, line 21</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">show</span>
+  
+  <span class="ruby-identifier">forbidden</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">current_account_user</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">current_account_user</span>.<span class="ruby-identifier">read_recording</span>
+  <span class="ruby-ivar">@user</span>           = <span class="ruby-identifier">current_user</span>
+  <span class="ruby-keyword">begin</span>
+    
+    <span class="ruby-ivar">@recording</span>      = <span class="ruby-constant">Recording</span>.<span class="ruby-identifier">cached_find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
+    
+    <span class="ruby-ivar">@recording</span>.<span class="ruby-identifier">create_activity</span>(  <span class="ruby-value">:show</span>, 
+                              <span class="ruby-identifier">owner</span><span class="ruby-operator">:</span> <span class="ruby-identifier">current_user</span>,
+                          <span class="ruby-identifier">recipient</span><span class="ruby-operator">:</span> <span class="ruby-ivar">@recording</span>,
+                     <span class="ruby-identifier">recipient_type</span><span class="ruby-operator">:</span> <span class="ruby-ivar">@recording</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">name</span>,
+                         <span class="ruby-identifier">account_id</span><span class="ruby-operator">:</span> <span class="ruby-ivar">@account</span>.<span class="ruby-identifier">id</span>)
+    <span class="ruby-keyword">rescue</span>
+      <span class="ruby-identifier">not_found</span>
+    <span class="ruby-keyword">end</span>
+    
+
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-update">
+            
+              <b>update</b>()
+            
+            <a href="../../classes/Account/RecordingsController.html#method-i-update" name="method-i-update" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-update_source')" id="l_method-i-update_source">show</a>
+                
+              </p>
+              <div id="method-i-update_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File controllers/account/recordings_controller.rb, line 110</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">update</span>
+  <span class="ruby-identifier">forbidden</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">current_account_user</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">current_account_user</span>.<span class="ruby-identifier">update_recording?</span>
+  <span class="ruby-comment">#@common_work    = CommonWork.find(params[:common_work_id])</span>
+  <span class="ruby-ivar">@recording</span>      = <span class="ruby-constant">Recording</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
+  
+  
+  <span class="ruby-identifier">params</span>[<span class="ruby-value">:recording</span>][<span class="ruby-value">:uuid</span>] = <span class="ruby-constant">UUIDTools</span><span class="ruby-operator">::</span><span class="ruby-constant">UUID</span>.<span class="ruby-identifier">timestamp_create</span>().<span class="ruby-identifier">to_s</span>
+
+  <span class="ruby-keyword">if</span> <span class="ruby-ivar">@genre_category</span> = <span class="ruby-identifier">params</span>[<span class="ruby-value">:recording</span>][<span class="ruby-value">:genre_category</span>]
+    <span class="ruby-identifier">params</span>[<span class="ruby-value">:recording</span>].<span class="ruby-identifier">delete</span> <span class="ruby-value">:genre_category</span>
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-keyword">if</span> <span class="ruby-ivar">@recording</span>.<span class="ruby-identifier">update_attributes</span>(<span class="ruby-identifier">recording_params</span>)
+    
+    
+    <span class="ruby-ivar">@recording</span>.<span class="ruby-identifier">create_activity</span>(  <span class="ruby-value">:updated</span>, 
+                              <span class="ruby-identifier">owner</span><span class="ruby-operator">:</span> <span class="ruby-identifier">current_user</span>,
+                          <span class="ruby-identifier">recipient</span><span class="ruby-operator">:</span> <span class="ruby-ivar">@recording</span>,
+                     <span class="ruby-identifier">recipient_type</span><span class="ruby-operator">:</span> <span class="ruby-ivar">@recording</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">name</span>,
+                         <span class="ruby-identifier">account_id</span><span class="ruby-operator">:</span> <span class="ruby-ivar">@account</span>.<span class="ruby-identifier">id</span>)
+                         
+                         
+                         
+                         
+    <span class="ruby-ivar">@recording</span>.<span class="ruby-identifier">extract_genres</span>
+    <span class="ruby-ivar">@recording</span>.<span class="ruby-identifier">extract_instruments</span>
+    <span class="ruby-ivar">@recording</span>.<span class="ruby-identifier">extract_moods</span>
+
+    <span class="ruby-comment"># artwork</span>
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:transloadit</span>]
+      <span class="ruby-keyword">if</span> <span class="ruby-identifier">artworks</span> = <span class="ruby-constant">TransloaditImageParser</span>.<span class="ruby-identifier">artwork</span>( <span class="ruby-identifier">params</span>[<span class="ruby-value">:transloadit</span>], <span class="ruby-ivar">@account</span>.<span class="ruby-identifier">id</span>)
+        <span class="ruby-comment"># if there is no artwork file</span>
+        <span class="ruby-keyword">if</span> <span class="ruby-identifier">artworks</span> <span class="ruby-operator">==</span> []
+          <span class="ruby-comment"># if a drop down item is selected</span>
+          <span class="ruby-keyword">if</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:recording</span>][<span class="ruby-value">:image_file_id</span>].<span class="ruby-identifier">to_s</span> <span class="ruby-operator">!=</span> <span class="ruby-string">&#39;&#39;</span>   
+            <span class="ruby-identifier">artwork</span> = <span class="ruby-constant">Artwork</span>.<span class="ruby-identifier">cached_find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:recording</span>][<span class="ruby-value">:image_file_id</span>])
+            <span class="ruby-ivar">@recording</span>.<span class="ruby-identifier">cover_art</span>  = <span class="ruby-identifier">artwork</span>.<span class="ruby-identifier">thumb</span>
+            <span class="ruby-ivar">@recording</span>.<span class="ruby-identifier">save!</span>
+          <span class="ruby-keyword">end</span>
+        <span class="ruby-keyword">else</span>
+          <span class="ruby-comment"># add the uploaded artwork</span>
+          <span class="ruby-comment"># notice there is only one artwork file</span>
+          <span class="ruby-identifier">artworks</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">artwork</span><span class="ruby-operator">|</span>
+                                
+            <span class="ruby-constant">RecordingItem</span>.<span class="ruby-identifier">create</span>( <span class="ruby-identifier">recording_id</span><span class="ruby-operator">:</span> <span class="ruby-ivar">@recording</span>.<span class="ruby-identifier">id</span>, 
+                                  <span class="ruby-identifier">itemable_type</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;Artwork&#39;</span>,
+                                  <span class="ruby-identifier">itemable_id</span><span class="ruby-operator">:</span> <span class="ruby-identifier">artwork</span>.<span class="ruby-identifier">id</span>)
+                                
+            <span class="ruby-ivar">@recording</span>.<span class="ruby-identifier">cover_art</span>      = <span class="ruby-identifier">artwork</span>.<span class="ruby-identifier">thumb</span>
+            <span class="ruby-ivar">@recording</span>.<span class="ruby-identifier">image_file_id</span>  = <span class="ruby-identifier">artwork</span>.<span class="ruby-identifier">id</span>
+            <span class="ruby-ivar">@recording</span>.<span class="ruby-identifier">save!</span>
+          <span class="ruby-keyword">end</span>
+        <span class="ruby-keyword">end</span> 
+      <span class="ruby-keyword">end</span>
+    <span class="ruby-keyword">end</span>
+
+    <span class="ruby-keyword">if</span> <span class="ruby-ivar">@recording</span>.<span class="ruby-identifier">in_bucket?</span>
+      <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">account_account_recordings_bucket_path</span>(<span class="ruby-ivar">@account</span>, <span class="ruby-ivar">@recording</span> )
+    <span class="ruby-keyword">else</span>
+      <span class="ruby-comment">#redirect_to :back</span>
+      <span class="ruby-ivar">@recording</span>.<span class="ruby-identifier">get_common_work</span>.<span class="ruby-identifier">update_completeness</span> 
+      <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">account_account_recording_path</span>(<span class="ruby-ivar">@account</span>, <span class="ruby-ivar">@recording</span> )
+    <span class="ruby-keyword">end</span>
+    
+    <span class="ruby-comment">#if @genre_category</span>
+    <span class="ruby-comment">#  redirect_to edit_account_common_work_recording_path(@account, @common_work, @recording, genre_category: @genre_category )</span>
+    <span class="ruby-comment">#else</span>
+    <span class="ruby-comment">#  redirect_to account_common_work_recording_path(@account, @common_work, @recording, genre_category: @genre_category )</span>
+    <span class="ruby-comment">#end</span>
+
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-comment"># jump back to recordings</span>
+    <span class="ruby-identifier">redirect_to_return_url</span> <span class="ruby-identifier">account_account_recording_path</span>(<span class="ruby-ivar">@account</span>, <span class="ruby-ivar">@recording</span>)
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-upload_completed">
+            
+              <b>upload_completed</b>()
+            
+            <a href="../../classes/Account/RecordingsController.html#method-i-upload_completed" name="method-i-upload_completed" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-upload_completed_source')" id="l_method-i-upload_completed_source">show</a>
+                
+              </p>
+              <div id="method-i-upload_completed_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File controllers/account/recordings_controller.rb, line 214</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">upload_completed</span>
+  <span class="ruby-ivar">@recording</span>      = <span class="ruby-constant">Recording</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:recording_id</span>])
+  <span class="ruby-ivar">@recording</span>.<span class="ruby-identifier">extract_metadata</span>
+
+  <span class="ruby-keyword">if</span> <span class="ruby-ivar">@recording</span>.<span class="ruby-identifier">common_work</span>.<span class="ruby-identifier">nil?</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-operator">!</span><span class="ruby-constant">CommonWork</span>.<span class="ruby-identifier">account_search</span>(<span class="ruby-ivar">@account</span>, <span class="ruby-ivar">@recording</span>.<span class="ruby-identifier">title</span>).<span class="ruby-identifier">empty?</span> 
+    <span class="ruby-comment"># If the common_work is not set and there is common_works with the same name as the recording</span>
+    <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">edit_account_recording_common_work_path</span>(<span class="ruby-ivar">@account</span>, <span class="ruby-ivar">@recording</span>)
+  <span class="ruby-keyword">elsif</span> <span class="ruby-ivar">@recording</span>.<span class="ruby-identifier">common_work</span>.<span class="ruby-identifier">nil?</span>
+    <span class="ruby-comment"># else if the common_work is not set and there is no common_works with the same title</span>
+    <span class="ruby-identifier">common_work</span> = <span class="ruby-constant">CommonWork</span>.<span class="ruby-identifier">create</span>(<span class="ruby-identifier">account_id</span><span class="ruby-operator">:</span> <span class="ruby-ivar">@recording</span>.<span class="ruby-identifier">account_id</span>, <span class="ruby-identifier">title</span><span class="ruby-operator">:</span> <span class="ruby-ivar">@recording</span>.<span class="ruby-identifier">title</span>, <span class="ruby-identifier">lyrics</span><span class="ruby-operator">:</span> <span class="ruby-ivar">@recording</span>.<span class="ruby-identifier">lyrics</span>)
+    
+    <span class="ruby-identifier">common_work</span>.<span class="ruby-identifier">create_activity</span>(  <span class="ruby-value">:created</span>, 
+                              <span class="ruby-identifier">owner</span><span class="ruby-operator">:</span> <span class="ruby-identifier">current_user</span>,
+                          <span class="ruby-identifier">recipient</span><span class="ruby-operator">:</span> <span class="ruby-identifier">common_work</span>,
+                     <span class="ruby-identifier">recipient_type</span><span class="ruby-operator">:</span> <span class="ruby-identifier">common_work</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">name</span>,
+                         <span class="ruby-identifier">account_id</span><span class="ruby-operator">:</span> <span class="ruby-ivar">@account</span>.<span class="ruby-identifier">id</span>)
+ 
+    
+    <span class="ruby-ivar">@recording</span>.<span class="ruby-identifier">common_work_id</span> = <span class="ruby-identifier">common_work</span>.<span class="ruby-identifier">id</span>
+    <span class="ruby-ivar">@recording</span>.<span class="ruby-identifier">cache_version</span> <span class="ruby-operator">+=</span> <span class="ruby-number">1</span>
+    <span class="ruby-ivar">@recording</span>.<span class="ruby-identifier">save</span>
+    <span class="ruby-ivar">@recording</span>.<span class="ruby-identifier">get_common_work</span>.<span class="ruby-identifier">update_completeness</span>
+  <span class="ruby-keyword">end</span>                        
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+                    </div>
+
+    </div>
+  </body>
+</html>    

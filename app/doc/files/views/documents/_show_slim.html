@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>_show.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            _show.slim
+        </h1>
+        <ul class="files">
+            <li>views/documents/_show.slim</li>
+            <li>Last modified: 2015-10-02 22:55:44 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      <ul><li>
+<p>if current_document_user = document.document_users.where(user_id:
+@user.id).first</p>
+<ul><li>
+<p>if current_user_can_edit = current_document_user.can_edit</p>
+</li></ul>
+</li><li>
+<p>else</p>
+<ul><li>
+<p>current_user_can_edit = false</p>
+</li></ul>
+</li></ul>
+
+<p>.table-responsive</p>
+
+<pre><code>.row
+  .col-sm-6
+    h4 
+      b = document.title
+    - if ( @user != document.user )
+      .alert.alert-info 
+        &#39;Controlled by:&amp;nbsp;
+        = document.controller_by
+  .col-sm-6
+    .pull-right.pull-down-8
+
+      =&gt; link_to user_user_legal_document_path( user, document.uuid, :format =&gt; &#39;pdf&#39;) do 
+        .btn.btn-default.btn-xs
+          i.fa.fa-file-pdf-o
+
+      = link_to user_user_legal_document_path( user, document.uuid) do
+          .btn.btn-default.btn-xs
+            i.fa.fa-eye
+
+      - unless document.executed? || document.archived? ||  document.expired?
+        - if ( @user == document.user )
+          =&gt; link_to user_user_legal_document_path( user, document.uuid), data: { confirm: &#39;Are you sure?&#39; } , 
+                                                  :method =&gt; :delete, 
+                                                  turboboost: true do
+            .btn.btn-danger.btn-xs
+              i.fa.fa-times
+          =&gt; link_to new_user_user_legal_document_legal_document_user_path(user, document.uuid) do
+            .btn.btn-default.btn-xs
+              i.fa.fa-user-plus&amp;nbsp;Add user
+
+        - if ( @user == document.user ) || current_user_can_edit
+          = link_to edit_user_user_legal_document_path( user, document.uuid) do
+            .btn.btn-default.btn-xs
+              i.fa.fa-pencil
+
+table class=&quot;table table-hover&quot;
+  thead
+    tr
+      th Partie
+      th Email
+      th Role
+      th Can edit
+      /th Should sign
+      th
+      /th Status
+  tbody
+    - document.document_users.each do |document_user|
+      tr
+        td 
+          = document_user.full_name 
+
+          .pull-down-6
+          - unless document_user.digital_signature_id
+            - if ( @user == document.user )
+              =&gt; link_to user_user_legal_document_legal_document_user_path(user, document, document_user), data: { confirm: &#39;Are you sure?&#39; } , 
+                                              :method =&gt; :delete, 
+                                              turboboost: true do
+                .btn.btn-danger.btn-xs
+                  i.fa.fa-times
+              = link_to &#39;Edit&#39;, edit_user_user_legal_document_legal_document_user_path(user, document.uuid, document_user), class: &#39;btn btn-default btn-xs&#39;
+
+        td  = document_user.email
+        td  = document_user.role
+        td  
+           - if document_user.can_edit
+             h5
+               .label.label-success
+                 i.fa.fa-check
+        /td  = document_user.should_sign
+        th
+          .pull-right
+            - if document_user.digital_signature_id
+              h5
+                .label.label-success
+                  &#39;Signed
+            - elsif document_user.should_sign &amp;&amp; (document_user.user == user)
+              = link_to &#39;Sign document&#39;, user_user_sign_document_path(@user, document.uuid), class: &#39;btn btn-success btn-xs&#39;
+            - elsif document_user.should_sign &amp;&amp; document_user.user
+              h5
+                .label.label-danger
+                  &#39;Unsigned
+            - elsif document_user.user.nil?
+              h5
+                .label.label-warning
+                  &#39;No user
+
+        /td  = document_user.status</code></pre>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

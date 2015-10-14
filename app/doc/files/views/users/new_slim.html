@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>new.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            new.slim
+        </h1>
+        <ul class="files">
+            <li>views/users/new.slim</li>
+            <li>Last modified: 2015-10-03 06:49:23 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>wrapper</p>
+
+<pre><code>.full-width-top
+  == render &#39;shared/navigationbar&#39;, page: &#39;home&#39; 
+
+#sidebar-wrapper
+  ul class=&quot;sidebar-nav&quot;
+    == render &#39;users/shared/sidebar&#39;, selected: &#39;recordings&#39;
+
+#page-content-wrapper
+  .container-fluid  
+    ==render &#39;admin/shared/messages&#39;
+    .row
+      .col-sm-6   
+        h3 Sign up
+      .col-sm-6
+        .pull-right
+          .recording-navigation
+            =&gt; link_to root_path do
+              .btn.btn-default
+                i.fa.fa-chevron-left
+                &#39;&amp;nbsp;
+                &#39;Back
+
+    .pull-down-10
+    .row
+      .col-sm-6
+        .digi-box
+          = simple_form_for [User.new] do |f|
+            - unless f.error_notification.blank?
+              = f.error_notification
+
+            .form-inputs
+              = f.input :user_name, label: &#39;Display Name&#39;,  hint: &#39;This name will be displayed on the profile.&#39;, autofocus: true
+              = f.input :email
+              = f.input :password
+              = f.input :password_confirmation
+              - if Rails.env.production?
+                = recaptcha_tags
+
+            .form-actions
+              .row.pull-down-10
+                .col-sm-12
+                  .pull-right
+                    = f.submit &#39;Sign up&#39;, class: &#39;btn btn-info&#39;, id: &#39;commit-form&#39;
+                    coffee:
+                      $(&quot;form#new_user&quot;).submit -&gt;
+                        $(this).find(&#39;input[type=submit]&#39;).attr(&#39;disabled&#39;, &#39;disabled&#39;)
+                        $(this).find(&#39;input[type=submit]&#39;).val &quot;Updating, please wait ...&quot;
+
+            .row.pull-down-6
+              .col-sm-12
+                .sexy_line
+                == render &#39;users/shared/social_signup&#39;</code></pre>
+
+<p>/#wrapper /  .full-width-top /    /== render
+&#39;shared/navigationbar&#39;, page: &#39;home&#39;  /</p>
+
+<p>/ /  sidebar-wrapper /    ul class=“sidebar-nav” /      /== render
+&#39;users/shared/sidebar&#39;, selected: &#39;recordings&#39; / / 
+page-content-wrapper /    .container-fluid</p>
+
+<p>/      ==render &#39;admin/shared/messages&#39; /      .row /       
+.col-sm-6</p>
+
+<p>/          h3 Login /        .col-sm-6 /          .pull-right /           
+.recording-navigation /              =&gt; link_to root_path do /          
+.btn.btn-default /                  i.fa.fa-chevron-left /                 
+&#39;&amp;nbsp; /                  &#39;Back /</p>
+
+<p>/      .pull-down-10 /</p>
+
+<p>/       = simple_form_for [@user] do |f| /         - unless
+f.error_notification.blank? /           = f.error_notification /</p>
+
+<p>/         .form-inputs /           = f.input :user_name, label:
+&#39;Display Name&#39;,  hint: &#39;This name will be displayed on the
+profile.&#39;, autofocus: true /           = f.input :email /           =
+f.input :password /           = f.input :password_confirmation /          
+- if Rails.env.production? /             = recaptcha_tags /</p>
+
+<p>/         .form-actions /           .row.pull-down-10 /            
+.col-sm-12 /               .pull-right /                 = f.submit
+&#39;Save&#39;, class: &#39;btn btn-info&#39;, id: &#39;commit-form&#39; / 
+coffee: /                   $(“form#new_user”).submit -&gt; /              
+$(<a
+href="type=submit">this).find(‘input</a>&#39;).attr(&#39;disabled&#39;,
+&#39;disabled&#39;) /                     $(<a
+href="type=submit">this).find(’input</a>&#39;).val “Updating, please wait
+…” /</p>
+
+<p>/         .row.pull-down-6 /           .col-sm-12 /             .sexy_line
+/             == render &#39;users/shared/social_signup&#39; /</p>
+
+<p>/</p>
+
+<p>/</p>
+
+<p>/  == render &#39;shared/site_footer&#39; / / /</p>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

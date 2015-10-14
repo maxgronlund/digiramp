@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>index.html.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            index.html.slim
+        </h1>
+        <ul class="files">
+            <li>views/account/admin_clients/index.html.slim</li>
+            <li>Last modified: 2015-09-24 20:35:34 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>wrap</p>
+
+<pre><code>div class=&quot;#{&#39;profile&#39; if account_owner?}&quot;
+  .full-width-top
+    == render &#39;admin/shared/navbar&#39;, page: &#39;account&#39; 
+.container
+  == render &#39;admin/shared/messages&#39;
+  == render &#39;shared/breadcrumbs&#39;, breadcrumbs: { links: {@account.title.to_sym =&gt; account_path(@account),
+                                                         dashboard: account_account_path(@account)}, current:  &#39;clients&#39;}
+
+  == render &#39;shared/page_title&#39;, locals: {blog: Blog.cached_find(&#39;Clients&#39;), blog_post: &#39;Edit Clients&#39;}
+
+  .table-responsive
+    table  class=&quot;table table-hover table-bordered&quot;
+      thead
+        tr
+          th Name
+          th Last Name
+          th Company
+          th Email
+          th Assistant
+          th Direct Phone
+          th Direct Fax
+          th Capacity
+          th Address
+          th City
+          th State
+          th Zip
+          th Home Page
+          th Business Phone
+      tbody
+        tr
+          td John
+          td Doe
+          td Music INC
+          td john@music.inc
+          td Jane Doe
+          td 888-123 456
+          td 888-123 457
+          td Composer
+          td Burbank Bulleward 3010
+          td Losangeles
+          td CA
+          td 5000
+          td http://musicinc.com  
+          td 888-123 458
+
+  .pull-right
+    = link_to &#39;Save&#39;, &#39;#&#39;, class: &#39;btn btn-info btn-lg&#39;
+
+  == render &#39;shared/back&#39;, locals: {link: account_account_path(@account)}</code></pre>
+
+<p>-cache ([&#39;footer&#39;, <a
+href="../../../../classes/Admin.html#method-c-cached_find">Admin.cached_find</a>.version])
+do</p>
+
+<pre><code>=render &#39;shared/footer&#39;</code></pre>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

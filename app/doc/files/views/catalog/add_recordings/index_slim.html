@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>index.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            index.slim
+        </h1>
+        <ul class="files">
+            <li>views/catalog/add_recordings/index.slim</li>
+            <li>Last modified: 2015-09-24 20:35:34 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>wrapper</p>
+
+<pre><code>.full-width-top
+  == render &#39;shared/navigationbar&#39;, page: &#39;catalog&#39;         
+
+.catalog
+  #sidebar-wrapper
+    ul class=&quot;sidebar-nav&quot;
+      == render &#39;catalog/catalogs/sidebar&#39;, selected: &#39;recording&#39;
+
+#page-content-wrapper
+  .container-fluid
+    == render &#39;shared/breadcrumbs&#39;, breadcrumbs: { links: {   catalog: catalog_account_catalog_path(@account, @catalog),
+                                                             recordings: catalog_account_catalog_recordings_path(@account, @catalog)}, current: &#39;&#39;}
+    .row
+      .col-sm-8
+        .help
+          .help-text
+             h2 Add recordings
+          .help-button
+            == render &#39;admin/helps/help&#39;, identifier: &#39;add recordings to catalog&#39;
+
+      .col-sm-4
+        .pull-right.pull-down-10
+
+    .sexy_line
+    .row
+      .col-sm-4
+        .digi-box
+          h4 Option 1:
+          &#39;Find recordings from the account
+          .sexy_line
+          .row
+            .col-sm-12.pull-down-6
+              .pull-right
+                = link_to catalog_account_catalog_find_in_collections_path(@account, @catalog) do
+                  .btn.btn-default
+                    i.fa.fa-search
+                    &#39;&amp;nbsp;
+                    &#39;Find
+
+      .col-sm-4
+        .digi-box
+          h4 Option 2:
+          &#39;Add a recording to a common work
+          .sexy_line
+          .row
+            .col-sm-12.pull-down-6
+              .pull-right
+                = link_to catalog_account_catalog_common_works_path(@account, @catalog) do
+                  .btn.btn-default
+                    i.fa.fa-plus-circle
+                    &#39;&amp;nbsp;
+                    &#39;Add
+
+      .col-sm-4
+        .digi-box
+          h4 Option 3:
+          &#39;Upload a recording directly to this catalog
+          .sexy_line
+          .row
+            .col-sm-12.pull-down-6
+              .pull-right
+                = link_to catalog_account_catalog_upload_recordings_path(@account, @catalog) do
+                  .btn.btn-default
+                    i.fa.fa-cloud-upload
+                    &#39;&amp;nbsp;
+                    &#39;Upload
+
+== render &#39;shared/site_footer&#39;</code></pre>
+
+<p>/- blog = <a
+href="../../../../classes/Blog.html#method-c-cached_find">Blog.cached_find</a>(&#39;Add
+<a href="../../../../classes/Catalog.html">Catalog</a> Recordings&#39;)
+/#wrapper /  .full-width-top /    == render &#39;shared/navigationbar&#39;,
+page: &#39;account&#39;</p>
+
+<p>/ /  sidebar-wrapper /    ul class=“sidebar-nav” /      == render
+&#39;users/shared/sidebar&#39;, selected: &#39;catalogs&#39; / / 
+page-content-wrapper /    .container-fluid /      == render
+&#39;catalog/shared/catalog_title&#39; /</p>
+
+<p>/</p>
+
+<p>/ /      .sexy_line /      h4 Add Recordings /      .row /        .col-sm-6
+/          - post = <a
+href="../../../../classes/BlogPost.html#method-c-cached_find">BlogPost.cached_find</a>(
+“FIND IN COLLECTION” , blog ) /          h4 = post.title /          =
+post.body /          .pull-right /            = link_to
+catalog_account_catalog_find_in_collections_path(@account, @catalog) do /  
+.btn.btn-info /                i.fa.fa-search /               
+&#39;&amp;nbsp; /                &#39;Find /      .sexy_line /      .row / 
+.col-sm-6 /          - post = <a
+href="../../../../classes/BlogPost.html#method-c-cached_find">BlogPost.cached_find</a>(
+“ADD TO COMMON WORK” , blog ) /          h4 = post.title /          =
+post.body /          .pull-right /            = link_to
+catalog_account_catalog_common_works_path(@account, @catalog) do /         
+.btn.btn-info /                i.fa.fa-plus-circle /               
+&#39;&amp;nbsp; /                &#39;Add /      .sexy_line /      .row /  
+.col-sm-6 /          - post = <a
+href="../../../../classes/BlogPost.html#method-c-cached_find">BlogPost.cached_find</a>(
+“UPLOAD RECORDINGS” , blog ) /          h4 = post.title /          =
+post.body /          .pull-right /            = link_to
+catalog_account_catalog_upload_recordings_path(@account, @catalog) do /    
+.btn.btn-info /                i.fa.fa-cloud-upload /               
+&#39;&amp;nbsp; /                &#39;Upload /      - if super? /       
+.sexy_line /        .row /          .col-sm-6 /            .pull-right /   
+= link_to &#39;Edit Text&#39;, admin_blog_path(blog), class: &#39;btn
+btn-info&#39; /</p>
+
+<p>/ /</p>
+
+<p>/</p>
+
+<p>/</p>
+
+<p>/  == render &#39;shared/site_footer&#39;</p>
+
+<p>/</p>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

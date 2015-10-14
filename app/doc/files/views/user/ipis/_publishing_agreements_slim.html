@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>_publishing_agreements.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            _publishing_agreements.slim
+        </h1>
+        <ul class="files">
+            <li>views/user/ipis/_publishing_agreements.slim</li>
+            <li>Last modified: 2015-09-17 17:26:57 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>.digi-box</p>
+
+<pre><code>.row
+  .col-sm-6
+    h4 Publishing agreements
+
+.table-responsive
+  table class=&quot;table table-hover&quot;
+    thead
+      tr
+        th Publisher
+        th Publishing agreement
+        th Exipres
+
+        th
+    tbody
+      - @ipi.publishing_agreements.each do |publishing_agreement|
+        tr
+          td = publishing_agreement.publisher.legal_name
+          td 
+            - if publishing_agreement.personal_agreement
+              &#39;Self publishing
+            - else
+              = publishing_agreement.title
+          td 
+            - if publishing_agreement.expires
+              = publishing_agreement.expiration_date
+            - else
+              &#39;No</code></pre>
+
+<p>/</p>
+
+<p>/        /- @ipi.users_publishing_agreements.each do |document| /        / 
+- if publishing_agreement = document.publishing_agreement /        /    tr
+/        /      td = publishing_agreement.title /        /      td  /      
+/        - if publisher = publishing_agreement.publisher /        /        
+= publisher.legal_name /        /      td /        /        = link_to
+&#39;Show&#39;, user_user_publisher_publishing_agreement_path(@user,
+publishing_agreement.publisher, publishing_agreement), class: &#39;btn
+btn-default btn-xs&#39; /        /        /- if document =
+publishing_agreement.document /        /        /  = link_to
+document.title, &#39;#&#39;, class: &#39;btn btn-default btn-xs&#39; /     
+/</p>
+
+<p>/        /      td /        /        - if document =
+publishing_agreement.document /        /          .pull-right /        /   
+- case document.status /        /            - when &#39;draft&#39; /      
+/              .label.label-default /        /                &#39;Draft / 
+/            - when &#39;executed&#39; /        /             
+.label.label-success /        /                &#39;Executed /        /    
+- else /        /              .label.label-default /        /             
+= document.status.to_s.capitalized /        /</p>
+
+<p>/        /            /&#39;&amp;nbsp;</p>
+
+<p>/        /            /=&lt; link_to &#39;#&#39; do /        /            /
+.btn.btn-danger.btn-xs /        /            /    i.fa.fa-times</p>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

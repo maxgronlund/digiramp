@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>RecordingExtractMetadata</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../css/github.css" type="text/css" media="screen" />
+<script src="../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            <span class="type">Class</span> 
+            RecordingExtractMetadata 
+            
+                <span class="parent">&lt; 
+                    
+                    Object
+                    
+                </span>
+            
+        </h1>
+        <ul class="files">
+            
+            <li><a href="../files/services/recording_extract_metadata_rb.html">services/recording_extract_metadata.rb</a></li>
+            
+        </ul>
+    </div>
+    <div id="bodyContent">
+        <div id="content">
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+    <!-- Method ref -->
+    <div class="sectiontitle">Methods</div>
+    <dl class="methods">
+      
+        <dt>E</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-c-extract">extract</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+    </dl>
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+    
+      <div class="sectiontitle">Class Public methods</div>
+      
+        <div class="method">
+          <div class="title method-title" id="method-c-extract">
+            
+              <b>extract</b>(recording)
+            
+            <a href="../classes/RecordingExtractMetadata.html#method-c-extract" name="method-c-extract" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-c-extract_source')" id="l_method-c-extract_source">show</a>
+                
+              </p>
+              <div id="method-c-extract_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File services/recording_extract_metadata.rb, line 4</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">self</span>.<span class="ruby-identifier">extract</span> <span class="ruby-identifier">recording</span>
+  
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">audio_upload</span> = <span class="ruby-identifier">recording</span>.<span class="ruby-identifier">audio_upload</span>
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">meta</span>  = <span class="ruby-identifier">audio_upload</span>[<span class="ruby-value">:meta</span>]
+      <span class="ruby-identifier">recording</span>.<span class="ruby-identifier">title</span>        = <span class="ruby-constant">TransloaditParser</span>.<span class="ruby-identifier">sanitize_title</span>( <span class="ruby-identifier">meta</span>[<span class="ruby-value">:title</span>].<span class="ruby-identifier">to_s</span> )    
+      <span class="ruby-identifier">recording</span>.<span class="ruby-identifier">duration</span>     = <span class="ruby-identifier">meta</span>[<span class="ruby-value">:duration</span>].<span class="ruby-identifier">to_f</span>.<span class="ruby-identifier">round</span>(<span class="ruby-number">2</span>)   
+      <span class="ruby-identifier">recording</span>.<span class="ruby-identifier">lyrics</span>       = <span class="ruby-constant">TransloaditParser</span>.<span class="ruby-identifier">sanitize_lyrics</span>( <span class="ruby-identifier">meta</span>[<span class="ruby-value">:lyrics</span>].<span class="ruby-identifier">to_s</span> )        
+      <span class="ruby-identifier">recording</span>.<span class="ruby-identifier">bpm</span>          = <span class="ruby-identifier">meta</span>[<span class="ruby-value">:beats_per_minute</span>].<span class="ruby-identifier">to_i</span>          
+      <span class="ruby-identifier">recording</span>.<span class="ruby-identifier">album_name</span>   = <span class="ruby-identifier">meta</span>[<span class="ruby-value">:album</span>].<span class="ruby-identifier">to_s</span>                     
+      <span class="ruby-identifier">recording</span>.<span class="ruby-identifier">year</span>         = <span class="ruby-identifier">meta</span>[<span class="ruby-value">:year</span>].<span class="ruby-identifier">to_s</span>                           
+      <span class="ruby-identifier">recording</span>.<span class="ruby-identifier">genre</span>        = <span class="ruby-identifier">meta</span>[<span class="ruby-value">:genre</span>].<span class="ruby-identifier">to_s</span>                           
+      <span class="ruby-identifier">recording</span>.<span class="ruby-identifier">artist</span>       = <span class="ruby-identifier">meta</span>[<span class="ruby-value">:artist</span>].<span class="ruby-identifier">to_s</span>                          
+      <span class="ruby-identifier">recording</span>.<span class="ruby-identifier">comment</span>      = <span class="ruby-constant">TransloaditParser</span>.<span class="ruby-identifier">sanitize_comment</span>( <span class="ruby-identifier">meta</span>[<span class="ruby-value">:comment</span>].<span class="ruby-identifier">to_s</span> )     
+      <span class="ruby-identifier">recording</span>.<span class="ruby-identifier">performer</span>    = <span class="ruby-identifier">meta</span>[<span class="ruby-value">:performer</span>].<span class="ruby-identifier">to_s</span>                                  
+      <span class="ruby-identifier">recording</span>.<span class="ruby-identifier">band</span>         = <span class="ruby-identifier">meta</span>[<span class="ruby-value">:band</span>].<span class="ruby-identifier">to_s</span>                            
+      <span class="ruby-identifier">recording</span>.<span class="ruby-identifier">disc</span>         = <span class="ruby-identifier">meta</span>[<span class="ruby-value">:disc</span>].<span class="ruby-identifier">to_s</span>                            
+      <span class="ruby-identifier">recording</span>.<span class="ruby-identifier">track</span>        = <span class="ruby-identifier">meta</span>[<span class="ruby-value">:track</span>].<span class="ruby-identifier">to_s</span>                        
+      <span class="ruby-identifier">recording</span>.<span class="ruby-identifier">save!</span>(<span class="ruby-identifier">validate</span><span class="ruby-operator">:</span> <span class="ruby-keyword">false</span>)  
+      <span class="ruby-comment">#recording</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>      
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+                        </div>
+
+    </div>
+  </body>
+</html>    

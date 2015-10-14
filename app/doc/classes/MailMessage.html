@@ -1,0 +1,321 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>MailMessage</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../css/github.css" type="text/css" media="screen" />
+<script src="../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            <span class="type">Class</span> 
+            MailMessage 
+            
+                <span class="parent">&lt; 
+                    
+                    ActiveRecord::Base
+                    
+                </span>
+            
+        </h1>
+        <ul class="files">
+            
+            <li><a href="../files/models/mail_message_rb.html">models/mail_message.rb</a></li>
+            
+        </ul>
+    </div>
+    <div id="bodyContent">
+        <div id="content">
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+    <!-- Method ref -->
+    <div class="sectiontitle">Methods</div>
+    <dl class="methods">
+      
+        <dt>A</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-c-account_invitation">account_invitation</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>C</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-c-contact_confirmation_mail">contact_confirmation_mail</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>N</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-c-new_account_and_user_confirmation">new_account_and_user_confirmation</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>R</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-c-representative_invitation">representative_invitation</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>S</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-c-signup_confirmation">signup_confirmation</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+    </dl>
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+    
+      <div class="sectiontitle">Class Public methods</div>
+      
+        <div class="method">
+          <div class="title method-title" id="method-c-account_invitation">
+            
+              <b>account_invitation</b>()
+            
+            <a href="../classes/MailMessage.html#method-c-account_invitation" name="method-c-account_invitation" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              <p>def self.password_reset; MailMessage.where(identifier: &#39;Password
+Reset&#39;).first_or_create(identifier: &#39;Password Reset&#39;, subject:
+&#39;Password Reset&#39; ) end</p>
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-c-account_invitation_source')" id="l_method-c-account_invitation_source">show</a>
+                
+              </p>
+              <div id="method-c-account_invitation_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/mail_message.rb, line 7</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">self</span>.<span class="ruby-identifier">account_invitation</span>; <span class="ruby-constant">MailMessage</span>.<span class="ruby-identifier">where</span>(<span class="ruby-identifier">identifier</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;Account invitation&#39;</span>).<span class="ruby-identifier">first_or_create</span>(<span class="ruby-identifier">identifier</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;Account invitation&#39;</span>, <span class="ruby-identifier">subject</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;Account invitation&#39;</span> ) <span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-c-contact_confirmation_mail">
+            
+              <b>contact_confirmation_mail</b>()
+            
+            <a href="../classes/MailMessage.html#method-c-contact_confirmation_mail" name="method-c-contact_confirmation_mail" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-c-contact_confirmation_mail_source')" id="l_method-c-contact_confirmation_mail_source">show</a>
+                
+              </p>
+              <div id="method-c-contact_confirmation_mail_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/mail_message.rb, line 5</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">self</span>.<span class="ruby-identifier">contact_confirmation_mail</span>; <span class="ruby-constant">MailMessage</span>.<span class="ruby-identifier">where</span>(<span class="ruby-identifier">identifier</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;Contact Confirmation Mail&#39;</span>).<span class="ruby-identifier">first_or_create</span>(<span class="ruby-identifier">identifier</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;Contact Confirmation Mail&#39;</span>, <span class="ruby-identifier">subject</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;Your contact request has been received&#39;</span> ) <span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-c-new_account_and_user_confirmation">
+            
+              <b>new_account_and_user_confirmation</b>()
+            
+            <a href="../classes/MailMessage.html#method-c-new_account_and_user_confirmation" name="method-c-new_account_and_user_confirmation" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-c-new_account_and_user_confirmation_source')" id="l_method-c-new_account_and_user_confirmation_source">show</a>
+                
+              </p>
+              <div id="method-c-new_account_and_user_confirmation_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/mail_message.rb, line 8</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">self</span>.<span class="ruby-identifier">new_account_and_user_confirmation</span>; <span class="ruby-constant">MailMessage</span>.<span class="ruby-identifier">where</span>(<span class="ruby-identifier">identifier</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;New account and user created&#39;</span>).<span class="ruby-identifier">first_or_create</span>(<span class="ruby-identifier">identifier</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;New account and user created&#39;</span>, <span class="ruby-identifier">subject</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;You have been signed up for an account at DigiRAMP&#39;</span> ) <span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-c-representative_invitation">
+            
+              <b>representative_invitation</b>()
+            
+            <a href="../classes/MailMessage.html#method-c-representative_invitation" name="method-c-representative_invitation" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              <p>attr_accessible :body, :identifier, :subject</p>
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-c-representative_invitation_source')" id="l_method-c-representative_invitation_source">show</a>
+                
+              </p>
+              <div id="method-c-representative_invitation_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/mail_message.rb, line 3</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">self</span>.<span class="ruby-identifier">representative_invitation</span>; <span class="ruby-constant">MailMessage</span>.<span class="ruby-identifier">where</span>(<span class="ruby-identifier">identifier</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;Representative Invitation&#39;</span>).<span class="ruby-identifier">first_or_create</span>(<span class="ruby-identifier">identifier</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;Representative Invitation&#39;</span>, <span class="ruby-identifier">subject</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;Representative Invitation&#39;</span> ) <span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-c-signup_confirmation">
+            
+              <b>signup_confirmation</b>()
+            
+            <a href="../classes/MailMessage.html#method-c-signup_confirmation" name="method-c-signup_confirmation" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-c-signup_confirmation_source')" id="l_method-c-signup_confirmation_source">show</a>
+                
+              </p>
+              <div id="method-c-signup_confirmation_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/mail_message.rb, line 4</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">self</span>.<span class="ruby-identifier">signup_confirmation</span>; <span class="ruby-constant">MailMessage</span>.<span class="ruby-identifier">where</span>(<span class="ruby-identifier">identifier</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;Signup Confirmation&#39;</span>).<span class="ruby-identifier">first_or_create</span>(<span class="ruby-identifier">identifier</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;Signup Confirmation&#39;</span>, <span class="ruby-identifier">subject</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;Signup Confirmation&#39;</span> ) <span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+                        </div>
+
+    </div>
+  </body>
+</html>    

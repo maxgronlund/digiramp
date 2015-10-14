@@ -1,0 +1,354 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>digi_whams.sass</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            digi_whams.sass
+        </h1>
+        <ul class="files">
+            <li>assets/stylesheets/digiwham/digi_whams.sass</li>
+            <li>Last modified: 2015-10-06 15:52:38 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>@import “compass” @import “playback_button” @import “truncate” //@import
+“compass/css3/opacity” //@import “compass/typography/text/ellipsis” //
+//$main-color: eee //$text-color: #A3A3A3 //$line-color: #CCC //
+$digiwham-button-size:           46px $digiwham-hight-small:          
+100px $digiwham-waveform-hight:         35px $digiwham-button-border:      
+2px $digiwham-info:                  50px</p>
+
+<p>// //@mixin truncate  //  white-space: nowrap //  overflow: hidden // 
+text-overflow: ellipsis</p>
+
+<p>//// Medium devices (desktops, 992px and up)  //@media (min-width: 992px)
+// //// Large devices (large desktops, 1200px and up)  //@media (min-width:
+1200px) digiWhams</p>
+
+<pre><code>//+box-shadow(#CACACA 1px 2px 1px)
+background-color: #e2e2e5
+margin-bottom: 10px
+//border-top: solid 1px #C1C2C3
+//border-left: solid 1px #C1C2C3
+
+hr 
+  margin-top: 0px
+  margin-bottom: 10px
+  border-top: 1px solid #DDD
+
+.widget-headder
+  margin-bottom: 10px
+  .widget-headder-image
+    position: relative
+    width: 100%
+    img
+      width: 100%
+
+    .widget-title
+      position: absolute
+      width: 100%
+      position: absolute
+      top: 10px
+      color: #fff
+      margin-left: 5%
+      h3                
+        margin-top:     5px
+        margin-bottom:  6px
+
+.digiwham
+  //background-color: #DDD
+  margin-bottom:          4px
+  padding-bottom:         4px
+
+  .top-pane
+    //background-color: #000
+    height:             $digiwham-hight-small
+    width: 100%
+    padding: 6px
+    .cover-art 
+      position: relative
+      width:              $digiwham-hight-small
+      height:             $digiwham-hight-small
+      float: left
+      img
+        width: 100%
+
+    .no-margin-left   
+      margin-left: 0px !important
+    .top-right 
+      left: 0px
+      //background-color:   #555
+      //width: 100%px
+      height:             $digiwham-hight-small
+      margin-left:        $digiwham-hight-small + 4
+      .play-button-pane 
+        position: relative
+        width:              $digiwham-button-size
+        height:             $digiwham-info
+        float: left
+        @include              playback-button
+        .loading, .pause
+          display:              none
+
+      .info 
+        left: 0px
+        //background-color:   #555
+        //width: 100%
+        height:             $digiwham-hight-small - 50px
+        margin-left:        $digiwham-button-size
+
+        .title
+          width: 100%
+          height:       $digiwham-info
+          float: left
+          padding: 4px
+          h3
+            font-size:          14px
+            margin-top:         0px
+            margin-bottom:      0px
+            @include            truncate
+            line-height:        120%
+            color:              #696969
+          p
+            font-size: 12px
+            color:              #555
+            font-weight: bold
+          a
+            color: #007A92
+            font-size: 11px
+
+        .description
+          width: 100%
+          display: none
+          //max-height:             $digiwham-hight-small - 40
+          float: left
+          padding: 4px
+          text-overflow: ellipsis
+          word-wrap: break-word
+          overflow: hidden
+          height:       $digiwham-info
+          line-height:  12px
+          font-size:    13px
+      .track-duration
+        font-size:    11px
+        height:       15px
+        .start-time
+          float:      left
+          margin-left: 4px
+        .end-time
+          float:      right
+          margin-right: 4px
+      .waveform
+        //background-color: rgba(0,0,0,0.25)
+        height:             $digiwham-waveform-hight
+        img
+          width:            100%
+          height:           $digiwham-waveform-hight
+
+      .playhead
+        display:            block
+        position:           relative
+        float:              top
+
+        margin-top:         -$digiwham-waveform-hight
+        width:              1px
+        height:             $digiwham-waveform-hight
+        background-color:   #f00
+      .loadbar  
+        width:              0%
+        height:              2px
+        background-color:   #ddd
+        display:            none
+
+      .playhead-time
+        //display:            none
+        position:           absolute
+        float:              top
+        text-align:         center
+        width:              47px
+        font-size:          10px
+        margin-top:         -53px
+        color:              #469E28
+        background-color:   #333
+        padding:            1px
+
+    .no-artwork
+      margin-left:   0px
+      //.waveform
+.player-bottom
+  background-color: #D3D1CE
+  padding: 4px
+  margin-top: 6px
+  border-top: 1px solid #BBB
+  min-height: 32px
+
+  .fa-star
+    color: #FFAD00
+    font-size: 15px</code></pre>
+
+<p>.simple-show</p>
+
+<pre><code>//border: 1px solid #cdcdcd
+margin-top: 4px
+margin-bottom: 4px
+#digiWhams 
+  .digiwham 
+    .top-pane 
+      .top-right 
+        margin-left: 0px
+        .info
+          .title
+            padding: 4px
+            width: 100%
+            height: 48px
+            display: inline-block
+            h3
+              font-size:          18px
+              margin-top:         0px
+              margin-bottom:      4px
+              @include            truncate
+              line-height:        120%
+              color:              #666
+          .comment
+            padding:          4px
+            width:            50%
+            height:           48px
+            display:          inline-block
+            //@include           truncate
+            text-overflow: ellipsis
+            word-wrap: break-word
+            overflow: hidden</code></pre>
+
+<p>//————————————————– // default values</p>
+
+<p>digiWhams .digiwham</p>
+
+<pre><code>height: 54px
+.top-pane 
+  .cover-art 
+    position: relative
+    width:  48px
+    height: 48px
+  .top-right
+    margin-left: 52px
+    height: 50px
+    .playhead 
+      height: 0px
+    .playhead-time
+      display: none
+    .track-duration
+      display: none
+    .waveform 
+      display: none
+  //.top-right
+  //  margin-left: 52px</code></pre>
+
+<p>/// Medium devices (desktops, 992px and up)  @media (min-width: 992px)</p>
+
+<pre><code>#digiWhams .digiwham 
+  .top-pane 
+    .top-right
+      .info
+        .title
+          width: 30%
+        .description
+          width: 70%
+          max-width: 510px</code></pre>
+
+<p>// Small devices (tablets, 768px and up)  @media (min-width: 768px)</p>
+
+<pre><code>#digiWhams .digiwham 
+  height: 106px
+  .top-pane 
+    .cover-art 
+      position: relative
+      width:  100px
+      height: 100px
+    .top-right
+      margin-left: 104px
+      height: 100px
+      .playhead 
+        height: 35px
+      .info
+
+        .title
+          width: 40%
+        .description
+          width: 60%
+          display: block
+      .playhead-time
+        display: block
+      .track-duration
+        display: block
+      .waveform 
+        display: block
+      .loadbar  
+        display:            block</code></pre>
+
+<p>// //</p>
+
+<p>// Large devices (large desktops, 1200px and up)  //@media (min-width:
+1200px)</p>
+
+<p>//#digiWhams .digiwham .top-pane .top-right { //left: 0px; //width: 100%
+px; //height: 100px; //margin-left: 104px; //}</p>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

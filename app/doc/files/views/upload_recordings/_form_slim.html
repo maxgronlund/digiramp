@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>_form.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            _form.slim
+        </h1>
+        <ul class="files">
+            <li>views/upload_recordings/_form.slim</li>
+            <li>Last modified: 2015-07-05 15:22:06 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<h1 id="label-simple_form_for+-5B-40account-2C+-40recording-5D-2C+url-3A+url_for-28action-3A+-27create-27-2C+controller-3A+-27upload_recordings-27-29-2C+method-3A+-27post-27+do+-7Cf-7C">simple_form_for [@account, @recording], url: url_for(action: &#39;create&#39;, controller: &#39;upload_recordings&#39;), method: &#39;post&#39; do |f|</h1>
+
+<pre><code>/=f.hidden_field :transloadit =&gt; :waveform_to_s3
+=f.input :audio_file</code></pre>
+
+<p>/&lt;%= form_for @recording, :html =&gt; { :id =&gt; &#39;upload&#39; } do
+|form| %&gt; /  &lt;%= transloadit :waveform_to_s3 %&gt; /  &lt;%=
+form.label      :file, &#39;File to upload&#39; %&gt; /  &lt;%=
+form.file_field :file %&gt; /  &lt;%= form.submit %&gt; /&lt;% end %&gt; /
+/&lt;%= transloadit_jquerify :upload, :wait =&gt; true %&gt;</p>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

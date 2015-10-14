@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>RecordingCsvImporter</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../css/github.css" type="text/css" media="screen" />
+<script src="../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            <span class="type">Class</span> 
+            RecordingCsvImporter 
+            
+                <span class="parent">&lt; 
+                    
+                    Object
+                    
+                </span>
+            
+        </h1>
+        <ul class="files">
+            
+            <li><a href="../files/services/recording_csv_importer_rb.html">services/recording_csv_importer.rb</a></li>
+            
+        </ul>
+    </div>
+    <div id="bodyContent">
+        <div id="content">
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+    <!-- Method ref -->
+    <div class="sectiontitle">Methods</div>
+    <dl class="methods">
+      
+        <dt>P</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-c-process">process</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+    </dl>
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+    
+      <div class="sectiontitle">Class Public methods</div>
+      
+        <div class="method">
+          <div class="title method-title" id="method-c-process">
+            
+              <b>process</b>(csv_file)
+            
+            <a href="../classes/RecordingCsvImporter.html#method-c-process" name="method-c-process" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-c-process_source')" id="l_method-c-process_source">show</a>
+                
+              </p>
+              <div id="method-c-process_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File services/recording_csv_importer.rb, line 5</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">self</span>.<span class="ruby-identifier">process</span> <span class="ruby-identifier">csv_file</span>
+  
+  <span class="ruby-constant">CSV</span>.<span class="ruby-identifier">foreach</span>(<span class="ruby-identifier">csv_file</span>.<span class="ruby-identifier">path</span>, <span class="ruby-identifier">headers</span><span class="ruby-operator">:</span> <span class="ruby-keyword">true</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">row</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">recording_row</span> = <span class="ruby-identifier">row</span>.<span class="ruby-identifier">to_hash</span>
+    <span class="ruby-keyword">begin</span>
+      <span class="ruby-identifier">recording</span> = <span class="ruby-constant">Recording</span>.<span class="ruby-identifier">cached_find</span>(<span class="ruby-identifier">recording_row</span>[<span class="ruby-string">&quot;Recording Id&quot;</span>].<span class="ruby-identifier">to_i</span>)
+      <span class="ruby-comment"># make check for permissions here</span>
+      <span class="ruby-identifier">recording</span>.<span class="ruby-identifier">account_id</span>            = <span class="ruby-identifier">recording_row</span>[<span class="ruby-string">&quot;Account Id&quot;</span>].<span class="ruby-identifier">to_i</span>                <span class="ruby-keyword">unless</span> <span class="ruby-identifier">recording_row</span>[<span class="ruby-string">&quot;Account Id&quot;</span>].<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">empty?</span>
+      <span class="ruby-identifier">recording</span>.<span class="ruby-identifier">common_work_id</span>        = <span class="ruby-identifier">recording_row</span>[<span class="ruby-string">&quot;Work ID&quot;</span>].<span class="ruby-identifier">to_i</span>                   <span class="ruby-keyword">unless</span> <span class="ruby-identifier">recording_row</span>[<span class="ruby-string">&quot;Work ID&quot;</span>].<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">empty?</span>
+      <span class="ruby-identifier">recording</span>.<span class="ruby-identifier">title</span>                 = <span class="ruby-identifier">recording_row</span>[<span class="ruby-string">&quot;Title&quot;</span>].<span class="ruby-identifier">to_s</span>                     <span class="ruby-keyword">unless</span> <span class="ruby-identifier">recording_row</span>[<span class="ruby-string">&quot;Title&quot;</span>].<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">empty?</span>
+      <span class="ruby-identifier">recording</span>.<span class="ruby-identifier">isrc_code</span>             = <span class="ruby-identifier">recording_row</span>[<span class="ruby-string">&quot;ISRC Code&quot;</span>].<span class="ruby-identifier">to_s</span>                 <span class="ruby-keyword">unless</span> <span class="ruby-identifier">recording_row</span>[<span class="ruby-string">&quot;ISRC Code&quot;</span>].<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">empty?</span>
+      <span class="ruby-identifier">recording</span>.<span class="ruby-identifier">artist</span>                = <span class="ruby-identifier">recording_row</span>[<span class="ruby-string">&quot;Artist&quot;</span>].<span class="ruby-identifier">to_s</span>                    <span class="ruby-keyword">unless</span> <span class="ruby-identifier">recording_row</span>[<span class="ruby-string">&quot;Artist&quot;</span>].<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">empty?</span>
+      <span class="ruby-identifier">recording</span>.<span class="ruby-identifier">performer</span>             = <span class="ruby-identifier">recording_row</span>[<span class="ruby-string">&quot;Performer&quot;</span>].<span class="ruby-identifier">to_s</span>                 <span class="ruby-keyword">unless</span> <span class="ruby-identifier">recording_row</span>[<span class="ruby-string">&quot;Performer&quot;</span>].<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">empty?</span>
+      <span class="ruby-identifier">recording</span>.<span class="ruby-identifier">band</span>                  = <span class="ruby-identifier">recording_row</span>[<span class="ruby-string">&quot;Band&quot;</span>].<span class="ruby-identifier">to_s</span>                      <span class="ruby-keyword">unless</span> <span class="ruby-identifier">recording_row</span>[<span class="ruby-string">&quot;Band&quot;</span>].<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">empty?</span>
+      <span class="ruby-identifier">recording</span>.<span class="ruby-identifier">year</span>                  = <span class="ruby-identifier">recording_row</span>[<span class="ruby-string">&quot;Year&quot;</span>].<span class="ruby-identifier">to_s</span>                      <span class="ruby-keyword">unless</span> <span class="ruby-identifier">recording_row</span>[<span class="ruby-string">&quot;Year&quot;</span>].<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">empty?</span>
+      <span class="ruby-identifier">recording</span>.<span class="ruby-identifier">album_name</span>            = <span class="ruby-identifier">recording_row</span>[<span class="ruby-string">&quot;Album Name&quot;</span>].<span class="ruby-identifier">to_s</span>                <span class="ruby-keyword">unless</span> <span class="ruby-identifier">recording_row</span>[<span class="ruby-string">&quot;Album Name&quot;</span>].<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">empty?</span>
+      <span class="ruby-identifier">recording</span>.<span class="ruby-identifier">vocal</span>                 = <span class="ruby-identifier">recording_row</span>[<span class="ruby-string">&quot;Vocal&quot;</span>].<span class="ruby-identifier">to_s</span>                     <span class="ruby-keyword">unless</span> <span class="ruby-identifier">recording_row</span>[<span class="ruby-string">&quot;Vocal&quot;</span>].<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">empty?</span>
+      <span class="ruby-identifier">recording</span>.<span class="ruby-identifier">genre</span>                 = <span class="ruby-identifier">recording_row</span>[<span class="ruby-string">&quot;Genre&quot;</span>].<span class="ruby-identifier">to_s</span>                     <span class="ruby-keyword">unless</span> <span class="ruby-identifier">recording_row</span>[<span class="ruby-string">&quot;Genre&quot;</span>].<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">empty?</span>
+      <span class="ruby-identifier">recording</span>.<span class="ruby-identifier">mood</span>                  = <span class="ruby-identifier">recording_row</span>[<span class="ruby-string">&quot;Mood&quot;</span>].<span class="ruby-identifier">to_s</span>                      <span class="ruby-keyword">unless</span> <span class="ruby-identifier">recording_row</span>[<span class="ruby-string">&quot;Mood&quot;</span>].<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">empty?</span>
+      <span class="ruby-identifier">recording</span>.<span class="ruby-identifier">instruments</span>           = <span class="ruby-identifier">recording_row</span>[<span class="ruby-string">&quot;Instruments&quot;</span>].<span class="ruby-identifier">to_s</span>               <span class="ruby-keyword">unless</span> <span class="ruby-identifier">recording_row</span>[<span class="ruby-string">&quot;Instruments&quot;</span>].<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">empty?</span>
+      <span class="ruby-identifier">recording</span>.<span class="ruby-identifier">disc</span>                  = <span class="ruby-identifier">recording_row</span>[<span class="ruby-string">&quot;Disc&quot;</span>].<span class="ruby-identifier">to_s</span>                      <span class="ruby-keyword">unless</span> <span class="ruby-identifier">recording_row</span>[<span class="ruby-string">&quot;Disc&quot;</span>].<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">empty?</span>
+      <span class="ruby-identifier">recording</span>.<span class="ruby-identifier">track</span>                 = <span class="ruby-identifier">recording_row</span>[<span class="ruby-string">&quot;Track&quot;</span>].<span class="ruby-identifier">to_s</span>                     <span class="ruby-keyword">unless</span> <span class="ruby-identifier">recording_row</span>[<span class="ruby-string">&quot;Track&quot;</span>].<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">empty?</span>
+      <span class="ruby-identifier">recording</span>.<span class="ruby-identifier">bpm</span>                   = <span class="ruby-identifier">recording_row</span>[<span class="ruby-string">&quot;BPM&quot;</span>].<span class="ruby-identifier">to_i</span>                       <span class="ruby-keyword">unless</span> <span class="ruby-identifier">recording_row</span>[<span class="ruby-string">&quot;BPM&quot;</span>].<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">empty?</span>
+      <span class="ruby-identifier">recording</span>.<span class="ruby-identifier">explicit</span>              = <span class="ruby-identifier">recording_row</span>[<span class="ruby-string">&quot;Explicit&quot;</span>].<span class="ruby-identifier">to_s</span>       <span class="ruby-operator">==</span> <span class="ruby-string">&#39;true&#39;</span>  <span class="ruby-keyword">unless</span> <span class="ruby-identifier">recording_row</span>[<span class="ruby-string">&quot;Explicit&quot;</span>].<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">empty?</span>
+      <span class="ruby-identifier">recording</span>.<span class="ruby-identifier">clearance</span>             = <span class="ruby-identifier">recording_row</span>[<span class="ruby-string">&quot;Clearance&quot;</span>].<span class="ruby-identifier">to_s</span>      <span class="ruby-operator">==</span> <span class="ruby-string">&#39;true&#39;</span>  <span class="ruby-keyword">unless</span> <span class="ruby-identifier">recording_row</span>[<span class="ruby-string">&quot;Clearance&quot;</span>].<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">empty?</span>
+      <span class="ruby-identifier">recording</span>.<span class="ruby-identifier">copyright</span>             = <span class="ruby-identifier">recording_row</span>[<span class="ruby-string">&quot;Copyright&quot;</span>].<span class="ruby-identifier">to_s</span>                 <span class="ruby-keyword">unless</span> <span class="ruby-identifier">recording_row</span>[<span class="ruby-string">&quot;Copyright&quot;</span>].<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">empty?</span>
+      <span class="ruby-identifier">recording</span>.<span class="ruby-identifier">production_company</span>    = <span class="ruby-identifier">recording_row</span>[<span class="ruby-string">&quot;Production Company&quot;</span>].<span class="ruby-identifier">to_s</span>        <span class="ruby-keyword">unless</span> <span class="ruby-identifier">recording_row</span>[<span class="ruby-string">&quot;Production Company&quot;</span>].<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">empty?</span>
+      <span class="ruby-identifier">recording</span>.<span class="ruby-identifier">composer</span>              = <span class="ruby-identifier">recording_row</span>[<span class="ruby-string">&quot;Composer&quot;</span>].<span class="ruby-identifier">to_s</span>                  <span class="ruby-keyword">unless</span> <span class="ruby-identifier">recording_row</span>[<span class="ruby-string">&quot;Composer&quot;</span>].<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">empty?</span>
+      <span class="ruby-identifier">recording</span>.<span class="ruby-identifier">extract_genres</span>
+      <span class="ruby-identifier">recording</span>.<span class="ruby-identifier">extract_instruments</span>
+      <span class="ruby-identifier">recording</span>.<span class="ruby-identifier">extract_moods</span>
+      <span class="ruby-identifier">recording</span>.<span class="ruby-identifier">get_common_work</span>.<span class="ruby-identifier">update_completeness</span>
+
+    <span class="ruby-keyword">rescue</span>
+      <span class="ruby-constant">Opbeat</span>.<span class="ruby-identifier">capture_message</span>(<span class="ruby-node">&quot;RecordingCsvParser row: #{recording_row}&quot;</span>)
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+  
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+                        </div>
+
+    </div>
+  </body>
+</html>    

@@ -1,0 +1,615 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>Connection</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../css/github.css" type="text/css" media="screen" />
+<script src="../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            <span class="type">Class</span> 
+            Connection 
+            
+                <span class="parent">&lt; 
+                    
+                    ActiveRecord::Base
+                    
+                </span>
+            
+        </h1>
+        <ul class="files">
+            
+            <li><a href="../files/models/connection_rb.html">models/connection.rb</a></li>
+            
+        </ul>
+    </div>
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>connections can be deleted without deleting messages</p>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+    <!-- Method ref -->
+    <div class="sectiontitle">Methods</div>
+    <dl class="methods">
+      
+        <dt>A</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-c-attach_message">attach_message</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>C</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-c-cached_find">cached_find</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-c-connected">connected</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-i-connected_to_user">connected_to_user</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-i-created_by_me">created_by_me</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>D</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-c-decrease_messages_count">decrease_messages_count</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>I</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-is_active">is_active</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-i-is_dismissed">is_dismissed</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-i-is_pending">is_pending</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>M</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-c-message_connection">message_connection</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>S</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-status">status</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+    </dl>
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+    
+      <div class="sectiontitle">Class Public methods</div>
+      
+        <div class="method">
+          <div class="title method-title" id="method-c-attach_message">
+            
+              <b>attach_message</b>(message)
+            
+            <a href="../classes/Connection.html#method-c-attach_message" name="method-c-attach_message" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              <p>It&#39;s possible to send messages to users that are not connected</p>
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-c-attach_message_source')" id="l_method-c-attach_message_source">show</a>
+                
+              </p>
+              <div id="method-c-attach_message_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/connection.rb, line 38</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">self</span>.<span class="ruby-identifier">attach_message</span> <span class="ruby-identifier">message</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">connection</span> = <span class="ruby-identifier">message_connection</span>( <span class="ruby-identifier">message</span> )
+    
+    <span class="ruby-identifier">message</span>.<span class="ruby-identifier">connection_id</span> = <span class="ruby-identifier">connection</span>.<span class="ruby-identifier">id</span>
+    <span class="ruby-identifier">connection</span>.<span class="ruby-identifier">messages_count</span> <span class="ruby-operator">+=</span> <span class="ruby-number">1</span> 
+    <span class="ruby-identifier">connection</span>.<span class="ruby-identifier">save!</span>                  
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-c-cached_find">
+            
+              <b>cached_find</b>(id)
+            
+            <a href="../classes/Connection.html#method-c-cached_find" name="method-c-cached_find" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-c-cached_find_source')" id="l_method-c-cached_find_source">show</a>
+                
+              </p>
+              <div id="method-c-cached_find_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/connection.rb, line 72</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">self</span>.<span class="ruby-identifier">cached_find</span>(<span class="ruby-identifier">id</span>)
+  <span class="ruby-constant">Rails</span>.<span class="ruby-identifier">cache</span>.<span class="ruby-identifier">fetch</span>([<span class="ruby-identifier">name</span>, <span class="ruby-identifier">id</span>]) { <span class="ruby-identifier">find</span>(<span class="ruby-identifier">id</span>) }
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-c-connected">
+            
+              <b>connected</b>(user_a, user_b)
+            
+            <a href="../classes/Connection.html#method-c-connected" name="method-c-connected" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-c-connected_source')" id="l_method-c-connected_source">show</a>
+                
+              </p>
+              <div id="method-c-connected_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/connection.rb, line 21</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">self</span>.<span class="ruby-identifier">connected</span> <span class="ruby-identifier">user_a</span>, <span class="ruby-identifier">user_b</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">nil</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">user_a</span>.<span class="ruby-identifier">nil?</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">nil</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">user_b</span>.<span class="ruby-identifier">nil?</span>
+  <span class="ruby-identifier">where</span>(<span class="ruby-string">&quot;user_id = ? AND connection_id = ? OR user_id = ? AND connection_id = ?&quot;</span> , <span class="ruby-identifier">user_a</span>, <span class="ruby-identifier">user_b</span>, <span class="ruby-identifier">user_b</span>, <span class="ruby-identifier">user_a</span>).<span class="ruby-identifier">first</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-c-decrease_messages_count">
+            
+              <b>decrease_messages_count</b>(message)
+            
+            <a href="../classes/Connection.html#method-c-decrease_messages_count" name="method-c-decrease_messages_count" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-c-decrease_messages_count_source')" id="l_method-c-decrease_messages_count_source">show</a>
+                
+              </p>
+              <div id="method-c-decrease_messages_count_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/connection.rb, line 47</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">self</span>.<span class="ruby-identifier">decrease_messages_count</span> <span class="ruby-identifier">message</span>
+
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">connection</span> = <span class="ruby-identifier">message_connection</span>( <span class="ruby-identifier">message</span> )
+    <span class="ruby-identifier">connection</span>.<span class="ruby-identifier">messages_count</span> <span class="ruby-operator">-=</span> <span class="ruby-number">1</span> 
+    <span class="ruby-identifier">connection</span>.<span class="ruby-identifier">save!</span>                  
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-c-message_connection">
+            
+              <b>message_connection</b>(message)
+            
+            <a href="../classes/Connection.html#method-c-message_connection" name="method-c-message_connection" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-c-message_connection_source')" id="l_method-c-message_connection_source">show</a>
+                
+              </p>
+              <div id="method-c-message_connection_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/connection.rb, line 55</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">self</span>.<span class="ruby-identifier">message_connection</span> <span class="ruby-identifier">message</span>
+  
+  <span class="ruby-identifier">connection</span> = <span class="ruby-identifier">where</span>(<span class="ruby-string">&quot;user_id = ? AND connection_id = ? 
+                      OR user_id = ? AND connection_id = ?&quot;</span> , 
+                      <span class="ruby-identifier">message</span>.<span class="ruby-identifier">sender_id</span>, <span class="ruby-identifier">message</span>.<span class="ruby-identifier">recipient_id</span>, 
+                      <span class="ruby-identifier">message</span>.<span class="ruby-identifier">recipient_id</span>, <span class="ruby-identifier">message</span>.<span class="ruby-identifier">sender_id</span>).<span class="ruby-identifier">first</span>
+  
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+                  
+      <div class="sectiontitle">Instance Public methods</div>
+      
+        <div class="method">
+          <div class="title method-title" id="method-i-connected_to_user">
+            
+              <b>connected_to_user</b>(requester)
+            
+            <a href="../classes/Connection.html#method-i-connected_to_user" name="method-i-connected_to_user" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-connected_to_user_source')" id="l_method-i-connected_to_user_source">show</a>
+                
+              </p>
+              <div id="method-i-connected_to_user_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/connection.rb, line 29</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">connected_to_user</span> <span class="ruby-identifier">requester</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">created_by_me</span>( <span class="ruby-identifier">requester</span> ) <span class="ruby-operator">?</span> <span class="ruby-identifier">connected_to</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">user</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-created_by_me">
+            
+              <b>created_by_me</b>(requester)
+            
+            <a href="../classes/Connection.html#method-i-created_by_me" name="method-i-created_by_me" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-created_by_me_source')" id="l_method-i-created_by_me_source">show</a>
+                
+              </p>
+              <div id="method-i-created_by_me_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/connection.rb, line 33</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">created_by_me</span> <span class="ruby-identifier">requester</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">user_id</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">requester</span>.<span class="ruby-identifier">id</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-is_active">
+            
+              <b>is_active</b>()
+            
+            <a href="../classes/Connection.html#method-i-is_active" name="method-i-is_active" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-is_active_source')" id="l_method-i-is_active_source">show</a>
+                
+              </p>
+              <div id="method-i-is_active_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/connection.rb, line 8</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">is_active</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">approved</span> <span class="ruby-operator">==</span> <span class="ruby-keyword">true</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">dismissed</span> <span class="ruby-operator">==</span> <span class="ruby-keyword">false</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-is_dismissed">
+            
+              <b>is_dismissed</b>()
+            
+            <a href="../classes/Connection.html#method-i-is_dismissed" name="method-i-is_dismissed" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-is_dismissed_source')" id="l_method-i-is_dismissed_source">show</a>
+                
+              </p>
+              <div id="method-i-is_dismissed_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/connection.rb, line 16</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">is_dismissed</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">dismissed</span> <span class="ruby-operator">==</span> <span class="ruby-keyword">true</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-is_pending">
+            
+              <b>is_pending</b>()
+            
+            <a href="../classes/Connection.html#method-i-is_pending" name="method-i-is_pending" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-is_pending_source')" id="l_method-i-is_pending_source">show</a>
+                
+              </p>
+              <div id="method-i-is_pending_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/connection.rb, line 12</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">is_pending</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">approved</span> <span class="ruby-operator">==</span> <span class="ruby-keyword">false</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">dismissed</span> <span class="ruby-operator">==</span> <span class="ruby-keyword">false</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-status">
+            
+              <b>status</b>()
+            
+            <a href="../classes/Connection.html#method-i-status" name="method-i-status" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-status_source')" id="l_method-i-status_source">show</a>
+                
+              </p>
+              <div id="method-i-status_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/connection.rb, line 64</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">status</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-string">&#39;Connected&#39;</span>   <span class="ruby-keyword">if</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">is_active</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-string">&#39;Pending&#39;</span>    <span class="ruby-keyword">if</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">is_pending</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-string">&#39;Declined&#39;</span>  <span class="ruby-keyword">if</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">is_dismissed</span>
+  <span class="ruby-string">&#39;&#39;</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+                    </div>
+
+    </div>
+  </body>
+</html>    

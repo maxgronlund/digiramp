@@ -1,0 +1,603 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>User::SubscriptionsController</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../css/github.css" type="text/css" media="screen" />
+<script src="../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            <span class="type">Class</span> 
+            User::SubscriptionsController 
+            
+                <span class="parent">&lt; 
+                    
+                    <a href="../ApplicationController.html">ApplicationController</a>
+                    
+                </span>
+            
+        </h1>
+        <ul class="files">
+            
+            <li><a href="../../files/controllers/user/subscriptions_controller_rb.html">controllers/user/subscriptions_controller.rb</a></li>
+            
+        </ul>
+    </div>
+    <div id="bodyContent">
+        <div id="content">
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+    <!-- Method ref -->
+    <div class="sectiontitle">Methods</div>
+    <dl class="methods">
+      
+        <dt>C</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-create">create</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>D</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-destroy">destroy</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>E</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-edit">edit</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>I</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-index">index</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>L</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-load_plans">load_plans</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>N</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-new">new</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>S</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-status">status</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>T</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-time_out">time_out</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>U</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-update">update</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+    </dl>
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+        
+      <div class="sectiontitle">Instance Public methods</div>
+      
+        <div class="method">
+          <div class="title method-title" id="method-i-create">
+            
+              <b>create</b>()
+            
+            <a href="../../classes/User/SubscriptionsController.html#method-i-create" name="method-i-create" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-create_source')" id="l_method-i-create_source">show</a>
+                
+              </p>
+              <div id="method-i-create_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File controllers/user/subscriptions_controller.rb, line 34</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">create</span>
+ 
+  <span class="ruby-ivar">@plan</span>           = <span class="ruby-constant">Plan</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:plan_id</span>])
+  
+  <span class="ruby-keyword">if</span> <span class="ruby-ivar">@user</span>.<span class="ruby-identifier">email</span>.<span class="ruby-identifier">blank?</span>
+    <span class="ruby-ivar">@user</span>.<span class="ruby-identifier">email</span> = <span class="ruby-identifier">params</span>[<span class="ruby-value">:email</span>]
+    <span class="ruby-ivar">@user</span>.<span class="ruby-identifier">save!</span>
+  <span class="ruby-keyword">end</span>
+  
+  
+  <span class="ruby-comment"># use strong parameters</span>
+  <span class="ruby-identifier">subscription</span>    = <span class="ruby-constant">Subscription</span>.<span class="ruby-identifier">new</span>( <span class="ruby-identifier">plan_id</span><span class="ruby-operator">:</span>          <span class="ruby-ivar">@plan</span>.<span class="ruby-identifier">id</span>, 
+                                      <span class="ruby-identifier">user_id</span><span class="ruby-operator">:</span>          <span class="ruby-ivar">@user</span>.<span class="ruby-identifier">id</span>,
+                                      <span class="ruby-identifier">account_id</span><span class="ruby-operator">:</span>       <span class="ruby-ivar">@user</span>.<span class="ruby-identifier">account</span>.<span class="ruby-identifier">id</span>,
+                                      <span class="ruby-identifier">email</span><span class="ruby-operator">:</span>            <span class="ruby-identifier">params</span>[<span class="ruby-value">:email</span>],
+                                      <span class="ruby-identifier">stripe_token</span><span class="ruby-operator">:</span>     <span class="ruby-identifier">params</span>[<span class="ruby-value">:stripeToken</span>],
+                                      <span class="ruby-identifier">guid</span><span class="ruby-operator">:</span>             <span class="ruby-constant">UUIDTools</span><span class="ruby-operator">::</span><span class="ruby-constant">UUID</span>.<span class="ruby-identifier">timestamp_create</span>().<span class="ruby-identifier">to_s</span>,
+                                      <span class="ruby-identifier">cardholders_name</span><span class="ruby-operator">:</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:cardholders_name</span>],
+                                      <span class="ruby-identifier">coupon_code</span><span class="ruby-operator">:</span>      <span class="ruby-identifier">params</span>[<span class="ruby-value">:coupon_code</span>]
+                                     )
+  
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">coupon</span> = <span class="ruby-constant">Coupon</span>.<span class="ruby-identifier">find_by</span>(<span class="ruby-identifier">stripe_id</span><span class="ruby-operator">:</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:coupon_code</span>])
+    <span class="ruby-identifier">subscription</span>.<span class="ruby-identifier">coupon_id</span> = <span class="ruby-identifier">coupon</span>.<span class="ruby-identifier">id</span>
+  <span class="ruby-keyword">end</span>
+  
+  <span class="ruby-comment">#if coupon = Coupon.find_by( stripe_id: params[:coupon_code])</span>
+  <span class="ruby-comment">#  subscription.coupon_code = coupon.stripe_object </span>
+  <span class="ruby-comment">#end</span>
+  
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">subscription</span>.<span class="ruby-identifier">save</span>
+    <span class="ruby-constant">StripeChargerSubscriptionJob</span>.<span class="ruby-identifier">perform_later</span>(<span class="ruby-identifier">subscription</span>.<span class="ruby-identifier">guid</span>)
+    <span class="ruby-identifier">render</span> <span class="ruby-identifier">json</span><span class="ruby-operator">:</span> { <span class="ruby-identifier">guid</span><span class="ruby-operator">:</span> <span class="ruby-identifier">subscription</span>.<span class="ruby-identifier">guid</span> }
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">errors</span> = <span class="ruby-identifier">subscription</span>.<span class="ruby-identifier">errors</span>.<span class="ruby-identifier">full_messages</span>
+    <span class="ruby-identifier">render</span> <span class="ruby-identifier">json</span><span class="ruby-operator">:</span> { <span class="ruby-identifier">error</span><span class="ruby-operator">:</span> <span class="ruby-identifier">errors</span>.<span class="ruby-identifier">join</span>(<span class="ruby-string">&quot; &quot;</span>) }, <span class="ruby-identifier">status</span><span class="ruby-operator">:</span> <span class="ruby-number">400</span>
+  <span class="ruby-keyword">end</span>
+  
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-destroy">
+            
+              <b>destroy</b>()
+            
+            <a href="../../classes/User/SubscriptionsController.html#method-i-destroy" name="method-i-destroy" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-destroy_source')" id="l_method-i-destroy_source">show</a>
+                
+              </p>
+              <div id="method-i-destroy_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File controllers/user/subscriptions_controller.rb, line 98</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">destroy</span>
+
+  <span class="ruby-ivar">@subscription</span>       =  <span class="ruby-constant">Subscription</span>.<span class="ruby-identifier">cached_find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
+  <span class="ruby-comment"># this is a &#39;social&#39; plan or a plan without a stripe connection</span>
+  <span class="ruby-identifier">flash</span>[<span class="ruby-value">:info</span>]        =  <span class="ruby-ivar">@subscription</span>.<span class="ruby-identifier">cancel_when_plan_expires</span>
+
+  <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">user_user_subscriptions_path</span>(<span class="ruby-ivar">@user</span>)
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-edit">
+            
+              <b>edit</b>()
+            
+            <a href="../../classes/User/SubscriptionsController.html#method-i-edit" name="method-i-edit" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-edit_source')" id="l_method-i-edit_source">show</a>
+                
+              </p>
+              <div id="method-i-edit_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File controllers/user/subscriptions_controller.rb, line 73</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">edit</span>
+
+  <span class="ruby-ivar">@subscription</span>       =  <span class="ruby-constant">Subscription</span>.<span class="ruby-identifier">cached_find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
+  <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">edit_user_user_payment_method_path</span>(<span class="ruby-ivar">@user</span>, <span class="ruby-ivar">@subscription</span>) <span class="ruby-keyword">if</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:update_payment_method</span>]
+  <span class="ruby-ivar">@account_features</span>   =  <span class="ruby-constant">AccountFeature</span>.<span class="ruby-identifier">order</span>(<span class="ruby-value">:position</span>).<span class="ruby-identifier">where</span>(<span class="ruby-identifier">enabled</span><span class="ruby-operator">:</span> <span class="ruby-keyword">true</span>)
+  <span class="ruby-comment">#if account = @user.account</span>
+  <span class="ruby-comment">#  @current_subscription = account.current_subscription</span>
+  <span class="ruby-comment">#end</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-index">
+            
+              <b>index</b>()
+            
+            <a href="../../classes/User/SubscriptionsController.html#method-i-index" name="method-i-index" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-index_source')" id="l_method-i-index_source">show</a>
+                
+              </p>
+              <div id="method-i-index_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File controllers/user/subscriptions_controller.rb, line 6</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">index</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">account</span> = <span class="ruby-ivar">@user</span>.<span class="ruby-identifier">account</span>
+    <span class="ruby-comment"># can be nil</span>
+    <span class="ruby-ivar">@current_plan</span>         = <span class="ruby-identifier">account</span>.<span class="ruby-identifier">current_plan</span>
+    <span class="ruby-ivar">@current_subscription</span> = <span class="ruby-identifier">account</span>.<span class="ruby-identifier">current_subscription</span>
+  <span class="ruby-keyword">end</span>
+  
+  <span class="ruby-ivar">@account_features</span>     =  <span class="ruby-constant">AccountFeature</span>.<span class="ruby-identifier">order</span>(<span class="ruby-value">:position</span>).<span class="ruby-identifier">where</span>(<span class="ruby-identifier">enabled</span><span class="ruby-operator">:</span> <span class="ruby-keyword">true</span>)
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-new">
+            
+              <b>new</b>()
+            
+            <a href="../../classes/User/SubscriptionsController.html#method-i-new" name="method-i-new" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              <p>def show</p>
+
+<p>end</p>
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-new_source')" id="l_method-i-new_source">show</a>
+                
+              </p>
+              <div id="method-i-new_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File controllers/user/subscriptions_controller.rb, line 20</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">new</span>
+  <span class="ruby-ivar">@months</span> = <span class="ruby-constant">CreditCard</span>.<span class="ruby-identifier">months</span>
+  <span class="ruby-ivar">@years</span>  = <span class="ruby-constant">CreditCard</span>.<span class="ruby-identifier">years</span>
+
+  <span class="ruby-ivar">@account</span>              = <span class="ruby-ivar">@user</span>.<span class="ruby-identifier">account</span>
+  <span class="ruby-ivar">@subscription</span>         = <span class="ruby-constant">Subscription</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">email</span><span class="ruby-operator">:</span> <span class="ruby-ivar">@user</span>.<span class="ruby-identifier">email</span>)
+  <span class="ruby-keyword">if</span> <span class="ruby-ivar">@account_features</span>  = <span class="ruby-constant">AccountFeature</span>.<span class="ruby-identifier">where</span>(<span class="ruby-identifier">account_type</span><span class="ruby-operator">:</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:account_type</span>]).<span class="ruby-identifier">first</span>
+    <span class="ruby-ivar">@plan</span>               = <span class="ruby-ivar">@account_features</span>.<span class="ruby-identifier">plan</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">flash</span>[<span class="ruby-value">:danger</span>] = <span class="ruby-string">&#39;Plan is missing&#39;</span>
+  <span class="ruby-keyword">end</span>
+
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-status">
+            
+              <b>status</b>()
+            
+            <a href="../../classes/User/SubscriptionsController.html#method-i-status" name="method-i-status" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-status_source')" id="l_method-i-status_source">show</a>
+                
+              </p>
+              <div id="method-i-status_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File controllers/user/subscriptions_controller.rb, line 107</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">status</span>
+ 
+  <span class="ruby-ivar">@subscription</span> = <span class="ruby-constant">Subscription</span>.<span class="ruby-identifier">find_by</span>(<span class="ruby-identifier">guid</span><span class="ruby-operator">:</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:guid</span>])
+  <span class="ruby-identifier">render</span> <span class="ruby-identifier">nothing</span><span class="ruby-operator">:</span> <span class="ruby-keyword">true</span>, <span class="ruby-identifier">status</span><span class="ruby-operator">:</span> <span class="ruby-number">404</span> <span class="ruby-keyword">and</span> <span class="ruby-keyword">return</span> <span class="ruby-keyword">unless</span> <span class="ruby-ivar">@subscription</span>
+  <span class="ruby-identifier">render</span> <span class="ruby-identifier">json</span><span class="ruby-operator">:</span> {<span class="ruby-identifier">guid</span><span class="ruby-operator">:</span> <span class="ruby-ivar">@subscription</span>.<span class="ruby-identifier">guid</span>, <span class="ruby-identifier">status</span><span class="ruby-operator">:</span> <span class="ruby-ivar">@subscription</span>.<span class="ruby-identifier">state</span>, <span class="ruby-identifier">error</span><span class="ruby-operator">:</span> <span class="ruby-ivar">@subscription</span>.<span class="ruby-identifier">error</span>}
+  
+  
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-time_out">
+            
+              <b>time_out</b>()
+            
+            <a href="../../classes/User/SubscriptionsController.html#method-i-time_out" name="method-i-time_out" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-time_out_source')" id="l_method-i-time_out_source">show</a>
+                
+              </p>
+              <div id="method-i-time_out_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File controllers/user/subscriptions_controller.rb, line 83</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">time_out</span>
+  <span class="ruby-ivar">@subscription</span>       =  <span class="ruby-constant">Subscription</span>.<span class="ruby-identifier">cached_find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
+  <span class="ruby-ivar">@subscription</span>.<span class="ruby-identifier">fail!</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-update">
+            
+              <b>update</b>()
+            
+            <a href="../../classes/User/SubscriptionsController.html#method-i-update" name="method-i-update" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-update_source')" id="l_method-i-update_source">show</a>
+                
+              </p>
+              <div id="method-i-update_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File controllers/user/subscriptions_controller.rb, line 88</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">update</span>
+
+  
+  <span class="ruby-ivar">@subscription</span>       = <span class="ruby-constant">Subscription</span>.<span class="ruby-identifier">cached_find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
+  <span class="ruby-identifier">flash</span>[<span class="ruby-value">:warning</span>]     = <span class="ruby-ivar">@subscription</span>.<span class="ruby-identifier">change_plan</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:plan_id</span>])
+
+
+  <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">user_user_control_panel_index_path</span>(<span class="ruby-ivar">@user</span>)
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+              
+      <div class="sectiontitle">Instance Protected methods</div>
+      
+        <div class="method">
+          <div class="title method-title" id="method-i-load_plans">
+            
+              <b>load_plans</b>()
+            
+            <a href="../../classes/User/SubscriptionsController.html#method-i-load_plans" name="method-i-load_plans" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-load_plans_source')" id="l_method-i-load_plans_source">show</a>
+                
+              </p>
+              <div id="method-i-load_plans_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File controllers/user/subscriptions_controller.rb, line 117</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">load_plans</span>
+  <span class="ruby-ivar">@plans</span> = <span class="ruby-constant">Plan</span>.<span class="ruby-identifier">where</span>(<span class="ruby-identifier">published</span><span class="ruby-operator">:</span> <span class="ruby-keyword">true</span>).<span class="ruby-identifier">order</span>(<span class="ruby-string">&#39;amount&#39;</span>)
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+                    </div>
+
+    </div>
+  </body>
+</html>    

@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>index.html.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            index.html.slim
+        </h1>
+        <ul class="files">
+            <li>views/admin/plans/index.html.slim</li>
+            <li>Last modified: 2015-09-24 20:35:34 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>wrapper</p>
+
+<pre><code>.full-width-top
+  == render &#39;shared/navigationbar&#39;, page: &#39;admin&#39; 
+
+.admin-account
+  #sidebar-wrapper
+    ul class=&quot;sidebar-nav&quot;
+      == render &#39;admin/shared/sidebar&#39;, selected: &#39;sale&#39;
+
+#page-content-wrapper
+  .container-fluid
+    == render &#39;shared/flash_message&#39;
+    == render &#39;shared/breadcrumbs&#39;, breadcrumbs: { links: { &quot;admin&quot;.to_sym =&gt; admin_index_path,
+                                                            business: admin_business_index_path}, current: &#39;&#39;}
+    .row
+      .col-sm-6
+        h2 
+          i.fa.fa-cc-stripe
+          &#39;&amp;nbsp;Plans
+      .col-sm-6
+        .pull-right.pull-down-10
+          = link_to &#39;New plan&#39;, new_admin_plan_path, class: &#39;btn btn-info&#39;
+
+    .sexy_line
+
+    .panel.panel-default
+      .panel-body
+        b READ ME
+        .sexy_line
+        b Delete a plan
+        br
+        &#39;You can delete plans. However, deleting a plan does not affect any current subscribers to the plan; 
+        br it merely means that new subscribers can&#39;t be added to that plan.
+        .sexy_line
+        b Updating a plan
+        br
+        &#39;It&#39;s not possible to update price, period or any business data on a plan
+    .digi-box
+      table.table.table-hover
+        thead
+          tr
+            th Stripe id
+            th Name
+            th Description
+            /th Amount
+            th Interval
+            th Published
+            th
+
+        tbody
+          - @plans.each do |plan|
+            tr
+              td = plan.stripe_id
+              td = plan.name
+              td = plan.description
+              /td = plan.amount
+              td = plan.interval
+              td = plan.published
+              td
+                .pull-right
+                  /=&gt; link_to &#39;Show&#39;, admin_plan_path( plan ), class: &#39;btn btn-default btn-xs&#39;
+                  =&gt; link_to &#39;Edit&#39;, edit_admin_plan_path(plan), class: &#39;btn btn-default btn-xs&#39;
+                  - if Rails.env == &#39;development&#39;
+                    = link_to &#39;Stripe&#39;, &quot;https://dashboard.stripe.com/test/plans/#{plan.stripe_id}&quot;, :target =&gt; &quot;_blank&quot; , class: &#39;btn btn-info btn-xs&#39;
+                  - else
+                    = link_to &#39;Stripe&#39;, &quot;https://dashboard.stripe.com/plans/#{plan.stripe_id}&quot;, :target =&gt; &quot;_blank&quot; , class: &#39;btn btn-info btn-xs&#39;
+                  = link_to admin_plan_path( plan ), data: {:confirm =&gt; &#39;Are you sure?&#39;}, turboboost: true, :method =&gt; :delete do
+                        .btn.btn-danger.btn-xs
+                          i.fa.fa-times
+
+== render &#39;shared/site_footer&#39;</code></pre>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

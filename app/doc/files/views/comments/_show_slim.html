@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>_show.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            _show.slim
+        </h1>
+        <ul class="files">
+            <li>views/comments/_show.slim</li>
+            <li>Last modified: 2015-07-05 15:22:06 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      <ul><li>
+<p>if comment.user div id=“comment_#{comment.id}”</p>
+
+<pre><code>.comments-content
+  .row
+    .col-sm-12
+
+      .pull-left
+        .avatar
+          .thumbnail
+            / !!! use social_avatar
+            - if comment.user
+              = link_to image_tag( comment.user.image_url :avatar_48x48),  user_path( comment.user)
+
+      .comment-content
+        h5
+          = link_to comment.user.user_name, user_path( comment.user)
+          &#39;&amp;nbsp;
+          = &quot;#{time_ago_in_words(comment.created_at) } ago&quot;
+          - if current_user 
+             /= debug comment
+             -if comment.user.id == current_user.id || \
+                 current_user.id == @user.id || \
+                 current_user.super? 
+              .pull-right
+                = link_to  comment_path(comment), data: {:confirm =&gt; &#39;Are you sure?&#39;}, :method =&gt; :delete , remote: true do
+                  i class=&quot;fa fa-times&quot;
+
+        = simple_format comment.body
+        .sexy_line</code></pre>
+</li><li>
+<p>else</p>
+<ul><li>
+<p>comment.destroy</p>
+</li></ul>
+</li></ul>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

@@ -1,0 +1,373 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>UserMailer</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../css/github.css" type="text/css" media="screen" />
+<script src="../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            <span class="type">Class</span> 
+            UserMailer 
+            
+                <span class="parent">&lt; 
+                    
+                    <a href="ApplicationMailer.html">ApplicationMailer</a>
+                    
+                </span>
+            
+        </h1>
+        <ul class="files">
+            
+            <li><a href="../files/mailers/user_mailer_rb.html">mailers/user_mailer.rb</a></li>
+            
+        </ul>
+    </div>
+    <div id="bodyContent">
+        <div id="content">
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+    <!-- Method ref -->
+    <div class="sectiontitle">Methods</div>
+    <dl class="methods">
+      
+        <dt>I</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-invite_existing_user_to_account">invite_existing_user_to_account</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-i-invite_new_user_to_account">invite_new_user_to_account</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-i-invite_user_to_catalog">invite_user_to_catalog</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>P</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-password_reset">password_reset</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+    </dl>
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+        
+      <div class="sectiontitle">Instance Public methods</div>
+      
+        <div class="method">
+          <div class="title method-title" id="method-i-invite_existing_user_to_account">
+            
+              <b>invite_existing_user_to_account</b>(user_id, title, body)
+            
+            <a href="../classes/UserMailer.html#method-i-invite_existing_user_to_account" name="method-i-invite_existing_user_to_account" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-invite_existing_user_to_account_source')" id="l_method-i-invite_existing_user_to_account_source">show</a>
+                
+              </p>
+              <div id="method-i-invite_existing_user_to_account_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File mailers/user_mailer.rb, line 53</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">invite_existing_user_to_account</span>  <span class="ruby-identifier">user_id</span>, <span class="ruby-identifier">title</span>, <span class="ruby-identifier">body</span>
+  <span class="ruby-identifier">user</span>         = <span class="ruby-constant">User</span>.<span class="ruby-identifier">cached_find</span>(<span class="ruby-identifier">user_id</span>)
+  
+  <span class="ruby-identifier">merge_vars</span>   = [ { <span class="ruby-identifier">rcpt</span><span class="ruby-operator">:</span> <span class="ruby-identifier">user</span>.<span class="ruby-identifier">email</span>,
+                      <span class="ruby-identifier">vars</span><span class="ruby-operator">:</span> [ {<span class="ruby-identifier">name</span><span class="ruby-operator">:</span> <span class="ruby-string">&quot;TITLE&quot;</span>,         <span class="ruby-identifier">content</span><span class="ruby-operator">:</span> <span class="ruby-identifier">title</span>},
+                              {<span class="ruby-identifier">name</span><span class="ruby-operator">:</span> <span class="ruby-string">&quot;BODY&quot;</span>,          <span class="ruby-identifier">content</span><span class="ruby-operator">:</span> <span class="ruby-identifier">body</span>}
+                            ]
+                    }
+                  ]
+
+  <span class="ruby-identifier">send_with_mandrill</span>( [{<span class="ruby-identifier">email</span><span class="ruby-operator">:</span> <span class="ruby-identifier">user</span>.<span class="ruby-identifier">email</span>, <span class="ruby-identifier">name</span><span class="ruby-operator">:</span> <span class="ruby-identifier">user</span>.<span class="ruby-identifier">user_name</span> }], 
+                      <span class="ruby-string">&quot;invite-existing-user-to-account&quot;</span>, 
+                      <span class="ruby-string">&#39;You have been invitet to a DigiRAMP account&#39;</span>, 
+                      [<span class="ruby-string">&quot;account_invitation&quot;</span>, <span class="ruby-string">&quot;existing_user&quot;</span>], 
+                      <span class="ruby-identifier">merge_vars</span>,
+                      <span class="ruby-keyword">true</span>,
+                      <span class="ruby-keyword">true</span>,
+                      <span class="ruby-identifier">user</span>.<span class="ruby-identifier">mandrill_account_id</span>,
+                      <span class="ruby-string">&quot;mailchimp&quot;</span>
+                    )
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-invite_new_user_to_account">
+            
+              <b>invite_new_user_to_account</b>(user_id, title, body)
+            
+            <a href="../classes/UserMailer.html#method-i-invite_new_user_to_account" name="method-i-invite_new_user_to_account" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-invite_new_user_to_account_source')" id="l_method-i-invite_new_user_to_account_source">show</a>
+                
+              </p>
+              <div id="method-i-invite_new_user_to_account_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File mailers/user_mailer.rb, line 30</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">invite_new_user_to_account</span> <span class="ruby-identifier">user_id</span>, <span class="ruby-identifier">title</span>, <span class="ruby-identifier">body</span>
+   <span class="ruby-identifier">user</span>         = <span class="ruby-constant">User</span>.<span class="ruby-identifier">cached_find</span>(<span class="ruby-identifier">user_id</span>)
+   <span class="ruby-identifier">accept_url</span>   = <span class="ruby-identifier">url_for</span>( <span class="ruby-identifier">controller</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;accept_invitations&#39;</span>, <span class="ruby-identifier">action</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;edit&#39;</span>, <span class="ruby-identifier">id</span><span class="ruby-operator">:</span> <span class="ruby-identifier">user</span>.<span class="ruby-identifier">password_reset_token</span>)
+   <span class="ruby-identifier">merge_vars</span>   = [ { <span class="ruby-identifier">rcpt</span><span class="ruby-operator">:</span> <span class="ruby-identifier">user</span>.<span class="ruby-identifier">email</span>,
+                       <span class="ruby-identifier">vars</span><span class="ruby-operator">:</span> [ {<span class="ruby-identifier">name</span><span class="ruby-operator">:</span> <span class="ruby-string">&quot;TITLE&quot;</span>,         <span class="ruby-identifier">content</span><span class="ruby-operator">:</span> <span class="ruby-identifier">title</span>},
+                               {<span class="ruby-identifier">name</span><span class="ruby-operator">:</span> <span class="ruby-string">&quot;BODY&quot;</span>,          <span class="ruby-identifier">content</span><span class="ruby-operator">:</span> <span class="ruby-identifier">body</span>},
+                               {<span class="ruby-identifier">name</span><span class="ruby-operator">:</span> <span class="ruby-string">&quot;ACCEPT_URL&quot;</span>,    <span class="ruby-identifier">content</span><span class="ruby-operator">:</span> <span class="ruby-identifier">accept_url</span>}
+                             ]
+                     }
+                   ]
+ 
+   <span class="ruby-identifier">send_with_mandrill</span>( [{<span class="ruby-identifier">email</span><span class="ruby-operator">:</span> <span class="ruby-identifier">user</span>.<span class="ruby-identifier">email</span>, <span class="ruby-identifier">name</span><span class="ruby-operator">:</span> <span class="ruby-identifier">user</span>.<span class="ruby-identifier">user_name</span> }], 
+                       <span class="ruby-string">&quot;invite-new-user-to-account&quot;</span>, 
+                       <span class="ruby-string">&#39;You have been invitet to a DigiRAMP account&#39;</span>, 
+                       [<span class="ruby-string">&quot;account_invitation&quot;</span>, <span class="ruby-string">&quot;new_user&quot;</span>], 
+                       <span class="ruby-identifier">merge_vars</span>,
+                       <span class="ruby-keyword">true</span>,
+                       <span class="ruby-keyword">true</span>,
+                       <span class="ruby-identifier">user</span>.<span class="ruby-identifier">mandrill_account_id</span>,
+                       <span class="ruby-string">&quot;mailchimp&quot;</span> 
+                      )
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-invite_user_to_catalog">
+            
+              <b>invite_user_to_catalog</b>( email, title, body, invited_user_id, account_id, catalog_id, user_exists )
+            
+            <a href="../classes/UserMailer.html#method-i-invite_user_to_catalog" name="method-i-invite_user_to_catalog" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-invite_user_to_catalog_source')" id="l_method-i-invite_user_to_catalog_source">show</a>
+                
+              </p>
+              <div id="method-i-invite_user_to_catalog_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File mailers/user_mailer.rb, line 75</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">invite_user_to_catalog</span>( <span class="ruby-identifier">email</span>, 
+                            <span class="ruby-identifier">title</span>, 
+                            <span class="ruby-identifier">body</span>, 
+                            <span class="ruby-identifier">invited_user_id</span>, 
+                            <span class="ruby-identifier">account_id</span>, 
+                            <span class="ruby-identifier">catalog_id</span>, 
+                            <span class="ruby-identifier">user_exists</span>
+                            )
+                            
+  <span class="ruby-identifier">blog</span>        = <span class="ruby-constant">Blog</span>.<span class="ruby-identifier">cached_find</span>(<span class="ruby-string">&#39;Support&#39;</span>)
+  <span class="ruby-identifier">blog_post</span>   = <span class="ruby-constant">BlogPost</span>.<span class="ruby-identifier">cached_find</span>( <span class="ruby-string">&quot;INVITE TO CATALOG&quot;</span> , <span class="ruby-identifier">blog</span> )
+  <span class="ruby-identifier">account</span>     = <span class="ruby-constant">Account</span>.<span class="ruby-identifier">cached_find</span>(<span class="ruby-identifier">account_id</span>)
+  <span class="ruby-identifier">inviter</span>     = <span class="ruby-identifier">account</span>.<span class="ruby-identifier">user</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">user_exists</span>
+    <span class="ruby-identifier">invitation_link</span>  = <span class="ruby-identifier">url_for</span>( <span class="ruby-identifier">controller</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;catalog/catalogs&#39;</span>, 
+                                     <span class="ruby-identifier">action</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;show&#39;</span>, 
+                                 <span class="ruby-identifier">account_id</span><span class="ruby-operator">:</span> <span class="ruby-identifier">account_id</span>, 
+                                         <span class="ruby-identifier">id</span><span class="ruby-operator">:</span> <span class="ruby-identifier">catalog_id</span>)
+  <span class="ruby-keyword">else</span> 
+    <span class="ruby-identifier">user</span>             = <span class="ruby-constant">User</span>.<span class="ruby-identifier">cached_find</span>(<span class="ruby-identifier">invited_user_id</span>)               
+    <span class="ruby-identifier">invitation_link</span>  = <span class="ruby-identifier">url_for</span>( <span class="ruby-identifier">controller</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;activate_catalog_user&#39;</span>, 
+                                     <span class="ruby-identifier">action</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;edit&#39;</span>, 
+                                         <span class="ruby-identifier">id</span><span class="ruby-operator">:</span> <span class="ruby-identifier">user</span>.<span class="ruby-identifier">password_reset_token</span>, 
+                                 <span class="ruby-identifier">catalog_id</span><span class="ruby-operator">:</span> <span class="ruby-identifier">catalog_id</span>
+                               )
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-identifier">fotter_link</span>             = <span class="ruby-identifier">url_for</span>( <span class="ruby-identifier">controller</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;contacts&#39;</span>, <span class="ruby-identifier">action</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;new&#39;</span>)
+  
+  <span class="ruby-identifier">merge_vars</span>   = [ { <span class="ruby-identifier">rcpt</span><span class="ruby-operator">:</span> <span class="ruby-identifier">email</span>,
+                      <span class="ruby-identifier">vars</span><span class="ruby-operator">:</span> [ {<span class="ruby-identifier">name</span><span class="ruby-operator">:</span> <span class="ruby-string">&quot;TITLE&quot;</span>,             <span class="ruby-identifier">content</span><span class="ruby-operator">:</span> <span class="ruby-identifier">title</span>},
+                              {<span class="ruby-identifier">name</span><span class="ruby-operator">:</span> <span class="ruby-string">&quot;BODY&quot;</span>,              <span class="ruby-identifier">content</span><span class="ruby-operator">:</span> <span class="ruby-identifier">body</span>},
+                              {<span class="ruby-identifier">name</span><span class="ruby-operator">:</span> <span class="ruby-string">&quot;BLOG_POST_TITLE&quot;</span>,   <span class="ruby-identifier">content</span><span class="ruby-operator">:</span> <span class="ruby-identifier">blog_post</span>.<span class="ruby-identifier">title</span>},
+                              {<span class="ruby-identifier">name</span><span class="ruby-operator">:</span> <span class="ruby-string">&quot;BLOG_POST_BODY&quot;</span>,    <span class="ruby-identifier">content</span><span class="ruby-operator">:</span> <span class="ruby-identifier">blog_post</span>.<span class="ruby-identifier">body</span>},
+                              {<span class="ruby-identifier">name</span><span class="ruby-operator">:</span> <span class="ruby-string">&quot;INVITATION_LINK&quot;</span>,   <span class="ruby-identifier">content</span><span class="ruby-operator">:</span> <span class="ruby-identifier">invitation_link</span>},
+                              {<span class="ruby-identifier">name</span><span class="ruby-operator">:</span> <span class="ruby-string">&quot;FOOTER_LINK&quot;</span>,       <span class="ruby-identifier">content</span><span class="ruby-operator">:</span> <span class="ruby-identifier">fotter_link</span>}
+                            ]
+                    }
+                  ]
+  
+  <span class="ruby-identifier">send_with_mandrill</span>( [{<span class="ruby-identifier">email</span><span class="ruby-operator">:</span> <span class="ruby-identifier">email</span> }], 
+                      <span class="ruby-string">&quot;invite-user-to-catalog&quot;</span>, 
+                      <span class="ruby-identifier">title</span>, 
+                      [<span class="ruby-string">&quot;catalog_invitation&quot;</span>], 
+                      <span class="ruby-identifier">merge_vars</span>,
+                      <span class="ruby-keyword">true</span>,
+                      <span class="ruby-keyword">true</span>,
+                      <span class="ruby-identifier">inviter</span>.<span class="ruby-identifier">mandrill_account_id</span>,
+                      <span class="ruby-string">&quot;mailchimp&quot;</span> 
+                    )
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-password_reset">
+            
+              <b>password_reset</b>(user_id)
+            
+            <a href="../classes/UserMailer.html#method-i-password_reset" name="method-i-password_reset" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-password_reset_source')" id="l_method-i-password_reset_source">show</a>
+                
+              </p>
+              <div id="method-i-password_reset_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File mailers/user_mailer.rb, line 3</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">password_reset</span> <span class="ruby-identifier">user_id</span>
+  <span class="ruby-identifier">user</span>                   = <span class="ruby-constant">User</span>.<span class="ruby-identifier">cached_find</span>(<span class="ruby-identifier">user_id</span>)
+  <span class="ruby-identifier">blog</span>                   = <span class="ruby-constant">Blog</span>.<span class="ruby-identifier">cached_find</span>(<span class="ruby-string">&#39;Support&#39;</span>)
+  <span class="ruby-identifier">blog_post</span>              = <span class="ruby-constant">BlogPost</span>.<span class="ruby-identifier">cached_find</span>( <span class="ruby-string">&quot;RESET EMAIL&quot;</span> , <span class="ruby-identifier">blog</span> )
+  <span class="ruby-identifier">title</span>                  = <span class="ruby-identifier">blog_post</span>.<span class="ruby-identifier">title</span>
+  <span class="ruby-identifier">body</span>                   = <span class="ruby-identifier">blog_post</span>.<span class="ruby-identifier">body</span>                    
+  <span class="ruby-identifier">reset_url</span>              = <span class="ruby-identifier">url_for</span>( <span class="ruby-identifier">controller</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;password_resets&#39;</span>, <span class="ruby-identifier">action</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;edit&#39;</span>, <span class="ruby-identifier">id</span><span class="ruby-operator">:</span> <span class="ruby-identifier">user</span>.<span class="ruby-identifier">password_reset_token</span>)
+
+  <span class="ruby-identifier">merge_vars</span> = [ { <span class="ruby-identifier">rcpt</span><span class="ruby-operator">:</span> <span class="ruby-identifier">user</span>.<span class="ruby-identifier">email</span>,
+                    <span class="ruby-identifier">vars</span><span class="ruby-operator">:</span> [ {<span class="ruby-identifier">name</span><span class="ruby-operator">:</span> <span class="ruby-string">&quot;TITLE&quot;</span>,         <span class="ruby-identifier">content</span><span class="ruby-operator">:</span> <span class="ruby-identifier">title</span>},
+                            {<span class="ruby-identifier">name</span><span class="ruby-operator">:</span> <span class="ruby-string">&quot;BODY&quot;</span>,          <span class="ruby-identifier">content</span><span class="ruby-operator">:</span> <span class="ruby-identifier">body</span>},
+                            {<span class="ruby-identifier">name</span><span class="ruby-operator">:</span> <span class="ruby-string">&quot;RESET_URL&quot;</span>,    <span class="ruby-identifier">content</span><span class="ruby-operator">:</span> <span class="ruby-identifier">reset_url</span>}
+                          ]
+                  }
+                ]
+ 
+  <span class="ruby-identifier">send_with_mandrill</span>( [{<span class="ruby-identifier">email</span><span class="ruby-operator">:</span> <span class="ruby-identifier">user</span>.<span class="ruby-identifier">email</span>, <span class="ruby-identifier">name</span><span class="ruby-operator">:</span> <span class="ruby-identifier">user</span>.<span class="ruby-identifier">user_name</span> }], 
+                      <span class="ruby-string">&quot;password-reset&quot;</span>, 
+                      <span class="ruby-string">&#39;Password reset from DigiRAMP&#39;</span>, 
+                      [<span class="ruby-string">&quot;reset-password&quot;</span>], 
+                      <span class="ruby-identifier">merge_vars</span>,
+                      <span class="ruby-keyword">false</span>,
+                      <span class="ruby-keyword">false</span>,
+                      <span class="ruby-string">&quot;02-digiramp-password-reset&quot;</span>,
+                      <span class="ruby-string">&quot;mailchimp&quot;</span> )
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+                    </div>
+
+    </div>
+  </body>
+</html>    

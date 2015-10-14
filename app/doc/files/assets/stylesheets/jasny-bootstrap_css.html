@@ -1,0 +1,791 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>jasny-bootstrap.css</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            jasny-bootstrap.css
+        </h1>
+        <ul class="files">
+            <li>assets/stylesheets/jasny-bootstrap.css</li>
+            <li>Last modified: 2015-07-05 15:22:03 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<pre><code>!
+ Jasny Bootstrap v3.1.3 (https://jasny.github.io/bootstrap)
+ Copyright 2012-2014 Arnold Daniels
+ Licensed under Apache-2.0 (https://github.com/jasny/bootstrap/blob/master/LICENSE)</code></pre>
+
+<p>.container-smooth {</p>
+
+<pre><code>max-width: 1170px;</code></pre>
+
+<p>} @media (min-width: 1px) {</p>
+
+<pre><code>.container-smooth {
+  width: auto;
+}</code></pre>
+
+<p>} .btn-labeled {</p>
+
+<pre><code>padding-top: 0;
+padding-bottom: 0;</code></pre>
+
+<p>} .btn-label {</p>
+
+<pre><code>position: relative;
+left: -12px;
+display: inline-block;
+padding: 6px 12px;
+background: transparent;
+background: rgba(0, 0, 0, .15);
+border-radius: 3px 0 0 3px;</code></pre>
+
+<p>} .btn-label.btn-label-right {</p>
+
+<pre><code>right: -12px;
+left: auto;
+border-radius: 0 3px 3px 0;</code></pre>
+
+<p>} .btn-lg .btn-label {</p>
+
+<pre><code>left: -16px;
+padding: 10px 16px;
+border-radius: 5px 0 0 5px;</code></pre>
+
+<p>} .btn-lg .btn-label.btn-label-right {</p>
+
+<pre><code>right: -16px;
+left: auto;
+border-radius: 0 5px 5px 0;</code></pre>
+
+<p>} .btn-sm .btn-label {</p>
+
+<pre><code>left: -10px;
+padding: 5px 10px;
+border-radius: 2px 0 0 2px;</code></pre>
+
+<p>} .btn-sm .btn-label.btn-label-right {</p>
+
+<pre><code>right: -10px;
+left: auto;
+border-radius: 0 2px 2px 0;</code></pre>
+
+<p>} .btn-xs .btn-label {</p>
+
+<pre><code>left: -5px;
+padding: 1px 5px;
+border-radius: 2px 0 0 2px;</code></pre>
+
+<p>} .btn-xs .btn-label.btn-label-right {</p>
+
+<pre><code>right: -5px;
+left: auto;
+border-radius: 0 2px 2px 0;</code></pre>
+
+<p>} .nav-tabs-bottom {</p>
+
+<pre><code>border-top: 1px solid #ddd;
+border-bottom: 0;</code></pre>
+
+<p>} .nav-tabs-bottom &gt; li {</p>
+
+<pre><code>margin-top: -1px;
+margin-bottom: 0;</code></pre>
+
+<p>} .nav-tabs-bottom &gt; li &gt; a {</p>
+
+<pre><code>border-radius: 0 0 4px 4px;</code></pre>
+
+<p>} .nav-tabs-bottom &gt; li &gt; a:hover, .nav-tabs-bottom &gt; li &gt;
+a:focus, .nav-tabs-bottom &gt; li.active &gt; a, .nav-tabs-bottom &gt;
+li.active &gt; a:hover, .nav-tabs-bottom &gt; li.active &gt; a:focus {</p>
+
+<pre><code>border: 1px solid #ddd;
+border-top-color: transparent;</code></pre>
+
+<p>} .nav-tabs-left {</p>
+
+<pre><code>border-right: 1px solid #ddd;
+border-bottom: 0;</code></pre>
+
+<p>} .nav-tabs-left &gt; li {</p>
+
+<pre><code>float: none;
+margin-right: -1px;
+margin-bottom: 0;</code></pre>
+
+<p>} .nav-tabs-left &gt; li &gt; a {</p>
+
+<pre><code>margin-right: 0;
+margin-bottom: 2px;
+border-radius: 4px 0 0 4px;</code></pre>
+
+<p>} .nav-tabs-left &gt; li &gt; a:hover, .nav-tabs-left &gt; li &gt; a:focus,
+.nav-tabs-left &gt; li.active &gt; a, .nav-tabs-left &gt; li.active &gt;
+a:hover, .nav-tabs-left &gt; li.active &gt; a:focus {</p>
+
+<pre><code>border: 1px solid #ddd;
+border-right-color: transparent;</code></pre>
+
+<p>} .row &gt; .nav-tabs-left {</p>
+
+<pre><code>position: relative;
+z-index: 1;
+padding-right: 0;
+padding-left: 15px;
+margin-right: -1px;</code></pre>
+
+<p>} .row &gt; .nav-tabs-left + .tab-content {</p>
+
+<pre><code>border-left: 1px solid #ddd;</code></pre>
+
+<p>} .nav-tabs-right {</p>
+
+<pre><code>border-bottom: 0;
+border-left: 1px solid #ddd;</code></pre>
+
+<p>} .nav-tabs-right &gt; li {</p>
+
+<pre><code>float: none;
+margin-bottom: 0;
+margin-left: -1px;</code></pre>
+
+<p>} .nav-tabs-right &gt; li &gt; a {</p>
+
+<pre><code>margin-bottom: 2px;
+margin-left: 0;
+border-radius: 0 4px 4px 0;</code></pre>
+
+<p>} .nav-tabs-right &gt; li &gt; a:hover, .nav-tabs-right &gt; li &gt;
+a:focus, .nav-tabs-right &gt; li.active &gt; a, .nav-tabs-right &gt;
+li.active &gt; a:hover, .nav-tabs-right &gt; li.active &gt; a:focus {</p>
+
+<pre><code>border: 1px solid #ddd;
+border-left-color: transparent;</code></pre>
+
+<p>} .row &gt; .nav-tabs-right {</p>
+
+<pre><code>padding-right: 15px;
+padding-left: 0;</code></pre>
+
+<p>} .navmenu, .navbar-offcanvas {</p>
+
+<pre><code>width: 300px;
+height: auto;
+border-style: solid;
+border-width: 1px;
+border-radius: 4px;</code></pre>
+
+<p>} .navmenu-fixed-left, .navmenu-fixed-right, .navbar-offcanvas {</p>
+
+<pre><code>position: fixed;
+top: 0;
+bottom: 0;
+z-index: 1030;
+overflow-y: auto;
+border-radius: 0;</code></pre>
+
+<p>} .navmenu-fixed-left, .navbar-offcanvas.navmenu-fixed-left {</p>
+
+<pre><code>right: auto;
+left: 0;
+border-width: 0 1px 0 0;</code></pre>
+
+<p>} .navmenu-fixed-right, .navbar-offcanvas {</p>
+
+<pre><code>right: 0;
+left: auto;
+border-width: 0 0 0 1px;</code></pre>
+
+<p>} .navmenu-nav {</p>
+
+<pre><code>margin-bottom: 10px;</code></pre>
+
+<p>} .navmenu-nav.dropdown-menu {</p>
+
+<pre><code>position: static;
+float: none;
+padding-top: 0;
+margin: 0;
+border: none;
+border-radius: 0;
+-webkit-box-shadow: none;
+        box-shadow: none;</code></pre>
+
+<p>} .navbar-offcanvas .navbar-nav {</p>
+
+<pre><code>margin: 0;</code></pre>
+
+<p>} @media (min-width: 768px) {</p>
+
+<pre><code>.navbar-offcanvas {
+  width: auto;
+  border-top: 0;
+  box-shadow: none;
+}
+.navbar-offcanvas.offcanvas {
+  position: static;
+  display: block !important;
+  height: auto !important;
+  padding-bottom: 0;
+  overflow: visible !important;
+}
+.navbar-offcanvas .navbar-nav.navbar-left:first-child {
+  margin-left: -15px;
+}
+.navbar-offcanvas .navbar-nav.navbar-right:last-child {
+  margin-right: -15px;
+}
+.navbar-offcanvas .navmenu-brand {
+  display: none;
+}</code></pre>
+
+<p>} .navmenu-brand {</p>
+
+<pre><code>display: block;
+padding: 10px 15px;
+margin: 10px 0;
+font-size: 18px;
+line-height: 20px;</code></pre>
+
+<p>} .navmenu-brand:hover, .navmenu-brand:focus {</p>
+
+<pre><code>text-decoration: none;</code></pre>
+
+<p>} .navmenu-default, .navbar-default .navbar-offcanvas {</p>
+
+<pre><code>background-color: #f8f8f8;
+border-color: #e7e7e7;</code></pre>
+
+<p>} .navmenu-default .navmenu-brand, .navbar-default .navbar-offcanvas
+.navmenu-brand {</p>
+
+<pre><code>color: #777;</code></pre>
+
+<p>} .navmenu-default .navmenu-brand:hover, .navbar-default .navbar-offcanvas
+.navmenu-brand:hover, .navmenu-default .navmenu-brand:focus,
+.navbar-default .navbar-offcanvas .navmenu-brand:focus {</p>
+
+<pre><code>color: #5e5e5e;
+background-color: transparent;</code></pre>
+
+<p>} .navmenu-default .navmenu-text, .navbar-default .navbar-offcanvas
+.navmenu-text {</p>
+
+<pre><code>color: #777;</code></pre>
+
+<p>} .navmenu-default .navmenu-nav &gt; .dropdown &gt; a:hover .caret,
+.navbar-default .navbar-offcanvas .navmenu-nav &gt; .dropdown &gt; a:hover
+.caret, .navmenu-default .navmenu-nav &gt; .dropdown &gt; a:focus .caret,
+.navbar-default .navbar-offcanvas .navmenu-nav &gt; .dropdown &gt; a:focus
+.caret {</p>
+
+<pre><code>border-top-color: #333;
+border-bottom-color: #333;</code></pre>
+
+<p>} .navmenu-default .navmenu-nav &gt; .open &gt; a, .navbar-default
+.navbar-offcanvas .navmenu-nav &gt; .open &gt; a, .navmenu-default
+.navmenu-nav &gt; .open &gt; a:hover, .navbar-default .navbar-offcanvas
+.navmenu-nav &gt; .open &gt; a:hover, .navmenu-default .navmenu-nav &gt;
+.open &gt; a:focus, .navbar-default .navbar-offcanvas .navmenu-nav &gt;
+.open &gt; a:focus {</p>
+
+<pre><code>color: #555;
+background-color: #e7e7e7;</code></pre>
+
+<p>} .navmenu-default .navmenu-nav &gt; .open &gt; a .caret, .navbar-default
+.navbar-offcanvas .navmenu-nav &gt; .open &gt; a .caret, .navmenu-default
+.navmenu-nav &gt; .open &gt; a:hover .caret, .navbar-default
+.navbar-offcanvas .navmenu-nav &gt; .open &gt; a:hover .caret,
+.navmenu-default .navmenu-nav &gt; .open &gt; a:focus .caret,
+.navbar-default .navbar-offcanvas .navmenu-nav &gt; .open &gt; a:focus
+.caret {</p>
+
+<pre><code>border-top-color: #555;
+border-bottom-color: #555;</code></pre>
+
+<p>} .navmenu-default .navmenu-nav &gt; .dropdown &gt; a .caret,
+.navbar-default .navbar-offcanvas .navmenu-nav &gt; .dropdown &gt; a .caret
+{</p>
+
+<pre><code>border-top-color: #777;
+border-bottom-color: #777;</code></pre>
+
+<p>} .navmenu-default .navmenu-nav.dropdown-menu, .navbar-default
+.navbar-offcanvas .navmenu-nav.dropdown-menu {</p>
+
+<pre><code>background-color: #e7e7e7;</code></pre>
+
+<p>} .navmenu-default .navmenu-nav.dropdown-menu &gt; .divider,
+.navbar-default .navbar-offcanvas .navmenu-nav.dropdown-menu &gt; .divider
+{</p>
+
+<pre><code>background-color: #f8f8f8;</code></pre>
+
+<p>} .navmenu-default .navmenu-nav.dropdown-menu &gt; .active &gt; a,
+.navbar-default .navbar-offcanvas .navmenu-nav.dropdown-menu &gt; .active
+&gt; a, .navmenu-default .navmenu-nav.dropdown-menu &gt; .active &gt;
+a:hover, .navbar-default .navbar-offcanvas .navmenu-nav.dropdown-menu &gt;
+.active &gt; a:hover, .navmenu-default .navmenu-nav.dropdown-menu &gt;
+.active &gt; a:focus, .navbar-default .navbar-offcanvas
+.navmenu-nav.dropdown-menu &gt; .active &gt; a:focus {</p>
+
+<pre><code>background-color: #d7d7d7;</code></pre>
+
+<p>} .navmenu-default .navmenu-nav &gt; li &gt; a, .navbar-default
+.navbar-offcanvas .navmenu-nav &gt; li &gt; a {</p>
+
+<pre><code>color: #777;</code></pre>
+
+<p>} .navmenu-default .navmenu-nav &gt; li &gt; a:hover, .navbar-default
+.navbar-offcanvas .navmenu-nav &gt; li &gt; a:hover, .navmenu-default
+.navmenu-nav &gt; li &gt; a:focus, .navbar-default .navbar-offcanvas
+.navmenu-nav &gt; li &gt; a:focus {</p>
+
+<pre><code>color: #333;
+background-color: transparent;</code></pre>
+
+<p>} .navmenu-default .navmenu-nav &gt; .active &gt; a, .navbar-default
+.navbar-offcanvas .navmenu-nav &gt; .active &gt; a, .navmenu-default
+.navmenu-nav &gt; .active &gt; a:hover, .navbar-default .navbar-offcanvas
+.navmenu-nav &gt; .active &gt; a:hover, .navmenu-default .navmenu-nav &gt;
+.active &gt; a:focus, .navbar-default .navbar-offcanvas .navmenu-nav &gt;
+.active &gt; a:focus {</p>
+
+<pre><code>color: #555;
+background-color: #e7e7e7;</code></pre>
+
+<p>} .navmenu-default .navmenu-nav &gt; .disabled &gt; a, .navbar-default
+.navbar-offcanvas .navmenu-nav &gt; .disabled &gt; a, .navmenu-default
+.navmenu-nav &gt; .disabled &gt; a:hover, .navbar-default .navbar-offcanvas
+.navmenu-nav &gt; .disabled &gt; a:hover, .navmenu-default .navmenu-nav
+&gt; .disabled &gt; a:focus, .navbar-default .navbar-offcanvas .navmenu-nav
+&gt; .disabled &gt; a:focus {</p>
+
+<pre><code>color: #ccc;
+background-color: transparent;</code></pre>
+
+<p>} .navmenu-inverse, .navbar-inverse .navbar-offcanvas {</p>
+
+<pre><code>background-color: #222;
+border-color: #080808;</code></pre>
+
+<p>} .navmenu-inverse .navmenu-brand, .navbar-inverse .navbar-offcanvas
+.navmenu-brand {</p>
+
+<pre><code>color: #999;</code></pre>
+
+<p>} .navmenu-inverse .navmenu-brand:hover, .navbar-inverse .navbar-offcanvas
+.navmenu-brand:hover, .navmenu-inverse .navmenu-brand:focus,
+.navbar-inverse .navbar-offcanvas .navmenu-brand:focus {</p>
+
+<pre><code>color: #fff;
+background-color: transparent;</code></pre>
+
+<p>} .navmenu-inverse .navmenu-text, .navbar-inverse .navbar-offcanvas
+.navmenu-text {</p>
+
+<pre><code>color: #999;</code></pre>
+
+<p>} .navmenu-inverse .navmenu-nav &gt; .dropdown &gt; a:hover .caret,
+.navbar-inverse .navbar-offcanvas .navmenu-nav &gt; .dropdown &gt; a:hover
+.caret, .navmenu-inverse .navmenu-nav &gt; .dropdown &gt; a:focus .caret,
+.navbar-inverse .navbar-offcanvas .navmenu-nav &gt; .dropdown &gt; a:focus
+.caret {</p>
+
+<pre><code>border-top-color: #fff;
+border-bottom-color: #fff;</code></pre>
+
+<p>} .navmenu-inverse .navmenu-nav &gt; .open &gt; a, .navbar-inverse
+.navbar-offcanvas .navmenu-nav &gt; .open &gt; a, .navmenu-inverse
+.navmenu-nav &gt; .open &gt; a:hover, .navbar-inverse .navbar-offcanvas
+.navmenu-nav &gt; .open &gt; a:hover, .navmenu-inverse .navmenu-nav &gt;
+.open &gt; a:focus, .navbar-inverse .navbar-offcanvas .navmenu-nav &gt;
+.open &gt; a:focus {</p>
+
+<pre><code>color: #fff;
+background-color: #080808;</code></pre>
+
+<p>} .navmenu-inverse .navmenu-nav &gt; .open &gt; a .caret, .navbar-inverse
+.navbar-offcanvas .navmenu-nav &gt; .open &gt; a .caret, .navmenu-inverse
+.navmenu-nav &gt; .open &gt; a:hover .caret, .navbar-inverse
+.navbar-offcanvas .navmenu-nav &gt; .open &gt; a:hover .caret,
+.navmenu-inverse .navmenu-nav &gt; .open &gt; a:focus .caret,
+.navbar-inverse .navbar-offcanvas .navmenu-nav &gt; .open &gt; a:focus
+.caret {</p>
+
+<pre><code>border-top-color: #fff;
+border-bottom-color: #fff;</code></pre>
+
+<p>} .navmenu-inverse .navmenu-nav &gt; .dropdown &gt; a .caret,
+.navbar-inverse .navbar-offcanvas .navmenu-nav &gt; .dropdown &gt; a .caret
+{</p>
+
+<pre><code>border-top-color: #999;
+border-bottom-color: #999;</code></pre>
+
+<p>} .navmenu-inverse .navmenu-nav.dropdown-menu, .navbar-inverse
+.navbar-offcanvas .navmenu-nav.dropdown-menu {</p>
+
+<pre><code>background-color: #080808;</code></pre>
+
+<p>} .navmenu-inverse .navmenu-nav.dropdown-menu &gt; .divider,
+.navbar-inverse .navbar-offcanvas .navmenu-nav.dropdown-menu &gt; .divider
+{</p>
+
+<pre><code>background-color: #222;</code></pre>
+
+<p>} .navmenu-inverse .navmenu-nav.dropdown-menu &gt; .active &gt; a,
+.navbar-inverse .navbar-offcanvas .navmenu-nav.dropdown-menu &gt; .active
+&gt; a, .navmenu-inverse .navmenu-nav.dropdown-menu &gt; .active &gt;
+a:hover, .navbar-inverse .navbar-offcanvas .navmenu-nav.dropdown-menu &gt;
+.active &gt; a:hover, .navmenu-inverse .navmenu-nav.dropdown-menu &gt;
+.active &gt; a:focus, .navbar-inverse .navbar-offcanvas
+.navmenu-nav.dropdown-menu &gt; .active &gt; a:focus {</p>
+
+<pre><code>background-color: #000;</code></pre>
+
+<p>} .navmenu-inverse .navmenu-nav &gt; li &gt; a, .navbar-inverse
+.navbar-offcanvas .navmenu-nav &gt; li &gt; a {</p>
+
+<pre><code>color: #999;</code></pre>
+
+<p>} .navmenu-inverse .navmenu-nav &gt; li &gt; a:hover, .navbar-inverse
+.navbar-offcanvas .navmenu-nav &gt; li &gt; a:hover, .navmenu-inverse
+.navmenu-nav &gt; li &gt; a:focus, .navbar-inverse .navbar-offcanvas
+.navmenu-nav &gt; li &gt; a:focus {</p>
+
+<pre><code>color: #fff;
+background-color: transparent;</code></pre>
+
+<p>} .navmenu-inverse .navmenu-nav &gt; .active &gt; a, .navbar-inverse
+.navbar-offcanvas .navmenu-nav &gt; .active &gt; a, .navmenu-inverse
+.navmenu-nav &gt; .active &gt; a:hover, .navbar-inverse .navbar-offcanvas
+.navmenu-nav &gt; .active &gt; a:hover, .navmenu-inverse .navmenu-nav &gt;
+.active &gt; a:focus, .navbar-inverse .navbar-offcanvas .navmenu-nav &gt;
+.active &gt; a:focus {</p>
+
+<pre><code>color: #fff;
+background-color: #080808;</code></pre>
+
+<p>} .navmenu-inverse .navmenu-nav &gt; .disabled &gt; a, .navbar-inverse
+.navbar-offcanvas .navmenu-nav &gt; .disabled &gt; a, .navmenu-inverse
+.navmenu-nav &gt; .disabled &gt; a:hover, .navbar-inverse .navbar-offcanvas
+.navmenu-nav &gt; .disabled &gt; a:hover, .navmenu-inverse .navmenu-nav
+&gt; .disabled &gt; a:focus, .navbar-inverse .navbar-offcanvas .navmenu-nav
+&gt; .disabled &gt; a:focus {</p>
+
+<pre><code>color: #444;
+background-color: transparent;</code></pre>
+
+<p>} .alert-fixed-top, .alert-fixed-bottom {</p>
+
+<pre><code>position: fixed;
+left: 0;
+z-index: 1035;
+width: 100%;
+margin: 0;
+border-radius: 0;</code></pre>
+
+<p>} @media (min-width: 992px) {</p>
+
+<pre><code>.alert-fixed-top,
+.alert-fixed-bottom {
+  left: 50%;
+  width: 992px;
+  margin-left: -496px;
+}</code></pre>
+
+<p>} .alert-fixed-top {</p>
+
+<pre><code>top: 0;
+border-width: 0 0 1px 0;</code></pre>
+
+<p>} @media (min-width: 992px) {</p>
+
+<pre><code>.alert-fixed-top {
+  border-width: 0 1px 1px 1px;
+  border-bottom-right-radius: 4px;
+  border-bottom-left-radius: 4px;
+}</code></pre>
+
+<p>} .alert-fixed-bottom {</p>
+
+<pre><code>bottom: 0;
+border-width: 1px 0 0 0;</code></pre>
+
+<p>} @media (min-width: 992px) {</p>
+
+<pre><code>.alert-fixed-bottom {
+  border-width: 1px 1px 0 1px;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+}</code></pre>
+
+<p>} .offcanvas {</p>
+
+<pre><code>display: none;</code></pre>
+
+<p>} .offcanvas.in {</p>
+
+<pre><code>display: block;</code></pre>
+
+<p>} @media (max-width: 767px) {</p>
+
+<pre><code>.offcanvas-xs {
+  display: none;
+}
+.offcanvas-xs.in {
+  display: block;
+}</code></pre>
+
+<p>} @media (max-width: 991px) {</p>
+
+<pre><code>.offcanvas-sm {
+  display: none;
+}
+.offcanvas-sm.in {
+  display: block;
+}</code></pre>
+
+<p>} @media (max-width: 1199px) {</p>
+
+<pre><code>.offcanvas-md {
+  display: none;
+}
+.offcanvas-md.in {
+  display: block;
+}</code></pre>
+
+<p>} .offcanvas-lg {</p>
+
+<pre><code>display: none;</code></pre>
+
+<p>} .offcanvas-lg.in {</p>
+
+<pre><code>display: block;</code></pre>
+
+<p>} .canvas-sliding {</p>
+
+<pre><code>-webkit-transition: top .35s, left .35s, bottom .35s, right .35s;
+        transition: top .35s, left .35s, bottom .35s, right .35s;</code></pre>
+
+<p>} .offcanvas-clone {</p>
+
+<pre><code>position: absolute !important;
+top: auto !important;
+right: 0 !important;
+bottom: 0 !important;
+left: auto !important;
+width: 0 !important;
+height: 0 !important;
+padding: 0 !important;
+margin: 0 !important;
+overflow: hidden !important;
+border: none !important;
+opacity: 0 !important;</code></pre>
+
+<p>} .table.rowlink td:not(.rowlink-skip), .table .rowlink
+td:not(.rowlink-skip) {</p>
+
+<pre><code>cursor: pointer;</code></pre>
+
+<p>} .table.rowlink td:not(.rowlink-skip) a, .table .rowlink
+td:not(.rowlink-skip) a {</p>
+
+<pre><code>font: inherit;
+color: inherit;
+text-decoration: inherit;</code></pre>
+
+<p>} .table-hover.rowlink tr:hover td, .table-hover .rowlink tr:hover td {</p>
+
+<pre><code>background-color: #cfcfcf;</code></pre>
+
+<p>} .btn-file {</p>
+
+<pre><code>position: relative;
+overflow: hidden;
+vertical-align: middle;</code></pre>
+
+<p>} .btn-file &gt; input {</p>
+
+<pre><code>position: absolute;
+top: 0;
+right: 0;
+width: 100%;
+height: 100%;
+margin: 0;
+font-size: 23px;
+cursor: pointer;
+filter: alpha(opacity=0);
+opacity: 0;
+
+direction: ltr;</code></pre>
+
+<p>} .fileinput {</p>
+
+<pre><code>display: inline-block;
+margin-bottom: 9px;</code></pre>
+
+<p>} .fileinput .form-control {</p>
+
+<pre><code>display: inline-block;
+padding-top: 7px;
+padding-bottom: 5px;
+margin-bottom: 0;
+vertical-align: middle;
+cursor: text;</code></pre>
+
+<p>} .fileinput .thumbnail {</p>
+
+<pre><code>display: inline-block;
+margin-bottom: 5px;
+overflow: hidden;
+text-align: center;
+vertical-align: middle;</code></pre>
+
+<p>} .fileinput .thumbnail &gt; img {</p>
+
+<pre><code>max-height: 100%;</code></pre>
+
+<p>} .fileinput .btn {</p>
+
+<pre><code>vertical-align: middle;</code></pre>
+
+<p>} .fileinput-exists .fileinput-new, .fileinput-new .fileinput-exists {</p>
+
+<pre><code>display: none;</code></pre>
+
+<p>} .fileinput-inline .fileinput-controls {</p>
+
+<pre><code>display: inline;</code></pre>
+
+<p>} .fileinput-filename {</p>
+
+<pre><code>display: inline-block;
+overflow: hidden;
+vertical-align: middle;</code></pre>
+
+<p>} .form-control .fileinput-filename {</p>
+
+<pre><code>vertical-align: bottom;</code></pre>
+
+<p>} .fileinput.input-group {</p>
+
+<pre><code>display: table;</code></pre>
+
+<p>} .fileinput.input-group &gt; * {</p>
+
+<pre><code>position: relative;
+z-index: 2;</code></pre>
+
+<p>} .fileinput.input-group &gt; .btn-file {</p>
+
+<pre><code>z-index: 1;</code></pre>
+
+<p>} .fileinput-new.input-group .btn-file, .fileinput-new .input-group
+.btn-file {</p>
+
+<pre><code>border-radius: 0 4px 4px 0;</code></pre>
+
+<p>} .fileinput-new.input-group .btn-file.btn-xs, .fileinput-new .input-group
+.btn-file.btn-xs, .fileinput-new.input-group .btn-file.btn-sm,
+.fileinput-new .input-group .btn-file.btn-sm {</p>
+
+<pre><code>border-radius: 0 3px 3px 0;</code></pre>
+
+<p>} .fileinput-new.input-group .btn-file.btn-lg, .fileinput-new .input-group
+.btn-file.btn-lg {</p>
+
+<pre><code>border-radius: 0 6px 6px 0;</code></pre>
+
+<p>} .form-group.has-warning .fileinput .fileinput-preview {</p>
+
+<pre><code>color: #8a6d3b;</code></pre>
+
+<p>} .form-group.has-warning .fileinput .thumbnail {</p>
+
+<pre><code>border-color: #faebcc;</code></pre>
+
+<p>} .form-group.has-error .fileinput .fileinput-preview {</p>
+
+<pre><code>color: #a94442;</code></pre>
+
+<p>} .form-group.has-error .fileinput .thumbnail {</p>
+
+<pre><code>border-color: #ebccd1;</code></pre>
+
+<p>} .form-group.has-success .fileinput .fileinput-preview {</p>
+
+<pre><code>color: #3c763d;</code></pre>
+
+<p>} .form-group.has-success .fileinput .thumbnail {</p>
+
+<pre><code>border-color: #d6e9c6;</code></pre>
+
+<p>} .input-group-addon:not(:first-child) {</p>
+
+<pre><code>border-left: 0;</code></pre>
+
+<p>}</p>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

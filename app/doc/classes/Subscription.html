@@ -1,0 +1,374 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>Subscription</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../css/github.css" type="text/css" media="screen" />
+<script src="../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            <span class="type">Class</span> 
+            Subscription 
+            
+                <span class="parent">&lt; 
+                    
+                    ActiveRecord::Base
+                    
+                </span>
+            
+        </h1>
+        <ul class="files">
+            
+            <li><a href="../files/models/subscription_rb.html">models/subscription.rb</a></li>
+            
+        </ul>
+    </div>
+    <div id="bodyContent">
+        <div id="content">
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+    <!-- Method ref -->
+    <div class="sectiontitle">Methods</div>
+    <dl class="methods">
+      
+        <dt>C</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-c-cached_find">cached_find</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-i-cancel_when_plan_expires">cancel_when_plan_expires</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-i-change_plan">change_plan</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>R</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-remove_payment_sources">remove_payment_sources</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-i-reset_state">reset_state</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+    </dl>
+  
+
+  
+    <!-- Includes -->
+    <div class="sectiontitle">Included Modules</div>
+    <ul>
+      
+        <li>
+          
+            AASM
+          
+        </li>
+      
+    </ul>
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+    
+      <div class="sectiontitle">Class Public methods</div>
+      
+        <div class="method">
+          <div class="title method-title" id="method-c-cached_find">
+            
+              <b>cached_find</b>(id)
+            
+            <a href="../classes/Subscription.html#method-c-cached_find" name="method-c-cached_find" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-c-cached_find_source')" id="l_method-c-cached_find_source">show</a>
+                
+              </p>
+              <div id="method-c-cached_find_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/subscription.rb, line 85</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">self</span>.<span class="ruby-identifier">cached_find</span>(<span class="ruby-identifier">id</span>)
+  <span class="ruby-constant">Rails</span>.<span class="ruby-identifier">cache</span>.<span class="ruby-identifier">fetch</span>([<span class="ruby-identifier">name</span>, <span class="ruby-identifier">id</span>]) { <span class="ruby-identifier">find</span>(<span class="ruby-identifier">id</span>) }
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+                  
+      <div class="sectiontitle">Instance Public methods</div>
+      
+        <div class="method">
+          <div class="title method-title" id="method-i-cancel_when_plan_expires">
+            
+              <b>cancel_when_plan_expires</b>()
+            
+            <a href="../classes/Subscription.html#method-i-cancel_when_plan_expires" name="method-i-cancel_when_plan_expires" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-cancel_when_plan_expires_source')" id="l_method-i-cancel_when_plan_expires_source">show</a>
+                
+              </p>
+              <div id="method-i-cancel_when_plan_expires_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/subscription.rb, line 116</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">cancel_when_plan_expires</span>
+  <span class="ruby-comment">#&#39;cancel_when_plan_expires&#39;</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">reset!</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">update!</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">cancel_at_period_end</span> = <span class="ruby-keyword">true</span>
+
+  <span class="ruby-keyword">begin</span>
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">stripe_customer</span>      = <span class="ruby-constant">Stripe</span><span class="ruby-operator">::</span><span class="ruby-constant">Customer</span>.<span class="ruby-identifier">retrieve</span>(<span class="ruby-keyword">self</span>.<span class="ruby-identifier">user</span>.<span class="ruby-identifier">stripe_customer_id</span>)
+      <span class="ruby-keyword">if</span> <span class="ruby-identifier">stripe_subscriptions</span> = <span class="ruby-identifier">stripe_customer</span>.<span class="ruby-identifier">subscriptions</span>
+        <span class="ruby-identifier">stripe_subscription</span>  = <span class="ruby-identifier">stripe_subscriptions</span>.<span class="ruby-identifier">retrieve</span>(<span class="ruby-keyword">self</span>.<span class="ruby-identifier">stripe_id</span>)
+        <span class="ruby-identifier">stripe_subscription</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-identifier">at_period_end</span><span class="ruby-operator">:</span> <span class="ruby-keyword">true</span>)
+      <span class="ruby-keyword">end</span>
+    <span class="ruby-keyword">end</span>
+    <span class="ruby-keyword">self</span>.<span class="ruby-identifier">finish!</span>
+    
+    <span class="ruby-comment"># send subscription canceled email</span>
+    
+    <span class="ruby-comment">#self</span>
+    <span class="ruby-keyword">return</span> <span class="ruby-string">&quot;You have cancled your current plan, it will continue until the period you have paied for expires&quot;</span> 
+  <span class="ruby-keyword">rescue</span> <span class="ruby-constant">Stripe</span><span class="ruby-operator">::</span><span class="ruby-constant">StripeError</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
+    <span class="ruby-comment">#self.fail!</span>
+    <span class="ruby-keyword">self</span>.<span class="ruby-identifier">error</span> = <span class="ruby-identifier">e</span>.<span class="ruby-identifier">message</span>
+    <span class="ruby-comment">#e.message</span>
+    <span class="ruby-keyword">return</span> <span class="ruby-string">&#39;An error occurred. You will be contacted by support&#39;</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">save!</span>
+  
+  
+  <span class="ruby-comment"># send subscription canceled email</span>
+  
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-change_plan">
+            
+              <b>change_plan</b>(plan_id)
+            
+            <a href="../classes/Subscription.html#method-i-change_plan" name="method-i-change_plan" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-change_plan_source')" id="l_method-i-change_plan_source">show</a>
+                
+              </p>
+              <div id="method-i-change_plan_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/subscription.rb, line 89</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">change_plan</span> <span class="ruby-identifier">plan_id</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">reset_state</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">update!</span>
+  
+  <span class="ruby-comment"># start a job to check if validation from stripe went true</span>
+  <span class="ruby-comment">#StripeCheckUpdateJob.set(wait: 3.minute).perform_later(self.guid)</span>
+  
+  <span class="ruby-comment"># notice plan will be updated from stripe_event.rb hook</span>
+  <span class="ruby-identifier">new_plan</span> = <span class="ruby-constant">Plan</span>.<span class="ruby-identifier">cached_find</span>(<span class="ruby-identifier">plan_id</span>)
+    
+  <span class="ruby-keyword">begin</span>
+    <span class="ruby-identifier">stripe_customer</span>          = <span class="ruby-constant">Stripe</span><span class="ruby-operator">::</span><span class="ruby-constant">Customer</span>.<span class="ruby-identifier">retrieve</span>(<span class="ruby-keyword">self</span>.<span class="ruby-identifier">user</span>.<span class="ruby-identifier">stripe_customer_id</span>)
+    <span class="ruby-identifier">stripe_subscription</span>      = <span class="ruby-identifier">stripe_customer</span>.<span class="ruby-identifier">subscriptions</span>.<span class="ruby-identifier">retrieve</span>(<span class="ruby-keyword">self</span>.<span class="ruby-identifier">stripe_id</span>)
+    <span class="ruby-identifier">stripe_subscription</span>.<span class="ruby-identifier">plan</span> = <span class="ruby-identifier">new_plan</span>.<span class="ruby-identifier">stripe_id</span>
+    <span class="ruby-identifier">stripe_subscription</span>.<span class="ruby-identifier">save</span>
+    <span class="ruby-keyword">self</span>.<span class="ruby-identifier">finish!</span>
+    <span class="ruby-keyword">self</span>.<span class="ruby-identifier">save</span>
+    <span class="ruby-keyword">return</span> <span class="ruby-string">&#39;Your plan has been changed. You will receive an confirmation email&#39;</span>
+  <span class="ruby-keyword">rescue</span> <span class="ruby-constant">Stripe</span><span class="ruby-operator">::</span><span class="ruby-constant">StripeError</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
+    <span class="ruby-keyword">self</span>.<span class="ruby-identifier">error</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">e</span>.<span class="ruby-identifier">message</span>
+    <span class="ruby-keyword">self</span>.<span class="ruby-identifier">save</span>
+    <span class="ruby-keyword">self</span>.<span class="ruby-identifier">fail!</span>
+    <span class="ruby-keyword">return</span> <span class="ruby-identifier">e</span>.<span class="ruby-identifier">message</span>
+  <span class="ruby-keyword">end</span>
+
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-remove_payment_sources">
+            
+              <b>remove_payment_sources</b>()
+            
+            <a href="../classes/Subscription.html#method-i-remove_payment_sources" name="method-i-remove_payment_sources" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              <p>after_save :check_coupon</p>
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-remove_payment_sources_source')" id="l_method-i-remove_payment_sources_source">show</a>
+                
+              </p>
+              <div id="method-i-remove_payment_sources_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/subscription.rb, line 38</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">remove_payment_sources</span>
+  <span class="ruby-identifier">payment_sources</span>.<span class="ruby-identifier">destroy_all</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">payment_sources</span>.<span class="ruby-identifier">blank?</span>
+
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-reset_state">
+            
+              <b>reset_state</b>()
+            
+            <a href="../classes/Subscription.html#method-i-reset_state" name="method-i-reset_state" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-reset_state_source')" id="l_method-i-reset_state_source">show</a>
+                
+              </p>
+              <div id="method-i-reset_state_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/subscription.rb, line 77</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">reset_state</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">reset</span>        
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+                    </div>
+
+    </div>
+  </body>
+</html>    

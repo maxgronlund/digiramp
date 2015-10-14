@@ -1,0 +1,415 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>jquery.fancybox.css</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            jquery.fancybox.css
+        </h1>
+        <ul class="files">
+            <li>assets/stylesheets/jquery.fancybox.css</li>
+            <li>Last modified: 2015-07-05 15:22:03 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<pre><code>! fancyBox v2.1.5 fancyapps.com | fancyapps.com/fancybox/#license</code></pre>
+
+<p>.fancybox-wrap, .fancybox-skin, .fancybox-outer, .fancybox-inner,
+.fancybox-image, .fancybox-wrap iframe, .fancybox-wrap object,
+.fancybox-nav, .fancybox-nav span, .fancybox-tmp {</p>
+
+<pre><code>padding: 0;
+margin: 0;
+border: 0;
+outline: none;
+vertical-align: top;</code></pre>
+
+<p>}</p>
+
+<p>.fancybox-wrap {</p>
+
+<pre><code>position: absolute;
+top: 0;
+left: 0;
+z-index: 8020;</code></pre>
+
+<p>}</p>
+
+<p>.fancybox-skin {</p>
+
+<pre><code>position: relative;
+background: #f9f9f9;
+color: #444;
+text-shadow: none;
+-webkit-border-radius: 4px;
+   -moz-border-radius: 4px;
+        border-radius: 4px;</code></pre>
+
+<p>}</p>
+
+<p>.fancybox-opened {</p>
+
+<pre><code>z-index: 8030;</code></pre>
+
+<p>}</p>
+
+<p>.fancybox-opened .fancybox-skin {</p>
+
+<pre><code>-webkit-box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+   -moz-box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);</code></pre>
+
+<p>}</p>
+
+<p>.fancybox-outer, .fancybox-inner {</p>
+
+<pre><code>position: relative;</code></pre>
+
+<p>}</p>
+
+<p>.fancybox-inner {</p>
+
+<pre><code>overflow: hidden;</code></pre>
+
+<p>}</p>
+
+<p>.fancybox-type-iframe .fancybox-inner {</p>
+
+<pre><code>-webkit-overflow-scrolling: touch;</code></pre>
+
+<p>}</p>
+
+<p>.fancybox-error {</p>
+
+<pre><code>color: #444;
+font: 14px/20px &quot;Helvetica Neue&quot;,Helvetica,Arial,sans-serif;
+margin: 0;
+padding: 15px;
+white-space: nowrap;</code></pre>
+
+<p>}</p>
+
+<p>.fancybox-image, .fancybox-iframe {</p>
+
+<pre><code>display: block;
+width: 100%;
+height: 100%;</code></pre>
+
+<p>}</p>
+
+<p>.fancybox-image {</p>
+
+<pre><code>max-width: 100%;
+max-height: 100%;</code></pre>
+
+<p>}</p>
+
+<p>fancybox-loading, .fancybox-close, .fancybox-prev span, .fancybox-next span
+{</p>
+
+<pre><code>background-image: url(&#39;fancybox_sprite.png&#39;);</code></pre>
+
+<p>}</p>
+
+<p>fancybox-loading {</p>
+
+<pre><code>position: fixed;
+top: 50%;
+left: 50%;
+margin-top: -22px;
+margin-left: -22px;
+background-position: 0 -108px;
+opacity: 0.8;
+cursor: pointer;
+z-index: 8060;</code></pre>
+
+<p>}</p>
+
+<p>fancybox-loading div {</p>
+
+<pre><code>width: 44px;
+height: 44px;
+background: url(&#39;fancybox_loading.gif&#39;) center center no-repeat;</code></pre>
+
+<p>}</p>
+
+<p>.fancybox-close {</p>
+
+<pre><code>position: absolute;
+top: -18px;
+right: -18px;
+width: 36px;
+height: 36px;
+cursor: pointer;
+z-index: 8040;</code></pre>
+
+<p>}</p>
+
+<p>.fancybox-nav {</p>
+
+<pre><code>position: absolute;
+top: 0;
+width: 40%;
+height: 100%;
+cursor: pointer;
+text-decoration: none;
+background: transparent url(&#39;blank.gif&#39;);    helps IE   
+-webkit-tap-highlight-color: rgba(0,0,0,0);
+z-index: 8040;</code></pre>
+
+<p>}</p>
+
+<p>.fancybox-prev {</p>
+
+<pre><code>left: 0;</code></pre>
+
+<p>}</p>
+
+<p>.fancybox-next {</p>
+
+<pre><code>right: 0;</code></pre>
+
+<p>}</p>
+
+<p>.fancybox-nav span {</p>
+
+<pre><code>position: absolute;
+top: 50%;
+width: 36px;
+height: 34px;
+margin-top: -18px;
+cursor: pointer;
+z-index: 8040;
+visibility: hidden;</code></pre>
+
+<p>}</p>
+
+<p>.fancybox-prev span {</p>
+
+<pre><code>left: 10px;
+background-position: 0 -36px;</code></pre>
+
+<p>}</p>
+
+<p>.fancybox-next span {</p>
+
+<pre><code>right: 10px;
+background-position: 0 -72px;</code></pre>
+
+<p>}</p>
+
+<p>.fancybox-nav:hover span {</p>
+
+<pre><code>visibility: visible;</code></pre>
+
+<p>}</p>
+
+<p>.fancybox-tmp {</p>
+
+<pre><code>position: absolute;
+top: -99999px;
+left: -99999px;
+visibility: hidden;
+max-width: 99999px;
+max-height: 99999px;
+overflow: visible !important;</code></pre>
+
+<p>}</p>
+
+<p>/* Overlay helper */</p>
+
+<p>.fancybox-lock {</p>
+
+<pre><code>overflow: hidden !important;
+width: auto;</code></pre>
+
+<p>}</p>
+
+<p>.fancybox-lock body {</p>
+
+<pre><code>overflow: hidden !important;</code></pre>
+
+<p>}</p>
+
+<p>.fancybox-lock-test {</p>
+
+<pre><code>overflow-y: hidden !important;</code></pre>
+
+<p>}</p>
+
+<p>.fancybox-overlay {</p>
+
+<pre><code>position: absolute;
+top: 0;
+left: 0;
+overflow: hidden;
+display: none;
+z-index: 8010;
+background: url(&#39;fancybox_overlay.png&#39;);</code></pre>
+
+<p>}</p>
+
+<p>.fancybox-overlay-fixed {</p>
+
+<pre><code>position: fixed;
+bottom: 0;
+right: 0;</code></pre>
+
+<p>}</p>
+
+<p>.fancybox-lock .fancybox-overlay {</p>
+
+<pre><code>overflow: auto;
+overflow-y: scroll;</code></pre>
+
+<p>}</p>
+
+<p>/* Title helper */</p>
+
+<p>.fancybox-title {</p>
+
+<pre><code>visibility: hidden;
+font: normal 13px/20px &quot;Helvetica Neue&quot;,Helvetica,Arial,sans-serif;
+position: relative;
+text-shadow: none;
+z-index: 8050;</code></pre>
+
+<p>}</p>
+
+<p>.fancybox-opened .fancybox-title {</p>
+
+<pre><code>visibility: visible;</code></pre>
+
+<p>}</p>
+
+<p>.fancybox-title-float-wrap {</p>
+
+<pre><code>position: absolute;
+bottom: 0;
+right: 50%;
+margin-bottom: -35px;
+z-index: 8050;
+text-align: center;</code></pre>
+
+<p>}</p>
+
+<p>.fancybox-title-float-wrap .child {</p>
+
+<pre><code>display: inline-block;
+margin-right: -100%;
+padding: 2px 20px;
+background: transparent; /* Fallback for web browsers that doesn&#39;t support RGBa */
+background: rgba(0, 0, 0, 0.8);
+-webkit-border-radius: 15px;
+   -moz-border-radius: 15px;
+        border-radius: 15px;
+text-shadow: 0 1px 2px #222;
+color: #FFF;
+font-weight: bold;
+line-height: 24px;
+white-space: nowrap;</code></pre>
+
+<p>}</p>
+
+<p>.fancybox-title-outside-wrap {</p>
+
+<pre><code>position: relative;
+margin-top: 10px;
+color: #fff;</code></pre>
+
+<p>}</p>
+
+<p>.fancybox-title-inside-wrap {</p>
+
+<pre><code>padding-top: 10px;</code></pre>
+
+<p>}</p>
+
+<p>.fancybox-title-over-wrap {</p>
+
+<pre><code>position: absolute;
+bottom: 0;
+left: 0;
+color: #fff;
+padding: 10px;
+background: #000;
+background: rgba(0, 0, 0, .8);</code></pre>
+
+<p>}</p>
+
+<p>/*Retina graphics!*/ @media only screen and
+(-webkit-min-device-pixel-ratio: 1.5),</p>
+
+<pre><code>   only screen and (min--moz-device-pixel-ratio: 1.5),
+   only screen and (min-device-pixel-ratio: 1.5){
+
+#fancybox-loading, .fancybox-close, .fancybox-prev span, .fancybox-next span {
+        background-image: url(&#39;fancybox_sprite@2x.png&#39;);
+        background-size: 44px 152px; /*The size of the normal image, half the size of the hi-res image*/
+}
+
+#fancybox-loading div {
+        background-image: url(&#39;fancybox_loading@2x.gif&#39;);
+        background-size: 24px 24px; /*The size of the normal image, half the size of the hi-res image*/
+}</code></pre>
+
+<p>}</p>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

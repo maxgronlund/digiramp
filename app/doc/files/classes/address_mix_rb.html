@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>address_mix.rb</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../css/github.css" type="text/css" media="screen" />
+<script src="../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            address_mix.rb
+        </h1>
+        <ul class="files">
+            <li>classes/address_mix.rb</li>
+            <li>Last modified: 2015-09-30 09:36:56 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<pre><code>usage
+</code></pre>
+<ol><li>
+<p>add the following tree line to the parrent model</p>
+</li></ol>
+
+<pre><code>has_one :address
+accepts_nested_attributes_for :address
+include AddressMix
+</code></pre>
+<ol><li>
+<p>in the controller strong parameters</p>
+</li></ol>
+
+<p>address_attributes: [  :first_name,</p>
+
+<pre><code>  :middle_name,
+  :last_name,
+  :address_line_1,
+  :address_line_2,
+  :city,
+  :state,
+  :country,
+  :id,
+  :zip_code
+]</code></pre>
+<ol><li>
+<p>in the form</p>
+</li></ol>
+
+<h1 id="label-f.simple_fields_for+-3Aaddress+do+-7Caddress_form-7C">f.simple_fields_for :address do |address_form|</h1>
+
+<pre><code>= address_form.input :first_name
+= address_form.input :middle_name
+= address_form.input :last_name
+= address_form.input :address_line_1
+= address_form.input :address_line_2
+= address_form.input :city
+= address_form.input :state
+= address_form.input :country
+= address_form.input :zip_code</code></pre>
+<ol><li>
+<p>look in <a
+href="../views/shared/_address_slim.html">views/shared/_address.slim</a></p>
+</li></ol>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+    <!-- Namespace -->
+    <div class="sectiontitle">Namespace</div>
+    <ul>
+      
+        <li>
+          <span class="type">MODULE</span>
+          <a href="../../classes/AddressMix.html">AddressMix</a>
+        </li>
+      
+    </ul>
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

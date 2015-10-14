@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>x_common_work.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            x_common_work.slim
+        </h1>
+        <ul class="files">
+            <li>views/user/common_works/x_common_work.slim</li>
+            <li>Last modified: 2015-09-17 20:06:12 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>.row</p>
+
+<pre><code>.col-sm-12
+  == render &#39;common_work_ipis&#39;
+
+      /tbody
+      /  - @common_work.ipis.each do |ipi|
+      /    tr
+      /      td
+      /        =&gt; link_to user_user_common_work_ipi_path(@user, @common_work, ipi),
+      /                                                    turboboost: true,
+      /                                                    data: { confirm: &#39;Are you sure?&#39; }, 
+      /                                                    method: :delete do
+      /          .btn.btn-danger.btn-xs
+      /            i.fa.fa-times
+      /        
+      /        =&gt; link_to user_user_common_work_ipi_path(@user, @common_work, ipi) do
+      /          .btn.btn-default.btn-xs
+      /            i.fa.fa-eye
+      /                
+      /        =&gt; link_to edit_user_user_common_work_ipi_path(@user, @common_work, ipi) do
+      /          .btn.btn-default.btn-xs
+      /            i.fa.fa-pencil
+      /      td
+      /        = ipi.get_full_name
+      /        br = ipi.email
+      /      td
+      /        /&#39;&amp;nbsp;
+      /        - if ipi.music
+      /          &#39;Music
+      /          br
+      /        - if ipi.lyric
+      /          &#39;Lyric
+      /          br
+      /        - if ipi.melody
+      /          &#39;Melody
+      /          br
+      /        - if ipi.arrangement
+      /          &#39;Arrangement
+      /
+      /      
+      /      td = number_to_percentage(ipi.share, precision: 0)    
+      /      td 
+      /        
+      /        .pull-right
+      /          div class=&quot;confirmation-button-#{ipi.id.to_s}&quot;
+      /            == render &#39;user/ipis/confirmation_button&#39;, user: @user, common_work: @common_work, ipi: ipi
+      /</code></pre>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

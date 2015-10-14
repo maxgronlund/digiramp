@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>global_player.sass</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            global_player.sass
+        </h1>
+        <ul class="files">
+            <li>assets/stylesheets/global_player.sass</li>
+            <li>Last modified: 2015-07-05 15:22:03 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>@import “truncate” @import “compass/css3/opacity” //@import
+“compass/css3/box-shadow”</p>
+
+<p>//@mixin truncate  //  white-space: nowrap //  overflow: hidden // 
+text-overflow: ellipsis</p>
+
+<p>@mixin global_button</p>
+
+<pre><code>float: left
+font-size: 20px
+padding-top: 4px
+width: 20px</code></pre>
+
+<p>bottom-player</p>
+
+<pre><code>bottom: 0px
+height: 40px
+position: fixed
+width: 100%
+z-index: 1002
+
+//$default-box-shadow-inset = 0
+.global-player
+  background-color: #000
+  @include opacity(0.85)
+  //background-color: #1D1D1D
+  //position: fixed
+  //top: 3px
+  width: 100%
+  //max-width: 420px
+  height: 40px
+  color: #aaa
+  //+box-shadow(inset #000 0px 0px 6px)
+  padding: 3px 8px 3px 10px
+  //display: inline
+  //margin: 8px
+
+  .global-play-button
+    @include global_button
+
+  .global-stop-button
+    @include global_button
+    display: none
+
+  .global-spinner
+    @include global_button
+    display: none
+
+  .title
+    margin-left: 10px
+    float: left
+    @include            truncate
+    //display: inline-table
+    font-family: &#39;Pontano Sans&#39;, sans-serif
+    h3
+      font-size: 13px
+      margin-top: 4px
+      margin-bottom: 3px
+
+    h6
+      font-size: 10px
+      margin-top: 0px
+      margin-bottom: 0px</code></pre>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

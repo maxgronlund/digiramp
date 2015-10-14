@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>show.html.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            show.html.slim
+        </h1>
+        <ul class="files">
+            <li>views/user/user_ipis/show.html.slim</li>
+            <li>Last modified: 2015-10-03 13:21:59 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>/= debug @user_credits wrapper</p>
+
+<pre><code>.full-width-top
+  == render &#39;shared/navigationbar&#39;, page: &#39;dashboard&#39; 
+
+#sidebar-wrapper
+  ul class=&quot;sidebar-nav&quot;
+    == render &#39;users/shared/sidebar&#39;, selected: &#39;dashboard&#39;
+
+#page-content-wrapper
+  .container-fluid
+    == render &#39;shared/breadcrumbs&#39;, breadcrumbs: { links: { &#39;Dashboard&#39;.to_sym =&gt; user_user_control_panel_index_path(@user)}}
+
+    .row
+      .col-sm-6
+        .help
+          .help-text
+            h2 Interested party
+
+          .help-button
+            == render &#39;admin/helps/help&#39;, identifier: &#39;common work ipi&#39;
+
+      .col-sm-6
+        .pull-right.pull-down-10
+          = link_to user_user_control_panel_index_path(@user ) do
+            .btn.btn-default
+              i.fa.fa-chevron-left
+              &#39;&amp;nbsp;Back
+
+    = render &#39;user/shared/legal_navigation&#39;, selected: &#39;ips&#39;
+    .digi-box
+      h4  = @ipi.work_title
+      .row
+        .col-sm-6
+          h5 Capacities
+
+          /&#39;&amp;nbsp;
+          - if @ipi.music
+            &#39;Music
+            br
+          - if @ipi.lyric
+            &#39;Lyric
+            br
+          - if @ipi.melody
+            &#39;Melody
+            br
+          - if @ipi.arrangement
+            &#39;Arrangement
+        .col-sm-6
+          /- if user = @ipi.user
+          /  = user.email
+
+    .digi-box
+      .row
+        .col-sm-6
+          h4 Publishing agreements
+        .col-sm-6
+          .pull-right
+            - if @user.id == @ipi.user_id
+              = link_to &#39;Add agreement&#39;, 
+                new_user_user_common_work_ipi_ipi_publisher_path(@user, 
+                                                                @common_work, 
+                                                                @ipi), class: &#39;btn btn-default&#39;
+      .table-responsive
+        table class=&quot;table table-hover&quot;
+          thead
+            tr
+              th Title
+              th Date
+              th Document
+              th
+
+          tbody
+            - @ipi.publishing_agreements.each do |publishing_agreement|
+              - document = publishing_agreement.document
+              tr
+                th = publishing_agreement.title
+                td = l publishing_agreement.created_at, format: :date
+                td 
+                  - if document
+                    - if document &amp;&amp; document.uuid
+                      = link_to publishing_agreement.title, user_user_legal_document_path(@user, document.uuid), class: &#39;btn btn-default btn-xs&#39;
+                    - else
+                      = publishing_agreement.title
+
+                  .label.label-default
+                    = document.status
+                td
+                  .pull-right
+                    .btn.btn-default.btn-xs
+                      &#39;Confirm
+
+== render &#39;shared/site_footer&#39;</code></pre>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

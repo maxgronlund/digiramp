@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>AscapScraperJob</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../css/github.css" type="text/css" media="screen" />
+<script src="../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            <span class="type">Class</span> 
+            AscapScraperJob 
+            
+                <span class="parent">&lt; 
+                    
+                    ActiveJob::Base
+                    
+                </span>
+            
+        </h1>
+        <ul class="files">
+            
+            <li><a href="../files/jobs/ascap_scraper_job_rb.html">jobs/ascap_scraper_job.rb</a></li>
+            
+        </ul>
+    </div>
+    <div id="bodyContent">
+        <div id="content">
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+    <!-- Method ref -->
+    <div class="sectiontitle">Methods</div>
+    <dl class="methods">
+      
+        <dt>P</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-perform">perform</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+    </dl>
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+        
+      <div class="sectiontitle">Instance Public methods</div>
+      
+        <div class="method">
+          <div class="title method-title" id="method-i-perform">
+            
+              <b>perform</b>( user_name, password, common_works_import_id )
+            
+            <a href="../classes/AscapScraperJob.html#method-i-perform" name="method-i-perform" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-perform_source')" id="l_method-i-perform_source">show</a>
+                
+              </p>
+              <div id="method-i-perform_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File jobs/ascap_scraper_job.rb, line 6</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">perform</span>( <span class="ruby-identifier">user_name</span>, <span class="ruby-identifier">password</span>, <span class="ruby-identifier">common_works_import_id</span> )
+  
+
+  <span class="ruby-identifier">common_works_import</span> = <span class="ruby-constant">CommonWorksImport</span>.<span class="ruby-identifier">cached_find</span>(<span class="ruby-identifier">common_works_import_id</span>)
+
+ 
+  <span class="ruby-identifier">scrape</span> = <span class="ruby-constant">Scraper</span><span class="ruby-operator">::</span><span class="ruby-constant">AscapMemberScrape</span>.<span class="ruby-identifier">new</span> <span class="ruby-identifier">user_name</span>, <span class="ruby-identifier">password</span>
+
+  <span class="ruby-identifier">scrape</span>.<span class="ruby-identifier">start</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">info</span><span class="ruby-operator">|</span>
+
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">info</span>[<span class="ruby-value">:error</span>] 
+       <span class="ruby-constant">CommonWorksImport</span>.<span class="ruby-identifier">post_info</span> <span class="ruby-identifier">common_works_import</span>.<span class="ruby-identifier">user_email</span>, {<span class="ruby-identifier">error</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;error&#39;</span>}
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+
+  
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">scrape</span>.<span class="ruby-identifier">works_details</span>
+    <span class="ruby-identifier">common_works_import</span>.<span class="ruby-identifier">params</span> = <span class="ruby-identifier">scrape</span>.<span class="ruby-identifier">works_details</span>
+    <span class="ruby-identifier">common_works_import</span>.<span class="ruby-identifier">save!</span>
+    <span class="ruby-identifier">common_works_import</span>.<span class="ruby-identifier">parse_common_works</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">puts</span> <span class="ruby-string">&#39;+++++++++++++++++++++++++++++++++++++++++++++++++++++++++&#39;</span>
+    <span class="ruby-identifier">puts</span> <span class="ruby-string">&#39;ERROR: Unable to extract common works: works_details nil&#39;</span>
+    <span class="ruby-identifier">puts</span> <span class="ruby-string">&#39;In AscapScraperWorker#perform&#39;</span>
+    <span class="ruby-identifier">puts</span> <span class="ruby-string">&#39;+++++++++++++++++++++++++++++++++++++++++++++++++++++++++&#39;</span>
+    <span class="ruby-constant">CommonWorksImport</span>.<span class="ruby-identifier">post_info</span> <span class="ruby-identifier">common_works_import</span>.<span class="ruby-identifier">user_email</span>, {<span class="ruby-identifier">error</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;works_details nil&#39;</span>}
+  <span class="ruby-keyword">end</span>
+
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+                    </div>
+
+    </div>
+  </body>
+</html>    

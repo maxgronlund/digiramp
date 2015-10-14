@@ -1,0 +1,466 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>ContactInvitationsController</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../css/github.css" type="text/css" media="screen" />
+<script src="../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            <span class="type">Class</span> 
+            ContactInvitationsController 
+            
+                <span class="parent">&lt; 
+                    
+                    <a href="ApplicationController.html">ApplicationController</a>
+                    
+                </span>
+            
+        </h1>
+        <ul class="files">
+            
+            <li><a href="../files/controllers/contact_invitations_controller_rb.html">controllers/contact_invitations_controller.rb</a></li>
+            
+        </ul>
+    </div>
+    <div id="bodyContent">
+        <div id="content">
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+    <!-- Method ref -->
+    <div class="sectiontitle">Methods</div>
+    <dl class="methods">
+      
+        <dt>A</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-accept_connection">accept_connection</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-i-accept_invitation">accept_invitation</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>C</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-confirm_decline_of_invitation">confirm_decline_of_invitation</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>D</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-decline_all_from_digiramp">decline_all_from_digiramp</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-i-decline_connection">decline_connection</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-i-decline_invitation">decline_invitation</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>S</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-signup">signup</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+    </dl>
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+        
+      <div class="sectiontitle">Instance Public methods</div>
+      
+        <div class="method">
+          <div class="title method-title" id="method-i-accept_connection">
+            
+              <b>accept_connection</b>()
+            
+            <a href="../classes/ContactInvitationsController.html#method-i-accept_connection" name="method-i-accept_connection" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              <p>logged in users can accept the invitation  if the invitation is ment for
+them</p>
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-accept_connection_source')" id="l_method-i-accept_connection_source">show</a>
+                
+              </p>
+              <div id="method-i-accept_connection_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File controllers/contact_invitations_controller.rb, line 46</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">accept_connection</span>
+  
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">client_invitation</span> = <span class="ruby-constant">ClientInvitation</span>.<span class="ruby-identifier">where</span>(<span class="ruby-identifier">uuid</span><span class="ruby-operator">:</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:contact_invitation_id</span>]).<span class="ruby-identifier">first</span>
+    
+    <span class="ruby-keyword">if</span> <span class="ruby-ivar">@inviter</span>       = <span class="ruby-constant">User</span>.<span class="ruby-identifier">cached_find</span>(<span class="ruby-identifier">client_invitation</span>.<span class="ruby-identifier">user_id</span>)
+      <span class="ruby-keyword">if</span> <span class="ruby-identifier">connect_with_user</span>( <span class="ruby-identifier">current_user</span>, <span class="ruby-ivar">@inviter</span> )
+      <span class="ruby-keyword">else</span>
+         <span class="ruby-ivar">@message</span>        = <span class="ruby-string">&#39;Unable to create connection&#39;</span>
+      <span class="ruby-keyword">end</span>
+    <span class="ruby-keyword">else</span>
+      <span class="ruby-ivar">@message</span>        = <span class="ruby-string">&#39;Unable to create connection&#39;</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-ivar">@message</span>          = <span class="ruby-string">&#39;Unable to create connection&#39;</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-ivar">@message</span>            = <span class="ruby-node">&quot;You are connected with #{@inviter.user_name}&quot;</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-accept_invitation">
+            
+              <b>accept_invitation</b>()
+            
+            <a href="../classes/ContactInvitationsController.html#method-i-accept_invitation" name="method-i-accept_invitation" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              <p>linked to from email</p>
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-accept_invitation_source')" id="l_method-i-accept_invitation_source">show</a>
+                
+              </p>
+              <div id="method-i-accept_invitation_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File controllers/contact_invitations_controller.rb, line 5</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">accept_invitation</span> 
+  <span class="ruby-keyword">if</span> <span class="ruby-ivar">@client_invitation</span> = <span class="ruby-constant">ClientInvitation</span>.<span class="ruby-identifier">where</span>(<span class="ruby-identifier">uuid</span><span class="ruby-operator">:</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:contact_invitation_id</span>]).<span class="ruby-identifier">first</span>
+    <span class="ruby-ivar">@ab_test</span> =  <span class="ruby-identifier">ab_test</span>( <span class="ruby-string">&quot;invitation_from_user&quot;</span>, <span class="ruby-string">&quot;form&quot;</span>)
+    <span class="ruby-ivar">@message</span> = <span class="ruby-identifier">validate_invitation</span>( <span class="ruby-ivar">@client_invitation</span> ) 
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-ivar">@message</span> = <span class="ruby-string">&#39;Error: Invitation do not exists?&#39;</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-confirm_decline_of_invitation">
+            
+              <b>confirm_decline_of_invitation</b>()
+            
+            <a href="../classes/ContactInvitationsController.html#method-i-confirm_decline_of_invitation" name="method-i-confirm_decline_of_invitation" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              <p>when the user confirm not knowing inviter</p>
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-confirm_decline_of_invitation_source')" id="l_method-i-confirm_decline_of_invitation_source">show</a>
+                
+              </p>
+              <div id="method-i-confirm_decline_of_invitation_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File controllers/contact_invitations_controller.rb, line 26</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">confirm_decline_of_invitation</span>
+
+  
+  <span class="ruby-ivar">@client_invitation</span>        = <span class="ruby-constant">ClientInvitation</span>.<span class="ruby-identifier">where</span>(<span class="ruby-identifier">uuid</span><span class="ruby-operator">:</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:contact_invitation_id</span>]).<span class="ruby-identifier">first</span>
+  <span class="ruby-ivar">@client_invitation</span>.<span class="ruby-identifier">status</span> = <span class="ruby-string">&#39;Declined&#39;</span>
+  <span class="ruby-ivar">@client_invitation</span>.<span class="ruby-identifier">save</span>
+  
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-decline_all_from_digiramp">
+            
+              <b>decline_all_from_digiramp</b>()
+            
+            <a href="../classes/ContactInvitationsController.html#method-i-decline_all_from_digiramp" name="method-i-decline_all_from_digiramp" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              <p>linked to from email</p>
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-decline_all_from_digiramp_source')" id="l_method-i-decline_all_from_digiramp_source">show</a>
+                
+              </p>
+              <div id="method-i-decline_all_from_digiramp_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File controllers/contact_invitations_controller.rb, line 36</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">decline_all_from_digiramp</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">client_invitation</span> = <span class="ruby-constant">ClientInvitation</span>.<span class="ruby-identifier">where</span>(<span class="ruby-identifier">uuid</span><span class="ruby-operator">:</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:contact_invitation_id</span>]).<span class="ruby-identifier">first</span>
+
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-decline_connection">
+            
+              <b>decline_connection</b>()
+            
+            <a href="../classes/ContactInvitationsController.html#method-i-decline_connection" name="method-i-decline_connection" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              <p>logged in user declines the invitation if the invitation is ment for them</p>
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-decline_connection_source')" id="l_method-i-decline_connection_source">show</a>
+                
+              </p>
+              <div id="method-i-decline_connection_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File controllers/contact_invitations_controller.rb, line 67</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">decline_connection</span>
+  
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">client_invitation</span>        = <span class="ruby-constant">ClientInvitation</span>.<span class="ruby-identifier">where</span>(<span class="ruby-identifier">uuid</span><span class="ruby-operator">:</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:contact_invitation_id</span>]).<span class="ruby-identifier">first</span>
+    <span class="ruby-keyword">if</span> <span class="ruby-ivar">@inviter</span>               = <span class="ruby-constant">User</span>.<span class="ruby-identifier">where</span>(<span class="ruby-identifier">id</span><span class="ruby-operator">:</span> <span class="ruby-identifier">client_invitation</span>.<span class="ruby-identifier">user_id</span>).<span class="ruby-identifier">first</span>
+      <span class="ruby-keyword">if</span> <span class="ruby-identifier">connection</span>           = <span class="ruby-identifier">connect_with_user</span>( <span class="ruby-identifier">current_user</span>, <span class="ruby-ivar">@inviter</span> )
+        <span class="ruby-identifier">connection</span>.<span class="ruby-identifier">dismissed</span>  = <span class="ruby-keyword">true</span>
+        <span class="ruby-identifier">connection</span>.<span class="ruby-identifier">save!</span>
+      <span class="ruby-keyword">else</span>
+        <span class="ruby-ivar">@error</span> = <span class="ruby-string">&#39;Error&#39;</span>
+      <span class="ruby-keyword">end</span>
+    <span class="ruby-keyword">else</span>
+       <span class="ruby-ivar">@error</span> = <span class="ruby-string">&#39;Error&#39;</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-ivar">@error</span> = <span class="ruby-string">&#39;Error&#39;</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-ivar">@message</span> = <span class="ruby-node">&quot;You have declined to connect with #{@inviter.user_name}&quot;</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-decline_invitation">
+            
+              <b>decline_invitation</b>()
+            
+            <a href="../classes/ContactInvitationsController.html#method-i-decline_invitation" name="method-i-decline_invitation" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              <p>linked to from email</p>
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-decline_invitation_source')" id="l_method-i-decline_invitation_source">show</a>
+                
+              </p>
+              <div id="method-i-decline_invitation_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File controllers/contact_invitations_controller.rb, line 15</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">decline_invitation</span>
+
+  <span class="ruby-keyword">if</span> <span class="ruby-ivar">@client_invitation</span> = <span class="ruby-constant">ClientInvitation</span>.<span class="ruby-identifier">where</span>(<span class="ruby-identifier">uuid</span><span class="ruby-operator">:</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:contact_invitation_id</span>]).<span class="ruby-identifier">first</span>
+
+    <span class="ruby-ivar">@message</span> = <span class="ruby-identifier">validate_invitation</span>( <span class="ruby-ivar">@client_invitation</span> ) 
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-ivar">@message</span> = <span class="ruby-string">&#39;Error: Invitation do not exists?&#39;</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-signup">
+            
+              <b>signup</b>()
+            
+            <a href="../classes/ContactInvitationsController.html#method-i-signup" name="method-i-signup" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              <p>filling in the form and accepting the connection</p>
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-signup_source')" id="l_method-i-signup_source">show</a>
+                
+              </p>
+              <div id="method-i-signup_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File controllers/contact_invitations_controller.rb, line 90</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">signup</span>
+
+  <span class="ruby-keyword">if</span> <span class="ruby-constant">InvitationPasswordValidatorService</span>.<span class="ruby-identifier">validate</span>( <span class="ruby-identifier">params</span>[<span class="ruby-value">:client</span>][<span class="ruby-value">:password</span>], <span class="ruby-identifier">params</span>[<span class="ruby-value">:client</span>][<span class="ruby-value">:password_confirmation</span>])
+    <span class="ruby-identifier">message</span> = <span class="ruby-identifier">sign_up_with_valid_password</span>( <span class="ruby-identifier">params</span> )
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">message</span> <span class="ruby-operator">==</span> <span class="ruby-string">&#39;Success&#39;</span>
+      <span class="ruby-comment">#redirect_to user_path( @user )</span>
+      <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">user_user_user_configurations_path</span>(<span class="ruby-ivar">@user</span>)
+    <span class="ruby-keyword">else</span>
+      <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">contact_invitation_accept_invitation_path</span>(<span class="ruby-identifier">contact_invitation_id</span><span class="ruby-operator">:</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:contact_invitation_id</span>], <span class="ruby-identifier">message</span><span class="ruby-operator">:</span> <span class="ruby-identifier">message</span>)
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">else</span>
+    
+    <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">contact_invitation_accept_invitation_path</span>(<span class="ruby-identifier">contact_invitation_id</span><span class="ruby-operator">:</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:contact_invitation_id</span>], <span class="ruby-identifier">error_message</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;Password error. Please retype&#39;</span>)
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+                    </div>
+
+    </div>
+  </body>
+</html>    

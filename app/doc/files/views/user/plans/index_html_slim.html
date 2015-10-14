@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>index.html.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            index.html.slim
+        </h1>
+        <ul class="files">
+            <li>views/user/plans/index.html.slim</li>
+            <li>Last modified: 2015-07-05 15:22:06 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>&#39;discontinued /#wrapper /  .full-width-top /    == render
+&#39;shared/navigationbar&#39;, page: &#39;settings&#39;  /</p>
+
+<p>/</p>
+
+<p>/  sidebar-wrapper /    ul class=“sidebar-nav” /      == render
+&#39;users/shared/sidebar&#39;, selected: &#39;control panel&#39; /</p>
+
+<p>/  page-content-wrapper /    .container-fluid /      h2 Plans /     
+.sexy_line /      - @account_features.each do |account_feature| /       
+.digi-box /          .row /            .col-sm-12 /              - unless 
+account_feature.account_type == &#39;Enterprise&#39; /                .row
+/                  .col-sm-8 /                    .help /                  
+.help-text /                        - if @current_account_type ==
+account_feature.account_type /                          h3
+class=“green-text”  = &#39;√ &#39; + account_feature.account_type + &#39;
+account: &#39; /                        - else  /                         
+h3  = account_feature.account_type + &#39; account: &#39; /</p>
+
+<p>/                      .help-button /                        == render
+&#39;admin/helps/help&#39;, identifier: “user plan
+#{account_feature.account_type}” /</p>
+
+<p>/                  .col-sm-4.pull-down-10 /                    .pull-right
+/                      - if account_feature.account_type ==
+&#39;Social&#39; /                        .btn.btn-success
+disabled=&#39;disabled /                          &#39;Free /              
+- else /                        = link_to
+new_user_user_registration_path(@user, account_type:
+account_feature.account_type), &#39;data-no-turbolink&#39;.to_sym =&gt;
+&#39;true&#39; do /                          .btn.btn-warning /            
+&#39;Select /                          /- if @current_account_type ==
+account_feature.account_type /                          /  .btn.btn-default
+disabled=&#39;true&#39; /                          /    &#39;Current plan /
+/- else /                          /  .btn.btn-success /                   
+/    &#39;Select /                = simple_format
+account_feature.description  /                .sexy_line /               
+.row /                  .col-sm-6 /                    &#39;Price / mo: /  
+.pull-right /                      - if plan = account_feature.plan /      
+= number_to_currency(plan.amount) /                      -else /           
+&#39;Free /                    .sexy_line /</p>
+
+<p>/                    &#39;Max recordings: /                    .pull-right
+/                      = account_feature.max_recordings /                  
+.sexy_line /</p>
+
+<p>/                    &#39;Catalogs: /                    .pull-right /     
+- if account_feature.enable_catalogs /                        i.fa.fa-check
+/                      - else /                        i.fa.fa-minus /     
+.sexy_line /</p>
+
+<p>/                    &#39;Max catalogs: /                    .pull-right / 
+- if account_feature.max_catalogs &gt; 0 /                        =
+account_feature.max_catalogs /                      - else /               
+i.fa.fa-minus /                    .sexy_line /</p>
+
+<p>/                    &#39;Catalogs users: /                    .pull-right
+/                      - if account_feature.max_catalog_users &gt; 0 /     
+= account_feature.max_catalog_users /                      - else /        
+i.fa.fa-minus /                    .sexy_line /</p>
+
+<p>/                    &#39;Manage opportunities: /                   
+.pull-right /                      - if
+account_feature.manage_opportunities /                        i.fa.fa-check
+/                      - else /                        i.fa.fa-minus /     
+.sexy_line /</p>
+
+<p>/                  .col-sm-6 /</p>
+
+<p>/                    &#39;Multiply recordings on works: /                  
+.pull-right /                      - if
+account_feature.multiply_recordings_on_works /                       
+i.fa.fa-check /                      - else /                       
+i.fa.fa-minus /                    .sexy_line /</p>
+
+<p>/                    &#39;Export works as csv: /                   
+.pull-right /                      - if account_feature.export_works_as_csv
+/                        i.fa.fa-check /                      - else /     
+i.fa.fa-minus /                    .sexy_line /</p>
+
+<p>/                    &#39;Import works as csv: /                   
+.pull-right /                      - if account_feature.import_works_as_csv
+/                        i.fa.fa-check /                      - else /     
+i.fa.fa-minus /                    .sexy_line /</p>
+
+<p>/                    &#39;Import works from ASCAP/BMI: /                   
+.pull-right /                      - if account_feature.import_from_pros / 
+i.fa.fa-check /                      - else /                       
+i.fa.fa-minus /                    .sexy_line /</p>
+
+<p>/                    &#39;Max account users: /                   
+.pull-right /                      = account_feature.max_account_users  /  
+.sexy_line /</p>
+
+<p>/                    &#39;Max account IPI&#39;s: /                   
+.pull-right /                      = account_feature.max_ipi_codes  /      
+.sexy_line /</p>
+
+<p>/              - else /                .row /                  .col-sm-8 / 
+h3 Enterprise account:  /</p>
+
+<p>/                  .col-sm-4.pull-down-10 /                    .pull-right
+/                      = link_to &#39;#&#39; do /                        -
+if @current_account_type == account_feature.account_type /                 
+.btn.btn-default disabled=&#39;true&#39; /                           
+&#39;Current plan /                        - else /                        
+.btn.btn-warning /                            &#39;Contact us /</p>
+
+<p>/</p>
+
+<p>/ /</p>
+
+<p>/</p>
+
+<p>/  == render &#39;shared/site_footer&#39;</p>
+
+<p>/  / / / /</p>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

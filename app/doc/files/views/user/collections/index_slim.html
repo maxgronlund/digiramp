@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>index.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            index.slim
+        </h1>
+        <ul class="files">
+            <li>views/user/collections/index.slim</li>
+            <li>Last modified: 2015-09-26 13:39:51 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>/ - user_account = <a
+href="../../../../classes/Account.html#method-c-cached_find">Account.cached_find</a>(@user.account.id)
+/  - account_ids = AccountUser.where(user_id: @user.id).pluck(:account_id)
+/  - unless @user.has_a_collection /    - account_ids -= [@user.account.id]
+/  - accounts    = Account.order(&#39;title asc&#39;).where(id:
+account_ids)</p>
+
+<p>ruby:</p>
+
+<pre><code>user_account = Account.cached_find(@user.account.id)
+account_ids = AccountUser.where(user_id: @user.id).pluck(:account_id)
+
+account_ids -= [@user.account.id] 
+accounts    = Account.order(&#39;title asc&#39;).where(id: account_ids)
+</code></pre>
+
+<p>wrapper</p>
+
+<pre><code>.full-width-top
+  == render &#39;shared/navigationbar&#39;, page: &#39;user_collections&#39; 
+
+#sidebar-wrapper
+  ul class=&quot;sidebar-nav&quot;
+    == render &#39;users/shared/sidebar&#39;, selected: &#39;user&#39;
+
+#page-content-wrapper
+  .container-fluid
+    h3 #{@user.account.title} &lt;funky&gt;Pro&lt;/funky&gt;
+    = @user.user_name
+    &#39;&amp;nbsp;has Access to the following accounts
+    .pull-down-10
+    .digi-box 
+      .table-responsive
+        table class=&quot;table table-hover&quot;
+          thead
+            tr
+              th ACCOUNTS
+          tbody
+            - accounts.each do |account|
+              tr
+                td 
+                  = link_to account_account_path( account ) do
+                    .btn.btn-default
+                      i class=&quot;fa fa-tachometer&quot;
+                      &#39;&amp;nbsp;
+                      = account.title
+
+== render &#39;shared/site_footer&#39;</code></pre>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

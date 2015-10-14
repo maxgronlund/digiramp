@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>_requests.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            _requests.slim
+        </h1>
+        <ul class="files">
+            <li>views/user/music_requests/_requests.slim</li>
+            <li>Last modified: 2015-09-24 20:35:34 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      <ul><li>
+<p>@opportunity.music_requests.order(&#39;created_at asc&#39;).each_with_index
+do |music_request, index|</p>
+
+<p>h4 Request: #{index + 1}</p>
+
+<h2 id="label-render+-27account-2Fmusic_requests-2Finfo-27-2C+music_request-3A+music_request">render &#39;account/music_requests/info&#39;, music_request: music_request</h2>
+
+<p>.row</p>
+
+<pre><code>.col-sm-12
+
+  .pull-right
+    = link_to opportunity_opportunity_music_request_path( @opportunity, music_request) do 
+      .btn.btn-info
+        i.fa.fa-eye
+        &#39;&amp;nbsp;Show request
+    &#39;&amp;nbsp;</code></pre>
+
+<p>.sexy_line</p>
+</li></ul>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

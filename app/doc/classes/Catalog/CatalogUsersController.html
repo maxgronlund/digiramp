@@ -1,0 +1,502 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>Catalog::CatalogUsersController</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../css/github.css" type="text/css" media="screen" />
+<script src="../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            <span class="type">Class</span> 
+            Catalog::CatalogUsersController 
+            
+                <span class="parent">&lt; 
+                    
+                    <a href="../ApplicationController.html">ApplicationController</a>
+                    
+                </span>
+            
+        </h1>
+        <ul class="files">
+            
+            <li><a href="../../files/controllers/catalog/catalog_users_controller_rb.html">controllers/catalog/catalog_users_controller.rb</a></li>
+            
+        </ul>
+    </div>
+    <div id="bodyContent">
+        <div id="content">
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+    <!-- Method ref -->
+    <div class="sectiontitle">Methods</div>
+    <dl class="methods">
+      
+        <dt>C</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-create">create</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>D</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-destroy">destroy</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>E</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-edit">edit</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>I</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-index">index</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>N</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-new">new</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>U</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-update">update</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+    </dl>
+  
+
+  
+    <!-- Includes -->
+    <div class="sectiontitle">Included Modules</div>
+    <ul>
+      
+        <li>
+          
+            <a href="../AccountsHelper.html">
+              AccountsHelper
+            </a>
+          
+        </li>
+      
+        <li>
+          
+            <a href="../CatalogsHelper.html">
+              CatalogsHelper
+            </a>
+          
+        </li>
+      
+    </ul>
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+        
+      <div class="sectiontitle">Instance Public methods</div>
+      
+        <div class="method">
+          <div class="title method-title" id="method-i-create">
+            
+              <b>create</b>()
+            
+            <a href="../../classes/Catalog/CatalogUsersController.html#method-i-create" name="method-i-create" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              <p>create a new catalog user send invitation by email</p>
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-create_source')" id="l_method-i-create_source">show</a>
+                
+              </p>
+              <div id="method-i-create_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File controllers/catalog/catalog_users_controller.rb, line 45</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">create</span>
+  <span class="ruby-identifier">forbidden</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">current_catalog_user</span>.<span class="ruby-identifier">create_user</span>
+
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">email</span>    = <span class="ruby-constant">EmailSanitizer</span>.<span class="ruby-identifier">saintize</span>( <span class="ruby-identifier">params</span>[<span class="ruby-value">:catalog_user</span>][<span class="ruby-value">:email</span>])
+    <span class="ruby-identifier">title</span>     = <span class="ruby-identifier">params</span>[<span class="ruby-value">:catalog_user</span>][<span class="ruby-value">:title</span>]
+    <span class="ruby-identifier">body</span>      = <span class="ruby-identifier">params</span>[<span class="ruby-value">:catalog_user</span>][<span class="ruby-value">:body</span>]
+    <span class="ruby-identifier">catalog</span>   = <span class="ruby-constant">Catalog</span>.<span class="ruby-identifier">cached_find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:catalog_user</span>][<span class="ruby-value">:catalog_id</span>])
+    
+    
+    
+    <span class="ruby-comment"># if the user already is in the system</span>
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">user</span>    = <span class="ruby-constant">User</span>.<span class="ruby-identifier">find_by</span>(<span class="ruby-identifier">email</span><span class="ruby-operator">:</span> <span class="ruby-identifier">email</span>)
+      <span class="ruby-identifier">flash</span>[<span class="ruby-value">:info</span>] = <span class="ruby-node">&quot;You have invited a DigiRAMP member with the email #{email} to the #{catalog.title} catalog&quot;</span> 
+                     
+      <span class="ruby-comment"># send email</span>
+      <span class="ruby-constant">UserMailer</span>.<span class="ruby-identifier">delay</span>.<span class="ruby-identifier">invite_user_to_catalog</span>( <span class="ruby-identifier">email</span>,
+                                               <span class="ruby-identifier">title</span>, 
+                                               <span class="ruby-identifier">body</span>,    
+                                               <span class="ruby-identifier">user</span>.<span class="ruby-identifier">id</span>,
+                                               <span class="ruby-ivar">@account</span>.<span class="ruby-identifier">id</span>,
+                                               <span class="ruby-identifier">catalog</span>.<span class="ruby-identifier">id</span>,   
+                                               <span class="ruby-keyword">true</span>
+                                              )
+    <span class="ruby-keyword">else</span>
+      <span class="ruby-comment"># invite a new user</span>
+      <span class="ruby-keyword">if</span> <span class="ruby-identifier">user</span> = <span class="ruby-constant">User</span>.<span class="ruby-identifier">find_or_create_from_email</span>( <span class="ruby-identifier">email</span> )
+        <span class="ruby-comment"># send email</span>
+        <span class="ruby-constant">UserMailer</span>.<span class="ruby-identifier">delay</span>.<span class="ruby-identifier">invite_user_to_catalog</span>( <span class="ruby-identifier">email</span>,
+                                                 <span class="ruby-identifier">title</span>, 
+                                                 <span class="ruby-identifier">body</span>,   
+                                                 <span class="ruby-identifier">user</span>.<span class="ruby-identifier">id</span>, 
+                                                 <span class="ruby-ivar">@account</span>.<span class="ruby-identifier">id</span>,
+                                                 <span class="ruby-identifier">catalog</span>.<span class="ruby-identifier">id</span>,   
+                                                 <span class="ruby-keyword">false</span>
+                                                )
+        
+        <span class="ruby-identifier">flash</span>[<span class="ruby-value">:info</span>] =  <span class="ruby-node">&quot;You have invited #{email} to the #{catalog.title.upcase} catalog&quot;</span> 
+      <span class="ruby-keyword">else</span>
+        
+      <span class="ruby-keyword">end</span>
+      
+    <span class="ruby-keyword">end</span>
+    <span class="ruby-identifier">params</span>[<span class="ruby-value">:catalog_user</span>][<span class="ruby-value">:user_id</span>]       = <span class="ruby-identifier">user</span>.<span class="ruby-identifier">id</span> 
+    <span class="ruby-identifier">params</span>[<span class="ruby-value">:catalog_user</span>][<span class="ruby-value">:account_id</span>]    = <span class="ruby-ivar">@account</span>.<span class="ruby-identifier">id</span> 
+    <span class="ruby-identifier">params</span>[<span class="ruby-value">:catalog_user</span>][<span class="ruby-value">:uuid</span>]          = <span class="ruby-constant">UUIDTools</span><span class="ruby-operator">::</span><span class="ruby-constant">UUID</span>.<span class="ruby-identifier">timestamp_create</span>().<span class="ruby-identifier">to_s</span>
+    <span class="ruby-keyword">unless</span> <span class="ruby-identifier">user</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-ivar">@catalog_user</span>         = <span class="ruby-constant">CatalogUser</span>.<span class="ruby-identifier">create!</span>( <span class="ruby-identifier">catalog_user_params</span> ) 
+      <span class="ruby-comment"># notify if something went wrong</span>
+      <span class="ruby-identifier">flash</span>[<span class="ruby-value">:danger</span>] =  <span class="ruby-string">&quot;User not invited, If this error persists please contact support&quot;</span> 
+    <span class="ruby-keyword">end</span>
+    <span class="ruby-ivar">@catalog_user</span>.<span class="ruby-identifier">attach_to_account_user</span>
+    <span class="ruby-ivar">@user</span> = <span class="ruby-identifier">current_user</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">flash</span>[<span class="ruby-value">:danger</span>] =  <span class="ruby-string">&quot;Unable to validate email&quot;</span> 
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">catalog_account_catalog_catalog_users_path</span>(<span class="ruby-ivar">@account</span>, <span class="ruby-ivar">@catalog</span>)
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-destroy">
+            
+              <b>destroy</b>()
+            
+            <a href="../../classes/Catalog/CatalogUsersController.html#method-i-destroy" name="method-i-destroy" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-destroy_source')" id="l_method-i-destroy_source">show</a>
+                
+              </p>
+              <div id="method-i-destroy_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File controllers/catalog/catalog_users_controller.rb, line 120</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">destroy</span>
+  <span class="ruby-identifier">forbiden</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">current_account_user</span>.<span class="ruby-identifier">delete_user</span>
+  
+  <span class="ruby-ivar">@catalog</span>        = <span class="ruby-constant">Catalog</span>.<span class="ruby-identifier">cached_find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:catalog_id</span>])
+  <span class="ruby-ivar">@catalog_user</span>   = <span class="ruby-constant">CatalogUser</span>.<span class="ruby-identifier">cached_find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
+  
+  <span class="ruby-identifier">account</span>       = <span class="ruby-ivar">@catalog_user</span>.<span class="ruby-identifier">account</span>
+  <span class="ruby-identifier">user</span>          = <span class="ruby-ivar">@catalog_user</span>.<span class="ruby-identifier">user</span>
+  <span class="ruby-identifier">account_user</span>  = <span class="ruby-constant">AccountUser</span>.<span class="ruby-identifier">where</span>(<span class="ruby-identifier">account_id</span><span class="ruby-operator">:</span> <span class="ruby-ivar">@catalog_user</span>.<span class="ruby-identifier">account</span>.<span class="ruby-identifier">id</span>, <span class="ruby-identifier">user_id</span><span class="ruby-operator">:</span> <span class="ruby-ivar">@catalog_user</span>.<span class="ruby-identifier">user_id</span>).<span class="ruby-identifier">first</span>
+  
+
+
+  <span class="ruby-comment"># if the account user was created when the user was invited to a catalog</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">account_user</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">account_user</span>.<span class="ruby-identifier">role</span> <span class="ruby-operator">==</span> <span class="ruby-string">&#39;Catalog User&#39;</span>
+    <span class="ruby-comment"># and there is no more catalog users for the account user</span>
+    <span class="ruby-keyword">if</span> <span class="ruby-constant">CatalogUser</span>.<span class="ruby-identifier">where</span>(<span class="ruby-identifier">user_id</span><span class="ruby-operator">:</span> <span class="ruby-identifier">user</span>.<span class="ruby-identifier">id</span>, <span class="ruby-identifier">account_id</span><span class="ruby-operator">:</span> <span class="ruby-identifier">account</span>.<span class="ruby-identifier">id</span>, <span class="ruby-identifier">catalog_id</span><span class="ruby-operator">:</span> <span class="ruby-ivar">@catalog</span>.<span class="ruby-identifier">id</span>).<span class="ruby-identifier">first</span>.<span class="ruby-identifier">nil?</span>
+      <span class="ruby-comment"># It&#39;s safe do destroy the account user, unless the account user is the accoun owner ;-)</span>
+      <span class="ruby-identifier">account_user</span>.<span class="ruby-identifier">destroy!</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">account</span>.<span class="ruby-identifier">user_id</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">account_user</span>.<span class="ruby-identifier">user_id</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+  
+  <span class="ruby-comment"># delete the catalog user</span>
+  <span class="ruby-ivar">@catalog_user</span>.<span class="ruby-identifier">destroy!</span>
+  <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">catalog_account_catalog_catalog_users_path</span>(<span class="ruby-ivar">@account</span>, <span class="ruby-ivar">@catalog</span>)
+  
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-edit">
+            
+              <b>edit</b>()
+            
+            <a href="../../classes/Catalog/CatalogUsersController.html#method-i-edit" name="method-i-edit" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-edit_source')" id="l_method-i-edit_source">show</a>
+                
+              </p>
+              <div id="method-i-edit_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File controllers/catalog/catalog_users_controller.rb, line 102</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">edit</span>
+  <span class="ruby-identifier">forbidden</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">current_catalog_user</span>.<span class="ruby-identifier">update_user</span>
+  <span class="ruby-ivar">@catalog</span>        = <span class="ruby-constant">Catalog</span>.<span class="ruby-identifier">cached_find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:catalog_id</span>])
+  <span class="ruby-ivar">@catalog_user</span>   = <span class="ruby-constant">CatalogUser</span>.<span class="ruby-identifier">cached_find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-index">
+            
+              <b>index</b>()
+            
+            <a href="../../classes/Catalog/CatalogUsersController.html#method-i-index" name="method-i-index" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-index_source')" id="l_method-i-index_source">show</a>
+                
+              </p>
+              <div id="method-i-index_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File controllers/catalog/catalog_users_controller.rb, line 17</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">index</span>
+  <span class="ruby-identifier">forbidden</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">current_catalog_user</span>.<span class="ruby-identifier">read_user</span>
+  <span class="ruby-comment">#catalog_user_ids = @catalog.catalog_user_ids</span>
+  <span class="ruby-comment">#</span>
+  <span class="ruby-comment">#user_ids   = User.where(role: &#39;Super&#39;).pluck(:id)</span>
+  
+  <span class="ruby-comment">#@catalog        = Catalog.cached_find(params[:catalog_id])</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-new">
+            
+              <b>new</b>()
+            
+            <a href="../../classes/Catalog/CatalogUsersController.html#method-i-new" name="method-i-new" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-new_source')" id="l_method-i-new_source">show</a>
+                
+              </p>
+              <div id="method-i-new_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File controllers/catalog/catalog_users_controller.rb, line 27</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">new</span>
+  <span class="ruby-identifier">forbidden</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">current_catalog_user</span>.<span class="ruby-identifier">create_user</span>
+  <span class="ruby-ivar">@catalog</span>        = <span class="ruby-constant">Catalog</span>.<span class="ruby-identifier">cached_find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:catalog_id</span>])
+  
+  
+  <span class="ruby-identifier">blog</span>      = <span class="ruby-constant">Blog</span>.<span class="ruby-identifier">cached_find</span>(<span class="ruby-string">&#39;User Mailer&#39;</span>)
+  <span class="ruby-identifier">blog_post</span> = <span class="ruby-constant">BlogPost</span>.<span class="ruby-identifier">cached_find</span>(<span class="ruby-string">&#39;Invite Existing User To Catalog&#39;</span> , <span class="ruby-identifier">blog</span>)
+  
+  
+  
+  <span class="ruby-ivar">@catalog_user</span>   = <span class="ruby-constant">CatalogUser</span>.<span class="ruby-identifier">new</span>( <span class="ruby-identifier">title</span><span class="ruby-operator">:</span> <span class="ruby-node">&quot;You have been invited the #{@catalog.title.upcase!} catalog by #{current_user.name}&quot;</span>, 
+                                     <span class="ruby-identifier">body</span><span class="ruby-operator">:</span> <span class="ruby-node">&quot;You can access the #{@catalog.title.upcase!} catalog from #{@catalog.account.title} on your controll panel&quot;</span>,
+                                     <span class="ruby-identifier">account_id</span><span class="ruby-operator">:</span> <span class="ruby-ivar">@catalog</span>.<span class="ruby-identifier">account_id</span>,
+                                     <span class="ruby-identifier">uuid</span><span class="ruby-operator">:</span> <span class="ruby-constant">UUIDTools</span><span class="ruby-operator">::</span><span class="ruby-constant">UUID</span>.<span class="ruby-identifier">timestamp_create</span>().<span class="ruby-identifier">to_s</span>)
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-update">
+            
+              <b>update</b>()
+            
+            <a href="../../classes/Catalog/CatalogUsersController.html#method-i-update" name="method-i-update" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-update_source')" id="l_method-i-update_source">show</a>
+                
+              </p>
+              <div id="method-i-update_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File controllers/catalog/catalog_users_controller.rb, line 108</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">update</span>
+  <span class="ruby-identifier">forbidden</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">current_catalog_user</span>.<span class="ruby-identifier">update_user</span>
+  <span class="ruby-ivar">@catalog</span>        = <span class="ruby-constant">Catalog</span>.<span class="ruby-identifier">cached_find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:catalog_id</span>])
+  <span class="ruby-ivar">@catalog_user</span>   = <span class="ruby-constant">CatalogUser</span>.<span class="ruby-identifier">cached_find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
+  
+  <span class="ruby-ivar">@catalog_user</span>.<span class="ruby-identifier">update_attributes</span>(<span class="ruby-identifier">catalog_user_params</span>)
+
+
+  <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">catalog_account_catalog_catalog_users_path</span>(<span class="ruby-ivar">@account</span>, <span class="ruby-ivar">@catalog</span>)
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+                    </div>
+
+    </div>
+  </body>
+</html>    

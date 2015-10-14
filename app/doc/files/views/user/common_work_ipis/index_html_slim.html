@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>index.html.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            index.html.slim
+        </h1>
+        <ul class="files">
+            <li>views/user/common_work_ipis/index.html.slim</li>
+            <li>Last modified: 2015-10-03 18:19:09 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>/= debug @user_credits wrapper</p>
+
+<pre><code>.full-width-top
+  == render &#39;shared/navigationbar&#39;, page: &#39;dashboard&#39; 
+
+#sidebar-wrapper
+  ul class=&quot;sidebar-nav&quot;
+    == render &#39;users/shared/sidebar&#39;, selected: &#39;dashboard&#39;
+
+#page-content-wrapper
+  .container-fluid
+    == render &#39;shared/breadcrumbs&#39;, breadcrumbs: { links: { &#39;Dashboard&#39;.to_sym =&gt; user_user_control_panel_index_path(@user),
+                                                            legal: user_user_legal_index_path(@user)}}
+
+    .row
+      .col-sm-9
+        .help
+          .help-text
+            h2 
+              b Assign publishers to creations by&amp;nbsp;
+              br = @user.full_name
+          .help-button
+            == render &#39;admin/helps/help&#39;, identifier: &#39;common work credits&#39;
+
+      .col-sm-3
+        .pull-right.pull-down-10
+          = link_to user_user_control_panel_index_path(@user ) do
+            .btn.btn-default
+              i.fa.fa-chevron-left
+              &#39;&amp;nbsp;Back
+
+    .table-responsive
+      table class=&quot;table table-hover&quot;
+        thead
+          tr
+            th Work
+            th Roles
+            th Song split
+            th Publisher
+            th Publishers share
+            th
+        tbody
+          - @common_work_ipis.each do |common_work_ipi|
+            - if common_work = common_work_ipi.common_work
+            tr
+              td = common_work.title
+              td
+                /&#39;&amp;nbsp;
+                - if common_work_ipi.music
+                  &#39;Music
+                  br
+                - if common_work_ipi.lyric
+                  &#39;Lyric
+                  br
+                - if common_work_ipi.melody
+                  &#39;Melody
+                  br
+                - if common_work_ipi.arrangement
+                  &#39;Arrangement
+              td
+                = number_to_percentage(common_work_ipi.share, precision: 2)
+
+              td 
+                - if publisher =  common_work_ipi.publisher
+                  = publisher.legal_name
+
+              td 
+                - if publisher =  common_work_ipi.publisher
+                  /= debug common_work_ipi.ipi_publisher.publishing_agreement.split
+                  = number_to_percentage(common_work_ipi.publisher_split, precision: 2) 
+              td  
+                .pull-right
+                  = link_to edit_user_user_common_work_ipi_publisher_path(@user, common_work_ipi) do
+                        .btn.btn-default.btn-xs
+                          &#39;Assign publisher
+                /= common_work_ipi.ipi_publisher_id
+    /= debug IpiPublisher.where(email: @user.email.downcase)    
+          /- @user.ipis.each do |ipi|
+          /  tr
+          /    td 
+          /      = link_to user_user_ipi_path(@user, ipi) do
+          /          .btn.btn-default.btn-xs
+          /            i.fa.fa-eye&amp;nbsp;Show
+          /    /  = link_to edit_user_user_user_ipi_path(@user, ipi) do
+          /    /      .btn.btn-default.btn-xs
+          /    /        i.fa.fa-pencil
+          /    td
+          /      /= ipi.status
+          /      - case ipi.status
+          /      - when &#39;pending&#39;
+          /        .label.label-warning
+          /          &#39;Please confirm
+          /      - when &#39;accepted&#39;
+          /        .label.label-success
+          /          &#39;Confirmed
+          /    /td 
+          /    /  - if ipi.ipi_code
+          /    /    = ipi.ipi_code
+          /    /  - else
+          /    /    .label.label-default
+          /    /      &#39;na
+          /    td = ipi.work_title
+          /    /td 
+          /    /  -if pro_affiliation = ipi.pro_affiliation
+          /    /    = pro_affiliation.title
+          /    td
+          /      /&#39;&amp;nbsp;
+          /      - if ipi.music
+          /        &#39;Music
+          /        br
+          /      - if ipi.lyric
+          /        &#39;Lyric
+          /        br
+          /      - if ipi.melody
+          /        &#39;Melody
+          /        br
+          /      - if ipi.arrangement
+          /        &#39;Arrangement
+          /      
+          /      
+          /    td = ipi.share
+
+== render &#39;shared/site_footer&#39;</code></pre>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>_show.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            _show.slim
+        </h1>
+        <ul class="files">
+            <li>views/users/_show.slim</li>
+            <li>Last modified: 2015-08-15 08:34:57 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      <ul><li>
+<p>profile_path = profile_path_for( user)</p>
+</li></ul>
+
+<p>.user-badge</p>
+
+<pre><code>= link_to profile_path do
+  .avatar
+    = image_tag( user.image_url :avatar_220x220) 
+
+    .user-tags
+      /- if user.profession.to_s != &#39;&#39;
+      /  .user-tag
+      /    = user.profession
+      /  
+      div class=&quot;#{user.top_tag}&quot; 
+
+      - if user.dj
+        .user-tag
+          &#39;DJ 
+
+      - if user.writer
+        .user-tag
+          &#39;Writer
+
+      - if user.artist
+        .user-tag
+          &#39;Artist
+
+      - if user.author
+        .user-tag
+          &#39;Author
+
+      - if user.composer
+        .user-tag
+          &#39;Composer
+
+      - if user.producer
+        .user-tag
+          &#39;Producer
+
+      - if user.musician
+        .user-tag
+          &#39;Musician
+
+      - if user.remixer
+        .user-tag
+          &#39;Remixer
+
+  .user-name
+    = user.user_name
+  .user-profession
+    = user.profession
+
+.small-symbols
+  = link_to user_recordings_path(user) do
+    i class=&quot;fa fa-headphones&quot;
+    &#39;&amp;nbsp;
+    = user.recordings.count
+  &#39;&amp;nbsp;|&amp;nbsp;
+  - if likes = user.likings and likes &gt; 0
+    = link_to user_likes_path(user) do
+      i.fa.fa-thumbs-up&amp;nbsp;
+      = likes
+    &#39;&amp;nbsp;|&amp;nbsp;
+
+  - if user_likes = user.user_likes and user_likes &gt; 0
+    = link_to user do
+      i class=&quot;fa fa-heart&quot;
+      &#39;&amp;nbsp;
+      = user_likes
+    &#39;&amp;nbsp;|&amp;nbsp;
+  /= link_to user_likes_path(user) do
+  /  i class=&quot;fa fa-heart red-heart&quot;
+  /  &#39;&amp;nbsp;
+  /  = user.likes.count
+  /&#39;&amp;nbsp;|&amp;nbsp;
+  = link_to user_followers_path(user, clear: &#39;clear&#39;) do
+    i class=&quot;fa fa-users&quot;
+    &#39;&amp;nbsp;
+    = user.followers.count
+  - if user.featured
+    .pull-right
+      i class=&quot;fa fa-star&quot;
+      &#39;&amp;nbsp;</code></pre>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

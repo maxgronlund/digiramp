@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>_form.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            _form.slim
+        </h1>
+        <ul class="files">
+            <li>views/admin/genres/_form.slim</li>
+            <li>Last modified: 2015-09-24 20:35:34 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>.row</p>
+
+<pre><code>= simple_form_for [:admin, @genre], turboboost: true do |f|
+  .col-sm-4
+    .panel
+      .panel-body
+        b DigiRAMP
+        hr
+        = f.input :title, label: &#39;Genre&#39;, autofocus: true
+        = f.input :category,  collection: Genre::GENRE_CATEGORY,  as: :radio_buttons, label: false
+        = f.input :user_tag,  :input_html =&gt; { class: &#39;icheck-me&#39;, &#39;data-skin&#39;.to_sym =&gt; &quot;square&quot;, &#39;data-color&#39;.to_sym =&gt; &quot;blue&quot;     }
+  .col-sm-4
+    .panel
+      .panel-body
+        b INgrooves
+        hr
+        = f.input :ingrooves_genre, label: &#39;Genre&#39;
+        = f.input :ingrooves_category, collection: Genre::INGROOVES_CATEGORY,  label: &#39;Category&#39;
+  .col-sm-4
+    .panel
+      .panel-body
+        b iTunes
+        hr
+        = f.input :itunes_genre, label: &#39;Genre&#39;
+        = f.input :itunes_category, collection: Genre::ITUNES_CATEGORY,  label: &#39;Category&#39;
+  .col-sm-12   
+    hr
+    .pull-right
+      =&gt; link_to &#39;Music styles on Wikipedia&#39;, &quot;http://en.wikipedia.org/wiki/List_of_music_styles&quot;, class: &#39;btn btn-default&#39;
+      = f.submit &#39;Save&#39;, class: &#39;btn btn-info&#39;</code></pre>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

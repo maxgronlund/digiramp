@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>edit.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            edit.slim
+        </h1>
+        <ul class="files">
+            <li>views/admin/users/edit.slim</li>
+            <li>Last modified: 2015-09-26 13:26:03 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>wrapper</p>
+
+<pre><code>.full-width-top
+  == render &#39;shared/navigationbar&#39;, page: &#39;home&#39; 
+
+.admin-account
+  #sidebar-wrapper
+    ul class=&quot;sidebar-nav&quot;
+      == render &#39;admin/shared/sidebar&#39;, selected: &#39;user&#39;
+
+#page-content-wrapper
+  .container-fluid
+    == render &#39;shared/breadcrumbs&#39;, breadcrumbs: { links: { admin: admin_index_path, users: admin_users_path }, current: &#39;&#39;}
+    h2 Edit user
+    .pull-down-10
+    = simple_form_for [:admin,  @edit_user] do |f|
+      = f.error_notification
+      .digi-box
+        .row
+          .col-sm-6
+            /= debug Account.cached_find(@user.account.id)
+
+            - if super?
+              /- if Account.exists?(@edit_user.account.id)
+              /  = f.input :account_id , :include_blank =&gt; false, :collection =&gt; Account.all , label: &#39;Account&#39;
+              /- else
+              /  .alert.alert-danger
+              /    &#39;! Account missing
+              /    .pull-right
+              /      = link_to &#39;Create missing account&#39;, new_admin_user_account_path(@edit_user), class: &#39;btn btn-xs btn-default&#39;
+              -unless (@edit_user.email == &#39;max@synthmax.dk&#39;) || (@edit_user.email == &#39;peter@digiramp.org&#39;)
+                = f.input :role, collection: User::ROLES, :include_blank =&gt; false
+            = f.input :administrator, label: &#39;Administrator&#39;, hint: &#39;User can administrate other accounts&#39;,  :input_html =&gt; { class: &#39;icheck-me&#39;, &#39;data-skin&#39;.to_sym =&gt; &quot;square&quot;, &#39;data-color&#39;.to_sym =&gt; &quot;blue&quot;     }  
+            = f.input :has_a_collection, label: &#39;Has a Collection&#39;, hint: &#39;Disable if the user only needs access to someone elses account &#39;,  :input_html =&gt; { class: &#39;icheck-me&#39;, &#39;data-skin&#39;.to_sym =&gt; &quot;square&quot;, &#39;data-color&#39;.to_sym =&gt; &quot;blue&quot;     }  
+            = f.input :featured, label: &#39;Featured&#39;, hint: &#39;Never unfeature a user unless the user was featured by mistake&#39;,  :input_html =&gt; { class: &#39;icheck-me&#39;, &#39;data-skin&#39;.to_sym =&gt; &quot;square&quot;, &#39;data-color&#39;.to_sym =&gt; &quot;blue&quot;     }  
+            /= f.input :betatester,  :input_html =&gt; { class: &#39;icheck-me&#39;, &#39;data-skin&#39;.to_sym =&gt; &quot;square&quot;, &#39;data-color&#39;.to_sym =&gt; &quot;blue&quot;     }  
+            = f.input :salesperson,  :input_html =&gt; { class: &#39;icheck-me&#39;, &#39;data-skin&#39;.to_sym =&gt; &quot;square&quot;, &#39;data-color&#39;.to_sym =&gt; &quot;blue&quot;     }  
+
+            = f.input :user_name, label: &#39;Display name&#39;
+            = f.input :email
+            = f.input :password, autocomplete: :off
+            = f.input :password_confirmation, autocomplete: :off
+
+          .col-sm-6
+            b Avatar
+            br
+            .fileinput.fileinput-new data-provides=&quot;fileinput&quot;
+              .fileinput-new.thumbnail style=&quot;width: 170px; height: 170px;&quot;
+                = image_tag @edit_user.image_url(:avatar_170x170), size: &#39;170x170&#39;
+
+              div.fileinput-preview.fileinput-exists.thumbnail style=&quot;max-width: 170px; max-height: 170px;&quot;
+              div
+                span.btn.btn-default.btn-file
+                  span class=&quot;fileinput-new&quot;
+                    &#39;Change image
+                  &#39;&amp;nbsp;
+                  span class=&quot;fileinput-exists&quot;
+                    &#39;Change
+                  = f.file_field :image, multiple: false
+
+                &#39;&amp;nbsp;
+                a href=&quot;#&quot; class=&quot;btn btn-default fileinput-exists&quot; data-dismiss=&quot;fileinput&quot;
+                  &#39;Remove
+
+            br
+
+            /= f.input :image
+            div id=&quot;toolbar&quot; class=&quot;wysihtml5-toolbar&quot;
+              a data-wysihtml5-command=&quot;bold&quot; Bold
+              &#39;&amp;nbsp; 
+              a data-wysihtml5-command=&quot;italic&quot; Italic
+
+            =f.input :profile, label: false, :input_html =&gt; {  style: &quot;height: 250px;&quot;, placeholder: &quot;Profile&quot;, id: &#39;wysihtml5_editor&#39;}
+
+          .col-sm-12
+            .pull-right
+              = f.submit &#39;Save&#39;, class: &#39;btn btn-info&#39;
+
+== render &#39;shared/site_footer&#39;</code></pre>
+
+<h2 id="label-render+-27shared-2Finit_wysiwyg5-27">render &#39;shared/init_wysiwyg5&#39;</h2>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

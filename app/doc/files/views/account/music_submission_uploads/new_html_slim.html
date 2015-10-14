@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>new.html.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            new.html.slim
+        </h1>
+        <ul class="files">
+            <li>views/account/music_submission_uploads/new.html.slim</li>
+            <li>Last modified: 2015-09-26 08:28:05 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>wrapper</p>
+
+<pre><code>.full-width-top
+  == render &#39;shared/navigationbar&#39;, page: &#39;account&#39; 
+
+#sidebar-wrapper
+  ul class=&quot;sidebar-nav&quot;
+    == render &#39;users/shared/sidebar&#39;, selected: &#39;recordings&#39;
+
+#page-content-wrapper
+  .container-fluid   
+    h3 = @music_request.title
+    &#39;Upload Recording
+    == render &#39;shared/flash_message&#39;
+    .pull-down-10
+
+    = simple_form_for  [ @music_request, @recording ],  url:        url_for(:action =&gt; &#39;create&#39;, \
+                                                        controller: &#39;account/music_submission_uploads&#39;), \
+                                                        method:     &#39;post&#39;, \
+                                                        html:        { :id =&gt; &#39;audio_files&#39; } do |f|
+      .row
+        .col-sm-8.col-lg-6
+          = transloadit :recording_with_thumbs 
+
+          = f.hidden_field :user_id, value: @user.id
+          = f.hidden_field :music_request_id, value: @music_request.id
+
+          .fileinput.fileinput-new.input-group data-provides=&quot;fileinput&quot;
+            .form-control data-trigger=&quot;fileinput&quot;
+              i.glyphicon.glyphicon-file.fileinput-exists
+              span.fileinput-filename
+
+            span.input-group-addon.btn.btn-default.btn-file
+              span.fileinput-new
+                &#39;Select file
+              span.fileinput-exists
+                &#39;Change
+
+              = f.file_field :file, multiple: false, label: &#39;Select Audio File&#39;
+            a href=&quot;#&quot; class=&quot;input-group-addon btn btn-default fileinput-exists&quot; data-dismiss=&quot;fileinput&quot;
+              &#39;Remove
+
+          br
+
+          /= f.input :comment, label: &#39;Description&#39;, :input_html =&gt; {  style: &quot;height: 180px;&quot;}
+          = f.input :acceptance_of_terms, 
+                    id: &#39;acceptance_of_terms&#39;,
+                    label: false, 
+                    inline_label:  raw( &quot;*I Have &lt;a href=#{terms_and_conditions_path}&gt;Read and Agree&lt;/a&gt;  to The Terms and Conditions&quot;)
+          .pull-right
+            / account/accounts/6/opportunities/37/music_requests/33/music_submissions/new
+
+            = link_to &#39;Cancel&#39;, new_account_account_opportunity_music_request_music_submission_path( @music_request.opportunity.account_id, @music_request.opportunity_id, @music_request), class: &#39;btn btn-default&#39;
+            &#39;&amp;nbsp;
+            = f.submit &#39;Next&#39;, class: &#39;btn btn-info btn-next&#39;, disabled: &quot;disabled&quot;
+
+      .row
+        .col-sm-12
+
+      = transloadit_jquerify :audio_files, :wait =&gt; true
+
+== render &#39;shared/site_footer&#39;</code></pre>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

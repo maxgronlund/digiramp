@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>_selected.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            _selected.slim
+        </h1>
+        <ul class="files">
+            <li>views/music_submissions/_selected.slim</li>
+            <li>Last modified: 2015-08-06 06:49:53 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>div id=“old_music_submission_selected_#{music_submission.id.to_s}”</p>
+
+<pre><code>- if selection = music_submission.music_submission_selections.find_by(user_id: @user.id)
+
+  = link_to &#39;Selected&#39;, user_user_opportunity_music_request_music_submission_music_submission_selection_path( \
+              @user, @opportunity, music_request,music_submission ,selection),
+              method: :delete, 
+              remote: true,
+              class: &#39;btn btn-success btn-xs&#39;
+- else
+  /user/users/:user_id/opportunities/:opportunity_id/music_requests/:music_request_id/music_submissions/:music_submission_id/music_submission_selections
+  = simple_form_for [:user, 
+                      @user, 
+                      @opportunity, 
+                      music_request, 
+                      music_submission, 
+                      MusicSubmissionSelection.new], remote: true do |f|
+    = f.hidden_field :user_id,             value: @user.id                
+    = f.hidden_field :account_id,          value: @user.account.id
+    = f.hidden_field :music_request_id,    value: music_request.id
+    = f.hidden_field :music_submission_id, value: music_submission.id
+    = f.hidden_field :opportunity_user_id, value: @opportunity_user.id
+
+    = f.submit &#39;Select&#39;, class: &#39;btn btn-default btn-xs&#39;</code></pre>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

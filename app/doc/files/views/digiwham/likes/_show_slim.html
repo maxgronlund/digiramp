@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>_show.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            _show.slim
+        </h1>
+        <ul class="files">
+            <li>views/digiwham/likes/_show.slim</li>
+            <li>Last modified: 2015-07-05 15:22:06 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>.digiwham id=“#{recording.id}”</p>
+
+<pre><code>.top-pane id=&quot;#{recording.id}&quot;
+  .right-pane
+    .play-button-title-and-artist
+      .title-and-artist
+        h3 = recording.title
+        p = recording.artist
+
+      /.info-button
+      /  .comment  id=&quot;#{recording.id}&quot;
+      /    button class=&quot;digiwam-button&quot;
+      /      i class=&quot;fa fa-info-circle&quot;
+      /  
+      == render &#39;digiwham/recordings/playback_button&#39;, recording: recording
+
+    .playback-time
+      .start-time
+        &#39;0
+      .end-time
+        = recording.duration_string
+    .waveform
+      = image_tag recording.waveform, class: &quot;audio-waveform&quot;, id: &quot;#{recording.id}&quot;
+    .playhead id=&quot;#{recording.id}&quot;
+    .loadbar  id=&quot;#{recording.id}&quot;
+    .playhead-time  id=&quot;#{recording.id}&quot;
+      &#39;00:00:00
+
+  .cover-art id=&quot;#{recording.id}&quot;
+    - art = recording.cover_art || &#39;default-cover.jpg&#39;
+    = image_tag art, alt: &quot;#{recording.title}&quot;
+
+== render &#39;digiwham/recordings/buttom_buttons&#39;, recording: recording     
+== render &#39;digiwham/comments/index&#39;, recording: recording   
+== render &#39;digiwham/playlists/index&#39;, recording: recording</code></pre>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

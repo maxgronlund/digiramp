@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>decline_all_from_digiramp.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            decline_all_from_digiramp.slim
+        </h1>
+        <ul class="files">
+            <li>views/contact_invitations/decline_all_from_digiramp.slim</li>
+            <li>Last modified: 2015-09-24 20:35:34 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>.container</p>
+
+<pre><code>.digi-box
+  .row
+    .col-sm-3
+    .col-sm-9
+      h4 
+        &#39;Unsubscribe #{@client.email} from DigiRAMP invitation emails?
+        &#39;You received this email because a DigiRAMP member invited you to join. 
+        &#39;By unsubscribing below, you&#39;ll stop receiving DigiRAMP invitations and your email will stop being processed by DigiRAMP. (That means no DigiRAMP members can connect with you unless you sign up for a DigiRAMP account).
+
+      .sexy_line
+      .row
+        .col-sm-8
+          = simple_form_for [ @client ], :url =&gt; url_for(:action =&gt; &#39;unsubscribe&#39;, \
+                                                        :controller =&gt; &#39;contact_invitations&#39;), \
+                                                        :method =&gt; &#39;post&#39;,\
+                                                        remote: true do |f|
+
+            .row
+              .col-sm-12.pull-down-12
+                .pull-right
+
+                  = f.submit &quot;Unsubscribe&quot;, class: &#39;btn btn-info&#39;</code></pre>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

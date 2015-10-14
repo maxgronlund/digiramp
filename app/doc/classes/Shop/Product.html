@@ -1,0 +1,1114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>Shop::Product</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../css/github.css" type="text/css" media="screen" />
+<script src="../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            <span class="type">Class</span> 
+            Shop::Product 
+            
+                <span class="parent">&lt; 
+                    
+                    ActiveRecord::Base
+                    
+                </span>
+            
+        </h1>
+        <ul class="files">
+            
+            <li><a href="../../files/models/shop/product_rb.html">models/shop/product.rb</a></li>
+            
+        </ul>
+    </div>
+    <div id="bodyContent">
+        <div id="content">
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+    <!-- Method ref -->
+    <div class="sectiontitle">Methods</div>
+    <dl class="methods">
+      
+        <dt>A</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-add_productable">add_productable</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-i-additional_download_url">additional_download_url</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-c-attach">attach</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>C</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-c-cached_find">cached_find</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-i-configure_stakeholder">configure_stakeholder</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>D</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-download_url">download_url</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>E</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-exclusive_offer-3F">exclusive_offer?</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>G</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-get_item">get_item</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-i-get_shop_art">get_shop_art</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-i-get_total_share">get_total_share</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>P</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-product_image">product_image</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-i-product_title">product_title</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>R</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-recording">recording</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>S</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-seller_info">seller_info</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-i-shop_image">shop_image</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-i-stakeholders">stakeholders</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>T</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-total_stakes">total_stakes</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>U</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-update_stock">update_stock</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>V</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-valid_for_sale-21">valid_for_sale!</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+    </dl>
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+      <!-- Section constants -->
+      <div class="sectiontitle">Constants</div>
+      <table border='0' cellpadding='5'>
+        
+          <tr valign='top'>
+            <td class="attr-name">CATEGORIES</td>
+            <td>=</td>
+            <td class="attr-value">[&#39;Product&#39;, &#39;Playlist&#39;, &#39;Streaming&#39;, &#39;Download&#39;, &#39;Service&#39;, &#39;Physical product&#39;, &#39;Coupon&#39;]</td>
+          </tr>
+          
+            <tr valign='top'>
+              <td>&nbsp;</td>
+              <td colspan="2" class="attr-desc"></td>
+            </tr>
+          
+        
+          <tr valign='top'>
+            <td class="attr-name">DOWNLOAD_CATEGORIES</td>
+            <td>=</td>
+            <td class="attr-value">[&quot;Recording&quot;, &quot;Protools project&quot;, &quot;Logic project&quot;, &quot;Individual tracks (remix pack)&quot;, &quot;Sample pack&quot;, &quot;Graphics&quot;]</td>
+          </tr>
+          
+            <tr valign='top'>
+              <td>&nbsp;</td>
+              <td colspan="2" class="attr-desc"></td>
+            </tr>
+          
+        
+      </table>
+    
+
+
+    
+
+
+    <!-- Methods -->
+    
+      <div class="sectiontitle">Class Public methods</div>
+      
+        <div class="method">
+          <div class="title method-title" id="method-c-attach">
+            
+              <b>attach</b>(record, product_params = {})
+            
+            <a href="../../classes/Shop/Product.html#method-c-attach" name="method-c-attach" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-c-attach_source')" id="l_method-c-attach_source">show</a>
+                
+              </p>
+              <div id="method-c-attach_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/shop/product.rb, line 85</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">self</span>.<span class="ruby-identifier">attach</span> <span class="ruby-identifier">record</span>, <span class="ruby-identifier">product_params</span> = {}
+
+  <span class="ruby-identifier">product</span> = <span class="ruby-constant">Shop</span><span class="ruby-operator">::</span><span class="ruby-constant">Product</span>.<span class="ruby-identifier">create</span>(  <span class="ruby-identifier">title</span><span class="ruby-operator">:</span>                         <span class="ruby-identifier">product_params</span>[<span class="ruby-value">:title</span>], 
+                                   <span class="ruby-identifier">body</span><span class="ruby-operator">:</span>                          <span class="ruby-identifier">product_params</span>[<span class="ruby-value">:body</span>], 
+                                   <span class="ruby-identifier">additional_info</span><span class="ruby-operator">:</span>               <span class="ruby-identifier">product_params</span>[<span class="ruby-value">:additional_info</span>], 
+                                   <span class="ruby-identifier">price</span><span class="ruby-operator">:</span>                         <span class="ruby-identifier">product_params</span>[<span class="ruby-value">:price</span>],
+                                   <span class="ruby-identifier">exclusive_offered_to_email</span><span class="ruby-operator">:</span>    <span class="ruby-identifier">product_params</span>[<span class="ruby-value">:exclusive_offered_to_email</span>],
+                                   <span class="ruby-identifier">download_link</span><span class="ruby-operator">:</span>                 <span class="ruby-identifier">product_params</span>[<span class="ruby-value">:download_link</span>],
+                                   <span class="ruby-identifier">user_id</span><span class="ruby-operator">:</span>                       <span class="ruby-identifier">product_params</span>[<span class="ruby-value">:user_id</span>],
+                                   <span class="ruby-identifier">account_id</span><span class="ruby-operator">:</span>                    <span class="ruby-identifier">product_params</span>[<span class="ruby-value">:account_id</span>],
+                                   <span class="ruby-identifier">units_on_stock</span><span class="ruby-operator">:</span>                <span class="ruby-identifier">product_params</span>[<span class="ruby-value">:units_on_stock</span>],
+                                   <span class="ruby-identifier">for_sale</span><span class="ruby-operator">:</span>                      <span class="ruby-identifier">product_params</span>[<span class="ruby-value">:for_sale</span>],
+                                   <span class="ruby-identifier">image</span><span class="ruby-operator">:</span>                         <span class="ruby-identifier">product_params</span>[<span class="ruby-value">:image</span>],
+                                   <span class="ruby-identifier">productable_id</span><span class="ruby-operator">:</span>                <span class="ruby-identifier">record</span>.<span class="ruby-identifier">id</span>,      
+                                   <span class="ruby-identifier">productable_type</span><span class="ruby-operator">:</span>              <span class="ruby-identifier">record</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">name</span>      
+                                )
+
+  
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-c-cached_find">
+            
+              <b>cached_find</b>(id)
+            
+            <a href="../../classes/Shop/Product.html#method-c-cached_find" name="method-c-cached_find" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-c-cached_find_source')" id="l_method-c-cached_find_source">show</a>
+                
+              </p>
+              <div id="method-c-cached_find_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/shop/product.rb, line 48</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">self</span>.<span class="ruby-identifier">cached_find</span>(<span class="ruby-identifier">id</span>)
+  <span class="ruby-constant">Rails</span>.<span class="ruby-identifier">cache</span>.<span class="ruby-identifier">fetch</span>([<span class="ruby-identifier">name</span>, <span class="ruby-identifier">id</span>]) { <span class="ruby-identifier">find</span>(<span class="ruby-identifier">id</span>) }
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+                  
+      <div class="sectiontitle">Instance Public methods</div>
+      
+        <div class="method">
+          <div class="title method-title" id="method-i-add_productable">
+            
+              <b>add_productable</b>(type, id)
+            
+            <a href="../../classes/Shop/Product.html#method-i-add_productable" name="method-i-add_productable" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-add_productable_source')" id="l_method-i-add_productable_source">show</a>
+                
+              </p>
+              <div id="method-i-add_productable_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/shop/product.rb, line 57</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">add_productable</span> <span class="ruby-identifier">type</span>, <span class="ruby-identifier">id</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">productable_type</span> = <span class="ruby-identifier">type</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">productable_type</span> = <span class="ruby-identifier">type</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-additional_download_url">
+            
+              <b>additional_download_url</b>()
+            
+            <a href="../../classes/Shop/Product.html#method-i-additional_download_url" name="method-i-additional_download_url" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-additional_download_url_source')" id="l_method-i-additional_download_url_source">show</a>
+                
+              </p>
+              <div id="method-i-additional_download_url_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/shop/product.rb, line 114</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">additional_download_url</span>
+
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">nil</span> <span class="ruby-keyword">if</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">zip_file_url</span>.<span class="ruby-identifier">nil?</span>
+  <span class="ruby-identifier">s3</span> = <span class="ruby-constant">Aws</span><span class="ruby-operator">::</span><span class="ruby-constant">S3</span><span class="ruby-operator">::</span><span class="ruby-constant">Resource</span>.<span class="ruby-identifier">new</span>
+  
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">nil</span> <span class="ruby-keyword">if</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">zip_file</span>.<span class="ruby-identifier">nil?</span>
+  <span class="ruby-keyword">begin</span>
+    <span class="ruby-identifier">secure_url</span> = <span class="ruby-keyword">self</span>.<span class="ruby-identifier">zip_file_url</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-string">&quot;https://digiramp.s3.amazonaws.com/&quot;</span>, <span class="ruby-string">&#39;&#39;</span>)
+    
+    <span class="ruby-identifier">file_name</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">basename</span>(<span class="ruby-keyword">self</span>.<span class="ruby-identifier">zip_file_url</span>)
+    
+    
+    <span class="ruby-identifier">bucket</span>      = <span class="ruby-identifier">s3</span>.<span class="ruby-identifier">bucket</span>(<span class="ruby-constant">Rails</span>.<span class="ruby-identifier">application</span>.<span class="ruby-identifier">secrets</span>.<span class="ruby-identifier">aws_s3_bucket</span>)
+    <span class="ruby-identifier">s3_obj</span>      = <span class="ruby-identifier">bucket</span>.<span class="ruby-identifier">object</span>(<span class="ruby-identifier">secure_url</span>)
+    <span class="ruby-identifier">filename</span>    = <span class="ruby-identifier">file_name</span>.<span class="ruby-identifier">downcase</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-string">&#39; &#39;</span>, <span class="ruby-string">&#39;-&#39;</span>)
+    <span class="ruby-keyword">return</span>        <span class="ruby-identifier">s3_obj</span>.<span class="ruby-identifier">presigned_url</span>(<span class="ruby-value">:get</span>, <span class="ruby-identifier">expires_in</span><span class="ruby-operator">:</span> <span class="ruby-number">600</span>,<span class="ruby-identifier">response_content_disposition</span><span class="ruby-operator">:</span> <span class="ruby-node">&quot;attachment; filename=&#39;#{filename}&#39;&quot;</span>)
+  <span class="ruby-keyword">rescue</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
+    <span class="ruby-constant">ErrorNotification</span>.<span class="ruby-identifier">post</span> <span class="ruby-node">&quot;Product::additional_download_url id: #{e.inspect}&quot;</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">nil</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-configure_stakeholder">
+            
+              <b>configure_stakeholder</b>()
+            
+            <a href="../../classes/Shop/Product.html#method-i-configure_stakeholder" name="method-i-configure_stakeholder" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-configure_stakeholder_source')" id="l_method-i-configure_stakeholder_source">show</a>
+                
+              </p>
+              <div id="method-i-configure_stakeholder_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/shop/product.rb, line 210</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">configure_stakeholder</span>
+  <span class="ruby-identifier">ap</span> <span class="ruby-string">&#39;--------------------------------------&#39;</span>
+  <span class="ruby-identifier">ap</span> <span class="ruby-string">&#39;configure_stakeholder&#39;</span>
+  <span class="ruby-identifier">ap</span> <span class="ruby-string">&#39;--------------------------------------&#39;</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">productable_type</span> <span class="ruby-operator">==</span> <span class="ruby-string">&#39;Recording&#39;</span>
+    <span class="ruby-comment">#recording.update_stakes self</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">stake</span> = <span class="ruby-constant">Stake</span>.<span class="ruby-identifier">find_by</span>(
+      <span class="ruby-identifier">asset_id</span><span class="ruby-operator">:</span>            <span class="ruby-keyword">self</span>.<span class="ruby-identifier">id</span>,
+      <span class="ruby-identifier">asset_type</span><span class="ruby-operator">:</span>          <span class="ruby-keyword">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">name</span> 
+    )
+    <span class="ruby-keyword">else</span> <span class="ruby-identifier">stake</span> = <span class="ruby-constant">Stake</span>.<span class="ruby-identifier">create</span>( 
+      <span class="ruby-identifier">asset_id</span><span class="ruby-operator">:</span>            <span class="ruby-keyword">self</span>.<span class="ruby-identifier">id</span>,
+      <span class="ruby-identifier">asset_type</span><span class="ruby-operator">:</span>          <span class="ruby-keyword">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">name</span> 
+    )
+    <span class="ruby-keyword">end</span>
+    <span class="ruby-identifier">stake</span>.<span class="ruby-identifier">update</span>(
+      <span class="ruby-identifier">account_id</span><span class="ruby-operator">:</span>          <span class="ruby-keyword">self</span>.<span class="ruby-identifier">account_id</span>, 
+      <span class="ruby-identifier">user_id</span><span class="ruby-operator">:</span>             <span class="ruby-keyword">self</span>.<span class="ruby-identifier">user_id</span>,
+      <span class="ruby-identifier">split</span><span class="ruby-operator">:</span>               <span class="ruby-number">100</span>,
+      <span class="ruby-identifier">flat_rate_in_cent</span><span class="ruby-operator">:</span>   <span class="ruby-keyword">self</span>.<span class="ruby-identifier">price</span>,
+      <span class="ruby-identifier">currency</span><span class="ruby-operator">:</span>            <span class="ruby-string">&#39;usd&#39;</span>,
+      <span class="ruby-identifier">email</span><span class="ruby-operator">:</span>               <span class="ruby-keyword">self</span>.<span class="ruby-identifier">account</span>.<span class="ruby-identifier">user</span>.<span class="ruby-identifier">email</span>,
+      <span class="ruby-identifier">unassigned</span><span class="ruby-operator">:</span>          <span class="ruby-keyword">false</span>,
+      <span class="ruby-identifier">asset_id</span><span class="ruby-operator">:</span>            <span class="ruby-keyword">self</span>.<span class="ruby-identifier">id</span>,
+      <span class="ruby-identifier">asset_type</span><span class="ruby-operator">:</span>          <span class="ruby-keyword">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">name</span>
+    )
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-download_url">
+            
+              <b>download_url</b>()
+            
+            <a href="../../classes/Shop/Product.html#method-i-download_url" name="method-i-download_url" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-download_url_source')" id="l_method-i-download_url_source">show</a>
+                
+              </p>
+              <div id="method-i-download_url_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/shop/product.rb, line 105</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">download_url</span>
+  <span class="ruby-keyword">case</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">productable_type</span>
+  <span class="ruby-keyword">when</span> <span class="ruby-string">&#39;Recording&#39;</span>
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">recording</span> = <span class="ruby-constant">Recording</span>.<span class="ruby-identifier">cached_find</span>(<span class="ruby-keyword">self</span>.<span class="ruby-identifier">productable_id</span>)
+      <span class="ruby-keyword">return</span> <span class="ruby-identifier">recording</span>.<span class="ruby-identifier">download_url2</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-exclusive_offer-3F">
+            
+              <b>exclusive_offer?</b>()
+            
+            <a href="../../classes/Shop/Product.html#method-i-exclusive_offer-3F" name="method-i-exclusive_offer-3F" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-exclusive_offer-3F_source')" id="l_method-i-exclusive_offer-3F_source">show</a>
+                
+              </p>
+              <div id="method-i-exclusive_offer-3F_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/shop/product.rb, line 52</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">exclusive_offer?</span>
+  <span class="ruby-comment">#if self.category == </span>
+  <span class="ruby-operator">!</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">exclusive_offered_to_email</span>.<span class="ruby-identifier">blank?</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-get_item">
+            
+              <b>get_item</b>()
+            
+            <a href="../../classes/Shop/Product.html#method-i-get_item" name="method-i-get_item" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-get_item_source')" id="l_method-i-get_item_source">show</a>
+                
+              </p>
+              <div id="method-i-get_item_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/shop/product.rb, line 62</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">get_item</span>
+  <span class="ruby-keyword">case</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">productable_type</span>
+  <span class="ruby-keyword">when</span> <span class="ruby-string">&#39;Recording&#39;</span>
+    <span class="ruby-keyword">return</span> <span class="ruby-constant">Recording</span>.<span class="ruby-identifier">cached_find</span>(<span class="ruby-keyword">self</span>.<span class="ruby-identifier">productable_id</span>)
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">nil</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-get_shop_art">
+            
+              <b>get_shop_art</b>(thumb_size)
+            
+            <a href="../../classes/Shop/Product.html#method-i-get_shop_art" name="method-i-get_shop_art" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-get_shop_art_source')" id="l_method-i-get_shop_art_source">show</a>
+                
+              </p>
+              <div id="method-i-get_shop_art_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/shop/product.rb, line 172</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">get_shop_art</span> <span class="ruby-identifier">thumb_size</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">productable</span>
+   <span class="ruby-identifier">productable</span>.<span class="ruby-identifier">get_shop_art</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-keyword">self</span>.<span class="ruby-identifier">image_url</span>  <span class="ruby-identifier">thumb_size</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-get_total_share">
+            
+              <b>get_total_share</b>()
+            
+            <a href="../../classes/Shop/Product.html#method-i-get_total_share" name="method-i-get_total_share" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-get_total_share_source')" id="l_method-i-get_total_share_source">show</a>
+                
+              </p>
+              <div id="method-i-get_total_share_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/shop/product.rb, line 164</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">get_total_share</span>
+  <span class="ruby-identifier">total</span> = <span class="ruby-number">0.0</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">stakeholders</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">stakeholder</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">total</span> <span class="ruby-operator">+=</span> <span class="ruby-identifier">stakeholder</span>.<span class="ruby-identifier">split</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-identifier">total</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-product_image">
+            
+              <b>product_image</b>()
+            
+            <a href="../../classes/Shop/Product.html#method-i-product_image" name="method-i-product_image" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-product_image_source')" id="l_method-i-product_image_source">show</a>
+                
+              </p>
+              <div id="method-i-product_image_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/shop/product.rb, line 38</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">product_image</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">productable_type</span> <span class="ruby-operator">==</span> <span class="ruby-string">&#39;Recording&#39;</span>
+    <span class="ruby-keyword">return</span> <span class="ruby-identifier">sels</span>.<span class="ruby-identifier">productable</span>.<span class="ruby-identifier">get_shop_art</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-keyword">return</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">image</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-product_title">
+            
+              <b>product_title</b>()
+            
+            <a href="../../classes/Shop/Product.html#method-i-product_title" name="method-i-product_title" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-product_title_source')" id="l_method-i-product_title_source">show</a>
+                
+              </p>
+              <div id="method-i-product_title_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/shop/product.rb, line 30</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">product_title</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">productable</span> <span class="ruby-operator">?</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">productable</span>.<span class="ruby-identifier">title</span> <span class="ruby-operator">:</span> <span class="ruby-string">&#39;na&#39;</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-recording">
+            
+              <b>recording</b>()
+            
+            <a href="../../classes/Shop/Product.html#method-i-recording" name="method-i-recording" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-recording_source')" id="l_method-i-recording_source">show</a>
+                
+              </p>
+              <div id="method-i-recording_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/shop/product.rb, line 136</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">recording</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">nil</span> <span class="ruby-keyword">unless</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">productable_type</span> <span class="ruby-operator">==</span> <span class="ruby-string">&#39;Recording&#39;</span>
+  <span class="ruby-constant">Recording</span>.<span class="ruby-identifier">cached_find</span>(<span class="ruby-keyword">self</span>.<span class="ruby-identifier">productable_id</span>)
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-seller_info">
+            
+              <b>seller_info</b>()
+            
+            <a href="../../classes/Shop/Product.html#method-i-seller_info" name="method-i-seller_info" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-seller_info_source')" id="l_method-i-seller_info_source">show</a>
+                
+              </p>
+              <div id="method-i-seller_info_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/shop/product.rb, line 34</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">seller_info</span>
+  <span class="ruby-identifier">account</span>.<span class="ruby-identifier">user</span>.<span class="ruby-identifier">seller_info</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-shop_image">
+            
+              <b>shop_image</b>(size)
+            
+            <a href="../../classes/Shop/Product.html#method-i-shop_image" name="method-i-shop_image" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-shop_image_source')" id="l_method-i-shop_image_source">show</a>
+                
+              </p>
+              <div id="method-i-shop_image_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/shop/product.rb, line 70</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">shop_image</span> <span class="ruby-identifier">size</span>
+  <span class="ruby-keyword">case</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">productable_type</span>
+    
+  <span class="ruby-keyword">when</span> <span class="ruby-string">&#39;Recording&#39;</span>
+    <span class="ruby-identifier">recording</span> = <span class="ruby-constant">Recording</span>.<span class="ruby-identifier">cached_find</span>(<span class="ruby-keyword">self</span>.<span class="ruby-identifier">productable_id</span>)
+    <span class="ruby-keyword">return</span> <span class="ruby-identifier">recording</span>.<span class="ruby-identifier">get_shop_art</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-comment">#if self.category == &#39;recording&#39;</span>
+  <span class="ruby-comment">#  return self.recording.get_shop_art</span>
+  <span class="ruby-comment">#end</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">image_url</span>(<span class="ruby-identifier">size</span>)
+  
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-stakeholders">
+            
+              <b>stakeholders</b>()
+            
+            <a href="../../classes/Shop/Product.html#method-i-stakeholders" name="method-i-stakeholders" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-stakeholders_source')" id="l_method-i-stakeholders_source">show</a>
+                
+              </p>
+              <div id="method-i-stakeholders_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/shop/product.rb, line 141</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">stakeholders</span>
+  <span class="ruby-keyword">case</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">productable_type</span>
+  <span class="ruby-keyword">when</span> <span class="ruby-string">&#39;Recording&#39;</span>
+    <span class="ruby-keyword">return</span> <span class="ruby-identifier">recording</span>.<span class="ruby-identifier">stakes</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">recording</span>
+  <span class="ruby-keyword">when</span> <span class="ruby-string">&quot;Shop::Product&quot;</span>
+    <span class="ruby-keyword">return</span> <span class="ruby-constant">Stake</span>.<span class="ruby-identifier">where</span>(<span class="ruby-identifier">asset_type</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;Shop::Product&#39;</span>, <span class="ruby-identifier">asset_id</span><span class="ruby-operator">:</span>  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">id</span>)
+  <span class="ruby-keyword">end</span> 
+  <span class="ruby-keyword">nil</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-total_stakes">
+            
+              <b>total_stakes</b>()
+            
+            <a href="../../classes/Shop/Product.html#method-i-total_stakes" name="method-i-total_stakes" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-total_stakes_source')" id="l_method-i-total_stakes_source">show</a>
+                
+              </p>
+              <div id="method-i-total_stakes_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/shop/product.rb, line 160</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">total_stakes</span>
+  <span class="ruby-ivar">@total_share</span> <span class="ruby-operator">||=</span> <span class="ruby-identifier">get_total_share</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-update_stock">
+            
+              <b>update_stock</b>()
+            
+            <a href="../../classes/Shop/Product.html#method-i-update_stock" name="method-i-update_stock" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-update_stock_source')" id="l_method-i-update_stock_source">show</a>
+                
+              </p>
+              <div id="method-i-update_stock_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/shop/product.rb, line 152</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">update_stock</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">units_on_stock</span> 
+    <span class="ruby-keyword">self</span>.<span class="ruby-identifier">units_on_stock</span> <span class="ruby-operator">-=</span> <span class="ruby-number">1</span> 
+    <span class="ruby-keyword">self</span>.<span class="ruby-identifier">save</span>
+    <span class="ruby-keyword">self</span>.<span class="ruby-identifier">valid_for_sale!</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-valid_for_sale-21">
+            
+              <b>valid_for_sale!</b>()
+            
+            <a href="../../classes/Shop/Product.html#method-i-valid_for_sale-21" name="method-i-valid_for_sale-21" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-valid_for_sale-21_source')" id="l_method-i-valid_for_sale-21_source">show</a>
+                
+              </p>
+              <div id="method-i-valid_for_sale-21_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/shop/product.rb, line 180</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">valid_for_sale!</span>
+  <span class="ruby-identifier">ap</span> <span class="ruby-string">&#39;---------------------- Valid for sale ----------------&#39;</span>
+  <span class="ruby-identifier">ap</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">category</span>
+  <span class="ruby-identifier">ap</span> <span class="ruby-identifier">connected_to_stripe</span>
+  <span class="ruby-comment">#ap self.category</span>
+  <span class="ruby-keyword">begin</span> 
+    <span class="ruby-keyword">case</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">category</span>
+   
+    <span class="ruby-keyword">when</span> <span class="ruby-string">&#39;recording&#39;</span>
+      <span class="ruby-identifier">ap</span> <span class="ruby-identifier">recording</span>.<span class="ruby-identifier">is_cleared?</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">connected_to_stripe</span>
+      <span class="ruby-keyword">self</span>.<span class="ruby-identifier">update</span>( <span class="ruby-identifier">valid_for_sale</span><span class="ruby-operator">:</span> (<span class="ruby-identifier">recording</span>.<span class="ruby-identifier">is_cleared?</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">connected_to_stripe</span>) )
+    <span class="ruby-keyword">when</span> <span class="ruby-string">&#39;physical-product&#39;</span>
+      <span class="ruby-keyword">self</span>.<span class="ruby-identifier">update</span>(<span class="ruby-identifier">valid_for_sale</span><span class="ruby-operator">:</span> (<span class="ruby-keyword">self</span>.<span class="ruby-identifier">units_on_stock</span> <span class="ruby-operator">&gt;</span> <span class="ruby-number">0</span>) <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">connected_to_stripe</span>)
+    <span class="ruby-keyword">when</span> <span class="ruby-string">&#39;service&#39;</span>
+      
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">rescue</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
+    <span class="ruby-constant">ErrorNotification</span>.<span class="ruby-identifier">post</span> <span class="ruby-node">&quot;Product::set_valid_for_sale: #{e.inspect}&quot;</span>
+    <span class="ruby-keyword">self</span>.<span class="ruby-identifier">update</span>(<span class="ruby-identifier">valid_for_sale</span><span class="ruby-operator">:</span> <span class="ruby-keyword">false</span>)
+  <span class="ruby-keyword">end</span>
+   
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+                    </div>
+
+    </div>
+  </body>
+</html>    

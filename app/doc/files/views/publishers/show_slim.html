@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>show.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            show.slim
+        </h1>
+        <ul class="files">
+            <li>views/publishers/show.slim</li>
+            <li>Last modified: 2015-10-01 21:07:11 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>wrapper</p>
+
+<pre><code>.full-width-top
+  == render &#39;shared/navigationbar&#39;, page: &#39;opportunities&#39; 
+
+#sidebar-wrapper
+  ul class=&quot;sidebar-nav&quot;
+    - if @user
+      == render &#39;user/opportunities/sidebar&#39;, selected: &#39;publishers&#39;
+    - else
+      == render &#39;public_opportunities/sidebar&#39;, selected: &#39;publishers&#39;
+#page-content-wrapper
+  .container-fluid
+    .row
+      .col-sm-5
+        .help
+          .help-text
+            h2 = @publisher.legal_name
+            b Publisher
+          .help-button
+            == render &#39;admin/helps/help&#39;, identifier: &#39;publishers show&#39;
+
+      .col-sm-7
+        .pull-down-10
+
+    .pull-down-10
+    - if user = @publisher.user
+      .row
+        .col-sm-6
+          .digi-box
+            .products 
+              .seller-avatar
+                 = link_to image_tag( user.image_url :avatar_32x32), user
+              .seller-name
+                &#39;Managed by:
+                br
+                b = user.user_name
+            .row
+              .col-sm-12
+        .col-sm-6
+          - if current_user &amp;&amp; current_user.id != user.id 
+            .inline-button
+              .connect-container
+                .connect-buttons
+                == render &#39;users/connect&#39;,    user: user, size: &#39;&#39;
+
+    .table-responsive
+      table.table.table-bordered
+        tr
+          td
+            b Legal name
+            br = @publisher.legal_name
+          td
+          td
+
+        tr
+          td
+            b IP Number
+            br = @publisher.ipi_code
+
+          td
+            b Phone number
+            br = @publisher.phone_number
+
+          td
+
+        tr
+          td
+            b Address
+            - unless @publisher.address_line_1.blank?
+              br
+              = @publisher.address_line_1
+
+            - unless @publisher.address_line_2.blank?
+              br
+              = @publisher.address_line_2
+
+            - unless @publisher.city.blank?
+              br
+              = @publisher.city
+
+            - unless @publisher.zip_code.blank?
+              br
+              = @publisher.zip_code
+
+            - unless @publisher.country.blank?
+              br
+              = @publisher.country
+
+          td
+            /b Publishing
+            /table
+            /  - @user.publishers.each do |publisher|
+            /    tr
+            /    
+            /      td = publisher.legal_name
+            /      td = publisher.ipi_code
+            /    
+            /    
+          td
+
+== render &#39;shared/site_footer&#39;</code></pre>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

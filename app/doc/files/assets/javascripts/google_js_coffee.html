@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>google.js.coffee</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            google.js.coffee
+        </h1>
+        <ul class="files">
+            <li>assets/javascripts/google.js.coffee</li>
+            <li>Last modified: 2015-07-05 15:22:02 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>class @GoogleAnalytics</p>
+
+<pre><code>@load: -&gt;
+  # Google Analytics depends on a global _gaq array. window is the global scope.
+  window._gaq = []
+  window._gaq.push [&quot;_setAccount&quot;, GoogleAnalytics.analyticsId()]
+
+  # Create a script element and insert it in the DOM
+  ga = document.createElement(&quot;script&quot;)
+  ga.type = &quot;text/javascript&quot;
+  ga.async = true
+  ga.src = ((if &quot;https:&quot; is document.location.protocol then &quot;https://ssl&quot; else &quot;http://www&quot;)) + &quot;.google-analytics.com/ga.js&quot;
+  firstScript = document.getElementsByTagName(&quot;script&quot;)[0]
+  firstScript.parentNode.insertBefore ga, firstScript
+
+  # If Turbolinks is supported, set up a callback to track pageviews on page:change.
+  # If it isn&#39;t supported, just track the pageview now.
+  if typeof Turbolinks isnt &#39;undefined&#39; and Turbolinks.supported
+    document.addEventListener &quot;page:change&quot;, (-&gt;
+      GoogleAnalytics.trackPageview()
+    ), true
+  else
+    GoogleAnalytics.trackPageview()
+
+@trackPageview: (url) -&gt;
+  unless GoogleAnalytics.isLocalRequest()
+    if url
+      window._gaq.push [&quot;_trackPageview&quot;, url]
+    else
+      window._gaq.push [&quot;_trackPageview&quot;]
+    window._gaq.push [&quot;_trackPageLoadTime&quot;]
+
+@isLocalRequest: -&gt;
+  GoogleAnalytics.documentDomainIncludes &quot;local&quot;
+
+@documentDomainIncludes: (str) -&gt;
+  document.domain.indexOf(str) isnt -1
+
+@analyticsId: -&gt;
+  &#39;UA-57601419-1&#39;
+  # your google analytics ID(s) here...</code></pre>
+
+<p>GoogleAnalytics.load()</p>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

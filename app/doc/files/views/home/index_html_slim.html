@@ -1,0 +1,506 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>index.html.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            index.html.slim
+        </h1>
+        <ul class="files">
+            <li>views/home/index.html.slim</li>
+            <li>Last modified: 2015-09-24 20:35:34 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>header class=“main_h”</p>
+
+<pre><code>.container
+  .row
+    a class=&quot;logo&quot; href=&quot;#home&quot; DigiRAMP
+    .mobile-toggle
+      span
+      span
+      span
+
+    nav
+      ul class=&quot;nav&quot;
+        li
+          a href=&quot;#home&quot; Home
+        li
+          a href=&quot;#features&quot; Features
+        li
+          a href=&quot;#download&quot; Get Started
+        li
+          a href=&quot;#pricePlans&quot; Pricing
+        li
+          a href=&quot;#showcase&quot; Showcase
+        li
+          a href=&quot;#testimonials&quot; Testimonials
+        li
+          a href=&quot;#contact-page&quot; Contact</code></pre>
+
+<p>/!– BEGIN HOME section id=“home” class=“homepage”</p>
+
+<pre><code>.section-overlay-home
+.container
+  .row
+    .col-sm-5
+      /.img-responsive.wow.flipInY.animated
+      .video-container
+        iframe src=&quot;https://player.vimeo.com/video/109593195&quot; width=&quot;1280&quot; height=&quot;720&quot; frameborder=&quot;0&quot; webkitallowfullscreen mozallowfullscreen allowfullscreen
+        /== render &#39;home/video&#39;
+      /img src=&quot;http://www.wowthemes.net/demo/apulum/img/homeimg.png&quot; class=&quot;img-responsive wow flipInY animated&quot; alt=&quot;&quot;
+      /= image_tag @content.page_1_image_url, class: &quot;img-responsive wow flipInY animated&quot;,  alt: &quot;&quot;
+
+    .col-sm-7.text-right      
+      h1 id=&quot;logo&quot;
+        = link_to root_path do
+          = image_tag &#39;digiramp-logo2.png&#39; ,  alt: &quot;DigiRAMP&quot;, class: &quot;wow fadeInDown animated&quot;, &#39;data-wow-delay&#39;.to_sym =&gt; &quot;0.3s&quot;
+
+      .rotate-description.wow-fadeInLeft.animated
+        = @content.page1_title_1
+        &#39;&amp;nbsp;&amp;#38;
+        span class=&quot;highlight&quot;
+          = @content.page1_title_2
+        &#39;&amp;nbsp;
+        = @content.page1_title_3
+
+      .small-text.wow.bounceIn.animated
+        span
+          =simple_format @content.page_1_body
+
+      .home-buttons
+        /= link_to signup_index_path, class: &quot;btn btn-info btn-lg wow slideInLeft animated&quot; do
+        /  i.fa.fa-rocket &amp;nbsp; Get Started
+        = link_to discover_index_path, class: &quot;btn btn-info btn-lg wow slideInLeft animated&quot; do
+          i.fa.fa-rocket &amp;nbsp; Discover
+        - if current_user
+          = link_to user_path(current_user), class: &quot;btn btn-default btn-lg wow slideInRight animated&quot; do
+            i.fa.fa-user &amp;nbsp; Go to Account
+        - else
+          = link_to login_new_path, class: &quot;btn btn-default btn-lg wow slideInRight animated&quot; do
+            i.fa.fa-key &amp;nbsp; Login
+        /a href=&quot;#features&quot; class=&quot;btn btn-default btn-lg wow slideInRight animated&quot;
+        /  i.fa.fa-key &amp;nbsp;  Login
+
+      ul class=&quot;icos unstyle&quot;
+        li
+          a href=&quot;#&quot; data-toggle=&quot;tooltip&quot; data-original-title=&quot;Apple&quot; class=&quot;wow bounceIn animated&quot; data-wow-delay=&quot;1s&quot;
+            i.fa.fa-apple
+        li
+          a href=&quot;#&quot; data-toggle=&quot;tooltip&quot; data-original-title=&quot;Android&quot; class=&quot;wow bounceIn animated&quot; data-wow-delay=&quot;1.2s&quot;
+            i.fa.fa-android
+        li
+          a href=&quot;#&quot; data-toggle=&quot;tooltip&quot; data-original-title=&quot;Windows&quot; class=&quot;wow bounceIn animated&quot; data-wow-delay=&quot;1.3s&quot;
+            i.fa.fa-windows
+
+a href=&quot;#features&quot; class=&quot;introarrow&quot;
+  i.fa.fa-angle-double-down</code></pre>
+
+<p>/!– BEGIN FEATURES section id=“features”</p>
+
+<pre><code>.wrapsection
+  .container.sectionhead
+    h1.heading = @content.page2_title
+    p.lead
+      = simple_format @content.page_2_headline
+
+    .row.text-center
+      .col-sm-4.feature-item.wow.flipInY.animated*{&#39;data-wow-delay&#39;=&gt;&quot;0.1s&quot; }
+        .feature-icon
+          i.fa.fa-cog
+
+        h4 = @content.page_2_option_1_title
+        p.description = @content.page_2_option_1_headline
+
+        span.sep
+        p = @content.page_2_option_1_body
+
+      .col-sm-4.feature-item.wow.flipInY.animated*{&#39;data-wow-delay&#39;=&gt;&quot;0.3s&quot; }
+              .feature-icon
+                      i.fa.fa-cloud-upload
+
+              h4 = @content.page_2_option_2_title
+              p.description = @content.page_2_option_2_headline
+
+              span.sep
+              p = @content.page_2_option_2_body
+
+      .col-sm-4.feature-item.wow.flipInY.animated*{&#39;data-wow-delay&#39;=&gt;&quot;0.6s&quot; }
+              .feature-icon
+                      i.fa.fa-heart
+
+              h4 = @content.page_2_option_3_title
+              p.description = @content.page_2_option_3_headline
+
+              span.sep
+              p = @content.page_2_option_3_body</code></pre>
+
+<p>/!– BEGIN SIGNUP download.download.whitetext</p>
+
+<pre><code>.wrapsection
+  .overlay.highlightbg
+  .container
+    .row
+      .col-md-6.wow.bounceIn.animated
+        h2 = @content.page_3_title
+        p = @content.page_3_headline
+
+        ul.iconlist.unstyle
+          li
+            h4
+              i.fa.fa-magic
+              = @content.page_3_option_1_title
+            p = @content.page_3_option_1_body
+
+          li
+            h4
+              i.fa.fa-cog
+              = @content.page_3_option_2_title
+            p = @content.page_3_option_2_body
+        br
+        - if current_user
+          = link_to user_path(current_user), class: &quot;btn btn-default btn-lg wow slideInRight animated&quot; do
+            i.fa.fa-user &amp;nbsp; Go to Account
+        - else
+          = link_to signup_index_path, class: &quot;btn btn-lg btn-simple whitebg&quot; do
+            i.fa.fa-user &amp;nbsp; Sign up
+        /a.btn.btn-lg.btn-simple.whitebg href=&quot;#&quot;
+        /  i.fa.fa-user  Sign up
+      .col-md-6
+        = image_tag @content.page_3_image_url, class: &quot;img-responsive wow flipInY animated&quot; 
+        /img src=&quot;img/desk-top.jpg&quot; class=&quot;img-responsive wow flipInY animated&quot; alt=&quot;&quot;</code></pre>
+
+<p>/!– BEGIN pricePlans section id=“pricePlans”</p>
+
+<pre><code>.wrapsection
+  .container
+    .sectionhead
+      h1.margbottom50 = @content.page_4_title
+      p = @content.page_4_body
+    .row
+      .col-md-12
+        ul id=&quot;plans&quot;
+
+          /!-- begin plan 1 --
+          li.plan.wow.bounceIn.animated*{ &#39;data-wow-delay&#39;=&gt;&quot;0.1s&quot;, &#39;data-wow-duration&#39;=&gt;&quot;2s&quot;}
+            ul.planContainer
+              li.title
+                h2 = @content.page_4_account_1_title
+              li.price
+                p
+                  = @content.page_4_account_1_price
+
+              ul.options
+                li = @content.page_4_account_1_option_1
+                li = @content.page_4_account_1_option_2
+                li = @content.page_4_account_1_option_3
+                li = @content.page_4_account_1_option_4
+                li = @content.page_4_account_1_option_5
+                li = @content.page_4_account_1_option_6
+
+              li.button 
+                = link_to social_account_info_index_path, id: &quot;get_social_account_info&quot; do
+                  &#39;Learn more
+
+          /!-- begin plan 2
+          li class=&quot;plan wow rollIn animated&quot; data-wow-delay=&quot;0.1s&quot; data-wow-duration=&quot;2s&quot;
+
+            ul.planContainer
+              li.title
+              h2.bestPlanTitle = @content.page_4_account_2_title
+
+              li.price
+                p.bestPlanPrice
+                        = @content.page_4_account_2_price
+
+              li
+                ul.options
+                  li = @content.page_4_account_2_option_1
+                  li = @content.page_4_account_2_option_2
+                  li = @content.page_4_account_2_option_3
+                  li = @content.page_4_account_2_option_4
+                  li = @content.page_4_account_2_option_5
+                  li = @content.page_4_account_2_option_6
+
+              li.button 
+                = link_to pro_account_info_index_path, id: &quot;get_pro_account_info&quot;, class: &#39;bestPlanButton&#39; do
+                  &#39;Learn more
+              /li.button
+              /  = link_to &#39;Learn more&#39;, &#39;#&#39;, class: &#39;bestPlanButton&#39;
+
+          /!-- begin plan 1 --
+          li.plan.wow.bounceIn.animated*{ &#39;data-wow-delay&#39;=&gt;&quot;0.1s&quot;, &#39;data-wow-duration&#39;=&gt;&quot;2s&quot;}
+            ul.planContainer
+              li.title
+                h2 = @content.page_4_account_3_title
+              li.price
+                p
+                  = @content.page_4_account_3_price
+
+              ul.options
+                li = @content.page_4_account_3_option_1
+                li = @content.page_4_account_3_option_2
+                li = @content.page_4_account_3_option_3
+                li = @content.page_4_account_3_option_4
+                li = @content.page_4_account_3_option_5
+                li = @content.page_4_account_3_option_6
+
+              li.button
+                a href=&quot;#&quot;
+                  &#39;Learn more
+
+          /!-- begin plan 1 --
+          li.plan.wow.bounceIn.animated*{ &#39;data-wow-delay&#39;=&gt;&quot;0.1s&quot;, &#39;data-wow-duration&#39;=&gt;&quot;2s&quot;}
+            ul.planContainer
+              li.title
+                h2 = @content.page_4_account_4_title
+              li.price
+                p
+                  = @content.page_4_account_4_price
+
+              ul.options
+                li = @content.page_4_account_4_option_1
+                li = @content.page_4_account_4_option_2
+                li = @content.page_4_account_4_option_3
+                li = @content.page_4_account_4_option_4
+                li = @content.page_4_account_4_option_5
+                li = @content.page_4_account_4_option_6
+
+              li.button
+                a href=&quot;#&quot;
+                  &#39;Learn more</code></pre>
+
+<p>/!– BEGIN PAGE DIVIDER .divider-area</p>
+
+<pre><code>span.icon
+  = link_to &#39;#screenshots&#39; do
+   .fa.fa-camera.highlight</code></pre>
+
+<p>/!– BEGIN SHOWCASE section id=“showcase” class=“text-center”</p>
+
+<pre><code>.wrapsection
+  .container
+    .row
+      .col-md-12
+        .sectionhead
+          h1.heading = @content.page_5_title
+          p class=&quot;lead&quot;
+            = simple_format @content.page_5_body
+
+        .owl-carousel id=&quot;wowcarousel&quot;
+          .item
+            = image_tag @content.page_5_image_1_url
+          .item
+            = image_tag @content.page_5_image_2_url
+
+          .item
+            = image_tag @content.page_5_image_3_url
+
+          .item
+            = image_tag @content.page_5_image_4_url
+
+          .item
+            = image_tag @content.page_5_image_5_url</code></pre>
+
+<p>/!– BEGIN TESTIMONIALS section.testimonials.whitetext id=“testimonials”</p>
+
+<pre><code>.wrapsection
+  .overlay
+  .container
+    .row.text-center
+      .owl-carousel id=&quot;wowtestim&quot;
+        /!-- testimonial 1
+        .item
+          a.client-image                      
+            = image_tag @content.page_6_testimonial_1_image, class: &quot;avatar&quot;
+
+          h1.client-name.uppercase = @content.page_6_testimonial_1_name
+          h3.client-pos.uppercase = @content.page_6_testimonial_1_headline
+          p.client-msg
+            = simple_format @content.page_6_testimonial_1_body
+
+        /!-- testimonial 2
+        .item
+          a.client-image                      
+            = image_tag @content.page_6_testimonial_2_image, class: &quot;avatar&quot;
+
+          h1.client-name.uppercase = @content.page_6_testimonial_2_name
+          h3.client-pos.uppercase = @content.page_6_testimonial_2_headline
+          p.client-msg
+            = simple_format @content.page_6_testimonial_2_body
+
+        /!-- testimonial 3
+        .item
+          a.client-image                      
+            = image_tag @content.page_6_testimonial_3_image, class: &quot;avatar&quot;
+
+          h1.client-name.uppercase = @content.page_6_testimonial_3_name
+          h3.client-pos.uppercase = @content.page_6_testimonial_3_headline
+          p.client-msg
+            = simple_format @content.page_6_testimonial_3_body
+
+        /!-- testimonial 4
+        .item
+          a.client-image                      
+            = image_tag @content.page_6_testimonial_4_image, class: &quot;avatar&quot;
+
+          h1.client-name.uppercase = @content.page_6_testimonial_4_name
+          h3.client-pos.uppercase = @content.page_6_testimonial_4_headline
+          p.client-msg
+            = simple_format @content.page_6_testimonial_4_body
+
+        /!-- testimonial 5
+        .item
+          a.client-image                      
+            = image_tag @content.page_6_testimonial_5_image, class: &quot;avatar&quot;
+
+          h1.client-name.uppercase = @content.page_6_testimonial_5_name
+          h3.client-pos.uppercase = @content.page_6_testimonial_5_headline
+          p.client-msg
+            = simple_format @content.page_6_testimonial_5_body
+
+        /!-- testimonial 6
+        .item
+          a.client-image                      
+            = image_tag @content.page_6_testimonial_6_image, class: &quot;avatar&quot;
+
+          h1.client-name.uppercase = @content.page_6_testimonial_6_name
+          h3.client-pos.uppercase = @content.page_6_testimonial_6_headline
+          p.client-msg
+            = simple_format @content.page_6_testimonial_6_body</code></pre>
+
+<p>/!– BEGIN PRESENTATION section id=“presentation”</p>
+
+<pre><code>.wrapsection
+  .container
+    .sectionhead
+      h1 = @content.page_7_title
+      .smallsep
+      p.lead = @content.page_7_headline
+
+      p.max80.wow.bounceIn.animated data-wow-delay=&quot;0.1s&quot;
+        = simple_format @content.page_7_body
+      br
+      /img src=&quot;img/desktop3.png&quot; alt=&quot;&quot; class=&quot;img-responsive pxauto wow bounceIn animatedUp&quot; style=&quot;margin-bottom:-60px;&quot;
+      = image_tag @content.page_7_image_url, class: &quot;img-responsive pxauto wow bounceIn animatedUp&quot;, style: &quot;margin-bottom:-60px;&quot;</code></pre>
+
+<p>/!– BEGIN CONTACT-PAGE section.contact-page.whitetext id=“contact-page”</p>
+
+<pre><code>.wrapsection
+  .overlay.highlightbg
+  .container
+    .sectionhead
+      h1 = @content.page_8_title
+      .smallsep
+        p.lead
+          = simple_format @content.page_8_body
+
+    = simple_form_for Contact.new , html: { id: &#39;contact&#39; } do |f|
+      fieldset
+        .row
+          .col-md-4.wow.fadeIn.animated data-wow-delay=&quot;0.1s&quot; data-wow-duration=&quot;2s&quot;
+            = f.input :email, placeholder: &#39;you@email.com&#39;, autofocus: true
+
+          .col-md-4.wow.fadeIn.animated data-wow-delay=&quot;0.1s&quot; data-wow-duration=&quot;2s&quot;
+             = f.input :title, placeholder: &#39;Subject&#39;, label: &#39;Subject&#39;
+
+          .col-md-4.wow.fadeIn.animated data-wow-delay=&quot;0.1s&quot; data-wow-duration=&quot;2s&quot;
+            = f.input :phone, placeholder: &#39;Phone&#39;
+
+      .wow.fadeIn.animated data-wow-delay=&quot;0.8s&quot; data-wow-duration=&quot;1.5&quot; style=&quot;margin-top:15px;&quot;
+        = f.input :body, label: &#39;Message&#39;, :input_html =&gt; {  style: &quot;height: 284px;&quot;, placeholder: &quot;Write your message here&quot;}
+
+      .wow.fadeIn.animated data-wow-delay=&quot;1s&quot; data-wow-duration=&quot;2s&quot;
+        = f.submit &#39;Send&#39;, id: &quot;submit&quot;</code></pre>
+
+<p>/!– BEGIN FOOTER .footer  id=“footer”</p>
+
+<pre><code>a href=&quot;#home&quot; class=&quot;footerarrow&quot;
+  i.fa.fa-angle-double-up
+
+.container
+  .row
+    .col-md-12.text-center
+      ul.social-icons
+        li class=&quot;wow bounceIn animated&quot; data-wow-delay=&quot;0.1s&quot;
+          a href=&quot;#.&quot;
+            i class=&quot;fa fa-facebook&quot;
+        li class=&quot;wow bounceIn animated&quot; data-wow-delay=&quot;0.2s&quot;
+          a href=&quot;#.&quot;
+            i class=&quot;fa fa-twitter&quot;
+        li class=&quot;wow bounceIn animated&quot; data-wow-delay=&quot;0.3s&quot;
+          a href=&quot;#.&quot;
+            i class=&quot;fa fa-google-plus&quot;
+        li class=&quot;wow bounceIn animated&quot; data-wow-delay=&quot;0.4s&quot;
+          a href=&quot;#.&quot;
+            i class=&quot;fa fa-dribbble&quot;
+        li class=&quot;wow bounceIn animated&quot; data-wow-delay=&quot;0.5s&quot;
+          a href=&quot;#.&quot;
+            i class=&quot;fa fa-pinterest&quot;
+
+      p class=&quot;copyright&quot;
+        &#39;&amp;copy; DigiRAMP 2014. All rights reserved.</code></pre>
+
+<p>javascript:</p>
+
+<pre><code>$(&quot;.video-container&quot;).fitVids();</code></pre>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

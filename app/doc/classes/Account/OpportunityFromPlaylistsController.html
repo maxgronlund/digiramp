@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>Account::OpportunityFromPlaylistsController</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../css/github.css" type="text/css" media="screen" />
+<script src="../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            <span class="type">Class</span> 
+            Account::OpportunityFromPlaylistsController 
+            
+                <span class="parent">&lt; 
+                    
+                    <a href="../ApplicationController.html">ApplicationController</a>
+                    
+                </span>
+            
+        </h1>
+        <ul class="files">
+            
+            <li><a href="../../files/controllers/account/opportunity_from_playlists_controller_rb.html">controllers/account/opportunity_from_playlists_controller.rb</a></li>
+            
+        </ul>
+    </div>
+    <div id="bodyContent">
+        <div id="content">
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+    <!-- Method ref -->
+    <div class="sectiontitle">Methods</div>
+    <dl class="methods">
+      
+        <dt>C</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-create">create</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>N</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-new">new</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+    </dl>
+  
+
+  
+    <!-- Includes -->
+    <div class="sectiontitle">Included Modules</div>
+    <ul>
+      
+        <li>
+          
+            <a href="../AccountsHelper.html">
+              AccountsHelper
+            </a>
+          
+        </li>
+      
+    </ul>
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+        
+      <div class="sectiontitle">Instance Public methods</div>
+      
+        <div class="method">
+          <div class="title method-title" id="method-i-create">
+            
+              <b>create</b>()
+            
+            <a href="../../classes/Account/OpportunityFromPlaylistsController.html#method-i-create" name="method-i-create" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-create_source')" id="l_method-i-create_source">show</a>
+                
+              </p>
+              <div id="method-i-create_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File controllers/account/opportunity_from_playlists_controller.rb, line 4</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">create</span>
+
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">playlist_id</span> = <span class="ruby-identifier">params</span>[<span class="ruby-value">:opportunity</span>][<span class="ruby-value">:playlist_id</span>]
+    <span class="ruby-identifier">params</span>[<span class="ruby-value">:opportunity</span>][<span class="ruby-value">:playlist_id</span>] = <span class="ruby-keyword">nil</span>
+    <span class="ruby-ivar">@playlist</span> = <span class="ruby-constant">Playlist</span>.<span class="ruby-identifier">cached_find</span>(<span class="ruby-identifier">playlist_id</span>)
+    
+    <span class="ruby-ivar">@opportunity</span> = <span class="ruby-constant">Opportunity</span>.<span class="ruby-identifier">create</span>(<span class="ruby-identifier">opportunity_params</span>)
+    
+    <span class="ruby-identifier">opportunity_user</span> = <span class="ruby-constant">OpportunityUser</span>.<span class="ruby-identifier">create</span>(<span class="ruby-identifier">opportunity_id</span><span class="ruby-operator">:</span>   <span class="ruby-ivar">@opportunity</span>.<span class="ruby-identifier">id</span>, 
+                                              <span class="ruby-identifier">user_id</span><span class="ruby-operator">:</span>          <span class="ruby-ivar">@opportunity</span>.<span class="ruby-identifier">account</span>.<span class="ruby-identifier">user_id</span>,
+                                              <span class="ruby-identifier">provider</span><span class="ruby-operator">:</span>         <span class="ruby-keyword">true</span>,
+                                              <span class="ruby-identifier">reviewer</span><span class="ruby-operator">:</span>         <span class="ruby-keyword">true</span>,
+                                              <span class="ruby-identifier">can_download</span><span class="ruby-operator">:</span>     <span class="ruby-keyword">true</span>,
+                                              <span class="ruby-identifier">uuid</span><span class="ruby-operator">:</span>             <span class="ruby-constant">UUIDTools</span><span class="ruby-operator">::</span><span class="ruby-constant">UUID</span>.<span class="ruby-identifier">timestamp_create</span>().<span class="ruby-identifier">to_s</span>
+                                              )
+    
+    <span class="ruby-identifier">creat_music_request</span>
+    
+  <span class="ruby-keyword">end</span>
+  
+  <span class="ruby-comment">#redirect_to opportunity_opportunity_reviewer_path(@opportunity, opportunity_user.uuid )</span>
+  <span class="ruby-comment">#account/accounts/6/opportunities/147/opportunity_users</span>
+  <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">account_account_opportunity_opportunity_users_path</span>(<span class="ruby-ivar">@account</span>, <span class="ruby-ivar">@opportunity</span> )
+  
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-new">
+            
+              <b>new</b>()
+            
+            <a href="../../classes/Account/OpportunityFromPlaylistsController.html#method-i-new" name="method-i-new" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-new_source')" id="l_method-i-new_source">show</a>
+                
+              </p>
+              <div id="method-i-new_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File controllers/account/opportunity_from_playlists_controller.rb, line 30</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">new</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">user</span> = <span class="ruby-ivar">@account</span>.<span class="ruby-identifier">user</span>
+    <span class="ruby-ivar">@playlists</span> = <span class="ruby-identifier">user</span>.<span class="ruby-identifier">playlists</span>
+  <span class="ruby-keyword">end</span>
+  
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">playlist_id</span> =  <span class="ruby-identifier">params</span>[<span class="ruby-value">:playlist_id</span>] 
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">playlist</span> = <span class="ruby-constant">Playlist</span>.<span class="ruby-identifier">cached_find</span>(<span class="ruby-identifier">playlist_id</span>)
+      <span class="ruby-ivar">@opportunity</span> = <span class="ruby-constant">Opportunity</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">playlist_id</span><span class="ruby-operator">:</span> <span class="ruby-identifier">playlist_id</span>, <span class="ruby-identifier">title</span><span class="ruby-operator">:</span> <span class="ruby-identifier">playlist</span>.<span class="ruby-identifier">title</span>)
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-ivar">@opportunity</span> = <span class="ruby-constant">Opportunity</span>.<span class="ruby-identifier">new</span> <span class="ruby-keyword">if</span> <span class="ruby-ivar">@opportunity</span>.<span class="ruby-identifier">nil?</span> 
+  <span class="ruby-ivar">@user</span> = <span class="ruby-identifier">current_user</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+                    </div>
+
+    </div>
+  </body>
+</html>    

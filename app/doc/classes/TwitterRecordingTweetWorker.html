@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>TwitterRecordingTweetWorker</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../css/github.css" type="text/css" media="screen" />
+<script src="../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            <span class="type">Class</span> 
+            TwitterRecordingTweetWorker 
+            
+                <span class="parent">&lt; 
+                    
+                    Object
+                    
+                </span>
+            
+        </h1>
+        <ul class="files">
+            
+            <li><a href="../files/workers/twitter_recording_tweet_worker_rb.html">workers/twitter_recording_tweet_worker.rb</a></li>
+            
+        </ul>
+    </div>
+    <div id="bodyContent">
+        <div id="content">
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+    <!-- Method ref -->
+    <div class="sectiontitle">Methods</div>
+    <dl class="methods">
+      
+        <dt>P</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-perform">perform</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+    </dl>
+  
+
+  
+    <!-- Includes -->
+    <div class="sectiontitle">Included Modules</div>
+    <ul>
+      
+        <li>
+          
+            Sidekiq::Worker
+          
+        </li>
+      
+    </ul>
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+        
+      <div class="sectiontitle">Instance Public methods</div>
+      
+        <div class="method">
+          <div class="title method-title" id="method-i-perform">
+            
+              <b>perform</b>(share_on_twitter_id)
+            
+            <a href="../classes/TwitterRecordingTweetWorker.html#method-i-perform" name="method-i-perform" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-perform_source')" id="l_method-i-perform_source">show</a>
+                
+              </p>
+              <div id="method-i-perform_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File workers/twitter_recording_tweet_worker.rb, line 4</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">perform</span> <span class="ruby-identifier">share_on_twitter_id</span>
+  
+  
+  <span class="ruby-identifier">share_on_twitter</span> = <span class="ruby-constant">ShareOnTwitter</span>.<span class="ruby-identifier">cached_find</span>(<span class="ruby-identifier">share_on_twitter_id</span>)
+  <span class="ruby-identifier">user</span>             = <span class="ruby-identifier">share_on_twitter</span>.<span class="ruby-identifier">user</span>
+  
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">provider_twitter</span> = <span class="ruby-identifier">user</span>.<span class="ruby-identifier">authorization_providers</span>.<span class="ruby-identifier">where</span>(<span class="ruby-identifier">provider</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;twitter&#39;</span>).<span class="ruby-identifier">first</span>
+  
+    <span class="ruby-keyword">begin</span>
+      <span class="ruby-identifier">client</span> = <span class="ruby-constant">Twitter</span><span class="ruby-operator">::</span><span class="ruby-constant">REST</span><span class="ruby-operator">::</span><span class="ruby-constant">Client</span>.<span class="ruby-identifier">new</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">config</span><span class="ruby-operator">|</span>
+        <span class="ruby-identifier">config</span>.<span class="ruby-identifier">consumer_key</span>        = <span class="ruby-constant">Rails</span>.<span class="ruby-identifier">application</span>.<span class="ruby-identifier">secrets</span>.<span class="ruby-identifier">twitter_app_id</span>
+        <span class="ruby-identifier">config</span>.<span class="ruby-identifier">consumer_secret</span>     = <span class="ruby-constant">Rails</span>.<span class="ruby-identifier">application</span>.<span class="ruby-identifier">secrets</span>.<span class="ruby-identifier">twitter_secret_key</span>
+        <span class="ruby-identifier">config</span>.<span class="ruby-identifier">access_token</span>        = <span class="ruby-identifier">provider_twitter</span>[<span class="ruby-value">:oauth_token</span>]
+        <span class="ruby-identifier">config</span>.<span class="ruby-identifier">access_token_secret</span> = <span class="ruby-identifier">provider_twitter</span>[<span class="ruby-value">:oauth_secret</span>]
+      <span class="ruby-keyword">end</span>
+
+      <span class="ruby-identifier">media_url</span> = <span class="ruby-identifier">share_on_twitter</span>.<span class="ruby-identifier">recording</span>.<span class="ruby-identifier">get_artwork</span>
+      <span class="ruby-identifier">media</span>     = <span class="ruby-identifier">open</span>(<span class="ruby-identifier">media_url</span>)
+ 
+      <span class="ruby-keyword">if</span> <span class="ruby-identifier">media</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">StringIO</span>)
+        <span class="ruby-identifier">ext</span>   = <span class="ruby-constant">File</span>.<span class="ruby-identifier">extname</span>(<span class="ruby-identifier">media_url</span>)
+        <span class="ruby-identifier">name</span>  = <span class="ruby-constant">File</span>.<span class="ruby-identifier">basename</span>(<span class="ruby-identifier">media_url</span>, <span class="ruby-identifier">ext</span>)
+        <span class="ruby-identifier">tf</span>    = <span class="ruby-constant">Tempfile</span>.<span class="ruby-identifier">new</span>([<span class="ruby-identifier">name</span>, <span class="ruby-identifier">ext</span>], <span class="ruby-constant">Rails</span>.<span class="ruby-identifier">root</span>.<span class="ruby-identifier">join</span>(<span class="ruby-string">&#39;tmp&#39;</span>))
+        <span class="ruby-identifier">tf</span>.<span class="ruby-identifier">binmode</span>
+        <span class="ruby-identifier">tf</span>.<span class="ruby-identifier">write</span>(<span class="ruby-identifier">media</span>.<span class="ruby-identifier">read</span>)
+        <span class="ruby-identifier">tf</span>.<span class="ruby-identifier">rewind</span>
+        <span class="ruby-identifier">client</span>.<span class="ruby-identifier">update_with_media</span>(<span class="ruby-identifier">share_on_twitter</span>.<span class="ruby-identifier">message</span>, <span class="ruby-identifier">tf</span>)
+        <span class="ruby-identifier">tf</span>.<span class="ruby-identifier">close</span>
+        <span class="ruby-identifier">tf</span>.<span class="ruby-identifier">unlink</span>
+      <span class="ruby-keyword">else</span>
+        <span class="ruby-identifier">client</span>.<span class="ruby-identifier">update_with_media</span>(<span class="ruby-identifier">share_on_twitter</span>.<span class="ruby-identifier">message</span>, <span class="ruby-identifier">media</span>)
+        <span class="ruby-identifier">media</span>.<span class="ruby-identifier">close</span>
+      <span class="ruby-keyword">end</span>
+     
+    <span class="ruby-keyword">rescue</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span> <span class="ruby-comment">#Twitter::Error =&gt; e</span>
+      <span class="ruby-comment">#e.inspect</span>
+      <span class="ruby-constant">Opbeat</span>.<span class="ruby-identifier">capture_message</span>(<span class="ruby-identifier">e</span>.<span class="ruby-identifier">inspect</span>)
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-comment"># link user here</span>
+    <span class="ruby-comment"># &#39;no provider&#39;</span>
+  <span class="ruby-keyword">end</span>
+  
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+                    </div>
+
+    </div>
+  </body>
+</html>    

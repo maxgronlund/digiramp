@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>_cms_contact.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            _cms_contact.slim
+        </h1>
+        <ul class="files">
+            <li>views/cms_pages/_cms_contact.slim</li>
+            <li>Last modified: 2015-09-24 20:35:34 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>.pull-down-10</p>
+
+<pre><code>.row
+  .col-sm-12
+    .connection-avatar
+      = link_to user_path( @user) do
+        = image_tag @user.image_url(:avatar_48x48)
+        &#39;&amp;nbsp;
+    .connection-link
+      = link_to @user.user_name, user_path( @user)
+
+      br
+      - if current_user 
+        - if current_user.id == @user.id
+          / Dummy
+          / 
+          .btn.btn-default.btn-xs
+            i.fa.fa-eye
+            &#39;&amp;nbsp;Follow
+          &#39;&amp;nbsp;  
+          .btn.btn-info.btn-xs
+            i.fa.fa-refresh
+            &#39;&amp;nbsp;Connect
+
+        - else
+          / Follow / unfollow
+          div id=&quot;follow_user_#{@user.id.to_s}&quot;
+            -if current_user.following?(@user)
+              == render &#39;users/unfollow&#39;, user: @user
+            - else 
+              == render &#39;users/follow&#39;, user: @user
+
+          .connect-container
+            .connect-buttons
+            == render &#39;users/connect&#39;, user: @user
+
+      - else
+        / connect when not logged in
+        = link_to new_become_member_path(user: @user.id), remote: true do
+              .btn.btn-info.btn-xs
+                i.fa.fa-refresh
+                &#39;&amp;nbsp;Connect</code></pre>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

@@ -1,0 +1,511 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>SessionsController</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../css/github.css" type="text/css" media="screen" />
+<script src="../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            <span class="type">Class</span> 
+            SessionsController 
+            
+                <span class="parent">&lt; 
+                    
+                    <a href="ApplicationController.html">ApplicationController</a>
+                    
+                </span>
+            
+        </h1>
+        <ul class="files">
+            
+            <li><a href="../files/controllers/sessions_controller_rb.html">controllers/sessions_controller.rb</a></li>
+            
+        </ul>
+    </div>
+    <div id="bodyContent">
+        <div id="content">
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+    <!-- Method ref -->
+    <div class="sectiontitle">Methods</div>
+    <dl class="methods">
+      
+        <dt>A</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-attach_authorization_provider_to_existing_user">attach_authorization_provider_to_existing_user</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>C</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-create">create</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>D</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-destroy">destroy</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>I</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-index">index</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>L</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-log_in_up_or_sign_up_with_omniauth">log_in_up_or_sign_up_with_omniauth</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-i-log_in_with_email">log_in_with_email</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>S</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-share_recording">share_recording</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+    </dl>
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+        
+      <div class="sectiontitle">Instance Public methods</div>
+      
+        <div class="method">
+          <div class="title method-title" id="method-i-attach_authorization_provider_to_existing_user">
+            
+              <b>attach_authorization_provider_to_existing_user</b>(env, user)
+            
+            <a href="../classes/SessionsController.html#method-i-attach_authorization_provider_to_existing_user" name="method-i-attach_authorization_provider_to_existing_user" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              <p>the user is all readdy logged in  so we are attaching a provider to an
+existing account</p>
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-attach_authorization_provider_to_existing_user_source')" id="l_method-i-attach_authorization_provider_to_existing_user_source">show</a>
+                
+              </p>
+              <div id="method-i-attach_authorization_provider_to_existing_user_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File controllers/sessions_controller.rb, line 37</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">attach_authorization_provider_to_existing_user</span> <span class="ruby-identifier">env</span>, <span class="ruby-identifier">user</span>
+  <span class="ruby-comment"># &#39;-------------- SessionsController#attach_authorization_provider_to_existing_user -----------&#39;</span>
+  
+  <span class="ruby-keyword">unless</span> <span class="ruby-constant">Omniauth</span>.<span class="ruby-identifier">attach_provider</span>( <span class="ruby-identifier">env</span>, <span class="ruby-identifier">user</span> )
+    <span class="ruby-identifier">flash</span>[<span class="ruby-value">:info</span>] = <span class="ruby-string">&quot;Provider already attached to account&quot;</span> 
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">flash</span>[<span class="ruby-value">:info</span>] = <span class="ruby-node">&quot;#{env[&#39;omniauth.auth&#39;][:provider].upcase} is linked to your account&quot;</span> 
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-identifier">user</span>.<span class="ruby-identifier">update_shop</span>
+  <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">session</span>[<span class="ruby-value">:current_page</span>]
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-create">
+            
+              <b>create</b>()
+            
+            <a href="../classes/SessionsController.html#method-i-create" name="method-i-create" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-create_source')" id="l_method-i-create_source">show</a>
+                
+              </p>
+              <div id="method-i-create_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File controllers/sessions_controller.rb, line 4</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">create</span>    
+  
+  <span class="ruby-identifier">session</span>[<span class="ruby-value">:show_profile_completeness</span>] = <span class="ruby-keyword">true</span>
+  
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">user</span> = <span class="ruby-identifier">current_user</span>
+    <span class="ruby-identifier">attach_authorization_provider_to_existing_user</span>( <span class="ruby-identifier">env</span>, <span class="ruby-identifier">user</span> )
+  
+  <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">env</span>[<span class="ruby-string">&#39;omniauth.auth&#39;</span>]
+    <span class="ruby-identifier">log_in_up_or_sign_up_with_omniauth</span> <span class="ruby-identifier">env</span>
+
+  <span class="ruby-comment">#elsif params[:provider] == &#39;facebook&#39;</span>
+  <span class="ruby-comment">#  @facebook_cookies ||= Koala::Facebook::OAuth.new(FACEBOOK_CONFIG[&#39;app_id&#39;], FACEBOOK_CONFIG[&#39;secret_key&#39;]).get_user_info_from_cookie(cookies)</span>
+  <span class="ruby-comment">#  @graph = Koala::Facebook::API.new(@facebook_cookies[&#39;access_token&#39;])</span>
+  <span class="ruby-comment">#  # @graph.get_object(&quot;me&quot;)</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">log_in_with_email</span> <span class="ruby-identifier">params</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-destroy">
+            
+              <b>destroy</b>()
+            
+            <a href="../classes/SessionsController.html#method-i-destroy" name="method-i-destroy" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-destroy_source')" id="l_method-i-destroy_source">show</a>
+                
+              </p>
+              <div id="method-i-destroy_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File controllers/sessions_controller.rb, line 99</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">destroy</span>
+  
+  <span class="ruby-keyword">begin</span> 
+    <span class="ruby-identifier">user</span> = <span class="ruby-constant">User</span>.<span class="ruby-identifier">cached_find_by_auth_token</span>( <span class="ruby-identifier">cookies</span>[<span class="ruby-value">:auth_token</span>] )
+    <span class="ruby-identifier">user</span>.<span class="ruby-identifier">flush_auth_token_cache</span>(<span class="ruby-identifier">cookies</span>[<span class="ruby-value">:auth_token</span>])
+    
+    <span class="ruby-identifier">user</span>.<span class="ruby-identifier">create_activity</span>(  <span class="ruby-value">:logged_out</span>, 
+                       <span class="ruby-identifier">owner</span><span class="ruby-operator">:</span> <span class="ruby-identifier">user</span>,
+                   <span class="ruby-identifier">recipient</span><span class="ruby-operator">:</span> <span class="ruby-identifier">user</span>,
+              <span class="ruby-identifier">recipient_type</span><span class="ruby-operator">:</span> <span class="ruby-identifier">user</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">name</span>,
+                  <span class="ruby-identifier">account_id</span><span class="ruby-operator">:</span> <span class="ruby-identifier">user</span>.<span class="ruby-identifier">account</span>.<span class="ruby-identifier">id</span>)       
+  <span class="ruby-keyword">rescue</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-identifier">cookies</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-value">:auth_token</span>)
+  <span class="ruby-identifier">cookies</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-value">:user_id</span>)
+  
+  <span class="ruby-identifier">session</span>[<span class="ruby-value">:share_recording_id</span>]        = <span class="ruby-keyword">nil</span>
+  <span class="ruby-identifier">session</span>[<span class="ruby-value">:show_profile_completeness</span>] = <span class="ruby-keyword">nil</span>
+  <span class="ruby-identifier">session</span>[<span class="ruby-value">:request_url</span>]               = <span class="ruby-keyword">nil</span>
+  <span class="ruby-comment">#reset_session</span>
+  
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:opportunity_id</span>]
+    <span class="ruby-identifier">redirect_to</span> <span class="ruby-value">:back</span>
+  <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:opportunity_invitation</span>]
+    <span class="ruby-identifier">flash</span>[<span class="ruby-value">:info</span>] =  <span class="ruby-string">&quot;Please login as the user invited to the opportunity&quot;</span> 
+    <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">login_new_path</span>(<span class="ruby-identifier">params</span>) 
+  <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:redirect_to_message</span>]
+    <span class="ruby-identifier">session</span>[<span class="ruby-value">:current_page</span>] = <span class="ruby-identifier">params</span>[<span class="ruby-value">:redirect_to_message</span>]
+    <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">login_new_path</span>
+  <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:redirect_to_accept_invitation</span>]
+    <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:redirect_to_accept_invitation</span>]
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">root_url</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-index">
+            
+              <b>index</b>()
+            
+            <a href="../classes/SessionsController.html#method-i-index" name="method-i-index" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-index_source')" id="l_method-i-index_source">show</a>
+                
+              </p>
+              <div id="method-i-index_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File controllers/sessions_controller.rb, line 23</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">index</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">current_user</span>
+    <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">current_user</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">root_path</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-log_in_up_or_sign_up_with_omniauth">
+            
+              <b>log_in_up_or_sign_up_with_omniauth</b>(env)
+            
+            <a href="../classes/SessionsController.html#method-i-log_in_up_or_sign_up_with_omniauth" name="method-i-log_in_up_or_sign_up_with_omniauth" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              <p>log in / signing up with omniauthor</p>
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-log_in_up_or_sign_up_with_omniauth_source')" id="l_method-i-log_in_up_or_sign_up_with_omniauth_source">show</a>
+                
+              </p>
+              <div id="method-i-log_in_up_or_sign_up_with_omniauth_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File controllers/sessions_controller.rb, line 54</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">log_in_up_or_sign_up_with_omniauth</span> <span class="ruby-identifier">env</span>
+  <span class="ruby-comment"># &#39;-------------- SessionsController#log_in_up_or_sign_up_with_omniauth -----------&#39;</span>
+  
+  <span class="ruby-identifier">user</span> = <span class="ruby-constant">Omniauth</span>.<span class="ruby-identifier">authorize_with_omniauth</span>( <span class="ruby-identifier">env</span>[<span class="ruby-string">&#39;omniauth.auth&#39;</span>] )
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">user</span>[<span class="ruby-value">:user</span>]
+    <span class="ruby-identifier">initialize_session_for</span> <span class="ruby-identifier">user</span>[<span class="ruby-value">:user</span>]
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">flash</span>[<span class="ruby-value">:danger</span>] =  <span class="ruby-identifier">user</span>[<span class="ruby-value">:message</span>]
+    <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">login_new_path</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-log_in_with_email">
+            
+              <b>log_in_with_email</b>(params)
+            
+            <a href="../classes/SessionsController.html#method-i-log_in_with_email" name="method-i-log_in_with_email" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-log_in_with_email_source')" id="l_method-i-log_in_with_email_source">show</a>
+                
+              </p>
+              <div id="method-i-log_in_with_email_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File controllers/sessions_controller.rb, line 70</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">log_in_with_email</span> <span class="ruby-identifier">params</span>
+  
+  <span class="ruby-comment"># &#39;-------------- SessionsController#log_in_with_email -----------&#39;</span>
+   
+  <span class="ruby-identifier">params</span>[<span class="ruby-value">:sessions</span>][<span class="ruby-value">:email</span>]  = <span class="ruby-identifier">params</span>[<span class="ruby-value">:sessions</span>][<span class="ruby-value">:email</span>].<span class="ruby-identifier">downcase</span>
+  <span class="ruby-identifier">user</span> = <span class="ruby-constant">User</span>.<span class="ruby-identifier">where</span>(<span class="ruby-identifier">email</span><span class="ruby-operator">:</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:sessions</span>][<span class="ruby-value">:email</span>]).<span class="ruby-identifier">first</span>
+  
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">user</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">user</span>.<span class="ruby-identifier">authenticate</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:sessions</span>][<span class="ruby-value">:password</span>])
+  
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:remember_me</span>]
+      <span class="ruby-comment"># is this enough?</span>
+      <span class="ruby-identifier">cookies</span>.<span class="ruby-identifier">permanent</span>[<span class="ruby-value">:user_id</span>]      = <span class="ruby-identifier">user</span>.<span class="ruby-identifier">id</span>
+      <span class="ruby-identifier">cookies</span>.<span class="ruby-identifier">permanent</span>[<span class="ruby-value">:auth_token</span>]   = <span class="ruby-identifier">user</span>.<span class="ruby-identifier">auth_token</span>
+    <span class="ruby-keyword">else</span>
+      <span class="ruby-identifier">cookies</span>[<span class="ruby-value">:auth_token</span>]             = <span class="ruby-identifier">user</span>.<span class="ruby-identifier">auth_token</span>  
+    <span class="ruby-keyword">end</span>
+    <span class="ruby-identifier">initialize_session_for</span> <span class="ruby-identifier">user</span>
+  <span class="ruby-keyword">else</span>
+
+    <span class="ruby-identifier">flash</span>[<span class="ruby-value">:danger</span>] =  <span class="ruby-string">&quot;No user we can&#39;t authorize found.
+                       If you have signed up directly on DigiRAMP we can resend you password.
+                       Otherwise make sure you are signed in with you authorization provider&quot;</span> 
+    <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">login_new_path</span>
+  <span class="ruby-keyword">end</span>
+  
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-share_recording">
+            
+              <b>share_recording</b>(user)
+            
+            <a href="../classes/SessionsController.html#method-i-share_recording" name="method-i-share_recording" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-share_recording_source')" id="l_method-i-share_recording_source">show</a>
+                
+              </p>
+              <div id="method-i-share_recording_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File controllers/sessions_controller.rb, line 135</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">share_recording</span> <span class="ruby-identifier">user</span>
+  
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+                    </div>
+
+    </div>
+  </body>
+</html>    

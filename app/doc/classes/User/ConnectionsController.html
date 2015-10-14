@@ -1,0 +1,567 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>User::ConnectionsController</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../css/github.css" type="text/css" media="screen" />
+<script src="../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            <span class="type">Class</span> 
+            User::ConnectionsController 
+            
+                <span class="parent">&lt; 
+                    
+                    <a href="../ApplicationController.html">ApplicationController</a>
+                    
+                </span>
+            
+        </h1>
+        <ul class="files">
+            
+            <li><a href="../../files/controllers/user/connections_controller_rb.html">controllers/user/connections_controller.rb</a></li>
+            
+        </ul>
+    </div>
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>require &#39;uri&#39;</p>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+    <!-- Method ref -->
+    <div class="sectiontitle">Methods</div>
+    <dl class="methods">
+      
+        <dt>C</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-c-connected">connected</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-i-create">create</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>D</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-destroy">destroy</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>I</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-index">index</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>N</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-notify_requester">notify_requester</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>S</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-send_invitation">send_invitation</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-i-show">show</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>U</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-update">update</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+    </dl>
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+    
+      <div class="sectiontitle">Class Public methods</div>
+      
+        <div class="method">
+          <div class="title method-title" id="method-c-connected">
+            
+              <b>connected</b>(user_1, user_2)
+            
+            <a href="../../classes/User/ConnectionsController.html#method-c-connected" name="method-c-connected" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-c-connected_source')" id="l_method-c-connected_source">show</a>
+                
+              </p>
+              <div id="method-c-connected_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File controllers/user/connections_controller.rb, line 138</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">self</span>.<span class="ruby-identifier">connected</span> <span class="ruby-identifier">user_1</span>, <span class="ruby-identifier">user_2</span>
+  <span class="ruby-identifier">connection</span> = <span class="ruby-constant">Connection</span>.<span class="ruby-identifier">where</span>(<span class="ruby-identifier">user_id</span><span class="ruby-operator">:</span> <span class="ruby-identifier">user_1</span>.<span class="ruby-identifier">id</span>,  <span class="ruby-identifier">connection_id</span><span class="ruby-operator">:</span> <span class="ruby-identifier">user_2</span>.<span class="ruby-identifier">id</span>).<span class="ruby-identifier">first</span> 
+  <span class="ruby-identifier">connection</span> = <span class="ruby-constant">Connection</span>.<span class="ruby-identifier">where</span>(<span class="ruby-identifier">user_id</span><span class="ruby-operator">:</span> <span class="ruby-identifier">user_2</span>.<span class="ruby-identifier">id</span>,  <span class="ruby-identifier">connection_id</span><span class="ruby-operator">:</span> <span class="ruby-identifier">user_1</span>.<span class="ruby-identifier">id</span>).<span class="ruby-identifier">first</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">connection</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">connection</span>.<span class="ruby-identifier">dismissed</span>
+  <span class="ruby-identifier">connection</span>.<span class="ruby-identifier">approved</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+                  
+      <div class="sectiontitle">Instance Public methods</div>
+      
+        <div class="method">
+          <div class="title method-title" id="method-i-create">
+            
+              <b>create</b>()
+            
+            <a href="../../classes/User/ConnectionsController.html#method-i-create" name="method-i-create" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-create_source')" id="l_method-i-create_source">show</a>
+                
+              </p>
+              <div id="method-i-create_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File controllers/user/connections_controller.rb, line 18</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">create</span>
+  <span class="ruby-ivar">@connection</span>       = <span class="ruby-constant">Connection</span>.<span class="ruby-identifier">create</span>(<span class="ruby-identifier">connection_params</span>)
+  <span class="ruby-ivar">@user</span>             = <span class="ruby-constant">User</span>.<span class="ruby-identifier">cached_find</span>(<span class="ruby-ivar">@connection</span>.<span class="ruby-identifier">connection_id</span>)
+  <span class="ruby-identifier">send_invitation</span>
+  
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-destroy">
+            
+              <b>destroy</b>()
+            
+            <a href="../../classes/User/ConnectionsController.html#method-i-destroy" name="method-i-destroy" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              <p>DELETE /connections/1 DELETE /connections/1.json</p>
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-destroy_source')" id="l_method-i-destroy_source">show</a>
+                
+              </p>
+              <div id="method-i-destroy_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File controllers/user/connections_controller.rb, line 130</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">destroy</span>
+  
+  <span class="ruby-ivar">@connection_id</span> = <span class="ruby-ivar">@connection</span>.<span class="ruby-identifier">id</span>
+  <span class="ruby-ivar">@connection</span>.<span class="ruby-identifier">destroy</span>
+  
+  <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">user_user_connections_path</span>( <span class="ruby-ivar">@user</span> )
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-index">
+            
+              <b>index</b>()
+            
+            <a href="../../classes/User/ConnectionsController.html#method-i-index" name="method-i-index" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-index_source')" id="l_method-i-index_source">show</a>
+                
+              </p>
+              <div id="method-i-index_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File controllers/user/connections_controller.rb, line 8</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">index</span>
+  <span class="ruby-comment">#@connections = @user.connections</span>
+  
+  <span class="ruby-ivar">@connections</span> = <span class="ruby-constant">Connection</span>.<span class="ruby-identifier">where</span>(<span class="ruby-string">&quot;user_id = ?  OR  connection_id = ?&quot;</span> , <span class="ruby-ivar">@user</span>.<span class="ruby-identifier">id</span>, <span class="ruby-ivar">@user</span>.<span class="ruby-identifier">id</span>).<span class="ruby-identifier">order</span>(<span class="ruby-string">&#39;created_at desc&#39;</span>).<span class="ruby-identifier">page</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:page</span>]).<span class="ruby-identifier">per</span>(<span class="ruby-number">8</span>)
+  <span class="ruby-comment">#@authorized  = @user.id == current_user.id</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-notify_requester">
+            
+              <b>notify_requester</b>()
+            
+            <a href="../../classes/User/ConnectionsController.html#method-i-notify_requester" name="method-i-notify_requester" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-notify_requester_source')" id="l_method-i-notify_requester_source">show</a>
+                
+              </p>
+              <div id="method-i-notify_requester_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File controllers/user/connections_controller.rb, line 81</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">notify_requester</span>
+  <span class="ruby-identifier">requester</span> = <span class="ruby-ivar">@connection</span>.<span class="ruby-identifier">user</span>
+  <span class="ruby-comment">#sender    = User.cached_find(@connection.connection_id)</span>
+  
+  
+  <span class="ruby-ivar">@message</span>                    = <span class="ruby-constant">Message</span>.<span class="ruby-identifier">new</span>
+  
+  <span class="ruby-ivar">@message</span>.<span class="ruby-identifier">recipient_id</span>       = <span class="ruby-ivar">@connection</span>.<span class="ruby-identifier">user_id</span>
+  <span class="ruby-ivar">@message</span>.<span class="ruby-identifier">sender_id</span>          = <span class="ruby-ivar">@connection</span>.<span class="ruby-identifier">connection_id</span>
+  
+  <span class="ruby-comment"># connected_user    = ( URI.parse(root_url) + &#39;users/ &#39; + @message.sender_id</span>
+  
+  <span class="ruby-keyword">if</span> <span class="ruby-ivar">@connection</span>.<span class="ruby-identifier">approved</span>
+    
+    <span class="ruby-ivar">@message</span>.<span class="ruby-identifier">title</span>              = <span class="ruby-string">&#39;You are connected with &#39;</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-ivar">@connection</span>.<span class="ruby-identifier">connection</span>.<span class="ruby-identifier">user_name</span>
+    <span class="ruby-ivar">@message</span>.<span class="ruby-identifier">body</span>               = <span class="ruby-ivar">@connection</span>.<span class="ruby-identifier">connection</span>.<span class="ruby-identifier">user_name</span>  <span class="ruby-operator">+</span> <span class="ruby-string">&#39; has accepted you request. 
+                                                                        You are now able to communicate directly with &#39;</span> <span class="ruby-operator">+</span> <span class="ruby-ivar">@connection</span>.<span class="ruby-identifier">connection</span>.<span class="ruby-identifier">user_name</span> 
+    <span class="ruby-identifier">channel</span> = <span class="ruby-string">&#39;digiramp_radio_&#39;</span> <span class="ruby-operator">+</span> <span class="ruby-ivar">@connection</span>.<span class="ruby-identifier">user</span>.<span class="ruby-identifier">email</span>
+    <span class="ruby-constant">Pusher</span>.<span class="ruby-identifier">trigger</span>(<span class="ruby-identifier">channel</span>, <span class="ruby-string">&#39;digiramp_event&#39;</span>, {<span class="ruby-string">&quot;title&quot;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&#39;Message received&#39;</span>, 
+                                          <span class="ruby-string">&quot;message&quot;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-node">&quot;You are added to #{@connection.connection.user_name}&#39;s connections&quot;</span>, 
+                                          <span class="ruby-string">&quot;time&quot;</span>    =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&#39;2500&#39;</span>, 
+                                          <span class="ruby-string">&quot;sticky&quot;</span>  =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&#39;false&#39;</span>, 
+                                          <span class="ruby-string">&quot;image&quot;</span>   =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&#39;notice&#39;</span>
+                                          })
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-ivar">@message</span>.<span class="ruby-identifier">title</span>              = <span class="ruby-ivar">@connection</span>.<span class="ruby-identifier">connection</span>.<span class="ruby-identifier">user_name</span>  <span class="ruby-operator">+</span> <span class="ruby-string">&#39; has rejected you request&#39;</span>
+    <span class="ruby-ivar">@message</span>.<span class="ruby-identifier">body</span>               = <span class="ruby-string">&#39; Sorry. Your request for a connection with &#39;</span> <span class="ruby-operator">+</span> <span class="ruby-ivar">@connection</span>.<span class="ruby-identifier">connection</span>.<span class="ruby-identifier">user_name</span> <span class="ruby-operator">+</span> <span class="ruby-string">&#39; has been declined&#39;</span> 
+    <span class="ruby-identifier">channel</span> = <span class="ruby-string">&#39;digiramp_radio_&#39;</span> <span class="ruby-operator">+</span> <span class="ruby-ivar">@connection</span>.<span class="ruby-identifier">user</span>.<span class="ruby-identifier">email</span>
+    <span class="ruby-constant">Pusher</span>.<span class="ruby-identifier">trigger</span>(<span class="ruby-identifier">channel</span>, <span class="ruby-string">&#39;digiramp_event&#39;</span>, {<span class="ruby-string">&quot;title&quot;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&#39;Message received&#39;</span>, 
+                                          <span class="ruby-string">&quot;message&quot;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-node">&quot;#{@connection.connection.user_name} has declined your request&quot;</span>, 
+                                          <span class="ruby-string">&quot;time&quot;</span>    =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&#39;2500&#39;</span>, 
+                                          <span class="ruby-string">&quot;sticky&quot;</span>  =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&#39;false&#39;</span>, 
+                                          <span class="ruby-string">&quot;image&quot;</span>   =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&#39;notice&#39;</span>
+                                          })
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-ivar">@message</span>.<span class="ruby-identifier">subjectable_id</span>     =  <span class="ruby-ivar">@connection</span>.<span class="ruby-identifier">id</span>
+  <span class="ruby-ivar">@message</span>.<span class="ruby-identifier">subjectable_type</span>   = <span class="ruby-string">&#39;Connection&#39;</span>
+  <span class="ruby-ivar">@message</span>.<span class="ruby-identifier">save!</span>
+  
+  <span class="ruby-ivar">@message</span>.<span class="ruby-identifier">send_as_email</span>
+
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-send_invitation">
+            
+              <b>send_invitation</b>()
+            
+            <a href="../../classes/User/ConnectionsController.html#method-i-send_invitation" name="method-i-send_invitation" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-send_invitation_source')" id="l_method-i-send_invitation_source">show</a>
+                
+              </p>
+              <div id="method-i-send_invitation_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File controllers/user/connections_controller.rb, line 25</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">send_invitation</span>
+ 
+  <span class="ruby-identifier">receiver</span>  = <span class="ruby-constant">User</span>.<span class="ruby-identifier">cached_find</span>(<span class="ruby-ivar">@connection</span>.<span class="ruby-identifier">connection_id</span>)
+  <span class="ruby-identifier">sender</span>    = <span class="ruby-constant">User</span>.<span class="ruby-identifier">cached_find</span>(<span class="ruby-ivar">@connection</span>.<span class="ruby-identifier">user_id</span>)
+  
+  
+  <span class="ruby-ivar">@message</span>                    = <span class="ruby-constant">Message</span>.<span class="ruby-identifier">new</span>
+  <span class="ruby-ivar">@message</span>.<span class="ruby-identifier">recipient_id</span>       = <span class="ruby-identifier">receiver</span>.<span class="ruby-identifier">id</span>
+  <span class="ruby-ivar">@message</span>.<span class="ruby-identifier">sender_id</span>          = <span class="ruby-identifier">sender</span>.<span class="ruby-identifier">id</span>
+  <span class="ruby-ivar">@message</span>.<span class="ruby-identifier">title</span>              = <span class="ruby-identifier">sender</span>.<span class="ruby-identifier">user_name</span> <span class="ruby-operator">+</span> <span class="ruby-string">&#39; wants to connect with you&#39;</span>
+  <span class="ruby-ivar">@message</span>.<span class="ruby-identifier">body</span>               = <span class="ruby-ivar">@connection</span>.<span class="ruby-identifier">message</span>
+  <span class="ruby-ivar">@message</span>.<span class="ruby-identifier">subjectable_id</span>     = <span class="ruby-ivar">@connection</span>.<span class="ruby-identifier">id</span>
+  <span class="ruby-ivar">@message</span>.<span class="ruby-identifier">subjectable_type</span>   = <span class="ruby-string">&#39;Connection&#39;</span>
+  <span class="ruby-ivar">@message</span>.<span class="ruby-identifier">save!</span>
+  <span class="ruby-ivar">@message</span>.<span class="ruby-identifier">send_as_email</span>
+
+  
+  <span class="ruby-identifier">channel</span> = <span class="ruby-string">&#39;digiramp_radio_&#39;</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">receiver</span>.<span class="ruby-identifier">email</span>
+  <span class="ruby-constant">Pusher</span>.<span class="ruby-identifier">trigger</span>(<span class="ruby-identifier">channel</span>, <span class="ruby-string">&#39;digiramp_event&#39;</span>, {<span class="ruby-string">&quot;title&quot;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&#39;Message received&#39;</span>, 
+                                        <span class="ruby-string">&quot;message&quot;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-node">&quot;#{sender.user_name} has send you a message&quot;</span>, 
+                                        <span class="ruby-string">&quot;time&quot;</span>    =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&#39;2000&#39;</span>, 
+                                        <span class="ruby-string">&quot;sticky&quot;</span>  =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&#39;false&#39;</span>, 
+                                        <span class="ruby-string">&quot;image&quot;</span>   =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&#39;notice&#39;</span>
+                                        })
+                                        
+  <span class="ruby-comment">#channel = &#39;digiramp_radio_&#39; + receiver.email</span>
+  <span class="ruby-comment">#Pusher.trigger(channel, &#39;digiramp_event&#39;, {&quot;title&quot; =&gt; &#39;Message received&#39;, </span>
+  <span class="ruby-comment">#                                      &quot;message&quot; =&gt; &quot;#{sender.user_name} has send you an invitation&quot;, </span>
+  <span class="ruby-comment">#                                      &quot;time&quot;    =&gt; &#39;2000&#39;, </span>
+  <span class="ruby-comment">#                                      &quot;sticky&quot;  =&gt; &#39;false&#39;, </span>
+  <span class="ruby-comment">#                                      &quot;image&quot;   =&gt; &#39;notice&#39;</span>
+  <span class="ruby-comment">#                                      })</span>
+  <span class="ruby-comment">#</span>
+  <span class="ruby-comment">#</span>
+  <span class="ruby-comment">#</span>
+  
+                                        
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-show">
+            
+              <b>show</b>()
+            
+            <a href="../../classes/User/ConnectionsController.html#method-i-show" name="method-i-show" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-show_source')" id="l_method-i-show_source">show</a>
+                
+              </p>
+              <div id="method-i-show_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File controllers/user/connections_controller.rb, line 125</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">show</span>
+  <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">user_user_connections_path</span>( <span class="ruby-ivar">@user</span> )
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-update">
+            
+              <b>update</b>()
+            
+            <a href="../../classes/User/ConnectionsController.html#method-i-update" name="method-i-update" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-update_source')" id="l_method-i-update_source">show</a>
+                
+              </p>
+              <div id="method-i-update_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File controllers/user/connections_controller.rb, line 67</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">update</span>
+  <span class="ruby-identifier">ap</span> <span class="ruby-identifier">params</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:commit</span>] <span class="ruby-operator">==</span> <span class="ruby-string">&quot;Dismiss&quot;</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:commit</span>] <span class="ruby-operator">==</span> <span class="ruby-string">&quot;Disconnect&quot;</span>
+    <span class="ruby-identifier">params</span>[<span class="ruby-value">:connection</span>][<span class="ruby-value">:dismissed</span>] = <span class="ruby-keyword">true</span>
+    <span class="ruby-identifier">params</span>[<span class="ruby-value">:connection</span>][<span class="ruby-value">:approved</span>] = <span class="ruby-keyword">false</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">params</span>[<span class="ruby-value">:connection</span>][<span class="ruby-value">:dismissed</span>] = <span class="ruby-keyword">false</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-ivar">@connection</span>.<span class="ruby-identifier">update_attributes</span>(<span class="ruby-identifier">connection_params</span>)
+  <span class="ruby-ivar">@receiver</span> = <span class="ruby-constant">User</span>.<span class="ruby-identifier">find</span>(<span class="ruby-ivar">@connection</span>.<span class="ruby-identifier">connection_id</span>) <span class="ruby-keyword">if</span> <span class="ruby-constant">User</span>.<span class="ruby-identifier">exists?</span>(<span class="ruby-ivar">@connection</span>.<span class="ruby-identifier">connection_id</span>)
+  
+  <span class="ruby-identifier">notify_requester</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+                    </div>
+
+    </div>
+  </body>
+</html>    

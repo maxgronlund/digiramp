@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>control_panel.js.coffee</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            control_panel.js.coffee
+        </h1>
+        <ul class="files">
+            <li>assets/javascripts/control_panel.js.coffee</li>
+            <li>Last modified: 2015-07-05 15:22:02 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>ready = -&gt;</p>
+
+<pre><code>$(&quot;.mail_subscribtion&quot;).toggles(
+  text:
+    on: &quot;Yes&quot; 
+    off: &quot;No&quot;)
+
+$(&quot;.mail_subscribtion&quot;).on &quot;toggle&quot;, (e, active) -&gt;
+  id = $(this).attr &#39;id&#39;
+  user_id = $(this).attr &#39;user_id&#39;
+  if active
+    $.getScript(&quot;/user/users/&quot; + user_id + &#39;/mail_subscribtions/&#39; +  id + &#39;/?submit=1&#39;)
+  else
+    $.getScript(&quot;/user/users/&quot; + user_id + &#39;/mail_subscribtions/&#39; +  id + &#39;/?submit=0&#39;)
+  return
+
+#==========================
+$(&quot;.facebook-toggle&quot;).toggles(
+  text:
+    on: &quot;On&quot; 
+    off: &quot;Off&quot;) 
+
+$(&quot;.facebook-toggle&quot;).on &quot;toggle&quot;, (e, active) -&gt;
+  user_id                   = $(this).attr &#39;user_id&#39;
+  if active
+     #$.getScript(&quot;/user/users/&quot; + user_id + &quot;/authorization_providers/facebook/?submit=1&quot;)
+    wait_for_authorization()
+    window.location.replace(&quot;/auth/facebook&quot;)
+  else
+    authorization_provider_id = $(this).attr &#39;authorization_provider_id&#39;
+    $.getScript(&quot;/user/users/&quot; + user_id + &quot;/authorization_providers/&quot;  + authorization_provider_id + &#39;/?submit=0&#39;)
+
+#==========================
+$(&quot;.twitter-toggle&quot;).toggles(
+  text:
+    on: &quot;On&quot; 
+    off: &quot;Off&quot;)
+
+$(&quot;.twitter-toggle&quot;).on &quot;toggle&quot;, (e, active) -&gt;
+  user_id                   = $(this).attr &#39;user_id&#39;
+  if active
+     #$.getScript(&quot;/user/users/&quot; + user_id + &quot;/authorization_providers/facebook/?submit=1&quot;)
+    wait_for_authorization()
+    window.location.replace(&quot;/auth/twitter&quot;)
+  else
+    authorization_provider_id = $(this).attr &#39;authorization_provider_id&#39;
+    $.getScript(&quot;/user/users/&quot; + user_id + &quot;/authorization_providers/&quot;  + authorization_provider_id + &#39;/?submit=0&#39;)
+
+#==========================
+$(&quot;.linkedin-toggle&quot;).toggles(
+  text:
+    on: &quot;On&quot; 
+    off: &quot;Off&quot;)
+
+$(&quot;.linkedin-toggle&quot;).on &quot;toggle&quot;, (e, active) -&gt;
+  user_id                   = $(this).attr &#39;user_id&#39;
+  if active
+     #$.getScript(&quot;/user/users/&quot; + user_id + &quot;/authorization_providers/facebook/?submit=1&quot;)
+    wait_for_authorization()
+    window.location.replace(&quot;/auth/linkedin&quot;)
+  else
+    authorization_provider_id = $(this).attr &#39;authorization_provider_id&#39;
+    $.getScript(&quot;/user/users/&quot; + user_id + &quot;/authorization_providers/&quot;  + authorization_provider_id + &#39;/?submit=0&#39;)
+
+#==========================
+$(&quot;.google-plus-toggle&quot;).toggles(
+  text:
+    on: &quot;On&quot; 
+    off: &quot;Off&quot;)
+
+$(&quot;.google-plus-toggle&quot;).on &quot;toggle&quot;, (e, active) -&gt;
+  user_id                   = $(this).attr &#39;user_id&#39;
+  if active
+     #$.getScript(&quot;/user/users/&quot; + user_id + &quot;/authorization_providers/facebook/?submit=1&quot;)
+    wait_for_authorization()
+    window.location.replace(&quot;/auth/gplus&quot;)
+  else
+    authorization_provider_id = $(this).attr &#39;authorization_provider_id&#39;
+    $.getScript(&quot;/user/users/&quot; + user_id + &quot;/authorization_providers/&quot;  + authorization_provider_id + &#39;/?submit=0&#39;)
+
+#==========================
+$(&quot;.stripe-toggle&quot;).toggles(
+  text:
+    on: &quot;On&quot; 
+    off: &quot;Off&quot;)
+
+$(&quot;.stripe-toggle&quot;).on &quot;toggle&quot;, (e, active) -&gt;
+  user_id                   = $(this).attr &#39;user_id&#39;
+  if active
+     #$.getScript(&quot;/user/users/&quot; + user_id + &quot;/authorization_providers/facebook/?submit=1&quot;)
+    wait_for_authorization()
+    window.location.replace(&quot;/auth/stripe_connect&quot;)
+  else
+    authorization_provider_id = $(this).attr &#39;authorization_provider_id&#39;
+    $.getScript(&quot;/user/users/&quot; + user_id + &quot;/authorization_providers/&quot;  + authorization_provider_id + &#39;/?submit=0&#39;)
+
+#=========================
+$(&quot;.show-recordings&quot;).toggles(
+  text:
+    on: &quot;On&quot; 
+    off: &quot;Off&quot;)</code></pre>
+
+<p>$(document).ready(ready) $(document).on(&#39;page:load&#39;, ready)</p>
+
+<p>@wait_for_authorization =() -&gt;</p>
+
+<pre><code>$.blockUI css:
+  border: &quot;none&quot;
+  padding: &quot;15px&quot;
+  backgroundColor: &quot;#000&quot;
+  &quot;-webkit-border-radius&quot;: &quot;10px&quot;
+  &quot;-moz-border-radius&quot;: &quot;10px&quot;
+  opacity: .5
+  color: &quot;#fff&quot;
+
+setTimeout($.unblockUI, 20000)</code></pre>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

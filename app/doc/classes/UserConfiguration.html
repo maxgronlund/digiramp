@@ -1,0 +1,542 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>UserConfiguration</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../css/github.css" type="text/css" media="screen" />
+<script src="../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            <span class="type">Class</span> 
+            UserConfiguration 
+            
+                <span class="parent">&lt; 
+                    
+                    ActiveRecord::Base
+                    
+                </span>
+            
+        </h1>
+        <ul class="files">
+            
+            <li><a href="../files/models/user_configuration_rb.html">models/user_configuration.rb</a></li>
+            
+        </ul>
+    </div>
+    <div id="bodyContent">
+        <div id="content">
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+    <!-- Method ref -->
+    <div class="sectiontitle">Methods</div>
+    <dl class="methods">
+      
+        <dt>C</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-c-cached_find">cached_find</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>N</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-next_up-3F">next_up?</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>R</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-reset-21">reset!</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>S</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-show-3F">show?</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>T</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-time_to_show">time_to_show</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+    </dl>
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+    
+      <div class="sectiontitle">Class Public methods</div>
+      
+        <div class="method">
+          <div class="title method-title" id="method-c-cached_find">
+            
+              <b>cached_find</b>(id)
+            
+            <a href="../classes/UserConfiguration.html#method-c-cached_find" name="method-c-cached_find" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-c-cached_find_source')" id="l_method-c-cached_find_source">show</a>
+                
+              </p>
+              <div id="method-c-cached_find_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/user_configuration.rb, line 238</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">self</span>.<span class="ruby-identifier">cached_find</span>(<span class="ruby-identifier">id</span>)
+  <span class="ruby-constant">Rails</span>.<span class="ruby-identifier">cache</span>.<span class="ruby-identifier">fetch</span>([<span class="ruby-identifier">name</span>, <span class="ruby-identifier">id</span>]) { <span class="ruby-identifier">find</span>(<span class="ruby-identifier">id</span>) }
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+                  
+      <div class="sectiontitle">Instance Public methods</div>
+      
+        <div class="method">
+          <div class="title method-title" id="method-i-next_up-3F">
+            
+              <b>next_up?</b>()
+            
+            <a href="../classes/UserConfiguration.html#method-i-next_up-3F" name="method-i-next_up-3F" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              <p>user.next_up?</p>
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-next_up-3F_source')" id="l_method-i-next_up-3F_source">show</a>
+                
+              </p>
+              <div id="method-i-next_up-3F_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/user_configuration.rb, line 24</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">next_up?</span>
+  
+  <span class="ruby-comment">#self.update(configured: false)</span>
+  <span class="ruby-comment">#return &#39;done&#39; if self.configured</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-string">&#39;done&#39;</span> <span class="ruby-keyword">if</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">done?</span>
+  
+  
+  <span class="ruby-comment"># promote music</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">i_want_to_promote_my_music</span>
+    
+    <span class="ruby-keyword">unless</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">upload_recordings_later</span>           
+      <span class="ruby-keyword">return</span> <span class="ruby-string">&#39;upload_recordings&#39;</span>    <span class="ruby-keyword">if</span> <span class="ruby-identifier">user</span>.<span class="ruby-identifier">recordings</span>.<span class="ruby-identifier">count</span>          <span class="ruby-operator">==</span> <span class="ruby-number">0</span> 
+    <span class="ruby-keyword">end</span>
+    
+    <span class="ruby-keyword">unless</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">create_a_playlist_later</span>           
+      <span class="ruby-keyword">return</span> <span class="ruby-string">&#39;create_a_playlist&#39;</span>    <span class="ruby-keyword">if</span> <span class="ruby-identifier">user</span>.<span class="ruby-identifier">playlists</span>.<span class="ruby-identifier">count</span>           <span class="ruby-operator">==</span> <span class="ruby-number">0</span> 
+    <span class="ruby-keyword">end</span>
+    
+    <span class="ruby-keyword">unless</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">invite_friends_later</span>              
+      <span class="ruby-keyword">return</span> <span class="ruby-string">&#39;invite_friends&#39;</span>       <span class="ruby-keyword">if</span> <span class="ruby-identifier">user</span>.<span class="ruby-identifier">client_invitations</span>.<span class="ruby-identifier">count</span>  <span class="ruby-operator">==</span> <span class="ruby-number">0</span> 
+    <span class="ruby-keyword">end</span>
+    
+    <span class="ruby-keyword">unless</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">post_on_facebook_later</span>            
+      <span class="ruby-keyword">return</span> <span class="ruby-string">&#39;post_on_facebook&#39;</span>     <span class="ruby-keyword">if</span> <span class="ruby-identifier">user</span>.<span class="ruby-identifier">share_on_facebooks</span>.<span class="ruby-identifier">count</span>  <span class="ruby-operator">==</span> <span class="ruby-number">0</span> 
+    <span class="ruby-keyword">end</span>
+    
+    <span class="ruby-keyword">unless</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">post_on_twitter_later</span>             
+      <span class="ruby-keyword">return</span> <span class="ruby-string">&#39;post_on_twitter&#39;</span>      <span class="ruby-keyword">if</span> <span class="ruby-identifier">user</span>.<span class="ruby-identifier">share_on_twitters</span>.<span class="ruby-identifier">count</span>   <span class="ruby-operator">==</span> <span class="ruby-number">0</span> 
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+  
+  
+  
+  <span class="ruby-comment"># sell music</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">i_want_to_sell_music</span>
+
+    <span class="ruby-keyword">unless</span> <span class="ruby-identifier">add_legal_informations_later</span>
+      <span class="ruby-keyword">return</span> <span class="ruby-string">&#39;add_legal_informations&#39;</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">user</span>.<span class="ruby-identifier">legal_informations_completed?</span>
+    <span class="ruby-keyword">end</span>
+    
+    <span class="ruby-keyword">unless</span> <span class="ruby-identifier">add_digital_signature_later</span>
+      <span class="ruby-keyword">return</span> <span class="ruby-string">&#39;add_digital_signature&#39;</span> <span class="ruby-keyword">unless</span> <span class="ruby-operator">!</span><span class="ruby-identifier">user</span>.<span class="ruby-identifier">digital_signature_uuid</span>.<span class="ruby-identifier">nil?</span>
+    <span class="ruby-keyword">end</span>
+    
+    <span class="ruby-keyword">unless</span> <span class="ruby-identifier">register_a_publisher_later</span>
+      <span class="ruby-keyword">return</span> <span class="ruby-string">&#39;register_a_publisher&#39;</span>  <span class="ruby-keyword">if</span> <span class="ruby-identifier">user</span>.<span class="ruby-identifier">user_publishers</span>.<span class="ruby-identifier">count</span>  <span class="ruby-operator">==</span> <span class="ruby-number">0</span>
+    <span class="ruby-keyword">end</span>
+    
+    
+    <span class="ruby-keyword">unless</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">upload_recordings_later</span>           
+      <span class="ruby-keyword">return</span> <span class="ruby-string">&#39;upload_recordings&#39;</span>    <span class="ruby-keyword">if</span> <span class="ruby-identifier">user</span>.<span class="ruby-identifier">recordings</span>.<span class="ruby-identifier">count</span>          <span class="ruby-operator">==</span> <span class="ruby-number">0</span> 
+    <span class="ruby-keyword">end</span>
+    
+    <span class="ruby-keyword">unless</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">clear_a_recording_later</span>
+      <span class="ruby-keyword">if</span> <span class="ruby-identifier">user</span>.<span class="ruby-identifier">recordings</span>.<span class="ruby-identifier">count</span>  <span class="ruby-operator">&gt;</span> <span class="ruby-number">0</span> 
+        <span class="ruby-keyword">return</span> <span class="ruby-string">&#39;clear_a_recording&#39;</span>    <span class="ruby-keyword">if</span> <span class="ruby-identifier">user</span>.<span class="ruby-identifier">has_no_cleared_recording?</span>
+      <span class="ruby-keyword">end</span>
+    <span class="ruby-keyword">end</span>
+    
+    <span class="ruby-keyword">unless</span> <span class="ruby-identifier">enable_shop_later</span>
+      <span class="ruby-keyword">return</span> <span class="ruby-string">&#39;enable_shop&#39;</span>                  <span class="ruby-keyword">unless</span>  <span class="ruby-identifier">user</span>.<span class="ruby-identifier">has_enabled_shop</span>
+    <span class="ruby-keyword">end</span>
+    
+    <span class="ruby-comment">#unless add_a_recording_to_the_shop_later</span>
+    <span class="ruby-comment">#  if user.has_enabled_shop</span>
+    <span class="ruby-comment">#    return &#39;add_a_recording_to_the_shop&#39;  if user.products.on_sale.where(category: &#39;recording&#39;).count == 0</span>
+    <span class="ruby-comment">#  end</span>
+    <span class="ruby-comment">#end</span>
+    
+  <span class="ruby-keyword">end</span>
+  
+  
+  <span class="ruby-comment"># sell goods</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">i_want_to_sell_goods</span>
+    
+    <span class="ruby-keyword">unless</span> <span class="ruby-identifier">add_legal_informations_later</span>
+      <span class="ruby-keyword">return</span> <span class="ruby-string">&#39;add_legal_informations&#39;</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">user</span>.<span class="ruby-identifier">legal_informations_completed?</span>
+    <span class="ruby-keyword">end</span>
+    
+    <span class="ruby-keyword">unless</span> <span class="ruby-identifier">add_digital_signature_later</span>
+      <span class="ruby-keyword">return</span> <span class="ruby-string">&#39;add_digital_signature&#39;</span> <span class="ruby-keyword">unless</span> <span class="ruby-operator">!</span><span class="ruby-identifier">user</span>.<span class="ruby-identifier">digital_signature_uuid</span>.<span class="ruby-identifier">nil?</span>
+    <span class="ruby-keyword">end</span>
+    
+    <span class="ruby-keyword">unless</span> <span class="ruby-identifier">enable_shop_later</span>
+      <span class="ruby-keyword">return</span> <span class="ruby-string">&#39;enable_shop&#39;</span>                  <span class="ruby-keyword">unless</span>  <span class="ruby-identifier">user</span>.<span class="ruby-identifier">has_enabled_shop</span>
+    <span class="ruby-keyword">end</span>
+    
+    <span class="ruby-keyword">unless</span> <span class="ruby-identifier">add_physical_product_later</span>
+      <span class="ruby-keyword">if</span> <span class="ruby-identifier">user</span>.<span class="ruby-identifier">has_enabled_shop</span>
+        <span class="ruby-keyword">return</span> <span class="ruby-string">&#39;add_physical_product&#39;</span>         <span class="ruby-keyword">if</span>  <span class="ruby-identifier">user</span>.<span class="ruby-identifier">products</span>.<span class="ruby-identifier">on_sale</span>.<span class="ruby-identifier">where</span>(<span class="ruby-identifier">category</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;physical-product&#39;</span>).<span class="ruby-identifier">count</span> <span class="ruby-operator">==</span> <span class="ruby-number">0</span>
+      <span class="ruby-keyword">end</span>
+    <span class="ruby-keyword">end</span> 
+  <span class="ruby-keyword">end</span>
+  
+  
+  <span class="ruby-comment"># License music</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">i_want_to_get_my_music_into_films_and_tv</span>
+    
+    <span class="ruby-keyword">unless</span> <span class="ruby-identifier">add_legal_informations_later</span>
+      <span class="ruby-keyword">return</span> <span class="ruby-string">&#39;add_legal_informations&#39;</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">user</span>.<span class="ruby-identifier">legal_informations_completed?</span>
+    <span class="ruby-keyword">end</span>
+    
+    <span class="ruby-keyword">unless</span> <span class="ruby-identifier">add_digital_signature_later</span>
+      <span class="ruby-keyword">return</span> <span class="ruby-string">&#39;add_digital_signature&#39;</span> <span class="ruby-keyword">unless</span> <span class="ruby-operator">!</span><span class="ruby-identifier">user</span>.<span class="ruby-identifier">digital_signature_uuid</span>.<span class="ruby-identifier">nil?</span>
+    <span class="ruby-keyword">end</span>
+    
+    <span class="ruby-keyword">unless</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">register_a_publisher_later</span> 
+      <span class="ruby-keyword">return</span> <span class="ruby-string">&#39;register_a_publisher&#39;</span>         <span class="ruby-keyword">if</span> <span class="ruby-identifier">user</span>.<span class="ruby-identifier">user_publishers</span>.<span class="ruby-identifier">count</span>  <span class="ruby-operator">==</span> <span class="ruby-number">0</span>
+    <span class="ruby-keyword">end</span>
+    
+    <span class="ruby-keyword">unless</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">upload_recordings_later</span>           
+      <span class="ruby-keyword">return</span> <span class="ruby-string">&#39;upload_recordings&#39;</span>    <span class="ruby-keyword">if</span> <span class="ruby-identifier">user</span>.<span class="ruby-identifier">recordings</span>.<span class="ruby-identifier">count</span>  <span class="ruby-operator">==</span> <span class="ruby-number">0</span> 
+    <span class="ruby-keyword">end</span>
+    
+    <span class="ruby-keyword">unless</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">clear_a_recording_later</span>
+      <span class="ruby-keyword">return</span> <span class="ruby-string">&#39;clear_a_recording&#39;</span>    <span class="ruby-keyword">if</span> <span class="ruby-identifier">user</span>.<span class="ruby-identifier">first_uncleared_recording</span>
+    <span class="ruby-keyword">end</span>
+    
+    <span class="ruby-keyword">unless</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">submit_to_an_opportunity_later</span>
+      <span class="ruby-keyword">if</span> <span class="ruby-identifier">user</span>.<span class="ruby-identifier">recordings</span>.<span class="ruby-identifier">count</span>  <span class="ruby-operator">&gt;</span> <span class="ruby-number">0</span> 
+        <span class="ruby-keyword">unless</span> <span class="ruby-identifier">user</span>.<span class="ruby-identifier">has_no_cleared_recording?</span>
+          <span class="ruby-keyword">return</span> <span class="ruby-string">&#39;submit_to_an_opportunity&#39;</span>  <span class="ruby-keyword">if</span> <span class="ruby-identifier">user</span>.<span class="ruby-identifier">opportunity_users</span>.<span class="ruby-identifier">count</span>   <span class="ruby-operator">==</span> <span class="ruby-number">0</span>
+        <span class="ruby-keyword">end</span>
+      <span class="ruby-keyword">end</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+  
+  
+  
+  
+  <span class="ruby-keyword">if</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">i_want_to_find_and_listen_to_music</span>
+    <span class="ruby-keyword">unless</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">like_a_recording_later</span>
+      <span class="ruby-keyword">return</span> <span class="ruby-string">&#39;like_a_recording&#39;</span>
+    <span class="ruby-keyword">end</span>              
+    
+    <span class="ruby-keyword">unless</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">create_a_playlist_later</span>           
+      <span class="ruby-keyword">return</span> <span class="ruby-string">&#39;create_a_playlist&#39;</span>    <span class="ruby-keyword">if</span> <span class="ruby-identifier">user</span>.<span class="ruby-identifier">playlists</span>.<span class="ruby-identifier">count</span>           <span class="ruby-operator">==</span> <span class="ruby-number">0</span> 
+    <span class="ruby-keyword">end</span>
+    
+    <span class="ruby-keyword">unless</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">add_recording_to_a_playlist_later</span>
+      <span class="ruby-keyword">return</span> <span class="ruby-string">&#39;add_recording_to_a_playlist&#39;</span> <span class="ruby-keyword">if</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">user</span>.<span class="ruby-identifier">has_no_recordings_on_playlist?</span>
+    <span class="ruby-keyword">end</span>
+    
+    <span class="ruby-keyword">return</span> <span class="ruby-string">&#39;add a recording to a playlist&#39;</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">user</span>.<span class="ruby-identifier">has_no_recordings_on_playlist?</span>
+    <span class="ruby-keyword">return</span> <span class="ruby-string">&#39;post on facebook&#39;</span>              <span class="ruby-keyword">if</span> <span class="ruby-identifier">user</span>.<span class="ruby-identifier">share_on_facebooks</span>.<span class="ruby-identifier">count</span>       <span class="ruby-operator">==</span> <span class="ruby-number">0</span>
+    <span class="ruby-keyword">return</span> <span class="ruby-string">&#39;post on twitter&#39;</span>               <span class="ruby-keyword">if</span> <span class="ruby-identifier">user</span>.<span class="ruby-identifier">share_on_twitters</span>.<span class="ruby-identifier">count</span>        <span class="ruby-operator">==</span> <span class="ruby-number">0</span>
+  <span class="ruby-keyword">end</span>
+  
+  
+  
+  
+  
+  
+  <span class="ruby-keyword">if</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">i_want_to_offer_services</span>
+    <span class="ruby-keyword">unless</span> <span class="ruby-identifier">add_legal_informations_later</span>
+      <span class="ruby-keyword">return</span> <span class="ruby-string">&#39;add_legal_informations&#39;</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">user</span>.<span class="ruby-identifier">legal_informations_completed?</span>
+    <span class="ruby-keyword">end</span>
+    
+    <span class="ruby-keyword">unless</span> <span class="ruby-identifier">add_digital_signature_later</span>
+      <span class="ruby-keyword">return</span> <span class="ruby-string">&#39;add_digital_signature&#39;</span> <span class="ruby-keyword">unless</span> <span class="ruby-operator">!</span><span class="ruby-identifier">user</span>.<span class="ruby-identifier">digital_signature_uuid</span>.<span class="ruby-identifier">nil?</span>
+    <span class="ruby-keyword">end</span>
+    
+    <span class="ruby-keyword">unless</span> <span class="ruby-identifier">enable_shop_later</span>
+      <span class="ruby-keyword">return</span> <span class="ruby-string">&#39;enable_shop&#39;</span>                  <span class="ruby-keyword">unless</span>  <span class="ruby-identifier">user</span>.<span class="ruby-identifier">has_enabled_shop</span>
+    <span class="ruby-keyword">end</span>
+    
+  <span class="ruby-keyword">end</span>
+  
+  <span class="ruby-keyword">if</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">i_want_to_collaborate</span>
+    
+  <span class="ruby-keyword">end</span>
+  
+  <span class="ruby-keyword">if</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">i_want_to_manage_users_and_catalogs</span>
+    <span class="ruby-keyword">unless</span> <span class="ruby-identifier">add_legal_informations_later</span>
+      <span class="ruby-keyword">return</span> <span class="ruby-string">&#39;add_legal_informations&#39;</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">user</span>.<span class="ruby-identifier">legal_informations_completed?</span>
+    <span class="ruby-keyword">end</span>
+    
+  <span class="ruby-keyword">end</span>
+  
+  <span class="ruby-keyword">if</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">i_want_to_build_custom_web_pages</span>
+    
+  <span class="ruby-keyword">end</span>
+  
+  <span class="ruby-keyword">if</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">dont_ask_me_again</span>
+    
+  <span class="ruby-keyword">end</span>
+  
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">done!</span> <span class="ruby-keyword">unless</span>( <span class="ruby-keyword">self</span>.<span class="ruby-identifier">pending?</span>)
+
+  
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-reset-21">
+            
+              <b>reset!</b>()
+            
+            <a href="../classes/UserConfiguration.html#method-i-reset-21" name="method-i-reset-21" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-reset-21_source')" id="l_method-i-reset-21_source">show</a>
+                
+              </p>
+              <div id="method-i-reset-21_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/user_configuration.rb, line 216</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">reset!</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">update</span>(
+              <span class="ruby-identifier">upload_recordings_later</span><span class="ruby-operator">:</span>            <span class="ruby-identifier">user</span>.<span class="ruby-identifier">recordings</span>.<span class="ruby-identifier">count</span>         <span class="ruby-operator">!=</span> <span class="ruby-number">0</span> ,
+              <span class="ruby-identifier">create_a_playlist_later</span><span class="ruby-operator">:</span>            <span class="ruby-identifier">user</span>.<span class="ruby-identifier">playlists</span>.<span class="ruby-identifier">count</span>          <span class="ruby-operator">!=</span> <span class="ruby-number">0</span>,
+              <span class="ruby-identifier">invite_friends_later</span><span class="ruby-operator">:</span>               <span class="ruby-identifier">user</span>.<span class="ruby-identifier">client_invitations</span>.<span class="ruby-identifier">count</span> <span class="ruby-operator">!=</span> <span class="ruby-number">0</span>,
+              <span class="ruby-identifier">post_on_facebook_later</span><span class="ruby-operator">:</span>             <span class="ruby-identifier">user</span>.<span class="ruby-identifier">share_on_facebooks</span>.<span class="ruby-identifier">count</span> <span class="ruby-operator">!=</span> <span class="ruby-number">0</span>,
+              <span class="ruby-identifier">post_on_twitter_later</span><span class="ruby-operator">:</span>              <span class="ruby-identifier">user</span>.<span class="ruby-identifier">share_on_twitters</span>.<span class="ruby-identifier">count</span>  <span class="ruby-operator">!=</span> <span class="ruby-number">0</span>,
+              <span class="ruby-identifier">register_a_publisher_later</span><span class="ruby-operator">:</span>         <span class="ruby-identifier">user</span>.<span class="ruby-identifier">user_publishers</span>.<span class="ruby-identifier">count</span>    <span class="ruby-operator">!=</span> <span class="ruby-number">0</span>,
+              <span class="ruby-identifier">clear_a_recording_later</span><span class="ruby-operator">:</span>            <span class="ruby-operator">!</span><span class="ruby-identifier">user</span>.<span class="ruby-identifier">has_no_cleared_recording?</span>,
+              <span class="ruby-identifier">enable_shop_later</span><span class="ruby-operator">:</span>                  <span class="ruby-identifier">user</span>.<span class="ruby-identifier">has_enabled_shop</span>,
+              <span class="ruby-identifier">like_a_recording_later</span><span class="ruby-operator">:</span>             <span class="ruby-identifier">user</span>.<span class="ruby-identifier">likes</span> <span class="ruby-operator">!=</span> <span class="ruby-number">0</span>,
+              <span class="ruby-identifier">add_a_recording_to_the_shop_later</span><span class="ruby-operator">:</span>  <span class="ruby-identifier">user</span>.<span class="ruby-identifier">products</span>.<span class="ruby-identifier">on_sale</span>.<span class="ruby-identifier">where</span>(<span class="ruby-identifier">category</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;recording&#39;</span>).<span class="ruby-identifier">count</span> <span class="ruby-operator">&gt;</span> <span class="ruby-number">0</span>,
+              <span class="ruby-identifier">add_physical_product_later</span><span class="ruby-operator">:</span>         <span class="ruby-identifier">user</span>.<span class="ruby-identifier">products</span>.<span class="ruby-identifier">on_sale</span>.<span class="ruby-identifier">where</span>(<span class="ruby-identifier">category</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;physical-product&#39;</span>).<span class="ruby-identifier">count</span> <span class="ruby-operator">&gt;</span> <span class="ruby-number">0</span>,
+              <span class="ruby-identifier">add_recording_to_a_playlist_later</span><span class="ruby-operator">:</span>  <span class="ruby-operator">!</span><span class="ruby-identifier">user</span>.<span class="ruby-identifier">has_no_recordings_on_playlist?</span>,
+              <span class="ruby-identifier">add_digital_signature_later</span><span class="ruby-operator">:</span>        <span class="ruby-operator">!</span><span class="ruby-identifier">user</span>.<span class="ruby-identifier">digital_signature_uuid</span>.<span class="ruby-identifier">nil?</span>
+            )
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">activated!</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-show-3F">
+            
+              <b>show?</b>()
+            
+            <a href="../classes/UserConfiguration.html#method-i-show-3F" name="method-i-show-3F" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-show-3F_source')" id="l_method-i-show-3F_source">show</a>
+                
+              </p>
+              <div id="method-i-show-3F_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/user_configuration.rb, line 6</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">show?</span>
+  
+  <span class="ruby-comment">#return false if self.dont_ask_me_again</span>
+  
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">true</span>  <span class="ruby-keyword">if</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">pending?</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">true</span>  <span class="ruby-keyword">if</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">activated?</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span> <span class="ruby-keyword">if</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">deactivated?</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span> <span class="ruby-keyword">if</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">done?</span>
+  
+  
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-time_to_show">
+            
+              <b>time_to_show</b>()
+            
+            <a href="../classes/UserConfiguration.html#method-i-time_to_show" name="method-i-time_to_show" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              <p>show todo if it&#39;s a long time ago</p>
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-time_to_show_source')" id="l_method-i-time_to_show_source">show</a>
+                
+              </p>
+              <div id="method-i-time_to_show_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/user_configuration.rb, line 19</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">time_to_show</span>
+  
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+                    </div>
+
+    </div>
+  </body>
+</html>    

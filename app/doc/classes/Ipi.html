@@ -1,0 +1,757 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>Ipi</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../css/github.css" type="text/css" media="screen" />
+<script src="../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            <span class="type">Class</span> 
+            Ipi 
+            
+                <span class="parent">&lt; 
+                    
+                    ActiveRecord::Base
+                    
+                </span>
+            
+        </h1>
+        <ul class="files">
+            
+            <li><a href="../files/models/ipi_rb.html">models/ipi.rb</a></li>
+            
+        </ul>
+    </div>
+    <div id="bodyContent">
+        <div id="content">
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+    <!-- Method ref -->
+    <div class="sectiontitle">Methods</div>
+    <dl class="methods">
+      
+        <dt>A</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-attach_to_publisher">attach_to_publisher</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-i-attach_to_user">attach_to_user</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>C</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-c-cached_find">cached_find</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-i-configure_payment">configure_payment</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>G</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-get_account">get_account</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-i-get_account_id">get_account_id</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-i-get_full_name">get_full_name</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>I</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-is_published-3F">is_published?</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>R</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-roles_as_string">roles_as_string</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>S</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-send_confirmation_request">send_confirmation_request</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>U</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-users_publishing_agreements">users_publishing_agreements</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>W</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-work_title">work_title</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+    </dl>
+  
+
+  
+    <!-- Includes -->
+    <div class="sectiontitle">Included Modules</div>
+    <ul>
+      
+        <li>
+          
+            <a href="AddressMix.html">
+              AddressMix
+            </a>
+          
+        </li>
+      
+    </ul>
+  
+
+
+
+  
+
+    
+
+    
+
+    
+      <!-- Section constants -->
+      <div class="sectiontitle">Constants</div>
+      <table border='0' cellpadding='5'>
+        
+          <tr valign='top'>
+            <td class="attr-name">ROLES</td>
+            <td>=</td>
+            <td class="attr-value">[ &quot;Writer&quot;, &quot;Composer&quot;, &quot;Administrator&quot;, &quot;Producer&quot;, &quot;Original Publisher&quot;,  &quot;Artist&quot;, &quot;Distributor&quot;, &quot;Remixer&quot;, &quot;Other&quot;, &quot;Publisher&quot;]</td>
+          </tr>
+          
+            <tr valign='top'>
+              <td>&nbsp;</td>
+              <td colspan="2" class="attr-desc"></td>
+            </tr>
+          
+        
+      </table>
+    
+
+
+    
+
+
+    <!-- Methods -->
+    
+      <div class="sectiontitle">Class Public methods</div>
+      
+        <div class="method">
+          <div class="title method-title" id="method-c-cached_find">
+            
+              <b>cached_find</b>(id)
+            
+            <a href="../classes/Ipi.html#method-c-cached_find" name="method-c-cached_find" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-c-cached_find_source')" id="l_method-c-cached_find_source">show</a>
+                
+              </p>
+              <div id="method-c-cached_find_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/ipi.rb, line 174</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">self</span>.<span class="ruby-identifier">cached_find</span>(<span class="ruby-identifier">id</span>)
+  <span class="ruby-constant">Rails</span>.<span class="ruby-identifier">cache</span>.<span class="ruby-identifier">fetch</span>([<span class="ruby-identifier">name</span>, <span class="ruby-identifier">id</span>]) { <span class="ruby-identifier">find</span>(<span class="ruby-identifier">id</span>) }
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+                  
+      <div class="sectiontitle">Instance Public methods</div>
+      
+        <div class="method">
+          <div class="title method-title" id="method-i-attach_to_publisher">
+            
+              <b>attach_to_publisher</b>()
+            
+            <a href="../classes/Ipi.html#method-i-attach_to_publisher" name="method-i-attach_to_publisher" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-attach_to_publisher_source')" id="l_method-i-attach_to_publisher_source">show</a>
+                
+              </p>
+              <div id="method-i-attach_to_publisher_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/ipi.rb, line 166</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">attach_to_publisher</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">user</span>
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">user</span>.<span class="ruby-identifier">personal_publishing_status</span> <span class="ruby-operator">==</span> <span class="ruby-string">&quot;I own and control my own publishing&quot;</span>
+      
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-attach_to_user">
+            
+              <b>attach_to_user</b>()
+            
+            <a href="../classes/Ipi.html#method-i-attach_to_user" name="method-i-attach_to_user" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-attach_to_user_source')" id="l_method-i-attach_to_user_source">show</a>
+                
+              </p>
+              <div id="method-i-attach_to_user_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/ipi.rb, line 157</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">attach_to_user</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">update</span>(<span class="ruby-identifier">uuid</span><span class="ruby-operator">:</span> <span class="ruby-constant">UUIDTools</span><span class="ruby-operator">::</span><span class="ruby-constant">UUID</span>.<span class="ruby-identifier">timestamp_create</span>().<span class="ruby-identifier">to_s</span>) <span class="ruby-keyword">if</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">uuid</span>.<span class="ruby-identifier">nil?</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">if</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">user</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">user</span>      = <span class="ruby-constant">User</span>.<span class="ruby-identifier">get_by_email</span>(<span class="ruby-keyword">self</span>.<span class="ruby-identifier">email</span>)
+    <span class="ruby-keyword">self</span>.<span class="ruby-identifier">update</span>(<span class="ruby-identifier">user_id</span><span class="ruby-operator">:</span> <span class="ruby-identifier">user</span>.<span class="ruby-identifier">id</span>, <span class="ruby-identifier">full_name</span><span class="ruby-operator">:</span> <span class="ruby-identifier">user</span>.<span class="ruby-identifier">full_name</span>)
+    <span class="ruby-comment">#self.save!(validate: false)</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-configure_payment">
+            
+              <b>configure_payment</b>( royalty, price, recording_uuid )
+            
+            <a href="../classes/Ipi.html#method-i-configure_payment" name="method-i-configure_payment" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              <p>def publishing_agreement document_uuid</p>
+
+<pre><code>if publishing_agreement = PublishingAgreement.find_by(document_id: document_uuid)
+  if ipi_publishing_agreement = IpiPublishingAgreement.where( publishing_agreement_id: publishing_agreement.id, ipi_id: self.id).first
+    return true 
+  end
+end
+return false
+</code></pre>
+
+<p>end</p>
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-configure_payment_source')" id="l_method-i-configure_payment_source">show</a>
+                
+              </p>
+              <div id="method-i-configure_payment_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/ipi.rb, line 58</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">configure_payment</span>( <span class="ruby-identifier">royalty</span>, <span class="ruby-identifier">price</span>, <span class="ruby-identifier">recording_uuid</span> )
+  
+  <span class="ruby-keyword">begin</span>
+    <span class="ruby-identifier">amount_in_cent</span> =  <span class="ruby-identifier">royalty</span>
+    <span class="ruby-identifier">amount_in_pct</span>  =  <span class="ruby-identifier">amount_in_cent</span> <span class="ruby-operator">/</span>  <span class="ruby-identifier">price</span>
+    
+    <span class="ruby-comment">#ap &quot;amount_in_cent: #{amount_in_cent}&quot;</span>
+    <span class="ruby-comment">#ap &quot;royalty; #{royalty}&quot;</span>
+
+
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">stake</span> = <span class="ruby-constant">Stake</span>.<span class="ruby-identifier">find_by</span>( 
+        <span class="ruby-identifier">account_id</span><span class="ruby-operator">:</span>         <span class="ruby-keyword">self</span>.<span class="ruby-identifier">user</span>.<span class="ruby-identifier">account</span>.<span class="ruby-identifier">id</span>,
+        <span class="ruby-identifier">asset_id</span><span class="ruby-operator">:</span>           <span class="ruby-identifier">recording_uuid</span>,
+        <span class="ruby-identifier">asset_type</span><span class="ruby-operator">:</span>         <span class="ruby-string">&#39;Recording&#39;</span>,
+        <span class="ruby-identifier">ip_uuid</span><span class="ruby-operator">:</span>            <span class="ruby-keyword">self</span>.<span class="ruby-identifier">uuid</span>,
+        <span class="ruby-identifier">ip_type</span><span class="ruby-operator">:</span>            <span class="ruby-keyword">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">name</span>
+      )
+      <span class="ruby-identifier">stake</span>.<span class="ruby-identifier">update</span>(
+        <span class="ruby-identifier">split</span><span class="ruby-operator">:</span>               <span class="ruby-identifier">amount_in_pct</span>,
+        <span class="ruby-identifier">flat_rate_in_cent</span><span class="ruby-operator">:</span>   <span class="ruby-identifier">amount_in_cent</span>,
+        <span class="ruby-identifier">currency</span><span class="ruby-operator">:</span>            <span class="ruby-string">&#39;usd&#39;</span>,
+        <span class="ruby-identifier">email</span><span class="ruby-operator">:</span>               <span class="ruby-keyword">self</span>.<span class="ruby-identifier">user</span>.<span class="ruby-identifier">email</span>,
+        <span class="ruby-identifier">unassigned</span><span class="ruby-operator">:</span>          <span class="ruby-keyword">false</span>
+      )
+    <span class="ruby-keyword">else</span>
+      <span class="ruby-identifier">stake</span> = <span class="ruby-constant">Stake</span>.<span class="ruby-identifier">create</span>(  
+        <span class="ruby-identifier">account_id</span><span class="ruby-operator">:</span>          <span class="ruby-keyword">self</span>.<span class="ruby-identifier">user</span>.<span class="ruby-identifier">account</span>.<span class="ruby-identifier">id</span>,
+        <span class="ruby-identifier">user_id</span><span class="ruby-operator">:</span>             <span class="ruby-keyword">self</span>.<span class="ruby-identifier">user_id</span>,
+        <span class="ruby-identifier">asset_id</span><span class="ruby-operator">:</span>            <span class="ruby-identifier">recording_uuid</span>,
+        <span class="ruby-identifier">asset_type</span><span class="ruby-operator">:</span>          <span class="ruby-string">&#39;Recording&#39;</span>,
+        <span class="ruby-identifier">ip_uuid</span><span class="ruby-operator">:</span>             <span class="ruby-keyword">self</span>.<span class="ruby-identifier">uuid</span>,
+        <span class="ruby-identifier">ip_type</span><span class="ruby-operator">:</span>             <span class="ruby-keyword">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">name</span>,
+        <span class="ruby-identifier">split</span><span class="ruby-operator">:</span>               <span class="ruby-identifier">amount_in_pct</span>,
+        <span class="ruby-identifier">flat_rate_in_cent</span><span class="ruby-operator">:</span>   <span class="ruby-identifier">amount_in_cent</span>,
+        <span class="ruby-identifier">currency</span><span class="ruby-operator">:</span>            <span class="ruby-string">&#39;usd&#39;</span>,
+        <span class="ruby-identifier">email</span><span class="ruby-operator">:</span>               <span class="ruby-keyword">self</span>.<span class="ruby-identifier">user</span>.<span class="ruby-identifier">email</span>,
+        <span class="ruby-identifier">unassigned</span><span class="ruby-operator">:</span>          <span class="ruby-keyword">false</span>
+      )
+    <span class="ruby-keyword">end</span>
+    <span class="ruby-identifier">ap</span> <span class="ruby-identifier">stake</span>
+  <span class="ruby-keyword">rescue</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
+    <span class="ruby-constant">ErrorNotification</span>.<span class="ruby-identifier">post_object</span> <span class="ruby-string">&#39;Ipi#configure_payment&#39;</span>, <span class="ruby-identifier">e</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-get_account">
+            
+              <b>get_account</b>()
+            
+            <a href="../classes/Ipi.html#method-i-get_account" name="method-i-get_account" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-get_account_source')" id="l_method-i-get_account_source">show</a>
+                
+              </p>
+              <div id="method-i-get_account_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/ipi.rb, line 133</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">get_account</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">user</span>
+    <span class="ruby-keyword">return</span> <span class="ruby-identifier">user</span>.<span class="ruby-identifier">account</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-get_account_id">
+            
+              <b>get_account_id</b>()
+            
+            <a href="../classes/Ipi.html#method-i-get_account_id" name="method-i-get_account_id" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-get_account_id_source')" id="l_method-i-get_account_id_source">show</a>
+                
+              </p>
+              <div id="method-i-get_account_id_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/ipi.rb, line 127</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">get_account_id</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">user</span>
+    <span class="ruby-keyword">return</span> <span class="ruby-identifier">user</span>.<span class="ruby-identifier">get_account_id</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-get_full_name">
+            
+              <b>get_full_name</b>()
+            
+            <a href="../classes/Ipi.html#method-i-get_full_name" name="method-i-get_full_name" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-get_full_name_source')" id="l_method-i-get_full_name_source">show</a>
+                
+              </p>
+              <div id="method-i-get_full_name_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/ipi.rb, line 115</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">get_full_name</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">user</span>
+    <span class="ruby-identifier">user</span>.<span class="ruby-identifier">full_name</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-keyword">self</span>.<span class="ruby-identifier">full_name</span> <span class="ruby-operator">||</span> <span class="ruby-string">&#39;! registration pending&#39;</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-is_published-3F">
+            
+              <b>is_published?</b>()
+            
+            <a href="../classes/Ipi.html#method-i-is_published-3F" name="method-i-is_published-3F" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-is_published-3F_source')" id="l_method-i-is_published-3F_source">show</a>
+                
+              </p>
+              <div id="method-i-is_published-3F_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/ipi.rb, line 103</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">is_published?</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">true</span> <span class="ruby-keyword">if</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">user</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">user</span>.<span class="ruby-identifier">publishers</span>
+  <span class="ruby-keyword">false</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-roles_as_string">
+            
+              <b>roles_as_string</b>()
+            
+            <a href="../classes/Ipi.html#method-i-roles_as_string" name="method-i-roles_as_string" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-roles_as_string_source')" id="l_method-i-roles_as_string_source">show</a>
+                
+              </p>
+              <div id="method-i-roles_as_string_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/ipi.rb, line 148</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">roles_as_string</span>
+  <span class="ruby-identifier">roles</span> = <span class="ruby-string">&#39;&#39;</span>
+  <span class="ruby-identifier">roles</span> <span class="ruby-operator">+=</span> <span class="ruby-string">&#39;Writer. &#39;</span>           <span class="ruby-keyword">if</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">lyric</span>
+  <span class="ruby-identifier">roles</span> <span class="ruby-operator">+=</span> <span class="ruby-string">&#39;Composer. &#39;</span>         <span class="ruby-keyword">if</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">music</span>
+  <span class="ruby-identifier">roles</span> <span class="ruby-operator">+=</span> <span class="ruby-string">&#39;Arrengement. &#39;</span>      <span class="ruby-keyword">if</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">arrangement</span>
+  <span class="ruby-identifier">roles</span> <span class="ruby-operator">+=</span> <span class="ruby-string">&#39;Melody. &#39;</span>           <span class="ruby-keyword">if</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">melody</span>
+  <span class="ruby-identifier">roles</span>                        
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-send_confirmation_request">
+            
+              <b>send_confirmation_request</b>()
+            
+            <a href="../classes/Ipi.html#method-i-send_confirmation_request" name="method-i-send_confirmation_request" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-send_confirmation_request_source')" id="l_method-i-send_confirmation_request_source">show</a>
+                
+              </p>
+              <div id="method-i-send_confirmation_request_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/ipi.rb, line 140</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">send_confirmation_request</span>
+  <span class="ruby-comment"># move this to common_work_ipi</span>
+  <span class="ruby-identifier">attach_to_user</span>
+  <span class="ruby-identifier">send_confirmation_email</span>
+  <span class="ruby-identifier">send_confirmation_notification</span>
+  
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-users_publishing_agreements">
+            
+              <b>users_publishing_agreements</b>()
+            
+            <a href="../classes/Ipi.html#method-i-users_publishing_agreements" name="method-i-users_publishing_agreements" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-users_publishing_agreements_source')" id="l_method-i-users_publishing_agreements_source">show</a>
+                
+              </p>
+              <div id="method-i-users_publishing_agreements_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/ipi.rb, line 110</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">users_publishing_agreements</span>
+  <span class="ruby-comment">#return nil unless user</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">user</span>.<span class="ruby-identifier">get_publishing_agreements</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-work_title">
+            
+              <b>work_title</b>()
+            
+            <a href="../classes/Ipi.html#method-i-work_title" name="method-i-work_title" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-work_title_source')" id="l_method-i-work_title_source">show</a>
+                
+              </p>
+              <div id="method-i-work_title_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/ipi.rb, line 123</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">work_title</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">common_work</span> <span class="ruby-operator">?</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">common_work</span>.<span class="ruby-identifier">title</span> <span class="ruby-operator">:</span> <span class="ruby-string">&#39;Work missing!&#39;</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+                    </div>
+
+    </div>
+  </body>
+</html>    

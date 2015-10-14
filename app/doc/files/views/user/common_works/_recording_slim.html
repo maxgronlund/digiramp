@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>_recording.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            _recording.slim
+        </h1>
+        <ul class="files">
+            <li>views/user/common_works/_recording.slim</li>
+            <li>Last modified: 2015-09-27 23:22:28 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>.row</p>
+
+<pre><code>.col-sm-12
+  #digiWhams  class=&quot;/recordings/#{recording.id.to_s}&quot;   
+    == render &#39;audio_player/show&#39;, recording: recording , description: true, target: &quot;&quot;
+    .recording-credits
+      .row
+        .col-sm-6
+          h4 Contributors and Credits
+        .col-sm-6
+          .pull-right.pull-down-10
+
+            =&lt; link_to new_user_user_recording_recording_ipi_path(@user, recording) do
+                 .btn.btn-default
+                   i.fa.fa-user-plus&amp;nbsp;Add contributor
+
+      .table-responsive
+        table class=&quot;table table-hover&quot;
+          thead
+            tr
+              th
+              th Legal name / Email
+              th Capacity
+              th Contributors share
+              th 
+                .pull-right
+                  &#39;Status
+
+          tbody
+            - recording.recording_ipis.order(:id).each do |recording_ipi|
+              tr
+                td 
+                  /div class=&quot;recording-ipi-info-dialog-#{recording_ipi.id.to_s}&quot;
+                  =&gt; link_to user_user_recording_recording_ipi_path( @user, recording, recording_ipi), 
+                      data: {:confirm =&gt; &#39;Are you sure?&#39;}, 
+                      turboboost: true,
+                      method: :delete do
+                    .btn.btn-danger.btn-xs
+                      i.fa.fa-times
+                  =&gt; link_to edit_user_user_recording_recording_ipi_path( @user, recording, recording_ipi) do
+                    .btn.btn-default.btn-xs
+                      i.fa.fa-pencil
+
+                td 
+                  = recording_ipi.name
+                  br = recording_ipi.email
+                td = recording_ipi.role
+                td = number_to_percentage(recording_ipi.share, precision: 2)
+
+                td
+                  .pull-right
+                    div class=&quot;recording-confirmation-button-#{recording_ipi.id.to_s}&quot;
+                    == render &#39;user/recording_ipis/confirmation_button&#39;, user: @user, recording: recording, recording_ipi: recording_ipi
+
+      .row
+        .col-sm-12
+          .pull-right
+            - if !@user.is_stripe_connected  &amp;&amp; recording.is_cleared?
+              = link_to &#39;Enable payment gateway&#39;, user_user_create_shop_index_path(@user), class: &#39;btn btn-success&#39;
+
+            - if @user.is_stripe_connected &amp;&amp; recording.is_cleared?
+              - if product = recording.product
+                =&lt; link_to edit_user_user_product_path(@user, product ) do
+                        .btn.btn-success
+                          i.fa.fa-shopping-cart&amp;nbsp;Edit in shop
+              - else
+                =&lt; link_to new_user_user_product_path(@user, category: &#39;recording&#39;, recording_id: recording.id) do
+                        .btn.btn-success
+                          i.fa.fa-shopping-cart&amp;nbsp;Add to shop
+
+            =&lt; link_to edit_user_recording_basic_path(@user, recording)
+              .btn.btn-default
+                i.fa.fa-pencil&amp;nbsp;Edit recording
+
+  .open-dialog</code></pre>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

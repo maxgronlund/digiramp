@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>new_common_work.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            new_common_work.slim
+        </h1>
+        <ul class="files">
+            <li>views/account/recordings_bucket/new_common_work.slim</li>
+            <li>Last modified: 2015-09-24 20:35:34 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>wrap</p>
+
+<pre><code>div class=&quot;#{&#39;profile&#39; if account_owner?}&quot;
+  .full-width-top
+    == render &#39;admin/shared/navbar&#39;, page: &#39;account&#39; 
+
+.container
+  == render &#39;shared/breadcrumbs&#39;, breadcrumbs: { links: { documents: account_account_documents_path(@account), \
+                                                          &#39;recordings bucket&#39;.to_sym =&gt; account_account_recordings_bucket_index_path(@account), \
+                                                          &#39;add to common work&#39;.to_sym =&gt; add_to_common_work_account_account_recordings_bucket_index_path(@account, ids: @recording_ids) \
+                                                         }, \
+                                                  current:  &#39;create common work&#39;}
+
+  - blog      = Blog.cached_find(&#39;Recording Bucket&#39;)
+  == render &#39;shared/page_title&#39;, locals: {blog: blog, blog_post: &#39;Create Common Work&#39;}
+  /==render &#39;admin/shared/messages&#39;
+
+  = simple_form_for [:account, @account, @common_work], :url =&gt; url_for(:action =&gt; &#39;create_common_work&#39;, \
+                                                                        :controller =&gt; &#39;recordings_bucket&#39;), \
+                                                                        :method =&gt; &#39;put&#39;,  \
+                                                                        :html =&gt; { :id =&gt; &#39;common_work&#39; } do |f|
+    = f.hidden_field :recording_ids, value: @recording_ids
+    = f.hidden_field :account_id, value: @account.id
+    = transloadit :image_files_to_s3 
+    .row
+      .col-sm-6
+        .panel.panel-primary
+          .panel-heading
+            &#39;Info
+          .panel-body
+
+            = f.label      :artwork, &#39;Thumbnail will be scaled to 184x184 pixels&#39; 
+            = f.file_field :artwork, multiple: false
+            hr
+            /= f.input :artwork
+            = f.input :title, :input_html =&gt; {  style: &quot; width: 100%;&quot;, placeholder: &quot;Title&quot;}, autofocus: true
+            = f.input :alternative_titles, :input_html =&gt; {  style: &quot;height: 120px;&quot;, placeholder: &quot;Alternative Titles&quot;}
+            = f.input :iswc_code, label: &#39;ISWC Code&#39;,:input_html =&gt; {  placeholder: &quot;ISWC Code&quot;}
+            = f.input :description, :input_html =&gt; {  style: &quot;height: 120px;&quot;, placeholder: &quot;Description&quot;}
+
+      .col-sm-6
+        .panel.panel-primary
+          .panel-heading
+            &#39;Lyrics
+          .panel-body
+            div id=&quot;toolbar&quot; class=&quot;wysihtml5-toolbar&quot;
+              a data-wysihtml5-command=&quot;bold&quot; Bold
+              &#39;&amp;nbsp; 
+              a data-wysihtml5-command=&quot;italic&quot; Italic
+
+            =f.input :lyrics, label: false, :input_html =&gt; {  style: &quot;height: 549px;&quot;, placeholder: &quot;Lyrics&quot;, id: &#39;wysihtml5_editor&#39;}
+
+    .pull-right
+      = link_to &#39;Cancel&#39;, account_account_common_works_path( @account), class: &#39;btn btn-default btn-lg&#39;
+      &#39;&amp;nbsp;
+      = f.submit &#39;Save&#39;, class: &#39;btn btn-info btn-lg&#39;
+
+  = transloadit_jquerify :common_work, :wait =&gt; true</code></pre>
+
+<p>/-cache ([&#39;footer&#39;, <a
+href="../../../../classes/Admin.html#method-c-cached_find">Admin.cached_find</a>.version])
+do</p>
+
+<p>/  =render &#39;shared/footer&#39;</p>
+
+<h2 id="label-render+-27shared-2Finit_wysiwyg5-27">render &#39;shared/init_wysiwyg5&#39;</h2>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

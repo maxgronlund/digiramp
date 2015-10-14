@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>_continue.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            _continue.slim
+        </h1>
+        <ul class="files">
+            <li>views/user/work_rights/_continue.slim</li>
+            <li>Last modified: 2015-09-26 13:30:11 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>.old-wizard</p>
+
+<pre><code>h2 = common_work.title
+.pull-down-10
+
+.digi-box
+  h3 Add composer     
+  = simple_form_for [:user, common_work, Ipi.new] , :url =&gt; url_for(:action =&gt; &#39;create&#39;, :controller =&gt; &#39;work_rights&#39;), :method =&gt; &#39;post&#39; do |f|
+    = f.input :full_name, autofocus: true
+
+/h4 Stakeholders
+/.digi-box
+/  
+/  .table-responsive
+/    table class=&quot;table table-hover&quot;
+/      thead
+/        tr
+/          th Full name
+/          th Email
+/          th PRO
+/
+/      tbody
+/        - common_work.ipis.each do |ipi|
+/          tr
+/            td = ipi.full_name
+/            td = ipi.email
+/            td 
+/              - if pro = ipi.pro_affiliation
+/                =  pro.title
+/              
+/            td = debug ipi</code></pre>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

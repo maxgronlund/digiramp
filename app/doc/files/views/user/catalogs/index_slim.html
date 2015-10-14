@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>index.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            index.slim
+        </h1>
+        <ul class="files">
+            <li>views/user/catalogs/index.slim</li>
+            <li>Last modified: 2015-09-25 00:05:13 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>wrapper</p>
+
+<pre><code>.full-width-top
+  == render &#39;shared/navigationbar&#39;, page: &#39;home&#39; 
+
+#sidebar-wrapper
+  ul class=&quot;sidebar-nav&quot;
+    == render &#39;users/shared/sidebar&#39;, selected: &#39;catalogs&#39;
+
+#page-content-wrapper
+  .container-fluid
+    //==render &#39;admin/shared/messages&#39;
+    == render &#39;shared/breadcrumbs&#39;, breadcrumbs: { links: { &#39;Dashboard&#39;.to_sym =&gt; user_user_control_panel_index_path(@user) }}
+    .row
+      .col-sm-12
+        .help
+          .help-text
+            h2 Catalogs
+          .help-button
+            == render &#39;admin/helps/help&#39;, identifier: &#39;user catalogs&#39;
+    .pull-down-10
+    .catalog
+      .catalog-badges
+        - @catalogs.order(:title).each do |catalog|
+          - catalog_user = CatalogUser.cached_where(catalog.id, @user.id)
+          .catalog-badge-container
+            = link_to catalog_account_catalog_recordings_path(catalog.account, catalog) do
+              .catalog-badge 
+                .title
+                  h4 = catalog.title
+                .body
+                  i class=&#39;fa fa-headphones&#39;
+                  &#39;&amp;nbsp;
+                  &#39;Recordings:
+                  &#39;&amp;nbsp;
+                  =catalog.nr_recordings
+                  /.pull-right
+                  /  = link_to catalog_account_catalog_recordings_path(catalog.account, catalog) do
+                  /    .btn.btn-default.btn-xs
+                  /      &#39;Show
+
+                  .sexy_line
+                  i class=&#39;fa fa-music&#39;
+                  &#39;&amp;nbsp;
+                  &#39;Common works:
+                  &#39;&amp;nbsp;
+                  =catalog.nr_common_works
+                  /.pull-right
+                  /  = link_to catalog_account_catalog_common_works_path(catalog.account, catalog) do
+                  /    .btn.btn-default.btn-xs
+                  /      &#39;Show
+
+                  .sexy_line
+                  i class=&#39;fa fa-user&#39;
+                  &#39;&amp;nbsp;
+                  &#39;Administrator:
+                  br
+                  = catalog.account.title
+                  .sexy_line
+                  .text_here2
+                    span class=&#39;ellipsis_text&#39;
+                      = simple_format catalog.body
+
+                  /= truncate( catalog.body, escape: false)
+
+    /.table-responsive
+    /  table class=&quot;table table-hover&quot;
+    /    thead
+    /      tr
+    /        th CATALOG
+    /        th RECORDINGS
+    /        th COMMON WORKS
+    /        
+    /    
+    /    tbody
+    /      - @catalogs.each do |catalog|
+    /        - catalog_user = CatalogUser.cached_where(catalog.id, @user.id)
+    /        tr
+    /          th 
+    /            = link_to catalog_account_catalog_recordings_path(catalog.account, catalog) do
+    /              .btn.btn-default
+    /                i class=&#39;fa fa-book&#39;
+    /                &#39;&amp;nbsp;
+    /                = catalog.title
+    /          td
+    /            = link_to catalog_account_catalog_recordings_path(catalog.account, catalog) do 
+    /               div class=&quot;btn btn-warning #{&#39;disabled&#39; unless catalog_user.read_recording}&quot;
+    /                  i class=&#39;fa fa-headphones&#39;
+    /                  &#39;&amp;nbsp;
+    /                  =catalog.nr_recordings
+    /          td
+    /            = link_to catalog_account_catalog_common_works_path(catalog.account, catalog) do 
+    /               div class=&quot;btn btn-info #{&#39;disabled&#39; unless catalog_user.read_recording}&quot;
+    /                  i class=&#39;fa fa-music&#39;
+    /                  &#39;&amp;nbsp;
+    /                  =catalog.nr_common_works
+    /
+    /
+
+== render &#39;shared/site_footer&#39;</code></pre>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>_add_contacts_by_emails.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            _add_contacts_by_emails.slim
+        </h1>
+        <ul class="files">
+            <li>views/user/contact_wizard/_add_contacts_by_emails.slim</li>
+            <li>Last modified: 2015-09-24 20:35:34 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>.old-contacts-content</p>
+
+<pre><code>h4 Write emails
+.digi-box
+  .row
+    .col-sm-12
+      .list_of_emails
+        = simple_form_for [:user, @user], :url =&gt; url_for(:action =&gt; &#39;submit_contacts_by_emails&#39;, :controller =&gt; &#39;contact_wizard&#39;), remote: true, :method =&gt; &#39;post&#39; do |f|
+
+          /= text_area_tag &#39;post&#39;
+
+          = text_area_tag &#39;emails&#39;, nil, placeholder: &quot;Emails seperated by commas i.e. \njohn@doe.com, jane@doe.com&quot; , autofocus: true
+
+          .row.pull-down-12
+            .col-sm-12
+              .pull-right
+                = f.submit &#39;Save&#39;, class: &#39;btn btn-info&#39;</code></pre>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

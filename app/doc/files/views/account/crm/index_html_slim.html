@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>index.html.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            index.html.slim
+        </h1>
+        <ul class="files">
+            <li>views/account/crm/index.html.slim</li>
+            <li>Last modified: 2015-09-26 08:28:17 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>/- blog      = <a
+href="../../../../classes/Blog.html#method-c-cached_find">Blog.cached_find</a>(&#39;Account&#39;)</p>
+
+<p>wrapper</p>
+
+<pre><code>.full-width-top
+  == render &#39;shared/navigationbar&#39;, page: &#39;account&#39; 
+
+.pro-account
+  #sidebar-wrapper
+
+    ul class=&quot;sidebar-nav&quot;
+      == render &#39;account/shared/sidebar&#39;, selected: &#39;crm&#39;
+
+#page-content-wrapper
+  .container-fluid
+    == render &#39;shared/breadcrumbs&#39;, breadcrumbs: { links: { account: account_account_path(@account ) }, current:&#39;&#39; }
+    h2 Customer Relation Management
+    .pull-down-10
+    .account-account
+      .account-account-badges
+         .account-account-badge-container
+           = link_to account_account_projects_path(@account) do
+             .account-account-badge
+               .title.crm-title
+                 h4
+                   i.fa.fa-book
+                   &#39;&amp;nbsp;
+                   &#39;Projects
+               .body
+                 ul
+                   li Email campains
+                   li activities
+
+    .account-account
+      .account-account-badges
+         .account-account-badge-container
+           = link_to account_account_clients_path(@account) do
+             .account-account-badge
+               .title.crm-title
+                 h4
+                   i.fa.fa-book
+                   &#39;&amp;nbsp;
+                   &#39;Clients
+               .body
+                 ul
+                   li Emails
+                   li Addresses
+                   li More..
+
+    .account-account
+      .account-account-badges
+         .account-account-badge-container
+           = link_to account_account_client_groups_path(@account) do
+             .account-account-badge
+               .title.crm-title
+                 h4
+                   i.fa.fa-book
+                   &#39;&amp;nbsp;
+                   &#39;Client groups
+               .body
+                 &#39;Organized in groups for easy usage
+
+    .clearfix 
+
+== render &#39;shared/site_footer&#39;</code></pre>
+
+<p>/#wrapper /  .full-width-top /    == render &#39;shared/navigationbar&#39;,
+page: &#39;account&#39;  /</p>
+
+<p>/</p>
+
+<p>/  sidebar-wrapper /    ul class=“sidebar-nav” /      == render
+&#39;users/shared/sidebar&#39;, selected: &#39;account&#39; /</p>
+
+<p>/  page-content-wrapper /    .container-fluid /      h2 #{@account.title}
+&lt;funky&gt;Pro&lt;/funky&gt; /      &#39;CRM  /      .sexy_line /     
+.row /        .col-sm-4 /          = link_to “PROJECTS”,
+account_account_projects_path(@account) /        .col-sm-4 /          =
+link_to “CLIENTS”, account_account_clients_path(@account) /       
+.col-sm-4 /          = link_to “CLIENT GROUPS”,
+account_account_client_groups_path(@account) / /</p>
+
+<p>/</p>
+
+<p>/</p>
+
+<p>/</p>
+
+<p>/  == render &#39;shared/site_footer&#39;</p>
+
+<p>/  / /</p>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

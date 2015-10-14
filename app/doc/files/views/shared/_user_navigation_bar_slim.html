@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>_user_navigation_bar.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            _user_navigation_bar.slim
+        </h1>
+        <ul class="files">
+            <li>views/shared/_user_navigation_bar.slim</li>
+            <li>Last modified: 2015-09-28 17:04:21 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>nav.navbar.nav-user</p>
+
+<pre><code>/! Brand and toggle get grouped for better mobile display
+.navbar-header
+  button type=&quot;button&quot; class=&quot;navbar-toggle&quot; data-toggle=&quot;collapse&quot; data-target=&quot;#user_navigation_bar&quot;
+    span.sr-only Toggle navigation
+    span.icon-bar
+    span.icon-bar
+    span.icon-bar
+
+.collapse.navbar-collapse id=&quot;user_navigation_bar&quot; 
+  ul.nav.navbar-nav
+    - @user.cms_pages.where(show_in_menu: true).each do |cms_page|
+      li class=&quot;#{&#39;active&#39; if cms_page.title == page}&quot;
+        = link_to user_cms_page_path(cms_page.user, cms_page) do
+          = cms_page.title
+
+  ul.nav.navbar-nav.navbar-right
+
+    - if current_user 
+      - if @edit_page
+        li
+          = link_to edit_user_user_cms_page_path(@cms_page.user, @cms_page) do
+            i.fa.fa-pencil
+            &#39;&amp;nbsp;
+            &#39;Edit page
+      li class=&quot;#{page == &#39;messages&#39; ? &#39;active&#39; : &#39;&#39;}&quot;
+        = link_to user_unread_messages_path(current_user) do
+          div id=&quot;message_count&quot;
+          == render &#39;messages/count&#39;
+          i.fa.fa-envelope
+          &#39;&amp;nbsp;
+          &#39;Msg.
+
+      li class=&quot;#{page == &#39;dashboard&#39; ? &#39;active&#39; : &#39;&#39;}&quot;
+        = link_to user_user_control_panel_index_path(current_user) do
+          i.fa.fa-tachometer
+
+      li class=&quot; dropdown #{page == &#39;settings&#39; ? &#39;active&#39; : &#39;&#39;}&quot;
+        /&lt;a href=&quot;#&quot; class=&quot;dropdown-toggle&quot; data-toggle=&quot;dropdown&quot;&gt;Dropdown &lt;span class=&quot;caret&quot;&gt;&lt;/span&gt;&lt;/a&gt;
+        = link_to &#39;#&#39;, class: &quot;dropdown-toggle navigation-avatar&quot;, &#39;data-toggle&#39;.to_sym =&gt; &quot;dropdown&quot; do
+          = image_tag current_user.image_url(:avatar_32x32)
+
+        ul class=&quot;dropdown-menu&quot; role=&quot;menu&quot;
+          li  class=&quot;#{page == &#39;contacts&#39; ? &#39;active&#39; : &#39;&#39;}&quot;
+            = link_to user_path(current_user ) do
+              i class=&quot;fa fa-user&quot;
+              &#39;&amp;nbsp;
+              &#39;Profile
+
+          li  class=&quot;#{page == &#39;contacts&#39; ? &#39;active&#39; : &#39;&#39;}&quot;
+            = link_to user_recordings_path(current_user, clear: &#39;clear&#39; ) do
+              i class=&quot;fa fa-headphones&quot;
+              &#39;&amp;nbsp;
+              &#39;Recordings
+
+          - unless current_user.account_type  == &quot;Social&quot;    
+            li  class=&quot;#{page == &#39;account&#39; ? &#39;active&#39; : &#39;&#39;}&quot;
+              = link_to account_account_path( current_user.account) do
+                i class=&quot;fa fa-money&quot;
+                &#39;&amp;nbsp;
+                &#39;Pro Account
+
+            li  class=&quot;#{page == &#39;user_collections&#39; ? &#39;active&#39; : &#39;&#39;}&quot;
+              = link_to user_user_collections_path( current_user) do
+                i class=&quot;fa fa-home&quot;
+                &#39;&amp;nbsp;
+                &#39;Other Accounts
+
+            li  class=&quot;#{page == &#39;catalogs&#39; ? &#39;active&#39; : &#39;&#39;}&quot;
+              = link_to user_user_catalogs_path( current_user) do
+                i class=&quot;fa fa-book&quot;
+                &#39;&amp;nbsp;
+                &#39;Catalogs
+
+          - if editor? 
+            li  class=&quot;#{page == &#39;admin&#39; ? &#39;active&#39; : &#39;&#39;}&quot;
+              = link_to admin_index_path do
+                i class=&quot;fa fa-gear&quot;
+                &#39;&amp;nbsp;Admin
+          - if current_user.salesperson
+            li  class=&quot;#{page == &#39;sales&#39; ? &#39;active&#39; : &#39;&#39;}&quot;
+              = link_to sales_dashboard_index_path do
+                i class=&quot;fa fa-money&quot;
+                &#39;&amp;nbsp;Sales</code></pre>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

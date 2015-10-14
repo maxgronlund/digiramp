@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>index.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            index.slim
+        </h1>
+        <ul class="files">
+            <li>views/account/playlist_keys/index.slim</li>
+            <li>Last modified: 2015-09-24 20:35:34 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>/div class=“playlist_id” id=“#{@playlist.id}”</p>
+
+<p>wrap</p>
+
+<pre><code>div class=&quot;#{&#39;profile&#39; if account_owner?}&quot;
+  .full-width-top
+    == render &#39;admin/shared/navbar&#39;, page: &#39;account&#39; 
+/-cache([ @account.id, @account.works_uuid, params]) do  
+.do   
+  .container
+
+    /==render &#39;admin/shared/messages&#39;
+    == render &#39;shared/breadcrumbs&#39;, breadcrumbs: { links: {@account.title.to_sym =&gt; account_path(@account),
+                                                           dashboard: account_account_path(@account),\
+                                                           playlists: account_account_playlists_path(@account), \
+                                                           @playlist.title.to_sym =&gt; account_account_playlist_path(@account, @playlist), \
+                                                           }, current:  &#39;keys&#39;}
+
+    - blog = Blog.cached_find(&#39;PLAYLISTS&#39;)
+    == render &#39;shared/page_title&#39;, locals: {blog: blog, blog_post: &#39;PLAYLIST KEYS&#39;, insert: &#39;back&#39;}                    
+    /== render &#39;shared/page_title_text&#39;, locals: {title: &quot;Keys For: #{@playlist.title}&quot;, body: &#39;&#39;}
+
+    .row
+      .col-sm-12
+        .panel.panel-primary
+          .panel-heading
+            &#39;Keys
+          .panel-body
+            .table-responsive
+              table class=&quot;table table-striped&quot;
+                thead
+                  tr
+                    th Title
+                    th Status
+                    th Expiration
+                    th Protecion
+                    th Users
+
+                tbody
+                  - @playlist_keys.each do |playlist_key|
+                    tr
+                      td 
+                        b = playlist_key.title
+                      td
+                        - if playlist_key.enable
+                          .positive
+                            i class=&quot;fa fa-check-circle&quot;
+                            &#39;&amp;nbsp;
+                            &#39;Enabled
+                        - else
+                          .negative
+                            i class=&quot;fa fa-minus-circle&quot;
+                            &#39;&amp;nbsp;
+                            &#39;Disabled
+
+                      td
+                        -if playlist_key.expires
+                          - if playlist_key.expiration_date &gt; Date.current
+                            = playlist_key.expiration_date
+                          - else
+                            .negative
+                              i class=&quot;fa fa-exclamation-circle&quot;
+                              &#39;&amp;nbsp;
+                              &#39;Expired
+                        - else
+                          &#39;Never
+                      td 
+                        - if playlist_key.secure_access
+                          .positive
+                            i class=&quot;fa fa-check-circle&quot;
+                            &#39;&amp;nbsp;
+                            &#39;Password
+                        - else
+                          .negative
+                            i class=&quot;fa fa-exclamation-circle&quot;
+                            &#39;&amp;nbsp;
+                            &#39;None
+                      td
+                        = link_to account_account_playlist_playlist_key_playlist_key_users_path(@account, @playlist, playlist_key) do
+                         .btn.btn-default.btn-lg
+                           i class=&quot;fa fa-users&quot;
+                           &#39;&amp;nbsp;
+                           &#39;125
+
+                      td
+                        .pull-right 
+                          = link_to  edit_account_account_playlist_playlist_key_path(@account, @playlist, playlist_key) do
+                            .btn.btn-info.btn-lg
+                              i class=&quot;fa fa-pencil&quot;
+                          &#39;&amp;nbsp;
+                          = link_to &#39;#&#39; do
+                            .btn.btn-danger.btn-lg
+                              i class=&quot;fa fa-times&quot;
+
+  == render &#39;shared/back&#39;, locals: {link: account_account_playlist_path(@account, @playlist)}</code></pre>
+
+<p>-cache ([&#39;footer&#39;, <a
+href="../../../../classes/Admin.html#method-c-cached_find">Admin.cached_find</a>.version])
+do</p>
+
+<pre><code>=render &#39;shared/footer&#39;</code></pre>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

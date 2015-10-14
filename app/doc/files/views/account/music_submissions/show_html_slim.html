@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>show.html.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            show.html.slim
+        </h1>
+        <ul class="files">
+            <li>views/account/music_submissions/show.html.slim</li>
+            <li>Last modified: 2015-09-24 20:35:34 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>wrap</p>
+
+<pre><code>div class=&quot;#{&#39;profile&#39; if account_owner?}&quot;
+  .full-width-top
+    == render &#39;admin/shared/navbar&#39;, page: &#39;account&#39;          
+.container
+  == render &#39;admin/shared/messages&#39;
+  == render &#39;shared/breadcrumbs&#39;, breadcrumbs: { links: { opportunities: account_account_opportunities_path(@account), \
+                                                         @opportunity.title.to_sym =&gt; account_account_opportunity_path(@account, @opportunity),\
+                                                         @music_request.title.to_sym =&gt; account_account_opportunity_music_request_path(@account, @opportunity, @music_request),
+                                                         }, current: @recording.title }
+
+  /-body = link_to &#39;COMMON WORK&#39;, account_work_path(@account, @recording.get_common_work)
+  /- insert = &#39;account/recordings/edit&#39;
+  == render &#39;shared/recording_title&#39;, locals: {recording: @recording, body: @recording.comment, insert: &#39;back&#39;} 
+
+  /= link_to download_original_recording_path(recording: @recording.id) do
+  /  .btn.btn-info.btn-lg
+  /    i class=&#39;fa fa-cloud-download&#39;
+  /    &#39;&amp;nbsp;Download Original 
+  /&#39;&amp;nbsp;
+  /= link_to download_mp3_recording_path(recording: @recording.id) do
+  /  .btn.btn-info.btn-lg
+  /    i class=&#39;fa fa-cloud-download&#39;
+  /    &#39;&amp;nbsp;Download MP3
+  /    
+  -index = @recording.id
+  div class=&quot;player&quot; id=&quot;#{index}&quot;
+  .just-load
+  .panel.panel-primary
+    .panel-heading
+      = @recording.title
+    .panel-body
+      .digiramp_player
+        div class=&quot;permissions&quot; value=&quot;no_buttons&quot; id=&quot;#{current_user.id}&quot;
+        == render &#39;players/digramp_player&#39;, locals: {index: index , recording: @recording}
+  .row
+    .col-sm-6.col-md-5.col-lg-4
+      == render &#39;recordings/shared/metadata&#39;
+      == render &#39;recordings/shared/description&#39;   if @recording.comment.to_s != &#39;&#39;
+      == render &#39;recordings/shared/lyrics&#39;        if @recording.lyrics.to_s != &#39;&#39;
+    .col-sm-6.col-md-7.col-lg-8 
+
+      .row
+        .col-lg-5
+          .panel.panel-primary
+            .panel-heading
+              &#39;Post Comment
+            .panel-body
+              = simple_form_for [ @commentable, @comment ], :url =&gt; url_for(:action =&gt; &#39;create_comment&#39;, :controller =&gt; &#39;music_submissions&#39;), :method =&gt; &#39;post&#39;do |f|
+                = f.hidden_field  :commentable_id,    value: @commentable.id
+                = f.hidden_field  :commentable_type,  value: @commentable.class.name
+                = f.input :title, autofocus: true
+                div id=&quot;toolbar&quot; class=&quot;wysihtml5-toolbar&quot;
+                  a data-wysihtml5-command=&quot;bold&quot; Bold
+                  &#39;&amp;nbsp; 
+                  a data-wysihtml5-command=&quot;italic&quot; Italic
+
+                =f.input :body, label: false, :input_html =&gt; {  style: &quot;height: 120px;&quot;, placeholder: &quot;Comment&quot;, id: &#39;wysihtml5_editor&#39;}
+                .pull-right
+                  = f.submit &#39;Post&#39;, class: &#39;btn btn-info btn-lg&#39;
+
+        .col-lg-7
+          .panel.panel-primary
+            .panel-heading
+              &#39;Comments
+            .panel-body  
+             = render &#39;comments/comments&#39;</code></pre>
+
+<h2 id="label-render+-27shared-2Finit_wysiwyg5-27++++++++++++++">render &#39;shared/init_wysiwyg5&#39;              </h2>
+
+<p>/    == render &#39;shared/back&#39;, locals: {link:
+account_account_opportunity_music_request_path(@account, @opportunity,
+@music_request)}  /-cache ([&#39;footer&#39;, <a
+href="../../../../classes/Admin.html#method-c-cached_find">Admin.cached_find</a>.version])
+do</p>
+
+<p>/  =render &#39;shared/footer&#39;</p>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

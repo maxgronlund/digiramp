@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>_form.html.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            _form.html.slim
+        </h1>
+        <ul class="files">
+            <li>views/sales/coupon_batches/_form.html.slim</li>
+            <li>Last modified: 2015-09-24 20:35:34 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<h1 id="label-simple_form_for-28-40sales_coupon_batch-29+do+-7Cf-7C">simple_form_for(@sales_coupon_batch) do |f|</h1>
+
+<pre><code>- unless f.error_notification.blank?
+  .alert.alert-danger
+    = f.error_notification
+
+.form-inputs
+  .row
+    .col-sm-6
+      .panel.panel-default
+        .panel-body
+          = f.input :title, label: &#39;Name of the coupon batch&#39;, placeholder: &#39;SPECIAL-OFFER-FOR-SOMEONE&#39;, autofocus: true
+          = f.input :email, label: &#39;Email of the person to get this offer&#39;, placeholder: &#39;someone@special.com&#39;
+
+          /.table-responsive
+          /  table class=&quot;table table-hover&quot;
+          /    thead
+          /      tr
+          /        th Original price
+          /        th Discount
+          /        th Number of coupons
+          /    tbody
+          /      tr
+          /        td 1900
+          /        td 20
+          /        td 10
+          /      tr
+          /        th Total
+          /        td
+          /        th 15200
+          /
+
+    .col-sm-6
+      .panel.panel-default
+        .panel-body
+          = f.input :discount, label: &#39;Discount in percent&#39;, placeholder: &#39;i.e. 20&#39;
+          &#39;A positive integer representing the discount in percent
+          /= f.input :body, label: &#39;Notes, will be in the email&#39;,  :input_html =&gt; {  style: &quot;height: 180px;&quot;, placeholder: &quot;A message that goes in the email&quot;}
+          /= f.hidden_field :created_by, value: current_user.email
+
+  .sexy_line
+  h3 Coupon settings
+  .alert.alert-warning
+    &#39;Pay attention Coupons can not be eddited when they first are created
+  .row
+
+    .form-inputs
+      .col-sm-6
+        /.panel.panel-default
+        /  .panel-body
+        /    = f.input :stripe_id, label: &#39;Stripe id&#39;
+        /    &#39;Unique string of your choice that will be used to identify this coupon when applying it a customer. This is often a specific code you’ll give to your customer to use when signing up (e.g. FALL25OFF). If you don’t want to specify a particular code, you can leave the ID blank and Stripe will generate a random code.
+        /
+        /
+        .panel.panel-default
+          .panel-body
+            = f.input :amount_off, as: :integer
+            &#39;A positive integer representing the amount to subtract from an invoice total (required if Percent off is not passed)
+
+        .panel.panel-default
+          .panel-body
+            = f.input :percent_off, as: :integer
+            &#39;A positive integer between 1 and 100 that represents the discount the coupon will apply (required if Amount off is not passed)
+
+        .panel.panel-default
+          .panel-body
+            = f.input :currency, collection: Plan::CURRENCY  , include_blank: false
+            &#39;Currency of the amount_off parameter (required if amount_off is passed)
+
+        .panel.panel-default
+          .panel-body
+            = f.input :number_of_coupons, as: :integer
+            /= f.input :max_redemptions
+            /&#39;A positive integer specifying the number of times the coupon can be redeemed before it’s no longer valid. For example, you might have a 50% off coupon that the first 20 readers of your blog can use.
+
+      .col-sm-6
+
+        .panel.panel-default
+          .panel-body
+            = f.input :duration, collection: Coupon::DURATION, include_blank: false
+            &#39;Specifies how long the discount will be in effect. Can be forever, once, or repeating.
+
+        .panel.panel-default
+          .panel-body
+            = f.input :duration_in_months, as: :integer
+            &#39;required only if duration is repeating If duration is repeating, a positive integer that specifies the number of months the discount will be in effect
+
+        .panel.panel-default
+          .panel-body
+            b Redeem by
+            = f.text_field :redeem_by, class: &quot;form-control&quot;, &#39;data-date-format&#39;.to_sym =&gt; &quot;YYYY/MM/DD&quot;, id: &#39;datetimepicker5&#39;
+            br The last time at which the coupon can be redeemed. After the redeem by date, the coupon can no longer be applied to new customers.
+
+        .panel.panel-default
+          .panel-body
+            = f.input :plan_id , :include_blank =&gt; true, :collection =&gt; Plan.all , label: &#39;Plan&#39;
+            /= f.association :plan
+            /&#39;The coupon can be tied to a specific plan. so it can only be used for that
+      /= f.input :redeem_by
+
+.form-actions
+  .row
+    .col-sm-12
+      .pull-right
+        = f.submit &#39;Save&#39;, class: &#39;btn btn-info&#39;</code></pre>
+
+<p>.pull-down-34</p>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

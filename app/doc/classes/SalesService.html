@@ -1,0 +1,884 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>SalesService</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../css/github.css" type="text/css" media="screen" />
+<script src="../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            <span class="type">Class</span> 
+            SalesService 
+            
+                <span class="parent">&lt; 
+                    
+                    Object
+                    
+                </span>
+            
+        </h1>
+        <ul class="files">
+            
+            <li><a href="../files/services/sales_service_rb.html">services/sales_service.rb</a></li>
+            
+        </ul>
+    </div>
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>This class validates a recording by iterating true all the associated data.</p>
+
+<h4 id="class-SalesService-label-Example">Example</h4>
+
+<pre><code>sales_service = SalesService.new(RECORDING_ID)
+sales_service.validate
+# =&gt; {
+        :status =&gt; &#39;ok&#39;,
+   :common_work =&gt; {
+                 :status =&gt; &#39;error&#39;,
+                     :id =&gt; &#39;11830&#39;,
+                  :title =&gt; &#39;00 4&#39;
+                  }
+   ...</code></pre>
+
+<p>when changes is made to any model associated with a recording this service
+class should be created and validate should be called Then a message
+descriping problems if any will be generated</p>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+    <!-- Method ref -->
+    <div class="sectiontitle">Methods</div>
+    <dl class="methods">
+      
+        <dt>N</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-c-new">new</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>V</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-validate">validate</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-i-validate_common_work_ipi">validate_common_work_ipi</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-i-validate_common_work_ipis">validate_common_work_ipis</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-i-validate_document">validate_document</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-i-validate_existence_of_work">validate_existence_of_work</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-i-validate_ipi">validate_ipi</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-i-validate_ipi_publisher">validate_ipi_publisher</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-i-validate_ipi_publishers">validate_ipi_publishers</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-i-validate_publishing_agreements">validate_publishing_agreements</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-i-validate_recording">validate_recording</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-i-validate_recording_ip_user">validate_recording_ip_user</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-i-validate_recording_ipi">validate_recording_ipi</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+    </dl>
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+    
+      <div class="sectiontitle">Class Public methods</div>
+      
+        <div class="method">
+          <div class="title method-title" id="method-c-new">
+            
+              <b>new</b>(recording_id)
+            
+            <a href="../classes/SalesService.html#method-c-new" name="method-c-new" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              <p>Create the <a href="SalesService.html">SalesService</a> validator</p>
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-c-new_source')" id="l_method-c-new_source">show</a>
+                
+              </p>
+              <div id="method-c-new_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File services/sales_service.rb, line 20</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">initialize</span> <span class="ruby-identifier">recording_id</span>
+  
+  <span class="ruby-keyword">if</span> <span class="ruby-ivar">@recording</span> = <span class="ruby-constant">Recording</span>.<span class="ruby-identifier">cached_find</span>(<span class="ruby-identifier">recording_id</span>)
+    <span class="ruby-ivar">@error_message</span> = <span class="ruby-keyword">nil</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-ivar">@error_message</span> = {
+      <span class="ruby-identifier">status</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;error&#39;</span>,
+      <span class="ruby-identifier">message</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;Recording not found&#39;</span>
+    }
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+                  
+      <div class="sectiontitle">Instance Public methods</div>
+      
+        <div class="method">
+          <div class="title method-title" id="method-i-validate">
+            
+              <b>validate</b>()
+            
+            <a href="../classes/SalesService.html#method-i-validate" name="method-i-validate" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              <p>Entry point for a validation cycle</p>
+<ul><li>
+<p>Is there a common work</p>
+</li><li>
+<p>Is is the commen_work 100% cleared</p>
+</li><li>
+<p>is the recording 100% cleared</p>
+</li></ul>
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-validate_source')" id="l_method-i-validate_source">show</a>
+                
+              </p>
+              <div id="method-i-validate_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File services/sales_service.rb, line 37</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">validate</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-ivar">@error_message</span> <span class="ruby-keyword">if</span> <span class="ruby-ivar">@error_message</span>
+  
+  {
+    <span class="ruby-identifier">status</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;ok&#39;</span>,
+    <span class="ruby-identifier">common_work</span><span class="ruby-operator">:</span> <span class="ruby-identifier">validate_existence_of_work</span>,
+    <span class="ruby-identifier">recording</span><span class="ruby-operator">:</span> <span class="ruby-identifier">validate_recording</span>
+  }
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-validate_common_work_ipi">
+            
+              <b>validate_common_work_ipi</b>(common_work_ipi)
+            
+            <a href="../classes/SalesService.html#method-i-validate_common_work_ipi" name="method-i-validate_common_work_ipi" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              <p>Check if there an ipi associated with a common_work_ipi</p>
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-validate_common_work_ipi_source')" id="l_method-i-validate_common_work_ipi_source">show</a>
+                
+              </p>
+              <div id="method-i-validate_common_work_ipi_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File services/sales_service.rb, line 177</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">validate_common_work_ipi</span> <span class="ruby-identifier">common_work_ipi</span>
+  
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">ipi</span> = <span class="ruby-identifier">common_work_ipi</span>.<span class="ruby-identifier">ipi</span>
+    
+    <span class="ruby-identifier">validated_ipi</span> = <span class="ruby-identifier">validate_ipi</span>(<span class="ruby-identifier">ipi</span>)
+    { 
+      <span class="ruby-identifier">status</span><span class="ruby-operator">:</span>              <span class="ruby-identifier">validated_ipi</span>[<span class="ruby-value">:status</span>],
+      <span class="ruby-identifier">ipi</span><span class="ruby-operator">:</span>                  <span class="ruby-identifier">validated_ipi</span>
+    }
+  <span class="ruby-keyword">else</span>
+    {
+      <span class="ruby-identifier">status</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;error&#39;</span>,
+      <span class="ruby-identifier">message</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;No ipi attached&#39;</span>
+    }
+  <span class="ruby-keyword">end</span>
+ 
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-validate_common_work_ipis">
+            
+              <b>validate_common_work_ipis</b>(common_work)
+            
+            <a href="../classes/SalesService.html#method-i-validate_common_work_ipis" name="method-i-validate_common_work_ipis" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              <p>Check if all common_work_ips are valid</p>
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-validate_common_work_ipis_source')" id="l_method-i-validate_common_work_ipis_source">show</a>
+                
+              </p>
+              <div id="method-i-validate_common_work_ipis_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File services/sales_service.rb, line 147</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">validate_common_work_ipis</span> <span class="ruby-identifier">common_work</span>
+  <span class="ruby-identifier">validated_common_work_ipis</span> = []
+  <span class="ruby-identifier">status</span> = <span class="ruby-string">&#39;ok&#39;</span>
+  
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">common_work_ipis</span> = <span class="ruby-identifier">common_work</span>.<span class="ruby-identifier">common_work_ipis</span>
+    
+    <span class="ruby-identifier">common_work_ipis</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">common_work_ipi</span><span class="ruby-operator">|</span>
+      <span class="ruby-identifier">validated_common_work_ipi</span>  = <span class="ruby-identifier">validate_common_work_ipi</span>( <span class="ruby-identifier">common_work_ipi</span>) 
+      <span class="ruby-identifier">validated_common_work_ipis</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">validated_common_work_ipi</span> 
+      
+      <span class="ruby-keyword">if</span> <span class="ruby-identifier">validated_common_work_ipi</span>[<span class="ruby-value">:status</span>] <span class="ruby-operator">==</span> <span class="ruby-string">&#39;error&#39;</span>
+        <span class="ruby-identifier">status</span> = <span class="ruby-string">&#39;error&#39;</span> 
+      <span class="ruby-keyword">end</span>
+    <span class="ruby-keyword">end</span>
+    {
+      <span class="ruby-identifier">status</span><span class="ruby-operator">:</span> <span class="ruby-identifier">status</span>,
+      <span class="ruby-identifier">common_work_ipis</span><span class="ruby-operator">:</span> <span class="ruby-identifier">validated_common_work_ipis</span>
+    }
+  
+  <span class="ruby-keyword">else</span>
+    { 
+      <span class="ruby-identifier">status</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;error&#39;</span>,
+      <span class="ruby-identifier">message</span><span class="ruby-operator">:</span> <span class="ruby-node">&quot;No creators registered for #{common_work.title}&quot;</span>
+    }
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-validate_document">
+            
+              <b>validate_document</b>(document, ipi)
+            
+            <a href="../classes/SalesService.html#method-i-validate_document" name="method-i-validate_document" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              <p>check if a document is signed</p>
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-validate_document_source')" id="l_method-i-validate_document_source">show</a>
+                
+              </p>
+              <div id="method-i-validate_document_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File services/sales_service.rb, line 300</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">validate_document</span> <span class="ruby-identifier">document</span>, <span class="ruby-identifier">ipi</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">document</span>.<span class="ruby-identifier">signed?</span>
+    {
+      <span class="ruby-identifier">status</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;ok&#39;</span>,
+      <span class="ruby-identifier">title</span><span class="ruby-operator">:</span>  <span class="ruby-identifier">document</span>.<span class="ruby-identifier">title</span>,
+      <span class="ruby-identifier">id</span><span class="ruby-operator">:</span>     <span class="ruby-identifier">document</span>.<span class="ruby-identifier">id</span>
+    }
+  <span class="ruby-keyword">else</span>
+    {
+     <span class="ruby-identifier">status</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;error&#39;</span>,
+     <span class="ruby-identifier">message</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;Document not signed&#39;</span>,
+     <span class="ruby-identifier">title</span><span class="ruby-operator">:</span>  <span class="ruby-identifier">document</span>.<span class="ruby-identifier">title</span>,
+     <span class="ruby-identifier">id</span><span class="ruby-operator">:</span>     <span class="ruby-identifier">document</span>.<span class="ruby-identifier">id</span> 
+    }
+  <span class="ruby-keyword">end</span>
+  
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-validate_existence_of_work">
+            
+              <b>validate_existence_of_work</b>()
+            
+            <a href="../classes/SalesService.html#method-i-validate_existence_of_work" name="method-i-validate_existence_of_work" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              <p>Check if the work exists</p>
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-validate_existence_of_work_source')" id="l_method-i-validate_existence_of_work_source">show</a>
+                
+              </p>
+              <div id="method-i-validate_existence_of_work_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File services/sales_service.rb, line 121</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">validate_existence_of_work</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-ivar">@common_work</span> = <span class="ruby-ivar">@recording</span>.<span class="ruby-identifier">common_work</span>
+    
+    <span class="ruby-identifier">validated_common_work</span> = <span class="ruby-identifier">validate_common_work_ipis</span>( <span class="ruby-ivar">@common_work</span> )
+    <span class="ruby-identifier">validated_common_work</span>[<span class="ruby-value">:status</span>] <span class="ruby-operator">==</span> <span class="ruby-string">&#39;error&#39;</span> <span class="ruby-operator">?</span> <span class="ruby-identifier">status</span> = <span class="ruby-string">&#39;error&#39;</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">status</span> = <span class="ruby-string">&#39;ok&#39;</span>
+
+    {
+      <span class="ruby-identifier">status</span><span class="ruby-operator">:</span>           <span class="ruby-identifier">status</span>,
+      <span class="ruby-identifier">id</span><span class="ruby-operator">:</span>               <span class="ruby-ivar">@common_work</span>.<span class="ruby-identifier">id</span>,
+      <span class="ruby-identifier">title</span><span class="ruby-operator">:</span>            <span class="ruby-ivar">@common_work</span>.<span class="ruby-identifier">title</span>,
+      <span class="ruby-identifier">common_work_ipis</span><span class="ruby-operator">:</span> <span class="ruby-identifier">validated_common_work</span>[<span class="ruby-value">:common_work_ipis</span>]
+    }
+    
+    
+  <span class="ruby-keyword">else</span> 
+    <span class="ruby-keyword">return</span> {
+      <span class="ruby-identifier">status</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;error&#39;</span>,
+      <span class="ruby-identifier">message</span><span class="ruby-operator">:</span> <span class="ruby-node">&quot;Work is missing for #{recording.title}&quot;</span>
+    }
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-validate_ipi">
+            
+              <b>validate_ipi</b>(ipi)
+            
+            <a href="../classes/SalesService.html#method-i-validate_ipi" name="method-i-validate_ipi" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              <p>Print the resoult for the check for valid ip publishers</p>
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-validate_ipi_source')" id="l_method-i-validate_ipi_source">show</a>
+                
+              </p>
+              <div id="method-i-validate_ipi_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File services/sales_service.rb, line 196</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">validate_ipi</span> <span class="ruby-identifier">ipi</span>
+  <span class="ruby-identifier">status</span> = <span class="ruby-string">&#39;ok&#39;</span>
+  <span class="ruby-identifier">validated_ipi_publishers</span> = <span class="ruby-identifier">validate_ipi_publishers</span>( <span class="ruby-identifier">ipi</span> )
+  
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">validated_ipi_publishers</span>[<span class="ruby-value">:status</span>] <span class="ruby-operator">==</span> <span class="ruby-string">&#39;error&#39;</span>
+    <span class="ruby-identifier">status</span> = <span class="ruby-string">&#39;error&#39;</span>
+  <span class="ruby-keyword">end</span>
+  {
+    <span class="ruby-identifier">status</span><span class="ruby-operator">:</span> <span class="ruby-identifier">status</span>,
+    <span class="ruby-identifier">id</span><span class="ruby-operator">:</span> <span class="ruby-identifier">ipi</span>.<span class="ruby-identifier">id</span>, 
+    <span class="ruby-identifier">publishers</span><span class="ruby-operator">:</span> <span class="ruby-identifier">validated_ipi_publishers</span>[<span class="ruby-value">:publishers</span>]
+  }
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-validate_ipi_publisher">
+            
+              <b>validate_ipi_publisher</b>(publisher, ipi)
+            
+            <a href="../classes/SalesService.html#method-i-validate_ipi_publisher" name="method-i-validate_ipi_publisher" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              <p>Check one ip_publisher</p>
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-validate_ipi_publisher_source')" id="l_method-i-validate_ipi_publisher_source">show</a>
+                
+              </p>
+              <div id="method-i-validate_ipi_publisher_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File services/sales_service.rb, line 239</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">validate_ipi_publisher</span> <span class="ruby-identifier">publisher</span>, <span class="ruby-identifier">ipi</span>
+  
+  <span class="ruby-identifier">status</span> = <span class="ruby-string">&#39;ok&#39;</span>
+  
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">publishing_agreements</span> = <span class="ruby-identifier">publisher</span>.<span class="ruby-identifier">publishing_agreements</span>
+    
+    
+    <span class="ruby-identifier">_publishing_agreements</span> = []
+    
+    <span class="ruby-identifier">publishing_agreements</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">publishing_agreement</span><span class="ruby-operator">|</span>
+      
+      <span class="ruby-identifier">validated_publishing_agreement</span> =  <span class="ruby-identifier">validate_publishing_agreements</span>(<span class="ruby-identifier">publishing_agreement</span>, <span class="ruby-identifier">ipi</span> )
+      
+      <span class="ruby-identifier">_publishing_agreements</span>         <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">validated_publishing_agreement</span>
+      
+      <span class="ruby-keyword">if</span> <span class="ruby-identifier">validated_publishing_agreement</span>[<span class="ruby-value">:status</span>] <span class="ruby-operator">==</span> <span class="ruby-string">&#39;error&#39;</span>
+         <span class="ruby-identifier">status</span> = <span class="ruby-string">&#39;error&#39;</span>
+      <span class="ruby-keyword">end</span>
+    <span class="ruby-keyword">end</span>
+    
+    
+    {
+      <span class="ruby-identifier">status</span><span class="ruby-operator">:</span>                 <span class="ruby-identifier">status</span>,
+      <span class="ruby-identifier">id</span><span class="ruby-operator">:</span>                     <span class="ruby-identifier">publisher</span>.<span class="ruby-identifier">id</span>,
+      <span class="ruby-identifier">legal_name</span><span class="ruby-operator">:</span>             <span class="ruby-identifier">publisher</span>.<span class="ruby-identifier">legal_name</span>,
+      <span class="ruby-identifier">publishing_agreements</span><span class="ruby-operator">:</span>  <span class="ruby-identifier">_publishing_agreements</span>
+    }
+  <span class="ruby-keyword">else</span>
+    {
+      <span class="ruby-identifier">status</span><span class="ruby-operator">:</span>     <span class="ruby-string">&#39;error&#39;</span>,
+      <span class="ruby-identifier">message</span><span class="ruby-operator">:</span>    <span class="ruby-string">&#39;The publisher has no publishing agreements&#39;</span>,
+      <span class="ruby-identifier">id</span><span class="ruby-operator">:</span>         <span class="ruby-identifier">publisher</span>.<span class="ruby-identifier">id</span>,
+      <span class="ruby-identifier">legal_name</span><span class="ruby-operator">:</span> <span class="ruby-identifier">publisher</span>.<span class="ruby-identifier">legal_name</span>
+    }
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-validate_ipi_publishers">
+            
+              <b>validate_ipi_publishers</b>(ipi)
+            
+            <a href="../classes/SalesService.html#method-i-validate_ipi_publishers" name="method-i-validate_ipi_publishers" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              <p>Check if the is valid publishers for an ip</p>
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-validate_ipi_publishers_source')" id="l_method-i-validate_ipi_publishers_source">show</a>
+                
+              </p>
+              <div id="method-i-validate_ipi_publishers_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File services/sales_service.rb, line 211</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">validate_ipi_publishers</span> <span class="ruby-identifier">ipi</span>
+  <span class="ruby-identifier">_publishers</span> = []
+  <span class="ruby-identifier">status</span> = <span class="ruby-string">&#39;ok&#39;</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">pubs</span> = <span class="ruby-identifier">ipi</span>.<span class="ruby-identifier">publishers</span>
+    
+    <span class="ruby-identifier">pubs</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">publisher</span><span class="ruby-operator">|</span>
+      <span class="ruby-identifier">validate_ipi_publisher</span> = <span class="ruby-identifier">validate_ipi_publisher</span>( <span class="ruby-identifier">publisher</span>, <span class="ruby-identifier">ipi</span> )
+      <span class="ruby-identifier">_publishers</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">validate_ipi_publisher</span>
+      <span class="ruby-keyword">if</span> <span class="ruby-identifier">validate_ipi_publisher</span>[<span class="ruby-value">:status</span>] <span class="ruby-operator">==</span> <span class="ruby-string">&#39;error&#39;</span>
+        <span class="ruby-identifier">status</span> = <span class="ruby-string">&#39;error&#39;</span>
+      <span class="ruby-keyword">end</span>
+      
+    <span class="ruby-keyword">end</span>
+    {
+      <span class="ruby-identifier">status</span><span class="ruby-operator">:</span> <span class="ruby-identifier">status</span>,
+      <span class="ruby-identifier">publishers</span><span class="ruby-operator">:</span> <span class="ruby-identifier">_publishers</span>
+    }
+    
+  <span class="ruby-keyword">else</span>
+    {
+     <span class="ruby-identifier">status</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;error&#39;</span>,
+     <span class="ruby-identifier">message</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;No publishers attached&#39;</span>
+    }
+  <span class="ruby-keyword">end</span>
+  
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-validate_publishing_agreements">
+            
+              <b>validate_publishing_agreements</b>(publishing_agreement, ipi)
+            
+            <a href="../classes/SalesService.html#method-i-validate_publishing_agreements" name="method-i-validate_publishing_agreements" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              <p>Check if one publishing agreement is valid</p>
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-validate_publishing_agreements_source')" id="l_method-i-validate_publishing_agreements_source">show</a>
+                
+              </p>
+              <div id="method-i-validate_publishing_agreements_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File services/sales_service.rb, line 278</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">validate_publishing_agreements</span> <span class="ruby-identifier">publishing_agreement</span>, <span class="ruby-identifier">ipi</span>
+  
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">document</span> = <span class="ruby-identifier">publishing_agreement</span>.<span class="ruby-identifier">document</span>
+    
+    <span class="ruby-identifier">validated_document</span> = <span class="ruby-identifier">validate_document</span>( <span class="ruby-identifier">document</span>, <span class="ruby-identifier">ipi</span> )
+    
+    {
+      <span class="ruby-identifier">status</span><span class="ruby-operator">:</span>     <span class="ruby-identifier">validated_document</span>[<span class="ruby-value">:status</span>],
+      <span class="ruby-identifier">id</span><span class="ruby-operator">:</span>         <span class="ruby-identifier">publishing_agreement</span>.<span class="ruby-identifier">id</span>,
+      <span class="ruby-identifier">document</span><span class="ruby-operator">:</span>   <span class="ruby-identifier">validated_document</span>
+    }
+  <span class="ruby-keyword">else</span>
+    {
+      <span class="ruby-identifier">status</span><span class="ruby-operator">:</span>     <span class="ruby-string">&#39;error&#39;</span>,
+      <span class="ruby-identifier">message</span><span class="ruby-operator">:</span>    <span class="ruby-string">&#39;No documents attached to publishing agreement&#39;</span>,
+      <span class="ruby-identifier">id</span><span class="ruby-operator">:</span>         <span class="ruby-identifier">publishing_agreement</span>.<span class="ruby-identifier">id</span>,
+    }
+  <span class="ruby-keyword">end</span>
+
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-validate_recording">
+            
+              <b>validate_recording</b>()
+            
+            <a href="../classes/SalesService.html#method-i-validate_recording" name="method-i-validate_recording" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              <p>Check if the is 100% cleared</p>
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-validate_recording_source')" id="l_method-i-validate_recording_source">show</a>
+                
+              </p>
+              <div id="method-i-validate_recording_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File services/sales_service.rb, line 50</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">validate_recording</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">recording_ipis</span> = <span class="ruby-ivar">@recording</span>.<span class="ruby-identifier">recording_ipis</span>
+    <span class="ruby-identifier">validated_recording_ipis</span> = []
+    <span class="ruby-identifier">recording_ipis</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">recording_ipi</span><span class="ruby-operator">|</span>
+      <span class="ruby-identifier">validated_recording_ipi</span> = <span class="ruby-identifier">validate_recording_ipi</span> <span class="ruby-identifier">recording_ipi</span>
+      
+      <span class="ruby-identifier">validated_recording_ipis</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">validated_recording_ipi</span>
+      
+    <span class="ruby-keyword">end</span>
+    
+    {
+      <span class="ruby-identifier">status</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;ok&#39;</span>,
+      <span class="ruby-identifier">id</span><span class="ruby-operator">:</span>               <span class="ruby-ivar">@recording</span>.<span class="ruby-identifier">id</span>,
+      <span class="ruby-identifier">titel</span><span class="ruby-operator">:</span>            <span class="ruby-ivar">@recording</span>.<span class="ruby-identifier">title</span>,
+      <span class="ruby-identifier">recording_ipis</span><span class="ruby-operator">:</span>   <span class="ruby-identifier">validated_recording_ipis</span>
+      
+    }
+  <span class="ruby-keyword">else</span>
+    {
+      <span class="ruby-identifier">status</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;error&#39;</span>,
+      <span class="ruby-identifier">id</span><span class="ruby-operator">:</span>     <span class="ruby-ivar">@recording</span>.<span class="ruby-identifier">id</span>,
+      <span class="ruby-identifier">titel</span><span class="ruby-operator">:</span>  <span class="ruby-ivar">@recording</span>.<span class="ruby-identifier">title</span>,
+      <span class="ruby-identifier">message</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;No creators assigned to the recording&#39;</span>
+      
+    }
+  <span class="ruby-keyword">end</span>
+  
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-validate_recording_ip_user">
+            
+              <b>validate_recording_ip_user</b>(recording_ipi)
+            
+            <a href="../classes/SalesService.html#method-i-validate_recording_ip_user" name="method-i-validate_recording_ip_user" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              <p>Check if the recording ipi is connected to a user</p>
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-validate_recording_ip_user_source')" id="l_method-i-validate_recording_ip_user_source">show</a>
+                
+              </p>
+              <div id="method-i-validate_recording_ip_user_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File services/sales_service.rb, line 90</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">validate_recording_ip_user</span> <span class="ruby-identifier">recording_ipi</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">user</span> = <span class="ruby-identifier">recording_ipi</span>.<span class="ruby-identifier">user</span>
+    {
+      
+      <span class="ruby-identifier">status</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;ok&#39;</span>,
+      <span class="ruby-identifier">user_name</span><span class="ruby-operator">:</span> <span class="ruby-identifier">user</span>.<span class="ruby-identifier">full_name</span>
+      
+    }
+  <span class="ruby-keyword">else</span>
+    {
+      <span class="ruby-identifier">status</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;error&#39;</span>,
+      <span class="ruby-identifier">message</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;User missing&#39;</span>
+    }
+  <span class="ruby-keyword">end</span>
+
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-validate_recording_ipi">
+            
+              <b>validate_recording_ipi</b>(recording_ipi)
+            
+            <a href="../classes/SalesService.html#method-i-validate_recording_ipi" name="method-i-validate_recording_ipi" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              <p>Check one recording ipi</p>
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-validate_recording_ipi_source')" id="l_method-i-validate_recording_ipi_source">show</a>
+                
+              </p>
+              <div id="method-i-validate_recording_ipi_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File services/sales_service.rb, line 80</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">validate_recording_ipi</span> <span class="ruby-identifier">recording_ipi</span>
+  {
+    <span class="ruby-identifier">status</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;ok&#39;</span>,
+    <span class="ruby-identifier">id</span><span class="ruby-operator">:</span>      <span class="ruby-identifier">recording_ipi</span>.<span class="ruby-identifier">id</span>,
+    <span class="ruby-identifier">user</span><span class="ruby-operator">:</span>    <span class="ruby-identifier">validate_recording_ip_user</span>( <span class="ruby-identifier">recording_ipi</span> )
+  }
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+                    </div>
+
+    </div>
+  </body>
+</html>    

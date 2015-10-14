@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>index.html.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            index.html.slim
+        </h1>
+        <ul class="files">
+            <li>views/account/catalogs/index.html.slim</li>
+            <li>Last modified: 2015-09-30 21:09:11 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>wrapper</p>
+
+<pre><code>.full-width-top
+  == render &#39;shared/navigationbar&#39;, page: &#39;account&#39; 
+
+.pro-account
+  #sidebar-wrapper
+    ul class=&quot;sidebar-nav&quot;
+      == render &#39;account/shared/sidebar&#39;, selected: &#39;catalog&#39;
+
+#page-content-wrapper
+  .container-fluid
+    == render &#39;shared/breadcrumbs&#39;, breadcrumbs: { links: {account: account_account_path( @account) },current:  &#39;&#39;}
+
+    .row
+      .col-sm-8
+        h2 Catalogs
+      .col-sm-4
+        - if super? || current_account_user.createx_catalog
+          .pull-right
+            = link_to new_account_account_catalog_path(@account) do
+              .btn.btn-info
+                i class=&quot;fa fa-plus-circle&quot;
+                &#39;&amp;nbsp;Create catalog
+
+    .pull-down-10
+    .row
+      .col-sm-12
+        - if super? || current_account_user.read_catalog
+          .table-responsive
+            table class=&quot;table table-hover&quot;
+              thead
+                tr
+                  th Title
+                  th Works
+                  th Recordings
+                  th Assets
+                  th Users
+                  th  
+              tbody
+                - @account.catalogs.each do |catalog|
+                  tr id=&quot;delete_catalog_#{catalog.id.to_s}&quot;
+                    td 
+                      = link_to catalog.title, catalog_account_catalog_path(@account, catalog), class: &#39;btn btn-default btn-xs&#39;
+                    td 
+                      - if super? || current_account_user.read_common_work?
+                        = link_to catalog_account_catalog_common_works_path(@account, catalog) do
+                          .btn.btn-default.btn-xs
+                            i.fa.fa-music
+                            =&lt; pluralize( catalog.common_works.count, &#39;Works&#39;)
+                        =
+
+                    td 
+                      - if super? || current_account_user.read_recording?
+                        = link_to catalog_account_catalog_recordings_path(@account, catalog) do
+                          .btn.btn-default.btn-xs
+                            i.fa.fa-headphones
+                            =&lt; pluralize( catalog.recordings.count, &#39;Recording&#39;)
+
+                    td 
+                      - if super? || current_account_user.read_user?
+                        = link_to catalog_account_catalog_assets_path(@account, catalog) do
+                          .btn.btn-default.btn-xs
+                            i.fa.fa-folder-o
+                            =&lt; pluralize( catalog.documents.count, &#39;Assets&#39;)
+
+                    td 
+                      - if super? || current_account_user.read_user?
+                        = link_to catalog_account_catalog_catalog_users_path(@account, catalog) do
+                          .btn.btn-default.btn-xs
+                            i.fa.fa-users
+                            =&lt; pluralize(catalog.catalog_users.count, &#39;User&#39;)
+                            /=&lt; pluralize( catalog.catalog_users.count, &#39;User&#39;)
+
+                    td
+                      .pull-right
+                        - if super? || current_account_user.update_catalog?
+                          = link_to edit_account_account_catalog_path( @account, catalog) do
+                            .btn.btn-default.btn-xs
+                              i class=&quot;fa fa-pencil&quot;
+
+                        - if super? || current_account_user.delete_catalog?
+                          =&lt; link_to account_account_catalog_path( @account, catalog), 
+                                                                  turboboost: true , 
+                                                                  data: { confirm: &#39;Are you sure?&#39; } , 
+                                                                  method: :delete do
+                            .btn.btn-danger.btn-xs.please_wait
+                              i.fa.fa-times
+
+                  /= debug catalog
+
+== render &#39;shared/site_footer&#39;</code></pre>
+
+<p>/#wrap /  div class=“#{&#39;profile&#39; if account_owner?}” /   
+.full-width-top /      == render &#39;admin/shared/navbar&#39;, page:
+&#39;account&#39;  /  /-cache([ @account.id, @account.works_uuid, params])
+do</p>
+
+<p>/  .do</p>
+
+<p>/    .container /      == render &#39;admin/shared/messages&#39; /      ==
+render &#39;shared/breadcrumbs&#39;, breadcrumbs: { links: {
+@account.title.to_sym =&gt; account_path(@account), \ /                    
+}, current: &#39;catalogs&#39;} /</p>
+
+<p>/</p>
+
+<p>/      == render &#39;shared/page_title&#39;, locals: {blog: <a
+href="../../../../classes/Blog.html#method-c-cached_find">Blog.cached_find</a>(&#39;Catalogs&#39;),
+blog_post: &#39;Catalogs&#39;, insert: &#39;new&#39;} /</p>
+
+<p>/</p>
+
+<p>/      .row /        .col-sm-12 /          .panel.panel-primary /          
+.panel-heading /              &#39;Catalogs Controlled by #{@account.title}
+/            .panel-body /              .table-responsive /               
+table class=“table table-hover” /                  thead /                 
+tr /                      th Title /                      th  /            
+i class=&#39;fa fa-headphones&#39; /                       
+&#39;&amp;nbsp;Recordings /                      th  /                     
+i class=&#39;fa fa-music&#39; /                       
+&#39;&amp;nbsp;Common Works /                      th  /                   
+i class= &#39;fa fa-folder&#39; /                       
+&#39;&amp;nbsp;Assets /                      th  /                        i
+class= &#39;fa fa-group&#39; /                        &#39;&amp;nbsp;Users
+/                      th /                  tbody /</p>
+
+<p>/                    -  user = current_account_user.user / /               
+- @account.catalogs.each do |catalog| /                      - if
+catalog_user = catalog.catalog_users.where(user_id: current_user.id).last /
+tr /                          td = link_to  catalog.title, \ /             
+catalog_account_catalog_path( @account, catalog), \ /                      
+class: &#39;btn btn-default btn-lg&#39; /</p>
+
+<p>/</p>
+
+<p>/                          td = link_to
+catalog_account_catalog_recordings_path(@account, catalog) do  /           
+div class=“btn btn-warning btn-lg #{&#39;disabled&#39; unless
+catalog_user.read_recording}” /                                   i
+class=&#39;fa fa-headphones&#39; /                                  
+&#39;&amp;nbsp; /                                   =catalog.nr_recordings
+/</p>
+
+<p>/</p>
+
+<p>/                          td = link_to
+catalog_account_catalog_common_works_path(@account, catalog) do  /         
+div class=“btn btn-info btn-lg #{&#39;disabled&#39; unless
+catalog_user.read_common_work}” /                                   i
+class=&#39;fa fa-music&#39; /                                  
+&#39;&amp;nbsp; /                                  
+=catalog.nr_common_works /</p>
+
+<p>/</p>
+
+<p>/                          td = link_to
+catalog_account_catalog_assets_path(@account, catalog) do  /               
+div class=“btn btn-success btn-lg #{&#39;disabled&#39; unless
+catalog_user.access_assets?}” /                                   i
+class=&#39;fa fa-folder-o&#39; /                                  
+&#39;&amp;nbsp; /                                   =catalog.nr_assets /</p>
+
+<p>/                          td = link_to
+catalog_account_catalog_catalog_users_path(@account, catalog) do  /        
+div class=“btn btn-default btn-lg #{&#39;disabled&#39; unless
+catalog_user.read_user}” /                                   i
+class=&#39;fa fa-group&#39; /                                  
+&#39;&amp;nbsp; /                                  
+=catalog.catalog_users.count /</p>
+
+<p>/                          td /                            .pull-right /   
+-if current_account_user.update_catalog? /                                =
+link_to edit_catalog_account_catalog_path( @account, catalog) do /         
+.btn.btn-info.btn-lg /                                    i class=“fa
+fa-pencil” /                                &#39;&amp;nbsp; /              
+-if current_account_user.delete_catalog? /                                =
+link_to catalog_account_catalog_path( @account, catalog) , data: { confirm:
+&#39;Are you sure?&#39; } , method: :delete do /                           
+.btn.btn-danger.btn-lg /                                    i class=“fa
+fa-trash-o” /</p>
+
+<p>/</p>
+
+<p>/</p>
+
+<p>/</p>
+
+<p>/</p>
+
+<p>/</p>
+
+<p>/ /</p>
+
+<p>/</p>
+
+<p>/-cache ([&#39;footer&#39;, <a
+href="../../../../classes/Admin.html#method-c-cached_find">Admin.cached_find</a>.version])
+do</p>
+
+<p>/  =render &#39;shared/footer&#39;</p>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

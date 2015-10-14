@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>show.html.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            show.html.slim
+        </h1>
+        <ul class="files">
+            <li>views/forum_posts/show.html.slim</li>
+            <li>Last modified: 2015-09-24 20:35:34 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>wrapper</p>
+
+<pre><code>.full-width-top
+  == render &#39;shared/navigationbar&#39;, page: &#39;forums&#39; 
+
+- if current_user
+  #sidebar-wrapper
+    ul class=&quot;sidebar-nav&quot;
+      == render &#39;users/shared/sidebar&#39;, selected: &#39;forums&#39;
+
+- else
+  #sidebar-wrapper
+    .sidebar-ad.sidebar-top-ad
+      == render &#39;admin/digiramp_ads/show&#39;, identifier: &#39;signup to participate on forum&#39;
+
+  #terms
+    = link_to &#39;Terms And Conditions&#39;, terms_and_conditions_path  
+
+#page-content-wrapper
+  .container-fluid
+    == render &#39;shared/breadcrumbs&#39;, breadcrumbs: { links: { forums: forums_path, \
+                                                            @forum_post.forum.title.to_sym =&gt; forum_path( @forum_post.forum) }, \
+                                                            current: &#39;&#39;}
+    .row
+      .col-sm-6
+        .help
+          .help-text
+           h2 = @forum_post.title
+
+      .col-sm-6.pull-down-10
+        .pull-right
+          - if current_user
+            =&gt; link_to forum_path( @forum_post.forum ) do
+              .btn.btn-default
+                i.fa.fa-chevron-left
+                &#39;&amp;nbsp;
+                &#39;Back
+
+            - if @forum_post.user_id == current_user.id || super?
+              = link_to &#39;Edit&#39;, edit_user_forum_post_path(@forum_post.user, @forum_post), class: &#39;btn btn-info&#39;
+
+    .sexy_line
+    == render &#39;forum_posts/show&#39;, forum_post: @forum_post, read_more: false, delete_forum_post: false , show_heading: false
+
+    .row
+      .col-sm-12
+        .pul-down-10
+          h4 Posts
+          - if replies = Reply.where(replyable_type: &#39;ForumPost&#39;, replyable_id: @forum_post.id)
+            - replies.order(&#39;created_at asc&#39;).each do |reply|
+              == render &#39;forum_posts/reply&#39;, reply: reply
+          .new-replies
+
+        - if current_user
+          .forum_post_reply_form
+            == render &#39;forum_posts/reply_form&#39;, forum_post: @forum_post
+
+== render &#39;shared/site_footer&#39;</code></pre>
+
+<h2 id="label-render+-27shared-2Finit_wysiwyg5-27++">render &#39;shared/init_wysiwyg5&#39;  </h2>
+
+<p>/p#notice = notice / /p /  strong Title: /  = @forum_post_post.title /p / 
+strong Body: /  = @forum_post_post.body /p /  strong Image: /  =
+@forum_post_post.image /p /  strong User: /  = @forum_post_post.user /p / 
+strong Forum: /  = @forum_post_post.forum /p /  strong Uniq likes: /  =
+@forum_post_post.uniq_likes /p /  strong Published: /  =
+@forum_post_post.published / /= link_to &#39;Edit&#39;,
+edit_forum_post_path(@forum_post_post) /&#39;| /= link_to &#39;Back&#39;,
+forum_posts_path</p>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

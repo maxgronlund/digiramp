@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>index.html.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            index.html.slim
+        </h1>
+        <ul class="files">
+            <li>views/user/unsigned_documents/index.html.slim</li>
+            <li>Last modified: 2015-10-03 06:56:46 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>/- <a href=":sign_document">session</a>         = request.url</p>
+<ul><li>
+<p><a href=":return_to_special_url">session</a>         = request.url</p>
+</li></ul>
+
+<p>wrapper</p>
+
+<pre><code>.full-width-top
+  == render &#39;shared/navigationbar&#39;, page: &#39;dashboard&#39; 
+
+#sidebar-wrapper
+  ul class=&quot;sidebar-nav&quot;
+    == render &#39;users/shared/sidebar&#39;, selected: &#39;dashboard&#39;
+
+#page-content-wrapper
+  .container-fluid
+    == render &#39;shared/breadcrumbs&#39;, breadcrumbs: { links: { dashboard: user_user_control_panel_index_path(@user), 
+                                                            legal: user_user_legal_documents_path(@user)} }
+    == render &#39;shared/flash_message&#39;
+    .row
+      .col-sm-12
+        .help
+          .help-text
+            h2 
+              b Pending documents for&amp;nbsp;
+              br = @user.get_full_name
+          .help-button
+            == render &#39;admin/helps/help&#39;, identifier: &#39;unsigned document&#39;
+
+    .pull-down-10
+    .table-responsive
+      table class=&quot;table table-hover&quot;
+        thead
+          tr
+            th title
+            th Role
+            th Date
+            th Controled by
+            th Signatures
+            th
+        tbody
+          - @documents.each do |document|
+            - unless document.nil?
+              tr
+                td 
+                  b = document.title
+                  .pull-down-6
+                  = link_to &#39;Sign document&#39;, user_user_sign_document_path(@user, document.uuid), class: &#39;btn btn-success btn-xs&#39;
+                  /= link_to document.title, user_user_unsigned_document_path( @user, document), class: &#39;btn btn-default btn.xs&#39;
+                td  
+                  - document.document_users.where(user_id: @user.id).each do |document_user|
+                    = document_user.role
+                td = document.date
+                td 
+                  -if user = document.user
+                    = user.full_name
+
+                td
+                  table
+                    - document.document_users.where.not(user_id: nil).where(should_sign: true).each do |document_user|
+                      tr
+                        td 
+                          =&gt; document_user.full_name
+                          &#39;&amp;nbsp;
+                        td
+                          &#39;/&amp;nbsp;
+                          = document_user.role
+
+== render &#39;shared/site_footer&#39;</code></pre>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

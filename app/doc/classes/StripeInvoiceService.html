@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>StripeInvoiceService</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../css/github.css" type="text/css" media="screen" />
+<script src="../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            <span class="type">Class</span> 
+            StripeInvoiceService 
+            
+                <span class="parent">&lt; 
+                    
+                    Object
+                    
+                </span>
+            
+        </h1>
+        <ul class="files">
+            
+            <li><a href="../files/services/stripe_invoice_service_rb.html">services/stripe_invoice_service.rb</a></li>
+            
+        </ul>
+    </div>
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p><a href="Stripe.html">Stripe</a> <a href="Invoice.html">Invoice</a></p>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+    <!-- Method ref -->
+    <div class="sectiontitle">Methods</div>
+    <dl class="methods">
+      
+        <dt>S</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-subscribe">subscribe</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+    </dl>
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+        
+      <div class="sectiontitle">Instance Public methods</div>
+      
+        <div class="method">
+          <div class="title method-title" id="method-i-subscribe">
+            
+              <b>subscribe</b>(events)
+            
+            <a href="../classes/StripeInvoiceService.html#method-i-subscribe" name="method-i-subscribe" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-subscribe_source')" id="l_method-i-subscribe_source">show</a>
+                
+              </p>
+              <div id="method-i-subscribe_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File services/stripe_invoice_service.rb, line 7</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">subscribe</span> <span class="ruby-identifier">events</span>
+
+  <span class="ruby-comment">########################################################</span>
+  <span class="ruby-comment"># Invoice item CU</span>
+  <span class="ruby-comment">########################################################</span>
+
+
+  <span class="ruby-identifier">events</span>.<span class="ruby-identifier">subscribe</span> <span class="ruby-string">&#39;invoiceitem.created&#39;</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">event</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">ap</span> <span class="ruby-string">&#39;########################################################&#39;</span>
+    <span class="ruby-identifier">ap</span> <span class="ruby-string">&#39;invoiceitem.created&#39;</span>
+    <span class="ruby-identifier">ap</span> <span class="ruby-string">&#39;########################################################&#39;</span>
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">data</span> = <span class="ruby-identifier">event</span>.<span class="ruby-identifier">data</span>
+      <span class="ruby-identifier">ap</span> <span class="ruby-identifier">data</span>
+      <span class="ruby-comment">#if object = data.object</span>
+      <span class="ruby-comment">#  #stripe_id = object.id</span>
+      <span class="ruby-comment">#  </span>
+      <span class="ruby-comment">#  ap Invoice.where(   stripe_id: object.id)</span>
+      <span class="ruby-comment">#  .first_or_create(   stripe_id:              object.id,           </span>
+      <span class="ruby-comment">#                      stripe_object:          object.object,       </span>
+      <span class="ruby-comment">#                      livemode:               object.livemode,            </span>
+      <span class="ruby-comment">#                      amount_due:             object.amount_due.nil? ? nil : object.amount_due,          </span>
+      <span class="ruby-comment">#                      attempted:              object.attempted.nil? ? nil : object.attempted,                  </span>
+      <span class="ruby-comment">#                      closed:                 object.closed.nil? ? nil : object.closed,               </span>
+      <span class="ruby-comment">#                      currency:               object.currency,            </span>
+      <span class="ruby-comment">#                      stripe_customer_id:     object.customer_id,  </span>
+      <span class="ruby-comment">#                      date:                   object.date.nil? ? nil : Date.strptime(object.date.to_s, &#39;%s&#39;),   </span>
+      <span class="ruby-comment">#                      discountable:           object.discountable      </span>
+      <span class="ruby-comment">#                      forgiven:               object.forgiven.nil? ? nil : object.forgiven,             </span>
+      <span class="ruby-comment">#                      lines:                  object.lines.nil? ? nil : object.lines,                </span>
+      <span class="ruby-comment">#                      paid:                   object.paid.nil? ? nil : object.paid,                 </span>
+      <span class="ruby-comment">#                      period_start:           object.period_start.nil? ? nil : Date.strptime(object.period_start.to_s, &#39;%s&#39;),         </span>
+      <span class="ruby-comment">#                      period_end:             object.period_end.nil? ? nil : Date.strptime(object.period_end.to_s, &#39;%s&#39;),           </span>
+      <span class="ruby-comment">#                      starting_balance:       object.starting_balance,    </span>
+      <span class="ruby-comment">#                      subtotal:               object.subtotal,            </span>
+      <span class="ruby-comment">#                      total:                  object.total,               </span>
+      <span class="ruby-comment">#                      application_fee:        object.application_fee,     </span>
+      <span class="ruby-comment">#                      charge:                 object.charge,              </span>
+      <span class="ruby-comment">#                      description:            object.description,         </span>
+      <span class="ruby-comment">#                      discount:               object.discount,            </span>
+      <span class="ruby-comment">#                      ending_balance:         object.ending_balance,      </span>
+      <span class="ruby-comment">#                      receipt_number:         object.receipt_number,      </span>
+      <span class="ruby-comment">#                      statement_descriptor:   object.statement_descriptor,</span>
+      <span class="ruby-comment">#                      subscription_id:        object.subscription_id,     </span>
+      <span class="ruby-comment">#                      metadata:               object.metadata,            </span>
+      <span class="ruby-comment">#                      tax:                    object.tax,                 </span>
+      <span class="ruby-comment">#                      tax_percent:            object.tax_percent,         </span>
+      <span class="ruby-comment">#                      user_id:                object.user_id,             </span>
+      <span class="ruby-comment">#                      account_id:             object.account_id,          </span>
+      <span class="ruby-comment">#                      created_at:             object.created_at,          </span>
+      <span class="ruby-comment">#                      updated_at:             object.updated_at  </span>
+      <span class="ruby-comment">#                  )</span>
+      <span class="ruby-comment">#  </span>
+      <span class="ruby-comment">#  </span>
+      <span class="ruby-comment">#  </span>
+      <span class="ruby-comment">#  </span>
+      <span class="ruby-comment">#  </span>
+      <span class="ruby-comment">#end</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-identifier">events</span>.<span class="ruby-identifier">subscribe</span> <span class="ruby-string">&#39;invoiceitem.updated&#39;</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">event</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">ap</span> <span class="ruby-string">&#39;########################################################&#39;</span>
+    <span class="ruby-identifier">ap</span> <span class="ruby-string">&#39;invoiceitem.updated&#39;</span>
+    <span class="ruby-identifier">ap</span> <span class="ruby-string">&#39;########################################################&#39;</span>
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">data</span> = <span class="ruby-identifier">event</span>.<span class="ruby-identifier">data</span>
+      <span class="ruby-keyword">if</span> <span class="ruby-identifier">object</span> = <span class="ruby-identifier">data</span>.<span class="ruby-identifier">object</span>
+        <span class="ruby-identifier">stripe_id</span> = <span class="ruby-identifier">object</span>.<span class="ruby-identifier">id</span>
+        <span class="ruby-identifier">ap</span> <span class="ruby-constant">Invoice</span>.<span class="ruby-identifier">where</span>(   <span class="ruby-identifier">stripe_id</span><span class="ruby-operator">:</span> <span class="ruby-identifier">stripe_id</span>)
+        .<span class="ruby-identifier">first_or_create</span>(   <span class="ruby-identifier">stripe_id</span><span class="ruby-operator">:</span>              <span class="ruby-identifier">object</span>.<span class="ruby-identifier">stripe_id</span>,           
+                            <span class="ruby-identifier">stripe_object</span><span class="ruby-operator">:</span>          <span class="ruby-identifier">object</span>.<span class="ruby-identifier">stripe_object</span>,       
+                            <span class="ruby-identifier">livemode</span><span class="ruby-operator">:</span>               <span class="ruby-identifier">object</span>.<span class="ruby-identifier">livemode</span>,            
+                            <span class="ruby-identifier">amount_due</span><span class="ruby-operator">:</span>             <span class="ruby-identifier">object</span>.<span class="ruby-identifier">amount_due</span>,          
+                            <span class="ruby-identifier">attempted</span><span class="ruby-operator">:</span>              <span class="ruby-identifier">object</span>.<span class="ruby-identifier">attempted</span>,           
+                            <span class="ruby-identifier">closed</span><span class="ruby-operator">:</span>                 <span class="ruby-identifier">object</span>.<span class="ruby-identifier">closed</span>,              
+                            <span class="ruby-identifier">currency</span><span class="ruby-operator">:</span>               <span class="ruby-identifier">object</span>.<span class="ruby-identifier">currency</span>,            
+                            <span class="ruby-identifier">stripe_customer_id</span><span class="ruby-operator">:</span>     <span class="ruby-identifier">object</span>.<span class="ruby-identifier">stripe_customer_id</span>,  
+                            <span class="ruby-identifier">date</span><span class="ruby-operator">:</span>                   <span class="ruby-identifier">object</span>.<span class="ruby-identifier">date</span>.<span class="ruby-identifier">nil?</span> <span class="ruby-operator">?</span> <span class="ruby-keyword">nil</span> <span class="ruby-operator">:</span> <span class="ruby-constant">Date</span>.<span class="ruby-identifier">strptime</span>(<span class="ruby-identifier">object</span>.<span class="ruby-identifier">date</span>.<span class="ruby-identifier">to_s</span>, <span class="ruby-string">&#39;%s&#39;</span>),                
+                            <span class="ruby-identifier">forgiven</span><span class="ruby-operator">:</span>               <span class="ruby-identifier">object</span>.<span class="ruby-identifier">forgiven</span>,            
+                            <span class="ruby-identifier">lines</span><span class="ruby-operator">:</span>                  <span class="ruby-identifier">object</span>.<span class="ruby-identifier">lines</span>,               
+                            <span class="ruby-identifier">paid</span><span class="ruby-operator">:</span>                   <span class="ruby-identifier">object</span>.<span class="ruby-identifier">paid</span>,                
+                            <span class="ruby-identifier">period_start</span><span class="ruby-operator">:</span>           <span class="ruby-identifier">object</span>.<span class="ruby-identifier">period_start</span>.<span class="ruby-identifier">nil?</span> <span class="ruby-operator">?</span> <span class="ruby-keyword">nil</span> <span class="ruby-operator">:</span> <span class="ruby-constant">Date</span>.<span class="ruby-identifier">strptime</span>(<span class="ruby-identifier">object</span>.<span class="ruby-identifier">period_start</span>.<span class="ruby-identifier">to_s</span>, <span class="ruby-string">&#39;%s&#39;</span>),         
+                            <span class="ruby-identifier">period_end</span><span class="ruby-operator">:</span>             <span class="ruby-identifier">object</span>.<span class="ruby-identifier">period_end</span>.<span class="ruby-identifier">nil?</span> <span class="ruby-operator">?</span> <span class="ruby-keyword">nil</span> <span class="ruby-operator">:</span> <span class="ruby-constant">Date</span>.<span class="ruby-identifier">strptime</span>(<span class="ruby-identifier">object</span>.<span class="ruby-identifier">period_end</span>.<span class="ruby-identifier">to_s</span>, <span class="ruby-string">&#39;%s&#39;</span>),           
+                            <span class="ruby-identifier">starting_balance</span><span class="ruby-operator">:</span>       <span class="ruby-identifier">object</span>.<span class="ruby-identifier">starting_balance</span>,    
+                            <span class="ruby-identifier">subtotal</span><span class="ruby-operator">:</span>               <span class="ruby-identifier">object</span>.<span class="ruby-identifier">subtotal</span>,            
+                            <span class="ruby-identifier">total</span><span class="ruby-operator">:</span>                  <span class="ruby-identifier">object</span>.<span class="ruby-identifier">total</span>,               
+                            <span class="ruby-identifier">application_fee</span><span class="ruby-operator">:</span>        <span class="ruby-identifier">object</span>.<span class="ruby-identifier">application_fee</span>,     
+                            <span class="ruby-identifier">charge</span><span class="ruby-operator">:</span>                 <span class="ruby-identifier">object</span>.<span class="ruby-identifier">charge</span>,              
+                            <span class="ruby-identifier">description</span><span class="ruby-operator">:</span>            <span class="ruby-identifier">object</span>.<span class="ruby-identifier">description</span>,         
+                            <span class="ruby-identifier">discount</span><span class="ruby-operator">:</span>               <span class="ruby-identifier">object</span>.<span class="ruby-identifier">discount</span>,            
+                            <span class="ruby-identifier">ending_balance</span><span class="ruby-operator">:</span>         <span class="ruby-identifier">object</span>.<span class="ruby-identifier">ending_balance</span>,      
+                            <span class="ruby-identifier">receipt_number</span><span class="ruby-operator">:</span>         <span class="ruby-identifier">object</span>.<span class="ruby-identifier">receipt_number</span>,      
+                            <span class="ruby-identifier">statement_descriptor</span><span class="ruby-operator">:</span>   <span class="ruby-identifier">object</span>.<span class="ruby-identifier">statement_descriptor</span>,
+                            <span class="ruby-identifier">subscription_id</span><span class="ruby-operator">:</span>        <span class="ruby-identifier">object</span>.<span class="ruby-identifier">subscription_id</span>,     
+                            <span class="ruby-identifier">metadata</span><span class="ruby-operator">:</span>               <span class="ruby-identifier">object</span>.<span class="ruby-identifier">metadata</span>,            
+                            <span class="ruby-identifier">tax</span><span class="ruby-operator">:</span>                    <span class="ruby-identifier">object</span>.<span class="ruby-identifier">tax</span>,                 
+                            <span class="ruby-identifier">tax_percent</span><span class="ruby-operator">:</span>            <span class="ruby-identifier">object</span>.<span class="ruby-identifier">tax_percent</span>,         
+                            <span class="ruby-identifier">user_id</span><span class="ruby-operator">:</span>                <span class="ruby-identifier">object</span>.<span class="ruby-identifier">user_id</span>,             
+                            <span class="ruby-identifier">account_id</span><span class="ruby-operator">:</span>             <span class="ruby-identifier">object</span>.<span class="ruby-identifier">account_id</span>,          
+                            <span class="ruby-identifier">created_at</span><span class="ruby-operator">:</span>             <span class="ruby-identifier">object</span>.<span class="ruby-identifier">created_at</span>,          
+                            <span class="ruby-identifier">updated_at</span><span class="ruby-operator">:</span>             <span class="ruby-identifier">object</span>.<span class="ruby-identifier">updated_at</span>  
+                        )
+      
+      
+      
+      
+      
+      <span class="ruby-keyword">end</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+
+
+
+
+  <span class="ruby-comment">########################################################</span>
+  <span class="ruby-comment"># Invoice CU</span>
+  <span class="ruby-comment">########################################################</span>
+
+
+  <span class="ruby-identifier">events</span>.<span class="ruby-identifier">subscribe</span> <span class="ruby-string">&#39;invoice.created&#39;</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">event</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">ap</span> <span class="ruby-string">&#39;########################################################&#39;</span>
+    <span class="ruby-identifier">ap</span> <span class="ruby-string">&#39;invoice.created&#39;</span>
+    <span class="ruby-identifier">ap</span> <span class="ruby-string">&#39;########################################################&#39;</span>
+  
+  <span class="ruby-keyword">end</span>
+
+ 
+
+
+
+
+ 
+
+  <span class="ruby-identifier">events</span>.<span class="ruby-identifier">subscribe</span> <span class="ruby-string">&#39;invoice.payment_succeeded&#39;</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">event</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">ap</span> <span class="ruby-string">&#39;***************  invoice.payment_succeeded  ******************&#39;</span>
+    <span class="ruby-comment">#StripeSubscriptionMailer.receipt(stripe_event: event.data.object).deliver_now</span>
+    <span class="ruby-comment">#ap event.data.object</span>
+    <span class="ruby-comment">#if subscription = Subscription.where(stripe_id: event.data.object.id).first</span>
+    <span class="ruby-comment">#StripeSubscriptionMailer.receipt(stripe_event: event.data.object).deliver_now</span>
+    <span class="ruby-comment">#StripeSubscriptionMailer.admin_charge_succeeded(stripe_event: event.data.object).deliver_now</span>
+    <span class="ruby-comment">#end</span>
+    <span class="ruby-comment">#event = { stripe_event: event.data.object}</span>
+    <span class="ruby-comment">#StripeMailer.receipt(stripe_event: event.data.object).deliver_now</span>
+    <span class="ruby-comment">#StripeMailer.admin_charge_succeeded(stripe_event: event.data.object).deliver_now</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+                    </div>
+
+    </div>
+  </body>
+</html>    

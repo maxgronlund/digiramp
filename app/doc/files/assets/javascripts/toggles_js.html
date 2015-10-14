@@ -1,0 +1,373 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>toggles.js</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            toggles.js
+        </h1>
+        <ul class="files">
+            <li>assets/javascripts/toggles.js</li>
+            <li>Last modified: 2015-07-05 15:22:02 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>@license jQuery Toggles v3.1.4 Copyright 2014 Simon Tabor - MIT License <a
+href="https://github.com/simontabor/jquery-toggles">github.com/simontabor/jquery-toggles</a>
+/ <a
+href="http://simontabor.com/labs/toggles">simontabor.com/labs/toggles</a></p>
+
+<p>(function(root) {</p>
+
+<pre><code>var factory = function($) {</code></pre>
+
+<p>var Toggles = <a href="'Toggles'">root</a> = function(el, opts) {</p>
+
+<pre><code>var self = this;
+
+if (typeof opts === &#39;boolean&#39; &amp;&amp; el.data(&#39;toggles&#39;)) {
+  el.data(&#39;toggles&#39;).toggle(opts);
+  return;
+}
+
+var dataAttr = [ &#39;on&#39;, &#39;drag&#39;, &#39;click&#39;, &#39;width&#39;, &#39;height&#39;, &#39;animate&#39;, &#39;easing&#39;, &#39;type&#39;, &#39;checkbox&#39; ];
+var dataOpts = {};
+for (var i = 0; i &lt; dataAttr.length; i++) {
+  var opt = el.data(&#39;toggle-&#39; + dataAttr[i]);
+  if (typeof opt !== &#39;undefined&#39;) dataOpts[dataAttr[i]] = opt;
+}
+
+// extend default opts with the users options
+opts = self.opts = $.extend({
+  // can the toggle be dragged
+  &#39;drag&#39;: true,
+  // can it be clicked to toggle
+  &#39;click&#39;: true,
+  &#39;text&#39;: {
+    // text for the ON/OFF position
+    &#39;on&#39;: &#39;ON&#39;,
+    &#39;off&#39;: &#39;OFF&#39;
+  },
+  // is the toggle ON on init
+  &#39;on&#39;: false,
+  // animation time (ms)
+  &#39;animate&#39;: 250,
+   // animation transition,
+  &#39;easing&#39;: &#39;swing&#39;,
+  // the checkbox to toggle (for use in forms)
+  &#39;checkbox&#39;: null,
+  // element that can be clicked on to toggle. removes binding from the toggle itself (use nesting)
+  &#39;clicker&#39;: null,
+  // width used if not set in css
+  &#39;width&#39;: 50,
+  // height if not set in css
+  &#39;height&#39;: 20,
+  // defaults to a compact toggle, other option is &#39;select&#39; where both options are shown at once
+  &#39;type&#39;: &#39;compact&#39;,
+  // the event name to fire when we toggle
+  &#39;event&#39;: &#39;toggle&#39;
+}, opts || {}, dataOpts);
+
+self.el = el;
+
+// ensure toggle.active is available
+self[&#39;active&#39;] = opts[&#39;on&#39;];
+
+el.data(&#39;toggles&#39;, self);
+
+self.selectType = opts[&#39;type&#39;] === &#39;select&#39;;
+
+// ensure these are jquery elements
+self.checkbox = $(opts[&#39;checkbox&#39;]);
+
+// leave as undefined if not set
+if (opts[&#39;clicker&#39;]) self.clicker = $(opts[&#39;clicker&#39;]);
+
+self.createEl();
+self.bindEvents();</code></pre>
+
+<p>};</p>
+
+<p>Toggles.prototype.createEl = function() {</p>
+
+<pre><code>var self = this;
+
+var height = self.el.height();
+var width = self.el.width();
+
+// if the element doesnt have an explicit height/width in css, set them
+if (!height) self.el.height(height = self.opts[&#39;height&#39;]);
+if (!width) self.el.width(width = self.opts[&#39;width&#39;]);
+
+self.h = height;
+self.w = width;
+
+var div = function(name) {
+  return $(&#39;&lt;div class=&quot;toggle-&#39; + name +&#39;&quot;&gt;&#39;);
+};
+
+self.els = {
+  // wrapper inside toggle
+  slide: div(&#39;slide&#39;),
+
+  // inside slide, this bit moves
+  inner: div(&#39;inner&#39;),
+
+  // the on/off divs
+  on: div(&#39;on&#39;),
+  off: div(&#39;off&#39;),
+
+  // the grip to drag the toggle
+  blob: div(&#39;blob&#39;)
+};
+
+var halfHeight = height / 2;
+var onOffWidth = width - halfHeight;
+
+var isSelect = self.selectType;
+
+// set up the CSS for the individual elements
+self.els.on
+  .css({
+    height: height,
+    width: onOffWidth,
+    textIndent: isSelect ? &#39;&#39; : halfHeight,
+    lineHeight: height + &#39;px&#39;
+  })
+  .html(self.opts[&#39;text&#39;][&#39;on&#39;]);
+
+self.els.off
+  .css({
+    height: height,
+    width: onOffWidth,
+    marginLeft: isSelect ? &#39;&#39; : -halfHeight,
+    textIndent: isSelect ? &#39;&#39; : halfHeight+5,
+    lineHeight: height + &#39;px&#39;
+  })
+  .html(self.opts[&#39;text&#39;][&#39;off&#39;])
+  .addClass(&#39;active&#39;);
+
+self.els.blob.css({
+  height: height,
+  width: height,
+  marginLeft: -halfHeight
+});
+
+self.els.inner.css({
+  width: width * 2 - height,
+  marginLeft: (isSelect || self[&#39;active&#39;]) ? 0 : -width + height
+});
+
+if (self.selectType) {
+  self.els.slide.addClass(&#39;toggle-select&#39;);
+  self.el.css(&#39;width&#39;, onOffWidth * 2);
+  self.els.blob.hide();
+}
+
+// construct the toggle
+self.els.inner.append(self.els.on, self.els.blob, self.els.off);
+self.els.slide.html(self.els.inner);
+self.el.html(self.els.slide);</code></pre>
+
+<p>};</p>
+
+<p>Toggles.prototype.bindEvents = function() {</p>
+
+<pre><code>var self = this;
+
+// evt handler for click events
+var clickHandler = function(e) {
+
+  // if the target isn&#39;t the blob or dragging is disabled, toggle!
+  if (e[&#39;target&#39;] !==  self.els.blob[0] || !self.opts[&#39;drag&#39;]) {
+    self.toggle();
+  }
+};
+
+// if click is enabled and toggle isn&#39;t within the clicker element (stops double binding)
+if (self.opts[&#39;click&#39;] &amp;&amp; (!self.opts[&#39;clicker&#39;] || !self.opts[&#39;clicker&#39;].has(self.el).length)) {
+  self.el.on(&#39;click&#39;, clickHandler);
+}
+
+// setup the clicker element
+if (self.opts[&#39;clicker&#39;]) {
+  self.opts[&#39;clicker&#39;].on(&#39;click&#39;, clickHandler);
+}
+
+// bind up dragging stuff
+if (self.opts[&#39;drag&#39;] &amp;&amp; !self.selectType) self.bindDrag();</code></pre>
+
+<p>};</p>
+
+<p>Toggles.prototype.bindDrag = function() {</p>
+
+<pre><code>var self = this;
+
+// time to begin the dragging parts/blob clicks
+var diff;
+var slideLimit = (self.w - self.h) / 4;
+
+// fired on mouseup and mouseleave events
+var upLeave = function(e) {
+  self.el.off(&#39;mousemove&#39;);
+  self.els.slide.off(&#39;mouseleave&#39;);
+  self.els.blob.off(&#39;mouseup&#39;);
+
+  if (!diff &amp;&amp; self.opts[&#39;click&#39;] &amp;&amp; e.type !== &#39;mouseleave&#39;) {
+    self.toggle();
+    return;
+  }
+
+  var overBound = self[&#39;active&#39;] ? diff &lt; -slideLimit : diff &gt; slideLimit;
+  if (overBound) {
+    // dragged far enough, toggle
+    self.toggle();
+  } else {
+    // reset to previous state
+    self.els.inner.stop().animate({
+      marginLeft: self[&#39;active&#39;] ? 0 : -self.w + self.h
+    }, self.opts[&#39;animate&#39;] / 2);
+  }
+};
+
+var wh = -self.w + self.h;
+
+self.els.blob.on(&#39;mousedown&#39;, function(e) {
+
+  // reset diff
+  diff = 0;
+
+  self.els.blob.off(&#39;mouseup&#39;);
+  self.els.slide.off(&#39;mouseleave&#39;);
+  var cursor = e.pageX;
+
+  self.el.on(&#39;mousemove&#39;, self.els.blob, function(e) {
+    diff = e.pageX - cursor;
+    var marginLeft;
+
+    if (self[&#39;active&#39;]) {
+
+      marginLeft = diff;
+
+      // keep it within the limits
+      if (diff &gt; 0) marginLeft = 0;
+      if (diff &lt; wh) marginLeft = wh;
+    } else {
+
+      marginLeft = diff + wh;
+
+      if (diff &lt; 0) marginLeft = wh;
+      if (diff &gt; -wh) marginLeft = 0;
+
+    }
+
+    self.els.inner.css(&#39;margin-left&#39;,marginLeft);
+  });
+
+  self.els.blob.on(&#39;mouseup&#39;, upLeave);
+  self.els.slide.on(&#39;mouseleave&#39;, upLeave);
+});</code></pre>
+
+<p>};</p>
+
+<p>Toggles.prototype.toggle = function(state) {</p>
+
+<pre><code>var self = this;
+
+// check we arent already in the desired state
+if (self[&#39;active&#39;] === state) return;
+
+var active = self[&#39;active&#39;] = !self[&#39;active&#39;];
+
+self.el.data(&#39;toggle-active&#39;, active);
+
+self.els.off.toggleClass(&#39;active&#39;, !active);
+self.els.on.toggleClass(&#39;active&#39;, active);
+self.checkbox.prop(&#39;checked&#39;, active);
+
+self.el.trigger(self.opts[&#39;event&#39;], active);
+
+if (self.selectType) return;
+
+var margin = active ? 0 : -self.w + self.h;
+
+// move the toggle!
+self.els.inner.stop().animate({
+  &#39;marginLeft&#39;: margin
+}, self.opts[&#39;animate&#39;]);</code></pre>
+
+<p>};</p>
+
+<pre><code>  $.fn[&#39;toggles&#39;] = function(opts) {
+    return this.each(function() {
+      new Toggles($(this), opts);
+    });
+  };
+};
+
+if (typeof define === &#39;function&#39; &amp;&amp; define[&#39;amd&#39;]) {
+  define([&#39;jquery&#39;], factory);
+} else {
+  factory(root[&#39;jQuery&#39;] || root[&#39;Zepto&#39;] || root[&#39;ender&#39;] || root[&#39;$&#39;] || $);
+}</code></pre>
+
+<p>})(this);</p>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

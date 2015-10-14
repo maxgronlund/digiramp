@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>CreativeProjectUsersController</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../css/github.css" type="text/css" media="screen" />
+<script src="../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            <span class="type">Class</span> 
+            CreativeProjectUsersController 
+            
+                <span class="parent">&lt; 
+                    
+                    <a href="ApplicationController.html">ApplicationController</a>
+                    
+                </span>
+            
+        </h1>
+        <ul class="files">
+            
+            <li><a href="../files/controllers/creative_project_users_controller_rb.html">controllers/creative_project_users_controller.rb</a></li>
+            
+        </ul>
+    </div>
+    <div id="bodyContent">
+        <div id="content">
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+    <!-- Method ref -->
+    <div class="sectiontitle">Methods</div>
+    <dl class="methods">
+      
+        <dt>C</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-create">create</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>E</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-edit">edit</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>N</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-new">new</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+    </dl>
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+        
+      <div class="sectiontitle">Instance Public methods</div>
+      
+        <div class="method">
+          <div class="title method-title" id="method-i-create">
+            
+              <b>create</b>()
+            
+            <a href="../classes/CreativeProjectUsersController.html#method-i-create" name="method-i-create" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-create_source')" id="l_method-i-create_source">show</a>
+                
+              </p>
+              <div id="method-i-create_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File controllers/creative_project_users_controller.rb, line 47</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">create</span>
+  <span class="ruby-comment">#@user                     = User.cached_find(params[:user_id])</span>
+  <span class="ruby-ivar">@creative_project</span>         = <span class="ruby-constant">CreativeProject</span>.<span class="ruby-identifier">cached_find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:creative_project_id</span>])
+  
+  <span class="ruby-keyword">unless</span> <span class="ruby-constant">CreativeProjectUser</span>.<span class="ruby-identifier">where</span>( <span class="ruby-identifier">creative_project</span><span class="ruby-operator">:</span> <span class="ruby-ivar">@creative_project</span>.<span class="ruby-identifier">id</span>, <span class="ruby-identifier">user_id</span><span class="ruby-operator">:</span> <span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">id</span>, <span class="ruby-identifier">creative_project_role_id</span><span class="ruby-operator">:</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:creative_project_role_id</span>]).<span class="ruby-identifier">first</span>
+    <span class="ruby-ivar">@creative_project_user</span> = <span class="ruby-constant">CreativeProjectUser</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">creative_project_user_params</span>)
+    <span class="ruby-ivar">@creative_project_user</span>.<span class="ruby-identifier">save!</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">creative_project_path</span>( <span class="ruby-ivar">@creative_project</span>)
+  
+  <span class="ruby-comment">#@creative_project_user = CreativeProjectUser.new(creative_project_user_params)</span>
+  <span class="ruby-comment">#</span>
+  <span class="ruby-comment">#if @creative_project_user.save!</span>
+  <span class="ruby-comment">#  redirect_to user_user_creative_project_path(@user, @creative_project)</span>
+  <span class="ruby-comment">#end</span>
+    
+
+  <span class="ruby-comment">#respond_to do |format|</span>
+  <span class="ruby-comment">#  if @creative_project_user.save</span>
+  <span class="ruby-comment">#    format.html { redirect_to @creative_project_user, notice: &#39;Creative project user was successfully created.&#39; }</span>
+  <span class="ruby-comment">#    format.json { render :show, status: :created, location: @creative_project_user }</span>
+  <span class="ruby-comment">#  else</span>
+  <span class="ruby-comment">#    format.html { render :new }</span>
+  <span class="ruby-comment">#    format.json { render json: @creative_project_user.errors, status: :unprocessable_entity }</span>
+  <span class="ruby-comment">#  end</span>
+  <span class="ruby-comment">#end</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-edit">
+            
+              <b>edit</b>()
+            
+            <a href="../classes/CreativeProjectUsersController.html#method-i-edit" name="method-i-edit" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-edit_source')" id="l_method-i-edit_source">show</a>
+                
+              </p>
+              <div id="method-i-edit_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File controllers/creative_project_users_controller.rb, line 42</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">edit</span>
+
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-new">
+            
+              <b>new</b>()
+            
+            <a href="../classes/CreativeProjectUsersController.html#method-i-new" name="method-i-new" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              <p>before_action :set_creative_project_user, only: [:new, :create]</p>
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-new_source')" id="l_method-i-new_source">show</a>
+                
+              </p>
+              <div id="method-i-new_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File controllers/creative_project_users_controller.rb, line 5</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">new</span>
+ 
+
+  
+  <span class="ruby-ivar">@creative_project</span>         = <span class="ruby-constant">CreativeProject</span>.<span class="ruby-identifier">cached_find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:creative_project_id</span>])
+  <span class="ruby-ivar">@user</span>                     = <span class="ruby-ivar">@creative_project</span>.<span class="ruby-identifier">user</span>
+  <span class="ruby-ivar">@creative_project_role</span>    = <span class="ruby-constant">CreativeProjectRole</span>.<span class="ruby-identifier">cached_find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:creative_project_role_id</span>])
+
+  <span class="ruby-identifier">role_to_messages</span> = {<span class="ruby-identifier">writer</span><span class="ruby-operator">:</span>                         <span class="ruby-string">&quot; as a writer.&quot;</span>,
+                      <span class="ruby-identifier">composer</span><span class="ruby-operator">:</span>                       <span class="ruby-string">&quot; as a composer.&quot;</span>,
+                      <span class="ruby-identifier">musician</span><span class="ruby-operator">:</span>                       <span class="ruby-string">&quot; as a musician.&quot;</span>,
+                      <span class="ruby-identifier">vocal</span><span class="ruby-operator">:</span>                          <span class="ruby-string">&quot; with my vocal.&quot;</span>,
+                      <span class="ruby-identifier">dancer</span><span class="ruby-operator">:</span>                         <span class="ruby-string">&quot; as a dancer.&quot;</span>,
+                      <span class="ruby-string">&#39;live performer&#39;</span>.<span class="ruby-identifier">to_sym</span> =<span class="ruby-operator">&gt;</span>      <span class="ruby-string">&quot; as a live performer.&quot;</span>,
+                      <span class="ruby-identifier">producer</span><span class="ruby-operator">:</span>                       <span class="ruby-string">&quot; as a producer.&quot;</span>,
+                      <span class="ruby-string">&#39;studio facility&#39;</span>.<span class="ruby-identifier">to_sym</span> =<span class="ruby-operator">&gt;</span>     <span class="ruby-string">&quot; with a studio facility.&quot;</span>,
+                      <span class="ruby-string">&#39;financial service&#39;</span>.<span class="ruby-identifier">to_sym</span> =<span class="ruby-operator">&gt;</span>   <span class="ruby-string">&quot; with financial services.&quot;</span>,
+                      <span class="ruby-string">&#39;legal service&#39;</span>.<span class="ruby-identifier">to_sym</span> =<span class="ruby-operator">&gt;</span>       <span class="ruby-string">&quot; with legal services.&quot;</span>,
+                      <span class="ruby-identifier">publisher</span><span class="ruby-operator">:</span>                      <span class="ruby-string">&quot; as a publisher.&quot;</span>,
+                      <span class="ruby-identifier">remixer</span><span class="ruby-operator">:</span>                        <span class="ruby-string">&quot; as a remixer.&quot;</span>,
+                      <span class="ruby-string">&#39;audio engineer&#39;</span>.<span class="ruby-identifier">to_sym</span> =<span class="ruby-operator">&gt;</span>      <span class="ruby-string">&quot; as a audio engineer.&quot;</span>,
+                      <span class="ruby-string">&#39;video artist&#39;</span>.<span class="ruby-identifier">to_sym</span> =<span class="ruby-operator">&gt;</span>        <span class="ruby-string">&quot; as a video artist.&quot;</span>,
+                      <span class="ruby-string">&#39;graphic artist&#39;</span>.<span class="ruby-identifier">to_sym</span> =<span class="ruby-operator">&gt;</span>      <span class="ruby-string">&quot; as a graphic artist.&quot;</span>,
+                      <span class="ruby-identifier">other</span><span class="ruby-operator">:</span>                          <span class="ruby-string">&quot; with other skils.&quot;</span>} 
+  
+  
+  <span class="ruby-identifier">message</span> = <span class="ruby-node">&quot;Hi #{@user.user_name}. \nI woul like to join the project: #{@creative_project.title}&quot;</span>
+  <span class="ruby-keyword">begin</span>
+    <span class="ruby-identifier">message</span> <span class="ruby-operator">+=</span> <span class="ruby-identifier">role_to_messages</span>[<span class="ruby-ivar">@creative_project_role</span>.<span class="ruby-identifier">role</span>.<span class="ruby-identifier">to_sym</span>]
+  <span class="ruby-keyword">rescue</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-identifier">message</span> <span class="ruby-operator">+=</span> <span class="ruby-node">&quot;\n\n-- #{current_user.user_name}&quot;</span>
+  
+  <span class="ruby-identifier">role_to_messages</span>[<span class="ruby-ivar">@creative_project_role</span>.<span class="ruby-identifier">role</span>.<span class="ruby-identifier">to_sym</span>]
+  <span class="ruby-ivar">@creative_project_user</span>    = <span class="ruby-constant">CreativeProjectUser</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">message</span><span class="ruby-operator">:</span> <span class="ruby-identifier">message</span>, <span class="ruby-identifier">creative_project_role_id</span><span class="ruby-operator">:</span> <span class="ruby-ivar">@creative_project_role</span>.<span class="ruby-identifier">id</span>)
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+                    </div>
+
+    </div>
+  </body>
+</html>    

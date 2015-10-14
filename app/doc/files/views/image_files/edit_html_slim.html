@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>edit.html.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            edit.html.slim
+        </h1>
+        <ul class="files">
+            <li>views/image_files/edit.html.slim</li>
+            <li>Last modified: 2015-09-24 20:35:34 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>/h1 Editing image_file / /== render &#39;form&#39; / /= link_to
+&#39;Show&#39;, @image_file /&#39;| /= link_to &#39;Back&#39;,
+image_files_path /</p>
+
+<p>wrap</p>
+
+<pre><code>div class=&quot;#{&#39;profile&#39; if account_owner?}&quot;
+  .full-width-top
+    == render &#39;admin/shared/navbar&#39;, page: &#39;account&#39; 
+.do           
+  .container
+    == render &#39;admin/shared/messages&#39;
+    == render &#39;shared/breadcrumbs&#39;, breadcrumbs: { links: { @account.title.to_sym =&gt; account_path(@account), \
+                                                            assets: account_assets_path(@account), \
+                                                            recordings: account_account_recordings_path(@account), \
+                                                            @recording.title.to_sym =&gt; account_common_work_recording_path(@account, @common_work, @recording), \
+                                                            artwork: account_common_work_recording_artwork_path(@account, @common_work, @recording), \
+                                                            show: account_common_work_recording_image_file_path( @account, @common_work, @recording, @image_file), \
+                                                            }, current: &#39;edit&#39;}
+
+    == render &#39;shared/title&#39;, locals: {title: @recording.title, body: &quot;EDIT ARTWORK&quot;} 
+
+    = simple_form_for [ @account, @common_work, @recording, @image_file ], \
+                        :url =&gt; url_for(:action =&gt; &#39;update&#39;, \
+                        :controller =&gt; &#39;image_files&#39;), \
+                        :method =&gt; &#39;put&#39;,  :html =&gt; { :id =&gt; &#39;image_file&#39; } do |f|
+      .row
+        .col-sm-6
+          .panel.panel-primary
+            .panel-heading
+              &#39;Edit Image Files
+            .panel-body
+                = f.hidden_field :account_id, value: @account.id
+                = f.hidden_field :common_work_id, value: @common_work.id
+                = f.hidden_field :recording_id, value: @recording.id
+
+                = f.input :title, value: @image_file.title, autofocus: true
+
+                div id=&quot;toolbar&quot; class=&quot;wysihtml5-toolbar&quot;
+                  a data-wysihtml5-command=&quot;bold&quot; Bold
+                  &#39;&amp;nbsp; 
+                  a data-wysihtml5-command=&quot;italic&quot; Italic
+
+                =f.input :description, label: false, :input_html =&gt; {  style: &quot;height: 182px;&quot;, placeholder: &quot;Description&quot;, id: &#39;wysihtml5_editor&#39;}
+
+                /= f.input :body, value: @image_file.body
+        .col-sm-6
+          .panel.panel-primary
+            .panel-heading
+              &#39;Metadata
+            .panel-body
+              =f.input :creator
+              =f.input :author
+              =f.input :copyright
+              =f.input :copyright_notice
+              =f.input :keywords
+
+      .pull-right
+
+        = f.submit &#39;Save&#39;, class: &#39;btn btn-info btn-lg&#39;
+
+      .col-sm-3
+
+== render &#39;shared/site_footer&#39;</code></pre>
+
+<h2 id="label-render+-27shared-2Finit_wysiwyg5-27">render &#39;shared/init_wysiwyg5&#39;</h2>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

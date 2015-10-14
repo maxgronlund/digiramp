@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>_providers.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            _providers.slim
+        </h1>
+        <ul class="files">
+            <li>views/account/opportunities/_providers.slim</li>
+            <li>Last modified: 2015-09-26 08:31:11 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>.row</p>
+
+<pre><code>.col-sm-12      
+  h4 Providers
+  - if @opportunity.opportunity_users.count == 0
+    .alert.alert-info
+      button type=&quot;button&quot; class=&quot;close&quot; data-dismiss=&quot;alert&quot; ×
+      &#39;No music providers invited
+  - else
+    table class=&quot;table&quot;
+
+      - @opportunity.opportunity_users.each do |opportunity_user|
+
+        div id=&quot;delete_opportunity_user_#{opportunity_user.id.to_s}&quot;
+          .pull-left
+            - if opportunity_user.user.super?
+
+                .btn.btn-danger.btn-xs.disabled
+                  i class=&quot;fa fa-times&quot;
+            - else
+             = link_to account_account_opportunity_opportunity_user_path(@account, @opportunity, opportunity_user), \
+                                                                           data: { confirm: &#39;Are you sure?&#39; } ,\
+                                                                          :method =&gt; :delete, remote: true do
+                .pull-left
+                  .btn.btn-danger.btn-xs
+                    i class=&quot;fa fa-times&quot;
+          &#39;&amp;nbsp;
+          =&gt; link_to image_tag(opportunity_user.user.image_url(:avatar_32x32)), user_path(opportunity_user.user)
+          = opportunity_user.user.user_name
+
+          .pull-right
+            = link_to account_account_opportunity_opportunity_user_path(@account, @opportunity, opportunity_user) do
+              .btn.btn-xs.btn-info
+                &#39;Submissions
+                &#39;&amp;nbsp;
+                = opportunity_user.music_submissions.size
+          .sexy_line</code></pre>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

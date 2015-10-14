@@ -1,0 +1,938 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>style.css.scss</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            style.css.scss
+        </h1>
+        <ul class="files">
+            <li>assets/stylesheets/apulum/style.css.scss</li>
+            <li>Last modified: 2015-07-05 15:22:02 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<pre><code>MAIN STYLES
+</code></pre>
+
+<p>body {</p>
+
+<pre><code>font:13px/26px &#39;Open Sans&#39;,sans-serif;
+font-weight:normal;
+color:#777;
+ -webkit-font-smoothing:antialiased;</code></pre>
+
+<p>} h1 {</p>
+
+<pre><code>font-size:2.5em;
+line-height:46px;
+font-weight:300;
+margin-bottom:20px;</code></pre>
+
+<p>} h1,h2,h3,h4,h5,h6 {</p>
+
+<pre><code>color:#000000;</code></pre>
+
+<p>} ul {</p>
+
+<pre><code>-moz-padding-start:0px;
+-webkit-padding-start:0px;
+-khtml-padding-start:0px;
+-o-padding-start:0px;
+padding-start:0px;
+padding: 0px;</code></pre>
+
+<p>} a,a:hover {</p>
+
+<pre><code>text-decoration:none;
+-o-transition:.3s;
+-ms-transition:.3s;
+-moz-transition:.3s;
+-webkit-transition:.3s;
+   ...and now for the proper property   
+transition:.3s;</code></pre>
+
+<p>} a:hover,.highlight {</p>
+
+<pre><code>color:#fe4918;</code></pre>
+
+<p>} .max80 {</p>
+
+<pre><code>max-width:80%;
+margin:0px auto;</code></pre>
+
+<p>} .pxauto {margin:0px auto;} .margbottom50 {</p>
+
+<pre><code>margin-bottom:50px;</code></pre>
+
+<p>} .unstyle {</p>
+
+<pre><code>list-style:none;</code></pre>
+
+<p>} .uppercase {</p>
+
+<pre><code>text-transform:uppercase;</code></pre>
+
+<p>} .btn {</p>
+
+<pre><code>border-radius:3px;</code></pre>
+
+<p>} .btn-simple {</p>
+
+<pre><code>color:#ffffff;
+background-color:transparent;
+border:1px solid rgba(255,255,255,0.4);</code></pre>
+
+<p>} .btn-simple.whitebg {</p>
+
+<pre><code>background-color:#ffffff;
+color:#444;
+border:0;</code></pre>
+
+<p>} .btn-simple:hover {</p>
+
+<pre><code>background-color:#444;
+color:#fff;</code></pre>
+
+<p>} .btn-default {</p>
+
+<pre><code>background-color:#fe4918;
+color:#fff;
+border:0;</code></pre>
+
+<p>} .btn-default:hover {</p>
+
+<pre><code>background-color:#444;
+color:#fff;
+border:0;</code></pre>
+
+<p>} .btn-lg {</p>
+
+<pre><code>font-size:20px;
+padding:20px 60px;</code></pre>
+
+<p>} .main_h {</p>
+
+<pre><code>position:fixed;
+top:0px;
+max-height:70px;
+z-index:999;
+width:100%;
+padding-top:17px;
+background:none;
+overflow:hidden;
+-webkit-transition:all 0.3s;
+transition:all 0.3s;
+opacity:0;
+top:-100px;
+padding-bottom:6px;</code></pre>
+
+<p>} .nav &gt; li &gt; a:hover, .nav &gt; li &gt; a:focus {</p>
+
+<pre><code>background-color:none;</code></pre>
+
+<p>}</p>
+
+<p>@media only screen and (max-width:766px) {</p>
+
+<pre><code>.main_h {
+                padding-top:25px;
+}</code></pre>
+
+<p>} .open-nav {</p>
+
+<pre><code>max-height:400px !important;</code></pre>
+
+<p>} .open-nav .mobile-toggle {</p>
+
+<pre><code>transform:rotate(-90deg);
+-webkit-transform:rotate(-90deg);</code></pre>
+
+<p>} .sticky {</p>
+
+<pre><code>background-color:rgba(255,255,255,0.97);
+opacity:1;
+top:0px;
+border-bottom:1px solid #eee;</code></pre>
+
+<p>} .logo {</p>
+
+<pre><code>width:50px;
+font-size:25px;
+color:#8f8f8f;
+text-transform:uppercase;
+float:left;
+display:block;
+margin-top:0;
+line-height:1;
+margin-bottom:10px;
+letter-spacing:3px;</code></pre>
+
+<p>} @media only screen and (max-width:766px) {</p>
+
+<pre><code>.logo {
+                float:none;
+}</code></pre>
+
+<p>} nav {</p>
+
+<pre><code>float:right;
+</code></pre>
+
+<p>} @media only screen and (max-width:766px) {</p>
+
+<pre><code>nav {
+                width:100%;
+}</code></pre>
+
+<p>} nav ul {</p>
+
+<pre><code>list-style:none;
+overflow:hidden;
+text-align:right;
+float:right;</code></pre>
+
+<p>} @media only screen and (max-width:766px) {</p>
+
+<pre><code>nav ul {
+                padding-top:10px;
+                margin-bottom:22px;
+                float:left;
+                text-align:center;
+                width:100%;
+}</code></pre>
+
+<p>} nav ul li {</p>
+
+<pre><code>display:inline-block;
+margin-left:30px;
+line-height:1.5;</code></pre>
+
+<p>} @media only screen and (max-width:766px) {</p>
+
+<pre><code>nav ul li {
+                width:100%;
+                padding:7px 0;
+                margin:0;
+}</code></pre>
+
+<p>} nav ul a {</p>
+
+<pre><code>color:#333;
+text-transform:uppercase;
+font-size:13px;
+font-weight:600;</code></pre>
+
+<p>} nav ul li.active a {</p>
+
+<pre><code>color:#fe4918;</code></pre>
+
+<p>} .nav&gt;li {</p>
+
+<pre><code>display:inline-block;
+</code></pre>
+
+<p>} .nav&gt;li&gt;a {</p>
+
+<pre><code>padding:0px;</code></pre>
+
+<p>} .nav&gt;li&gt;a:hover {</p>
+
+<pre><code>background-color:transparent;</code></pre>
+
+<p>} .mobile-toggle {</p>
+
+<pre><code>display:none;
+cursor:pointer;
+font-size:20px;
+position:absolute;
+right:22px;
+top:20px;
+width:30px;
+-webkit-transition:all 200ms ease-in;
+-moz-transition:all 200ms ease-in;
+transition:all 200ms ease-in;</code></pre>
+
+<p>} @media only screen and (max-width:766px) {</p>
+
+<pre><code>.mobile-toggle {
+                display:block;
+}</code></pre>
+
+<p>} @media only screen and (max-width:991px) {</p>
+
+<pre><code>nav ul li {
+margin-left: 15px;
+}</code></pre>
+
+<p>} @media only screen and (max-width:800px) {</p>
+
+<pre><code>    .logo {
+    margin-left: 20px;
+    }
+    .wow {
+visibility: visible !important;
+-webkit-animation: none !important;
+ -moz-animation: none !important;
+   -o-animation: none !important;
+  -ms-animation: none !important;
+      animation: none !important;
+    }</code></pre>
+
+<p>} .mobile-toggle span {</p>
+
+<pre><code>width:30px;
+height:4px;
+margin-bottom:6px;
+border-radius:1000px;
+background:#8f8f8f;
+display: block;</code></pre>
+
+<p>} /* SECTION - GENERAL */ section {</p>
+
+<pre><code>height:100%;
+-webkit-background-size:cover;
+-moz-background-size:cover;
+-o-background-size:cover;
+background-size:cover;
+background-attachment:fixed;
+background-repeat:no-repeat;
+z-index:0;
+background-position:top center;
+padding:60px 0 60px;</code></pre>
+
+<p>} section .container {position:relative;}</p>
+
+<p>.wrapsection {</p>
+
+<pre><code>padding: 120px 0;
+position: relative;
+margin: -60px 0;</code></pre>
+
+<p>}</p>
+
+<p>.overlay {</p>
+
+<pre><code>    opacity:0.87;
+background-color: #222;
+position: absolute;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;</code></pre>
+
+<p>} .highlightbg {</p>
+
+<pre><code>background-color:#fe4918;</code></pre>
+
+<p>} .graybg {</p>
+
+<pre><code>background-color:#f6f6f6;</code></pre>
+
+<p>} .bluebg {</p>
+
+<pre><code>background-color:#428bca;</code></pre>
+
+<p>} .whitetext,.whitetext h1,.whitetext h2,.whitetext h3,.whitetext
+h4,.whitetext h5,.whitetext h5,.whitetext .required {</p>
+
+<pre><code>color:#fff;</code></pre>
+
+<p>} .whitetext contact input,.whitetext contact select,.whitetext contact
+textarea {</p>
+
+<pre><code>border:0px;</code></pre>
+
+<p>} .sectionhead {</p>
+
+<pre><code>text-align:center;
+margin-bottom:30px;</code></pre>
+
+<p>} .sectionhead .lead {</p>
+
+<pre><code>text-transform:uppercase;
+letter-spacing:1px;
+font-weight:100;
+font-size:14px;
+line-height:24px;</code></pre>
+
+<p>} .sectionhead h1 {</p>
+
+<pre><code>margin-top:0px;</code></pre>
+
+<p>} .divider-area {</p>
+
+<pre><code>width:100%;
+height:1px;
+position:relative;
+background-color:#f0f0f0;
+border:0px;
+margin:0px auto;</code></pre>
+
+<p>} .divider-area .icon {</p>
+
+<pre><code>display:inline-block;
+left:50%;
+margin-top:-30px;
+background:#fff;
+position:absolute;
+height:60px;
+width:60px;
+border-radius:50%;
+text-align:center;
+color:#f0f0f0;
+font-size:30px;
+border:1px solid #f0f0f0;
+line-height:60px;
+margin-left:-30px;</code></pre>
+
+<p>} .divider-area .icon a {</p>
+
+<pre><code>color:#ccc;</code></pre>
+
+<p>} .divider-area .icon a:hover {</p>
+
+<pre><code>color: #fe4918;</code></pre>
+
+<p>}</p>
+
+<p>/* SECTION - BACKGROUNDS */ .download {</p>
+
+<pre><code>      /*background-image:url(../img/dummyimage.jpg);*/
+background-image: image-url(&#39;dummyimage.jpg&#39;);</code></pre>
+
+<p>} .testimonials {</p>
+
+<pre><code>      /*background-image:url(../img/dummyimage.jpg);*/
+background-image: image-url(&#39;dummyimage.jpg&#39;);</code></pre>
+
+<p>} .contact-page {</p>
+
+<pre><code>      /*background-image:url(../img/dummyimage.jpg);*/
+background-image: image-url(&#39;dummyimage.jpg&#39;);</code></pre>
+
+<p>}</p>
+
+<p>/* SECTION - HOME */ section.homepage {</p>
+
+<pre><code>      /*background-image:url(../img/dummyimage.jpg);*/
+background-image: image-url(&#39;dummyimage.jpg&#39;);
+      background-position:top center;
+      background-size:cover;
+      position:relative;
+      height:auto;
+      overflow:hidden;
+      padding:90px 0;
+      background-attachment:fixed;</code></pre>
+
+<p>} .section-overlay-home {</p>
+
+<pre><code>background-color:rgba(0,0,0,0.6);
+position:absolute;
+width:100%;
+height:100%;
+left:0;
+top:0;</code></pre>
+
+<p>}</p>
+
+<p>.homepage .btn-primary {</p>
+
+<pre><code>margin-right:30px;</code></pre>
+
+<p>} @media only screen and (max-width:991px) {</p>
+
+<pre><code>.homepage .btn-primary {
+margin-right:0px;
+margin-bottom:10px;
+}</code></pre>
+
+<p>} @media only screen and (max-width:767px) {</p>
+
+<pre><code>.homepage .btn-primary {        
+margin-bottom:0px;
+}
+.homepage .text-right, .homepage .small-text  {text-align:center !important;}</code></pre>
+
+<p>} @media only screen and (max-width:541px) {</p>
+
+<pre><code>.homepage .btn-primary {        
+margin-bottom:10px;
+}</code></pre>
+
+<p>} .homepage .small-text {</p>
+
+<pre><code>font-size:16px;
+line-height:38px;
+color:rgba(255,255,255,0.6);
+font-weight:300;
+margin:30px 0;
+text-align:right;</code></pre>
+
+<p>} .homepage ul.icos {</p>
+
+<pre><code>margin-top:30px;</code></pre>
+
+<p>} .homepage ul.icos li {</p>
+
+<pre><code>margin-right:30px;
+display:inline;</code></pre>
+
+<p>} .homepage ul.icos i {</p>
+
+<pre><code>font-size:32px;
+color:rgba(255,255,255,0.4);
+-webkit-transition:0.25s;
+-moz-transition:0.25s;
+-o-transition:0.25s;
+transition:0.25s;</code></pre>
+
+<p>} .rotate-description {</p>
+
+<pre><code>font-size:36px;
+font-weight:300;
+color:#fff;
+line-height:58px;
+transition:all 0.5s ease;</code></pre>
+
+<p>} .introarrow {</p>
+
+<pre><code>position:absolute;
+height:80px;
+width:80px;
+bottom:-40px;
+left:50%;
+border-radius:40px;
+background:#fff;
+color:#444;
+margin-left:-40px;
+font-size:30px;
+line-height:1;
+text-align:center;</code></pre>
+
+<p>} .introarrow i {</p>
+
+<pre><code>display:block;
+margin: 15px 0 0 0;</code></pre>
+
+<p>} /* SECTION - FEATURES */ .feature-icon {</p>
+
+<pre><code>font-size:40px;
+line-height:100px;
+border:1px solid #aaa;
+height:100px;
+width:100px;
+-webkit-transition:all 0.6s;
+-moz-transition:all 0.6s;
+-o-transition:all 0.6s;
+transition:all 0.6s;
+display:inline-block;
+text-align:center;
+margin-bottom:20px;
+border-radius:50%;
+color:#aaa;</code></pre>
+
+<p>} .feature-icon:hover {</p>
+
+<pre><code>color:#fe4918;
+border-radius:0;
+border:1px solid #fe4918;</code></pre>
+
+<p>} .feature-item p.description {</p>
+
+<pre><code>color:#aaa;
+font-weight:300;
+margin-bottom:0;
+text-transform:uppercase;</code></pre>
+
+<p>} .sep {</p>
+
+<pre><code>border-bottom:1px solid;
+display:inline-block;
+width:30px;
+margin:0px auto;
+margin-bottom: 3px;</code></pre>
+
+<p>}</p>
+
+<p>/* SECTION - DOWNLOAD */ ul.iconlist i{background-color: fff; height: 40px;
+width: 40px; line-height: 40px; border-radius: 50%; display: inline-block;
+text-align: center; margin-right: 15px; color: #444; }</p>
+
+<p>/* SECTION - PRICING */ plans,#plans ul,#plans ul li {</p>
+
+<pre><code>margin:0;
+padding:0;
+list-style:none;</code></pre>
+
+<p>} pricePlans:after {</p>
+
+<pre><code>content:&#39;&#39;;
+display:table;
+clear:both;
+</code></pre>
+
+<p>} pricePlans {</p>
+
+<pre><code>zoom:1;</code></pre>
+
+<p>} pricePlans {</p>
+
+<pre><code>margin:0 auto;</code></pre>
+
+<p>} pricePlans plans .plan {</p>
+
+<pre><code>background:#fff;
+float:left;
+width:100%;
+text-align:center;
+border-radius:5px;
+margin:0 0 20px 0;
+border:1px solid #ddd;</code></pre>
+
+<p>} .planContainer .title h2 {</p>
+
+<pre><code>font-size:2.125em;
+font-weight:300;
+color:#333;
+margin:0;
+padding:.6em 0;</code></pre>
+
+<p>} .planContainer .title h2.bestPlanTitle {</p>
+
+<pre><code>background:#333;
+color:#fff;
+border-radius:5px 5px 0 0;</code></pre>
+
+<p>} .planContainer .price p {</p>
+
+<pre><code>background:#333;
+color:#fff;
+font-size:1.2em;
+font-weight:300;
+height:3.6em;
+line-height:3.6em;
+margin:0 0 1em;</code></pre>
+
+<p>} .planContainer .price p.bestPlanPrice {</p>
+
+<pre><code>background-color:#fe4918;</code></pre>
+
+<p>} .planContainer .price p span {</p>
+
+<pre><code>color:#ccc;</code></pre>
+
+<p>} .planContainer .options {</p>
+
+<pre><code>margin-top:10em;</code></pre>
+
+<p>} .planContainer .options li {</p>
+
+<pre><code>font-weight:700;
+color:#364762;
+line-height:2.5;</code></pre>
+
+<p>} .planContainer .options li span {</p>
+
+<pre><code>font-weight:400;
+color:#979797;</code></pre>
+
+<p>} .planContainer .button a {</p>
+
+<pre><code>text-transform:uppercase;
+text-decoration:none;
+color:#333;
+font-weight:600;
+letter-spacing:3px;
+line-height:3.6em;
+border:1px solid #ccc;
+display:inline-block;
+width:80%;
+height:3.6em;
+border-radius:3px;
+margin:1.5em 0 1.8em;</code></pre>
+
+<p>} .planContainer .button a.bestPlanButton {</p>
+
+<pre><code>color:#fff;
+background-color:#fe4918;
+border:1px solid #fe4918;</code></pre>
+
+<p>} @media screen and (min-width:481px) and (max-width:768px) {</p>
+
+<pre><code>#pricePlans #plans .plan {
+        width:49%;
+        margin:0 2% 20px 0;
+}
+#pricePlans #plans&gt;li:nth-child(2n) {
+        margin-right:0;
+}</code></pre>
+
+<p>} @media screen and (min-width:769px) and (max-width:1024px) {</p>
+
+<pre><code>#pricePlans #plans .plan {
+        width:49%;
+        margin:0 2% 20px 0;
+}
+#pricePlans #plans&gt;li:nth-child(2n) {
+        margin-right:0;
+}</code></pre>
+
+<p>} @media screen and (min-width:1025px) {</p>
+
+<pre><code>#pricePlans {
+        margin:0px auto;
+}
+#pricePlans #plans .plan {
+        width:24%;
+        margin:0 1.33% 0px 0;
+}
+#pricePlans #plans&gt;li:last-child {
+        margin-right:0;
+}
+.planContainer .button a:hover {
+        background:#333;
+        color:#fff;
+        border: 1px solid #333;
+}</code></pre>
+
+<p>} /* SECTION - TESTIMONIALS */ wowtestim .item img.avatar {</p>
+
+<pre><code>width:120px;
+display:block;
+border-radius:50%;
+margin:0px auto;
+margin-bottom:10px;
+background-color:rgba(255,255,255,1);
+padding:0px;</code></pre>
+
+<p>} .testimonials .client-msg {</p>
+
+<pre><code>max-width:60%;
+margin:0px auto;
+font-weight:300;
+font-size:120%;</code></pre>
+
+<p>} .testimonials .client-pos {</p>
+
+<pre><code>margin:5px auto 15px;
+padding:0;
+font-size:13px;</code></pre>
+
+<p>} .testimonials .client-name {</p>
+
+<pre><code>padding:0;
+font-size:22px;
+margin: 0px;</code></pre>
+
+<p>} /* SECTION - CONTACT */ contact label {</p>
+
+<pre><code>text-transform:uppercase;
+font-weight:300;</code></pre>
+
+<p>} contact input,#contact select,#contact textarea {</p>
+
+<pre><code>width:100%;
+        border:1px solid #DDD;
+        border-radius:3px;</code></pre>
+
+<p>} contact input,#contact select {</p>
+
+<pre><code>height:40px;
+margin-bottom:0px;</code></pre>
+
+<p>} contact input#submit {</p>
+
+<pre><code>width:auto;
+margin-top:20px;
+background-color:#333;
+color:#fff;
+padding:0px 30px;
+text-transform:uppercase;
+font-weight:300;
+border:0px;</code></pre>
+
+<p>} contact textarea {</p>
+
+<pre><code>height:200px;</code></pre>
+
+<p>} .required {</p>
+
+<pre><code>color:#e9266d</code></pre>
+
+<p>} success,#error {</p>
+
+<pre><code>display:none
+</code></pre>
+
+<p>} success span,#error span {</p>
+
+<pre><code>display:block;
+        width:100%;
+background:#fff;
+        margin-top:10px;</code></pre>
+
+<p>} success span p,#error span p {</p>
+
+<pre><code>margin-top:6em</code></pre>
+
+<p>} success span p {</p>
+
+<pre><code>padding:20px;
+font-weight:700;
+text-transform:uppercase;
+margin-top:20px !Important;</code></pre>
+
+<p>} error span p {</p>
+
+<pre><code>color:#c0392b;</code></pre>
+
+<p>} .error {</p>
+
+<pre><code>text-transform:none;
+font-style:italic;
+display: inline-block;</code></pre>
+
+<p>} button, input, optgroup, select, textarea {color:#888; padding:0px 20px;}
+/* SECTION - FOOTER */ .footerarrow {</p>
+
+<pre><code>position:absolute;
+height:80px;
+width:80px;
+top:-40px;
+left:50%;
+border-radius:40px;
+background:#222;
+color:#fff;
+margin-left:-40px;
+font-size:30px;
+line-height:1;
+text-align:center;</code></pre>
+
+<p>} .footerarrow i {</p>
+
+<pre><code>display:block;
+margin:12px 0 0 0;</code></pre>
+
+<p>} .footerarrow:hover {</p>
+
+<pre><code>color:#eee;</code></pre>
+
+<p>} .footer {</p>
+
+<pre><code>background: #222;
+padding:60px 0 45px;
+position:relative;</code></pre>
+
+<p>} ul.social-icons li {</p>
+
+<pre><code>display:inline-block;
+float:none;
+padding:17px;
+width:10px;
+height:10px;
+position:relative;
+background:#555;
+margin-right:5px;
+border-radius:50%;</code></pre>
+
+<p>} ul.social-icons li i {</p>
+
+<pre><code>position:absolute;
+font-size:15px;
+width:40px;
+height:40px;
+text-align:center;
+line-height:40px;
+left:50%;
+top:50%;
+margin-left:-20px;
+margin-top:-20px;</code></pre>
+
+<p>} ul.social-icons li a {</p>
+
+<pre><code>color:#fff;</code></pre>
+
+<p>} ul.social-icons li a i {</p>
+
+<pre><code>-webkit-transition-duration:0.8s;
+-moz-transition-duration:0.8s;
+-o-transition-duration:0.8s;
+transition-duration:0.8s;
+-webkit-transition-property:-webkit-transform;
+-moz-transition-property:-moz-transform;
+-o-transition-property:-o-transform;
+transition-property:transform;
+overflow:hidden;</code></pre>
+
+<p>} ul.social-icons li a i:hover {</p>
+
+<pre><code>-webkit-transform:rotate(360deg);
+-moz-transform:rotate(360deg);
+-o-transform:rotate(360deg);</code></pre>
+
+<p>} ul.social-icons li a:hover {</p>
+
+<pre><code>text-decoration:none;
+color: #fff;</code></pre>
+
+<p>}</p>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

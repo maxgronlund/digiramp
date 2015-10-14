@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>_roles.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            _roles.slim
+        </h1>
+        <ul class="files">
+            <li>views/user/creative_project_roles/_roles.slim</li>
+            <li>Last modified: 2015-07-05 15:22:06 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      <ul><li>
+<p>if creative_project.writers</p>
+<ul><li>
+<p>positions = creative_project.open_positions(&#39;writer&#39;)</p>
+</li><li>
+<p>unless positions == 0</p>
+
+<h1 id="label-pluralize-28positions-2C+-27Writer-27-29">pluralize(positions, &#39;Writer&#39;)</h1>
+
+<p>br</p>
+</li></ul>
+</li></ul>
+
+<p>-if creative_project.composers</p>
+
+<pre><code>- positions = creative_project.open_positions(&#39;composer&#39;)
+- unless positions == 0
+  = pluralize(positions, &#39;Composer&#39;)
+  br</code></pre>
+
+<p>-if creative_project.musicians</p>
+
+<pre><code>- positions = creative_project.open_positions(&#39;musician&#39;)
+- unless positions == 0
+  = pluralize(positions, &#39;Musician&#39;)
+  br</code></pre>
+
+<p>-if creative_project.vocals</p>
+
+<pre><code>- positions = creative_project.open_positions(&#39;vocal&#39;)
+- unless positions == 0
+  = pluralize(positions, &#39;Vocal&#39;)
+  br</code></pre>
+
+<p>-if creative_project.live_performers</p>
+
+<pre><code>- positions = creative_project.open_positions(&#39;live performer&#39;)
+- unless positions == 0
+  = pluralize(positions, &#39;Live performer&#39;)
+br</code></pre>
+
+<p>-if creative_project.dancers</p>
+
+<pre><code>- positions = creative_project.open_positions(&#39;dancer&#39;)
+- unless positions == 0
+  = pluralize(positions, &#39;Dancer&#39;)
+br</code></pre>
+
+<p>-if creative_project.producers</p>
+
+<pre><code>- positions = creative_project.open_positions(&#39;producer&#39;)
+- unless positions == 0
+  = pluralize(positions, &#39;Producer&#39;)
+br</code></pre>
+
+<p>-if creative_project.studio_facilities</p>
+
+<pre><code>- positions = creative_project.open_positions(&#39;studio facility&#39;)
+- unless positions == 0
+  = pluralize(positions, &#39;Studio facility&#39;)
+br</code></pre>
+
+<p>-if creative_project.financial_services</p>
+
+<pre><code>- positions = creative_project.open_positions(&#39;financial service&#39;)
+- unless positions == 0
+  = pluralize(positions, &#39;Financial service&#39;)
+br</code></pre>
+
+<p>-if creative_project.legal_services</p>
+
+<pre><code>- positions = creative_project.open_positions(&#39;legal service&#39;)
+- unless positions == 0
+  = pluralize(positions, &#39;Legal service&#39;)
+br</code></pre>
+
+<p>-if creative_project.publishers</p>
+
+<pre><code>- positions = creative_project.open_positions(&#39;publisher&#39;)
+- unless positions == 0
+  = pluralize(positions, &#39;Publisher&#39;)
+br</code></pre>
+
+<p>-if creative_project.remixers</p>
+
+<pre><code>&#39;Remixers
+br</code></pre>
+
+<p>-if creative_project.audio_engineers</p>
+
+<pre><code>&#39;Audio engineers
+br</code></pre>
+<ul><li>
+<p>if creative_project.video_artists &#39;Video artists br</p>
+</li><li>
+<p>if creative_project.graphic_artists &#39;Graphic artists br</p>
+</li><li>
+<p>if creative_project.other.to_s != &#39;&#39;</p>
+
+<h1 id="label-creative_project.other">creative_project.other</h1>
+</li></ul>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>_form.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            _form.slim
+        </h1>
+        <ul class="files">
+            <li>views/account/music_requests/_form.slim</li>
+            <li>Last modified: 2015-09-24 20:35:34 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<h1 id="label-simple_form_for+-5B+-3Aaccount-2C+-40account-2C+-40opportunity-2C+-40music_request-5D-2C++-3Ahtml+-3D-3E+-7B+-3Aid+-3D-3E+-27submission-27+-7D+do+-7Cf-7C">simple_form_for [ :account, @account, @opportunity, @music_request],  :html =&gt; { :id =&gt; &#39;submission&#39; } do |f|</h1>
+
+<pre><code>= transloadit :recording_with_thumbs 
+= f.hidden_field :opportunity_id, value: @opportunity.id
+.row
+  .col-sm-6
+    = f.input :title, autofocus: true
+    /div id=&quot;toolbar&quot; class=&quot;wysihtml5-toolbar&quot;
+    /  a data-wysihtml5-command=&quot;bold&quot; Bold
+    /  &#39;&amp;nbsp; 
+    /  a data-wysihtml5-command=&quot;italic&quot; Italic
+    /
+    /=f.input :body, label: false, :input_html =&gt; {  style: &quot;height: 244px;&quot;, placeholder: &quot;Description&quot;, id: &#39;wysihtml5_editor&#39;}
+    =f.input :body, label: false, :input_html =&gt; {  style: &quot;height: 244px;&quot;, placeholder: &quot;Description&quot;,}
+  .col-sm-6
+    = f.input :fee
+    br
+    b Sounds Like
+    br
+    .fileinput.fileinput-new.input-group data-provides=&quot;fileinput&quot;
+      .form-control data-trigger=&quot;fileinput&quot;
+        i.glyphicon.glyphicon-file.fileinput-exists
+        span.fileinput-filename
+      span.input-group-addon.btn.btn-default.btn-file
+        span.fileinput-new
+          &#39;Select file
+        span.fileinput-exists
+          &#39;Change
+        = f.file_field :audio_file, multiple: false, label: &#39;Select Audio File&#39;
+      a href=&quot;#&quot; class=&quot;input-group-addon btn btn-default fileinput-exists&quot; data-dismiss=&quot;fileinput&quot;
+        &#39;Remove
+
+    br
+
+    /= f.file_field :audio_file, multiple: false
+    /br
+
+    = f.input :duration_text, label: &#39;Duration&#39;, placeholder: &#39;HH:MM:SS&#39;
+    = f.input :up_to_full_use
+    .row
+      .col-sm-6
+        = f.input :link, placeholder: &#39;i.e. http://youtube.com/bruno-mars&#39;, hint: &#39;Could sound like&#39;, label: &#39;Example link&#39;
+      .col-sm-6
+        = f.input :link_title, label: &#39;Link Name&#39;, placeholder: &#39;Click Here&#39;
+    /= f.input :deadline
+
+.row
+  .col-sm-12
+    .pull-right
+      = link_to &#39;Cancel&#39;, account_account_opportunity_path(@account, @opportunity), class: &#39;btn btn-default&#39;
+      &#39;&amp;nbsp;
+      = f.submit &#39;Save&#39;, class: &#39;btn btn-info&#39;</code></pre>
+
+<p>/= transloadit_jquerify( :submission, :processZeroFiles =&gt; true )</p>
+
+<h1 id="label-transloadit_jquerify-28+-3Asubmission-2C+-3Await+-3D-3E+true+-29">transloadit_jquerify( :submission, :wait =&gt; true )</h1>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

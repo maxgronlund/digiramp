@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>show.html.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            show.html.slim
+        </h1>
+        <ul class="files">
+            <li>views/account/clients/show.html.slim</li>
+            <li>Last modified: 2015-09-26 08:26:06 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>wrapper</p>
+
+<pre><code>.full-width-top
+  == render &#39;shared/navigationbar&#39;, page: &#39;account&#39; 
+
+#sidebar-wrapper
+  ul class=&quot;sidebar-nav&quot;
+    == render &#39;users/shared/sidebar&#39;, selected: &#39;account&#39;
+
+#page-content-wrapper
+  .container-fluid
+    == render &#39;shared/breadcrumbs&#39;, breadcrumbs: { links: { crm: account_account_crm_index_path(@account),\
+                                                            clients: account_account_clients_path(@account) \
+                                                           },current:  &#39;&#39;}
+
+    h2 #{@account.title}
+    .pull-down-10
+    .row
+      .col-sm-6
+        .panel.panel-default
+          .panel-heading
+            = @client.name + &#39; &#39; + @client.last_name
+          .panel-body
+            .gravatar
+              = gravatar_tag @client.email, :size =&gt; 120, class: &quot;media-object&quot;
+            .address
+              table
+                tr
+
+                - if @client.company.to_s != &#39;&#39;
+                  tr
+                    th Company: &amp;nbsp;
+                    td = @client.company
+
+                th Email: &amp;nbsp;
+                td = @client.email
+
+                - if @client.assistant.to_s != &#39;&#39;
+                  tr
+                    th Assistant: &amp;nbsp;
+                    td = @client.assistant
+
+                - if @client.direct_phone.to_s != &#39;&#39;
+                  tr
+                    th Direct Phone: &amp;nbsp;
+                    td = @client.direct_phone
+
+                - if @client.direct_fax.to_s != &#39;&#39;
+                  tr
+                    th Direct Fax: &amp;nbsp;
+                    td = @client.direct_fax
+
+                - if @client.capacity.to_s != &#39;&#39;
+                  tr
+                    th Capacity: &amp;nbsp;
+                    td = @client.capacity
+
+                - if @client.department.to_s != &#39;&#39;
+                  tr
+                    th Department: &amp;nbsp;
+                    td = @client.department
+
+                - if @client.address_work.to_s != &#39;&#39;
+                  tr
+                    th Address: &amp;nbsp;
+                    td = @client.address_work
+
+                - if @client.city_work.to_s != &#39;&#39;
+                  tr
+                    th City: &amp;nbsp;
+                    td = @client.city_work
+
+                - if @client.state_work.to_s != &#39;&#39;
+                  tr
+                    th State: &amp;nbsp;
+                    td = @client.state_work
+
+                - if @client.zip_work.to_s != &#39;&#39;
+                  tr
+                    th Zip Code: &amp;nbsp;
+                    td = @client.zip_work
+
+                - if @client.country_work.to_s != &#39;&#39;
+                  tr
+                    th Country: &amp;nbsp;
+                    td = @client.country_work
+
+                - if @client.home_page.to_s != &#39;&#39;
+                  tr
+                    th Home Page: &amp;nbsp;
+                    td = link_to @client.home_page, @client.home_page
+
+                - if @client.business_phone.to_s != &#39;&#39;
+                  tr
+                    th Business Phone: &amp;nbsp;
+                    td = @client.business_phone
+
+                - if @client.business_fax.to_s != &#39;&#39;
+                  tr
+                    th Business Fax: &amp;nbsp;
+                    td = @client.business_fax
+
+                - if @client.business_email.to_s != &#39;&#39;
+                  tr
+                    th Business Email: &amp;nbsp;
+                    td = @client.business_email
+        .pull-right
+          = link_to &#39;Edit&#39;, edit_account_account_client_path(@account, @client), class: &#39;btn btn-info&#39;
+
+              /= @client.title
+              /  
+              /  p
+              /    strong Title:
+              /
+              /  p
+              /    strong Telephone home:
+              /    = @client.telephone_home
+              /  p
+              /    strong Telephone work:
+              /    = @client.telephone_work
+              /  p
+              /    strong Address home:
+              /    = @client.address_home
+              /  p
+              /    strong Address work:
+              /    = @client.address_work
+              /  p
+              /    strong Email:
+              /    = @client.email
+
+== render &#39;shared/site_footer&#39;</code></pre>
+
+<p>/#wrap /  div class=“#{&#39;profile&#39; if account_owner?}” /   
+.full-width-top /      == render &#39;admin/shared/navbar&#39;, page:
+&#39;account&#39;  /  .container /    == render
+&#39;admin/shared/messages&#39; /    == render
+&#39;shared/breadcrumbs&#39;, breadcrumbs: { links: {@account.title.to_sym
+=&gt; account_path(@account), /                                            
+dashboard: account_account_path(@account),\ /                              
+crm: account_account_crm_index_path(@account), \ /                         
+clients: account_account_clients_path(@account)},\ /                       
+current:  @client.full_name} / /</p>
+
+<p>/    == render &#39;shared/page_title_text&#39;, locals: {title:
+@client.full_name, body: &#39;&#39;, insert: &#39;edit&#39;} /    .row /   
+.col-sm-6 /        .panel.panel-primary /          .panel-heading /        
+&#39;Contact Info /          .panel-body /            .gravatar /          
+= gravatar_tag @client.email, :size =&gt; 120, class: “media-object” /     
+.address /              table /                tr /</p>
+
+<p>/                - if @client.company.to_s != &#39;&#39; /                 
+tr /                    th Company: &amp;nbsp; /                    td =
+@client.company /</p>
+
+<p>/                th Email: &amp;nbsp; /                td = @client.email /</p>
+
+<p>/                - if @client.assistant.to_s != &#39;&#39; /               
+tr /                    th Assistant: &amp;nbsp; /                    td =
+@client.assistant /</p>
+
+<p>/                - if @client.direct_phone.to_s != &#39;&#39; /            
+tr /                    th Direct Phone: &amp;nbsp; /                    td
+= @client.direct_phone /</p>
+
+<p>/                - if @client.direct_fax.to_s != &#39;&#39; /              
+tr /                    th Direct Fax: &amp;nbsp; /                    td =
+@client.direct_fax /</p>
+
+<p>/                - if @client.capacity.to_s != &#39;&#39; /                
+tr /                    th Capacity: &amp;nbsp; /                    td =
+@client.capacity /</p>
+
+<p>/                - if @client.department.to_s != &#39;&#39; /              
+tr /                    th Department: &amp;nbsp; /                    td =
+@client.department /</p>
+
+<p>/                - if @client.address_work.to_s != &#39;&#39; /            
+tr /                    th Address: &amp;nbsp; /                    td =
+@client.address_work /</p>
+
+<p>/                - if @client.city_work.to_s != &#39;&#39; /               
+tr /                    th City: &amp;nbsp; /                    td =
+@client.city_work /</p>
+
+<p>/                - if @client.state_work.to_s != &#39;&#39; /              
+tr /                    th State: &amp;nbsp; /                    td =
+@client.state_work /</p>
+
+<p>/                - if @client.zip_work.to_s != &#39;&#39; /                
+tr /                    th Zip Code: &amp;nbsp; /                    td =
+@client.zip_work /</p>
+
+<p>/                - if @client.country_work.to_s != &#39;&#39; /            
+tr /                    th Country: &amp;nbsp; /                    td =
+@client.country_work /</p>
+
+<p>/                - if @client.home_page.to_s != &#39;&#39; /               
+tr /                    th <a href="../../../../classes/Home.html">Home</a>
+Page: &amp;nbsp; /                    td = link_to @client.home_page,
+@client.home_page /</p>
+
+<p>/                - if @client.business_phone.to_s != &#39;&#39; /          
+tr /                    th Business Phone: &amp;nbsp; /                   
+td = @client.business_phone /</p>
+
+<p>/                - if @client.business_fax.to_s != &#39;&#39; /            
+tr /                    th Business Fax: &amp;nbsp; /                    td
+= @client.business_fax /</p>
+
+<p>/                - if @client.business_email.to_s != &#39;&#39; /          
+tr /                    th Business Email: &amp;nbsp; /                   
+td = @client.business_email /</p>
+
+<p>/              /= @client.title /              /</p>
+
+<p>/              /  p /              /    strong Title: /              / /   
+/  p /              /    strong Telephone home: /              /    =
+@client.telephone_home /              /  p /              /    strong
+Telephone work: /              /    = @client.telephone_work /             
+/  p /              /    strong <a
+href="../../../../classes/Address.html">Address</a> home: /              / 
+= @client.address_home /              /  p /              /    strong <a
+href="../../../../classes/Address.html">Address</a> work: /              / 
+= @client.address_work /              /  p /              /    strong
+Email: /              /    = @client.email /</p>
+
+<p>/</p>
+
+<p>/                /= link_to &#39;Edit&#39;, edit_client_path(@client) /    
+/&#39;| /            /= link_to &#39;Back&#39;, clients_path</p>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>audo_engine.coffee</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            audo_engine.coffee
+        </h1>
+        <ul class="files">
+            <li>assets/javascripts/digi_whams/models/audo_engine.coffee</li>
+            <li>Last modified: 2015-07-05 15:22:02 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p># wrapper around soundmanager2 class @AudioEngine</p>
+
+<pre><code>sm_sounds = {}
+playing = false
+
+constructor: -&gt;
+
+play: (id, mp3) -&gt;
+  playing = true
+  soundManager.pauseAll()
+  create_sound(id , mp3)
+
+pause: -&gt;
+  playing = false
+  soundManager.pauseAll()
+
+initialize: -&gt;
+  setup_soundmanager()
+
+setup_soundmanager = () -&gt;
+  #if window.soundManager.ok() 
+  #  
+  #  window.soundManager.stopAll()
+
+create_sound = (id, mp3) -&gt;
+
+  unless sm_sounds[id]
+    sm_sound  = soundManager.createSound( {id: &#39;sound_&#39; + id, url: mp3, } )
+    sm_sounds[id]                  = sm_sound  
+    sm_sounds[id][&#39;sound_loading&#39;] = true
+    sm_sounds[id].load( 
+      whileloading: -&gt;
+        window.digi_wahms_controller.set_loadbar( id, this.bytesLoaded / this.bytesTotal ) 
+    )
+
+  sm_sounds[id].play(
+
+    whileplaying: -&gt;
+      if this.position and sm_sounds[id][&#39;sound_loading&#39;]
+        sm_sounds[id][&#39;sound_loading&#39;] = false
+        window.digi_wahms_controller.sound_loaded(id)
+      else if this.position
+        playhead_position               = this.position / this.durationEstimate
+        window.digi_wahms_controller.set_playhead( id, playhead_position )
+        sm_sounds[id][&#39;durationEstimate&#39;] = this.durationEstimate
+
+        window.playhead_display.set_text( id, this.position, playhead_position )
+  )
+
+set_position: (id, possition) -&gt;
+  possition *= sm_sounds[id][&#39;durationEstimate&#39;]
+  sm_sounds[id].setPosition( possition )
+
+is_playing: -&gt;
+  playing</code></pre>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

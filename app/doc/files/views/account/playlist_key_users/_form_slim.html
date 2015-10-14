@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>_form.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            _form.slim
+        </h1>
+        <ul class="files">
+            <li>views/account/playlist_key_users/_form.slim</li>
+            <li>Last modified: 2015-09-24 20:35:34 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>.panel.panel-primary</p>
+
+<pre><code>.panel-heading
+  &#39;Add More Personas By Email
+
+.panel-body
+  /= debug @account
+  /= debug @playlist
+  /= debug @playlist_key
+  /= debug PlaylistKeyUser.new 
+  /= debug @playlist_key.client_groups_playlist_key_users
+  = simple_form_for [ :account, @account, @playlist, @playlist_key, @playlist_key_user ]  do |f|
+    = f.association :client_groups,   as: :check_boxes
+    /= f.input :client_group, collection: @account.client_groups, include_blank: true, label: &#39;Client Groups&#39;
+    b CSV list of emails
+    = text_area_tag :emails, nil, style: &quot;width:100%; height:320px;&quot;, placeholder: &#39;i.e. john@doe.com, jane@doe.com&#39;
+
+    .pull-right
+      = f.submit &quot;Save&quot;, class: &quot;btn btn-info btn-lg&quot;
+
+      /account_account_playlist_playlist_key_playlist_key_users</code></pre>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

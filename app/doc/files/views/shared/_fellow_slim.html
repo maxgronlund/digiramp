@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>_fellow.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            _fellow.slim
+        </h1>
+        <ul class="files">
+            <li>views/shared/_fellow.slim</li>
+            <li>Last modified: 2015-07-05 15:22:06 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>.fellow</p>
+
+<pre><code>.fellow-image
+  .avatar
+    .thumbnail
+      / !!! use social_avatar
+      - unless user.image == &quot;/assets/fallback/avatar_270x270_account-logo.jpg&quot;
+        = link_to image_tag( user.image_url :avatar_120x120), user_path(user)
+      -else
+        = link_to  user_path(user) do
+          = gravatar_tag user.email, :size =&gt; 120, class: &quot;media-object&quot;
+.fellow-info      
+  h4 = user.user_name
+  - unless user.country.to_s == &#39;&#39; 
+    b Location: 
+    .location
+      = &quot;#{user.country}, #{user.city}&quot;
+  .row
+    .col-xs-2
+      == render &#39;users/shared/follow&#39; , user: user
+    .col-xs-10
+      .pull-right
+        .small-symbols
+          = user.followers.count
+          &#39;&amp;nbsp;
+          i class=&quot;fa fa-group&quot;
+          &#39;&amp;nbsp;|
+          = user.likes.count
+          &#39;&amp;nbsp;
+          i class=&quot;fa fa-heart red-heart&quot;
+          &#39;&amp;nbsp;|
+          = user.recordings.count
+          &#39;&amp;nbsp;
+          i class=&quot;fa fa-headphones&quot;
+
+h5  
+  - if user.composer
+    span class=&quot;label label-default&quot;
+      &#39;Composer  
+    &#39;&amp;nbsp;
+
+  - if user.writer
+    span class=&quot;label label-default&quot;
+      &#39;Writer
+    &#39;&amp;nbsp;
+
+  - if user.fan
+    span class=&quot;label label-default&quot;
+      &#39;Fan
+    &#39;&amp;nbsp;
+
+  - if user.author
+    span class=&quot;label label-default&quot;
+      &#39;Author
+    &#39;&amp;nbsp;
+
+  - if user.producer
+    span class=&quot;label label-default&quot;
+      &#39;Producer
+    &#39;&amp;nbsp;
+
+  - if user.musician
+    span class=&quot;label label-default&quot;
+      &#39;Musician
+    &#39;&amp;nbsp;
+
+  - if user.remixer
+    span class=&quot;label label-default&quot;
+      &#39;Remixer
+    &#39;&amp;nbsp;
+
+  - if user.dj
+    span class=&quot;label label-default&quot;
+      &#39;DJ
+    &#39;&amp;nbsp;
+hr</code></pre>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

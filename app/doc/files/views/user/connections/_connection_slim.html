@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>_connection.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            _connection.slim
+        </h1>
+        <ul class="files">
+            <li>views/user/connections/_connection.slim</li>
+            <li>Last modified: 2015-07-05 15:22:06 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      <ul><li>
+<p>if connected_to_user =  connection.connected_to_user(user)</p>
+
+<p>tr id=“delete_connection_#{connection.id}”</p>
+
+<pre><code>td
+  = link_to connected_to_user do
+    = image_tag connected_to_user.image_url(:avatar_32x32)
+    &#39;&amp;nbsp;
+    = connected_to_user.user_name
+
+th 
+  div id=&quot;connection_status_#{connection.id}&quot;
+  == render &#39;user/connections/connection_status&#39;, connection: connection
+td = connection.created_at.strftime(&quot;%Y-%m-%d&quot;)
+td 
+  = link_to user_messages_path( user , connection_id: connection.id) do
+      .btn.btn-default.btn-xs
+        i.fa.fa-envelope
+        &#39;&amp;nbsp;
+        = connection.messages_count
+        &#39;&amp;nbsp;
+        Messages
+
+td
+  - if connection.created_by_me user
+    = link_to user_user_connection_path( connection.user, connection), method: :delete, data: {confirm: &#39;Are you sure?&#39;}, remote: true do
+      .btn.btn-default.btn-xs
+        i.fa.fa-times
+        &#39;&amp;nbsp;
+        &#39;Remove 
+  - else
+    div id=&quot;connection_#{connection.id}&quot;
+    == render &#39;user/connections/accept_dismiss_buttons&#39;, connection: connection</code></pre>
+</li><li>
+<p>else /= debug connection</p>
+<ul><li>
+<p>connection.destroy!</p>
+</li></ul>
+</li></ul>
+
+<p>/tr id=“connection_#{connection.id}” / id=“old_connection_#{connection.id}”</p>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

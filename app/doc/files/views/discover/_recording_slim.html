@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>_recording.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            _recording.slim
+        </h1>
+        <ul class="files">
+            <li>views/discover/_recording.slim</li>
+            <li>Last modified: 2015-07-05 15:22:06 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<h1 id="label-link_to+user_recording_path-28recording.user-2C+recording-29+do">link_to user_recording_path(recording.user, recording) do</h1>
+
+<pre><code>.recording
+  h4 = recording.title
+  = image_tag(recording.cover_art || &#39;default-cover.jpg&#39;, class: &quot;img-lazy&quot;)
+
+  .pull-right
+    .small-symbols 
+      span id=&quot;comments_count_#{recording.id.to_s}&quot; data-toggle=&quot;tooltip&quot; data-placement=&quot;left&quot; title=&quot;Comments&quot;
+        i class=&quot;fa fa-comments&quot;
+        &#39;&amp;nbsp;
+        = recording.comments.count
+
+      span id=&quot;likes_count_#{recording.id.to_s}&quot; data-toggle=&quot;tooltip&quot; data-placement=&quot;left&quot; title=&quot;Likes&quot;
+        &#39;&amp;nbsp;|
+        i class=&quot;fa fa-heart red-heart&quot;
+        &#39;&amp;nbsp;
+        =recording.likes.count
+      span id=&quot;playbacks_count_#{recording.id.to_s}&quot; data-toggle=&quot;tooltip&quot; data-placement=&quot;left&quot; title=&quot;Playbacks&quot;
+        &#39;&amp;nbsp;|
+        i class=&quot;fa fa-headphones&quot; 
+        &#39;&amp;nbsp;
+        = recording.playbacks_count</code></pre>
+
+<p>/javascript: / 
+$(&#39;#comments_count_#{recording.id.to_s}&#39;).tooltip(&#39;hide&#39;) /
+$(&#39;#likes_count_#{recording.id.to_s}&#39;).tooltip(&#39;hide&#39;) / 
+$(&#39;#playbacks_count_#{recording.id.to_s}&#39;).tooltip(&#39;hide&#39;)</p>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

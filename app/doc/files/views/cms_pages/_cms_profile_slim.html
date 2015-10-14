@@ -1,0 +1,375 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>_cms_profile.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            _cms_profile.slim
+        </h1>
+        <ul class="files">
+            <li>views/cms_pages/_cms_profile.slim</li>
+            <li>Last modified: 2015-09-29 14:36:09 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      <ul><li>
+<p>can_edit_user = @user.permits?(current_user)</p>
+</li></ul>
+
+<p>.digi-box</p>
+
+<pre><code>.cms-profile
+  .row
+    .col-sm-12
+      h2 = @user.user_name
+      p = @user.profession
+  .row
+    .col-sm-12
+      h5  
+        - if @user.composer
+          span class=&quot;label label-default&quot;
+            &#39;Composer  
+          &#39;&amp;nbsp;
+
+        - if @user.writer
+          span class=&quot;label label-default&quot;
+            &#39;Writer
+          &#39;&amp;nbsp;
+
+        - if @user.artist
+          span class=&quot;label label-default&quot;
+            &#39;Artist
+          &#39;&amp;nbsp;
+
+        - if @user.author
+          span class=&quot;label label-default&quot;
+            &#39;Author
+          &#39;&amp;nbsp;
+
+        - if @user.producer
+          span class=&quot;label label-default&quot;
+            &#39;Producer
+          &#39;&amp;nbsp;
+
+        - if @user.musician
+          span class=&quot;label label-default&quot;
+            &#39;Musician
+          &#39;&amp;nbsp;
+
+        - if @user.remixer
+          span class=&quot;label label-default&quot;
+            &#39;Remixer
+          &#39;&amp;nbsp;
+
+        - if @user.dj
+          span class=&quot;label label-default&quot;
+            &#39;DJ
+          &#39;&amp;nbsp;
+
+      /= link_to user_followers_path(@user, clear: &#39;clear&#39;) do
+      /  i class=&quot;fa fa-users&quot;
+      /  &#39;&amp;nbsp;
+      /  = pluralize(@user.followers.count, &#39;Follower&#39;)
+  .row
+    .col-sm-4
+      /.user-avatar
+      = render &#39;shared/lightbox&#39;, locals: { \
+                                  image_url: @user.image_url , 
+                                  thumb_url: @user.image_url(:avatar_184x184) , 
+                                  id: @user.id, 
+                                  caption: @user.user_name}
+
+      - if current_user
+        .row
+          .col-sm-12.pull-down-8
+            .new_like_btn
+              == render &#39;users/shared/like&#39;
+
+      /- if @user.settings.has_a_subscription
+      /= debug @user.account_type
+      - if @user.account_type == &#39;Pro&#39;
+        = link_to pro_account_info_index_path, id: &quot;get_pro_account_info&quot;, class: &#39;bestPlanButton&#39; do
+          h4
+            span class=&#39;label label-warning&#39;
+             &#39;Pro user
+      /=  image_tag @user.image_url(:avatar_184x184) 
+      .pull-down-10
+
+    .col-sm-8
+
+      - if @user.country.to_s != &#39;&#39; || @user.city.to_s != &#39;&#39;
+        .location
+          = @user.city
+          - if c = Country.find_country_by_alpha2(@user.country)
+            &#39;&amp;nbsp;,
+            = c.name
+
+      i
+        &#39;Member since:
+        = @user.created_at.strftime(&quot;%Y-%m-%d&quot;)
+      br
+      .sexy_line
+      .user-stat
+        .user-stat-row
+          .user-stat-title
+            h4 
+              i.fa.fa-eye
+              &#39;&amp;nbsp;Views
+
+          .user-stat-data
+            h4 = @user.views
+
+        = link_to user_recordings_path(@user, clear: &#39;clear&#39;) do
+          .user-stat-row
+            .user-stat-title
+              h4 
+                i.fa.fa-headphones
+                &#39;&amp;nbsp;Recordings
+
+            .user-stat-data
+              h4 = @user.recordings.count
+
+        = link_to user_likes_path(@user) do
+          .user-stat-row
+            .user-stat-title
+              h4 
+                i.fa.fa-headphones
+                &#39;&amp;nbsp;Liked recordings
+            .user-stat-data
+              h4 = @user.likes.count
+
+        = link_to user_followers_path(@user, clear: &#39;clear&#39;) do
+          .user-stat-row
+            .user-stat-title
+              h4 
+                i.fa.fa-user
+                &#39;&amp;nbsp;
+                i.fa.fa-arrow-left
+                &#39;&amp;nbsp;Followers
+
+            .user-stat-data
+              h4 = @user.followers.count
+
+        = link_to user_following_index_path(@user, clear: &#39;clear&#39;) do
+          .user-stat-row
+            .user-stat-title
+              h4 
+                i.fa.fa-user
+                &#39;&amp;nbsp;
+                i.fa.fa-arrow-right
+                &#39;&amp;nbsp;Following
+
+            .user-stat-data
+              h4 = @user.followed_users.count
+
+        = link_to user_user_likes_path(@user, clear: &#39;clear&#39;) do
+          .user-stat-row
+            .user-stat-title
+              h4 
+                i.fa.fa-heart.red-heart
+                &#39;&amp;nbsp;Liked users
+
+            .user-stat-data
+              h4 = @user.liked_users_count
+
+        = link_to user_playlists_path(@user) do
+          .user-stat-row
+            .user-stat-title
+              h4 
+                i.fa.fa-list
+                &#39;&amp;nbsp;Playlists
+
+            .user-stat-data
+              h4 = @user.playlists.count
+
+        - if can_edit_user
+          = link_to user_user_creative_projects_path(@user) do
+            .user-stat-row
+              .user-stat-title
+                h4 
+                  i.fa.fa-wrench
+                  &#39;&amp;nbsp;Projects
+
+              .user-stat-data
+                h4 = @user.creative_projects.count
+        - else
+          = link_to user_user_creative_projects_path(@user) do
+            .user-stat-row
+              .user-stat-title
+                h4 
+                  i.fa.fa-wrench
+                  &#39;&amp;nbsp;Projects
+
+              .user-stat-data
+                h4 = @user.creative_projects.where(public_project: true).count
+
+        /= link_to user_ipis_path(@user) do
+        /  .user-stat-row
+        /    .user-stat-title
+        /      h4 
+        /        i.fa.fa-tags
+        /        &#39;&amp;nbsp;Credits
+        /      
+        /    .user-stat-data
+        /      h4 = @user.user_credits.count
+        /      
+        = link_to user_user_shop_index_path(@user) do
+          .user-stat-row
+            .user-stat-title
+              h4 
+                i.fa.fa-shopping-cart
+                &#39;&amp;nbsp;Shop
+
+            .user-stat-data
+              h4 = @user.products.where(for_sale: true).count
+
+  .pull-down-12
+  .row
+    .col-sm-12
+      .user-buttons 
+        - if current_user 
+          .inline-button
+            / only the user and supers can edit and add pages
+
+            - if can_edit_user
+              =&gt; link_to edit_user_path(@user) do
+                .btn.btn-default
+                  i class=&quot;fa fa-pencil&quot;
+                  &#39;&amp;nbsp;
+                  &#39;Profile settings
+
+              /= link_to user_user_cms_pages_path(@user) do
+              /  .btn.btn-default
+              /    i class=&quot;fa fa-plus&quot;
+              /    &#39;&amp;nbsp;
+              /    &#39;Add page
+              /    
+
+              /cms_pages
+            - if current_user.id != @user.id 
+              /  Others can Follow / unfollow / connect and so can the super
+              .inline-button
+                div id=&quot;follow_user_#{@user.id.to_s}&quot;
+                  -if current_user.following?(@user)
+                    == render &#39;users/unfollow&#39;, user: @user, size: &#39;&#39;
+                  - else 
+                    == render &#39;users/follow&#39;,   user: @user, size: &#39;&#39;
+
+              .inline-button
+                .connect-container
+                  .connect-buttons
+                  == render &#39;users/connect&#39;,    user: @user, size: &#39;&#39;
+
+        - else
+          / connect when not logged in
+          = link_to new_become_member_path(user: @user.id), remote: true do
+                .btn.btn-info
+                  i.fa.fa-refresh
+                  &#39;&amp;nbsp;Connect
+
+  .row
+    .col-sm-12.pull-down-8
+      ul.social-icons2.icon-flat.list-unstyled.list-inline
+
+        - if @user.link_to_facebook != &#39;&#39;
+          li
+            =&gt; link_to @user.link_to_facebook , target: &quot;_blank&quot; do
+              i.fa.fa-facebook
+        - if @user.link_to_twitter != &#39;&#39;
+          li
+            =&gt; link_to @user.link_to_twitter , target: &quot;_blank&quot; do
+              i.fa.fa-twitter
+        - if @user.link_to_linkedin != &#39;&#39;
+          li
+            =&gt; link_to @user.link_to_linkedin , target: &quot;_blank&quot; do
+              i.fa.fa-linkedin
+        - if @user.link_to_google_plus != &#39;&#39;
+          li
+            =&gt; link_to @user.link_to_google_plus , target: &quot;_blank&quot; do
+              i.fa.fa-google-plus
+        - if @user.link_to_tumblr != &#39;&#39;
+          li
+            =&gt; link_to @user.link_to_tumblr , target: &quot;_blank&quot; do
+              i.fa.fa-tumblr
+        - if @user.link_to_instagram != &#39;&#39;
+          li
+            =&gt; link_to @user.link_to_instagram , target: &quot;_blank&quot; do
+              i.fa.fa-instagram
+        - if @user.link_to_youtube != &#39;&#39;
+          li
+            =&gt; link_to @user.link_to_youtube , target: &quot;_blank&quot; do
+              i.fa.fa-youtube-play
+        - if @user.link_to_homepage != &#39;&#39;
+          li
+            =&gt; link_to @user.link_to_homepage , target: &quot;_blank&quot; do
+              i.fa.fa-home
+  - if can_edit_user
+    .row
+      .col-sm-12
+        =&gt; link_to &quot;Killer features!&quot;, user_user_user_configurations_path(@user), class: &#39;btn btn-info&#39;, style: &quot;color:#FFF;&quot;
+        = link_to  edit_user_social_link_path(@user) do
+          .btn.btn-default
+            &#39;Add/Edit links to you socials media
+
+  .row
+    .col-sm-12.pull-down-8
+      .sexy_line
+      = simple_format @user.profile</code></pre>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

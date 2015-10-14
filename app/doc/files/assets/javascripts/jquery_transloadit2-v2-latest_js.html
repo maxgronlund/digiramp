@@ -1,0 +1,390 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>jquery.transloadit2-v2-latest.js</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            jquery.transloadit2-v2-latest.js
+        </h1>
+        <ul class="files">
+            <li>assets/javascripts/jquery.transloadit2-v2-latest.js</li>
+            <li>Last modified: 2015-07-05 15:22:02 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<pre><code>jQuery Easing v1.3: Copyright (c) 2008 George McGinley Smith | BSD License: http://www.opensource.org/licenses/bsd-license.php
+jquery.transloadit2-v2.3.5.js: Copyright (c) 2013 Transloadit Ltd | MIT License: http://www.opensource.org/licenses/mit-license.php
+
+Fork this on Github: http://github.com/transloadit/jquery-sdk
+
+Transloadit servers allow browsers to cache jquery.transloadit2.js for 1 hour.
+keep this in mind when rolling out fixes.
+json2: Douglas Crockford | Public domain
+jQuery Tools 1.2.3: Tero Piirainen | Public domain</code></pre>
+
+<p>jQuery.easing.jswing=jQuery.easing.swing;
+jQuery.extend(jQuery.easing,{def:“easeOutQuad”,swing:function(f,a,g,d,c){return
+<a
+href="jQuery.easing.def">jQuery.easing</a>(f,a,g,d,c)},easeInQuad:function(f,a,g,d,c){return
+d*(a/=c)*a+g},easeOutQuad:function(f,a,g,d,c){return-d*(a/=c)*(a-2)+g},easeInOutQuad:function(f,a,g,d,c){return
+1&gt;(a/=c/2)?d/2*a*a+g:-d/2*(–a*(a-2)-1)+g},easeInCubic:function(f,a,g,d,c){return
+d*(a/=c)*a*a+g},easeOutCubic:function(f,a,g,d,c){return
+d*((a=a/c-1)*a*a+1)+g},easeInOutCubic:function(f,a,g,d,c){return
+1&gt;(a/=c/2)?d/2*a*a*a+g:
+d/2*((a-=2)*a*a+2)+g},easeInQuart:function(f,a,g,d,c){return
+d*(a/=c)*a*a*a+g},easeOutQuart:function(f,a,g,d,c){return-d*((a=a/c-1)*a*a*a-1)+g},easeInOutQuart:function(f,a,g,d,c){return
+1&gt;(a/=c/2)?d/2*a*a*a*a+g:-d/2*((a-=2)*a*a*a-2)+g},easeInQuint:function(f,a,g,d,c){return
+d*(a/=c)*a*a*a*a+g},easeOutQuint:function(f,a,g,d,c){return
+d*((a=a/c-1)*a*a*a*a+1)+g},easeInOutQuint:function(f,a,g,d,c){return
+1&gt;(a/=c/2)?d/2*a*a*a*a*a+g:d/2*((a-=2)*a*a*a*a+2)+g},easeInSine:function(f,a,g,d,c){return-d*Math.cos(a/
+c*(Math.PI/2))+d+g},easeOutSine:function(f,a,g,d,c){return
+d*Math.sin(a/c*(Math.PI/2))+g},easeInOutSine:function(f,a,g,d,c){return-d/2*(Math.cos(Math.PI*a/c)-1)+g},easeInExpo:function(f,a,g,d,c){return
+0==a?g:d*Math.pow(2,10*(a/c-1))+g},easeOutExpo:function(f,a,g,d,c){return
+a==c?g+d:d*(-Math.pow(2,-10*a/c)+1)+g},easeInOutExpo:function(f,a,g,d,c){return
+0==a?g:a==c?g+d:1&gt;(a/=c/2)?d/2*Math.pow(2,10*(a-1))+g:d/2*(-Math.pow(2,-10*–a)+2)+g},easeInC<a
+href="irc:function(f,a,g,d,c){return-d*(Math.sqrt(1-(a/=c">function(f,a,g,d,c){return-d*(Math.sqrt(1-(a/=c</a>)*
+a)-1)+g},easeOutC<a
+href="irc:function(f,a,g,d,c){return">function(f,a,g,d,c){return</a>
+d*Math.sqrt(1-(a=a/c-1)*a)+g},easeInOutC<a
+href="irc:function(f,a,g,d,c){return">function(f,a,g,d,c){return</a>
+1&gt;(a/=c/2)?-d/2*(Math.sqrt(1-a*a)-1)+g:d/2*(Math.sqrt(1-(a-=2)*a)+1)+g},easeInElastic:function(f,a,g,d,c){f=1.70158;var
+h=0,k=d;if(0==a)return g;if(1==(a/=c))return
+g+d;h||(h=0.3*c);k&lt;Math.abs(d)?(k=d,f=h/4):f=h/(2*Math.PI)*Math.asin(d/k);return-(k*Math.pow(2,10*(a-=1))*Math.sin(2*(a*c-f)*Math.PI/h))+g},easeOutElastic:function(f,a,g,d,c){f=1.70158;var
+h=0,k=d;if(0==a)return g;if(1== (a/=c))return
+g+d;h||(h=0.3*c);k&lt;Math.abs(d)?(k=d,f=h/4):f=h/(2*Math.PI)*Math.asin(d/k);return
+k*Math.pow(2,-10*a)*Math.sin(2*(a*c-f)*Math.PI/h)+d+g},easeInOutElastic:function(f,a,g,d,c){f=1.70158;var
+h=0,k=d;if(0==a)return g;if(2==(a/=c/2))return
+g+d;h||(h=0.3*c*1.5);k&lt;Math.abs(d)?(k=d,f=h/4):f=h/(2*Math.PI)*Math.asin(d/k);return
+1&gt;a?-0.5*k*Math.pow(2,10*(a-=1))*Math.sin(2*(a*c-f)*Math.PI/h)+g:k*Math.pow(2,-10*(a-=1))*Math.sin(2*(a*c-f)*Math.PI/h)*0.5+d+g},easeInBack:function(f,a,g,d,c,h){void
+0== h&amp;&amp;(h=1.70158);return
+d*(a/=c)<strong>a</strong>((h+1)*a-h)+g},easeOutBack:function(f,a,g,d,c,h){void
+0==h&amp;&amp;(h=1.70158);return
+d*((a=a/c-1)<strong>a</strong>((h+1)*a+h)+1)+g},easeInOutBack:function(f,a,g,d,c,h){void
+0==h&amp;&amp;(h=1.70158);return
+1&gt;(a/=c/2)?d/2*a*a*(((h*=1.525)+1)*a-h)+g:d/2*((a-=2)<strong>a</strong>(((h*=1.525)+1)*a+h)+2)+g},easeInBounce:function(f,a,g,d,c){return
+d-jQuery.easing.easeOutBounce(f,c-a,0,d,c)+g},easeOutBounce:function(f,a,g,d,c){return(a/=c)&lt;1/2.75?7.5625*d*a*a+g:a&lt;2/2.75?d*(7.5625*(a-=1.5/2.75)*a+0.75)+g:a&lt;2.5/2.75?
+d*(7.5625*(a-=2.25/2.75)*a+0.9375)+g:d*(7.5625*(a-=2.625/2.75)*a+0.984375)+g},easeInOutBounce:function(f,a,g,d,c){return
+a&lt;c/2?0.5*jQuery.easing.easeInBounce(f,2*a,0,d,c)+g:0.5*jQuery.easing.easeOutBounce(f,2*a-c,0,d,c)+0.5*d+g}});
+(function(f){function a(){}function g(a){<a href="a">F=</a>}function
+d(a,e,k){return a&amp;&amp;a.apply(e.context||e,k)}function c©{function
+L(a){<a href="s">A++||(B(),C&&(H</a>={<a href="a">s:</a>}),<a
+href="a">M&&(a=M.apply(c,</a>)),<a href="a,N,c">d(I,c,</a>),<a
+href="c,N">d(O,c,</a>))}function G(a){<a
+href="s">A++||(B(),C&&a!=P&&(H</a>=<a href="c,a">a),d(J,c,</a>),<a
+href="c,a">d(O,c,</a>))}c=f.extend({},Q,c);var
+I=c.success,J=c.error,O=c.complete,M=c.dataFilter,D=c.callbackParameter,R=c.callback,Y=c.cache,C=c.pageCache,S=c.charset,s=c.url,w=c.data,T=c.timeout,E,A=0,B=a,q,x,K;U&amp;&amp;U(function(a){a.done(I).fail(J);I=
+a.resolve;J=a.reject}).promise©;c.abort=function(){!A++&amp;&amp;B()};<a
+href="c">if(!1===d(c.beforeSend,c,</a>)||A)return
+c;s=s||e;w=w?“string”==typeof
+w?w:f.param(w,c.traditional):e;s+=w?(/?/.test(s)?“&amp;”:“?”)+w:e;D&amp;&amp;(s+=(/?/.test(s)?“&amp;”:“?”)+encodeURIComponent(D)+“=?”);Y||C||(s+=(/?/.test(s)?“&amp;”:“?”)+“_”+(new
+<a
+href="s">Date).getTime()+“=”);s=s.replace(/=?(&|$)/,“=”R“$1”);C&&(E=H</a>)?<a
+href="0">E.s?L(E.s</a>):<a href="R">G(E):(V</a>=<a href="0">g,q=f(l)</a>,<a
+href="k">q.id=y+Z++,S&&(q</a>=<a
+href="0">S),W&&11.6>W.version()?(x=f(l)</a>).text=“document.getElementById(&#39;”<code>q.id</code>“&#39;).”+
+<a href="h">m+“()”:q</a>=<a
+href="r">h,$&&(q.htmlFor=q.id,q.event=v),q</a>=<a href="m">q</a>=<a
+href="u">q</a>=function(a){<a href="n">if(!q</a>||!/<a
+href="n">i/.test(q</a>)){try{<a href="v">q</a>&amp;&amp;<a
+href="v">q</a>()}catch(e){}<a
+href="0">a=F;F=0;a?L(a</a>):G(t)}},q.src=s,B=function(a){<a
+href="u">K&&clearTimeout(K);q</a>=<a href="r">q</a>=<a href="m">q</a>=<a
+href="p">null;z</a>(<a href="p">q);x&&z</a>(x)},<a href="X">z</a>(<a
+href="X">q,D=z.firstChild),x&&z</a>(x,D),K=0&lt;T&amp;&amp;setTimeout(function(){G(P)},T));return
+c}var
+h=“async”,k=“charset”,e=“”,t=“error”,X=“insertBefore”,y=“_jqjsp”,v=“onclick”,m=“on”+t,r=“onload”,u=“onreadystatechange”,n=“readyState”,p=“removeChild”,l=“&lt;script&gt;”,N=“success”,P=“timeout”,
+<a
+href="0">V=window,U=f.Deferred,z=f(“head”)</a>||document.documentElement,H={},Z=0,F,Q={callback:y,url:location.href},W=V.opera,$=!!f(“&lt;div&gt;”).html(“x3c!–[if
+<a
+href="endif">IE]><i><!</a>–x3e”).find(“i”).length;c.setup=function(a){f.extend(Q,a)};f.jsonp=c})(jQuery);this.JSON||(this.JSON={});
+(function(){function f(a){return 10&gt;a?“0”+a:a}function
+a(a){c.lastIndex=0;return c.test(a)?&#39;“&#39;+a.replace(c,function(a){var
+<a href="a">k=e</a>;return”string“===typeof
+k?k:”\u“+(”0000“+a.charCodeAt(0).toString(16)).slice(-4)})+&#39;”&#39;:&#39;“&#39;<code>a</code>&#39;”&#39;}function
+g(e,c){var <a href="e">f,d,r,u,n=h,p,l=c</a>;l&amp;&amp;“object”===typeof
+l&amp;&amp;“function”===typeof
+l.toJSON&amp;&amp;(l=l.toJSON(e));“function”===typeof
+t&amp;&amp;(l=t.call(c,e,l));switch(typeof l){case “string”:return
+a(l);case “number”:return isFinite(l)?String(l):“null”;case “boolean”:case
+“null”:return String(l); case
+“object”:if(!l)return“null”;h+=k;p=[];if(“[object
+Array]”===Object.prototype.toString.apply(l)){<a
+href="f">u=l.length;for(f=0;f<u;f+=1)p</a>=<a
+href="\n"+h+p.join(",\n"h)"\n"n"">g(f,l)||“null”;r=0===p.length?“[]”:h?“</a>”:“[”+p.join(“,”)+“]”;h=n;return
+r}if(t&amp;&amp;“object”===typeof <a
+href="f">t)for(u=t.length,f=0;f<u;f+=1)d=t</a>,“string”===typeof
+d&amp;&amp;(r=g(d,l))&amp;&amp;p.push(a(d)+(h?“: ”:“:”)+r);else for(d in
+l)Object.hasOwnProperty.call(l,d)&amp;&amp;(r=g(d,l))&amp;&amp;p.push(a(d)+(h?“:
+”:“:”)+r);r=0===p.length?“{}”:h?“{n”+h+p.join(“,n”<code>h)</code>“n”+
+n+“}”:“{”+p.join(“,”)+“}”;h=n;return r}}“function”!==typeof
+Date.prototype.toJSON&amp;&amp;(Date.prototype.toJSON=function(a){return
+isFinite(this.valueOf())?this.getUTCFullYear()+“-”+f(this.getUTCMonth()<code>1)</code>“-”+f(this.getUTCDate())+“T”+f(this.getUTCHours())+“:”+f(this.getUTCMinutes())+“:”+f(this.getUTCSeconds())+“Z”:null},String.prototype.toJSON=Number.prototype.toJSON=Boolean.prototype.toJSON=function(a){return
+this.valueOf()});var <a
+href="\u0000\u00ad\u0600-\u0604\u070f\u17b4\u17b5\u200c-\u200f\u2028-\u202f\u2060-\u206f\ufeff\ufff0-\uffff">d=/</a>/g,
+<a
+href="\\\"\x00-\x1f\x7f-\x9f\u00ad\u0600-\u0604\u070f\u17b4\u17b5\u200c-\u200f\u2028-\u202f\u2060-\u206f\ufeff\ufff0-\uffff">c=/</a>/g,h,k,e={“b”:“\b”,“t”:“\t”,“n”:“\n”,“f”:“\f”,“r”:“\r”,&#39;“&#39;:&#39;\”&#39;,“\”:“\\”},t;“function”!==typeof
+JSON.stringify&amp;&amp;(JSON.stringify=function(a,e,c){var
+f;k=h=“”;if(“number”===typeof c)for(f=0;f&lt;c;f+=1)k+=“
+”;else“string”===typeof
+c&amp;&amp;(k=c);if((t=e)&amp;&amp;“function”!==typeof
+e&amp;&amp;(“object”!==typeof e||“number”!==typeof e.length))throw
+Error(“JSON.stringify”);return g(“”,{“”:a})}); “function”!==typeof
+JSON.parse&amp;&amp;(JSON.parse=function(a,e){function k(a,c){var <a
+href="c">f,d,g=a</a>;if(g&amp;&amp;“object”===typeof g)for(f in
+g)Object.hasOwnProperty.call(g,f)&amp;&amp;(d=k(g,f),void <a
+href="f">0!==d?g</a>=d:delete <a href="f">g</a>);return e.call(a,c,g)}var
+c;a=String(a);d.lastIndex=0;d.test(a)&amp;&amp;(a=a.replace(d,function(a){return“\u”+(“0000”+a.charCodeAt(0).toString(16)).slice(-4)}));<a
+href="\">if(/^</a>,:{}<a href=“”\/bfnrt“>s]*$/.test(a.replace(/\(?:</a>|<a
+href="0-9a-fA-F">u</a>{4})/<a href="^"\\\n\r">g,”@“).replace(/”</a>*“|<a
+href="eE">true|false|null|-?d+(?:.d*)?(?:</a>[+-]?d+)?/g,
+”]“).replace(/(?:^|:|,)(?:s*[)+/g,”“)))return
+c=eval(”(“<code>a</code>”)“),”function“===typeof e?k({”“:c},”“):c;throw new
+SyntaxError(”JSON.parse“);})})();
+(function(f){f.tools=f.tools||{version:”2013-02-15“};var
+a=f.tools.expose={conf:{maskId:”exposeMask“,loadSpeed:”slow“,closeSpeed:”fast“,zIndex:9998,opacity:0.8,startOpacity:0,color:”#fff“}},g,d,c,h,k;f.mask={load:function(e,t){if©return
+this;e=e||h;h=e=f.extend(f.extend({},a.conf),e);g=f(”#“+e.maskId);g.length||(g=f(”&lt;div/&gt;“).attr(”id“,e.maskId),f(”body“).append(g));g.css({position:”fixed“,top:0,left:0,width:”100%“,height:”100%“,display:”none“,opacity:e.startOpacity,zIndex:e.zIndex,backgroundColor:e.color});
+t&amp;&amp;t.length&amp;&amp;(k=t.eq(0).css(”zIndex“),d=t.css({zIndex:Math.max(e.zIndex+1,”auto“==k?0:k)}));g.css({display:”block“}).fadeTo(e.loadSpeed,e.opacity);c=!0;return
+this},close:function(){c&amp;&amp;(g.fadeOut(h.closeSpeed,function(){d&amp;&amp;d.css({zIndex:k})}),c=!1);return
+this}};f.fn.mask=function(a){f.mask.load(a);return
+this};f.fn.expose=function(a){f.mask.load(a,this);return this}})(jQuery);
+!function(f){function
+a(){this.timer=this.documentTitle=this.instance=this.assemblyId=null;this._options={};this.uploads=[];this.results={};this.pollStarted=this.ended=null;this.seq=this.pollRetries=0;this.started=!1;this.params=this.assembly=null;this.lastPoll=this.bytesReceivedBefore=0;this.$modal=this.$iframe=this.$fileClones=this.$files=this.$form=this.$params=null;this._clockseq=this._lastNSecs=this._lastMSecs=0}var
+g=”<a
+href="https:"==document.location.protocol?"https://":"http://",d=g+"api2.transloadit.com">“==document.location.protocol?”https://“:”http://“,d=g+”api2.transloadit.com</a>/“,
+c={service:d,assets:g+”assets.transloadit.com/“,onFileSelect:function(){},onStart:function(){},onProgress:function(){},onUpload:function(){},onResult:function(){},onCancel:function(){},onError:function(){},onSuccess:function(){},interval:2500,pollTimeout:8E3,poll404Retries:15,pollConnectionRetries:3,wait:!1,processZeroFiles:!0,triggerUploadOnFileSelection:!1,autoSubmit:!0,modal:!0,exclude:”“,fields:!1,params:null,signature:null,region:”us-east-1“,debug:!0},h=!1;f.fn.transloadit=function(){var
+k=Array.prototype.slice.call(arguments),
+e,c;if(0!==this.length)if(1&lt;this.length)this.each(function(){f.fn.transloadit.apply(f(this),k)});else{(1==k.length&amp;&amp;”object“==typeof
+<a href="0">k</a>||void <a
+href="0">0===k</a>)&amp;&amp;k.unshift(”init“);e=k.shift();”init“==e?(c=new
+a,k.unshift(this),this.data(”transloadit.uploader“,c)):c=this.data(”transloadit.uploader“);if(!c)throw
+Error(”Element is not initialized for <a
+href="e">transloadit!“);e=c</a>.apply(c,k);return void
+0===e?this:e}};a.prototype.init=function(a,e){this.$form=a;this.options(f.extend({},c,e||{}));var
+d=this;a.bind(”submit.transloadit“,
+function(){d.validate();d.detectFileInputs();d.checkFileTypes();d._options.processZeroFiles||0!==d.$files.length?d.getBoredInstance():d.submitForm();return!1});<a
+href="type="file"">if(this._options.triggerUploadOnFileSelection)a.on(”change“,‘input</a>&#39;,function(){a.trigger(”submit.transloadit“)});<a
+href="type="file"">a.on(”change“,’input</a>&#39;,function(){d._options.onFileSelect(f(this).val(),f(this))});this.includeCss()};a.prototype.getBoredInstance=function(){function
+a(){f.jsonp({url:c,timeout:e._options.pollTimeout,callbackParameter:”callback“,
+success:function(a){a.error?(e.ended=!0,a.url=c,e.renderError(a),e._options.onError(a)):(e.instance=a.api2_host,e.start())},error:function(f,v){if(h&amp;&amp;e._options.service===d&amp;&amp;”<a
+href="https://"!==g)h=!1,e._findBoredInstanceUrl(function(f,d){f?(e.ended=!0,f={error:"BORED_INSTANCE_ERROR",message:"Could">“!==g)h=!1,e._findBoredInstanceUrl(function(f,d){f?(e.ended=!0,f={error:”BORED_INSTANCE_ERROR“,message:”Could</a>
+not find a bored instance.
+“+f.message},e.renderError(f),e._options.onError(f)):(c=g+”api2.“<code>d</code>”/instances/bored“,a())});else{e.ended=!0;var
+m={error:”CONNECTION_ERROR“,message:”There was a problem connecting to the
+upload server“, reason:”JSONP request status:
+“+v,url:c};e.renderError(m);e._options.onError(m)}}})}var
+e=this;this.instance=null;var
+c=this._options.service+”instances/bored“,h=!0;a();this._options.modal&amp;&amp;this.showModal()};a.prototype._findBoredInstanceUrl=function(a){var
+e=this;f.ajax({url:”<a
+href="http://infra-"this._options.region".transloadit.com.s3.amazonaws.com/cached_instances.json",datatype:"json",timeout:3E3,success:function(c){c=e._shuffle(c.uploaders);e._findResponsiveInstance(c,0,a)},error:function(e,c){a(Error("Could">infra-“this._options.region”.transloadit.com.s3.amazonaws.com/cached_instances.json“,datatype:”json“,timeout:3E3,success:function©{c=e._shuffle(c.uploaders);e._findResponsiveInstance(c,0,a)},error:function(e,c){a(Error(”Could</a>
+not query S3 for cached uploaders“))}})};
+a.prototype._findResponsiveInstance=function(a,e,c){<a
+href="e">if(!a</a>)return c(Error(”No responsive uploaders“));var <a
+href="e">d=this,y=a</a>;f.jsonp({url:g+y,timeout:3E3,callbackParameter:”callback“,success:function(a){c(null,y)},error:function(f,g){d._findResponsiveInstance(a,e+1,c)}})};a.prototype._shuffle=function(a){for(var
+<a
+href="f">e=[],c,f=0;f<a.length;f++)c=Math.floor(Math.random()*(f+1)),e</a>=<a
+href="c">e</a>,<a href="c">e</a>=<a href="f">a</a>;return
+e};a.prototype.start=function(){var
+a=this;this.ended=this.started=!1;this.seq=this.pollRetries=this.bytesReceivedBefore=
+0;this.uploads=[];this.results={};this.assemblyId=this._genUuid();this.$fileClones=f().not(document);this.$files.each(function(){var
+e=f(this).clone(!0);a.$fileClones=a.$fileClones.add(e);e.insertAfter(this)});this.$iframe=f(&#39;&lt;iframe
+id=”transloadit-&#39;<code>this.assemblyId</code>&#39;“
+name=”transloadit-&#39;<code>this.assemblyId</code>&#39;“/&gt;&#39;).appendTo(”body“).hide();if(this._options.formData){<a
+href="name=params">this._options.formData.append(”params“,this.$form.find(”input</a>“).val());var
+e=new
+XMLHttpRequest;e.open(”POST“,b);e.send(this._options.formData)}else{this.$uploadForm=
+f(&#39;&lt;form enctype=”multipart/form-data“
+/&gt;&#39;).attr(”action“,g+this.instance+”/assemblies/“<code>this.assemblyId</code>”?redirect=false“).attr(”target“,”transloadit-“+this.assemblyId).attr(”method“,”POST“).append(this.$files).appendTo(”body“).hide();var
+<a href="name=params">c=”</a>,
+[name=signature]“;!0===this._options.fields?c=”*“:”string“===typeof
+this._options.fields&amp;&amp;(c+=”, “+this._options.fields);var <a
+href="type!=file">d=this.$form.find(”:input</a>“).filter©,c=d.filter(”select“),d=d.filter(function(){return!f(this).is(”select“)}),
+<a
+href="type!=submit">d=d.filter(”</a>“),d=this.clone(d);this._options.params&amp;&amp;!this.$params&amp;&amp;(d=d.add(&#39;&lt;input
+name=”params“
+value=&#39;&#39;+JSON.stringify(this._options.params)+”&#39;&gt;“));this._options.signature&amp;&amp;(d=d.add(&#39;&lt;input
+name=”signature“
+value=&#39;&#39;<code>this._options.signature</code>”&#39;&gt;“));if(”object“==typeof
+this._options.fields)for(e in this._options.fields)d=d.add(&#39;&lt;input
+name=”&#39;<code>e</code>“&quot; <a
+href="e">value=‘”+this._options.fields</a>+“&#39;&gt;”);d.prependTo(this.$uploadForm);c.each(function(){f(&#39;&lt;input
+type=“hidden”/&gt;&#39;).attr(“name”,f(this).attr(“name”)).attr(“value”,
+f(this).val()).prependTo(a.$uploadForm)});this.$uploadForm.submit()}this.lastPoll=+new
+Date;setTimeout(function(){a._poll()},300)};a.prototype.clone=function(a){var
+e=a.clone();a=a.filter(“textarea”);for(var <a
+href="d">c=e.filter(“textarea”),d=0;d<a.length;++d)f(c</a>).<a
+href="d">val(f(a</a>).val());return
+e};a.prototype.checkFileTypes=function(){var
+a=this;this.$files=this.$files.filter(function(){var
+e=f(this).attr(“accept”);if(!e)return!0;/image/jpg/g.test(e)&amp;&amp;!/image/jpeg/g.test(e)&amp;&amp;(e+=“,image/jpeg”);/image/jpeg/g.test(e)&amp;&amp;
+!/image/jpg/g.test(e)&amp;&amp;(e+=“,image/jpg”);-1!==e.indexOf(“video 
+”)&amp;&amp;(e=e.replace(/video/\ 
+g,“video/mp4,video/flv,video/avi,video/mpg,video/mov,video/wmv,video/h264,video/mkv,video/ogv”));-1!==e.indexOf(“image/*”)&amp;&amp;(e=e.replace(/image/*/g,“image/png,image/jpeg,image/gif,image/jpg,image/ico”));-1!==e.indexOf(“audio/*”)&amp;&amp;(e=e.replace(/audio/*/g,“audio/aac,audio/mp3,audio/flac,audio/m4a,audio/mmf,audio/3gp,audio/mp4,audio/mpeg,audio/ogg,audio/wav,audio/webm”));for(var
+e=e.split(“,”),c=this.value.split(“.”).pop().toLowerCase(), <a
+href="d">d=0;d<e.length;d++)if(c==e</a>.<a
+href="1">split(“/”)</a>)return!0;a._options.onError({error:“INVALID_FILE_TYPE”,message:“Sorry,
+we don&#39;t accept ”<code>c</code>“ files.”,reason:“Invalid file
+selected”});return!1})};a.prototype.detectFileInputs=function(){var <a
+href="type=file">a=this.$form.find(“input</a>”).not(this._options.exclude);this._options.processZeroFiles||(a=a.filter(function(){return“”!==this.value}));this.$files=a};a.prototype.validate=function(){if(this._options.params)this.params=this._options.params;else{var
+<a href="name=params">a=this.$form.find(“input</a>”);
+if(!a.length){alert(“Could not find <a href="name=params">input</a> in your
+form.”);return}this.$params=a;try{this.params=JSON.parse(a.val())}catch(e){alert(“Error:
+<a href="name=params">input</a> seems to contain invalid
+JSON.”);return}}this.params.redirect_url?this.$form.attr(“action”,this.params.redirect_url):this._options.autoSubmit&amp;&amp;this.$form.attr(“action”)==this._options.service+“assemblies”&amp;&amp;alert(“Error:
+<a href="name=params">input</a> does not include a
+redirect_url”)};a.prototype._poll=function(a){var
+e=this;if(!this.ended){var c= /(mozilla)(?:.*? <a
+href="\w.">rv:(</a>+))?/.<a
+href="1">exec(navigator.userAgent),c=c&&c</a>;this.documentTitle=document.title;c&amp;&amp;!this.documentTitle&amp;&amp;(document.title=“Loading…”);this.pollStarted=+new
+Date;var
+d=g+this.instance+“/assemblies/”<code>this.assemblyId</code>(a||“?seq=”+this.seq);f.jsonp({url:d,timeout:e._options.pollTimeout,callbackParameter:“callback”,success:function(a){if(!e.ended)if(e.assembly=a,“ASSEMBLY_NOT_FOUND”==a.error)e.pollRetries++,e.pollRetries&gt;e._options.poll404Retries?(document.title=e.documentTitle,e.ended=
+!0,e.renderError(a),e._options.onError(a)):setTimeout(function(){e._poll()},400);else
+if(a.error)e.ended=!0,e.renderError(a),document.title=e.documentTitle,e._options.onError(a);else{e.seq=a.last_seq;e.started||(e.started=!0,e._options.onStart(a));e.pollRetries=0;var
+c=“ASSEMBLY_EXECUTING”===a.ok,d=“ASSEMBLY_CANCELED”===a.ok,f=“ASSEMBLY_COMPLETED”===a.ok;e._options.onProgress(a.bytes_received,a.bytes_expected,a);for(var
+<a href="g">g=0;g<a.uploads.length;g++)e._options.onUpload(a.uploads</a>,<a
+href="g">a),e.uploads.push(a.uploads</a>); for(var k in <a
+href="k">a.results)for(e.results</a>=<a href="k">e.results</a>||[],<a
+href="k">g=0;g<a.results</a>.<a
+href="k">length;g++)e._options.onResult(k,a.results</a>[<a
+href="k">g],a),e.results</a>.<a
+href="k">push(a.results</a>[g]);d?(e.ended=!0,document.title=e.documentTitle,e._options.onCancel(a)):(e.renderProgress(a),f||!e._options.wait&amp;&amp;c?(e.ended=!0,document.title=e.documentTitle,a.uploads=e.uploads,a.results=e.results,e._options.onSuccess(a),e._options.modal&amp;&amp;e.cancel(),e.submitForm()):(a=e.pollStarted-+new
+Date,e.timer=setTimeout(function(){e._poll()},a&lt;e._options.interval?
+e._options.interval:a),e.lastPoll=+new
+Date))}},error:function(a,c){if(!e.ended)if(e.pollRetries++,e.pollRetries&gt;e._options.pollConnectionRetries){document.title=e.documentTitle;e.ended=!0;var
+f={error:“CONNECTION_ERROR”,message:“There was a problem connecting to the
+upload server”,reason:“JSONP request status:
+”+c,url:d};e.renderError(f);e._options.onError(f)}else
+setTimeout(function(){e._poll()},350)}})}};a.prototype.stop=function(){document.title=this.documentTitle;this.ended=!0};a.prototype.cancel=
+function(){if(!this.ended){var
+a=this;this.$params&amp;&amp;this.$params.prependTo(this.$form);this.$fileClones.each(function(e){<a
+href="e">e=f(a.$files</a>).clone(!0);var
+c=f(this);e.insertAfter©;c.remove()});clearTimeout(a.timer);this._poll(“?method=delete”);“Microsoft
+Internet <a
+href="0">Explorer”==navigator.appName&&this.$iframe</a>.contentWindow.document.execCommand(“Stop”);setTimeout(function(){a.$iframe.remove()},500)}this._options.modal&amp;&amp;(f.mask.close(),this.$modal.remove())};a.prototype.submitForm=function(){null!==this.assembly&amp;&amp;
+f(“&lt;textarea/&gt;”).attr(“name”,“transloadit”).text(JSON.stringify(this.assembly)).prependTo(this.$form).hide();this._options.autoSubmit&amp;&amp;this.$form.unbind(“submit.transloadit”).submit()};a.prototype.showModal=function(){this.$modal=f(&#39;&lt;div
+id=“transloadit”&gt;&lt;div class=“content”&gt;&lt;a href=“#close”
+class=“close”&gt;Cancel&lt;/a&gt;&lt;p class=“status”&gt;&lt;/p&gt;&lt;div
+class=“progress progress-striped active”&gt;&lt;div class=“bar”&gt;&lt;span
+class=“percent”&gt;&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;label&gt;Starting
+upload …&lt;/label&gt;&lt;p class=“error”&gt;&lt;/p&gt;&lt;div
+class=“error-details-toggle”&gt;&lt;a
+href=“#”&gt;Details&lt;/a&gt;&lt;/div&gt;&lt;p
+class=“error-details”&gt;&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;&#39;).appendTo(“body”);
+f.extend(this.$modal,{$content:this.$modal.find(“.content”),$close:this.$modal.find(“.close”),$label:this.$modal.find(“label”),$progress:this.$modal.find(“.progress”),$percent:this.$modal.find(“.progress
+.percent”),$progressBar:this.$modal.find(“.progress
+.bar”),$error:this.$modal.find(“.error”),$errorDetails:this.$modal.find(“.error-details”),$errorDetailsToggle:this.$modal.find(“.error-details-toggle”)});var
+a=this;this.$modal.$close.click(function(){a.cancel()});this.$modal.$error.hide();this.$modal.$errorDetails.hide();
+this.$modal.$errorDetailsToggle.hide();this.$modal.expose({api:!0,maskId:“transloadit_expose”,opacity:0.9,loadSpeed:250,closeOnEsc:!1,closeOnClick:!1});this.$modal.$close.click(function(){a.cancel();return!1})};a.prototype.renderError=function(a){if(this._options.modal){this.$modal.$content.addClass(“content-error”);this.$modal.$progress.hide();this.$modal.$label.hide();var
+e=a.error+“: ”<code>a.message</code>“&lt;br /&gt;&lt;br /&gt;”,<a
+href=""CONNECTION_ERROR","BORED_INSTANCE_ERROR","ASSEMBLY_NOT_FOUND"">e=e+(a.reason||“”);if(-1===</a>.indexOf(a.error))this.$modal.$error.html(e).show();
+else{this.$modal.$error.html(“There was an internal error.&lt;br
+/&gt;Please try your upload again.”).show();var
+c=this,d=null;f.getJSON(g+“jsonip.com/”,function(a){d=a.ip}).always(function(){var
+h={endpoint:a.url,instance:c.instance,assembly_id:c.assemblyId,ip:d,time:c.getUTCDatetime(),agent:navigator.userAgent,poll_retries:c.pollRetries,error:e};f.post(g+“status.transloadit.com/client_error”,h);var
+v=[],m;for(m in h)v.push(m+“: ”+<a href="m">h</a>);h=“If you would like our
+help to troubleshoot this, please email us this information:&lt;br
+/&gt;&lt;br /&gt;”; c.$modal.$errorDetails.hide().html(h+v.join(“&lt;br
+/&gt;”));c.$modal.$errorDetailsToggle.show().find(“a”).off(“click”).on(“click”,function(a){a.preventDefault();c.$modal.$errorDetails.toggle()})})}}};a.prototype.renderProgress=function(a){if(this._options.modal){var
+e=a.bytes_received/a.bytes_expected*100;100&lt;e&amp;&amp;(e=0);var
+c=a.bytes_received-this.bytesReceivedBefore,d=+new
+Date-this.lastPoll,f=100===e?1E3:2*this._options.interval,g=“Processing
+files”;100!=e&amp;&amp;(g=(a.bytes_received/1024/1024).toFixed(2)+“ MB / ”+
+(a.bytes_expected/1024/1024).toFixed(2)+“ MB
+(”+(c/1024/(d/1E3)).toFixed(1)+“ kB / sec)”);this.$modal.$label.text(g);var
+h=parseInt(this.$modal.$progress.css(“width”),10);this.bytesReceivedBefore=a.bytes_received;if(!(0&gt;=c)){var
+r=this;this.$modal.$progressBar.stop().animate({width:e+“%”},{duration:f,easing:“linear”,progress:function(a,c,e){a=(100*parseInt(r.$modal.$progressBar.css(“width”),10)/h).toFixed(0);100&lt;a&amp;&amp;(a=100);13&lt;a&amp;&amp;r.$modal.$percent.text(a+“%”)}})}}};a.prototype.includeCss=function(){!h&amp;&amp;
+this._options.modal&amp;&amp;(h=!0,f(&#39;&lt;link rel=“stylesheet”
+type=“text/css”
+href=“&#39;<code>this._options.assets</code>&#39;css/transloadit2-v2.3.5.css”
+/&gt;&#39;).appendTo(“head”))};a.prototype.getUTCDatetime=function(){var
+a=new Date,a=new
+Date(a.getUTCFullYear(),a.getUTCMonth(),a.getUTCDate(),a.getUTCHours(),a.getUTCMinutes(),a.getUTCSeconds()),c=function(a){return
+10&gt;a?“0”+a:a},d=a.getTimezoneOffset(),f=(0&lt;d?“-”:“+”)+c(parseInt(d/60,10));0!==d%60&amp;&amp;(f+=c(d%60));0===d&amp;&amp;(f=“Z”);return
+a.getFullYear()+“-”+c(a.getMonth()<code>1)</code>“-”+c(a.getDate())+
+“T”+c(a.getHours())+“:”+c(a.getMinutes())+“:”+c(a.getSeconds())+f};a.prototype._genUuid=function(a,c,d){function
+f(a,c){var d=c||0,e=u;return <a href="d++">e[a</a>]+<a
+href="d++">e[a</a>]+<a href="d++">e[a</a>]+<a href="d++">e[a</a>]+<a
+href="d++">e[a</a>]+<a href="d++">e[a</a>]+<a href="d++">e[a</a>]+<a
+href="d++">e[a</a>]+<a href="d++">e[a</a>]+<a href="d++">e[a</a>]+<a
+href="d++">e[a</a>]+<a href="d++">e[a</a>]+<a href="d++">e[a</a>]+<a
+href="d++">e[a</a>]+<a href="d++">e[a</a>]+<a
+href="d++">e[a</a>]}a=a||{};d=c&amp;&amp;d||0;var
+g=c||[],h=Array(16),m=function(){for(var <a
+href="a">a=0,c;16>a;a++)0===(a&3)&&(c=4294967296*Math.random()),h</a>=c&gt;&gt;&gt;((a&amp;3)&lt;&lt;3)&amp;255;return
+h}(),<a href="0">r=[m</a>|<a href="1">1,m</a>,<a href="2">m</a>,<a
+href="3">m</a>,<a href="4">m</a>,<a href="5">m</a>];this._clockseq= (<a
+href="6">m</a>&lt;&lt;<a href="7">8|m</a>)&amp;16383;for(var <a
+href="n">m=null!=a.clockseq?a.clockseq:this._clockseq,u=[],n=0;256>n;n++)u</a>=(n+256).toString(16).substr(1);var
+n=null!=a.msecs?a.msecs:(new
+Date).getTime(),p=null!=a.nsecs?a.nsecs:this._lastNSecs+1,l=n-this._lastMSecs+(p-this._lastNSecs)/1E4;0&gt;l&amp;&amp;null==a.clockseq&amp;&amp;(m=m+1&amp;16383);(0&gt;l||n&gt;this._lastMSecs)&amp;&amp;null==a.nsecs&amp;&amp;(p=0);if(1E4&lt;=p)throw
+Error(“uuid.v1(): Can&#39;t create more than 10M
+uuids/sec”);this._lastMSecs=n;this._lastNSecs=p;this._clockseq=m;n+=122192928E5;p=(1E4*(n&amp;268435455)+
+<a href="d++">p)%4294967296;g</a>=<a href="d++">p>>>24&255;g</a>=<a
+href="d++">p>>>16&255;g</a>=<a href="d++">p>>>8&255;g</a>=<a
+href="d++">p&255;n=n/4294967296*1E4&268435455;g</a>=<a
+href="d++">n>>>8&255;g</a>=<a href="d++">n&255;g</a>=<a
+href="d++">n>>>24&15|16;g</a>=<a href="d++">n>>>16&255;g</a>=<a
+href="d++">m>>>8|128;g</a>=<a
+href="d+r">m&255;a=a.node||r;for(r=0;6>r;r++)g</a>=<a href="r">a</a>;return
+c?c:f(g)};a.prototype.options=function(a){if(0===arguments.length)return
+this._options;f.extend(this._options,a)};a.prototype.option=function(a,c){if(1==arguments.length)return
+<a href="a">this._options</a>;<a
+href="a">this._options</a>=c}}(window.jQuery);</p>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

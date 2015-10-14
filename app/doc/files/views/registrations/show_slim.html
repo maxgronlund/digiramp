@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>show.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            show.slim
+        </h1>
+        <ul class="files">
+            <li>views/registrations/show.slim</li>
+            <li>Last modified: 2015-07-05 15:22:06 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>wrapper</p>
+
+<pre><code>.full-width-top
+  == render &#39;shared/navigationbar&#39;, page: &#39;home&#39; 
+
+#sidebar-wrapper
+  ul class=&quot;sidebar-nav&quot;
+    == render &#39;users/shared/sidebar&#39;, selected: &#39;recordings&#39;
+
+#page-content-wrapper
+  .container-fluid   
+    .row
+      .col-sm-6   
+        h3 Invoice
+      .col-sm-6
+        .pull-right
+          .recording-navigation
+            =&gt; link_to root_path do
+              .btn.btn-default
+                i.fa.fa-chevron-left
+                &#39;&amp;nbsp;
+                &#39;Back
+
+    .sexy_line
+
+    .digi-box
+      = debug @registration</code></pre>
+
+<p>/%section#course-content /  %section#ruby /    %section.detailed-syllabus /
+.wrapper-inside /        %h3.title Course invoice /      .columns.clearfix
+/        .left{style: “padding-left:100px;”} /          - if notice /      
+%p#notice{style: “background-color: lightgreen;padding: 5px;”}= notice /   
+- if alert /            %p#alert{style: “background-color:
+lightpink;padding: 5px;”}= alert /          %p /            %strong Course:
+/            = @registration.course.name /          %p /            %strong
+Price: /            $#{@registration.course.price} /          %p /         
+%strong Full name: /            = @registration.full_name /          %p /  
+%strong Company: /            = @registration.company /          %p /      
+%strong Email: /            = @registration.email /          %p /          
+%strong Telephone: /            = @registration.telephone /          %p /  
+%strong Payment date: /            = @registration.purchased_at /         
+%p /            %strong Payment method: /            =
+@registration.payment_method.capitalize /          - if
+@registration.payment_method == “paypal” /            %p /             
+%strong Payment status: /              = @registration.status /           
+%p /              %strong Paypal Transaction Identifier: /              =
+@registration.transaction_id /          - else /            %p /           
+%strong Transaction Identifier: /              = @<a
+href=""transaction_id"">registration.card.card_transaction.params</a> /</p>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

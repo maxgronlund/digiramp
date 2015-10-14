@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>_show.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            _show.slim
+        </h1>
+        <ul class="files">
+            <li>views/user/recordings/_show.slim</li>
+            <li>Last modified: 2015-07-08 09:41:36 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>.row</p>
+
+<pre><code>.col-sm-12
+
+  #digiWhams  class=&quot;/recordings/#{recording.id.to_s}&quot;
+    == render &#39;audio_player/show&#39;, recording: recording , description: true, target: &quot;&quot;
+    .recording-credits
+      - if recording.total_share.to_i != 100.0
+        .alert.alert-danger
+          &#39;Total share should add up to 100%
+      .table-responsive
+        table class=&quot;table table-hover&quot;
+          thead
+            tr
+              th
+              th Capacity
+              th Name / Email
+              //th Email
+              /th Show credits
+              th Share
+              /th Documents
+              th 
+                .pull-right
+                  &#39;Confirmation
+          tbody
+            - recording.recording_ipis.order(:id).each do |recording_ipi|
+              tr
+                td 
+                  div class=&quot;recording-ipi-info-dialog-#{recording_ipi.id.to_s}&quot;
+                  =&gt; link_to user_user_recording_recording_ipi_path( @user, recording, recording_ipi), 
+                      data: {:confirm =&gt; &#39;Are you sure?&#39;}, 
+                      turboboost: true,
+                      method: :delete do
+                    .btn.btn-danger.btn-xs
+                      i.fa.fa-times
+                  =&gt; link_to edit_user_user_recording_recording_ipi_path( @user, recording, recording_ipi) do
+                    .btn.btn-default.btn-xs
+                      i.fa.fa-pencil
+                  =&gt; link_to user_user_recording_ipi_info_path(@user, recording_ipi), remote: true do
+                    .btn.btn-default.btn-xs
+                      i.fa.fa-info-circle
+
+                td = recording_ipi.role
+                td 
+                  = recording_ipi.full_name
+                  br = recording_ipi.email
+                /td
+                /  - if recording_ipi.show_credit_on_recording
+                /    i.fa.fa-check
+                td 
+                  .small-input
+                    .width-120
+                      = simple_form_for [:user, @user, recording, recording_ipi], turboboost: true do |f|
+                        = f.hidden_field :recording_id, value: recording.id
+                        .input-group
+                          = f.input :share, label: false, class: &#39;form-control&#39;
+                          .input-group-btn
+                            = f.submit &#39;Ok&#39;, class: &#39;btn btn-default&#39;
+
+                  /= number_to_percentage(recording_ipi.share, precision: 1) 
+                /td = recording_ipi.document_count
+                td
+                  .pull-right
+                    div class=&quot;recording-confirmation-button-#{recording_ipi.id.to_s}&quot;
+                      == render &#39;user/recording_ipis/confirmation_button&#39;, user: @user, recording: recording, recording_ipi: recording_ipi
+                  /.pull-right
+                  /  div id=&quot;confirmation_status_#{recording_ipi.id.to_s}&quot;
+                  /  /== render &quot;user/recording_confirmations/#{recording_ipi.confirmation}&quot;, recording_ipi: recording_ipi
+            tr
+              td
+                b Total share
+              td
+              td
+              td
+                - total_share = recording.total_share
+                span class=&quot;#{ total_share == 100.0 ? &#39;&#39; : &#39;alert alert-danger&#39; }&quot;
+                  b = number_to_percentage(total_share, precision: 1)
+
+              td 
+
+        .pull-right
+          =&gt; link_to &#39;Legal documents&#39;, &#39;#&#39;, class: &#39;btn btn-default&#39;
+          = link_to &#39;Add IP&#39;, new_user_user_recording_recording_ipi_path(@user, recording), class: &#39;btn btn-default&#39;
+
+              /=&gt; link_to &#39;Edit recording&#39;, edit_user_recording_basic_path(recording.user, recording), class: &#39;btn btn-default&#39;
+              /= link_to &#39;Edit credits&#39;, edit_user_user_recording_credit_path(@user, recording), class: &#39;btn btn-default&#39;
+
+  .open-dialog</code></pre>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

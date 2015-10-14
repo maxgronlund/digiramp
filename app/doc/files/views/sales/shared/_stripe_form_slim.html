@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>_stripe_form.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            _stripe_form.slim
+        </h1>
+        <ul class="files">
+            <li>views/sales/shared/_stripe_form.slim</li>
+            <li>Last modified: 2015-07-05 15:22:06 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>fieldset</p>
+
+<pre><code>/- if @user.email.to_s == &#39;&#39;
+/  .row.pull-down-10.cc-input
+/    label.col-sm-3.control-label for=&quot;email-address&quot;  * Email
+/    input.col-sm-9.form-control name=&quot;email_address&quot; placeholder=(&quot;Email&quot;) type=&quot;text&quot;
+/    
+h3 Credit card   
+.row.pull-down-10.cc-input
+  label.col-sm-3.control-label for=&quot;name&quot;  * Name on Card
+  .col-sm-9
+    input#card-holder-name.form-control data-stripe=&quot;name&quot; placeholder=(&quot;Card holder&#39;s name&quot;) type=&quot;text&quot; 
+
+.row.pull-down-10.cc-input
+  label.col-sm-3.control-label for=&quot;card-number&quot; data-stripe=&quot;number&quot; * Card Number
+  .col-sm-9
+    input#card-number.form-control data-stripe=&quot;number&quot; placeholder=(&quot;Debit/Credit Card Number&quot;) type=&quot;text&quot; 
+.row.pull-down-10
+  label.col-sm-3.control-label for=&quot;expiry-month&quot; * Expiration Date
+  .col-sm-9
+    .row.cc-col-xs-3
+      .col-xs-3
+        select.cc-expiry-dropdown name=&quot;expiry-month&quot; data-stripe=&quot;exp-month&quot;
+
+          - @months.each_with_index do |month, index|
+            option value=&quot;#{ format(&#39;%02d&#39;, index+1)}&quot;  #{month}
+
+      .col-xs-3
+        select.cc-expiry-dropdown name=&quot;expiry-year&quot; data-stripe=&quot;exp-year&quot;
+          - @years.each do |year|
+            option value=&quot;#{ format(&#39;%02d&#39;,year-2000)}&quot;  #{year}
+
+.row.pull-down-10
+  label.col-sm-3#expiry-month.control-label for=&quot;cvv&quot;  * Card CVV
+  .cc-security-code
+    .col-sm-3
+      input#cvv.form-control name=&quot;cvv&quot; data-stripe=&quot;cvc&quot; placeholder=(&quot;Security Code&quot;) type=&quot;text&quot; 
+.pull-down-10 
+.sexy_line
+h3 Billing address
+.row.pull-down-10.cc-input
+  label.col-sm-3.control-label for=&quot;email&quot;  * Email
+  .col-sm-9
+    input#card-holder-name.form-control  name=&quot;email&quot; placeholder=(&quot;Email&quot;) type=&quot;text&quot;
+    /input.col-sm-9.form-control name=&quot;email&quot; placeholder=(&quot;Email&quot;) type=&quot;text&quot;
+
+.row.pull-down-10.cc-input
+  label.col-sm-3.control-label for=&quot;address_line1&quot;  Address line 1
+  .col-sm-9
+    input#card-holder-name.form-control data-stripe=&quot;address_line1&quot; placeholder=(&quot;Address line 1&quot;) type=&quot;text&quot; 
+
+.row.pull-down-10.cc-input
+  label.col-sm-3.control-label for=&quot;address_line2&quot;  Address line 2
+  .col-sm-9
+    input#card-holder-name.form-control data-stripe=&quot;address_line2&quot; placeholder=(&quot;Address line 2&quot;) type=&quot;text&quot; 
+
+.row.pull-down-10.cc-input
+  label.col-sm-3.control-label for=&quot;address_city&quot;  City
+  .col-sm-9
+    input#card-holder-name.form-control data-stripe=&quot;address_city&quot; placeholder=(&quot;City&quot;) type=&quot;text&quot; 
+
+.row.pull-down-10.cc-input
+  label.col-sm-3.control-label for=&quot;address_zip&quot;  Zip
+  .col-sm-9
+    input#card-holder-name.form-control data-stripe=&quot;address_zip&quot; placeholder=(&quot;Zip&quot;) type=&quot;text&quot; 
+
+.row.pull-down-10.cc-input
+  label.col-sm-3.control-label for=&quot;address_country&quot;  Country
+  .col-sm-9
+    input#card-holder-name.form-control data-stripe=&quot;address_country&quot; placeholder=(&quot;Country&quot;) type=&quot;text&quot; 
+
+- if show_coupon_code
+  .pull-down-10 
+  .sexy_line
+  h3 Coupon code
+  .row.pull-down-10.cc-input
+    label.col-sm-3.control-label for=&quot;coupon_code&quot;  Coupon code
+    .col-sm-9
+      input#coupon-code.form-control  name=&quot;coupon_code&quot; placeholder=(&quot;Coupon code&quot;) type=&quot;text&quot;
+      /input.col-sm-9.form-control name=&quot;email&quot; placeholder=(&quot;Email&quot;) type=&quot;text&quot;
+
+.row.pull-down-10
+  .col-sm-offset-3.col-sm-9
+    .pull-right
+      button.btn.btn-success type=&quot;submit&quot;  Pay Now</code></pre>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

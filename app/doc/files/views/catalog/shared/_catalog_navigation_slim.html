@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>_catalog_navigation.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            _catalog_navigation.slim
+        </h1>
+        <ul class="files">
+            <li>views/catalog/shared/_catalog_navigation.slim</li>
+            <li>Last modified: 2015-07-05 15:22:06 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>nav.navbar.navbar-default role=“navigation”</p>
+
+<pre><code>ul.nav.navbar-nav.navbar-right
+  li.dropdown
+    a href=&quot;#&quot; class=&quot;dropdown-toggle&quot; data-toggle=&quot;dropdown&quot; role=&quot;button&quot; aria-expanded=&quot;false&quot;
+      i.fa.fa-gear
+      &#39;&amp;nbsp;
+      &#39;Manage Catalog
+      span.caret
+    ul class=&quot;dropdown-menu&quot; role=&quot;menu&quot;
+      -if current_catalog_user.read_recording
+        li
+          = link_to catalog_account_catalog_recordings_path(@account, @catalog) do
+            i.fa.fa-headphones
+            &#39;&amp;nbsp;
+            &#39;Recordings
+
+      -if current_catalog_user.read_common_work
+        li
+          = link_to catalog_account_catalog_common_works_path(@account, @catalog) do
+            i.fa.fa-music
+            &#39;&amp;nbsp;
+            &#39;Common Works
+      -if current_catalog_user.read_user
+        li
+          = link_to catalog_account_catalog_catalog_users_path(@account, @catalog) do
+            i.fa.fa-users
+            &#39;&amp;nbsp;
+            &#39;Catalog Users
+      li.divider
+      -if current_catalog_user.read_artwork
+        li
+          = link_to catalog_account_catalog_artworks_path(@account, @catalog) do
+            i.fa.fa-picture-o
+            &#39;&amp;nbsp;
+            &#39;Artwork
+      -if current_catalog_user.read_legal_document
+        li
+          = link_to catalog_account_catalog_legal_documents_path(@account, @catalog) do
+            i.fa.fa-gavel
+            &#39;&amp;nbsp;
+            &#39;Legal Documents
+      -if current_catalog_user.read_financial_document
+        li
+          = link_to catalog_account_catalog_financial_documents_path(@account, @catalog) do
+            i.fa.fa-money
+            &#39;&amp;nbsp;
+            &#39;Financial Documents
+      -if current_catalog_user.read_file
+        li
+          = link_to catalog_account_catalog_documents_path(@account, @catalog) do
+            i.fa.fa-folder
+            &#39;&amp;nbsp;
+            &#39;Documents
+      li.divider
+      li
+        = link_to account_export_recordings_path(@account, format: &quot;csv&quot;) do
+          i class=&quot;fa fa-cloud-download&quot;
+          &#39;&amp;nbsp;
+          &#39;Download CSV</code></pre>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

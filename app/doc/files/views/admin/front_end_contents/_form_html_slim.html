@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>_form.html.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            _form.html.slim
+        </h1>
+        <ul class="files">
+            <li>views/admin/front_end_contents/_form.html.slim</li>
+            <li>Last modified: 2015-09-24 20:35:34 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<h1 id="label-simple_form_for+-5B-3Aadmin-2C+-40front_end_content-5D+do+-7Cf-7C">simple_form_for [:admin, @front_end_content] do |f|</h1>
+
+<pre><code>= f.error_notification
+
+.form-inputs
+  .row
+    .col-sm-6
+      .panel
+        .panel-body
+          = f.input :page1_title_1, autofocus:  true
+          = f.input :page1_title_2
+          = f.input :page1_title_3
+          = f.input :page_1_body, :input_html =&gt; {  style: &quot;height: 72px;&quot;}
+          = f.input :page_1_image
+      .panel
+        .panel-body
+          = f.input :page2_title
+          = f.input :page_2_headline, :input_html =&gt; {  style: &quot;height: 72px;&quot;}
+          = f.input :page_2_option_1_title
+          = f.input :page_2_option_1_headline
+          = f.input :page_2_option_1_body, :input_html =&gt; {  style: &quot;height: 72px;&quot;}
+          = f.input :page_2_option_2_title
+          = f.input :page_2_option_2_headline
+          = f.input :page_2_option_2_body, :input_html =&gt; {  style: &quot;height: 72px;&quot;}
+          = f.input :page_2_option_3_title
+          = f.input :page_2_option_3_headline
+          = f.input :page_2_option_3_body, :input_html =&gt; {  style: &quot;height: 72px;&quot;}
+      .panel
+        .panel-body
+          = f.input :page_3_title
+          = f.input :page_3_headline
+          = f.input :page_3_option_1_title
+          = f.input :page_3_option_1_body, :input_html =&gt; {  style: &quot;height: 72px;&quot;}
+          = f.input :page_3_option_2_title
+          = f.input :page_3_option_2_body, :input_html =&gt; {  style: &quot;height: 72px;&quot;}
+          = f.input :page_3_image
+      .panel
+        .panel-body
+          = f.input :page_4_title
+          = f.input :page_4_body
+          = f.input :page_4_account_1_title
+          = f.input :page_4_account_1_price
+          = f.input :page_4_account_1_option_1
+          = f.input :page_4_account_1_option_2
+          = f.input :page_4_account_1_option_3
+          = f.input :page_4_account_1_option_4
+          = f.input :page_4_account_1_option_5
+          = f.input :page_4_account_1_option_6
+          = f.input :page_4_account_2_title
+          = f.input :page_4_account_2_price
+          = f.input :page_4_account_2_option_1
+          = f.input :page_4_account_2_option_2
+          = f.input :page_4_account_2_option_3
+          = f.input :page_4_account_2_option_4
+          = f.input :page_4_account_2_option_5
+          = f.input :page_4_account_2_option_6
+          = f.input :page_4_account_3_title
+          = f.input :page_4_account_3_price
+          = f.input :page_4_account_3_option_1
+          = f.input :page_4_account_3_option_2
+          = f.input :page_4_account_3_option_3
+          = f.input :page_4_account_3_option_4
+          = f.input :page_4_account_3_option_5
+          = f.input :page_4_account_3_option_6
+          = f.input :page_4_account_4_title
+          = f.input :page_4_account_4_price
+          = f.input :page_4_account_4_option_1
+          = f.input :page_4_account_4_option_2
+          = f.input :page_4_account_4_option_3
+          = f.input :page_4_account_4_option_4
+          = f.input :page_4_account_4_option_5
+          = f.input :page_4_account_4_option_6
+    .col-sm-6
+      .panel
+        .panel-body
+          = f.input :page_5_title
+          = f.input :page_5_body, :input_html =&gt; {  style: &quot;height: 72px;&quot;}
+          = f.input :page_5_image_1
+          = f.input :page_5_image_2
+          = f.input :page_5_image_3
+          = f.input :page_5_image_4
+          = f.input :page_5_image_5
+          = f.input :page_5_image_6
+      .panel
+        .panel-body
+          = f.input :page_6_testimonial_1_image
+          = f.input :page_6_testimonial_1_name
+          = f.input :page_6_testimonial_1_headline
+          = f.input :page_6_testimonial_1_body, :input_html =&gt; {  style: &quot;height: 72px;&quot;}
+          = f.input :page_6_testimonial_2_image
+          = f.input :page_6_testimonial_2_name
+          = f.input :page_6_testimonial_2_headline
+          = f.input :page_6_testimonial_2_body, :input_html =&gt; {  style: &quot;height: 72px;&quot;}
+          = f.input :page_6_testimonial_3_image
+          = f.input :page_6_testimonial_3_name
+          = f.input :page_6_testimonial_3_headline
+          = f.input :page_6_testimonial_3_body, :input_html =&gt; {  style: &quot;height: 72px;&quot;}
+          = f.input :page_6_testimonial_4_image
+          = f.input :page_6_testimonial_4_name
+          = f.input :page_6_testimonial_4_headline
+          = f.input :page_6_testimonial_4_body, :input_html =&gt; {  style: &quot;height: 72px;&quot;}
+          = f.input :page_6_testimonial_5_image
+          = f.input :page_6_testimonial_5_name
+          = f.input :page_6_testimonial_5_headline
+          = f.input :page_6_testimonial_5_body, :input_html =&gt; {  style: &quot;height: 72px;&quot;}
+          = f.input :page_6_testimonial_6_image
+          = f.input :page_6_testimonial_6_headline
+          = f.input :page_6_testimonial_6_name
+          = f.input :page_6_testimonial_6_body, :input_html =&gt; {  style: &quot;height: 72px;&quot;}
+      .panel
+        .panel-body
+          = f.input :page_7_title
+          = f.input :page_7_headline
+          = f.input :page_7_body, :input_html =&gt; {  style: &quot;height: 72px;&quot;}
+          = f.input :page_7_image
+          = f.input :page_8_title
+          = f.input :page_8_body, :input_html =&gt; {  style: &quot;height: 72px;&quot;}
+
+.form-actions
+  = f.button :submit, class: &#39;btn btn-info&#39;</code></pre>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

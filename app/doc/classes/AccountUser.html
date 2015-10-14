@@ -1,0 +1,1651 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>AccountUser</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../css/github.css" type="text/css" media="screen" />
+<script src="../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            <span class="type">Class</span> 
+            AccountUser 
+            
+                <span class="parent">&lt; 
+                    
+                    ActiveRecord::Base
+                    
+                </span>
+            
+        </h1>
+        <ul class="files">
+            
+            <li><a href="../files/models/account_user_rb.html">models/account_user.rb</a></li>
+            
+            <li><a href="../files/services/omniauth_rb.html">services/omniauth.rb</a></li>
+            
+        </ul>
+    </div>
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>account user permissions copied to the account with lists for easy access
+Roles: <a href="Catalog.html">Catalog</a> <a href="User.html">User</a> is
+auto generated when an invitation to a catalog is send</p>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+    <!-- Method ref -->
+    <div class="sectiontitle">Methods</div>
+    <dl class="methods">
+      
+        <dt>A</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-c-account_search">account_search</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-i-add_music-3F">add_music?</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-i-administrates_account-3F">administrates_account?</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>C</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-c-cached_find">cached_find</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-c-cached_where">cached_where</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-i-can_add_content-3F">can_add_content?</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-i-can_delete_account_user">can_delete_account_user</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-i-can_manage_assets-3F">can_manage_assets?</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-i-can_update_account_user">can_update_account_user</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>D</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-downgrade">downgrade</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>G</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-get_email">get_email</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-i-get_name">get_name</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-i-grand_all_permissions">grand_all_permissions</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-i-grand_basic_permissions">grand_basic_permissions</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-i-grand_pro_permissions">grand_pro_permissions</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>H</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-handle_user_permissions_for">handle_user_permissions_for</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-i-has_access_to_opertunities">has_access_to_opertunities</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>M</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-mount_to_catalog">mount_to_catalog</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-i-mount_to_catalogs">mount_to_catalogs</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-i-mount_user">mount_user</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>O</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-own_account-3F">own_account?</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>R</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-remove_admin_features">remove_admin_features</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-i-remove_permissions">remove_permissions</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-i-remove_pro_permissions">remove_pro_permissions</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>S</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-set_pro_permissions">set_pro_permissions</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-i-super-3F">super?</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>U</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-update_cache">update_cache</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-i-update_catalog_users">update_catalog_users</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-i-uuid">uuid</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+    </dl>
+  
+
+  
+    <!-- Includes -->
+    <div class="sectiontitle">Included Modules</div>
+    <ul>
+      
+        <li>
+          
+            PublicActivity::Common
+          
+        </li>
+      
+        <li>
+          
+            PgSearch
+          
+        </li>
+      
+    </ul>
+  
+
+
+
+  
+
+    
+
+    
+
+    
+      <!-- Section constants -->
+      <div class="sectiontitle">Constants</div>
+      <table border='0' cellpadding='5'>
+        
+          <tr valign='top'>
+            <td class="attr-name">ROLES</td>
+            <td>=</td>
+            <td class="attr-value">[  &quot;Account Owner&quot;, 
+&quot;Administrator&quot;, 
+&quot;Client User&quot;, 
+&quot;Catalog User&quot;,
+&quot;Account User&quot;
+]</td>
+          </tr>
+          
+            <tr valign='top'>
+              <td>&nbsp;</td>
+              <td colspan="2" class="attr-desc"></td>
+            </tr>
+          
+        
+      </table>
+    
+
+
+    
+
+
+    <!-- Methods -->
+    
+      <div class="sectiontitle">Class Public methods</div>
+      
+        <div class="method">
+          <div class="title method-title" id="method-c-account_search">
+            
+              <b>account_search</b>(account, query)
+            
+            <a href="../classes/AccountUser.html#method-c-account_search" name="method-c-account_search" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-c-account_search_source')" id="l_method-c-account_search_source">show</a>
+                
+              </p>
+              <div id="method-c-account_search_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/account_user.rb, line 338</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">self</span>.<span class="ruby-identifier">account_search</span>(<span class="ruby-identifier">account</span>, <span class="ruby-identifier">query</span>)
+  <span class="ruby-identifier">account_users</span> = <span class="ruby-identifier">account</span>.<span class="ruby-identifier">account_users</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">query</span>.<span class="ruby-identifier">present?</span>
+    <span class="ruby-keyword">return</span> <span class="ruby-identifier">account_users</span>.<span class="ruby-identifier">search_account_user</span>(<span class="ruby-identifier">query</span>)
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-keyword">return</span> <span class="ruby-identifier">account_users</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-c-cached_find">
+            
+              <b>cached_find</b>(id)
+            
+            <a href="../classes/AccountUser.html#method-c-cached_find" name="method-c-cached_find" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-c-cached_find_source')" id="l_method-c-cached_find_source">show</a>
+                
+              </p>
+              <div id="method-c-cached_find_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/account_user.rb, line 349</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">self</span>.<span class="ruby-identifier">cached_find</span>(<span class="ruby-identifier">id</span>)
+  <span class="ruby-constant">Rails</span>.<span class="ruby-identifier">cache</span>.<span class="ruby-identifier">fetch</span>([<span class="ruby-identifier">name</span>, <span class="ruby-identifier">id</span>]) { <span class="ruby-identifier">find</span>(<span class="ruby-identifier">id</span>) }
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-c-cached_where">
+            
+              <b>cached_where</b>(account_id, user_id)
+            
+            <a href="../classes/AccountUser.html#method-c-cached_where" name="method-c-cached_where" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-c-cached_where_source')" id="l_method-c-cached_where_source">show</a>
+                
+              </p>
+              <div id="method-c-cached_where_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/account_user.rb, line 353</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">self</span>.<span class="ruby-identifier">cached_where</span>(<span class="ruby-identifier">account_id</span>, <span class="ruby-identifier">user_id</span>)
+  <span class="ruby-constant">Rails</span>.<span class="ruby-identifier">cache</span>.<span class="ruby-identifier">fetch</span>([ <span class="ruby-identifier">name</span>, <span class="ruby-identifier">account_id</span>, <span class="ruby-identifier">user_id</span>]) { <span class="ruby-identifier">find_by</span>( <span class="ruby-identifier">account_id</span><span class="ruby-operator">:</span> <span class="ruby-identifier">account_id</span>, <span class="ruby-identifier">user_id</span><span class="ruby-operator">:</span> <span class="ruby-identifier">user_id</span> ) }
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+                  
+      <div class="sectiontitle">Instance Public methods</div>
+      
+        <div class="method">
+          <div class="title method-title" id="method-i-add_music-3F">
+            
+              <b>add_music?</b>()
+            
+            <a href="../classes/AccountUser.html#method-i-add_music-3F" name="method-i-add_music-3F" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-add_music-3F_source')" id="l_method-i-add_music-3F_source">show</a>
+                
+              </p>
+              <div id="method-i-add_music-3F_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/account_user.rb, line 331</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">add_music?</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">true</span> <span class="ruby-keyword">if</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">create_common_work?</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">true</span> <span class="ruby-keyword">if</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">create_recording?</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-administrates_account-3F">
+            
+              <b>administrates_account?</b>()
+            
+            <a href="../classes/AccountUser.html#method-i-administrates_account-3F" name="method-i-administrates_account-3F" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-administrates_account-3F_source')" id="l_method-i-administrates_account-3F_source">show</a>
+                
+              </p>
+              <div id="method-i-administrates_account-3F_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/account_user.rb, line 69</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">administrates_account?</span>
+  <span class="ruby-identifier">account</span>.<span class="ruby-identifier">administrator_id</span> <span class="ruby-operator">==</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">user_id</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-can_add_content-3F">
+            
+              <b>can_add_content?</b>()
+            
+            <a href="../classes/AccountUser.html#method-i-can_add_content-3F" name="method-i-can_add_content-3F" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-can_add_content-3F_source')" id="l_method-i-can_add_content-3F_source">show</a>
+                
+              </p>
+              <div id="method-i-can_add_content-3F_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/account_user.rb, line 357</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">can_add_content?</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">true</span> <span class="ruby-keyword">if</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">create_common_work</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">true</span> <span class="ruby-keyword">if</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">create_recording</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-can_delete_account_user">
+            
+              <b>can_delete_account_user</b>(account_user)
+            
+            <a href="../classes/AccountUser.html#method-i-can_delete_account_user" name="method-i-can_delete_account_user" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              <p>can delete account_user</p>
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-can_delete_account_user_source')" id="l_method-i-can_delete_account_user_source">show</a>
+                
+              </p>
+              <div id="method-i-can_delete_account_user_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/account_user.rb, line 84</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">can_delete_account_user</span> <span class="ruby-identifier">account_user</span>
+  <span class="ruby-comment"># only if there is permissions to update</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span> <span class="ruby-keyword">unless</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">delete_user</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">account_user</span>.<span class="ruby-identifier">role</span> <span class="ruby-operator">==</span> <span class="ruby-string">&#39;Administrator&#39;</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">account_user</span>.<span class="ruby-identifier">role</span> <span class="ruby-operator">==</span> <span class="ruby-string">&#39;Account Owner&#39;</span>
+  <span class="ruby-identifier">handle_user_permissions_for</span> <span class="ruby-identifier">account_user</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-can_manage_assets-3F">
+            
+              <b>can_manage_assets?</b>()
+            
+            <a href="../classes/AccountUser.html#method-i-can_manage_assets-3F" name="method-i-can_manage_assets-3F" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              <p>def can_access_work common_work</p>
+
+<pre><code>common_work.recordings.each do |recording|
+  return true if recording.read_common_work_ids.include?  self.user_id
+end
+return false
+</code></pre>
+
+<p>end</p>
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-can_manage_assets-3F_source')" id="l_method-i-can_manage_assets-3F_source">show</a>
+                
+              </p>
+              <div id="method-i-can_manage_assets-3F_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/account_user.rb, line 320</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">can_manage_assets?</span>   
+  <span class="ruby-comment">#return true if self.read_recording? </span>
+  <span class="ruby-comment">#return true if self.read_common_work? </span>
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">true</span> <span class="ruby-keyword">if</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">user</span>.<span class="ruby-identifier">super?</span>          
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">true</span> <span class="ruby-keyword">if</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">read_file?</span>                
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">true</span> <span class="ruby-keyword">if</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">read_legal_document?</span>        
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">true</span> <span class="ruby-keyword">if</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">read_financial_document?</span>    
+  
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-can_update_account_user">
+            
+              <b>can_update_account_user</b>(account_user)
+            
+            <a href="../classes/AccountUser.html#method-i-can_update_account_user" name="method-i-can_update_account_user" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              <p>can update account_user</p>
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-can_update_account_user_source')" id="l_method-i-can_update_account_user_source">show</a>
+                
+              </p>
+              <div id="method-i-can_update_account_user_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/account_user.rb, line 74</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">can_update_account_user</span> <span class="ruby-identifier">account_user</span>
+  <span class="ruby-comment"># only if there is permissions to update</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">user</span>.<span class="ruby-identifier">super?</span>
+    <span class="ruby-keyword">return</span> <span class="ruby-keyword">true</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">account_user</span>.<span class="ruby-identifier">user</span>.<span class="ruby-identifier">super?</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span> <span class="ruby-keyword">unless</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">update_user</span>
+  <span class="ruby-identifier">handle_user_permissions_for</span> <span class="ruby-identifier">account_user</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-downgrade">
+            
+              <b>downgrade</b>()
+            
+            <a href="../classes/AccountUser.html#method-i-downgrade" name="method-i-downgrade" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-downgrade_source')" id="l_method-i-downgrade_source">show</a>
+                
+              </p>
+              <div id="method-i-downgrade_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/account_user.rb, line 45</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">downgrade</span>
+  <span class="ruby-keyword">unless</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">role</span> <span class="ruby-operator">==</span> <span class="ruby-string">&#39;Account Owner&#39;</span>
+    <span class="ruby-keyword">self</span>.<span class="ruby-identifier">destroy!</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-get_email">
+            
+              <b>get_email</b>()
+            
+            <a href="../classes/AccountUser.html#method-i-get_email" name="method-i-get_email" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-get_email_source')" id="l_method-i-get_email_source">show</a>
+                
+              </p>
+              <div id="method-i-get_email_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/account_user.rb, line 294</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">get_email</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">user</span>.<span class="ruby-identifier">email</span> <span class="ruby-keyword">if</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">user</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">email</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-get_name">
+            
+              <b>get_name</b>()
+            
+            <a href="../classes/AccountUser.html#method-i-get_name" name="method-i-get_name" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-get_name_source')" id="l_method-i-get_name_source">show</a>
+                
+              </p>
+              <div id="method-i-get_name_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/account_user.rb, line 299</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">get_name</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">name</span>       <span class="ruby-keyword">unless</span> <span class="ruby-identifier">name</span>.<span class="ruby-identifier">to_s</span> <span class="ruby-operator">==</span> <span class="ruby-string">&#39;&#39;</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">user</span>
+    <span class="ruby-keyword">return</span> <span class="ruby-identifier">user</span>.<span class="ruby-identifier">full_name</span>  <span class="ruby-keyword">unless</span> <span class="ruby-identifier">user</span>.<span class="ruby-identifier">name</span>.<span class="ruby-identifier">to_s</span> <span class="ruby-operator">==</span> <span class="ruby-string">&#39;&#39;</span>
+    <span class="ruby-keyword">return</span> <span class="ruby-identifier">user</span>.<span class="ruby-identifier">email</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">email</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-grand_all_permissions">
+            
+              <b>grand_all_permissions</b>()
+            
+            <a href="../classes/AccountUser.html#method-i-grand_all_permissions" name="method-i-grand_all_permissions" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              <p>set all permissions to true</p>
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-grand_all_permissions_source')" id="l_method-i-grand_all_permissions_source">show</a>
+                
+              </p>
+              <div id="method-i-grand_all_permissions_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/account_user.rb, line 242</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">grand_all_permissions</span> 
+  <span class="ruby-comment">#  copy permissions </span>
+  <span class="ruby-constant">Permissions</span><span class="ruby-operator">::</span><span class="ruby-constant">TYPES</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">permission_type</span><span class="ruby-operator">|</span>
+    <span class="ruby-comment">#eval &quot;self.#{permission_type} = true&quot; </span>
+    <span class="ruby-keyword">self</span>[<span class="ruby-identifier">permission_type</span>] = <span class="ruby-keyword">true</span>
+  <span class="ruby-keyword">end</span>
+  
+  <span class="ruby-comment">#self.create_client      = true</span>
+  <span class="ruby-comment">#self.read_client        = true</span>
+  <span class="ruby-comment">#self.update_client      = true</span>
+  <span class="ruby-comment">#self.delete_client      = true</span>
+  
+  <span class="ruby-comment">#self.create_opportunity = account.create_opportunities</span>
+  <span class="ruby-comment">#self.read_opportunity   = account.read_opportunities</span>
+  <span class="ruby-comment">#self.update_opportunity = account.create_opportunities</span>
+  <span class="ruby-comment">#self.delete_opportunity = account.create_opportunities</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">access_account</span>      =  <span class="ruby-keyword">true</span>
+  <span class="ruby-keyword">begin</span>
+    <span class="ruby-keyword">self</span>.<span class="ruby-identifier">save!</span>
+    
+    <span class="ruby-comment"># add to all catalogs</span>
+    <span class="ruby-keyword">self</span>.<span class="ruby-identifier">account</span>.<span class="ruby-identifier">catalogs</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">catalog</span><span class="ruby-operator">|</span>
+      <span class="ruby-identifier">catalog_user</span> = <span class="ruby-identifier">catalog</span>.<span class="ruby-identifier">add_account_user</span> <span class="ruby-keyword">self</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">rescue</span>
+  <span class="ruby-keyword">end</span>
+
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-grand_basic_permissions">
+            
+              <b>grand_basic_permissions</b>()
+            
+            <a href="../classes/AccountUser.html#method-i-grand_basic_permissions" name="method-i-grand_basic_permissions" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              <p>set basic permissions to true</p>
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-grand_basic_permissions_source')" id="l_method-i-grand_basic_permissions_source">show</a>
+                
+              </p>
+              <div id="method-i-grand_basic_permissions_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/account_user.rb, line 125</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">grand_basic_permissions</span>
+  <span class="ruby-identifier">remove_permissions</span>
+  
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">create_recording</span>         = <span class="ruby-keyword">true</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">read_recording</span>           = <span class="ruby-keyword">true</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">update_recording</span>         = <span class="ruby-keyword">true</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">delete_recording</span>         = <span class="ruby-keyword">true</span>
+  
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">create_recording_ipi</span>     = <span class="ruby-keyword">true</span>      
+    <span class="ruby-keyword">self</span>.<span class="ruby-identifier">read_recording_ipi</span>     = <span class="ruby-keyword">true</span>        
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">update_recording_ipi</span>     = <span class="ruby-keyword">true</span>      
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">delete_recording_ipi</span>     = <span class="ruby-keyword">true</span> 
+  
+  <span class="ruby-comment">#self.create_common_work       = true</span>
+  <span class="ruby-comment">#  self.read_common_work       = true</span>
+  <span class="ruby-comment">#self.update_common_work       = true</span>
+  <span class="ruby-comment">#self.delete_common_work       = true</span>
+  
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">create_common_work_ipi</span>   = <span class="ruby-keyword">true</span> 
+    <span class="ruby-keyword">self</span>.<span class="ruby-identifier">read_common_work_ipi</span>   = <span class="ruby-keyword">true</span> 
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">update_common_work_ipi</span>   = <span class="ruby-keyword">true</span>   
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">delete_common_work_ipi</span>   = <span class="ruby-keyword">true</span>  
+  
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">create_file</span>              = <span class="ruby-keyword">true</span>               
+    <span class="ruby-keyword">self</span>.<span class="ruby-identifier">read_file</span>              = <span class="ruby-keyword">true</span>                 
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">update_file</span>              = <span class="ruby-keyword">true</span>               
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">delete_file</span>              = <span class="ruby-keyword">true</span>       
+           
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">create_playlist</span>          = <span class="ruby-keyword">true</span> 
+    <span class="ruby-keyword">self</span>.<span class="ruby-identifier">read_playlist</span>          = <span class="ruby-keyword">true</span> 
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">update_playlist</span>          = <span class="ruby-keyword">true</span>   
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">delete_playlist</span>          = <span class="ruby-keyword">true</span>  
+                              
+   <span class="ruby-keyword">self</span>.<span class="ruby-identifier">create_artwork</span>          = <span class="ruby-keyword">true</span>
+     <span class="ruby-keyword">self</span>.<span class="ruby-identifier">read_artwork</span>          = <span class="ruby-keyword">true</span>
+   <span class="ruby-keyword">self</span>.<span class="ruby-identifier">update_artwork</span>          = <span class="ruby-keyword">true</span>  
+   <span class="ruby-keyword">self</span>.<span class="ruby-identifier">delete_artwork</span>          = <span class="ruby-keyword">true</span>       
+   
+   <span class="ruby-comment">#self.create_opportunity      = true </span>
+     <span class="ruby-keyword">self</span>.<span class="ruby-identifier">read_opportunity</span>      = <span class="ruby-keyword">true</span> 
+   <span class="ruby-comment">#self.update_opportunity      = true   </span>
+   <span class="ruby-comment">#self.delete_opportunity      = true</span>
+  
+  <span class="ruby-comment">#self.read_catalog             = true</span>
+  <span class="ruby-comment">#self.update_catalog           = true</span>
+  
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">save!</span>
+  
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-grand_pro_permissions">
+            
+              <b>grand_pro_permissions</b>()
+            
+            <a href="../classes/AccountUser.html#method-i-grand_pro_permissions" name="method-i-grand_pro_permissions" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-grand_pro_permissions_source')" id="l_method-i-grand_pro_permissions_source">show</a>
+                
+              </p>
+              <div id="method-i-grand_pro_permissions_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/account_user.rb, line 180</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">grand_pro_permissions</span>
+  <span class="ruby-identifier">set_pro_permissions</span> <span class="ruby-keyword">true</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">save!</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-handle_user_permissions_for">
+            
+              <b>handle_user_permissions_for</b>(account_user)
+            
+            <a href="../classes/AccountUser.html#method-i-handle_user_permissions_for" name="method-i-handle_user_permissions_for" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              <p>permissions based on role</p>
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-handle_user_permissions_for_source')" id="l_method-i-handle_user_permissions_for_source">show</a>
+                
+              </p>
+              <div id="method-i-handle_user_permissions_for_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/account_user.rb, line 93</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">handle_user_permissions_for</span> <span class="ruby-identifier">account_user</span>
+  <span class="ruby-comment">#puts &#39;+++++++++++++++++++++++ handle_user_permissions_for ++++++++++++++++++++++++++&#39;</span>
+  <span class="ruby-comment">#puts account_user.user.email</span>
+  <span class="ruby-comment"># always edit account users</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">true</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">account_user</span>.<span class="ruby-identifier">role</span>        <span class="ruby-operator">==</span> <span class="ruby-string">&#39;Account User&#39;</span>
+
+  <span class="ruby-comment"># only administrators and supers can edit the account owner</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">account_user</span>.<span class="ruby-identifier">role</span>  <span class="ruby-operator">==</span> <span class="ruby-string">&#39;Account Owner&#39;</span>
+    
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">account_user</span>.<span class="ruby-identifier">account</span>.<span class="ruby-identifier">administrator_id</span> <span class="ruby-operator">!=</span> <span class="ruby-identifier">account_user</span>.<span class="ruby-identifier">account</span>.<span class="ruby-identifier">user_id</span>
+      <span class="ruby-comment"># the account is administrated</span>
+      <span class="ruby-keyword">return</span> <span class="ruby-keyword">true</span> <span class="ruby-keyword">if</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">role</span> <span class="ruby-operator">==</span> <span class="ruby-string">&#39;Administrator&#39;</span>
+    <span class="ruby-keyword">end</span>
+    <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span>    
+  <span class="ruby-keyword">end</span>
+  
+  <span class="ruby-comment"># never edit the administrator</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">account_user</span>.<span class="ruby-identifier">role</span>       <span class="ruby-operator">==</span> <span class="ruby-string">&#39;Administrator&#39;</span>
+  
+  <span class="ruby-comment"># never grand catalog users </span>
+  <span class="ruby-comment"># access to the account</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">true</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">account_user</span>.<span class="ruby-identifier">role</span>        <span class="ruby-operator">==</span> <span class="ruby-string">&#39;Catalog User&#39;</span>
+  
+  <span class="ruby-identifier">puts</span> <span class="ruby-string">&#39;+++++++++++++++++++++++++++++++++++++++++++++++++&#39;</span>
+  <span class="ruby-identifier">puts</span> <span class="ruby-string">&#39;ERROR: Unable assign edit permmision for account user&#39;</span>
+  <span class="ruby-identifier">puts</span> <span class="ruby-string">&#39;In AccountUser#has_permisions&#39;</span>
+  <span class="ruby-identifier">puts</span> <span class="ruby-string">&#39;+++++++++++++++++++++++++++++++++++++++++++++++++&#39;</span> 
+  <span class="ruby-keyword">false</span>
+  
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-has_access_to_opertunities">
+            
+              <b>has_access_to_opertunities</b>()
+            
+            <a href="../classes/AccountUser.html#method-i-has_access_to_opertunities" name="method-i-has_access_to_opertunities" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-has_access_to_opertunities_source')" id="l_method-i-has_access_to_opertunities_source">show</a>
+                
+              </p>
+              <div id="method-i-has_access_to_opertunities_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/account_user.rb, line 398</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">has_access_to_opertunities</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">true</span> <span class="ruby-keyword">if</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">read_opportunity</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">true</span> <span class="ruby-keyword">if</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">role</span> <span class="ruby-operator">==</span> <span class="ruby-string">&#39;Super&#39;</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-mount_to_catalog">
+            
+              <b>mount_to_catalog</b>(catalog)
+            
+            <a href="../classes/AccountUser.html#method-i-mount_to_catalog" name="method-i-mount_to_catalog" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              <p>ordanary users when invited</p>
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-mount_to_catalog_source')" id="l_method-i-mount_to_catalog_source">show</a>
+                
+              </p>
+              <div id="method-i-mount_to_catalog_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/account_user.rb, line 372</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">mount_to_catalog</span> <span class="ruby-identifier">catalog</span>
+  
+  <span class="ruby-identifier">catalog_user</span> = <span class="ruby-constant">CatalogUser</span>.<span class="ruby-identifier">where</span>(<span class="ruby-identifier">user_id</span><span class="ruby-operator">:</span>    <span class="ruby-keyword">self</span>.<span class="ruby-identifier">user_id</span>, 
+                                         <span class="ruby-identifier">catalog_id</span><span class="ruby-operator">:</span> <span class="ruby-identifier">catalog</span>.<span class="ruby-identifier">id</span>
+                                         )
+                                  .<span class="ruby-identifier">first_or_create</span>(  <span class="ruby-identifier">user_id</span><span class="ruby-operator">:</span>     <span class="ruby-keyword">self</span>.<span class="ruby-identifier">user_id</span>, 
+                                                     <span class="ruby-identifier">account_user_id</span><span class="ruby-operator">:</span>  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">id</span>,
+                                                     <span class="ruby-identifier">catalog_id</span><span class="ruby-operator">:</span> <span class="ruby-identifier">catalog</span>.<span class="ruby-identifier">id</span>
+                                                   )
+                                                   
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-mount_to_catalogs">
+            
+              <b>mount_to_catalogs</b>()
+            
+            <a href="../classes/AccountUser.html#method-i-mount_to_catalogs" name="method-i-mount_to_catalogs" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              <p>secure there is a catalog user for all catalogs on the account only use
+this for account users</p>
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-mount_to_catalogs_source')" id="l_method-i-mount_to_catalogs_source">show</a>
+                
+              </p>
+              <div id="method-i-mount_to_catalogs_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/account_user.rb, line 365</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">mount_to_catalogs</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">account</span>.<span class="ruby-identifier">catalogs</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">catalog</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">mount_to_catalog</span> <span class="ruby-identifier">catalog</span>                        
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-mount_user">
+            
+              <b>mount_user</b>()
+            
+            <a href="../classes/AccountUser.html#method-i-mount_user" name="method-i-mount_user" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              <p>strange to have this here?</p>
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-mount_user_source')" id="l_method-i-mount_user_source">show</a>
+                
+              </p>
+              <div id="method-i-mount_user_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/account_user.rb, line 275</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">mount_user</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">user_id</span> <span class="ruby-operator">==</span> <span class="ruby-number">-1</span>
+    <span class="ruby-identifier">secret_temp_password</span> = <span class="ruby-constant">UUIDTools</span><span class="ruby-operator">::</span><span class="ruby-constant">UUID</span>.<span class="ruby-identifier">timestamp_create</span>().<span class="ruby-identifier">to_s</span>
+    
+    <span class="ruby-identifier">new_user</span> = <span class="ruby-constant">User</span>.<span class="ruby-identifier">where</span>(<span class="ruby-identifier">account_id</span><span class="ruby-operator">:</span> <span class="ruby-identifier">account_id</span>, <span class="ruby-identifier">email</span><span class="ruby-operator">:</span> <span class="ruby-identifier">email</span>)
+                   .<span class="ruby-identifier">first_or_create</span>(<span class="ruby-identifier">account_id</span><span class="ruby-operator">:</span> <span class="ruby-identifier">account_id</span>, 
+                                     <span class="ruby-identifier">name</span><span class="ruby-operator">:</span> <span class="ruby-identifier">get_name</span>, 
+                                     <span class="ruby-identifier">email</span><span class="ruby-operator">:</span> <span class="ruby-identifier">email</span>, 
+                                     <span class="ruby-identifier">role</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;Customer&#39;</span>,
+                                     <span class="ruby-identifier">password</span><span class="ruby-operator">:</span> <span class="ruby-identifier">secret_temp_password</span>,
+                                     <span class="ruby-identifier">password_confirmation</span><span class="ruby-operator">:</span> <span class="ruby-identifier">secret_temp_password</span>, 
+                                     <span class="ruby-identifier">activated</span><span class="ruby-operator">:</span> <span class="ruby-keyword">false</span>)
+    <span class="ruby-keyword">self</span>.<span class="ruby-identifier">user_id</span> = <span class="ruby-identifier">new_user</span>.<span class="ruby-identifier">id</span>
+    <span class="ruby-keyword">self</span>.<span class="ruby-identifier">save!</span>
+
+    
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-own_account-3F">
+            
+              <b>own_account?</b>(account)
+            
+            <a href="../classes/AccountUser.html#method-i-own_account-3F" name="method-i-own_account-3F" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-own_account-3F_source')" id="l_method-i-own_account-3F_source">show</a>
+                
+              </p>
+              <div id="method-i-own_account-3F_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/account_user.rb, line 57</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">own_account?</span> <span class="ruby-identifier">account</span>
+  <span class="ruby-keyword">begin</span> 
+    <span class="ruby-keyword">self</span>.<span class="ruby-identifier">user</span>.<span class="ruby-identifier">account</span>.<span class="ruby-identifier">id</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">account</span>.<span class="ruby-identifier">user</span>.<span class="ruby-identifier">account</span>.<span class="ruby-identifier">id</span>
+  <span class="ruby-keyword">rescue</span>
+    <span class="ruby-keyword">false</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-remove_admin_features">
+            
+              <b>remove_admin_features</b>()
+            
+            <a href="../classes/AccountUser.html#method-i-remove_admin_features" name="method-i-remove_admin_features" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-remove_admin_features_source')" id="l_method-i-remove_admin_features_source">show</a>
+                
+              </p>
+              <div id="method-i-remove_admin_features_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/account_user.rb, line 219</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">remove_admin_features</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">createx_user</span>          = <span class="ruby-keyword">false</span>
+    <span class="ruby-keyword">self</span>.<span class="ruby-identifier">read_user</span>           = <span class="ruby-keyword">false</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">update_user</span>           = <span class="ruby-keyword">false</span>  
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">delete_user</span>           = <span class="ruby-keyword">false</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">save!</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-remove_permissions">
+            
+              <b>remove_permissions</b>()
+            
+            <a href="../classes/AccountUser.html#method-i-remove_permissions" name="method-i-remove_permissions" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              <p>set all permissions to false</p>
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-remove_permissions_source')" id="l_method-i-remove_permissions_source">show</a>
+                
+              </p>
+              <div id="method-i-remove_permissions_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/account_user.rb, line 228</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">remove_permissions</span>
+  <span class="ruby-constant">Permissions</span><span class="ruby-operator">::</span><span class="ruby-constant">TYPES</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">permission_type</span><span class="ruby-operator">|</span>
+    <span class="ruby-comment">#eval &quot;self.#{permission_type} = false&quot; </span>
+    <span class="ruby-keyword">self</span>[<span class="ruby-identifier">permission_type</span>] = <span class="ruby-keyword">false</span>
+  <span class="ruby-keyword">end</span>
+  
+  <span class="ruby-comment">#self.create_client = false</span>
+  <span class="ruby-comment">#self.read_client   = false</span>
+  <span class="ruby-comment">#self.update_client = false</span>
+  <span class="ruby-comment">#self.delete_client = false</span>
+
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-remove_pro_permissions">
+            
+              <b>remove_pro_permissions</b>()
+            
+            <a href="../classes/AccountUser.html#method-i-remove_pro_permissions" name="method-i-remove_pro_permissions" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-remove_pro_permissions_source')" id="l_method-i-remove_pro_permissions_source">show</a>
+                
+              </p>
+              <div id="method-i-remove_pro_permissions_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/account_user.rb, line 175</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">remove_pro_permissions</span>
+  <span class="ruby-identifier">set_pro_permissions</span> <span class="ruby-keyword">false</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">save!</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-set_pro_permissions">
+            
+              <b>set_pro_permissions</b>(permission)
+            
+            <a href="../classes/AccountUser.html#method-i-set_pro_permissions" name="method-i-set_pro_permissions" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-set_pro_permissions_source')" id="l_method-i-set_pro_permissions_source">show</a>
+                
+              </p>
+              <div id="method-i-set_pro_permissions_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/account_user.rb, line 185</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">set_pro_permissions</span> <span class="ruby-identifier">permission</span>
+  
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">create_common_work</span>    = <span class="ruby-identifier">permission</span>
+    <span class="ruby-keyword">self</span>.<span class="ruby-identifier">read_common_work</span>    = <span class="ruby-identifier">permission</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">update_common_work</span>    = <span class="ruby-identifier">permission</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">delete_common_work</span>    = <span class="ruby-identifier">permission</span>
+                               
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">create_opportunity</span>    = <span class="ruby-identifier">permission</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">update_opportunity</span>    = <span class="ruby-identifier">permission</span>  
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">delete_opportunity</span>    = <span class="ruby-identifier">permission</span>
+                               
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">createx_user</span>          = <span class="ruby-identifier">permission</span>
+    <span class="ruby-keyword">self</span>.<span class="ruby-identifier">read_user</span>           = <span class="ruby-identifier">permission</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">update_user</span>           = <span class="ruby-identifier">permission</span>  
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">delete_user</span>           = <span class="ruby-identifier">permission</span>
+                               
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">create_crm</span>            = <span class="ruby-identifier">permission</span>
+    <span class="ruby-keyword">self</span>.<span class="ruby-identifier">read_crm</span>            = <span class="ruby-identifier">permission</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">update_crm</span>            = <span class="ruby-identifier">permission</span>  
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">delete_crm</span>            = <span class="ruby-identifier">permission</span>
+                               
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">create_artwork</span>        = <span class="ruby-identifier">permission</span>
+    <span class="ruby-keyword">self</span>.<span class="ruby-identifier">read_artwork</span>        = <span class="ruby-identifier">permission</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">update_artwork</span>        = <span class="ruby-identifier">permission</span>  
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">delete_artwork</span>        = <span class="ruby-identifier">permission</span>
+                               
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">create_client</span>         = <span class="ruby-identifier">permission</span>
+    <span class="ruby-keyword">self</span>.<span class="ruby-identifier">read_client</span>         = <span class="ruby-identifier">permission</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">update_client</span>         = <span class="ruby-identifier">permission</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">delete_client</span>         = <span class="ruby-identifier">permission</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">access_account</span>        = <span class="ruby-identifier">permission</span>
+  
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-super-3F">
+            
+              <b>super?</b>()
+            
+            <a href="../classes/AccountUser.html#method-i-super-3F" name="method-i-super-3F" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-super-3F_source')" id="l_method-i-super-3F_source">show</a>
+                
+              </p>
+              <div id="method-i-super-3F_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/account_user.rb, line 65</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">super?</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">user</span>.<span class="ruby-identifier">role</span> <span class="ruby-operator">==</span> <span class="ruby-string">&#39;Super&#39;</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-update_cache">
+            
+              <b>update_cache</b>()
+            
+            <a href="../classes/AccountUser.html#method-i-update_cache" name="method-i-update_cache" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              <p>refrech memcach and force the segment cache to rerender</p>
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-update_cache_source')" id="l_method-i-update_cache_source">show</a>
+                
+              </p>
+              <div id="method-i-update_cache_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/account_user.rb, line 53</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">update_cache</span>
+  <span class="ruby-identifier">flush_cache</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-update_catalog_users">
+            
+              <b>update_catalog_users</b>()
+            
+            <a href="../classes/AccountUser.html#method-i-update_catalog_users" name="method-i-update_catalog_users" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-update_catalog_users_source')" id="l_method-i-update_catalog_users_source">show</a>
+                
+              </p>
+              <div id="method-i-update_catalog_users_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/account_user.rb, line 384</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">update_catalog_users</span>
+
+  <span class="ruby-comment"># make sure there is access to all catalogs</span>
+  <span class="ruby-identifier">mount_to_catalogs</span>
+  
+  <span class="ruby-comment"># set the permissions from the account user on the catalog users</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">catalog_users</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">catalog_user</span><span class="ruby-operator">|</span>
+    <span class="ruby-comment"># copy permissions from the account user</span>
+    <span class="ruby-identifier">catalog_user</span>.<span class="ruby-identifier">copy_permissions_from_account_user</span> <span class="ruby-keyword">self</span>
+    
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-comment">#update_cache</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-uuid">
+            
+              <b>uuid</b>()
+            
+            <a href="../classes/AccountUser.html#method-i-uuid" name="method-i-uuid" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-uuid_source')" id="l_method-i-uuid_source">show</a>
+                
+              </p>
+              <div id="method-i-uuid_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/account_user.rb, line 41</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">uuid</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">user</span>.<span class="ruby-identifier">uuid</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+                    </div>
+
+    </div>
+  </body>
+</html>    

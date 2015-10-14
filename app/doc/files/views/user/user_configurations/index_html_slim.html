@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>index.html.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            index.html.slim
+        </h1>
+        <ul class="files">
+            <li>views/user/user_configurations/index.html.slim</li>
+            <li>Last modified: 2015-08-30 16:17:03 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>h1 Listing user_configurations</p>
+
+<p>table</p>
+
+<pre><code>thead
+  tr
+    th User
+    th I want to upload music
+    th I am looking for a publisher
+    th Register me as a publisher
+    th I have a publisher
+    th I want to sell goods
+    th I want to sell services
+    th I want to collaborate
+    th I want to receive money directly
+    th I want to manage users and catalogs
+    th Dont ask me again
+    th Configured
+    th
+    th
+    th
+
+tbody
+  - @user_configurations.each do |user_configuration|
+    tr
+      td = user_configuration.user
+      td = user_configuration.i_want_to_upload_music
+      td = user_configuration.i_am_looking_for_a_publisher
+      td = user_configuration.register_me_as_a_publisher
+      td = user_configuration.i_have_a_publisher
+      td = user_configuration.i_want_to_sell_goods
+      td = user_configuration.i_want_to_sell_services
+      td = user_configuration.i_want_to_collaborate
+      td = user_configuration.i_want_to_receive_money_directly
+      td = user_configuration.i_want_to_manage_users_and_catalogs
+      td = user_configuration.dont_ask_me_again
+      td = user_configuration.configured
+      td = link_to &#39;Show&#39;, user_configuration
+      td = link_to &#39;Edit&#39;, edit_user_configuration_path(user_configuration)
+      td = link_to &#39;Destroy&#39;, user_configuration, data: {:confirm =&gt; &#39;Are you sure?&#39;}, :method =&gt; :delete</code></pre>
+
+<p>br</p>
+
+<h1 id="label-link_to+-27New+User+configuration-27-2C+new_user_configuration_path">link_to &#39;New <a href="../../../../classes/User.html">User</a> configuration&#39;, new_user_configuration_path</h1>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

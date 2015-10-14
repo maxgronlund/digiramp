@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>show.html.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            show.html.slim
+        </h1>
+        <ul class="files">
+            <li>views/catalog/documents/show.html.slim</li>
+            <li>Last modified: 2015-07-08 09:41:35 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>wrapper</p>
+
+<pre><code>.full-width-top
+  == render &#39;shared/navigationbar&#39;, page: &#39;catalog&#39;         
+
+.catalog
+  #sidebar-wrapper
+    ul class=&quot;sidebar-nav&quot;
+      == render &#39;catalog/catalogs/sidebar&#39;, selected: &#39;assets&#39;
+
+#page-content-wrapper
+  .container-fluid
+    == render &#39;shared/breadcrumbs&#39;, breadcrumbs: { links: {   catalog: catalog_account_catalog_path(@account, @catalog),
+                                                              documents: catalog_account_catalog_documents_path(@account, @catalog ) }, current: &#39;&#39;}
+    .row
+      .col-sm-8
+        .help
+          .help-text
+             h2 = @document.title
+          .help-button
+            == render &#39;admin/helps/help&#39;, identifier: &#39;catalog document&#39;
+
+      .col-sm-4
+        .pull-right.pull-down-10
+
+    .sexy_line
+
+    == render &#39;catalog/documents/navigation&#39;
+    .digi-box.pull-down-6
+      .row
+        .col-sm-6
+          .media
+            .pull-left
+              .thumbnail
+                = image_tag @document.image_thumb || &#39;digiramp-document.jpg&#39;
+            .media-body
+              .media-heading
+                h3 = @document.title
+              i Document type: 
+              b = @document.file_type
+              br
+              i Size: 
+              = number_to_human_size @document.file_size
+              = simple_format @document.body
+
+        .col-sm-6
+          .pull-right
+            - if current_catalog_user.update_file
+              = link_to edit_catalog_account_catalog_document_path(@account, @catalog, @document) do
+                .btn.btn-default.btn
+                  i class=&quot;fa fa-pencil&quot;
+              &#39;&amp;nbsp;
+            = link_to download_document_path(document: @document.id) do
+              .btn.btn-default.btn
+                i class=&#39;fa fa-cloud-download&#39;
+                &#39;&amp;nbsp;Download
+            &#39;&amp;nbsp;
+            = link_to @document.file do
+              .btn.btn-default.btn
+                &#39;Read File
+      .row
+        .col-sm-12
+          = simple_format @document.text_content
+
+== render &#39;shared/site_footer&#39;</code></pre>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

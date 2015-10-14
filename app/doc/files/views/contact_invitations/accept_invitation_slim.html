@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>accept_invitation.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            accept_invitation.slim
+        </h1>
+        <ul class="files">
+            <li>views/contact_invitations/accept_invitation.slim</li>
+            <li>Last modified: 2015-09-04 16:47:56 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>.full-width-top</p>
+
+<pre><code>.navbar.navbar-digiramp.navbar-fixed-top.navbar-collapse
+  .navbar-header
+    = link_to image_tag(&#39;logo2.png&#39;, size: &quot;128x50&quot;), root_path</code></pre>
+
+<p>.container</p>
+
+<pre><code>.contact-invitations
+  - if params[:message] &amp;&amp; params[:message].include?(&#39;Error: &#39;)
+    .alert.alert-danger
+      = params[:message].gsub(&#39;Error: #&lt;ActiveRecord::RecordInvalid: &#39;, &#39;&#39;).gsub(&#39;&gt;&#39;, &#39;&#39;).gsub(&#39;Email&#39;, &#39;&#39;) 
+  - if @message.include?(&#39;Signed up with email: &#39;)
+    == render &#39;signed_up_with_email&#39;
+
+  - elsif @message.include?(&#39;Logged in as other: &#39;)
+    == render &#39;logged_in_as_other&#39;
+
+  - elsif @message.include?(&#39;Invitation is used: &#39;)
+    == render &#39;invitation_is_used&#39;
+
+  - elsif @message.include?(&#39;Error: &#39;)
+    == render &#39;error&#39;
+
+  - elsif @message.include?(&#39;You are now connected&#39;)
+    == render &#39;connected_not_logged_in&#39;
+
+  - else
+    == render &#39;create_account&#39;</code></pre>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

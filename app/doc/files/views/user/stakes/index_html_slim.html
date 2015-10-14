@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>index.html.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            index.html.slim
+        </h1>
+        <ul class="files">
+            <li>views/user/stakes/index.html.slim</li>
+            <li>Last modified: 2015-09-24 20:35:34 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      <ul><li>
+<p><a href=":return_url">session</a> = request.url</p>
+</li></ul>
+
+<p>wrapper</p>
+
+<pre><code>.full-width-top
+  == render &#39;shared/navigationbar&#39;, page: &#39;edit_profile&#39; 
+
+#sidebar-wrapper
+  ul class=&quot;sidebar-nav&quot;
+    == render &#39;users/shared/sidebar&#39;, selected: &#39;user&#39;
+
+#page-content-wrapper
+  .container-fluid 
+    == render &#39;shared/breadcrumbs&#39;, breadcrumbs: { links: { &#39;Dashboard&#39;.to_sym =&gt;user_user_control_panel_index_path(@user),
+                                                            &#39;shop admin&#39;.to_sym =&gt; user_user_shop_admin_index_path(@user)}, current: &#39;&#39;}
+    .row
+      .col-sm-8
+        .help
+          .help-text
+            h2 = @shop_product.title
+          .help-button
+            == render &#39;admin/helps/help&#39;, identifier: &#39;user shop stakeholders&#39;
+      .col-sm-4
+        .pull-right.pull-down-10
+          =&gt; link_to  user_user_shop_admin_index_path(@user) do
+              .btn.btn-default
+                i.fa.fa-chevron-left
+                &#39;&amp;nbsp;Back
+
+          /-if recording = @shop_product.recording
+          /  =&gt; link_to &quot;IP&#39;s&quot;, user_user_common_work_path(@user, recording.get_common_work) , class: &#39;btn btn-default&#39;
+          = link_to &#39;Edit&#39;, edit_user_user_product_path(@user, @shop_product), class: &#39;btn btn-info&#39;
+          /&#39;|
+          /= link_to &#39;Back&#39;, user_user_shop_admin_index_path(@user)
+
+          /-if @shop_product.recording
+          /  &#39;Recording
+
+    .sexy_line
+    /.row
+    /  .col-sm-6
+    /    .digi-box 
+    /      h4 Create stakeholdes  
+    /      /= debug @shop_product.id
+    /      = simple_form_for [:user, @user, @shop_product, Stake.new(split: 10)], url: url_for( action: &#39;create&#39;, 
+    /                                                                                controller: &#39;user/stakes&#39;), 
+    /                                                                  turboboost: true, 
+    /                                                                  :method =&gt; &#39;post&#39; do |f|
+    /          
+    /          = f.hidden_field :asset_type, value: @shop_product.class.name
+    /          = f.hidden_field :flat_rate_in_cent, value: 0
+    /          = f.hidden_field :currency, value: &#39;usd&#39;
+    /          = f.hidden_field :unassigned, value: true
+    /          = f.input :email
+    /          = f.input :split, input_html: {min: &quot;1&quot;, max: &quot;100&quot;}
+    /          .row
+    /            .col-sm-12
+    /              .pull-right
+    /                = f.submit &#39;Save&#39;, class: &#39;btn btn-default&#39;
+    /  .col-sm-6
+    /
+    .row
+      .col-sm-12
+        .digi-box
+          /-  if @shop_product.total_stakes != 100
+          /  .alert.alert-danger
+          /    = &quot;Total share is #{@shop_product.total_stakes}&quot;
+          /h4 Stakeholders
+
+          .table-responsive
+            table class=&quot;table table-hover&quot;
+              thead
+                tr
+                  th Name
+                  th Type
+                  th Email
+                  th Split
+                  /th Collected
+                  /th Channel
+              tbody
+                - @stakes.to_a.each do |stake|
+                  tr
+                    td = stake.title
+                    td = stake.description
+                    /td = link_to user_user_product_stake_path(@user, @shop_product, stake), 
+                    /                              data: { confirm: &#39;Are you sure?&#39; } , 
+                    /                              turboboost: true, 
+                    /                              :method =&gt; :delete do
+                    /        .btn.btn-danger.btn-xs
+                    /          i.fa.fa-times
+                    td = stake.email
+                    td
+                      = number_to_percentage(stake.split, precision: 2)
+                      /.small-input
+                      /  .width-150
+                      /    
+                      /    = simple_form_for [:user, @user, stake], turboboost: true, :method =&gt; &#39;put&#39; do |f|
+                      /                                                                  
+                      /      .input-group
+                      /        = f.input :split, label: false, class: &#39;form-control&#39;
+                      /        .input-group-btn
+                      /          = f.submit &#39;Update&#39;, class: &#39;btn btn-default&#39;
+                      /
+                    /td = stake.account_id ? &#39;Yes&#39;: &#39;No&#39;
+                    /td = stake.channel_uuid
+
+== render &#39;shared/site_footer&#39;</code></pre>
+
+<p>/input type=“number” name=“quantity” min=“1” max=“5” /, input_html: {
+value: &#39;1&#39; } %&gt;</p>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

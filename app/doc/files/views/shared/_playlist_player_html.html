@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>_playlist_player.html</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            _playlist_player.html
+        </h1>
+        <ul class="files">
+            <li>views/shared/_playlist_player.html</li>
+            <li>Last modified: 2015-07-05 15:22:06 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>&lt;div class=“sm2-bar-ui fixed paused full-width flat” style=“font-size:
+14px;”&gt;</p>
+
+<pre><code>&lt;div class=&quot;bd sm2-main-controls&quot; style=&quot;background-color: rgb(0, 0, 0);&quot;&gt;
+
+ &lt;div class=&quot;sm2-inline-texture&quot;&gt;&lt;/div&gt;
+ &lt;div class=&quot;sm2-inline-gradient&quot;&gt;&lt;/div&gt;
+
+ &lt;div class=&quot;sm2-inline-element sm2-button-element&quot;&gt;
+  &lt;div class=&quot;sm2-button-bd&quot;&gt;
+   &lt;a href=&quot;http://www.schillmania.com/projects/soundmanager2/demo/bar-ui/#play&quot; class=&quot;sm2-inline-button play-pause&quot;&gt;Play / pause&lt;/a&gt;
+  &lt;/div&gt;
+ &lt;/div&gt;
+
+ &lt;div class=&quot;sm2-inline-element sm2-inline-status&quot;&gt;
+
+  &lt;div class=&quot;sm2-playlist&quot;&gt;
+   &lt;div class=&quot;sm2-playlist-target&quot;&gt;&lt;ul class=&quot;sm2-playlist-bd&quot;&gt;&lt;li&gt;Untitled Groove&lt;/li&gt;&lt;/ul&gt;&lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;div class=&quot;sm2-progress&quot;&gt;
+   &lt;div class=&quot;sm2-row&quot;&gt;
+   &lt;div class=&quot;sm2-inline-time&quot;&gt;2:16&lt;/div&gt;
+    &lt;div class=&quot;sm2-progress-bd&quot;&gt;
+     &lt;div class=&quot;sm2-progress-track&quot;&gt;
+      &lt;div class=&quot;sm2-progress-bar&quot; style=&quot;width: 77.2104523182372%;&quot;&gt;&lt;/div&gt;
+      &lt;div class=&quot;sm2-progress-ball&quot; style=&quot;left: 77.2104523182372%;&quot;&gt;&lt;div class=&quot;icon-overlay&quot;&gt;&lt;/div&gt;&lt;/div&gt;
+     &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;sm2-inline-duration&quot;&gt;2:56&lt;/div&gt;
+   &lt;/div&gt;
+  &lt;/div&gt;
+
+ &lt;/div&gt;
+
+ &lt;div class=&quot;sm2-inline-element sm2-button-element sm2-volume&quot;&gt;
+  &lt;div class=&quot;sm2-button-bd&quot;&gt;
+   &lt;span class=&quot;sm2-inline-button sm2-volume-control volume-shade&quot;&gt;&lt;/span&gt;
+   &lt;a href=&quot;http://www.schillmania.com/projects/soundmanager2/demo/bar-ui/#volume&quot; class=&quot;sm2-inline-button sm2-volume-control&quot; style=&quot;clip: rect(0px 28px 42px 9.24px);&quot;&gt;volume&lt;/a&gt;
+  &lt;/div&gt;
+ &lt;/div&gt;
+
+ &lt;div class=&quot;sm2-inline-element sm2-button-element&quot;&gt;
+  &lt;div class=&quot;sm2-button-bd&quot;&gt;
+   &lt;a href=&quot;http://www.schillmania.com/projects/soundmanager2/demo/bar-ui/#prev&quot; title=&quot;Previous&quot; class=&quot;sm2-inline-button previous&quot;&gt;&amp;lt; previous&lt;/a&gt;
+  &lt;/div&gt;
+ &lt;/div&gt;
+
+ &lt;div class=&quot;sm2-inline-element sm2-button-element&quot;&gt;
+  &lt;div class=&quot;sm2-button-bd&quot;&gt;
+   &lt;a href=&quot;http://www.schillmania.com/projects/soundmanager2/demo/bar-ui/#next&quot; title=&quot;Next&quot; class=&quot;sm2-inline-button next&quot;&gt;&amp;gt; next&lt;/a&gt;
+  &lt;/div&gt;
+ &lt;/div&gt;
+
+ &lt;!-- unimplemented --&gt;
+ &lt;!--
+ &lt;div class=&quot;sm2-inline-element sm2-button-element disabled&quot;&gt;
+  &lt;div class=&quot;sm2-button-bd&quot;&gt;
+   &lt;a href=&quot;#repeat&quot; title=&quot;Repeat playlist&quot; class=&quot;sm2-inline-button repeat&quot;&gt;&amp;infin; repeat&lt;/a&gt;
+  &lt;/div&gt;
+ &lt;/div&gt;
+ --&gt;
+
+ &lt;div class=&quot;sm2-inline-element sm2-button-element sm2-menu&quot;&gt;
+  &lt;div class=&quot;sm2-button-bd&quot;&gt;
+   &lt;a href=&quot;http://www.schillmania.com/projects/soundmanager2/demo/bar-ui/#menu&quot; class=&quot;sm2-inline-button menu&quot;&gt;menu&lt;/a&gt;
+  &lt;/div&gt;
+ &lt;/div&gt;
+
+&lt;/div&gt;
+
+&lt;div class=&quot;bd sm2-playlist-drawer sm2-element&quot; style=&quot;height: 0px; background-color: rgb(0, 0, 0);&quot;&gt;
+
+ &lt;div class=&quot;sm2-inline-texture&quot;&gt;
+  &lt;div class=&quot;sm2-box-shadow&quot;&gt;&lt;/div&gt;
+ &lt;/div&gt;
+
+ &lt;!-- playlist content is mirrored here --&gt;
+
+ &lt;div class=&quot;sm2-playlist-wrapper&quot;&gt;
+   &lt;ul class=&quot;sm2-playlist-bd&quot;&gt;
+    &lt;li class=&quot;&quot;&gt;&lt;a href=&quot;http://freshly-ground.com/data/audio/sm2/SonReal%20-%20LA%20%28Prod%20Chin%20Injetti%29.mp3&quot;&gt;&lt;b&gt;SonReal&lt;/b&gt; - LA (Prod. Chin Injetti)&lt;span class=&quot;label&quot;&gt;Explicit&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&quot;http://freshly-ground.com/data/audio/sm2/SonReal%20-%20Let%20Me%20%28Prod%202oolman%29.mp3&quot;&gt;&lt;b&gt;SonReal&lt;/b&gt; - Let Me &lt;span class=&quot;label&quot;&gt;Explicit&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+   &lt;/ul&gt;
+ &lt;/div&gt;
+
+&lt;/div&gt;</code></pre>
+
+<p>&lt;/div&gt;</p>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

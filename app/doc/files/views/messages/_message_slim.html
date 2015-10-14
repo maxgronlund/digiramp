@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>_message.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            _message.slim
+        </h1>
+        <ul class="files">
+            <li>views/messages/_message.slim</li>
+            <li>Last modified: 2015-07-22 23:11:43 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>-if  message.is_valid</p>
+
+<pre><code>- receiver = message.receiver
+- sender   = message.sender
+- received_message = message.receiver.id == @user.id
+
+tr id=&quot;delete_message_#{message.id.to_s}&quot;
+  td
+    /=&gt; link_to user_message_path(@user, message), data:  { confirm: &#39;Are you sure?&#39; }, method: :delete, remote: true  do
+    =&gt; link_to user_message_path(@user, message), method: :delete, remote: true  do
+      .btn.btn-danger.btn-xs
+        i.fa.fa-times
+  td  
+    b = link_to message.title, user_message_path(@user, message)
+    br
+    = message.created_at.to_formatted_s(:short)
+
+  td.message-unread
+
+    - if message.read  == false &amp;&amp; sender.id != @user.id
+      = link_to user_message_path(@user, message)  do
+        .btn.btn-default.btn-xs
+          i.fa.fa-exclamation-circle
+
+  - if sender
+    td
+      .pull-right
+        b = message.sender.user_name
+    td.message-avatars
+      = link_to image_tag( message.sender.image_url :avatar_32x32), user_path(message.sender)
+      &#39;&amp;nbsp;
+      i.fa.fa-arrow-right 
+      &#39;&amp;nbsp;
+      = link_to image_tag( message.receiver.image_url :avatar_32x32), user_path(message.receiver)
+    td
+      b= message.receiver.user_name
+
+    /td
+    /  - if received_message &amp;&amp; Connection.connected(message.receiver, message.sender )
+    /    / Mail
+    /    = link_to &quot;#&quot;, &#39;data-toggle&#39;.to_sym =&gt; &quot;modal&quot;, &#39;data-target&#39;.to_sym =&gt; &quot;#pmModal_#{message.sender.id.to_s}&quot; do
+    /      .btn.btn-default.btn-xs
+    /        i.fa.fa-envelope
+    /        &#39;&amp;nbsp;New  
+    /    == render &#39;messages/modal&#39;, modal_id: &quot;pmModal_#{message.sender.id.to_s}&quot;, recipient: message.sender, subjectable: message.sender
+  - else
+      td
+        i.fa.fa-exclamation
+        &#39;User removed
+      td
+      td</code></pre>
+<ul><li>
+<p>else</p>
+<ul><li>
+<p>message.destroy</p>
+</li></ul>
+</li></ul>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

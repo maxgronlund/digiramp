@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>Omniauth</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../css/github.css" type="text/css" media="screen" />
+<script src="../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            <span class="type">Class</span> 
+            Omniauth 
+            
+                <span class="parent">&lt; 
+                    
+                    Object
+                    
+                </span>
+            
+        </h1>
+        <ul class="files">
+            
+            <li><a href="../files/services/omniauth_rb.html">services/omniauth.rb</a></li>
+            
+        </ul>
+    </div>
+    <div id="bodyContent">
+        <div id="content">
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+    <!-- Method ref -->
+    <div class="sectiontitle">Methods</div>
+    <dl class="methods">
+      
+        <dt>A</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-c-attach_provider">attach_provider</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-c-authorize_with_omniauth">authorize_with_omniauth</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>N</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-c-new">new</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+    </dl>
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+    
+      <div class="sectiontitle">Class Public methods</div>
+      
+        <div class="method">
+          <div class="title method-title" id="method-c-attach_provider">
+            
+              <b>attach_provider</b>(env, user)
+            
+            <a href="../classes/Omniauth.html#method-c-attach_provider" name="method-c-attach_provider" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              <p>atttaching an provider to an existing user&#39;</p>
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-c-attach_provider_source')" id="l_method-c-attach_provider_source">show</a>
+                
+              </p>
+              <div id="method-c-attach_provider_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File services/omniauth.rb, line 6</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">self</span>.<span class="ruby-identifier">attach_provider</span> <span class="ruby-identifier">env</span>, <span class="ruby-identifier">user</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">nil</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">omniauth_auth</span> = <span class="ruby-identifier">env</span>[<span class="ruby-string">&#39;omniauth.auth&#39;</span>]
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">new_provider</span> = <span class="ruby-constant">AuthorizationProvider</span>.<span class="ruby-identifier">where</span>(<span class="ruby-identifier">user_id</span><span class="ruby-operator">:</span> <span class="ruby-identifier">user</span>.<span class="ruby-identifier">id</span>, <span class="ruby-identifier">provider</span><span class="ruby-operator">:</span> <span class="ruby-identifier">omniauth_auth</span>[<span class="ruby-string">&quot;provider&quot;</span>]).<span class="ruby-identifier">present?</span>
+    <span class="ruby-keyword">return</span> <span class="ruby-keyword">nil</span>
+  <span class="ruby-keyword">else</span>  
+
+    <span class="ruby-identifier">credentials</span> =  <span class="ruby-identifier">omniauth_auth</span>[<span class="ruby-string">&quot;credentials&quot;</span>]
+
+
+    <span class="ruby-identifier">new_provider</span> = <span class="ruby-constant">AuthorizationProvider</span>.<span class="ruby-identifier">create!</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">provider</span><span class="ruby-operator">|</span>
+                      <span class="ruby-identifier">provider</span>.<span class="ruby-identifier">provider</span>           = <span class="ruby-identifier">omniauth_auth</span>[<span class="ruby-string">&quot;provider&quot;</span>]
+                      <span class="ruby-identifier">provider</span>.<span class="ruby-identifier">uid</span>                = <span class="ruby-identifier">omniauth_auth</span>[<span class="ruby-string">&quot;uid&quot;</span>]
+                      <span class="ruby-identifier">provider</span>.<span class="ruby-identifier">oauth_token</span>        = <span class="ruby-identifier">credentials</span>[<span class="ruby-string">&#39;token&#39;</span>]
+                      <span class="ruby-identifier">provider</span>.<span class="ruby-identifier">oauth_secret</span>       = <span class="ruby-identifier">credentials</span>[<span class="ruby-string">&#39;secret&#39;</span>]
+                      <span class="ruby-identifier">provider</span>.<span class="ruby-identifier">oauth_expires_at</span>   = <span class="ruby-identifier">credentials</span>[<span class="ruby-string">&quot;expires_at&quot;</span>]
+                      <span class="ruby-identifier">provider</span>.<span class="ruby-identifier">oauth_expires</span>      = <span class="ruby-identifier">credentials</span>[<span class="ruby-string">&quot;expires&quot;</span>]
+                      <span class="ruby-identifier">provider</span>.<span class="ruby-identifier">user_id</span>            = <span class="ruby-identifier">user</span>.<span class="ruby-identifier">id</span>
+                      <span class="ruby-identifier">provider</span>.<span class="ruby-identifier">info</span>               = <span class="ruby-identifier">omniauth_auth</span>[<span class="ruby-string">&quot;info&quot;</span>]
+                      <span class="ruby-comment">#provider.profile_name       </span>
+                      
+    <span class="ruby-keyword">end</span>
+    <span class="ruby-comment"># attach stripe to user</span>
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">omniauth_auth</span>[<span class="ruby-string">&quot;provider&quot;</span>] <span class="ruby-operator">==</span> <span class="ruby-string">&#39;stripe_connect&#39;</span>
+      <span class="ruby-identifier">auth_hash</span> = <span class="ruby-identifier">env</span>[<span class="ruby-string">&#39;omniauth.auth&#39;</span>]
+      <span class="ruby-identifier">user</span>.<span class="ruby-identifier">stripe_id</span>              = <span class="ruby-identifier">auth_hash</span>[<span class="ruby-string">&#39;uid&#39;</span>]
+      <span class="ruby-identifier">user</span>.<span class="ruby-identifier">stripe_access_key</span>      = <span class="ruby-identifier">auth_hash</span>[<span class="ruby-string">&#39;credentials&#39;</span>][<span class="ruby-string">&#39;token&#39;</span>]
+      <span class="ruby-identifier">user</span>.<span class="ruby-identifier">stripe_publishable_key</span> = <span class="ruby-identifier">auth_hash</span>[<span class="ruby-string">&#39;info&#39;</span>][<span class="ruby-string">&#39;stripe_publishable_key&#39;</span>]
+      <span class="ruby-identifier">user</span>.<span class="ruby-identifier">stripe_refresh_token</span>   = <span class="ruby-identifier">auth_hash</span>[<span class="ruby-string">&#39;credentials&#39;</span>][<span class="ruby-string">&#39;refresh_token&#39;</span>]
+      <span class="ruby-identifier">user</span>.<span class="ruby-identifier">has_enabled_shop</span>       = <span class="ruby-keyword">true</span>
+      <span class="ruby-identifier">user</span>.<span class="ruby-identifier">update_shop</span>
+      <span class="ruby-identifier">user</span>.<span class="ruby-identifier">save!</span>
+    <span class="ruby-keyword">end</span>
+
+    <span class="ruby-keyword">return</span> <span class="ruby-identifier">new_provider</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-c-authorize_with_omniauth">
+            
+              <b>authorize_with_omniauth</b>(env)
+            
+            <a href="../classes/Omniauth.html#method-c-authorize_with_omniauth" name="method-c-authorize_with_omniauth" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              <p>authorize or create an new account</p>
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-c-authorize_with_omniauth_source')" id="l_method-c-authorize_with_omniauth_source">show</a>
+                
+              </p>
+              <div id="method-c-authorize_with_omniauth_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File services/omniauth.rb, line 44</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">self</span>.<span class="ruby-identifier">authorize_with_omniauth</span> <span class="ruby-identifier">env</span>
+  
+  <span class="ruby-comment">#  env</span>
+  
+  
+  <span class="ruby-comment">#authorization_provider = AuthorizationProvider.where( env.slice(&quot;provider&quot;, &quot;uid&quot;)).first</span>
+  <span class="ruby-identifier">authorization_provider</span> = <span class="ruby-constant">AuthorizationProvider</span>.<span class="ruby-identifier">where</span>(<span class="ruby-identifier">provider</span><span class="ruby-operator">:</span> <span class="ruby-identifier">env</span>.<span class="ruby-identifier">provider</span>, <span class="ruby-identifier">uid</span><span class="ruby-operator">:</span> <span class="ruby-identifier">env</span>.<span class="ruby-identifier">uid</span>).<span class="ruby-identifier">first</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">authorization_provider</span>
+    <span class="ruby-identifier">credentials</span>     =  <span class="ruby-identifier">env</span>[<span class="ruby-string">&quot;credentials&quot;</span>]
+    <span class="ruby-identifier">authorization_provider</span>.<span class="ruby-identifier">oauth_token</span>         = <span class="ruby-identifier">credentials</span>[<span class="ruby-string">&#39;token&#39;</span>]
+    <span class="ruby-identifier">authorization_provider</span>.<span class="ruby-identifier">oauth_expires_at</span>    = <span class="ruby-identifier">credentials</span>[<span class="ruby-string">&quot;expires_at&quot;</span>]
+    <span class="ruby-identifier">authorization_provider</span>.<span class="ruby-identifier">oauth_expires</span>       = <span class="ruby-identifier">credentials</span>[<span class="ruby-string">&quot;expires&quot;</span>] 
+    <span class="ruby-comment">#authorization_provider.info                = env[&#39;omniauth.auth&#39;][&quot;info&quot;]</span>
+    <span class="ruby-identifier">authorization_provider</span>.<span class="ruby-identifier">save!</span> 
+    <span class="ruby-comment">#authorization_provider</span>
+    <span class="ruby-keyword">return</span> {<span class="ruby-identifier">user</span><span class="ruby-operator">:</span> <span class="ruby-identifier">authorization_provider</span>.<span class="ruby-identifier">user</span>}
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">user</span> = <span class="ruby-identifier">create_from_omniauth</span>(<span class="ruby-identifier">env</span>)
+    <span class="ruby-keyword">return</span> { <span class="ruby-identifier">user</span><span class="ruby-operator">:</span> <span class="ruby-identifier">user</span>[<span class="ruby-value">:user</span>], <span class="ruby-identifier">message</span><span class="ruby-operator">:</span> <span class="ruby-identifier">user</span>[<span class="ruby-value">:message</span>]}
+  <span class="ruby-keyword">end</span>
+  
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-c-new">
+            
+              <b>new</b>()
+            
+            <a href="../classes/Omniauth.html#method-c-new" name="method-c-new" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-c-new_source')" id="l_method-c-new_source">show</a>
+                
+              </p>
+              <div id="method-c-new_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File services/omniauth.rb, line 3</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">initialize</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+                        </div>
+
+    </div>
+  </body>
+</html>    

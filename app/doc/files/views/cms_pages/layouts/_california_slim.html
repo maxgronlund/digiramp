@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>_california.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            _california.slim
+        </h1>
+        <ul class="files">
+            <li>views/cms_pages/layouts/_california.slim</li>
+            <li>Last modified: 2015-07-05 15:22:06 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>.digi-box style=“background-color:#{@cms_page.background_color};”</p>
+
+<pre><code>- @cms_page.cms_sections.order(:position).where(column_nr: 0).each do |section|
+  == render section.view.view_name, section: section.view
+
+.row
+  .col-sm-3
+    - @cms_page.cms_sections.order(:position).where(column_nr: 20).each do |section|
+      == render section.view.view_name, section: section.view
+  .col-sm-3
+    /= render &#39;cms_pages/page_selector&#39;, user: @user
+    - @cms_page.cms_sections.order(:position).where(column_nr: 21).each do |section|
+      == render section.view.view_name, section: section.view
+  .col-sm-3
+    - @cms_page.cms_sections.order(:position).where(column_nr: 22).each do |section|
+      == render section.view.view_name, section: section.view
+  .col-sm-3
+    /= render &#39;cms_pages/page_selector&#39;, user: @user
+    - @cms_page.cms_sections.order(:position).where(column_nr: 23).each do |section|
+      == render section.view.view_name, section: section.view
+
+.row
+  .col-sm-8
+    - @cms_page.cms_sections.order(:position).where(column_nr: 1).each do |section|
+      == render section.view.view_name, section: section.view
+  .col-sm-4
+    /= render &#39;cms_pages/page_selector&#39;, user: @user
+    - @cms_page.cms_sections.order(:position).where(column_nr: 2).each do |section|
+      == render section.view.view_name, section: section.view
+
+.row  
+  .col-sm-12
+    /= render &#39;cms_pages/page_selector&#39;, user: @user
+    - @cms_page.cms_sections.order(:position).where(column_nr: 100).each do |section|
+      == render section.view.view_name, section: section.view</code></pre>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

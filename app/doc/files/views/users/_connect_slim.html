@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>_connect.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            _connect.slim
+        </h1>
+        <ul class="files">
+            <li>views/users/_connect.slim</li>
+            <li>Last modified: 2015-09-24 20:35:34 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>.old-connect-buttons</p>
+
+<pre><code>- if connection = Connection.connected( user, current_user )
+
+  - if connection.is_active
+    / Send message
+    = link_to new_message_digalog_path(sender: current_user, 
+                                       receiver: user, 
+                                       title: &#39;&#39;, 
+                                       subjectable_id: current_user.id, 
+                                       subjectable_type: &#39;User&#39;), remote: true do
+          .btn.btn-default
+            i.fa.fa-envelope
+              &#39;&amp;nbsp;Send message  
+
+  - elsif connection.is_pending
+    .alert.alert-info
+      &#39;Pending connection
+
+  - elsif connection.is_dismissed
+    .alert.alert-warning
+      &#39;Connection dismissed
+
+- else
+  = link_to new_connection_digalog_path(sender: current_user, receiver: user), remote: true do
+        .btn.btn-info
+          i.fa.fa-refresh
+          &#39;&amp;nbsp;Connect
+
+  /= link_to &quot;#&quot;, &#39;data-toggle&#39;.to_sym =&gt; &quot;modal&quot;, &#39;data-target&#39;.to_sym =&gt; &quot;#connect_modal_#{@user.id.to_s}&quot; do
+  /  .btn.btn-info.btn-xs
+  /    i.fa.fa-refresh
+  /    &#39;&amp;nbsp;Connect</code></pre>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

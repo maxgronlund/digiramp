@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>StripeCustomerService</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../css/github.css" type="text/css" media="screen" />
+<script src="../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            <span class="type">Class</span> 
+            StripeCustomerService 
+            
+                <span class="parent">&lt; 
+                    
+                    Object
+                    
+                </span>
+            
+        </h1>
+        <ul class="files">
+            
+            <li><a href="../files/services/stripe_customer_service_rb.html">services/stripe_customer_service.rb</a></li>
+            
+        </ul>
+    </div>
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p><a href="Stripe.html">Stripe</a> Customer CUD</p>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+    <!-- Method ref -->
+    <div class="sectiontitle">Methods</div>
+    <dl class="methods">
+      
+        <dt>S</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-subscribe">subscribe</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+    </dl>
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+        
+      <div class="sectiontitle">Instance Public methods</div>
+      
+        <div class="method">
+          <div class="title method-title" id="method-i-subscribe">
+            
+              <b>subscribe</b>(events)
+            
+            <a href="../classes/StripeCustomerService.html#method-i-subscribe" name="method-i-subscribe" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-subscribe_source')" id="l_method-i-subscribe_source">show</a>
+                
+              </p>
+              <div id="method-i-subscribe_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File services/stripe_customer_service.rb, line 6</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">subscribe</span> <span class="ruby-identifier">events</span>
+  <span class="ruby-identifier">events</span>.<span class="ruby-identifier">subscribe</span> <span class="ruby-string">&#39;customer.created&#39;</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">event</span><span class="ruby-operator">|</span>
+    
+    <span class="ruby-identifier">ap</span> <span class="ruby-string">&#39;########################################################&#39;</span>
+    <span class="ruby-identifier">ap</span> <span class="ruby-string">&#39;customer.created&#39;</span>
+    <span class="ruby-identifier">ap</span> <span class="ruby-string">&#39;########################################################&#39;</span>
+
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">data</span> = <span class="ruby-identifier">event</span>.<span class="ruby-identifier">data</span>
+      <span class="ruby-keyword">if</span> <span class="ruby-identifier">stripe_object</span> = <span class="ruby-identifier">data</span>.<span class="ruby-identifier">object</span>
+        <span class="ruby-constant">StripeCustomer</span>.<span class="ruby-identifier">where</span>(<span class="ruby-identifier">stripe_id</span><span class="ruby-operator">:</span> <span class="ruby-identifier">stripe_object</span>.<span class="ruby-identifier">id</span>)
+                      .<span class="ruby-identifier">first_or_create</span>( <span class="ruby-identifier">stripe_id</span><span class="ruby-operator">:</span>        <span class="ruby-identifier">stripe_object</span>.<span class="ruby-identifier">id</span>,              
+                                        <span class="ruby-identifier">stripe_object</span><span class="ruby-operator">:</span>    <span class="ruby-identifier">stripe_object</span>.<span class="ruby-identifier">object</span>,          
+                                        <span class="ruby-identifier">created</span><span class="ruby-operator">:</span>          <span class="ruby-identifier">stripe_object</span>.<span class="ruby-identifier">created</span>.<span class="ruby-identifier">nil?</span> <span class="ruby-operator">?</span>        <span class="ruby-keyword">nil</span> <span class="ruby-operator">:</span> <span class="ruby-constant">Date</span>.<span class="ruby-identifier">strptime</span>(<span class="ruby-identifier">stripe_object</span>.<span class="ruby-identifier">created</span>.<span class="ruby-identifier">to_s</span>, <span class="ruby-string">&#39;%s&#39;</span>), 
+                                        <span class="ruby-identifier">livemode</span><span class="ruby-operator">:</span>         <span class="ruby-identifier">stripe_object</span>.<span class="ruby-identifier">livemode</span>,
+                                        <span class="ruby-identifier">description</span><span class="ruby-operator">:</span>      <span class="ruby-identifier">stripe_object</span>.<span class="ruby-identifier">description</span>,
+                                        <span class="ruby-identifier">email</span><span class="ruby-operator">:</span>            <span class="ruby-identifier">stripe_object</span>.<span class="ruby-identifier">email</span>,
+                                        <span class="ruby-identifier">delinquent</span><span class="ruby-operator">:</span>       <span class="ruby-identifier">stripe_object</span>.<span class="ruby-identifier">delinquent</span>,
+                                        <span class="ruby-identifier">metadata</span><span class="ruby-operator">:</span>         <span class="ruby-identifier">stripe_object</span>.<span class="ruby-identifier">metadata</span>.<span class="ruby-identifier">nil?</span> <span class="ruby-operator">?</span>       <span class="ruby-keyword">nil</span> <span class="ruby-operator">:</span> <span class="ruby-constant">JSON</span>.<span class="ruby-identifier">parse</span>(<span class="ruby-identifier">stripe_object</span>.<span class="ruby-identifier">metadata</span>.<span class="ruby-identifier">to_json</span>).<span class="ruby-identifier">deep_symbolize_keys</span>,
+                                        <span class="ruby-identifier">subscriptions</span><span class="ruby-operator">:</span>    <span class="ruby-identifier">stripe_object</span>.<span class="ruby-identifier">subscriptions</span>.<span class="ruby-identifier">nil?</span> <span class="ruby-operator">?</span>  <span class="ruby-keyword">nil</span> <span class="ruby-operator">:</span> <span class="ruby-constant">JSON</span>.<span class="ruby-identifier">parse</span>(<span class="ruby-identifier">stripe_object</span>.<span class="ruby-identifier">subscriptions</span>.<span class="ruby-identifier">to_json</span>).<span class="ruby-identifier">deep_symbolize_keys</span>,  <span class="ruby-comment"># an array of hashes</span>
+                                        <span class="ruby-identifier">discount</span><span class="ruby-operator">:</span>         <span class="ruby-identifier">stripe_object</span>.<span class="ruby-identifier">discount</span>.<span class="ruby-identifier">nil?</span> <span class="ruby-operator">?</span>       <span class="ruby-keyword">nil</span> <span class="ruby-operator">:</span> <span class="ruby-constant">JSON</span>.<span class="ruby-identifier">parse</span>(<span class="ruby-identifier">stripe_object</span>.<span class="ruby-identifier">discount</span>.<span class="ruby-identifier">to_json</span>).<span class="ruby-identifier">deep_symbolize_keys</span>,
+                                        <span class="ruby-identifier">account_balance</span><span class="ruby-operator">:</span>  <span class="ruby-identifier">stripe_object</span>.<span class="ruby-identifier">account_balance</span>,
+                                        <span class="ruby-identifier">currency</span><span class="ruby-operator">:</span>         <span class="ruby-identifier">stripe_object</span>.<span class="ruby-identifier">currency</span>,
+                                        <span class="ruby-identifier">sources</span><span class="ruby-operator">:</span>          <span class="ruby-identifier">stripe_object</span>.<span class="ruby-identifier">sources</span>.<span class="ruby-identifier">nil?</span> <span class="ruby-operator">?</span>        <span class="ruby-keyword">nil</span> <span class="ruby-operator">:</span> <span class="ruby-constant">JSON</span>.<span class="ruby-identifier">parse</span>(<span class="ruby-identifier">stripe_object</span>.<span class="ruby-identifier">sources</span>.<span class="ruby-identifier">to_json</span>).<span class="ruby-identifier">deep_symbolize_keys</span>,
+                                        <span class="ruby-identifier">default_source</span><span class="ruby-operator">:</span>   <span class="ruby-identifier">stripe_object</span>.<span class="ruby-identifier">default_source</span>
+                      )
+
+      <span class="ruby-keyword">end</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-identifier">events</span>.<span class="ruby-identifier">subscribe</span> <span class="ruby-string">&#39;customer.updated&#39;</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">event</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">ap</span> <span class="ruby-string">&#39;########################################################&#39;</span>
+    <span class="ruby-identifier">ap</span> <span class="ruby-string">&#39;customer.updated&#39;</span>
+    <span class="ruby-identifier">ap</span> <span class="ruby-string">&#39;########################################################&#39;</span>
+    <span class="ruby-identifier">digiramp_user</span>         = <span class="ruby-keyword">nil</span>
+    <span class="ruby-identifier">digiramp_subscription</span> = <span class="ruby-keyword">nil</span>
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">data</span> = <span class="ruby-identifier">event</span>.<span class="ruby-identifier">data</span>
+      <span class="ruby-keyword">if</span> <span class="ruby-identifier">stripe_object</span> = <span class="ruby-identifier">data</span>.<span class="ruby-identifier">object</span>
+        <span class="ruby-keyword">if</span> <span class="ruby-identifier">stripe_customer</span> = <span class="ruby-constant">StripeCustomer</span>.<span class="ruby-identifier">find_by</span>(<span class="ruby-identifier">stripe_id</span><span class="ruby-operator">:</span> <span class="ruby-identifier">stripe_object</span>.<span class="ruby-identifier">id</span>)
+        
+          <span class="ruby-identifier">stripe_customer</span>.<span class="ruby-identifier">livemode</span>                = <span class="ruby-identifier">stripe_object</span>.<span class="ruby-identifier">livemode</span>,
+          <span class="ruby-identifier">stripe_customer</span>.<span class="ruby-identifier">description</span>             = <span class="ruby-identifier">stripe_object</span>.<span class="ruby-identifier">description</span>,
+          <span class="ruby-identifier">stripe_customer</span>.<span class="ruby-identifier">email</span>                   = <span class="ruby-identifier">stripe_object</span>.<span class="ruby-identifier">email</span>,
+          <span class="ruby-identifier">stripe_customer</span>.<span class="ruby-identifier">delinquent</span>              = <span class="ruby-identifier">stripe_object</span>.<span class="ruby-identifier">delinquent</span>,
+          <span class="ruby-identifier">stripe_customer</span>.<span class="ruby-identifier">metadata</span>                = <span class="ruby-identifier">stripe_object</span>.<span class="ruby-identifier">metadata</span>.<span class="ruby-identifier">nil?</span> <span class="ruby-operator">?</span>       <span class="ruby-keyword">nil</span> <span class="ruby-operator">:</span> <span class="ruby-constant">JSON</span>.<span class="ruby-identifier">parse</span>(<span class="ruby-identifier">stripe_object</span>.<span class="ruby-identifier">metadata</span>.<span class="ruby-identifier">to_json</span>).<span class="ruby-identifier">deep_symbolize_keys</span>,
+          <span class="ruby-identifier">stripe_customer</span>.<span class="ruby-identifier">subscriptions</span>           = <span class="ruby-identifier">stripe_object</span>.<span class="ruby-identifier">subscriptions</span>.<span class="ruby-identifier">nil?</span> <span class="ruby-operator">?</span>  <span class="ruby-keyword">nil</span> <span class="ruby-operator">:</span> <span class="ruby-constant">JSON</span>.<span class="ruby-identifier">parse</span>(<span class="ruby-identifier">stripe_object</span>.<span class="ruby-identifier">subscriptions</span>.<span class="ruby-identifier">to_json</span>).<span class="ruby-identifier">deep_symbolize_keys</span>,  <span class="ruby-comment"># an array of hashes</span>
+          <span class="ruby-identifier">stripe_customer</span>.<span class="ruby-identifier">discount</span>                = <span class="ruby-identifier">stripe_object</span>.<span class="ruby-identifier">discount</span>.<span class="ruby-identifier">nil?</span> <span class="ruby-operator">?</span>       <span class="ruby-keyword">nil</span> <span class="ruby-operator">:</span> <span class="ruby-constant">JSON</span>.<span class="ruby-identifier">parse</span>(<span class="ruby-identifier">stripe_object</span>.<span class="ruby-identifier">discount</span>.<span class="ruby-identifier">to_json</span>).<span class="ruby-identifier">deep_symbolize_keys</span>,
+          <span class="ruby-identifier">stripe_customer</span>.<span class="ruby-identifier">account_balance</span>         = <span class="ruby-identifier">stripe_object</span>.<span class="ruby-identifier">account_balance</span>,
+          <span class="ruby-identifier">stripe_customer</span>.<span class="ruby-identifier">currency</span>                = <span class="ruby-identifier">stripe_object</span>.<span class="ruby-identifier">currency</span>,
+          <span class="ruby-identifier">stripe_customer</span>.<span class="ruby-identifier">sources</span>                 = <span class="ruby-identifier">stripe_object</span>.<span class="ruby-identifier">sources</span>.<span class="ruby-identifier">nil?</span> <span class="ruby-operator">?</span>        <span class="ruby-keyword">nil</span> <span class="ruby-operator">:</span> <span class="ruby-constant">JSON</span>.<span class="ruby-identifier">parse</span>(<span class="ruby-identifier">stripe_object</span>.<span class="ruby-identifier">sources</span>.<span class="ruby-identifier">to_json</span>).<span class="ruby-identifier">deep_symbolize_keys</span>,
+          <span class="ruby-identifier">stripe_customer</span>.<span class="ruby-identifier">default_source</span>          = <span class="ruby-identifier">stripe_object</span>.<span class="ruby-identifier">default_source</span>
+          <span class="ruby-identifier">stripe_customer</span>.<span class="ruby-identifier">save</span>
+        <span class="ruby-keyword">end</span>
+      <span class="ruby-keyword">end</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+
+
+  <span class="ruby-identifier">events</span>.<span class="ruby-identifier">subscribe</span> <span class="ruby-string">&#39;customer.deleted&#39;</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">event</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">ap</span> <span class="ruby-string">&#39;########################################################&#39;</span>
+    <span class="ruby-identifier">ap</span> <span class="ruby-string">&#39;customer.deleted&#39;</span>
+    <span class="ruby-identifier">ap</span> <span class="ruby-string">&#39;########################################################&#39;</span>
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">data</span> = <span class="ruby-identifier">event</span>.<span class="ruby-identifier">data</span>
+      <span class="ruby-keyword">if</span> <span class="ruby-identifier">stripe_object</span> = <span class="ruby-identifier">data</span>.<span class="ruby-identifier">object</span>
+        <span class="ruby-keyword">if</span> <span class="ruby-identifier">stripe_customer</span> = <span class="ruby-constant">StripeCustomer</span>.<span class="ruby-identifier">find_by</span>(<span class="ruby-identifier">stripe_id</span><span class="ruby-operator">:</span> <span class="ruby-identifier">stripe_object</span>.<span class="ruby-identifier">id</span>)
+          <span class="ruby-identifier">ap</span> <span class="ruby-string">&#39;stripe_customer found&#39;</span>
+          <span class="ruby-identifier">stripe_customer</span>.<span class="ruby-identifier">destroy</span>
+        <span class="ruby-keyword">end</span>
+      
+        <span class="ruby-keyword">if</span> <span class="ruby-identifier">user</span> = <span class="ruby-constant">User</span>.<span class="ruby-identifier">find_by</span>(<span class="ruby-identifier">stripe_customer_id</span><span class="ruby-operator">:</span> <span class="ruby-identifier">stripe_object</span>.<span class="ruby-identifier">id</span> )
+          <span class="ruby-identifier">user</span>.<span class="ruby-identifier">stripe_customer_id</span> = <span class="ruby-keyword">nil</span>
+          <span class="ruby-identifier">user</span>.<span class="ruby-identifier">save!</span>
+          <span class="ruby-constant">PaymentSource</span>.<span class="ruby-identifier">where</span>(<span class="ruby-identifier">customer</span><span class="ruby-operator">:</span> <span class="ruby-identifier">stripe_object</span>.<span class="ruby-identifier">id</span>).<span class="ruby-identifier">destroy_all</span>
+        <span class="ruby-keyword">end</span>
+      <span class="ruby-keyword">end</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+                    </div>
+
+    </div>
+  </body>
+</html>    

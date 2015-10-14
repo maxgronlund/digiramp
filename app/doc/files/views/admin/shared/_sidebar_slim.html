@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>_sidebar.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            _sidebar.slim
+        </h1>
+        <ul class="files">
+            <li>views/admin/shared/_sidebar.slim</li>
+            <li>Last modified: 2015-07-21 23:34:10 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>.sidebar</p>
+
+<pre><code>li
+
+  = link_to admin_index_path do
+    .avatar_name
+      h4 Admin
+
+    .user-avatar
+      =  image_tag &#39;https://digiramp.com/uploads/raw_image/image/3/admin-logo.jpg&#39;
+
+- if super?
+  li class=&quot;#{&#39;sidebar-selected&#39; if selected == &#39;account&#39;}&quot;
+    = link_to admin_accounts_path do
+      i class=&quot;fa fa-cubes&quot;
+      &#39;&amp;nbsp;
+      = pluralize(Account.count, &#39;Account&#39;)  
+
+  li class=&quot;#{&#39;sidebar-selected&#39; if selected == &#39;user&#39;}&quot;
+    = link_to admin_users_path do
+      i class=&quot;fa fa-users&quot;
+      &#39;&amp;nbsp;
+      = pluralize(User.count, &#39;User&#39;)
+
+  li class=&quot;#{&#39;sidebar-selected&#39; if selected == &#39;engine&#39;}&quot;
+    = link_to admin_engine_room_index_path do
+      i class=&quot;fa fa-cogs&quot;
+      &#39;&amp;nbsp;Engine room
+
+  li class=&quot;#{&#39;sidebar-selected&#39; if selected == &#39;statistic&#39;}&quot;
+    = link_to admin_statistics_path do
+      i.fa.fa-bar-chart-o
+      &#39;&amp;nbsp;Statistics 
+
+  li class=&quot;#{&#39;sidebar-selected&#39; if selected == &#39;opportunity&#39;}&quot;
+    = link_to admin_opportunities_path do
+      i.fa.fa-money
+      &#39;&amp;nbsp;Opportunities 
+
+  li class=&quot;#{&#39;sidebar-selected&#39; if selected == &#39;email&#39;}&quot;
+    = link_to admin_email_groups_path do
+      i.fa.fa-envelope
+      &#39;&amp;nbsp;Emails   
+
+- else
+
+  li class=&quot;#{&#39;sidebar-selected&#39; if selected == &#39;content&#39;}&quot;
+    = link_to admin_content_index_path do
+      i class=&quot;fa fa-archive&quot;
+      &#39;&amp;nbsp;Content
+
+  li class=&quot;#{&#39;sidebar-selected&#39; if selected == &#39;issue&#39;}&quot;
+    = link_to admin_issues_path do
+      i.fa.fa-bug
+      &#39;&amp;nbsp;Issues</code></pre>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

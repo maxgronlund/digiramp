@@ -1,0 +1,7146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>bootstrap.css</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            bootstrap.css
+        </h1>
+        <ul class="files">
+            <li>assets/stylesheets/bootstrap/bootstrap.css</li>
+            <li>Last modified: 2015-08-01 12:36:50 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<pre><code>!
+ Bootstrap v3.3.1 (https://getbootstrap.com)
+ Copyright 2011-2014 Twitter, Inc.
+ Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+
+! normalize.css v3.0.2 | MIT License | git.io/normalize</code></pre>
+
+<p>html {</p>
+
+<pre><code>font-family: sans-serif;
+-webkit-text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%;</code></pre>
+
+<p>} body {</p>
+
+<pre><code>margin: 0;</code></pre>
+
+<p>} article, aside, details, figcaption, figure, footer, header, hgroup,
+main, menu, nav, section, summary {</p>
+
+<pre><code>display: block;</code></pre>
+
+<p>} audio, canvas, progress, video {</p>
+
+<pre><code>display: inline-block;
+vertical-align: baseline;</code></pre>
+
+<p>} <a href="controls">audio:not(</a>) {</p>
+
+<pre><code>display: none;
+height: 0;</code></pre>
+
+<p>} [hidden], template {</p>
+
+<pre><code>display: none;</code></pre>
+
+<p>} a {</p>
+
+<pre><code>background-color: transparent;</code></pre>
+
+<p>} a:active, a:hover {</p>
+
+<pre><code>outline: 0;</code></pre>
+
+<p>} <a href="title">abbr</a> {</p>
+
+<pre><code>border-bottom: 1px dotted;</code></pre>
+
+<p>} b, strong {</p>
+
+<pre><code>font-weight: bold;</code></pre>
+
+<p>} dfn {</p>
+
+<pre><code>font-style: italic;</code></pre>
+
+<p>} h1 {</p>
+
+<pre><code>margin: .67em 0;
+font-size: 2em;</code></pre>
+
+<p>} mark {</p>
+
+<pre><code>color: #000;
+background: #ff0;</code></pre>
+
+<p>} small {</p>
+
+<pre><code>font-size: 80%;</code></pre>
+
+<p>} sub, sup {</p>
+
+<pre><code>position: relative;
+font-size: 75%;
+line-height: 0;
+vertical-align: baseline;</code></pre>
+
+<p>} sup {</p>
+
+<pre><code>top: -.5em;</code></pre>
+
+<p>} sub {</p>
+
+<pre><code>bottom: -.25em;</code></pre>
+
+<p>} img {</p>
+
+<pre><code>border: 0;</code></pre>
+
+<p>} svg:not(:root) {</p>
+
+<pre><code>overflow: hidden;</code></pre>
+
+<p>} figure {</p>
+
+<pre><code>margin: 1em 40px;</code></pre>
+
+<p>} hr {</p>
+
+<pre><code>height: 0;
+-webkit-box-sizing: content-box;
+   -moz-box-sizing: content-box;
+        box-sizing: content-box;</code></pre>
+
+<p>} pre {</p>
+
+<pre><code>overflow: auto;</code></pre>
+
+<p>} code, kbd, pre, samp {</p>
+
+<pre><code>font-family: monospace, monospace;
+font-size: 1em;</code></pre>
+
+<p>} button, input, optgroup, select, textarea {</p>
+
+<pre><code>margin: 0;
+font: inherit;
+color: inherit;</code></pre>
+
+<p>} button {</p>
+
+<pre><code>overflow: visible;</code></pre>
+
+<p>} button, select {</p>
+
+<pre><code>text-transform: none;</code></pre>
+
+<p>} button, html <a href="type="button"">input</a>, <a
+href="type="reset"">input</a>, <a href="type="submit"">input</a> {</p>
+
+<pre><code>-webkit-appearance: button;
+cursor: pointer;</code></pre>
+
+<p>} <a href="disabled">button</a>, html <a href="disabled">input</a> {</p>
+
+<pre><code>cursor: default;</code></pre>
+
+<p>} button::-moz-focus-inner, input::-moz-focus-inner {</p>
+
+<pre><code>padding: 0;
+border: 0;</code></pre>
+
+<p>} input {</p>
+
+<pre><code>line-height: normal;</code></pre>
+
+<p>} <a href="type="checkbox"">input</a>, <a href="type="radio"">input</a> {</p>
+
+<pre><code>-webkit-box-sizing: border-box;
+   -moz-box-sizing: border-box;
+        box-sizing: border-box;
+padding: 0;</code></pre>
+
+<p>} <a href="type="number"">input</a>::-webkit-inner-spin-button, <a
+href="type="number"">input</a>::-webkit-outer-spin-button {</p>
+
+<pre><code>height: auto;</code></pre>
+
+<p>} <a href="type="search"">input</a> {</p>
+
+<pre><code>-webkit-box-sizing: content-box;
+   -moz-box-sizing: content-box;
+        box-sizing: content-box;
+-webkit-appearance: textfield;</code></pre>
+
+<p>} <a href="type="search"">input</a>::-webkit-search-cancel-button, <a
+href="type="search"">input</a>::-webkit-search-decoration {</p>
+
+<pre><code>-webkit-appearance: none;</code></pre>
+
+<p>} fieldset {</p>
+
+<pre><code>padding: .35em .625em .75em;
+margin: 0 2px;
+border: 1px solid #c0c0c0;</code></pre>
+
+<p>} legend {</p>
+
+<pre><code>padding: 0;
+border: 0;</code></pre>
+
+<p>} textarea {</p>
+
+<pre><code>overflow: auto;</code></pre>
+
+<p>} optgroup {</p>
+
+<pre><code>font-weight: bold;</code></pre>
+
+<p>} table {</p>
+
+<pre><code>border-spacing: 0;
+border-collapse: collapse;</code></pre>
+
+<p>} td, th {</p>
+
+<pre><code>padding: 0;</code></pre>
+
+<p>} /*! Source: <a
+href="https://github.com/h5bp/html5-boilerplate/blob/master/src/css/main.css">github.com/h5bp/html5-boilerplate/blob/master/src/css/main.css</a>
+*/ /* @media print {</p>
+
+<pre><code> ,
+ :before,
+ :after {
+  color: #000 !important;
+  text-shadow: none !important;
+  background: transparent !important;
+  -webkit-box-shadow: none !important;
+          box-shadow: none !important;
+}
+a,
+a:visited {
+  text-decoration: underline;
+}
+a[href]:after {
+  content: &quot; (&quot; attr(href) &quot;)&quot;;
+}
+abbr[title]:after {
+  content: &quot; (&quot; attr(title) &quot;)&quot;;
+}
+a[href^=&quot;#&quot;]:after,
+a[href^=&quot;javascript:&quot;]:after {
+  content: &quot;&quot;;
+}
+pre,
+blockquote {
+  border: 1px solid #999;
+
+  page-break-inside: avoid;
+}
+thead {
+  display: table-header-group;
+}
+tr,
+img {
+  page-break-inside: avoid;
+}
+img {
+  max-width: 100% !important;
+}
+p,
+h2,
+h3 {
+  orphans: 3;
+  widows: 3;
+}
+h2,
+h3 {
+  page-break-after: avoid;
+}
+select {
+  background: #fff !important;
+}
+.navbar {
+  display: none;
+}
+.btn &gt; .caret,
+.dropup &gt; .btn &gt; .caret {
+  border-top-color: #000 !important;
+}
+.label {
+  border: 1px solid #000;
+}
+.table {
+  border-collapse: collapse !important;
+}
+.table td,
+.table th {
+  background-color: #fff !important;
+}
+.table-bordered th,
+.table-bordered td {
+  border: 1px solid #ddd !important;
+}</code></pre>
+
+<p>}</p>
+
+<pre><code>/</code></pre>
+
+<p>@font-face {</p>
+
+<pre><code>font-family: &#39;Glyphicons Halflings&#39;;
+/*
+src: url(&#39;../fonts/glyphicons-halflings-regular.eot&#39;);
+src: url(&#39;../fonts/glyphicons-halflings-regular.eot?#iefix&#39;) format(&#39;embedded-opentype&#39;), url(&#39;../fonts/glyphicons-halflings-regular.woff&#39;) format(&#39;woff&#39;), url(&#39;../fonts/glyphicons-halflings-regular.ttf&#39;) format(&#39;truetype&#39;), url(&#39;../fonts/glyphicons-halflings-regular.svg#glyphicons_halflingsregular&#39;) format(&#39;svg&#39;);
+ /
+/*
+src: url(&#39;glyphicons-halflings-regular.eot&#39;);
+src: url(&#39;glyphicons-halflings-regular.eot?#iefix&#39;) format(&#39;embedded-opentype&#39;), url(&#39;glyphicons-halflings-regular.woff&#39;) format(&#39;woff&#39;), url(&#39;glyphicons-halflings-regular.ttf&#39;) format(&#39;truetype&#39;), url(&#39;glyphicons-halflings-regular.svg#glyphicons_halflingsregular&#39;) format(&#39;svg&#39;);
+ /</code></pre>
+
+<p>}</p>
+
+<p>.glyphicon {</p>
+
+<pre><code>position: relative;
+top: 1px;
+display: inline-block;
+font-family: &#39;Glyphicons Halflings&#39;;
+font-style: normal;
+font-weight: normal;
+line-height: 1;
+
+-webkit-font-smoothing: antialiased;
+-moz-osx-font-smoothing: grayscale;</code></pre>
+
+<p>} .glyphicon-asterisk:before {</p>
+
+<pre><code>content: &quot;\2a&quot;;</code></pre>
+
+<p>} .glyphicon-plus:before {</p>
+
+<pre><code>content: &quot;\2b&quot;;</code></pre>
+
+<p>} .glyphicon-euro:before, .glyphicon-eur:before {</p>
+
+<pre><code>content: &quot;\20ac&quot;;</code></pre>
+
+<p>} .glyphicon-minus:before {</p>
+
+<pre><code>content: &quot;\2212&quot;;</code></pre>
+
+<p>} .glyphicon-cloud:before {</p>
+
+<pre><code>content: &quot;\2601&quot;;</code></pre>
+
+<p>} .glyphicon-envelope:before {</p>
+
+<pre><code>content: &quot;\2709&quot;;</code></pre>
+
+<p>} .glyphicon-pencil:before {</p>
+
+<pre><code>content: &quot;\270f&quot;;</code></pre>
+
+<p>} .glyphicon-glass:before {</p>
+
+<pre><code>content: &quot;\e001&quot;;</code></pre>
+
+<p>} .glyphicon-music:before {</p>
+
+<pre><code>content: &quot;\e002&quot;;</code></pre>
+
+<p>} .glyphicon-search:before {</p>
+
+<pre><code>content: &quot;\e003&quot;;</code></pre>
+
+<p>} .glyphicon-heart:before {</p>
+
+<pre><code>content: &quot;\e005&quot;;</code></pre>
+
+<p>} .glyphicon-star:before {</p>
+
+<pre><code>content: &quot;\e006&quot;;</code></pre>
+
+<p>} .glyphicon-star-empty:before {</p>
+
+<pre><code>content: &quot;\e007&quot;;</code></pre>
+
+<p>} .glyphicon-user:before {</p>
+
+<pre><code>content: &quot;\e008&quot;;</code></pre>
+
+<p>} .glyphicon-film:before {</p>
+
+<pre><code>content: &quot;\e009&quot;;</code></pre>
+
+<p>} .glyphicon-th-large:before {</p>
+
+<pre><code>content: &quot;\e010&quot;;</code></pre>
+
+<p>} .glyphicon-th:before {</p>
+
+<pre><code>content: &quot;\e011&quot;;</code></pre>
+
+<p>} .glyphicon-th-list:before {</p>
+
+<pre><code>content: &quot;\e012&quot;;</code></pre>
+
+<p>} .glyphicon-ok:before {</p>
+
+<pre><code>content: &quot;\e013&quot;;</code></pre>
+
+<p>} .glyphicon-remove:before {</p>
+
+<pre><code>content: &quot;\e014&quot;;</code></pre>
+
+<p>} .glyphicon-zoom-in:before {</p>
+
+<pre><code>content: &quot;\e015&quot;;</code></pre>
+
+<p>} .glyphicon-zoom-out:before {</p>
+
+<pre><code>content: &quot;\e016&quot;;</code></pre>
+
+<p>} .glyphicon-off:before {</p>
+
+<pre><code>content: &quot;\e017&quot;;</code></pre>
+
+<p>} .glyphicon-signal:before {</p>
+
+<pre><code>content: &quot;\e018&quot;;</code></pre>
+
+<p>} .glyphicon-cog:before {</p>
+
+<pre><code>content: &quot;\e019&quot;;</code></pre>
+
+<p>} .glyphicon-trash:before {</p>
+
+<pre><code>content: &quot;\e020&quot;;</code></pre>
+
+<p>} .glyphicon-home:before {</p>
+
+<pre><code>content: &quot;\e021&quot;;</code></pre>
+
+<p>} .glyphicon-file:before {</p>
+
+<pre><code>content: &quot;\e022&quot;;</code></pre>
+
+<p>} .glyphicon-time:before {</p>
+
+<pre><code>content: &quot;\e023&quot;;</code></pre>
+
+<p>} .glyphicon-road:before {</p>
+
+<pre><code>content: &quot;\e024&quot;;</code></pre>
+
+<p>} .glyphicon-download-alt:before {</p>
+
+<pre><code>content: &quot;\e025&quot;;</code></pre>
+
+<p>} .glyphicon-download:before {</p>
+
+<pre><code>content: &quot;\e026&quot;;</code></pre>
+
+<p>} .glyphicon-upload:before {</p>
+
+<pre><code>content: &quot;\e027&quot;;</code></pre>
+
+<p>} .glyphicon-inbox:before {</p>
+
+<pre><code>content: &quot;\e028&quot;;</code></pre>
+
+<p>} .glyphicon-play-circle:before {</p>
+
+<pre><code>content: &quot;\e029&quot;;</code></pre>
+
+<p>} .glyphicon-repeat:before {</p>
+
+<pre><code>content: &quot;\e030&quot;;</code></pre>
+
+<p>} .glyphicon-refresh:before {</p>
+
+<pre><code>content: &quot;\e031&quot;;</code></pre>
+
+<p>} .glyphicon-list-alt:before {</p>
+
+<pre><code>content: &quot;\e032&quot;;</code></pre>
+
+<p>} .glyphicon-lock:before {</p>
+
+<pre><code>content: &quot;\e033&quot;;</code></pre>
+
+<p>} .glyphicon-flag:before {</p>
+
+<pre><code>content: &quot;\e034&quot;;</code></pre>
+
+<p>} .glyphicon-headphones:before {</p>
+
+<pre><code>content: &quot;\e035&quot;;</code></pre>
+
+<p>} .glyphicon-volume-off:before {</p>
+
+<pre><code>content: &quot;\e036&quot;;</code></pre>
+
+<p>} .glyphicon-volume-down:before {</p>
+
+<pre><code>content: &quot;\e037&quot;;</code></pre>
+
+<p>} .glyphicon-volume-up:before {</p>
+
+<pre><code>content: &quot;\e038&quot;;</code></pre>
+
+<p>} .glyphicon-qrcode:before {</p>
+
+<pre><code>content: &quot;\e039&quot;;</code></pre>
+
+<p>} .glyphicon-barcode:before {</p>
+
+<pre><code>content: &quot;\e040&quot;;</code></pre>
+
+<p>} .glyphicon-tag:before {</p>
+
+<pre><code>content: &quot;\e041&quot;;</code></pre>
+
+<p>} .glyphicon-tags:before {</p>
+
+<pre><code>content: &quot;\e042&quot;;</code></pre>
+
+<p>} .glyphicon-book:before {</p>
+
+<pre><code>content: &quot;\e043&quot;;</code></pre>
+
+<p>} .glyphicon-bookmark:before {</p>
+
+<pre><code>content: &quot;\e044&quot;;</code></pre>
+
+<p>} .glyphicon-print:before {</p>
+
+<pre><code>content: &quot;\e045&quot;;</code></pre>
+
+<p>} .glyphicon-camera:before {</p>
+
+<pre><code>content: &quot;\e046&quot;;</code></pre>
+
+<p>} .glyphicon-font:before {</p>
+
+<pre><code>content: &quot;\e047&quot;;</code></pre>
+
+<p>} .glyphicon-bold:before {</p>
+
+<pre><code>content: &quot;\e048&quot;;</code></pre>
+
+<p>} .glyphicon-italic:before {</p>
+
+<pre><code>content: &quot;\e049&quot;;</code></pre>
+
+<p>} .glyphicon-text-height:before {</p>
+
+<pre><code>content: &quot;\e050&quot;;</code></pre>
+
+<p>} .glyphicon-text-width:before {</p>
+
+<pre><code>content: &quot;\e051&quot;;</code></pre>
+
+<p>} .glyphicon-align-left:before {</p>
+
+<pre><code>content: &quot;\e052&quot;;</code></pre>
+
+<p>} .glyphicon-align-center:before {</p>
+
+<pre><code>content: &quot;\e053&quot;;</code></pre>
+
+<p>} .glyphicon-align-right:before {</p>
+
+<pre><code>content: &quot;\e054&quot;;</code></pre>
+
+<p>} .glyphicon-align-justify:before {</p>
+
+<pre><code>content: &quot;\e055&quot;;</code></pre>
+
+<p>} .glyphicon-list:before {</p>
+
+<pre><code>content: &quot;\e056&quot;;</code></pre>
+
+<p>} .glyphicon-indent-left:before {</p>
+
+<pre><code>content: &quot;\e057&quot;;</code></pre>
+
+<p>} .glyphicon-indent-right:before {</p>
+
+<pre><code>content: &quot;\e058&quot;;</code></pre>
+
+<p>} .glyphicon-facetime-video:before {</p>
+
+<pre><code>content: &quot;\e059&quot;;</code></pre>
+
+<p>} .glyphicon-picture:before {</p>
+
+<pre><code>content: &quot;\e060&quot;;</code></pre>
+
+<p>} .glyphicon-map-marker:before {</p>
+
+<pre><code>content: &quot;\e062&quot;;</code></pre>
+
+<p>} .glyphicon-adjust:before {</p>
+
+<pre><code>content: &quot;\e063&quot;;</code></pre>
+
+<p>} .glyphicon-tint:before {</p>
+
+<pre><code>content: &quot;\e064&quot;;</code></pre>
+
+<p>} .glyphicon-edit:before {</p>
+
+<pre><code>content: &quot;\e065&quot;;</code></pre>
+
+<p>} .glyphicon-share:before {</p>
+
+<pre><code>content: &quot;\e066&quot;;</code></pre>
+
+<p>} .glyphicon-check:before {</p>
+
+<pre><code>content: &quot;\e067&quot;;</code></pre>
+
+<p>} .glyphicon-move:before {</p>
+
+<pre><code>content: &quot;\e068&quot;;</code></pre>
+
+<p>} .glyphicon-step-backward:before {</p>
+
+<pre><code>content: &quot;\e069&quot;;</code></pre>
+
+<p>} .glyphicon-fast-backward:before {</p>
+
+<pre><code>content: &quot;\e070&quot;;</code></pre>
+
+<p>} .glyphicon-backward:before {</p>
+
+<pre><code>content: &quot;\e071&quot;;</code></pre>
+
+<p>} .glyphicon-play:before {</p>
+
+<pre><code>content: &quot;\e072&quot;;</code></pre>
+
+<p>} .glyphicon-pause:before {</p>
+
+<pre><code>content: &quot;\e073&quot;;</code></pre>
+
+<p>} .glyphicon-stop:before {</p>
+
+<pre><code>content: &quot;\e074&quot;;</code></pre>
+
+<p>} .glyphicon-forward:before {</p>
+
+<pre><code>content: &quot;\e075&quot;;</code></pre>
+
+<p>} .glyphicon-fast-forward:before {</p>
+
+<pre><code>content: &quot;\e076&quot;;</code></pre>
+
+<p>} .glyphicon-step-forward:before {</p>
+
+<pre><code>content: &quot;\e077&quot;;</code></pre>
+
+<p>} .glyphicon-eject:before {</p>
+
+<pre><code>content: &quot;\e078&quot;;</code></pre>
+
+<p>} .glyphicon-chevron-left:before {</p>
+
+<pre><code>content: &quot;\e079&quot;;</code></pre>
+
+<p>} .glyphicon-chevron-right:before {</p>
+
+<pre><code>content: &quot;\e080&quot;;</code></pre>
+
+<p>} .glyphicon-plus-sign:before {</p>
+
+<pre><code>content: &quot;\e081&quot;;</code></pre>
+
+<p>} .glyphicon-minus-sign:before {</p>
+
+<pre><code>content: &quot;\e082&quot;;</code></pre>
+
+<p>} .glyphicon-remove-sign:before {</p>
+
+<pre><code>content: &quot;\e083&quot;;</code></pre>
+
+<p>} .glyphicon-ok-sign:before {</p>
+
+<pre><code>content: &quot;\e084&quot;;</code></pre>
+
+<p>} .glyphicon-question-sign:before {</p>
+
+<pre><code>content: &quot;\e085&quot;;</code></pre>
+
+<p>} .glyphicon-info-sign:before {</p>
+
+<pre><code>content: &quot;\e086&quot;;</code></pre>
+
+<p>} .glyphicon-screenshot:before {</p>
+
+<pre><code>content: &quot;\e087&quot;;</code></pre>
+
+<p>} .glyphicon-remove-circle:before {</p>
+
+<pre><code>content: &quot;\e088&quot;;</code></pre>
+
+<p>} .glyphicon-ok-circle:before {</p>
+
+<pre><code>content: &quot;\e089&quot;;</code></pre>
+
+<p>} .glyphicon-ban-circle:before {</p>
+
+<pre><code>content: &quot;\e090&quot;;</code></pre>
+
+<p>} .glyphicon-arrow-left:before {</p>
+
+<pre><code>content: &quot;\e091&quot;;</code></pre>
+
+<p>} .glyphicon-arrow-right:before {</p>
+
+<pre><code>content: &quot;\e092&quot;;</code></pre>
+
+<p>} .glyphicon-arrow-up:before {</p>
+
+<pre><code>content: &quot;\e093&quot;;</code></pre>
+
+<p>} .glyphicon-arrow-down:before {</p>
+
+<pre><code>content: &quot;\e094&quot;;</code></pre>
+
+<p>} .glyphicon-share-alt:before {</p>
+
+<pre><code>content: &quot;\e095&quot;;</code></pre>
+
+<p>} .glyphicon-resize-full:before {</p>
+
+<pre><code>content: &quot;\e096&quot;;</code></pre>
+
+<p>} .glyphicon-resize-small:before {</p>
+
+<pre><code>content: &quot;\e097&quot;;</code></pre>
+
+<p>} .glyphicon-exclamation-sign:before {</p>
+
+<pre><code>content: &quot;\e101&quot;;</code></pre>
+
+<p>} .glyphicon-gift:before {</p>
+
+<pre><code>content: &quot;\e102&quot;;</code></pre>
+
+<p>} .glyphicon-leaf:before {</p>
+
+<pre><code>content: &quot;\e103&quot;;</code></pre>
+
+<p>} .glyphicon-fire:before {</p>
+
+<pre><code>content: &quot;\e104&quot;;</code></pre>
+
+<p>} .glyphicon-eye-open:before {</p>
+
+<pre><code>content: &quot;\e105&quot;;</code></pre>
+
+<p>} .glyphicon-eye-close:before {</p>
+
+<pre><code>content: &quot;\e106&quot;;</code></pre>
+
+<p>} .glyphicon-warning-sign:before {</p>
+
+<pre><code>content: &quot;\e107&quot;;</code></pre>
+
+<p>} .glyphicon-plane:before {</p>
+
+<pre><code>content: &quot;\e108&quot;;</code></pre>
+
+<p>} .glyphicon-calendar:before {</p>
+
+<pre><code>content: &quot;\e109&quot;;</code></pre>
+
+<p>} .glyphicon-random:before {</p>
+
+<pre><code>content: &quot;\e110&quot;;</code></pre>
+
+<p>} .glyphicon-comment:before {</p>
+
+<pre><code>content: &quot;\e111&quot;;</code></pre>
+
+<p>} .glyphicon-magnet:before {</p>
+
+<pre><code>content: &quot;\e112&quot;;</code></pre>
+
+<p>} .glyphicon-chevron-up:before {</p>
+
+<pre><code>content: &quot;\e113&quot;;</code></pre>
+
+<p>} .glyphicon-chevron-down:before {</p>
+
+<pre><code>content: &quot;\e114&quot;;</code></pre>
+
+<p>} .glyphicon-retweet:before {</p>
+
+<pre><code>content: &quot;\e115&quot;;</code></pre>
+
+<p>} .glyphicon-shopping-cart:before {</p>
+
+<pre><code>content: &quot;\e116&quot;;</code></pre>
+
+<p>} .glyphicon-folder-close:before {</p>
+
+<pre><code>content: &quot;\e117&quot;;</code></pre>
+
+<p>} .glyphicon-folder-open:before {</p>
+
+<pre><code>content: &quot;\e118&quot;;</code></pre>
+
+<p>} .glyphicon-resize-vertical:before {</p>
+
+<pre><code>content: &quot;\e119&quot;;</code></pre>
+
+<p>} .glyphicon-resize-horizontal:before {</p>
+
+<pre><code>content: &quot;\e120&quot;;</code></pre>
+
+<p>} .glyphicon-hdd:before {</p>
+
+<pre><code>content: &quot;\e121&quot;;</code></pre>
+
+<p>} .glyphicon-bullhorn:before {</p>
+
+<pre><code>content: &quot;\e122&quot;;</code></pre>
+
+<p>} .glyphicon-bell:before {</p>
+
+<pre><code>content: &quot;\e123&quot;;</code></pre>
+
+<p>} .glyphicon-certificate:before {</p>
+
+<pre><code>content: &quot;\e124&quot;;</code></pre>
+
+<p>} .glyphicon-thumbs-up:before {</p>
+
+<pre><code>content: &quot;\e125&quot;;</code></pre>
+
+<p>} .glyphicon-thumbs-down:before {</p>
+
+<pre><code>content: &quot;\e126&quot;;</code></pre>
+
+<p>} .glyphicon-hand-right:before {</p>
+
+<pre><code>content: &quot;\e127&quot;;</code></pre>
+
+<p>} .glyphicon-hand-left:before {</p>
+
+<pre><code>content: &quot;\e128&quot;;</code></pre>
+
+<p>} .glyphicon-hand-up:before {</p>
+
+<pre><code>content: &quot;\e129&quot;;</code></pre>
+
+<p>} .glyphicon-hand-down:before {</p>
+
+<pre><code>content: &quot;\e130&quot;;</code></pre>
+
+<p>} .glyphicon-circle-arrow-right:before {</p>
+
+<pre><code>content: &quot;\e131&quot;;</code></pre>
+
+<p>} .glyphicon-circle-arrow-left:before {</p>
+
+<pre><code>content: &quot;\e132&quot;;</code></pre>
+
+<p>} .glyphicon-circle-arrow-up:before {</p>
+
+<pre><code>content: &quot;\e133&quot;;</code></pre>
+
+<p>} .glyphicon-circle-arrow-down:before {</p>
+
+<pre><code>content: &quot;\e134&quot;;</code></pre>
+
+<p>} .glyphicon-globe:before {</p>
+
+<pre><code>content: &quot;\e135&quot;;</code></pre>
+
+<p>} .glyphicon-wrench:before {</p>
+
+<pre><code>content: &quot;\e136&quot;;</code></pre>
+
+<p>} .glyphicon-tasks:before {</p>
+
+<pre><code>content: &quot;\e137&quot;;</code></pre>
+
+<p>} .glyphicon-filter:before {</p>
+
+<pre><code>content: &quot;\e138&quot;;</code></pre>
+
+<p>} .glyphicon-briefcase:before {</p>
+
+<pre><code>content: &quot;\e139&quot;;</code></pre>
+
+<p>} .glyphicon-fullscreen:before {</p>
+
+<pre><code>content: &quot;\e140&quot;;</code></pre>
+
+<p>} .glyphicon-dashboard:before {</p>
+
+<pre><code>content: &quot;\e141&quot;;</code></pre>
+
+<p>} .glyphicon-paperclip:before {</p>
+
+<pre><code>content: &quot;\e142&quot;;</code></pre>
+
+<p>} .glyphicon-heart-empty:before {</p>
+
+<pre><code>content: &quot;\e143&quot;;</code></pre>
+
+<p>} .glyphicon-<a href="../../../../before">before</a> {</p>
+
+<pre><code>content: &quot;\e144&quot;;</code></pre>
+
+<p>} .glyphicon-phone:before {</p>
+
+<pre><code>content: &quot;\e145&quot;;</code></pre>
+
+<p>} .glyphicon-pushpin:before {</p>
+
+<pre><code>content: &quot;\e146&quot;;</code></pre>
+
+<p>} .glyphicon-usd:before {</p>
+
+<pre><code>content: &quot;\e148&quot;;</code></pre>
+
+<p>} .glyphicon-gbp:before {</p>
+
+<pre><code>content: &quot;\e149&quot;;</code></pre>
+
+<p>} .glyphicon-sort:before {</p>
+
+<pre><code>content: &quot;\e150&quot;;</code></pre>
+
+<p>} .glyphicon-sort-by-alphabet:before {</p>
+
+<pre><code>content: &quot;\e151&quot;;</code></pre>
+
+<p>} .glyphicon-sort-by-alphabet-alt:before {</p>
+
+<pre><code>content: &quot;\e152&quot;;</code></pre>
+
+<p>} .glyphicon-sort-by-order:before {</p>
+
+<pre><code>content: &quot;\e153&quot;;</code></pre>
+
+<p>} .glyphicon-sort-by-order-alt:before {</p>
+
+<pre><code>content: &quot;\e154&quot;;</code></pre>
+
+<p>} .glyphicon-sort-by-attributes:before {</p>
+
+<pre><code>content: &quot;\e155&quot;;</code></pre>
+
+<p>} .glyphicon-sort-by-attributes-alt:before {</p>
+
+<pre><code>content: &quot;\e156&quot;;</code></pre>
+
+<p>} .glyphicon-unchecked:before {</p>
+
+<pre><code>content: &quot;\e157&quot;;</code></pre>
+
+<p>} .glyphicon-expand:before {</p>
+
+<pre><code>content: &quot;\e158&quot;;</code></pre>
+
+<p>} .glyphicon-collapse-down:before {</p>
+
+<pre><code>content: &quot;\e159&quot;;</code></pre>
+
+<p>} .glyphicon-collapse-up:before {</p>
+
+<pre><code>content: &quot;\e160&quot;;</code></pre>
+
+<p>} .glyphicon-log-in:before {</p>
+
+<pre><code>content: &quot;\e161&quot;;</code></pre>
+
+<p>} .glyphicon-flash:before {</p>
+
+<pre><code>content: &quot;\e162&quot;;</code></pre>
+
+<p>} .glyphicon-log-out:before {</p>
+
+<pre><code>content: &quot;\e163&quot;;</code></pre>
+
+<p>} .glyphicon-new-window:before {</p>
+
+<pre><code>content: &quot;\e164&quot;;</code></pre>
+
+<p>} .glyphicon-record:before {</p>
+
+<pre><code>content: &quot;\e165&quot;;</code></pre>
+
+<p>} .glyphicon-save:before {</p>
+
+<pre><code>content: &quot;\e166&quot;;</code></pre>
+
+<p>} .glyphicon-open:before {</p>
+
+<pre><code>content: &quot;\e167&quot;;</code></pre>
+
+<p>} .glyphicon-saved:before {</p>
+
+<pre><code>content: &quot;\e168&quot;;</code></pre>
+
+<p>} .glyphicon-import:before {</p>
+
+<pre><code>content: &quot;\e169&quot;;</code></pre>
+
+<p>} .glyphicon-export:before {</p>
+
+<pre><code>content: &quot;\e170&quot;;</code></pre>
+
+<p>} .glyphicon-send:before {</p>
+
+<pre><code>content: &quot;\e171&quot;;</code></pre>
+
+<p>} .glyphicon-floppy-disk:before {</p>
+
+<pre><code>content: &quot;\e172&quot;;</code></pre>
+
+<p>} .glyphicon-floppy-saved:before {</p>
+
+<pre><code>content: &quot;\e173&quot;;</code></pre>
+
+<p>} .glyphicon-floppy-remove:before {</p>
+
+<pre><code>content: &quot;\e174&quot;;</code></pre>
+
+<p>} .glyphicon-floppy-save:before {</p>
+
+<pre><code>content: &quot;\e175&quot;;</code></pre>
+
+<p>} .glyphicon-floppy-open:before {</p>
+
+<pre><code>content: &quot;\e176&quot;;</code></pre>
+
+<p>} .glyphicon-credit-card:before {</p>
+
+<pre><code>content: &quot;\e177&quot;;</code></pre>
+
+<p>} .glyphicon-transfer:before {</p>
+
+<pre><code>content: &quot;\e178&quot;;</code></pre>
+
+<p>} .glyphicon-cutlery:before {</p>
+
+<pre><code>content: &quot;\e179&quot;;</code></pre>
+
+<p>} .glyphicon-header:before {</p>
+
+<pre><code>content: &quot;\e180&quot;;</code></pre>
+
+<p>} .glyphicon-compressed:before {</p>
+
+<pre><code>content: &quot;\e181&quot;;</code></pre>
+
+<p>} .glyphicon-earphone:before {</p>
+
+<pre><code>content: &quot;\e182&quot;;</code></pre>
+
+<p>} .glyphicon-phone-alt:before {</p>
+
+<pre><code>content: &quot;\e183&quot;;</code></pre>
+
+<p>} .glyphicon-tower:before {</p>
+
+<pre><code>content: &quot;\e184&quot;;</code></pre>
+
+<p>} .glyphicon-stats:before {</p>
+
+<pre><code>content: &quot;\e185&quot;;</code></pre>
+
+<p>} .glyphicon-sd-video:before {</p>
+
+<pre><code>content: &quot;\e186&quot;;</code></pre>
+
+<p>} .glyphicon-hd-video:before {</p>
+
+<pre><code>content: &quot;\e187&quot;;</code></pre>
+
+<p>} .glyphicon-subtitles:before {</p>
+
+<pre><code>content: &quot;\e188&quot;;</code></pre>
+
+<p>} .glyphicon-sound-stereo:before {</p>
+
+<pre><code>content: &quot;\e189&quot;;</code></pre>
+
+<p>} .glyphicon-sound-dolby:before {</p>
+
+<pre><code>content: &quot;\e190&quot;;</code></pre>
+
+<p>} .glyphicon-sound-5-1:before {</p>
+
+<pre><code>content: &quot;\e191&quot;;</code></pre>
+
+<p>} .glyphicon-sound-6-1:before {</p>
+
+<pre><code>content: &quot;\e192&quot;;</code></pre>
+
+<p>} .glyphicon-sound-7-1:before {</p>
+
+<pre><code>content: &quot;\e193&quot;;</code></pre>
+
+<p>} .glyphicon-copyright-mark:before {</p>
+
+<pre><code>content: &quot;\e194&quot;;</code></pre>
+
+<p>} .glyphicon-registration-mark:before {</p>
+
+<pre><code>content: &quot;\e195&quot;;</code></pre>
+
+<p>} .glyphicon-cloud-download:before {</p>
+
+<pre><code>content: &quot;\e197&quot;;</code></pre>
+
+<p>} .glyphicon-cloud-upload:before {</p>
+
+<pre><code>content: &quot;\e198&quot;;</code></pre>
+
+<p>} .glyphicon-tree-conifer:before {</p>
+
+<pre><code>content: &quot;\e199&quot;;</code></pre>
+
+<p>} .glyphicon-tree-deciduous:before {</p>
+
+<pre><code>content: &quot;\e200&quot;;</code></pre>
+
+<p>}</p>
+
+<pre><code>{
+-webkit-box-sizing: border-box;
+   -moz-box-sizing: border-box;
+        box-sizing: border-box;</code></pre>
+
+<p>}</p>
+
+<pre><code>:before,
+:after {
+ -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+         box-sizing: border-box;</code></pre>
+
+<p>} html {</p>
+
+<pre><code>font-size: 10px;
+
+-webkit-tap-highlight-color: rgba(0, 0, 0, 0);</code></pre>
+
+<p>} body {</p>
+
+<pre><code>font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif;
+font-size: 14px;
+line-height: 1.42857143;
+color: #333;
+/*background-color: #fff;*/</code></pre>
+
+<p>} input, button, select, textarea {</p>
+
+<pre><code>font-family: inherit;
+font-size: inherit;
+line-height: inherit;</code></pre>
+
+<p>} a {</p>
+
+<pre><code>color: #337ab7;
+text-decoration: none;</code></pre>
+
+<p>} a:hover, a:focus {</p>
+
+<pre><code>color: #23527c;
+text-decoration: underline;</code></pre>
+
+<p>} a:focus {</p>
+
+<pre><code>outline: thin dotted;
+outline: 5px auto -webkit-focus-ring-color;
+outline-offset: -2px;</code></pre>
+
+<p>} figure {</p>
+
+<pre><code>margin: 0;</code></pre>
+
+<p>} img {</p>
+
+<pre><code>vertical-align: middle;</code></pre>
+
+<p>} .img-responsive, .thumbnail &gt; img, .thumbnail a &gt; img,
+.carousel-inner &gt; .item &gt; img, .carousel-inner &gt; .item &gt; a &gt;
+img {</p>
+
+<pre><code>display: block;
+max-width: 100%;
+height: auto;</code></pre>
+
+<p>} .img-rounded {</p>
+
+<pre><code>border-radius: 6px;</code></pre>
+
+<p>} .img-thumbnail {</p>
+
+<pre><code>display: inline-block;
+max-width: 100%;
+height: auto;
+padding: 4px;
+line-height: 1.42857143;
+background-color: #fff;
+border: 1px solid #ddd;
+border-radius: 4px;
+-webkit-transition: all .2s ease-in-out;
+     -o-transition: all .2s ease-in-out;
+        transition: all .2s ease-in-out;</code></pre>
+
+<p>} .img-circle {</p>
+
+<pre><code>border-radius: 50%;</code></pre>
+
+<p>} hr {</p>
+
+<pre><code>margin-top: 20px;
+margin-bottom: 20px;
+border: 0;
+border-top: 1px solid #eee;</code></pre>
+
+<p>} .sr-only {</p>
+
+<pre><code>position: absolute;
+width: 1px;
+height: 1px;
+padding: 0;
+margin: -1px;
+overflow: hidden;
+clip: rect(0, 0, 0, 0);
+border: 0;</code></pre>
+
+<p>} .sr-only-focusable:active, .sr-only-focusable:focus {</p>
+
+<pre><code>position: static;
+width: auto;
+height: auto;
+margin: 0;
+overflow: visible;
+clip: auto;</code></pre>
+
+<p>} h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {</p>
+
+<pre><code>font-family: inherit;
+font-weight: 500;
+line-height: 1.1;
+color: inherit;</code></pre>
+
+<p>} h1 small, h2 small, h3 small, h4 small, h5 small, h6 small, .h1 small,
+.h2 small, .h3 small, .h4 small, .h5 small, .h6 small, h1 .small, h2
+.small, h3 .small, h4 .small, h5 .small, h6 .small, .h1 .small, .h2 .small,
+.h3 .small, .h4 .small, .h5 .small, .h6 .small {</p>
+
+<pre><code>font-weight: normal;
+line-height: 1;
+color: #777;</code></pre>
+
+<p>} h1, .h1, h2, .h2, h3, .h3 {</p>
+
+<pre><code>margin-top: 20px;
+margin-bottom: 10px;</code></pre>
+
+<p>} h1 small, .h1 small, h2 small, .h2 small, h3 small, .h3 small, h1 .small,
+.h1 .small, h2 .small, .h2 .small, h3 .small, .h3 .small {</p>
+
+<pre><code>font-size: 65%;</code></pre>
+
+<p>} h4, .h4, h5, .h5, h6, .h6 {</p>
+
+<pre><code>margin-top: 10px;
+margin-bottom: 10px;</code></pre>
+
+<p>} h4 small, .h4 small, h5 small, .h5 small, h6 small, .h6 small, h4 .small,
+.h4 .small, h5 .small, .h5 .small, h6 .small, .h6 .small {</p>
+
+<pre><code>font-size: 75%;</code></pre>
+
+<p>} h1, .h1 {</p>
+
+<pre><code>font-size: 36px;</code></pre>
+
+<p>} h2, .h2 {</p>
+
+<pre><code>font-size: 30px;</code></pre>
+
+<p>} h3, .h3 {</p>
+
+<pre><code>font-size: 24px;</code></pre>
+
+<p>} h4, .h4 {</p>
+
+<pre><code>font-size: 18px;</code></pre>
+
+<p>} h5, .h5 {</p>
+
+<pre><code>font-size: 14px;</code></pre>
+
+<p>} h6, .h6 {</p>
+
+<pre><code>font-size: 12px;</code></pre>
+
+<p>} p {</p>
+
+<pre><code>margin: 0 0 10px;</code></pre>
+
+<p>} .lead {</p>
+
+<pre><code>margin-bottom: 20px;
+font-size: 16px;
+font-weight: 300;
+line-height: 1.4;</code></pre>
+
+<p>} @media (min-width: 768px) {</p>
+
+<pre><code>.lead {
+  font-size: 21px;
+}</code></pre>
+
+<p>} small, .small {</p>
+
+<pre><code>font-size: 85%;</code></pre>
+
+<p>} mark, .mark {</p>
+
+<pre><code>padding: .2em;
+background-color: #fcf8e3;</code></pre>
+
+<p>} .text-left {</p>
+
+<pre><code>text-align: left;</code></pre>
+
+<p>} .text-right {</p>
+
+<pre><code>text-align: right;</code></pre>
+
+<p>} .text-center {</p>
+
+<pre><code>text-align: center;</code></pre>
+
+<p>} .text-justify {</p>
+
+<pre><code>text-align: justify;</code></pre>
+
+<p>} .text-nowrap {</p>
+
+<pre><code>white-space: nowrap;</code></pre>
+
+<p>} .text-lowercase {</p>
+
+<pre><code>text-transform: lowercase;</code></pre>
+
+<p>} .text-uppercase {</p>
+
+<pre><code>text-transform: uppercase;</code></pre>
+
+<p>} .text-capitalize {</p>
+
+<pre><code>text-transform: capitalize;</code></pre>
+
+<p>} .text-muted {</p>
+
+<pre><code>color: #777;</code></pre>
+
+<p>} .text-primary {</p>
+
+<pre><code>color: #337ab7;</code></pre>
+
+<p>} a.text-primary:hover {</p>
+
+<pre><code>color: #286090;</code></pre>
+
+<p>} .text-success {</p>
+
+<pre><code>color: #3c763d;</code></pre>
+
+<p>} a.text-success:hover {</p>
+
+<pre><code>color: #2b542c;</code></pre>
+
+<p>} .text-info {</p>
+
+<pre><code>color: #31708f;</code></pre>
+
+<p>} a.text-info:hover {</p>
+
+<pre><code>color: #245269;</code></pre>
+
+<p>} .text-warning {</p>
+
+<pre><code>color: #8a6d3b;</code></pre>
+
+<p>} a.text-warning:hover {</p>
+
+<pre><code>color: #66512c;</code></pre>
+
+<p>} .text-danger {</p>
+
+<pre><code>color: #a94442;</code></pre>
+
+<p>} a.text-danger:hover {</p>
+
+<pre><code>color: #843534;</code></pre>
+
+<p>} .bg-primary {</p>
+
+<pre><code>color: #fff;
+background-color: #337ab7;</code></pre>
+
+<p>} a.bg-primary:hover {</p>
+
+<pre><code>background-color: #286090;</code></pre>
+
+<p>} .bg-success {</p>
+
+<pre><code>background-color: #dff0d8;</code></pre>
+
+<p>} a.bg-success:hover {</p>
+
+<pre><code>background-color: #c1e2b3;</code></pre>
+
+<p>} .bg-info {</p>
+
+<pre><code>background-color: #d9edf7;</code></pre>
+
+<p>} a.bg-info:hover {</p>
+
+<pre><code>background-color: #afd9ee;</code></pre>
+
+<p>} .bg-warning {</p>
+
+<pre><code>background-color: #fcf8e3;</code></pre>
+
+<p>} a.bg-warning:hover {</p>
+
+<pre><code>background-color: #f7ecb5;</code></pre>
+
+<p>} .bg-danger {</p>
+
+<pre><code>background-color: #f2dede;</code></pre>
+
+<p>} a.bg-danger:hover {</p>
+
+<pre><code>background-color: #e4b9b9;</code></pre>
+
+<p>} .page-header {</p>
+
+<pre><code>padding-bottom: 9px;
+margin: 40px 0 20px;
+border-bottom: 1px solid #eee;</code></pre>
+
+<p>} ul, ol {</p>
+
+<pre><code>margin-top: 0;
+margin-bottom: 10px;</code></pre>
+
+<p>} ul ul, ol ul, ul ol, ol ol {</p>
+
+<pre><code>margin-bottom: 0;</code></pre>
+
+<p>} .list-unstyled {</p>
+
+<pre><code>padding-left: 0;
+list-style: none;</code></pre>
+
+<p>} .list-inline {</p>
+
+<pre><code>padding-left: 0;
+margin-left: -5px;
+list-style: none;</code></pre>
+
+<p>} .list-inline &gt; li {</p>
+
+<pre><code>display: inline-block;
+padding-right: 5px;
+padding-left: 5px;</code></pre>
+
+<p>} dl {</p>
+
+<pre><code>margin-top: 0;
+margin-bottom: 20px;</code></pre>
+
+<p>} dt, dd {</p>
+
+<pre><code>line-height: 1.42857143;</code></pre>
+
+<p>} dt {</p>
+
+<pre><code>font-weight: bold;</code></pre>
+
+<p>} dd {</p>
+
+<pre><code>margin-left: 0;</code></pre>
+
+<p>} @media (min-width: 768px) {</p>
+
+<pre><code>.dl-horizontal dt {
+  float: left;
+  width: 160px;
+  overflow: hidden;
+  clear: left;
+  text-align: right;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.dl-horizontal dd {
+  margin-left: 180px;
+}</code></pre>
+
+<p>} <a href="title">abbr</a>, <a href="data-original-title">abbr</a> {</p>
+
+<pre><code>cursor: help;
+border-bottom: 1px dotted #777;</code></pre>
+
+<p>} .initialism {</p>
+
+<pre><code>font-size: 90%;
+text-transform: uppercase;</code></pre>
+
+<p>} blockquote {</p>
+
+<pre><code>padding: 10px 20px;
+margin: 0 0 20px;
+font-size: 17.5px;
+border-left: 5px solid #eee;</code></pre>
+
+<p>} blockquote p:last-child, blockquote ul:last-child, blockquote
+ol:last-child {</p>
+
+<pre><code>margin-bottom: 0;</code></pre>
+
+<p>} blockquote footer, blockquote small, blockquote .small {</p>
+
+<pre><code>display: block;
+font-size: 80%;
+line-height: 1.42857143;
+color: #777;</code></pre>
+
+<p>} blockquote footer:before, blockquote small:before, blockquote
+.small:before {</p>
+
+<pre><code>content: &#39;\2014 \00A0&#39;;</code></pre>
+
+<p>} .blockquote-reverse, blockquote.pull-right {</p>
+
+<pre><code>padding-right: 15px;
+padding-left: 0;
+text-align: right;
+border-right: 5px solid #eee;
+border-left: 0;</code></pre>
+
+<p>} .blockquote-reverse footer:before, blockquote.pull-right footer:before,
+.blockquote-reverse small:before, blockquote.pull-right small:before,
+.blockquote-reverse .small:before, blockquote.pull-right .small:before {</p>
+
+<pre><code>content: &#39;&#39;;</code></pre>
+
+<p>} .blockquote-reverse footer:after, blockquote.pull-right footer:after,
+.blockquote-reverse small:after, blockquote.pull-right small:after,
+.blockquote-reverse .small:after, blockquote.pull-right .small:after {</p>
+
+<pre><code>content: &#39;\00A0 \2014&#39;;</code></pre>
+
+<p>} address {</p>
+
+<pre><code>margin-bottom: 20px;
+font-style: normal;
+line-height: 1.42857143;</code></pre>
+
+<p>} code, kbd, pre, samp {</p>
+
+<pre><code>font-family: Menlo, Monaco, Consolas, &quot;Courier New&quot;, monospace;</code></pre>
+
+<p>} code {</p>
+
+<pre><code>padding: 2px 4px;
+font-size: 90%;
+color: #c7254e;
+background-color: #f9f2f4;
+border-radius: 4px;</code></pre>
+
+<p>} kbd {</p>
+
+<pre><code>padding: 2px 4px;
+font-size: 90%;
+color: #fff;
+background-color: #333;
+border-radius: 3px;
+-webkit-box-shadow: inset 0 -1px 0 rgba(0, 0, 0, .25);
+        box-shadow: inset 0 -1px 0 rgba(0, 0, 0, .25);</code></pre>
+
+<p>} kbd kbd {</p>
+
+<pre><code>padding: 0;
+font-size: 100%;
+font-weight: bold;
+-webkit-box-shadow: none;
+        box-shadow: none;</code></pre>
+
+<p>} pre {</p>
+
+<pre><code>display: block;
+padding: 9.5px;
+margin: 0 0 10px;
+font-size: 13px;
+line-height: 1.42857143;
+color: #333;
+word-break: break-all;
+word-wrap: break-word;
+background-color: #f5f5f5;
+border: 1px solid #ccc;
+border-radius: 4px;</code></pre>
+
+<p>} pre code {</p>
+
+<pre><code>padding: 0;
+font-size: inherit;
+color: inherit;
+white-space: pre-wrap;
+background-color: transparent;
+border-radius: 0;</code></pre>
+
+<p>} .pre-scrollable {</p>
+
+<pre><code>max-height: 340px;
+overflow-y: scroll;</code></pre>
+
+<p>} .container {</p>
+
+<pre><code>padding-right: 15px;
+padding-left: 15px;
+margin-right: auto;
+margin-left: auto;</code></pre>
+
+<p>} @media (min-width: 768px) {</p>
+
+<pre><code>.container {
+  width: 750px;
+}</code></pre>
+
+<p>} @media (min-width: 992px) {</p>
+
+<pre><code>.container {
+  width: 970px;
+}</code></pre>
+
+<p>} @media (min-width: 1200px) {</p>
+
+<pre><code>.container {
+  width: 1170px;
+}</code></pre>
+
+<p>} .container-fluid {</p>
+
+<pre><code>padding-right: 15px;
+padding-left: 15px;
+margin-right: auto;
+margin-left: auto;</code></pre>
+
+<p>} .row {</p>
+
+<pre><code>margin-right: -15px;
+margin-left: -15px;</code></pre>
+
+<p>} .col-xs-1, .col-sm-1, .col-md-1, .col-lg-1, .col-xs-2, .col-sm-2,
+.col-md-2, .col-lg-2, .col-xs-3, .col-sm-3, .col-md-3, .col-lg-3,
+.col-xs-4, .col-sm-4, .col-md-4, .col-lg-4, .col-xs-5, .col-sm-5,
+.col-md-5, .col-lg-5, .col-xs-6, .col-sm-6, .col-md-6, .col-lg-6,
+.col-xs-7, .col-sm-7, .col-md-7, .col-lg-7, .col-xs-8, .col-sm-8,
+.col-md-8, .col-lg-8, .col-xs-9, .col-sm-9, .col-md-9, .col-lg-9,
+.col-xs-10, .col-sm-10, .col-md-10, .col-lg-10, .col-xs-11, .col-sm-11,
+.col-md-11, .col-lg-11, .col-xs-12, .col-sm-12, .col-md-12, .col-lg-12 {</p>
+
+<pre><code>position: relative;
+min-height: 1px;
+padding-right: 15px;
+padding-left: 15px;</code></pre>
+
+<p>} .col-xs-1, .col-xs-2, .col-xs-3, .col-xs-4, .col-xs-5, .col-xs-6,
+.col-xs-7, .col-xs-8, .col-xs-9, .col-xs-10, .col-xs-11, .col-xs-12 {</p>
+
+<pre><code>float: left;</code></pre>
+
+<p>} .col-xs-12 {</p>
+
+<pre><code>width: 100%;</code></pre>
+
+<p>} .col-xs-11 {</p>
+
+<pre><code>width: 91.66666667%;</code></pre>
+
+<p>} .col-xs-10 {</p>
+
+<pre><code>width: 83.33333333%;</code></pre>
+
+<p>} .col-xs-9 {</p>
+
+<pre><code>width: 75%;</code></pre>
+
+<p>} .col-xs-8 {</p>
+
+<pre><code>width: 66.66666667%;</code></pre>
+
+<p>} .col-xs-7 {</p>
+
+<pre><code>width: 58.33333333%;</code></pre>
+
+<p>} .col-xs-6 {</p>
+
+<pre><code>width: 50%;</code></pre>
+
+<p>} .col-xs-5 {</p>
+
+<pre><code>width: 41.66666667%;</code></pre>
+
+<p>} .col-xs-4 {</p>
+
+<pre><code>width: 33.33333333%;</code></pre>
+
+<p>} .col-xs-3 {</p>
+
+<pre><code>width: 25%;</code></pre>
+
+<p>} .col-xs-2 {</p>
+
+<pre><code>width: 16.66666667%;</code></pre>
+
+<p>} .col-xs-1 {</p>
+
+<pre><code>width: 8.33333333%;</code></pre>
+
+<p>} .col-xs-pull-12 {</p>
+
+<pre><code>right: 100%;</code></pre>
+
+<p>} .col-xs-pull-11 {</p>
+
+<pre><code>right: 91.66666667%;</code></pre>
+
+<p>} .col-xs-pull-10 {</p>
+
+<pre><code>right: 83.33333333%;</code></pre>
+
+<p>} .col-xs-pull-9 {</p>
+
+<pre><code>right: 75%;</code></pre>
+
+<p>} .col-xs-pull-8 {</p>
+
+<pre><code>right: 66.66666667%;</code></pre>
+
+<p>} .col-xs-pull-7 {</p>
+
+<pre><code>right: 58.33333333%;</code></pre>
+
+<p>} .col-xs-pull-6 {</p>
+
+<pre><code>right: 50%;</code></pre>
+
+<p>} .col-xs-pull-5 {</p>
+
+<pre><code>right: 41.66666667%;</code></pre>
+
+<p>} .col-xs-pull-4 {</p>
+
+<pre><code>right: 33.33333333%;</code></pre>
+
+<p>} .col-xs-pull-3 {</p>
+
+<pre><code>right: 25%;</code></pre>
+
+<p>} .col-xs-pull-2 {</p>
+
+<pre><code>right: 16.66666667%;</code></pre>
+
+<p>} .col-xs-pull-1 {</p>
+
+<pre><code>right: 8.33333333%;</code></pre>
+
+<p>} .col-xs-pull-0 {</p>
+
+<pre><code>right: auto;</code></pre>
+
+<p>} .col-xs-push-12 {</p>
+
+<pre><code>left: 100%;</code></pre>
+
+<p>} .col-xs-push-11 {</p>
+
+<pre><code>left: 91.66666667%;</code></pre>
+
+<p>} .col-xs-push-10 {</p>
+
+<pre><code>left: 83.33333333%;</code></pre>
+
+<p>} .col-xs-push-9 {</p>
+
+<pre><code>left: 75%;</code></pre>
+
+<p>} .col-xs-push-8 {</p>
+
+<pre><code>left: 66.66666667%;</code></pre>
+
+<p>} .col-xs-push-7 {</p>
+
+<pre><code>left: 58.33333333%;</code></pre>
+
+<p>} .col-xs-push-6 {</p>
+
+<pre><code>left: 50%;</code></pre>
+
+<p>} .col-xs-push-5 {</p>
+
+<pre><code>left: 41.66666667%;</code></pre>
+
+<p>} .col-xs-push-4 {</p>
+
+<pre><code>left: 33.33333333%;</code></pre>
+
+<p>} .col-xs-push-3 {</p>
+
+<pre><code>left: 25%;</code></pre>
+
+<p>} .col-xs-push-2 {</p>
+
+<pre><code>left: 16.66666667%;</code></pre>
+
+<p>} .col-xs-push-1 {</p>
+
+<pre><code>left: 8.33333333%;</code></pre>
+
+<p>} .col-xs-push-0 {</p>
+
+<pre><code>left: auto;</code></pre>
+
+<p>} .col-xs-offset-12 {</p>
+
+<pre><code>margin-left: 100%;</code></pre>
+
+<p>} .col-xs-offset-11 {</p>
+
+<pre><code>margin-left: 91.66666667%;</code></pre>
+
+<p>} .col-xs-offset-10 {</p>
+
+<pre><code>margin-left: 83.33333333%;</code></pre>
+
+<p>} .col-xs-offset-9 {</p>
+
+<pre><code>margin-left: 75%;</code></pre>
+
+<p>} .col-xs-offset-8 {</p>
+
+<pre><code>margin-left: 66.66666667%;</code></pre>
+
+<p>} .col-xs-offset-7 {</p>
+
+<pre><code>margin-left: 58.33333333%;</code></pre>
+
+<p>} .col-xs-offset-6 {</p>
+
+<pre><code>margin-left: 50%;</code></pre>
+
+<p>} .col-xs-offset-5 {</p>
+
+<pre><code>margin-left: 41.66666667%;</code></pre>
+
+<p>} .col-xs-offset-4 {</p>
+
+<pre><code>margin-left: 33.33333333%;</code></pre>
+
+<p>} .col-xs-offset-3 {</p>
+
+<pre><code>margin-left: 25%;</code></pre>
+
+<p>} .col-xs-offset-2 {</p>
+
+<pre><code>margin-left: 16.66666667%;</code></pre>
+
+<p>} .col-xs-offset-1 {</p>
+
+<pre><code>margin-left: 8.33333333%;</code></pre>
+
+<p>} .col-xs-offset-0 {</p>
+
+<pre><code>margin-left: 0;</code></pre>
+
+<p>} @media (min-width: 768px) {</p>
+
+<pre><code>.col-sm-1, .col-sm-2, .col-sm-3, .col-sm-4, .col-sm-5, .col-sm-6, .col-sm-7, .col-sm-8, .col-sm-9, .col-sm-10, .col-sm-11, .col-sm-12 {
+  float: left;
+}
+.col-sm-12 {
+  width: 100%;
+}
+.col-sm-11 {
+  width: 91.66666667%;
+}
+.col-sm-10 {
+  width: 83.33333333%;
+}
+.col-sm-9 {
+  width: 75%;
+}
+.col-sm-8 {
+  width: 66.66666667%;
+}
+.col-sm-7 {
+  width: 58.33333333%;
+}
+.col-sm-6 {
+  width: 50%;
+}
+.col-sm-5 {
+  width: 41.66666667%;
+}
+.col-sm-4 {
+  width: 33.33333333%;
+}
+.col-sm-3 {
+  width: 25%;
+}
+.col-sm-2 {
+  width: 16.66666667%;
+}
+.col-sm-1 {
+  width: 8.33333333%;
+}
+.col-sm-pull-12 {
+  right: 100%;
+}
+.col-sm-pull-11 {
+  right: 91.66666667%;
+}
+.col-sm-pull-10 {
+  right: 83.33333333%;
+}
+.col-sm-pull-9 {
+  right: 75%;
+}
+.col-sm-pull-8 {
+  right: 66.66666667%;
+}
+.col-sm-pull-7 {
+  right: 58.33333333%;
+}
+.col-sm-pull-6 {
+  right: 50%;
+}
+.col-sm-pull-5 {
+  right: 41.66666667%;
+}
+.col-sm-pull-4 {
+  right: 33.33333333%;
+}
+.col-sm-pull-3 {
+  right: 25%;
+}
+.col-sm-pull-2 {
+  right: 16.66666667%;
+}
+.col-sm-pull-1 {
+  right: 8.33333333%;
+}
+.col-sm-pull-0 {
+  right: auto;
+}
+.col-sm-push-12 {
+  left: 100%;
+}
+.col-sm-push-11 {
+  left: 91.66666667%;
+}
+.col-sm-push-10 {
+  left: 83.33333333%;
+}
+.col-sm-push-9 {
+  left: 75%;
+}
+.col-sm-push-8 {
+  left: 66.66666667%;
+}
+.col-sm-push-7 {
+  left: 58.33333333%;
+}
+.col-sm-push-6 {
+  left: 50%;
+}
+.col-sm-push-5 {
+  left: 41.66666667%;
+}
+.col-sm-push-4 {
+  left: 33.33333333%;
+}
+.col-sm-push-3 {
+  left: 25%;
+}
+.col-sm-push-2 {
+  left: 16.66666667%;
+}
+.col-sm-push-1 {
+  left: 8.33333333%;
+}
+.col-sm-push-0 {
+  left: auto;
+}
+.col-sm-offset-12 {
+  margin-left: 100%;
+}
+.col-sm-offset-11 {
+  margin-left: 91.66666667%;
+}
+.col-sm-offset-10 {
+  margin-left: 83.33333333%;
+}
+.col-sm-offset-9 {
+  margin-left: 75%;
+}
+.col-sm-offset-8 {
+  margin-left: 66.66666667%;
+}
+.col-sm-offset-7 {
+  margin-left: 58.33333333%;
+}
+.col-sm-offset-6 {
+  margin-left: 50%;
+}
+.col-sm-offset-5 {
+  margin-left: 41.66666667%;
+}
+.col-sm-offset-4 {
+  margin-left: 33.33333333%;
+}
+.col-sm-offset-3 {
+  margin-left: 25%;
+}
+.col-sm-offset-2 {
+  margin-left: 16.66666667%;
+}
+.col-sm-offset-1 {
+  margin-left: 8.33333333%;
+}
+.col-sm-offset-0 {
+  margin-left: 0;
+}</code></pre>
+
+<p>} @media (min-width: 992px) {</p>
+
+<pre><code>.col-md-1, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-10, .col-md-11, .col-md-12 {
+  float: left;
+}
+.col-md-12 {
+  width: 100%;
+}
+.col-md-11 {
+  width: 91.66666667%;
+}
+.col-md-10 {
+  width: 83.33333333%;
+}
+.col-md-9 {
+  width: 75%;
+}
+.col-md-8 {
+  width: 66.66666667%;
+}
+.col-md-7 {
+  width: 58.33333333%;
+}
+.col-md-6 {
+  width: 50%;
+}
+.col-md-5 {
+  width: 41.66666667%;
+}
+.col-md-4 {
+  width: 33.33333333%;
+}
+.col-md-3 {
+  width: 25%;
+}
+.col-md-2 {
+  width: 16.66666667%;
+}
+.col-md-1 {
+  width: 8.33333333%;
+}
+.col-md-pull-12 {
+  right: 100%;
+}
+.col-md-pull-11 {
+  right: 91.66666667%;
+}
+.col-md-pull-10 {
+  right: 83.33333333%;
+}
+.col-md-pull-9 {
+  right: 75%;
+}
+.col-md-pull-8 {
+  right: 66.66666667%;
+}
+.col-md-pull-7 {
+  right: 58.33333333%;
+}
+.col-md-pull-6 {
+  right: 50%;
+}
+.col-md-pull-5 {
+  right: 41.66666667%;
+}
+.col-md-pull-4 {
+  right: 33.33333333%;
+}
+.col-md-pull-3 {
+  right: 25%;
+}
+.col-md-pull-2 {
+  right: 16.66666667%;
+}
+.col-md-pull-1 {
+  right: 8.33333333%;
+}
+.col-md-pull-0 {
+  right: auto;
+}
+.col-md-push-12 {
+  left: 100%;
+}
+.col-md-push-11 {
+  left: 91.66666667%;
+}
+.col-md-push-10 {
+  left: 83.33333333%;
+}
+.col-md-push-9 {
+  left: 75%;
+}
+.col-md-push-8 {
+  left: 66.66666667%;
+}
+.col-md-push-7 {
+  left: 58.33333333%;
+}
+.col-md-push-6 {
+  left: 50%;
+}
+.col-md-push-5 {
+  left: 41.66666667%;
+}
+.col-md-push-4 {
+  left: 33.33333333%;
+}
+.col-md-push-3 {
+  left: 25%;
+}
+.col-md-push-2 {
+  left: 16.66666667%;
+}
+.col-md-push-1 {
+  left: 8.33333333%;
+}
+.col-md-push-0 {
+  left: auto;
+}
+.col-md-offset-12 {
+  margin-left: 100%;
+}
+.col-md-offset-11 {
+  margin-left: 91.66666667%;
+}
+.col-md-offset-10 {
+  margin-left: 83.33333333%;
+}
+.col-md-offset-9 {
+  margin-left: 75%;
+}
+.col-md-offset-8 {
+  margin-left: 66.66666667%;
+}
+.col-md-offset-7 {
+  margin-left: 58.33333333%;
+}
+.col-md-offset-6 {
+  margin-left: 50%;
+}
+.col-md-offset-5 {
+  margin-left: 41.66666667%;
+}
+.col-md-offset-4 {
+  margin-left: 33.33333333%;
+}
+.col-md-offset-3 {
+  margin-left: 25%;
+}
+.col-md-offset-2 {
+  margin-left: 16.66666667%;
+}
+.col-md-offset-1 {
+  margin-left: 8.33333333%;
+}
+.col-md-offset-0 {
+  margin-left: 0;
+}</code></pre>
+
+<p>} @media (min-width: 1200px) {</p>
+
+<pre><code>.col-lg-1, .col-lg-2, .col-lg-3, .col-lg-4, .col-lg-5, .col-lg-6, .col-lg-7, .col-lg-8, .col-lg-9, .col-lg-10, .col-lg-11, .col-lg-12 {
+  float: left;
+}
+.col-lg-12 {
+  width: 100%;
+}
+.col-lg-11 {
+  width: 91.66666667%;
+}
+.col-lg-10 {
+  width: 83.33333333%;
+}
+.col-lg-9 {
+  width: 75%;
+}
+.col-lg-8 {
+  width: 66.66666667%;
+}
+.col-lg-7 {
+  width: 58.33333333%;
+}
+.col-lg-6 {
+  width: 50%;
+}
+.col-lg-5 {
+  width: 41.66666667%;
+}
+.col-lg-4 {
+  width: 33.33333333%;
+}
+.col-lg-3 {
+  width: 25%;
+}
+.col-lg-2 {
+  width: 16.66666667%;
+}
+.col-lg-1 {
+  width: 8.33333333%;
+}
+.col-lg-pull-12 {
+  right: 100%;
+}
+.col-lg-pull-11 {
+  right: 91.66666667%;
+}
+.col-lg-pull-10 {
+  right: 83.33333333%;
+}
+.col-lg-pull-9 {
+  right: 75%;
+}
+.col-lg-pull-8 {
+  right: 66.66666667%;
+}
+.col-lg-pull-7 {
+  right: 58.33333333%;
+}
+.col-lg-pull-6 {
+  right: 50%;
+}
+.col-lg-pull-5 {
+  right: 41.66666667%;
+}
+.col-lg-pull-4 {
+  right: 33.33333333%;
+}
+.col-lg-pull-3 {
+  right: 25%;
+}
+.col-lg-pull-2 {
+  right: 16.66666667%;
+}
+.col-lg-pull-1 {
+  right: 8.33333333%;
+}
+.col-lg-pull-0 {
+  right: auto;
+}
+.col-lg-push-12 {
+  left: 100%;
+}
+.col-lg-push-11 {
+  left: 91.66666667%;
+}
+.col-lg-push-10 {
+  left: 83.33333333%;
+}
+.col-lg-push-9 {
+  left: 75%;
+}
+.col-lg-push-8 {
+  left: 66.66666667%;
+}
+.col-lg-push-7 {
+  left: 58.33333333%;
+}
+.col-lg-push-6 {
+  left: 50%;
+}
+.col-lg-push-5 {
+  left: 41.66666667%;
+}
+.col-lg-push-4 {
+  left: 33.33333333%;
+}
+.col-lg-push-3 {
+  left: 25%;
+}
+.col-lg-push-2 {
+  left: 16.66666667%;
+}
+.col-lg-push-1 {
+  left: 8.33333333%;
+}
+.col-lg-push-0 {
+  left: auto;
+}
+.col-lg-offset-12 {
+  margin-left: 100%;
+}
+.col-lg-offset-11 {
+  margin-left: 91.66666667%;
+}
+.col-lg-offset-10 {
+  margin-left: 83.33333333%;
+}
+.col-lg-offset-9 {
+  margin-left: 75%;
+}
+.col-lg-offset-8 {
+  margin-left: 66.66666667%;
+}
+.col-lg-offset-7 {
+  margin-left: 58.33333333%;
+}
+.col-lg-offset-6 {
+  margin-left: 50%;
+}
+.col-lg-offset-5 {
+  margin-left: 41.66666667%;
+}
+.col-lg-offset-4 {
+  margin-left: 33.33333333%;
+}
+.col-lg-offset-3 {
+  margin-left: 25%;
+}
+.col-lg-offset-2 {
+  margin-left: 16.66666667%;
+}
+.col-lg-offset-1 {
+  margin-left: 8.33333333%;
+}
+.col-lg-offset-0 {
+  margin-left: 0;
+}</code></pre>
+
+<p>} table {</p>
+
+<pre><code>background-color: transparent;</code></pre>
+
+<p>} caption {</p>
+
+<pre><code>padding-top: 8px;
+padding-bottom: 8px;
+color: #777;
+text-align: left;</code></pre>
+
+<p>} th {</p>
+
+<pre><code>text-align: left;</code></pre>
+
+<p>} .table {</p>
+
+<pre><code>width: 100%;
+max-width: 100%;
+margin-bottom: 20px;</code></pre>
+
+<p>} .table &gt; thead &gt; tr &gt; th, .table &gt; tbody &gt; tr &gt; th,
+.table &gt; tfoot &gt; tr &gt; th, .table &gt; thead &gt; tr &gt; td,
+.table &gt; tbody &gt; tr &gt; td, .table &gt; tfoot &gt; tr &gt; td {</p>
+
+<pre><code>padding: 8px;
+line-height: 1.42857143;
+vertical-align: top;
+border-top: 1px solid #ddd;</code></pre>
+
+<p>} .table &gt; thead &gt; tr &gt; th {</p>
+
+<pre><code>vertical-align: bottom;
+border-bottom: 2px solid #ddd;</code></pre>
+
+<p>} .table &gt; caption + thead &gt; tr:first-child &gt; th, .table &gt;
+colgroup + thead &gt; tr:first-child &gt; th, .table &gt; thead:first-child
+&gt; tr:first-child &gt; th, .table &gt; caption + thead &gt;
+tr:first-child &gt; td, .table &gt; colgroup + thead &gt; tr:first-child
+&gt; td, .table &gt; thead:first-child &gt; tr:first-child &gt; td {</p>
+
+<pre><code>border-top: 0;</code></pre>
+
+<p>} .table &gt; tbody + tbody {</p>
+
+<pre><code>border-top: 2px solid #ddd;</code></pre>
+
+<p>} .table .table {</p>
+
+<pre><code>background-color: #fff;</code></pre>
+
+<p>} .table-condensed &gt; thead &gt; tr &gt; th, .table-condensed &gt; tbody
+&gt; tr &gt; th, .table-condensed &gt; tfoot &gt; tr &gt; th,
+.table-condensed &gt; thead &gt; tr &gt; td, .table-condensed &gt; tbody
+&gt; tr &gt; td, .table-condensed &gt; tfoot &gt; tr &gt; td {</p>
+
+<pre><code>padding: 5px;</code></pre>
+
+<p>} .table-bordered {</p>
+
+<pre><code>border: 1px solid #ddd;</code></pre>
+
+<p>} .table-bordered &gt; thead &gt; tr &gt; th, .table-bordered &gt; tbody
+&gt; tr &gt; th, .table-bordered &gt; tfoot &gt; tr &gt; th,
+.table-bordered &gt; thead &gt; tr &gt; td, .table-bordered &gt; tbody &gt;
+tr &gt; td, .table-bordered &gt; tfoot &gt; tr &gt; td {</p>
+
+<pre><code>border: 1px solid #ddd;</code></pre>
+
+<p>} .table-bordered &gt; thead &gt; tr &gt; th, .table-bordered &gt; thead
+&gt; tr &gt; td {</p>
+
+<pre><code>border-bottom-width: 2px;</code></pre>
+
+<p>} .table-striped &gt; tbody &gt; tr:nth-child(odd) {</p>
+
+<pre><code>background-color: #f9f9f9;</code></pre>
+
+<p>} .table-hover &gt; tbody &gt; tr:hover {</p>
+
+<pre><code>background-color: #f5f5f5;</code></pre>
+
+<p>} table <a href="class*="col-"">col</a> {</p>
+
+<pre><code>position: static;
+display: table-column;
+float: none;</code></pre>
+
+<p>} table <a href="class*="col-"">td</a>, table <a
+href="class*="col-"">th</a> {</p>
+
+<pre><code>position: static;
+display: table-cell;
+float: none;</code></pre>
+
+<p>} .table &gt; thead &gt; tr &gt; td.active, .table &gt; tbody &gt; tr &gt;
+td.active, .table &gt; tfoot &gt; tr &gt; td.active, .table &gt; thead &gt;
+tr &gt; th.active, .table &gt; tbody &gt; tr &gt; th.active, .table &gt;
+tfoot &gt; tr &gt; th.active, .table &gt; thead &gt; tr.active &gt; td,
+.table &gt; tbody &gt; tr.active &gt; td, .table &gt; tfoot &gt; tr.active
+&gt; td, .table &gt; thead &gt; tr.active &gt; th, .table &gt; tbody &gt;
+tr.active &gt; th, .table &gt; tfoot &gt; tr.active &gt; th {</p>
+
+<pre><code>background-color: #f5f5f5;</code></pre>
+
+<p>} .table-hover &gt; tbody &gt; tr &gt; td.active:hover, .table-hover &gt;
+tbody &gt; tr &gt; th.active:hover, .table-hover &gt; tbody &gt;
+tr.active:hover &gt; td, .table-hover &gt; tbody &gt; tr:hover &gt;
+.active, .table-hover &gt; tbody &gt; tr.active:hover &gt; th {</p>
+
+<pre><code>background-color: #e8e8e8;</code></pre>
+
+<p>} .table &gt; thead &gt; tr &gt; td.success, .table &gt; tbody &gt; tr &gt;
+td.success, .table &gt; tfoot &gt; tr &gt; td.success, .table &gt; thead
+&gt; tr &gt; th.success, .table &gt; tbody &gt; tr &gt; th.success, .table
+&gt; tfoot &gt; tr &gt; th.success, .table &gt; thead &gt; tr.success &gt;
+td, .table &gt; tbody &gt; tr.success &gt; td, .table &gt; tfoot &gt;
+tr.success &gt; td, .table &gt; thead &gt; tr.success &gt; th, .table &gt;
+tbody &gt; tr.success &gt; th, .table &gt; tfoot &gt; tr.success &gt; th {</p>
+
+<pre><code>background-color: #dff0d8;</code></pre>
+
+<p>} .table-hover &gt; tbody &gt; tr &gt; td.success:hover, .table-hover &gt;
+tbody &gt; tr &gt; th.success:hover, .table-hover &gt; tbody &gt;
+tr.success:hover &gt; td, .table-hover &gt; tbody &gt; tr:hover &gt;
+.success, .table-hover &gt; tbody &gt; tr.success:hover &gt; th {</p>
+
+<pre><code>background-color: #d0e9c6;</code></pre>
+
+<p>} .table &gt; thead &gt; tr &gt; td.info, .table &gt; tbody &gt; tr &gt;
+td.info, .table &gt; tfoot &gt; tr &gt; td.info, .table &gt; thead &gt; tr
+&gt; th.info, .table &gt; tbody &gt; tr &gt; th.info, .table &gt; tfoot
+&gt; tr &gt; th.info, .table &gt; thead &gt; tr.info &gt; td, .table &gt;
+tbody &gt; tr.info &gt; td, .table &gt; tfoot &gt; tr.info &gt; td, .table
+&gt; thead &gt; tr.info &gt; th, .table &gt; tbody &gt; tr.info &gt; th,
+.table &gt; tfoot &gt; tr.info &gt; th {</p>
+
+<pre><code>background-color: #d9edf7;</code></pre>
+
+<p>} .table-hover &gt; tbody &gt; tr &gt; td.info:hover, .table-hover &gt;
+tbody &gt; tr &gt; th.info:hover, .table-hover &gt; tbody &gt;
+tr.info:hover &gt; td, .table-hover &gt; tbody &gt; tr:hover &gt; .info,
+.table-hover &gt; tbody &gt; tr.info:hover &gt; th {</p>
+
+<pre><code>background-color: #c4e3f3;</code></pre>
+
+<p>} .table &gt; thead &gt; tr &gt; td.warning, .table &gt; tbody &gt; tr &gt;
+td.warning, .table &gt; tfoot &gt; tr &gt; td.warning, .table &gt; thead
+&gt; tr &gt; th.warning, .table &gt; tbody &gt; tr &gt; th.warning, .table
+&gt; tfoot &gt; tr &gt; th.warning, .table &gt; thead &gt; tr.warning &gt;
+td, .table &gt; tbody &gt; tr.warning &gt; td, .table &gt; tfoot &gt;
+tr.warning &gt; td, .table &gt; thead &gt; tr.warning &gt; th, .table &gt;
+tbody &gt; tr.warning &gt; th, .table &gt; tfoot &gt; tr.warning &gt; th {</p>
+
+<pre><code>background-color: #fcf8e3;</code></pre>
+
+<p>} .table-hover &gt; tbody &gt; tr &gt; td.warning:hover, .table-hover &gt;
+tbody &gt; tr &gt; th.warning:hover, .table-hover &gt; tbody &gt;
+tr.warning:hover &gt; td, .table-hover &gt; tbody &gt; tr:hover &gt;
+.warning, .table-hover &gt; tbody &gt; tr.warning:hover &gt; th {</p>
+
+<pre><code>background-color: #faf2cc;</code></pre>
+
+<p>} .table &gt; thead &gt; tr &gt; td.danger, .table &gt; tbody &gt; tr &gt;
+td.danger, .table &gt; tfoot &gt; tr &gt; td.danger, .table &gt; thead &gt;
+tr &gt; th.danger, .table &gt; tbody &gt; tr &gt; th.danger, .table &gt;
+tfoot &gt; tr &gt; th.danger, .table &gt; thead &gt; tr.danger &gt; td,
+.table &gt; tbody &gt; tr.danger &gt; td, .table &gt; tfoot &gt; tr.danger
+&gt; td, .table &gt; thead &gt; tr.danger &gt; th, .table &gt; tbody &gt;
+tr.danger &gt; th, .table &gt; tfoot &gt; tr.danger &gt; th {</p>
+
+<pre><code>background-color: #f2dede;</code></pre>
+
+<p>} .table-hover &gt; tbody &gt; tr &gt; td.danger:hover, .table-hover &gt;
+tbody &gt; tr &gt; th.danger:hover, .table-hover &gt; tbody &gt;
+tr.danger:hover &gt; td, .table-hover &gt; tbody &gt; tr:hover &gt;
+.danger, .table-hover &gt; tbody &gt; tr.danger:hover &gt; th {</p>
+
+<pre><code>background-color: #ebcccc;</code></pre>
+
+<p>} .table-responsive {</p>
+
+<pre><code>min-height: .01%;
+overflow-x: auto;</code></pre>
+
+<p>} @media screen and (max-width: 767px) {</p>
+
+<pre><code>.table-responsive {
+  width: 100%;
+  margin-bottom: 15px;
+  overflow-y: hidden;
+  -ms-overflow-style: -ms-autohiding-scrollbar;
+  border: 1px solid #ddd;
+}
+.table-responsive &gt; .table {
+  margin-bottom: 0;
+}
+.table-responsive &gt; .table &gt; thead &gt; tr &gt; th,
+.table-responsive &gt; .table &gt; tbody &gt; tr &gt; th,
+.table-responsive &gt; .table &gt; tfoot &gt; tr &gt; th,
+.table-responsive &gt; .table &gt; thead &gt; tr &gt; td,
+.table-responsive &gt; .table &gt; tbody &gt; tr &gt; td,
+.table-responsive &gt; .table &gt; tfoot &gt; tr &gt; td {
+  white-space: nowrap;
+}
+.table-responsive &gt; .table-bordered {
+  border: 0;
+}
+.table-responsive &gt; .table-bordered &gt; thead &gt; tr &gt; th:first-child,
+.table-responsive &gt; .table-bordered &gt; tbody &gt; tr &gt; th:first-child,
+.table-responsive &gt; .table-bordered &gt; tfoot &gt; tr &gt; th:first-child,
+.table-responsive &gt; .table-bordered &gt; thead &gt; tr &gt; td:first-child,
+.table-responsive &gt; .table-bordered &gt; tbody &gt; tr &gt; td:first-child,
+.table-responsive &gt; .table-bordered &gt; tfoot &gt; tr &gt; td:first-child {
+  border-left: 0;
+}
+.table-responsive &gt; .table-bordered &gt; thead &gt; tr &gt; th:last-child,
+.table-responsive &gt; .table-bordered &gt; tbody &gt; tr &gt; th:last-child,
+.table-responsive &gt; .table-bordered &gt; tfoot &gt; tr &gt; th:last-child,
+.table-responsive &gt; .table-bordered &gt; thead &gt; tr &gt; td:last-child,
+.table-responsive &gt; .table-bordered &gt; tbody &gt; tr &gt; td:last-child,
+.table-responsive &gt; .table-bordered &gt; tfoot &gt; tr &gt; td:last-child {
+  border-right: 0;
+}
+.table-responsive &gt; .table-bordered &gt; tbody &gt; tr:last-child &gt; th,
+.table-responsive &gt; .table-bordered &gt; tfoot &gt; tr:last-child &gt; th,
+.table-responsive &gt; .table-bordered &gt; tbody &gt; tr:last-child &gt; td,
+.table-responsive &gt; .table-bordered &gt; tfoot &gt; tr:last-child &gt; td {
+  border-bottom: 0;
+}</code></pre>
+
+<p>} fieldset {</p>
+
+<pre><code>min-width: 0;
+padding: 0;
+margin: 0;
+border: 0;</code></pre>
+
+<p>} legend {</p>
+
+<pre><code>display: block;
+width: 100%;
+padding: 0;
+margin-bottom: 20px;
+font-size: 21px;
+line-height: inherit;
+color: #333;
+border: 0;
+border-bottom: 1px solid #e5e5e5;</code></pre>
+
+<p>} label {</p>
+
+<pre><code>display: inline-block;
+max-width: 100%;
+margin-bottom: 5px;
+font-weight: bold;</code></pre>
+
+<p>} <a href="type="search"">input</a> {</p>
+
+<pre><code>-webkit-box-sizing: border-box;
+   -moz-box-sizing: border-box;
+        box-sizing: border-box;</code></pre>
+
+<p>} <a href="type="radio"">input</a>, <a href="type="checkbox"">input</a> {</p>
+
+<pre><code>margin: 4px 0 0;
+margin-top: 1px \9;
+line-height: normal;</code></pre>
+
+<p>} <a href="type="file"">input</a> {</p>
+
+<pre><code>display: block;</code></pre>
+
+<p>} <a href="type="range"">input</a> {</p>
+
+<pre><code>display: block;
+width: 100%;</code></pre>
+
+<p>} <a href="multiple">select</a>, <a href="size">select</a> {</p>
+
+<pre><code>height: auto;</code></pre>
+
+<p>} <a href="type="file"">input</a>:focus, <a
+href="type="radio"">input</a>:focus, <a
+href="type="checkbox"">input</a>:focus {</p>
+
+<pre><code>outline: thin dotted;
+outline: 5px auto -webkit-focus-ring-color;
+outline-offset: -2px;</code></pre>
+
+<p>} output {</p>
+
+<pre><code>display: block;
+padding-top: 7px;
+font-size: 14px;
+line-height: 1.42857143;
+color: #555;</code></pre>
+
+<p>} .form-control {</p>
+
+<pre><code>display: block;
+width: 100%;
+height: 34px;
+padding: 6px 12px;
+font-size: 14px;
+line-height: 1.42857143;
+color: #555;
+background-color: #fff;
+background-image: none;
+border: 1px solid #ccc;
+border-radius: 4px;
+-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+        box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+-webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
+     -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+        transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;</code></pre>
+
+<p>} .form-control:focus {</p>
+
+<pre><code>border-color: #66afe9;
+outline: 0;
+-webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, .6);
+        box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, .6);</code></pre>
+
+<p>} .form-control::-moz-placeholder {</p>
+
+<pre><code>color: #999;
+opacity: 1;</code></pre>
+
+<p>} .form-control:-ms-input-placeholder {</p>
+
+<pre><code>color: #999;</code></pre>
+
+<p>} .form-control::-webkit-input-placeholder {</p>
+
+<pre><code>color: #999;</code></pre>
+
+<p>} .<a href="disabled">form-control</a>, .<a
+href="readonly">form-control</a>, <a href="disabled">fieldset</a>
+.form-control {</p>
+
+<pre><code>cursor: not-allowed;
+background-color: #eee;
+opacity: 1;</code></pre>
+
+<p>} textarea.form-control {</p>
+
+<pre><code>height: auto;</code></pre>
+
+<p>} <a href="type="search"">input</a> {</p>
+
+<pre><code>-webkit-appearance: none;</code></pre>
+
+<p>} @media screen and (-webkit-min-device-pixel-ratio: 0) {</p>
+
+<pre><code>input[type=&quot;date&quot;],
+input[type=&quot;time&quot;],
+input[type=&quot;datetime-local&quot;],
+input[type=&quot;month&quot;] {
+  line-height: 34px;
+}
+input[type=&quot;date&quot;].input-sm,
+input[type=&quot;time&quot;].input-sm,
+input[type=&quot;datetime-local&quot;].input-sm,
+input[type=&quot;month&quot;].input-sm {
+  line-height: 30px;
+}
+input[type=&quot;date&quot;].input-lg,
+input[type=&quot;time&quot;].input-lg,
+input[type=&quot;datetime-local&quot;].input-lg,
+input[type=&quot;month&quot;].input-lg {
+  line-height: 46px;
+}</code></pre>
+
+<p>} .form-group {</p>
+
+<pre><code>margin-bottom: 15px;</code></pre>
+
+<p>} .radio, .checkbox {</p>
+
+<pre><code>position: relative;
+display: block;
+margin-top: 10px;
+margin-bottom: 10px;</code></pre>
+
+<p>} .radio label, .checkbox label {</p>
+
+<pre><code>min-height: 20px;
+padding-left: 20px;
+margin-bottom: 0;
+font-weight: normal;
+cursor: pointer;</code></pre>
+
+<p>} .radio <a href="type="radio"">input</a>, .radio-inline <a
+href="type="radio"">input</a>, .checkbox <a
+href="type="checkbox"">input</a>, .checkbox-inline <a
+href="type="checkbox"">input</a> {</p>
+
+<pre><code>position: absolute;
+margin-top: 4px \9;
+margin-left: -20px;</code></pre>
+
+<p>} .radio + .radio, .checkbox + .checkbox {</p>
+
+<pre><code>margin-top: -5px;</code></pre>
+
+<p>} .radio-inline, .checkbox-inline {</p>
+
+<pre><code>display: inline-block;
+padding-left: 20px;
+margin-bottom: 0;
+font-weight: normal;
+vertical-align: middle;
+cursor: pointer;</code></pre>
+
+<p>} .radio-inline + .radio-inline, .checkbox-inline + .checkbox-inline {</p>
+
+<pre><code>margin-top: 0;
+margin-left: 10px;</code></pre>
+
+<p>} <a href="type="radio"">input</a>[disabled], <a
+href="type="checkbox"">input</a>[disabled], <a
+href="type="radio"">input</a>.disabled, <a
+href="type="checkbox"">input</a>.disabled, <a href="disabled">fieldset</a>
+<a href="type="radio"">input</a>, <a href="disabled">fieldset</a> <a
+href="type="checkbox"">input</a> {</p>
+
+<pre><code>cursor: not-allowed;</code></pre>
+
+<p>} .radio-inline.disabled, .checkbox-inline.disabled, <a
+href="disabled">fieldset</a> .radio-inline, <a href="disabled">fieldset</a>
+.checkbox-inline {</p>
+
+<pre><code>cursor: not-allowed;</code></pre>
+
+<p>} .radio.disabled label, .checkbox.disabled label, <a
+href="disabled">fieldset</a> .radio label, <a href="disabled">fieldset</a>
+.checkbox label {</p>
+
+<pre><code>cursor: not-allowed;</code></pre>
+
+<p>} .form-control-static {</p>
+
+<pre><code>padding-top: 7px;
+padding-bottom: 7px;
+margin-bottom: 0;</code></pre>
+
+<p>} .form-control-static.input-lg, .form-control-static.input-sm {</p>
+
+<pre><code>padding-right: 0;
+padding-left: 0;</code></pre>
+
+<p>} .input-sm, .form-group-sm .form-control {</p>
+
+<pre><code>height: 30px;
+padding: 5px 10px;
+font-size: 12px;
+line-height: 1.5;
+border-radius: 3px;</code></pre>
+
+<p>} select.input-sm, select.form-group-sm .form-control {</p>
+
+<pre><code>height: 30px;
+line-height: 30px;</code></pre>
+
+<p>} textarea.input-sm, textarea.form-group-sm .form-control, <a
+href="multiple">select</a>.input-sm, <a
+href="multiple">select</a>.form-group-sm .form-control {</p>
+
+<pre><code>height: auto;</code></pre>
+
+<p>} .input-lg, .form-group-lg .form-control {</p>
+
+<pre><code>height: 46px;
+padding: 10px 16px;
+font-size: 18px;
+line-height: 1.33;
+border-radius: 6px;</code></pre>
+
+<p>} select.input-lg, select.form-group-lg .form-control {</p>
+
+<pre><code>height: 46px;
+line-height: 46px;</code></pre>
+
+<p>} textarea.input-lg, textarea.form-group-lg .form-control, <a
+href="multiple">select</a>.input-lg, <a
+href="multiple">select</a>.form-group-lg .form-control {</p>
+
+<pre><code>height: auto;</code></pre>
+
+<p>} .has-feedback {</p>
+
+<pre><code>position: relative;</code></pre>
+
+<p>} .has-feedback .form-control {</p>
+
+<pre><code>padding-right: 42.5px;</code></pre>
+
+<p>} .form-control-feedback {</p>
+
+<pre><code>position: absolute;
+top: 0;
+right: 0;
+z-index: 2;
+display: block;
+width: 34px;
+height: 34px;
+line-height: 34px;
+text-align: center;
+pointer-events: none;</code></pre>
+
+<p>} .input-lg + .form-control-feedback {</p>
+
+<pre><code>width: 46px;
+height: 46px;
+line-height: 46px;</code></pre>
+
+<p>} .input-sm + .form-control-feedback {</p>
+
+<pre><code>width: 30px;
+height: 30px;
+line-height: 30px;</code></pre>
+
+<p>} .has-success .help-block, .has-success .control-label, .has-success
+.radio, .has-success .checkbox, .has-success .radio-inline, .has-success
+.checkbox-inline, .has-success.radio label, .has-success.checkbox label,
+.has-success.radio-inline label, .has-success.checkbox-inline label {</p>
+
+<pre><code>color: #3c763d;</code></pre>
+
+<p>} .has-success .form-control {</p>
+
+<pre><code>border-color: #3c763d;
+-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+        box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);</code></pre>
+
+<p>} .has-success .form-control:focus {</p>
+
+<pre><code>border-color: #2b542c;
+-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 6px #67b168;
+        box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 6px #67b168;</code></pre>
+
+<p>} .has-success .input-group-addon {</p>
+
+<pre><code>color: #3c763d;
+background-color: #dff0d8;
+border-color: #3c763d;</code></pre>
+
+<p>} .has-success .form-control-feedback {</p>
+
+<pre><code>color: #3c763d;</code></pre>
+
+<p>} .has-warning .help-block, .has-warning .control-label, .has-warning
+.radio, .has-warning .checkbox, .has-warning .radio-inline, .has-warning
+.checkbox-inline, .has-warning.radio label, .has-warning.checkbox label,
+.has-warning.radio-inline label, .has-warning.checkbox-inline label {</p>
+
+<pre><code>color: #8a6d3b;</code></pre>
+
+<p>} .has-warning .form-control {</p>
+
+<pre><code>border-color: #8a6d3b;
+-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+        box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);</code></pre>
+
+<p>} .has-warning .form-control:focus {</p>
+
+<pre><code>border-color: #66512c;
+-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 6px #c0a16b;
+        box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 6px #c0a16b;</code></pre>
+
+<p>} .has-warning .input-group-addon {</p>
+
+<pre><code>color: #8a6d3b;
+background-color: #fcf8e3;
+border-color: #8a6d3b;</code></pre>
+
+<p>} .has-warning .form-control-feedback {</p>
+
+<pre><code>color: #8a6d3b;</code></pre>
+
+<p>} .has-error .help-block, .has-error .control-label, .has-error .radio,
+.has-error .checkbox, .has-error .radio-inline, .has-error
+.checkbox-inline, .has-error.radio label, .has-error.checkbox label,
+.has-error.radio-inline label, .has-error.checkbox-inline label {</p>
+
+<pre><code>color: #a94442;</code></pre>
+
+<p>} .has-error .form-control {</p>
+
+<pre><code>border-color: #a94442;
+-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+        box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);</code></pre>
+
+<p>} .has-error .form-control:focus {</p>
+
+<pre><code>border-color: #843534;
+-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 6px #ce8483;
+        box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 6px #ce8483;</code></pre>
+
+<p>} .has-error .input-group-addon {</p>
+
+<pre><code>color: #a94442;
+background-color: #f2dede;
+border-color: #a94442;</code></pre>
+
+<p>} .has-error .form-control-feedback {</p>
+
+<pre><code>color: #a94442;</code></pre>
+
+<p>} .has-feedback label ~ .form-control-feedback {</p>
+
+<pre><code>top: 25px;</code></pre>
+
+<p>} .has-feedback label.sr-only ~ .form-control-feedback {</p>
+
+<pre><code>top: 0;</code></pre>
+
+<p>} .help-block {</p>
+
+<pre><code>display: block;
+margin-top: 5px;
+margin-bottom: 10px;
+color: #737373;</code></pre>
+
+<p>} @media (min-width: 768px) {</p>
+
+<pre><code>.form-inline .form-group {
+  display: inline-block;
+  margin-bottom: 0;
+  vertical-align: middle;
+}
+.form-inline .form-control {
+  display: inline-block;
+  width: auto;
+  vertical-align: middle;
+}
+.form-inline .form-control-static {
+  display: inline-block;
+}
+.form-inline .input-group {
+  display: inline-table;
+  vertical-align: middle;
+}
+.form-inline .input-group .input-group-addon,
+.form-inline .input-group .input-group-btn,
+.form-inline .input-group .form-control {
+  width: auto;
+}
+.form-inline .input-group &gt; .form-control {
+  width: 100%;
+}
+.form-inline .control-label {
+  margin-bottom: 0;
+  vertical-align: middle;
+}
+.form-inline .radio,
+.form-inline .checkbox {
+  display: inline-block;
+  margin-top: 0;
+  margin-bottom: 0;
+  vertical-align: middle;
+}
+.form-inline .radio label,
+.form-inline .checkbox label {
+  padding-left: 0;
+}
+.form-inline .radio input[type=&quot;radio&quot;],
+.form-inline .checkbox input[type=&quot;checkbox&quot;] {
+  position: relative;
+  margin-left: 0;
+}
+.form-inline .has-feedback .form-control-feedback {
+  top: 0;
+}</code></pre>
+
+<p>} .form-horizontal .radio, .form-horizontal .checkbox, .form-horizontal
+.radio-inline, .form-horizontal .checkbox-inline {</p>
+
+<pre><code>padding-top: 7px;
+margin-top: 0;
+margin-bottom: 0;</code></pre>
+
+<p>} .form-horizontal .radio, .form-horizontal .checkbox {</p>
+
+<pre><code>min-height: 27px;</code></pre>
+
+<p>} .form-horizontal .form-group {</p>
+
+<pre><code>margin-right: -15px;
+margin-left: -15px;</code></pre>
+
+<p>} @media (min-width: 768px) {</p>
+
+<pre><code>.form-horizontal .control-label {
+  padding-top: 7px;
+  margin-bottom: 0;
+  text-align: right;
+}</code></pre>
+
+<p>} .form-horizontal .has-feedback .form-control-feedback {</p>
+
+<pre><code>right: 15px;</code></pre>
+
+<p>} @media (min-width: 768px) {</p>
+
+<pre><code>.form-horizontal .form-group-lg .control-label {
+  padding-top: 14.3px;
+}</code></pre>
+
+<p>} @media (min-width: 768px) {</p>
+
+<pre><code>.form-horizontal .form-group-sm .control-label {
+  padding-top: 6px;
+}</code></pre>
+
+<p>} .btn {</p>
+
+<pre><code>display: inline-block;
+padding: 6px 12px;
+margin-bottom: 0;
+font-size: 14px;
+font-weight: normal;
+line-height: 1.42857143;
+text-align: center;
+white-space: nowrap;
+vertical-align: middle;
+-ms-touch-action: manipulation;
+    touch-action: manipulation;
+cursor: pointer;
+-webkit-user-select: none;
+   -moz-user-select: none;
+    -ms-user-select: none;
+        user-select: none;
+background-image: none;
+border: 1px solid transparent;
+border-radius: 4px;</code></pre>
+
+<p>} .btn:focus, .btn:active:focus, .btn.active:focus, .btn.focus,
+.btn:active.focus, .btn.active.focus {</p>
+
+<pre><code>outline: thin dotted;
+outline: 5px auto -webkit-focus-ring-color;
+outline-offset: -2px;</code></pre>
+
+<p>} .btn:hover, .btn:focus, .btn.focus {</p>
+
+<pre><code>color: #333;
+text-decoration: none;</code></pre>
+
+<p>} .btn:active, .btn.active {</p>
+
+<pre><code>background-image: none;
+outline: 0;
+-webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, .125);
+        box-shadow: inset 0 3px 5px rgba(0, 0, 0, .125);</code></pre>
+
+<p>} .btn.disabled, .<a href="disabled">btn</a>, <a
+href="disabled">fieldset</a> .btn {</p>
+
+<pre><code>pointer-events: none;
+cursor: not-allowed;
+filter: alpha(opacity=65);
+-webkit-box-shadow: none;
+        box-shadow: none;
+opacity: .65;</code></pre>
+
+<p>} .btn-default {</p>
+
+<pre><code>color: #333;
+background-color: #fff;
+border-color: #ccc;</code></pre>
+
+<p>} .btn-default:hover, .btn-default:focus, .btn-default.focus,
+.btn-default:active, .btn-default.active, .open &gt;
+.dropdown-toggle.btn-default {</p>
+
+<pre><code>color: #333;
+background-color: #e6e6e6;
+border-color: #adadad;</code></pre>
+
+<p>} .btn-default:active, .btn-default.active, .open &gt;
+.dropdown-toggle.btn-default {</p>
+
+<pre><code>background-image: none;</code></pre>
+
+<p>} .btn-default.disabled, .<a href="disabled">btn-default</a>, <a
+href="disabled">fieldset</a> .btn-default, .btn-default.disabled:hover, .<a
+href="disabled">btn-default</a>:hover, <a href="disabled">fieldset</a>
+.btn-default:hover, .btn-default.disabled:focus, .<a
+href="disabled">btn-default</a>:focus, <a href="disabled">fieldset</a>
+.btn-default:focus, .btn-default.disabled.focus, .<a
+href="disabled">btn-default</a>.focus, <a href="disabled">fieldset</a>
+.btn-default.focus, .btn-default.disabled:active, .<a
+href="disabled">btn-default</a>:active, <a href="disabled">fieldset</a>
+.btn-default:active, .btn-default.disabled.active, .<a
+href="disabled">btn-default</a>.active, <a href="disabled">fieldset</a>
+.btn-default.active {</p>
+
+<pre><code>background-color: #fff;
+border-color: #ccc;</code></pre>
+
+<p>} .btn-default .badge {</p>
+
+<pre><code>color: #fff;
+background-color: #333;</code></pre>
+
+<p>} .btn-primary {</p>
+
+<pre><code>color: #fff;
+background-color: #337ab7;
+border-color: #2e6da4;</code></pre>
+
+<p>} .btn-primary:hover, .btn-primary:focus, .btn-primary.focus,
+.btn-primary:active, .btn-primary.active, .open &gt;
+.dropdown-toggle.btn-primary {</p>
+
+<pre><code>color: #fff;
+background-color: #286090;
+border-color: #204d74;</code></pre>
+
+<p>} .btn-primary:active, .btn-primary.active, .open &gt;
+.dropdown-toggle.btn-primary {</p>
+
+<pre><code>background-image: none;</code></pre>
+
+<p>} .btn-primary.disabled, .<a href="disabled">btn-primary</a>, <a
+href="disabled">fieldset</a> .btn-primary, .btn-primary.disabled:hover, .<a
+href="disabled">btn-primary</a>:hover, <a href="disabled">fieldset</a>
+.btn-primary:hover, .btn-primary.disabled:focus, .<a
+href="disabled">btn-primary</a>:focus, <a href="disabled">fieldset</a>
+.btn-primary:focus, .btn-primary.disabled.focus, .<a
+href="disabled">btn-primary</a>.focus, <a href="disabled">fieldset</a>
+.btn-primary.focus, .btn-primary.disabled:active, .<a
+href="disabled">btn-primary</a>:active, <a href="disabled">fieldset</a>
+.btn-primary:active, .btn-primary.disabled.active, .<a
+href="disabled">btn-primary</a>.active, <a href="disabled">fieldset</a>
+.btn-primary.active {</p>
+
+<pre><code>background-color: #337ab7;
+border-color: #2e6da4;</code></pre>
+
+<p>} .btn-primary .badge {</p>
+
+<pre><code>color: #337ab7;
+background-color: #fff;</code></pre>
+
+<p>} .btn-success {</p>
+
+<pre><code>color: #fff;
+background-color: #5cb85c;
+border-color: #4cae4c;</code></pre>
+
+<p>} .btn-success:hover, .btn-success:focus, .btn-success.focus,
+.btn-success:active, .btn-success.active, .open &gt;
+.dropdown-toggle.btn-success {</p>
+
+<pre><code>color: #fff;
+background-color: #449d44;
+border-color: #398439;</code></pre>
+
+<p>} .btn-success:active, .btn-success.active, .open &gt;
+.dropdown-toggle.btn-success {</p>
+
+<pre><code>background-image: none;</code></pre>
+
+<p>} .btn-success.disabled, .<a href="disabled">btn-success</a>, <a
+href="disabled">fieldset</a> .btn-success, .btn-success.disabled:hover, .<a
+href="disabled">btn-success</a>:hover, <a href="disabled">fieldset</a>
+.btn-success:hover, .btn-success.disabled:focus, .<a
+href="disabled">btn-success</a>:focus, <a href="disabled">fieldset</a>
+.btn-success:focus, .btn-success.disabled.focus, .<a
+href="disabled">btn-success</a>.focus, <a href="disabled">fieldset</a>
+.btn-success.focus, .btn-success.disabled:active, .<a
+href="disabled">btn-success</a>:active, <a href="disabled">fieldset</a>
+.btn-success:active, .btn-success.disabled.active, .<a
+href="disabled">btn-success</a>.active, <a href="disabled">fieldset</a>
+.btn-success.active {</p>
+
+<pre><code>background-color: #5cb85c;
+border-color: #4cae4c;</code></pre>
+
+<p>} .btn-success .badge {</p>
+
+<pre><code>color: #5cb85c;
+background-color: #fff;</code></pre>
+
+<p>} .btn-info {</p>
+
+<pre><code>color: #fff;
+background-color: #5bc0de;
+border-color: #46b8da;</code></pre>
+
+<p>} .btn-info:hover, .btn-info:focus, .btn-info.focus, .btn-info:active,
+.btn-info.active, .open &gt; .dropdown-toggle.btn-info {</p>
+
+<pre><code>color: #fff;
+background-color: #31b0d5;
+border-color: #269abc;</code></pre>
+
+<p>} .btn-info:active, .btn-info.active, .open &gt; .dropdown-toggle.btn-info
+{</p>
+
+<pre><code>background-image: none;</code></pre>
+
+<p>} .btn-info.disabled, .<a href="disabled">btn-info</a>, <a
+href="disabled">fieldset</a> .btn-info, .btn-info.disabled:hover, .<a
+href="disabled">btn-info</a>:hover, <a href="disabled">fieldset</a>
+.btn-info:hover, .btn-info.disabled:focus, .<a
+href="disabled">btn-info</a>:focus, <a href="disabled">fieldset</a>
+.btn-info:focus, .btn-info.disabled.focus, .<a
+href="disabled">btn-info</a>.focus, <a href="disabled">fieldset</a>
+.btn-info.focus, .btn-info.disabled:active, .<a
+href="disabled">btn-info</a>:active, <a href="disabled">fieldset</a>
+.btn-info:active, .btn-info.disabled.active, .<a
+href="disabled">btn-info</a>.active, <a href="disabled">fieldset</a>
+.btn-info.active {</p>
+
+<pre><code>background-color: #5bc0de;
+border-color: #46b8da;</code></pre>
+
+<p>} .btn-info .badge {</p>
+
+<pre><code>color: #5bc0de;
+background-color: #fff;</code></pre>
+
+<p>} .btn-warning {</p>
+
+<pre><code>color: #fff;
+background-color: #f0ad4e;
+border-color: #eea236;</code></pre>
+
+<p>} .btn-warning:hover, .btn-warning:focus, .btn-warning.focus,
+.btn-warning:active, .btn-warning.active, .open &gt;
+.dropdown-toggle.btn-warning {</p>
+
+<pre><code>color: #fff;
+background-color: #ec971f;
+border-color: #d58512;</code></pre>
+
+<p>} .btn-warning:active, .btn-warning.active, .open &gt;
+.dropdown-toggle.btn-warning {</p>
+
+<pre><code>background-image: none;</code></pre>
+
+<p>} .btn-warning.disabled, .<a href="disabled">btn-warning</a>, <a
+href="disabled">fieldset</a> .btn-warning, .btn-warning.disabled:hover, .<a
+href="disabled">btn-warning</a>:hover, <a href="disabled">fieldset</a>
+.btn-warning:hover, .btn-warning.disabled:focus, .<a
+href="disabled">btn-warning</a>:focus, <a href="disabled">fieldset</a>
+.btn-warning:focus, .btn-warning.disabled.focus, .<a
+href="disabled">btn-warning</a>.focus, <a href="disabled">fieldset</a>
+.btn-warning.focus, .btn-warning.disabled:active, .<a
+href="disabled">btn-warning</a>:active, <a href="disabled">fieldset</a>
+.btn-warning:active, .btn-warning.disabled.active, .<a
+href="disabled">btn-warning</a>.active, <a href="disabled">fieldset</a>
+.btn-warning.active {</p>
+
+<pre><code>background-color: #f0ad4e;
+border-color: #eea236;</code></pre>
+
+<p>} .btn-warning .badge {</p>
+
+<pre><code>color: #f0ad4e;
+background-color: #fff;</code></pre>
+
+<p>} .btn-danger {</p>
+
+<pre><code>color: #fff;
+background-color: #d9534f;
+border-color: #d43f3a;</code></pre>
+
+<p>} .btn-danger:hover, .btn-danger:focus, .btn-danger.focus,
+.btn-danger:active, .btn-danger.active, .open &gt;
+.dropdown-toggle.btn-danger {</p>
+
+<pre><code>color: #fff;
+background-color: #c9302c;
+border-color: #ac2925;</code></pre>
+
+<p>} .btn-danger:active, .btn-danger.active, .open &gt;
+.dropdown-toggle.btn-danger {</p>
+
+<pre><code>background-image: none;</code></pre>
+
+<p>} .btn-danger.disabled, .<a href="disabled">btn-danger</a>, <a
+href="disabled">fieldset</a> .btn-danger, .btn-danger.disabled:hover, .<a
+href="disabled">btn-danger</a>:hover, <a href="disabled">fieldset</a>
+.btn-danger:hover, .btn-danger.disabled:focus, .<a
+href="disabled">btn-danger</a>:focus, <a href="disabled">fieldset</a>
+.btn-danger:focus, .btn-danger.disabled.focus, .<a
+href="disabled">btn-danger</a>.focus, <a href="disabled">fieldset</a>
+.btn-danger.focus, .btn-danger.disabled:active, .<a
+href="disabled">btn-danger</a>:active, <a href="disabled">fieldset</a>
+.btn-danger:active, .btn-danger.disabled.active, .<a
+href="disabled">btn-danger</a>.active, <a href="disabled">fieldset</a>
+.btn-danger.active {</p>
+
+<pre><code>background-color: #d9534f;
+border-color: #d43f3a;</code></pre>
+
+<p>} .btn-danger .badge {</p>
+
+<pre><code>color: #d9534f;
+background-color: #fff;</code></pre>
+
+<p>} .btn-link {</p>
+
+<pre><code>font-weight: normal;
+color: #337ab7;
+border-radius: 0;</code></pre>
+
+<p>} .btn-link, .btn-<a href="../../../../active">active</a>,
+.btn-link.active, .<a href="disabled">btn-link</a>, <a
+href="disabled">fieldset</a> .btn-link {</p>
+
+<pre><code>background-color: transparent;
+-webkit-box-shadow: none;
+        box-shadow: none;</code></pre>
+
+<p>} .btn-link, .btn-<a href="../../../../hover">hover</a>, .btn-<a
+href="../../../../focus">focus</a>, .btn-<a
+href="../../../../active">active</a> {</p>
+
+<pre><code>border-color: transparent;</code></pre>
+
+<p>} .btn-<a href="../../../../hover">hover</a>, .btn-<a
+href="../../../../focus">focus</a> {</p>
+
+<pre><code>color: #23527c;
+text-decoration: underline;
+background-color: transparent;</code></pre>
+
+<p>} .<a href="disabled">btn-link</a>:hover, <a href="disabled">fieldset</a>
+.btn-<a href="../../../../hover">hover</a>, .<a
+href="disabled">btn-link</a>:focus, <a href="disabled">fieldset</a> .btn-<a
+href="../../../../focus">focus</a> {</p>
+
+<pre><code>color: #777;
+text-decoration: none;</code></pre>
+
+<p>} .btn-lg, .btn-group-lg &gt; .btn {</p>
+
+<pre><code>padding: 10px 16px;
+font-size: 18px;
+line-height: 1.33;
+border-radius: 6px;</code></pre>
+
+<p>} .btn-sm, .btn-group-sm &gt; .btn {</p>
+
+<pre><code>padding: 5px 10px;
+font-size: 12px;
+line-height: 1.5;
+border-radius: 3px;</code></pre>
+
+<p>} .btn-xs, .btn-group-xs &gt; .btn {</p>
+
+<pre><code>padding: 1px 5px;
+font-size: 12px;
+line-height: 1.5;
+border-radius: 3px;</code></pre>
+
+<p>} .btn-block {</p>
+
+<pre><code>display: block;
+width: 100%;</code></pre>
+
+<p>} .btn-block + .btn-block {</p>
+
+<pre><code>margin-top: 5px;</code></pre>
+
+<p>} <a href="type="submit"">input</a>.btn-block, <a
+href="type="reset"">input</a>.btn-block, <a
+href="type="button"">input</a>.btn-block {</p>
+
+<pre><code>width: 100%;</code></pre>
+
+<p>} .fade {</p>
+
+<pre><code>opacity: 0;
+-webkit-transition: opacity .15s linear;
+     -o-transition: opacity .15s linear;
+        transition: opacity .15s linear;</code></pre>
+
+<p>} .fade.in {</p>
+
+<pre><code>opacity: 1;</code></pre>
+
+<p>} .collapse {</p>
+
+<pre><code>display: none;
+visibility: hidden;</code></pre>
+
+<p>} .collapse.in {</p>
+
+<pre><code>display: block;
+visibility: visible;</code></pre>
+
+<p>} tr.collapse.in {</p>
+
+<pre><code>display: table-row;</code></pre>
+
+<p>} tbody.collapse.in {</p>
+
+<pre><code>display: table-row-group;</code></pre>
+
+<p>} .collapsing {</p>
+
+<pre><code>position: relative;
+height: 0;
+overflow: hidden;
+-webkit-transition-timing-function: ease;
+     -o-transition-timing-function: ease;
+        transition-timing-function: ease;
+-webkit-transition-duration: .35s;
+     -o-transition-duration: .35s;
+        transition-duration: .35s;
+-webkit-transition-property: height, visibility;
+     -o-transition-property: height, visibility;
+        transition-property: height, visibility;</code></pre>
+
+<p>} .caret {</p>
+
+<pre><code>display: inline-block;
+width: 0;
+height: 0;
+margin-left: 2px;
+vertical-align: middle;
+border-top: 4px solid;
+border-right: 4px solid transparent;
+border-left: 4px solid transparent;</code></pre>
+
+<p>} .dropdown {</p>
+
+<pre><code>position: relative;</code></pre>
+
+<p>} .dropdown-toggle:focus {</p>
+
+<pre><code>outline: 0;</code></pre>
+
+<p>} .dropdown-menu {</p>
+
+<pre><code>position: absolute;
+top: 100%;
+left: 0;
+z-index: 1000;
+display: none;
+float: left;
+min-width: 160px;
+padding: 5px 0;
+margin: 2px 0 0;
+font-size: 14px;
+text-align: left;
+list-style: none;
+background-color: #fff;
+-webkit-background-clip: padding-box;
+        background-clip: padding-box;
+border: 1px solid #ccc;
+border: 1px solid rgba(0, 0, 0, .15);
+border-radius: 4px;
+-webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, .175);</code></pre>
+
+<p>} .dropdown-menu.pull-right {</p>
+
+<pre><code>right: 0;
+left: auto;</code></pre>
+
+<p>} .dropdown-menu .divider {</p>
+
+<pre><code>height: 1px;
+margin: 9px 0;
+overflow: hidden;
+background-color: #e5e5e5;</code></pre>
+
+<p>} .dropdown-menu &gt; li &gt; a {</p>
+
+<pre><code>display: block;
+padding: 3px 20px;
+clear: both;
+font-weight: normal;
+line-height: 1.42857143;
+color: #333;
+white-space: nowrap;</code></pre>
+
+<p>} .dropdown-menu &gt; li &gt; a:hover, .dropdown-menu &gt; li &gt; a:focus
+{</p>
+
+<pre><code>color: #262626;
+text-decoration: none;
+background-color: #f5f5f5;</code></pre>
+
+<p>} .dropdown-menu &gt; .active &gt; a, .dropdown-menu &gt; .active &gt;
+a:hover, .dropdown-menu &gt; .active &gt; a:focus {</p>
+
+<pre><code>color: #fff;
+text-decoration: none;
+background-color: #337ab7;
+outline: 0;</code></pre>
+
+<p>} .dropdown-menu &gt; .disabled &gt; a, .dropdown-menu &gt; .disabled &gt;
+a:hover, .dropdown-menu &gt; .disabled &gt; a:focus {</p>
+
+<pre><code>color: #777;</code></pre>
+
+<p>} .dropdown-menu &gt; .disabled &gt; a:hover, .dropdown-menu &gt; .disabled
+&gt; a:focus {</p>
+
+<pre><code>text-decoration: none;
+cursor: not-allowed;
+background-color: transparent;
+background-image: none;
+filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);</code></pre>
+
+<p>} .open &gt; .dropdown-menu {</p>
+
+<pre><code>display: block;</code></pre>
+
+<p>} .open &gt; a {</p>
+
+<pre><code>outline: 0;</code></pre>
+
+<p>} .dropdown-menu-right {</p>
+
+<pre><code>right: 0;
+left: auto;</code></pre>
+
+<p>} .dropdown-menu-left {</p>
+
+<pre><code>right: auto;
+left: 0;</code></pre>
+
+<p>} .dropdown-header {</p>
+
+<pre><code>display: block;
+padding: 3px 20px;
+font-size: 12px;
+line-height: 1.42857143;
+color: #777;
+white-space: nowrap;</code></pre>
+
+<p>} .dropdown-backdrop {</p>
+
+<pre><code>position: fixed;
+top: 0;
+right: 0;
+bottom: 0;
+left: 0;
+z-index: 990;</code></pre>
+
+<p>} .pull-right &gt; .dropdown-menu {</p>
+
+<pre><code>right: 0;
+left: auto;</code></pre>
+
+<p>} .dropup .caret, .navbar-fixed-bottom .dropdown .caret {</p>
+
+<pre><code>content: &quot;&quot;;
+border-top: 0;
+border-bottom: 4px solid;</code></pre>
+
+<p>} .dropup .dropdown-menu, .navbar-fixed-bottom .dropdown .dropdown-menu {</p>
+
+<pre><code>top: auto;
+bottom: 100%;
+margin-bottom: 1px;</code></pre>
+
+<p>} @media (min-width: 768px) {</p>
+
+<pre><code>.navbar-right .dropdown-menu {
+  right: 0;
+  left: auto;
+}
+.navbar-right .dropdown-menu-left {
+  right: auto;
+  left: 0;
+}</code></pre>
+
+<p>} .btn-group, .btn-group-vertical {</p>
+
+<pre><code>position: relative;
+display: inline-block;
+vertical-align: middle;</code></pre>
+
+<p>} .btn-group &gt; .btn, .btn-group-vertical &gt; .btn {</p>
+
+<pre><code>position: relative;
+float: left;</code></pre>
+
+<p>} .btn-group &gt; .btn:hover, .btn-group-vertical &gt; .btn:hover,
+.btn-group &gt; .btn:focus, .btn-group-vertical &gt; .btn:focus, .btn-group
+&gt; .btn:active, .btn-group-vertical &gt; .btn:active, .btn-group &gt;
+.btn.active, .btn-group-vertical &gt; .btn.active {</p>
+
+<pre><code>z-index: 2;</code></pre>
+
+<p>} .btn-group .btn + .btn, .btn-group .btn + .btn-group, .btn-group
+.btn-group + .btn, .btn-group .btn-group + .btn-group {</p>
+
+<pre><code>margin-left: -1px;</code></pre>
+
+<p>} .btn-toolbar {</p>
+
+<pre><code>margin-left: -5px;</code></pre>
+
+<p>} .btn-toolbar .btn-group, .btn-toolbar .input-group {</p>
+
+<pre><code>float: left;</code></pre>
+
+<p>} .btn-toolbar &gt; .btn, .btn-toolbar &gt; .btn-group, .btn-toolbar &gt;
+.input-group {</p>
+
+<pre><code>margin-left: 5px;</code></pre>
+
+<p>} .btn-group &gt;
+.btn:not(:first-child):not(:last-child):not(.dropdown-toggle) {</p>
+
+<pre><code>border-radius: 0;</code></pre>
+
+<p>} .btn-group &gt; .btn:first-child {</p>
+
+<pre><code>margin-left: 0;</code></pre>
+
+<p>} .btn-group &gt; .btn:first-child:not(:last-child):not(.dropdown-toggle) {</p>
+
+<pre><code>border-top-right-radius: 0;
+border-bottom-right-radius: 0;</code></pre>
+
+<p>} .btn-group &gt; .btn:last-child:not(:first-child), .btn-group &gt;
+.dropdown-toggle:not(:first-child) {</p>
+
+<pre><code>border-top-left-radius: 0;
+border-bottom-left-radius: 0;</code></pre>
+
+<p>} .btn-group &gt; .btn-group {</p>
+
+<pre><code>float: left;</code></pre>
+
+<p>} .btn-group &gt; .btn-group:not(:first-child):not(:last-child) &gt; .btn {</p>
+
+<pre><code>border-radius: 0;</code></pre>
+
+<p>} .btn-group &gt; .btn-group:first-child &gt; .btn:last-child, .btn-group
+&gt; .btn-group:first-child &gt; .dropdown-toggle {</p>
+
+<pre><code>border-top-right-radius: 0;
+border-bottom-right-radius: 0;</code></pre>
+
+<p>} .btn-group &gt; .btn-group:last-child &gt; .btn:first-child {</p>
+
+<pre><code>border-top-left-radius: 0;
+border-bottom-left-radius: 0;</code></pre>
+
+<p>} .btn-group .dropdown-toggle:active, .btn-group.open .dropdown-toggle {</p>
+
+<pre><code>outline: 0;</code></pre>
+
+<p>} .btn-group &gt; .btn + .dropdown-toggle {</p>
+
+<pre><code>padding-right: 8px;
+padding-left: 8px;</code></pre>
+
+<p>} .btn-group &gt; .btn-lg + .dropdown-toggle {</p>
+
+<pre><code>padding-right: 12px;
+padding-left: 12px;</code></pre>
+
+<p>} .btn-group.open .dropdown-toggle {</p>
+
+<pre><code>-webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, .125);
+        box-shadow: inset 0 3px 5px rgba(0, 0, 0, .125);</code></pre>
+
+<p>} .btn-group.open .dropdown-toggle.btn-link {</p>
+
+<pre><code>-webkit-box-shadow: none;
+        box-shadow: none;</code></pre>
+
+<p>} .btn .caret {</p>
+
+<pre><code>margin-left: 0;</code></pre>
+
+<p>} .btn-lg .caret {</p>
+
+<pre><code>border-width: 5px 5px 0;
+border-bottom-width: 0;</code></pre>
+
+<p>} .dropup .btn-lg .caret {</p>
+
+<pre><code>border-width: 0 5px 5px;</code></pre>
+
+<p>} .btn-group-vertical &gt; .btn, .btn-group-vertical &gt; .btn-group,
+.btn-group-vertical &gt; .btn-group &gt; .btn {</p>
+
+<pre><code>display: block;
+float: none;
+width: 100%;
+max-width: 100%;</code></pre>
+
+<p>} .btn-group-vertical &gt; .btn-group &gt; .btn {</p>
+
+<pre><code>float: none;</code></pre>
+
+<p>} .btn-group-vertical &gt; .btn + .btn, .btn-group-vertical &gt; .btn +
+.btn-group, .btn-group-vertical &gt; .btn-group + .btn, .btn-group-vertical
+&gt; .btn-group + .btn-group {</p>
+
+<pre><code>margin-top: -1px;
+margin-left: 0;</code></pre>
+
+<p>} .btn-group-vertical &gt; .btn:not(:first-child):not(:last-child) {</p>
+
+<pre><code>border-radius: 0;</code></pre>
+
+<p>} .btn-group-vertical &gt; .btn:first-child:not(:last-child) {</p>
+
+<pre><code>border-top-right-radius: 4px;
+border-bottom-right-radius: 0;
+border-bottom-left-radius: 0;</code></pre>
+
+<p>} .btn-group-vertical &gt; .btn:last-child:not(:first-child) {</p>
+
+<pre><code>border-top-left-radius: 0;
+border-top-right-radius: 0;
+border-bottom-left-radius: 4px;</code></pre>
+
+<p>} .btn-group-vertical &gt; .btn-group:not(:first-child):not(:last-child)
+&gt; .btn {</p>
+
+<pre><code>border-radius: 0;</code></pre>
+
+<p>} .btn-group-vertical &gt; .btn-group:first-child:not(:last-child) &gt;
+.btn:last-child, .btn-group-vertical &gt;
+.btn-group:first-child:not(:last-child) &gt; .dropdown-toggle {</p>
+
+<pre><code>border-bottom-right-radius: 0;
+border-bottom-left-radius: 0;</code></pre>
+
+<p>} .btn-group-vertical &gt; .btn-group:last-child:not(:first-child) &gt;
+.btn:first-child {</p>
+
+<pre><code>border-top-left-radius: 0;
+border-top-right-radius: 0;</code></pre>
+
+<p>} .btn-group-justified {</p>
+
+<pre><code>display: table;
+width: 100%;
+table-layout: fixed;
+border-collapse: separate;</code></pre>
+
+<p>} .btn-group-justified &gt; .btn, .btn-group-justified &gt; .btn-group {</p>
+
+<pre><code>display: table-cell;
+float: none;
+width: 1%;</code></pre>
+
+<p>} .btn-group-justified &gt; .btn-group .btn {</p>
+
+<pre><code>width: 100%;</code></pre>
+
+<p>} .btn-group-justified &gt; .btn-group .dropdown-menu {</p>
+
+<pre><code>left: auto;</code></pre>
+
+<p>}</p>
+<dl class="rdoc-list label-list"><dt>data-toggle=“buttons”
+<dd>
+<p>&gt; .btn <a href="type="radio"">input</a>,</p>
+</dd><dt>data-toggle=“buttons”
+<dd>
+<p>&gt; .btn-group &gt; .btn <a href="type="radio"">input</a>,</p>
+</dd><dt>data-toggle=“buttons”
+<dd>
+<p>&gt; .btn <a href="type="checkbox"">input</a>,</p>
+</dd><dt>data-toggle=“buttons”
+<dd>
+<p>&gt; .btn-group &gt; .btn <a href="type="checkbox"">input</a> {</p>
+</dd></dl>
+
+<pre><code>position: absolute;
+clip: rect(0, 0, 0, 0);
+pointer-events: none;</code></pre>
+
+<p>} .input-group {</p>
+
+<pre><code>position: relative;
+display: table;
+border-collapse: separate;</code></pre>
+
+<p>} .<a href="class*="col-"">input-group</a> {</p>
+
+<pre><code>float: none;
+padding-right: 0;
+padding-left: 0;</code></pre>
+
+<p>} .input-group .form-control {</p>
+
+<pre><code>position: relative;
+z-index: 2;
+float: left;
+width: 100%;
+margin-bottom: 0;</code></pre>
+
+<p>} .input-group-lg &gt; .form-control, .input-group-lg &gt;
+.input-group-addon, .input-group-lg &gt; .input-group-btn &gt; .btn {</p>
+
+<pre><code>height: 46px;
+padding: 10px 16px;
+font-size: 18px;
+line-height: 1.33;
+border-radius: 6px;</code></pre>
+
+<p>} select.input-group-lg &gt; .form-control, select.input-group-lg &gt;
+.input-group-addon, select.input-group-lg &gt; .input-group-btn &gt; .btn {</p>
+
+<pre><code>height: 46px;
+line-height: 46px;</code></pre>
+
+<p>} textarea.input-group-lg &gt; .form-control, textarea.input-group-lg &gt;
+.input-group-addon, textarea.input-group-lg &gt; .input-group-btn &gt;
+.btn, <a href="multiple">select</a>.input-group-lg &gt; .form-control, <a
+href="multiple">select</a>.input-group-lg &gt; .input-group-addon, <a
+href="multiple">select</a>.input-group-lg &gt; .input-group-btn &gt; .btn {</p>
+
+<pre><code>height: auto;</code></pre>
+
+<p>} .input-group-sm &gt; .form-control, .input-group-sm &gt;
+.input-group-addon, .input-group-sm &gt; .input-group-btn &gt; .btn {</p>
+
+<pre><code>height: 30px;
+padding: 5px 10px;
+font-size: 12px;
+line-height: 1.5;
+border-radius: 3px;</code></pre>
+
+<p>} select.input-group-sm &gt; .form-control, select.input-group-sm &gt;
+.input-group-addon, select.input-group-sm &gt; .input-group-btn &gt; .btn {</p>
+
+<pre><code>height: 30px;
+line-height: 30px;</code></pre>
+
+<p>} textarea.input-group-sm &gt; .form-control, textarea.input-group-sm &gt;
+.input-group-addon, textarea.input-group-sm &gt; .input-group-btn &gt;
+.btn, <a href="multiple">select</a>.input-group-sm &gt; .form-control, <a
+href="multiple">select</a>.input-group-sm &gt; .input-group-addon, <a
+href="multiple">select</a>.input-group-sm &gt; .input-group-btn &gt; .btn {</p>
+
+<pre><code>height: auto;</code></pre>
+
+<p>} .input-group-addon, .input-group-btn, .input-group .form-control {</p>
+
+<pre><code>display: table-cell;</code></pre>
+
+<p>} .input-group-addon:not(:first-child):not(:last-child),
+.input-group-btn:not(:first-child):not(:last-child), .input-group
+.form-control:not(:first-child):not(:last-child) {</p>
+
+<pre><code>border-radius: 0;</code></pre>
+
+<p>} .input-group-addon, .input-group-btn {</p>
+
+<pre><code>width: 1%;
+white-space: nowrap;
+vertical-align: middle;</code></pre>
+
+<p>} .input-group-addon {</p>
+
+<pre><code>padding: 6px 12px;
+font-size: 14px;
+font-weight: normal;
+line-height: 1;
+color: #555;
+text-align: center;
+background-color: #eee;
+border: 1px solid #ccc;
+border-radius: 4px;</code></pre>
+
+<p>} .input-group-addon.input-sm {</p>
+
+<pre><code>padding: 5px 10px;
+font-size: 12px;
+border-radius: 3px;</code></pre>
+
+<p>} .input-group-addon.input-lg {</p>
+
+<pre><code>padding: 10px 16px;
+font-size: 18px;
+border-radius: 6px;</code></pre>
+
+<p>} .input-group-addon <a href="type="radio"">input</a>, .input-group-addon
+<a href="type="checkbox"">input</a> {</p>
+
+<pre><code>margin-top: 0;</code></pre>
+
+<p>} .input-group .form-control:first-child, .input-group-addon:first-child,
+.input-group-btn:first-child &gt; .btn, .input-group-btn:first-child &gt;
+.btn-group &gt; .btn, .input-group-btn:first-child &gt; .dropdown-toggle,
+.input-group-btn:last-child &gt;
+.btn:not(:last-child):not(.dropdown-toggle), .input-group-btn:last-child
+&gt; .btn-group:not(:last-child) &gt; .btn {</p>
+
+<pre><code>border-top-right-radius: 0;
+border-bottom-right-radius: 0;</code></pre>
+
+<p>} .input-group-addon:first-child {</p>
+
+<pre><code>border-right: 0;</code></pre>
+
+<p>} .input-group .form-control:last-child, .input-group-addon:last-child,
+.input-group-btn:last-child &gt; .btn, .input-group-btn:last-child &gt;
+.btn-group &gt; .btn, .input-group-btn:last-child &gt; .dropdown-toggle,
+.input-group-btn:first-child &gt; .btn:not(:first-child),
+.input-group-btn:first-child &gt; .btn-group:not(:first-child) &gt; .btn {</p>
+
+<pre><code>border-top-left-radius: 0;
+border-bottom-left-radius: 0;</code></pre>
+
+<p>} .input-group-addon:last-child {</p>
+
+<pre><code>border-left: 0;</code></pre>
+
+<p>} .input-group-btn {</p>
+
+<pre><code>position: relative;
+font-size: 0;
+white-space: nowrap;</code></pre>
+
+<p>} .input-group-btn &gt; .btn {</p>
+
+<pre><code>position: relative;</code></pre>
+
+<p>} .input-group-btn &gt; .btn + .btn {</p>
+
+<pre><code>margin-left: -1px;</code></pre>
+
+<p>} .input-group-btn &gt; .btn:hover, .input-group-btn &gt; .btn:focus,
+.input-group-btn &gt; .btn:active {</p>
+
+<pre><code>z-index: 2;</code></pre>
+
+<p>} .input-group-btn:first-child &gt; .btn, .input-group-btn:first-child &gt;
+.btn-group {</p>
+
+<pre><code>margin-right: -1px;</code></pre>
+
+<p>} .input-group-btn:last-child &gt; .btn, .input-group-btn:last-child &gt;
+.btn-group {</p>
+
+<pre><code>margin-left: -1px;</code></pre>
+
+<p>} .nav {</p>
+
+<pre><code>padding-left: 0;
+margin-bottom: 0;
+list-style: none;</code></pre>
+
+<p>} .nav &gt; li {</p>
+
+<pre><code>position: relative;
+display: block;</code></pre>
+
+<p>} .nav &gt; li &gt; a {</p>
+
+<pre><code>position: relative;
+display: block;
+padding: 10px 15px;</code></pre>
+
+<p>} .nav &gt; li &gt; a:hover, .nav &gt; li &gt; a:focus {</p>
+
+<pre><code>text-decoration: none;
+background-color: #eee;</code></pre>
+
+<p>} .nav &gt; li.disabled &gt; a {</p>
+
+<pre><code>color: #777;</code></pre>
+
+<p>} .nav &gt; li.disabled &gt; a:hover, .nav &gt; li.disabled &gt; a:focus {</p>
+
+<pre><code>color: #777;
+text-decoration: none;
+cursor: not-allowed;
+background-color: transparent;</code></pre>
+
+<p>} .nav .open &gt; a, .nav .open &gt; a:hover, .nav .open &gt; a:focus {</p>
+
+<pre><code>background-color: #eee;
+border-color: #337ab7;</code></pre>
+
+<p>} .nav .nav-divider {</p>
+
+<pre><code>height: 1px;
+margin: 9px 0;
+overflow: hidden;
+background-color: #e5e5e5;</code></pre>
+
+<p>} .nav &gt; li &gt; a &gt; img {</p>
+
+<pre><code>max-width: none;</code></pre>
+
+<p>} .nav-tabs {</p>
+
+<pre><code>border-bottom: 1px solid #ddd;</code></pre>
+
+<p>} .nav-tabs &gt; li {</p>
+
+<pre><code>float: left;
+margin-bottom: -1px;</code></pre>
+
+<p>} .nav-tabs &gt; li &gt; a {</p>
+
+<pre><code>margin-right: 2px;
+line-height: 1.42857143;
+border: 1px solid transparent;
+border-radius: 4px 4px 0 0;</code></pre>
+
+<p>} .nav-tabs &gt; li &gt; a:hover {</p>
+
+<pre><code>border-color: #eee #eee #ddd;</code></pre>
+
+<p>} .nav-tabs &gt; li.active &gt; a, .nav-tabs &gt; li.active &gt; a:hover,
+.nav-tabs &gt; li.active &gt; a:focus {</p>
+
+<pre><code>color: #555;
+cursor: default;
+background-color: #fff;
+border: 1px solid #ddd;
+border-bottom-color: transparent;</code></pre>
+
+<p>} .nav-tabs.nav-justified {</p>
+
+<pre><code>width: 100%;
+border-bottom: 0;</code></pre>
+
+<p>} .nav-tabs.nav-justified &gt; li {</p>
+
+<pre><code>float: none;</code></pre>
+
+<p>} .nav-tabs.nav-justified &gt; li &gt; a {</p>
+
+<pre><code>margin-bottom: 5px;
+text-align: center;</code></pre>
+
+<p>} .nav-tabs.nav-justified &gt; .dropdown .dropdown-menu {</p>
+
+<pre><code>top: auto;
+left: auto;</code></pre>
+
+<p>} @media (min-width: 768px) {</p>
+
+<pre><code>.nav-tabs.nav-justified &gt; li {
+  display: table-cell;
+  width: 1%;
+}
+.nav-tabs.nav-justified &gt; li &gt; a {
+  margin-bottom: 0;
+}</code></pre>
+
+<p>} .nav-tabs.nav-justified &gt; li &gt; a {</p>
+
+<pre><code>margin-right: 0;
+border-radius: 4px;</code></pre>
+
+<p>} .nav-tabs.nav-justified &gt; .active &gt; a, .nav-tabs.nav-justified &gt;
+.active &gt; a:hover, .nav-tabs.nav-justified &gt; .active &gt; a:focus {</p>
+
+<pre><code>border: 1px solid #ddd;</code></pre>
+
+<p>} @media (min-width: 768px) {</p>
+
+<pre><code>.nav-tabs.nav-justified &gt; li &gt; a {
+  border-bottom: 1px solid #ddd;
+  border-radius: 4px 4px 0 0;
+}
+.nav-tabs.nav-justified &gt; .active &gt; a,
+.nav-tabs.nav-justified &gt; .active &gt; a:hover,
+.nav-tabs.nav-justified &gt; .active &gt; a:focus {
+  border-bottom-color: #fff;
+}</code></pre>
+
+<p>} .nav-pills &gt; li {</p>
+
+<pre><code>float: left;</code></pre>
+
+<p>} .nav-pills &gt; li &gt; a {</p>
+
+<pre><code>border-radius: 4px;</code></pre>
+
+<p>} .nav-pills &gt; li + li {</p>
+
+<pre><code>margin-left: 2px;</code></pre>
+
+<p>} .nav-pills &gt; li.active &gt; a, .nav-pills &gt; li.active &gt; a:hover,
+.nav-pills &gt; li.active &gt; a:focus {</p>
+
+<pre><code>color: #fff;
+background-color: #337ab7;</code></pre>
+
+<p>} .nav-stacked &gt; li {</p>
+
+<pre><code>float: none;</code></pre>
+
+<p>} .nav-stacked &gt; li + li {</p>
+
+<pre><code>margin-top: 2px;
+margin-left: 0;</code></pre>
+
+<p>} .nav-justified {</p>
+
+<pre><code>width: 100%;</code></pre>
+
+<p>} .nav-justified &gt; li {</p>
+
+<pre><code>float: none;</code></pre>
+
+<p>} .nav-justified &gt; li &gt; a {</p>
+
+<pre><code>margin-bottom: 5px;
+text-align: center;</code></pre>
+
+<p>} .nav-justified &gt; .dropdown .dropdown-menu {</p>
+
+<pre><code>top: auto;
+left: auto;</code></pre>
+
+<p>} @media (min-width: 768px) {</p>
+
+<pre><code>.nav-justified &gt; li {
+  display: table-cell;
+  width: 1%;
+}
+.nav-justified &gt; li &gt; a {
+  margin-bottom: 0;
+}</code></pre>
+
+<p>} .nav-tabs-justified {</p>
+
+<pre><code>border-bottom: 0;</code></pre>
+
+<p>} .nav-tabs-justified &gt; li &gt; a {</p>
+
+<pre><code>margin-right: 0;
+border-radius: 4px;</code></pre>
+
+<p>} .nav-tabs-justified &gt; .active &gt; a, .nav-tabs-justified &gt; .active
+&gt; a:hover, .nav-tabs-justified &gt; .active &gt; a:focus {</p>
+
+<pre><code>border: 1px solid #ddd;</code></pre>
+
+<p>} @media (min-width: 768px) {</p>
+
+<pre><code>.nav-tabs-justified &gt; li &gt; a {
+  border-bottom: 1px solid #ddd;
+  border-radius: 4px 4px 0 0;
+}
+.nav-tabs-justified &gt; .active &gt; a,
+.nav-tabs-justified &gt; .active &gt; a:hover,
+.nav-tabs-justified &gt; .active &gt; a:focus {
+  border-bottom-color: #fff;
+}</code></pre>
+
+<p>} .tab-content &gt; .tab-pane {</p>
+
+<pre><code>display: none;
+visibility: hidden;</code></pre>
+
+<p>} .tab-content &gt; .active {</p>
+
+<pre><code>display: block;
+visibility: visible;</code></pre>
+
+<p>} .nav-tabs .dropdown-menu {</p>
+
+<pre><code>margin-top: -1px;
+border-top-left-radius: 0;
+border-top-right-radius: 0;</code></pre>
+
+<p>} .navbar {</p>
+
+<pre><code>position: relative;
+min-height: 50px;
+margin-bottom: 20px;
+border: 1px solid transparent;</code></pre>
+
+<p>} @media (min-width: 768px) {</p>
+
+<pre><code>.navbar {
+  border-radius: 4px;
+}</code></pre>
+
+<p>} @media (min-width: 768px) {</p>
+
+<pre><code>.navbar-header {
+  float: left;
+}</code></pre>
+
+<p>} .navbar-collapse {</p>
+
+<pre><code>padding-right: 15px;
+padding-left: 15px;
+overflow-x: visible;
+-webkit-overflow-scrolling: touch;
+border-top: 1px solid transparent;
+-webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, .1);
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, .1);</code></pre>
+
+<p>} .navbar-collapse.in {</p>
+
+<pre><code>overflow-y: auto;</code></pre>
+
+<p>} @media (min-width: 768px) {</p>
+
+<pre><code>.navbar-collapse {
+  width: auto;
+  border-top: 0;
+  -webkit-box-shadow: none;
+          box-shadow: none;
+}
+.navbar-collapse.collapse {
+  display: block !important;
+  height: auto !important;
+  padding-bottom: 0;
+  overflow: visible !important;
+  visibility: visible !important;
+}
+.navbar-collapse.in {
+  overflow-y: visible;
+}
+.navbar-fixed-top .navbar-collapse,
+.navbar-static-top .navbar-collapse,
+.navbar-fixed-bottom .navbar-collapse {
+  padding-right: 0;
+  padding-left: 0;
+}</code></pre>
+
+<p>} .navbar-fixed-top .navbar-collapse, .navbar-fixed-bottom .navbar-collapse
+{</p>
+
+<pre><code>max-height: 340px;</code></pre>
+
+<p>} @media (max-device-width: 480px) and (orientation: landscape) {</p>
+
+<pre><code>.navbar-fixed-top .navbar-collapse,
+.navbar-fixed-bottom .navbar-collapse {
+  max-height: 200px;
+}</code></pre>
+
+<p>} .container &gt; .navbar-header, .container-fluid &gt; .navbar-header,
+.container &gt; .navbar-collapse, .container-fluid &gt; .navbar-collapse {</p>
+
+<pre><code>margin-right: -15px;
+margin-left: -15px;</code></pre>
+
+<p>} @media (min-width: 768px) {</p>
+
+<pre><code>.container &gt; .navbar-header,
+.container-fluid &gt; .navbar-header,
+.container &gt; .navbar-collapse,
+.container-fluid &gt; .navbar-collapse {
+  margin-right: 0;
+  margin-left: 0;
+}</code></pre>
+
+<p>} .navbar-static-top {</p>
+
+<pre><code>z-index: 1000;
+border-width: 0 0 1px;</code></pre>
+
+<p>} @media (min-width: 768px) {</p>
+
+<pre><code>.navbar-static-top {
+  border-radius: 0;
+}</code></pre>
+
+<p>} .navbar-fixed-top, .navbar-fixed-bottom {</p>
+
+<pre><code>position: fixed;
+right: 0;
+left: 0;
+z-index: 1030;</code></pre>
+
+<p>} @media (min-width: 768px) {</p>
+
+<pre><code>.navbar-fixed-top,
+.navbar-fixed-bottom {
+  border-radius: 0;
+}</code></pre>
+
+<p>} .navbar-fixed-top {</p>
+
+<pre><code>top: 0;
+border-width: 0 0 1px;</code></pre>
+
+<p>} .navbar-fixed-bottom {</p>
+
+<pre><code>bottom: 0;
+margin-bottom: 0;
+border-width: 1px 0 0;</code></pre>
+
+<p>} .navbar-brand {</p>
+
+<pre><code>float: left;
+height: 50px;
+padding: 15px 15px;
+font-size: 18px;
+line-height: 20px;</code></pre>
+
+<p>} .navbar-brand:hover, .navbar-brand:focus {</p>
+
+<pre><code>text-decoration: none;</code></pre>
+
+<p>} .navbar-brand &gt; img {</p>
+
+<pre><code>display: block;</code></pre>
+
+<p>} @media (min-width: 768px) {</p>
+
+<pre><code>.navbar &gt; .container .navbar-brand,
+.navbar &gt; .container-fluid .navbar-brand {
+  margin-left: -15px;
+}</code></pre>
+
+<p>} .navbar-toggle {</p>
+
+<pre><code>position: relative;
+float: right;
+padding: 9px 10px;
+margin-top: 8px;
+margin-right: 15px;
+margin-bottom: 8px;
+background-color: transparent;
+background-image: none;
+border: 1px solid transparent;
+border-radius: 4px;</code></pre>
+
+<p>} .navbar-toggle:focus {</p>
+
+<pre><code>outline: 0;</code></pre>
+
+<p>} .navbar-toggle .icon-bar {</p>
+
+<pre><code>display: block;
+width: 22px;
+height: 2px;
+border-radius: 1px;</code></pre>
+
+<p>} .navbar-toggle .icon-bar + .icon-bar {</p>
+
+<pre><code>margin-top: 4px;</code></pre>
+
+<p>} @media (min-width: 768px) {</p>
+
+<pre><code>.navbar-toggle {
+  display: none;
+}</code></pre>
+
+<p>} .navbar-nav {</p>
+
+<pre><code>margin: 7.5px -15px;</code></pre>
+
+<p>} .navbar-nav &gt; li &gt; a {</p>
+
+<pre><code>padding-top: 10px;
+padding-bottom: 10px;
+line-height: 20px;</code></pre>
+
+<p>} @media (max-width: 767px) {</p>
+
+<pre><code>.navbar-nav .open .dropdown-menu {
+  position: static;
+  float: none;
+  width: auto;
+  margin-top: 0;
+  background-color: transparent;
+  border: 0;
+  -webkit-box-shadow: none;
+          box-shadow: none;
+}
+.navbar-nav .open .dropdown-menu &gt; li &gt; a,
+.navbar-nav .open .dropdown-menu .dropdown-header {
+  padding: 5px 15px 5px 25px;
+}
+.navbar-nav .open .dropdown-menu &gt; li &gt; a {
+  line-height: 20px;
+}
+.navbar-nav .open .dropdown-menu &gt; li &gt; a:hover,
+.navbar-nav .open .dropdown-menu &gt; li &gt; a:focus {
+  background-image: none;
+}</code></pre>
+
+<p>} @media (min-width: 768px) {</p>
+
+<pre><code>.navbar-nav {
+  float: left;
+  margin: 0;
+}
+.navbar-nav &gt; li {
+  float: left;
+}
+.navbar-nav &gt; li &gt; a {
+  padding-top: 15px;
+  padding-bottom: 15px;
+}</code></pre>
+
+<p>} .navbar-form {</p>
+
+<pre><code>padding: 10px 15px;
+margin-top: 8px;
+margin-right: -15px;
+margin-bottom: 8px;
+margin-left: -15px;
+border-top: 1px solid transparent;
+border-bottom: 1px solid transparent;
+-webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, .1), 0 1px 0 rgba(255, 255, 255, .1);
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, .1), 0 1px 0 rgba(255, 255, 255, .1);</code></pre>
+
+<p>} @media (min-width: 768px) {</p>
+
+<pre><code>.navbar-form .form-group {
+  display: inline-block;
+  margin-bottom: 0;
+  vertical-align: middle;
+}
+.navbar-form .form-control {
+  display: inline-block;
+  width: auto;
+  vertical-align: middle;
+}
+.navbar-form .form-control-static {
+  display: inline-block;
+}
+.navbar-form .input-group {
+  display: inline-table;
+  vertical-align: middle;
+}
+.navbar-form .input-group .input-group-addon,
+.navbar-form .input-group .input-group-btn,
+.navbar-form .input-group .form-control {
+  width: auto;
+}
+.navbar-form .input-group &gt; .form-control {
+  width: 100%;
+}
+.navbar-form .control-label {
+  margin-bottom: 0;
+  vertical-align: middle;
+}
+.navbar-form .radio,
+.navbar-form .checkbox {
+  display: inline-block;
+  margin-top: 0;
+  margin-bottom: 0;
+  vertical-align: middle;
+}
+.navbar-form .radio label,
+.navbar-form .checkbox label {
+  padding-left: 0;
+}
+.navbar-form .radio input[type=&quot;radio&quot;],
+.navbar-form .checkbox input[type=&quot;checkbox&quot;] {
+  position: relative;
+  margin-left: 0;
+}
+.navbar-form .has-feedback .form-control-feedback {
+  top: 0;
+}</code></pre>
+
+<p>} @media (max-width: 767px) {</p>
+
+<pre><code>.navbar-form .form-group {
+  margin-bottom: 5px;
+}
+.navbar-form .form-group:last-child {
+  margin-bottom: 0;
+}</code></pre>
+
+<p>} @media (min-width: 768px) {</p>
+
+<pre><code>.navbar-form {
+  width: auto;
+  padding-top: 0;
+  padding-bottom: 0;
+  margin-right: 0;
+  margin-left: 0;
+  border: 0;
+  -webkit-box-shadow: none;
+          box-shadow: none;
+}</code></pre>
+
+<p>} .navbar-nav &gt; li &gt; .dropdown-menu {</p>
+
+<pre><code>margin-top: 0;
+border-top-left-radius: 0;
+border-top-right-radius: 0;</code></pre>
+
+<p>} .navbar-fixed-bottom .navbar-nav &gt; li &gt; .dropdown-menu {</p>
+
+<pre><code>border-top-left-radius: 4px;
+border-top-right-radius: 4px;
+border-bottom-right-radius: 0;
+border-bottom-left-radius: 0;</code></pre>
+
+<p>} .navbar-btn {</p>
+
+<pre><code>margin-top: 8px;
+margin-bottom: 8px;</code></pre>
+
+<p>} .navbar-btn.btn-sm {</p>
+
+<pre><code>margin-top: 10px;
+margin-bottom: 10px;</code></pre>
+
+<p>} .navbar-btn.btn-xs {</p>
+
+<pre><code>margin-top: 14px;
+margin-bottom: 14px;</code></pre>
+
+<p>} .navbar-text {</p>
+
+<pre><code>margin-top: 15px;
+margin-bottom: 15px;</code></pre>
+
+<p>} @media (min-width: 768px) {</p>
+
+<pre><code>.navbar-text {
+  float: left;
+  margin-right: 15px;
+  margin-left: 15px;
+}</code></pre>
+
+<p>} @media (min-width: 768px) {</p>
+
+<pre><code>.navbar-left {
+  float: left !important;
+}
+.navbar-right {
+  float: right !important;
+  margin-right: -15px;
+}
+.navbar-right ~ .navbar-right {
+  margin-right: 0;
+}</code></pre>
+
+<p>} .navbar-default {</p>
+
+<pre><code>background-color: #f8f8f8;
+border-color: #e7e7e7;</code></pre>
+
+<p>} .navbar-default .navbar-brand {</p>
+
+<pre><code>color: #777;</code></pre>
+
+<p>} .navbar-default .navbar-brand:hover, .navbar-default .navbar-brand:focus
+{</p>
+
+<pre><code>color: #5e5e5e;
+background-color: transparent;</code></pre>
+
+<p>} .navbar-default .navbar-text {</p>
+
+<pre><code>color: #777;</code></pre>
+
+<p>} .navbar-default .navbar-nav &gt; li &gt; a {</p>
+
+<pre><code>color: #777;</code></pre>
+
+<p>} .navbar-default .navbar-nav &gt; li &gt; a:hover, .navbar-default
+.navbar-nav &gt; li &gt; a:focus {</p>
+
+<pre><code>color: #333;
+background-color: transparent;</code></pre>
+
+<p>} .navbar-default .navbar-nav &gt; .active &gt; a, .navbar-default
+.navbar-nav &gt; .active &gt; a:hover, .navbar-default .navbar-nav &gt;
+.active &gt; a:focus {</p>
+
+<pre><code>color: #555;
+background-color: #e7e7e7;</code></pre>
+
+<p>} .navbar-default .navbar-nav &gt; .disabled &gt; a, .navbar-default
+.navbar-nav &gt; .disabled &gt; a:hover, .navbar-default .navbar-nav &gt;
+.disabled &gt; a:focus {</p>
+
+<pre><code>color: #ccc;
+background-color: transparent;</code></pre>
+
+<p>} .navbar-default .navbar-toggle {</p>
+
+<pre><code>border-color: #ddd;</code></pre>
+
+<p>} .navbar-default .navbar-toggle:hover, .navbar-default
+.navbar-toggle:focus {</p>
+
+<pre><code>background-color: #ddd;</code></pre>
+
+<p>} .navbar-default .navbar-toggle .icon-bar {</p>
+
+<pre><code>background-color: #888;</code></pre>
+
+<p>} .navbar-default .navbar-collapse, .navbar-default .navbar-form {</p>
+
+<pre><code>border-color: #e7e7e7;</code></pre>
+
+<p>} .navbar-default .navbar-nav &gt; .open &gt; a, .navbar-default
+.navbar-nav &gt; .open &gt; a:hover, .navbar-default .navbar-nav &gt; .open
+&gt; a:focus {</p>
+
+<pre><code>color: #555;
+background-color: #e7e7e7;</code></pre>
+
+<p>} @media (max-width: 767px) {</p>
+
+<pre><code>.navbar-default .navbar-nav .open .dropdown-menu &gt; li &gt; a {
+  color: #777;
+}
+.navbar-default .navbar-nav .open .dropdown-menu &gt; li &gt; a:hover,
+.navbar-default .navbar-nav .open .dropdown-menu &gt; li &gt; a:focus {
+  color: #333;
+  background-color: transparent;
+}
+.navbar-default .navbar-nav .open .dropdown-menu &gt; .active &gt; a,
+.navbar-default .navbar-nav .open .dropdown-menu &gt; .active &gt; a:hover,
+.navbar-default .navbar-nav .open .dropdown-menu &gt; .active &gt; a:focus {
+  color: #555;
+  background-color: #e7e7e7;
+}
+.navbar-default .navbar-nav .open .dropdown-menu &gt; .disabled &gt; a,
+.navbar-default .navbar-nav .open .dropdown-menu &gt; .disabled &gt; a:hover,
+.navbar-default .navbar-nav .open .dropdown-menu &gt; .disabled &gt; a:focus {
+  color: #ccc;
+  background-color: transparent;
+}</code></pre>
+
+<p>} .navbar-default .navbar-link {</p>
+
+<pre><code>color: #777;</code></pre>
+
+<p>} .navbar-default .navbar-<a href="../../../../hover">hover</a> {</p>
+
+<pre><code>color: #333;</code></pre>
+
+<p>} .navbar-default .btn-link {</p>
+
+<pre><code>color: #777;</code></pre>
+
+<p>} .navbar-default .btn-<a href="../../../../hover">hover</a>,
+.navbar-default .btn-<a href="../../../../focus">focus</a> {</p>
+
+<pre><code>color: #333;</code></pre>
+
+<p>} .navbar-default .<a href="disabled">btn-link</a>:hover, <a
+href="disabled">fieldset</a> .navbar-default .btn-<a
+href="../../../../hover">hover</a>, .navbar-default .<a
+href="disabled">btn-link</a>:focus, <a href="disabled">fieldset</a>
+.navbar-default .btn-<a href="../../../../focus">focus</a> {</p>
+
+<pre><code>color: #ccc;</code></pre>
+
+<p>} .navbar-inverse {</p>
+
+<pre><code>background-color: #222;
+border-color: #080808;</code></pre>
+
+<p>} .navbar-inverse .navbar-brand {</p>
+
+<pre><code>color: #9d9d9d;</code></pre>
+
+<p>} .navbar-inverse .navbar-brand:hover, .navbar-inverse .navbar-brand:focus
+{</p>
+
+<pre><code>color: #fff;
+background-color: transparent;</code></pre>
+
+<p>} .navbar-inverse .navbar-text {</p>
+
+<pre><code>color: #9d9d9d;</code></pre>
+
+<p>} .navbar-inverse .navbar-nav &gt; li &gt; a {</p>
+
+<pre><code>color: #9d9d9d;</code></pre>
+
+<p>} .navbar-inverse .navbar-nav &gt; li &gt; a:hover, .navbar-inverse
+.navbar-nav &gt; li &gt; a:focus {</p>
+
+<pre><code>color: #fff;
+background-color: transparent;</code></pre>
+
+<p>} .navbar-inverse .navbar-nav &gt; .active &gt; a, .navbar-inverse
+.navbar-nav &gt; .active &gt; a:hover, .navbar-inverse .navbar-nav &gt;
+.active &gt; a:focus {</p>
+
+<pre><code>color: #fff;
+background-color: #080808;</code></pre>
+
+<p>} .navbar-inverse .navbar-nav &gt; .disabled &gt; a, .navbar-inverse
+.navbar-nav &gt; .disabled &gt; a:hover, .navbar-inverse .navbar-nav &gt;
+.disabled &gt; a:focus {</p>
+
+<pre><code>color: #444;
+background-color: transparent;</code></pre>
+
+<p>} .navbar-inverse .navbar-toggle {</p>
+
+<pre><code>border-color: #333;</code></pre>
+
+<p>} .navbar-inverse .navbar-toggle:hover, .navbar-inverse
+.navbar-toggle:focus {</p>
+
+<pre><code>background-color: #333;</code></pre>
+
+<p>} .navbar-inverse .navbar-toggle .icon-bar {</p>
+
+<pre><code>background-color: #fff;</code></pre>
+
+<p>} .navbar-inverse .navbar-collapse, .navbar-inverse .navbar-form {</p>
+
+<pre><code>border-color: #101010;</code></pre>
+
+<p>} .navbar-inverse .navbar-nav &gt; .open &gt; a, .navbar-inverse
+.navbar-nav &gt; .open &gt; a:hover, .navbar-inverse .navbar-nav &gt; .open
+&gt; a:focus {</p>
+
+<pre><code>color: #fff;
+background-color: #080808;</code></pre>
+
+<p>} @media (max-width: 767px) {</p>
+
+<pre><code>.navbar-inverse .navbar-nav .open .dropdown-menu &gt; .dropdown-header {
+  border-color: #080808;
+}
+.navbar-inverse .navbar-nav .open .dropdown-menu .divider {
+  background-color: #080808;
+}
+.navbar-inverse .navbar-nav .open .dropdown-menu &gt; li &gt; a {
+  color: #9d9d9d;
+}
+.navbar-inverse .navbar-nav .open .dropdown-menu &gt; li &gt; a:hover,
+.navbar-inverse .navbar-nav .open .dropdown-menu &gt; li &gt; a:focus {
+  color: #fff;
+  background-color: transparent;
+}
+.navbar-inverse .navbar-nav .open .dropdown-menu &gt; .active &gt; a,
+.navbar-inverse .navbar-nav .open .dropdown-menu &gt; .active &gt; a:hover,
+.navbar-inverse .navbar-nav .open .dropdown-menu &gt; .active &gt; a:focus {
+  color: #fff;
+  background-color: #080808;
+}
+.navbar-inverse .navbar-nav .open .dropdown-menu &gt; .disabled &gt; a,
+.navbar-inverse .navbar-nav .open .dropdown-menu &gt; .disabled &gt; a:hover,
+.navbar-inverse .navbar-nav .open .dropdown-menu &gt; .disabled &gt; a:focus {
+  color: #444;
+  background-color: transparent;
+}</code></pre>
+
+<p>} .navbar-inverse .navbar-link {</p>
+
+<pre><code>color: #9d9d9d;</code></pre>
+
+<p>} .navbar-inverse .navbar-<a href="../../../../hover">hover</a> {</p>
+
+<pre><code>color: #fff;</code></pre>
+
+<p>} .navbar-inverse .btn-link {</p>
+
+<pre><code>color: #9d9d9d;</code></pre>
+
+<p>} .navbar-inverse .btn-<a href="../../../../hover">hover</a>,
+.navbar-inverse .btn-<a href="../../../../focus">focus</a> {</p>
+
+<pre><code>color: #fff;</code></pre>
+
+<p>} .navbar-inverse .<a href="disabled">btn-link</a>:hover, <a
+href="disabled">fieldset</a> .navbar-inverse .btn-<a
+href="../../../../hover">hover</a>, .navbar-inverse .<a
+href="disabled">btn-link</a>:focus, <a href="disabled">fieldset</a>
+.navbar-inverse .btn-<a href="../../../../focus">focus</a> {</p>
+
+<pre><code>color: #444;</code></pre>
+
+<p>} .breadcrumb {</p>
+
+<pre><code>padding: 8px 15px;
+margin-bottom: 20px;
+list-style: none;
+background-color: #f5f5f5;
+border-radius: 4px;</code></pre>
+
+<p>} .breadcrumb &gt; li {</p>
+
+<pre><code>display: inline-block;</code></pre>
+
+<p>} .breadcrumb &gt; li + li:before {</p>
+
+<pre><code>padding: 0 5px;
+color: #ccc;
+content: &quot;/\00a0&quot;;</code></pre>
+
+<p>} .breadcrumb &gt; .active {</p>
+
+<pre><code>color: #777;</code></pre>
+
+<p>} .pagination {</p>
+
+<pre><code>display: inline-block;
+padding-left: 0;
+margin: 20px 0;
+border-radius: 4px;</code></pre>
+
+<p>} .pagination &gt; li {</p>
+
+<pre><code>display: inline;</code></pre>
+
+<p>} .pagination &gt; li &gt; a, .pagination &gt; li &gt; span {</p>
+
+<pre><code>position: relative;
+float: left;
+padding: 6px 12px;
+margin-left: -1px;
+line-height: 1.42857143;
+color: #337ab7;
+text-decoration: none;
+background-color: #fff;
+border: 1px solid #ddd;</code></pre>
+
+<p>} .pagination &gt; li:first-child &gt; a, .pagination &gt; li:first-child
+&gt; span {</p>
+
+<pre><code>margin-left: 0;
+border-top-left-radius: 4px;
+border-bottom-left-radius: 4px;</code></pre>
+
+<p>} .pagination &gt; li:last-child &gt; a, .pagination &gt; li:last-child
+&gt; span {</p>
+
+<pre><code>border-top-right-radius: 4px;
+border-bottom-right-radius: 4px;</code></pre>
+
+<p>} .pagination &gt; li &gt; a:hover, .pagination &gt; li &gt; span:hover,
+.pagination &gt; li &gt; a:focus, .pagination &gt; li &gt; span:focus {</p>
+
+<pre><code>color: #23527c;
+background-color: #eee;
+border-color: #ddd;</code></pre>
+
+<p>} .pagination &gt; .active &gt; a, .pagination &gt; .active &gt; span,
+.pagination &gt; .active &gt; a:hover, .pagination &gt; .active &gt;
+span:hover, .pagination &gt; .active &gt; a:focus, .pagination &gt; .active
+&gt; span:focus {</p>
+
+<pre><code>z-index: 2;
+color: #fff;
+cursor: default;
+background-color: #337ab7;
+border-color: #337ab7;</code></pre>
+
+<p>} .pagination &gt; .disabled &gt; span, .pagination &gt; .disabled &gt;
+span:hover, .pagination &gt; .disabled &gt; span:focus, .pagination &gt;
+.disabled &gt; a, .pagination &gt; .disabled &gt; a:hover, .pagination &gt;
+.disabled &gt; a:focus {</p>
+
+<pre><code>color: #777;
+cursor: not-allowed;
+background-color: #fff;
+border-color: #ddd;</code></pre>
+
+<p>} .pagination-lg &gt; li &gt; a, .pagination-lg &gt; li &gt; span {</p>
+
+<pre><code>padding: 10px 16px;
+font-size: 18px;</code></pre>
+
+<p>} .pagination-lg &gt; li:first-child &gt; a, .pagination-lg &gt;
+li:first-child &gt; span {</p>
+
+<pre><code>border-top-left-radius: 6px;
+border-bottom-left-radius: 6px;</code></pre>
+
+<p>} .pagination-lg &gt; li:last-child &gt; a, .pagination-lg &gt;
+li:last-child &gt; span {</p>
+
+<pre><code>border-top-right-radius: 6px;
+border-bottom-right-radius: 6px;</code></pre>
+
+<p>} .pagination-sm &gt; li &gt; a, .pagination-sm &gt; li &gt; span {</p>
+
+<pre><code>padding: 5px 10px;
+font-size: 12px;</code></pre>
+
+<p>} .pagination-sm &gt; li:first-child &gt; a, .pagination-sm &gt;
+li:first-child &gt; span {</p>
+
+<pre><code>border-top-left-radius: 3px;
+border-bottom-left-radius: 3px;</code></pre>
+
+<p>} .pagination-sm &gt; li:last-child &gt; a, .pagination-sm &gt;
+li:last-child &gt; span {</p>
+
+<pre><code>border-top-right-radius: 3px;
+border-bottom-right-radius: 3px;</code></pre>
+
+<p>} .pager {</p>
+
+<pre><code>padding-left: 0;
+margin: 20px 0;
+text-align: center;
+list-style: none;</code></pre>
+
+<p>} .pager li {</p>
+
+<pre><code>display: inline;</code></pre>
+
+<p>} .pager li &gt; a, .pager li &gt; span {</p>
+
+<pre><code>display: inline-block;
+padding: 5px 14px;
+background-color: #fff;
+border: 1px solid #ddd;
+border-radius: 15px;</code></pre>
+
+<p>} .pager li &gt; a:hover, .pager li &gt; a:focus {</p>
+
+<pre><code>text-decoration: none;
+background-color: #eee;</code></pre>
+
+<p>} .pager .next &gt; a, .pager .next &gt; span {</p>
+
+<pre><code>float: right;</code></pre>
+
+<p>} .pager .previous &gt; a, .pager .previous &gt; span {</p>
+
+<pre><code>float: left;</code></pre>
+
+<p>} .pager .disabled &gt; a, .pager .disabled &gt; a:hover, .pager .disabled
+&gt; a:focus, .pager .disabled &gt; span {</p>
+
+<pre><code>color: #777;
+cursor: not-allowed;
+background-color: #fff;</code></pre>
+
+<p>} .label {</p>
+
+<pre><code>display: inline;
+padding: .2em .6em .3em;
+font-size: 75%;
+font-weight: bold;
+line-height: 1;
+color: #fff;
+text-align: center;
+white-space: nowrap;
+vertical-align: baseline;
+border-radius: .25em;</code></pre>
+
+<p>} a.label:hover, a.label:focus {</p>
+
+<pre><code>color: #fff;
+text-decoration: none;
+cursor: pointer;</code></pre>
+
+<p>} .label:empty {</p>
+
+<pre><code>display: none;</code></pre>
+
+<p>} .btn .label {</p>
+
+<pre><code>position: relative;
+top: -1px;</code></pre>
+
+<p>} .label-default {</p>
+
+<pre><code>background-color: #777;</code></pre>
+
+<p>} .<a href="href">label-default</a>:hover, .<a
+href="href">label-default</a>:focus {</p>
+
+<pre><code>background-color: #5e5e5e;</code></pre>
+
+<p>} .label-primary {</p>
+
+<pre><code>background-color: #337ab7;</code></pre>
+
+<p>} .<a href="href">label-primary</a>:hover, .<a
+href="href">label-primary</a>:focus {</p>
+
+<pre><code>background-color: #286090;</code></pre>
+
+<p>} .label-success {</p>
+
+<pre><code>background-color: #5cb85c;</code></pre>
+
+<p>} .<a href="href">label-success</a>:hover, .<a
+href="href">label-success</a>:focus {</p>
+
+<pre><code>background-color: #449d44;</code></pre>
+
+<p>} .label-info {</p>
+
+<pre><code>background-color: #5bc0de;</code></pre>
+
+<p>} .<a href="href">label-info</a>:hover, .<a
+href="href">label-info</a>:focus {</p>
+
+<pre><code>background-color: #31b0d5;</code></pre>
+
+<p>} .label-warning {</p>
+
+<pre><code>background-color: #f0ad4e;</code></pre>
+
+<p>} .<a href="href">label-warning</a>:hover, .<a
+href="href">label-warning</a>:focus {</p>
+
+<pre><code>background-color: #ec971f;</code></pre>
+
+<p>} .label-danger {</p>
+
+<pre><code>background-color: #d9534f;</code></pre>
+
+<p>} .<a href="href">label-danger</a>:hover, .<a
+href="href">label-danger</a>:focus {</p>
+
+<pre><code>background-color: #c9302c;</code></pre>
+
+<p>} .badge {</p>
+
+<pre><code>display: inline-block;
+min-width: 10px;
+padding: 3px 7px;
+font-size: 12px;
+font-weight: bold;
+line-height: 1;
+color: #fff;
+text-align: center;
+white-space: nowrap;
+vertical-align: baseline;
+background-color: #777;
+border-radius: 10px;</code></pre>
+
+<p>} .badge:empty {</p>
+
+<pre><code>display: none;</code></pre>
+
+<p>} .btn .badge {</p>
+
+<pre><code>position: relative;
+top: -1px;</code></pre>
+
+<p>} .btn-xs .badge {</p>
+
+<pre><code>top: 0;
+padding: 1px 5px;</code></pre>
+
+<p>} a.badge:hover, a.badge:focus {</p>
+
+<pre><code>color: #fff;
+text-decoration: none;
+cursor: pointer;</code></pre>
+
+<p>} .list-group-item.active &gt; .badge, .nav-pills &gt; .active &gt; a &gt;
+.badge {</p>
+
+<pre><code>color: #337ab7;
+background-color: #fff;</code></pre>
+
+<p>} .list-group-item &gt; .badge {</p>
+
+<pre><code>float: right;</code></pre>
+
+<p>} .list-group-item &gt; .badge + .badge {</p>
+
+<pre><code>margin-right: 5px;</code></pre>
+
+<p>} .nav-pills &gt; li &gt; a &gt; .badge {</p>
+
+<pre><code>margin-left: 3px;</code></pre>
+
+<p>} .jumbotron {</p>
+
+<pre><code>padding: 30px 15px;
+margin-bottom: 30px;
+color: inherit;
+background-color: #eee;</code></pre>
+
+<p>} .jumbotron h1, .jumbotron .h1 {</p>
+
+<pre><code>color: inherit;</code></pre>
+
+<p>} .jumbotron p {</p>
+
+<pre><code>margin-bottom: 15px;
+font-size: 21px;
+font-weight: 200;</code></pre>
+
+<p>} .jumbotron &gt; hr {</p>
+
+<pre><code>border-top-color: #d5d5d5;</code></pre>
+
+<p>} .container .jumbotron, .container-fluid .jumbotron {</p>
+
+<pre><code>border-radius: 6px;</code></pre>
+
+<p>} .jumbotron .container {</p>
+
+<pre><code>max-width: 100%;</code></pre>
+
+<p>} @media screen and (min-width: 768px) {</p>
+
+<pre><code>.jumbotron {
+  padding: 48px 0;
+}
+.container .jumbotron,
+.container-fluid .jumbotron {
+  padding-right: 60px;
+  padding-left: 60px;
+}
+.jumbotron h1,
+.jumbotron .h1 {
+  font-size: 63px;
+}</code></pre>
+
+<p>} .thumbnail {</p>
+
+<pre><code>display: block;
+padding: 4px;
+margin-bottom: 20px;
+line-height: 1.42857143;
+background-color: #fff;
+border: 1px solid #ddd;
+border-radius: 4px;
+-webkit-transition: border .2s ease-in-out;
+     -o-transition: border .2s ease-in-out;
+        transition: border .2s ease-in-out;</code></pre>
+
+<p>} .thumbnail &gt; img, .thumbnail a &gt; img {</p>
+
+<pre><code>margin-right: auto;
+margin-left: auto;</code></pre>
+
+<p>} a.thumbnail:hover, a.thumbnail:focus, a.thumbnail.active {</p>
+
+<pre><code>border-color: #337ab7;</code></pre>
+
+<p>} .thumbnail .caption {</p>
+
+<pre><code>padding: 9px;
+color: #333;</code></pre>
+
+<p>} .alert {</p>
+
+<pre><code>padding: 15px;
+margin-bottom: 20px;
+border: 1px solid transparent;
+border-radius: 4px;</code></pre>
+
+<p>} .alert h4 {</p>
+
+<pre><code>margin-top: 0;
+color: inherit;</code></pre>
+
+<p>} .alert .alert-link {</p>
+
+<pre><code>font-weight: bold;</code></pre>
+
+<p>} .alert &gt; p, .alert &gt; ul {</p>
+
+<pre><code>margin-bottom: 0;</code></pre>
+
+<p>} .alert &gt; p + p {</p>
+
+<pre><code>margin-top: 5px;</code></pre>
+
+<p>} .alert-dismissable, .alert-dismissible {</p>
+
+<pre><code>padding-right: 35px;</code></pre>
+
+<p>} .alert-dismissable .close, .alert-dismissible .close {</p>
+
+<pre><code>position: relative;
+top: -2px;
+right: -21px;
+color: inherit;</code></pre>
+
+<p>} .alert-success {</p>
+
+<pre><code>color: #3c763d;
+background-color: #dff0d8;
+border-color: #d6e9c6;</code></pre>
+
+<p>} .alert-success hr {</p>
+
+<pre><code>border-top-color: #c9e2b3;</code></pre>
+
+<p>} .alert-success .alert-link {</p>
+
+<pre><code>color: #2b542c;</code></pre>
+
+<p>} .alert-info {</p>
+
+<pre><code>color: #31708f;
+background-color: #d9edf7;
+border-color: #bce8f1;</code></pre>
+
+<p>} .alert-info hr {</p>
+
+<pre><code>border-top-color: #a6e1ec;</code></pre>
+
+<p>} .alert-info .alert-link {</p>
+
+<pre><code>color: #245269;</code></pre>
+
+<p>} .alert-warning {</p>
+
+<pre><code>color: #8a6d3b;
+background-color: #fcf8e3;
+border-color: #faebcc;</code></pre>
+
+<p>} .alert-warning hr {</p>
+
+<pre><code>border-top-color: #f7e1b5;</code></pre>
+
+<p>} .alert-warning .alert-link {</p>
+
+<pre><code>color: #66512c;</code></pre>
+
+<p>} .alert-danger {</p>
+
+<pre><code>color: #a94442;
+background-color: #f2dede;
+border-color: #ebccd1;</code></pre>
+
+<p>} .alert-danger hr {</p>
+
+<pre><code>border-top-color: #e4b9c0;</code></pre>
+
+<p>} .alert-danger .alert-link {</p>
+
+<pre><code>color: #843534;</code></pre>
+
+<p>} @-webkit-keyframes progress-bar-stripes {</p>
+
+<pre><code>from {
+  background-position: 40px 0;
+}
+to {
+  background-position: 0 0;
+}</code></pre>
+
+<p>} @-o-keyframes progress-bar-stripes {</p>
+
+<pre><code>from {
+  background-position: 40px 0;
+}
+to {
+  background-position: 0 0;
+}</code></pre>
+
+<p>} @keyframes progress-bar-stripes {</p>
+
+<pre><code>from {
+  background-position: 40px 0;
+}
+to {
+  background-position: 0 0;
+}</code></pre>
+
+<p>} .progress {</p>
+
+<pre><code>height: 20px;
+margin-bottom: 20px;
+overflow: hidden;
+background-color: #f5f5f5;
+border-radius: 4px;
+-webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, .1);
+        box-shadow: inset 0 1px 2px rgba(0, 0, 0, .1);</code></pre>
+
+<p>} .progress-bar {</p>
+
+<pre><code>float: left;
+width: 0;
+height: 100%;
+font-size: 12px;
+line-height: 20px;
+color: #fff;
+text-align: center;
+background-color: #337ab7;
+-webkit-box-shadow: inset 0 -1px 0 rgba(0, 0, 0, .15);
+        box-shadow: inset 0 -1px 0 rgba(0, 0, 0, .15);
+-webkit-transition: width .6s ease;
+     -o-transition: width .6s ease;
+        transition: width .6s ease;</code></pre>
+
+<p>} .progress-striped .progress-bar, .progress-bar-striped {</p>
+
+<pre><code>background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
+background-image:      -o-linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
+background-image:         linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
+-webkit-background-size: 40px 40px;
+        background-size: 40px 40px;</code></pre>
+
+<p>} .progress.active .progress-bar, .progress-bar.active {</p>
+
+<pre><code>-webkit-animation: progress-bar-stripes 2s linear infinite;
+     -o-animation: progress-bar-stripes 2s linear infinite;
+        animation: progress-bar-stripes 2s linear infinite;</code></pre>
+
+<p>} .progress-bar-success {</p>
+
+<pre><code>background-color: #5cb85c;</code></pre>
+
+<p>} .progress-striped .progress-bar-success {</p>
+
+<pre><code>background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
+background-image:      -o-linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
+background-image:         linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);</code></pre>
+
+<p>} .progress-bar-info {</p>
+
+<pre><code>background-color: #5bc0de;</code></pre>
+
+<p>} .progress-striped .progress-bar-info {</p>
+
+<pre><code>background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
+background-image:      -o-linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
+background-image:         linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);</code></pre>
+
+<p>} .progress-bar-warning {</p>
+
+<pre><code>background-color: #f0ad4e;</code></pre>
+
+<p>} .progress-striped .progress-bar-warning {</p>
+
+<pre><code>background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
+background-image:      -o-linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
+background-image:         linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);</code></pre>
+
+<p>} .progress-bar-danger {</p>
+
+<pre><code>background-color: #d9534f;</code></pre>
+
+<p>} .progress-striped .progress-bar-danger {</p>
+
+<pre><code>background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
+background-image:      -o-linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
+background-image:         linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);</code></pre>
+
+<p>} .media {</p>
+
+<pre><code>margin-top: 15px;</code></pre>
+
+<p>} .media:first-child {</p>
+
+<pre><code>margin-top: 0;</code></pre>
+
+<p>} .media-right, .media &gt; .pull-right {</p>
+
+<pre><code>padding-left: 10px;</code></pre>
+
+<p>} .media-left, .media &gt; .pull-left {</p>
+
+<pre><code>padding-right: 10px;</code></pre>
+
+<p>} .media-left, .media-right, .media-body {</p>
+
+<pre><code>display: table-cell;
+vertical-align: top;</code></pre>
+
+<p>} .media-middle {</p>
+
+<pre><code>vertical-align: middle;</code></pre>
+
+<p>} .media-bottom {</p>
+
+<pre><code>vertical-align: bottom;</code></pre>
+
+<p>} .media-heading {</p>
+
+<pre><code>margin-top: 0;
+margin-bottom: 5px;</code></pre>
+
+<p>} .media-list {</p>
+
+<pre><code>padding-left: 0;
+list-style: none;</code></pre>
+
+<p>} .list-group {</p>
+
+<pre><code>padding-left: 0;
+margin-bottom: 20px;</code></pre>
+
+<p>} .list-group-item {</p>
+
+<pre><code>position: relative;
+display: block;
+padding: 10px 15px;
+margin-bottom: -1px;
+background-color: #fff;
+border: 1px solid #ddd;</code></pre>
+
+<p>} .list-group-item:first-child {</p>
+
+<pre><code>border-top-left-radius: 4px;
+border-top-right-radius: 4px;</code></pre>
+
+<p>} .list-group-item:last-child {</p>
+
+<pre><code>margin-bottom: 0;
+border-bottom-right-radius: 4px;
+border-bottom-left-radius: 4px;</code></pre>
+
+<p>} a.list-group-item {</p>
+
+<pre><code>color: #555;</code></pre>
+
+<p>} a.list-group-item .list-group-item-heading {</p>
+
+<pre><code>color: #333;</code></pre>
+
+<p>} a.list-group-item:hover, a.list-group-item:focus {</p>
+
+<pre><code>color: #555;
+text-decoration: none;
+background-color: #f5f5f5;</code></pre>
+
+<p>} .list-group-item.disabled, .list-group-item.disabled:hover,
+.list-group-item.disabled:focus {</p>
+
+<pre><code>color: #777;
+cursor: not-allowed;
+background-color: #eee;</code></pre>
+
+<p>} .list-group-item.disabled .list-group-item-heading,
+.list-group-item.disabled:hover .list-group-item-heading,
+.list-group-item.disabled:focus .list-group-item-heading {</p>
+
+<pre><code>color: inherit;</code></pre>
+
+<p>} .list-group-item.disabled .list-group-item-text,
+.list-group-item.disabled:hover .list-group-item-text,
+.list-group-item.disabled:focus .list-group-item-text {</p>
+
+<pre><code>color: #777;</code></pre>
+
+<p>} .list-group-item.active, .list-group-item.active:hover,
+.list-group-item.active:focus {</p>
+
+<pre><code>z-index: 2;
+color: #fff;
+background-color: #337ab7;
+border-color: #337ab7;</code></pre>
+
+<p>} .list-group-item.active .list-group-item-heading,
+.list-group-item.active:hover .list-group-item-heading,
+.list-group-item.active:focus .list-group-item-heading,
+.list-group-item.active .list-group-item-heading &gt; small,
+.list-group-item.active:hover .list-group-item-heading &gt; small,
+.list-group-item.active:focus .list-group-item-heading &gt; small,
+.list-group-item.active .list-group-item-heading &gt; .small,
+.list-group-item.active:hover .list-group-item-heading &gt; .small,
+.list-group-item.active:focus .list-group-item-heading &gt; .small {</p>
+
+<pre><code>color: inherit;</code></pre>
+
+<p>} .list-group-item.active .list-group-item-text,
+.list-group-item.active:hover .list-group-item-text,
+.list-group-item.active:focus .list-group-item-text {</p>
+
+<pre><code>color: #c7ddef;</code></pre>
+
+<p>} .list-group-item-success {</p>
+
+<pre><code>color: #3c763d;
+background-color: #dff0d8;</code></pre>
+
+<p>} a.list-group-item-success {</p>
+
+<pre><code>color: #3c763d;</code></pre>
+
+<p>} a.list-group-item-success .list-group-item-heading {</p>
+
+<pre><code>color: inherit;</code></pre>
+
+<p>} a.list-group-item-success:hover, a.list-group-item-success:focus {</p>
+
+<pre><code>color: #3c763d;
+background-color: #d0e9c6;</code></pre>
+
+<p>} a.list-group-item-success.active, a.list-group-item-success.active:hover,
+a.list-group-item-success.active:focus {</p>
+
+<pre><code>color: #fff;
+background-color: #3c763d;
+border-color: #3c763d;</code></pre>
+
+<p>} .list-group-item-info {</p>
+
+<pre><code>color: #31708f;
+background-color: #d9edf7;</code></pre>
+
+<p>} a.list-group-item-info {</p>
+
+<pre><code>color: #31708f;</code></pre>
+
+<p>} a.list-group-item-info .list-group-item-heading {</p>
+
+<pre><code>color: inherit;</code></pre>
+
+<p>} a.list-group-item-info:hover, a.list-group-item-info:focus {</p>
+
+<pre><code>color: #31708f;
+background-color: #c4e3f3;</code></pre>
+
+<p>} a.list-group-item-info.active, a.list-group-item-info.active:hover,
+a.list-group-item-info.active:focus {</p>
+
+<pre><code>color: #fff;
+background-color: #31708f;
+border-color: #31708f;</code></pre>
+
+<p>} .list-group-item-warning {</p>
+
+<pre><code>color: #8a6d3b;
+background-color: #fcf8e3;</code></pre>
+
+<p>} a.list-group-item-warning {</p>
+
+<pre><code>color: #8a6d3b;</code></pre>
+
+<p>} a.list-group-item-warning .list-group-item-heading {</p>
+
+<pre><code>color: inherit;</code></pre>
+
+<p>} a.list-group-item-warning:hover, a.list-group-item-warning:focus {</p>
+
+<pre><code>color: #8a6d3b;
+background-color: #faf2cc;</code></pre>
+
+<p>} a.list-group-item-warning.active, a.list-group-item-warning.active:hover,
+a.list-group-item-warning.active:focus {</p>
+
+<pre><code>color: #fff;
+background-color: #8a6d3b;
+border-color: #8a6d3b;</code></pre>
+
+<p>} .list-group-item-danger {</p>
+
+<pre><code>color: #a94442;
+background-color: #f2dede;</code></pre>
+
+<p>} a.list-group-item-danger {</p>
+
+<pre><code>color: #a94442;</code></pre>
+
+<p>} a.list-group-item-danger .list-group-item-heading {</p>
+
+<pre><code>color: inherit;</code></pre>
+
+<p>} a.list-group-item-danger:hover, a.list-group-item-danger:focus {</p>
+
+<pre><code>color: #a94442;
+background-color: #ebcccc;</code></pre>
+
+<p>} a.list-group-item-danger.active, a.list-group-item-danger.active:hover,
+a.list-group-item-danger.active:focus {</p>
+
+<pre><code>color: #fff;
+background-color: #a94442;
+border-color: #a94442;</code></pre>
+
+<p>} .list-group-item-heading {</p>
+
+<pre><code>margin-top: 0;
+margin-bottom: 5px;</code></pre>
+
+<p>} .list-group-item-text {</p>
+
+<pre><code>margin-bottom: 0;
+line-height: 1.3;</code></pre>
+
+<p>} .panel {</p>
+
+<pre><code>margin-bottom: 20px;
+background-color: #fff;
+border: 1px solid transparent;
+border-radius: 4px;
+-webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
+        box-shadow: 0 1px 1px rgba(0, 0, 0, .05);</code></pre>
+
+<p>} .panel-body {</p>
+
+<pre><code>padding: 15px;</code></pre>
+
+<p>} .panel-heading {</p>
+
+<pre><code>padding: 10px 15px;
+border-bottom: 1px solid transparent;
+border-top-left-radius: 3px;
+border-top-right-radius: 3px;</code></pre>
+
+<p>} .panel-heading &gt; .dropdown .dropdown-toggle {</p>
+
+<pre><code>color: inherit;</code></pre>
+
+<p>} .panel-title {</p>
+
+<pre><code>margin-top: 0;
+margin-bottom: 0;
+font-size: 16px;
+color: inherit;</code></pre>
+
+<p>} .panel-title &gt; a {</p>
+
+<pre><code>color: inherit;</code></pre>
+
+<p>} .panel-footer {</p>
+
+<pre><code>padding: 10px 15px;
+background-color: #f5f5f5;
+border-top: 1px solid #ddd;
+border-bottom-right-radius: 3px;
+border-bottom-left-radius: 3px;</code></pre>
+
+<p>} .panel &gt; .list-group, .panel &gt; .panel-collapse &gt; .list-group {</p>
+
+<pre><code>margin-bottom: 0;</code></pre>
+
+<p>} .panel &gt; .list-group .list-group-item, .panel &gt; .panel-collapse
+&gt; .list-group .list-group-item {</p>
+
+<pre><code>border-width: 1px 0;
+border-radius: 0;</code></pre>
+
+<p>} .panel &gt; .list-group:first-child .list-group-item:first-child, .panel
+&gt; .panel-collapse &gt; .list-group:first-child
+.list-group-item:first-child {</p>
+
+<pre><code>border-top: 0;
+border-top-left-radius: 3px;
+border-top-right-radius: 3px;</code></pre>
+
+<p>} .panel &gt; .list-group:last-child .list-group-item:last-child, .panel
+&gt; .panel-collapse &gt; .list-group:last-child
+.list-group-item:last-child {</p>
+
+<pre><code>border-bottom: 0;
+border-bottom-right-radius: 3px;
+border-bottom-left-radius: 3px;</code></pre>
+
+<p>} .panel-heading + .list-group .list-group-item:first-child {</p>
+
+<pre><code>border-top-width: 0;</code></pre>
+
+<p>} .list-group + .panel-footer {</p>
+
+<pre><code>border-top-width: 0;</code></pre>
+
+<p>} .panel &gt; .table, .panel &gt; .table-responsive &gt; .table, .panel
+&gt; .panel-collapse &gt; .table {</p>
+
+<pre><code>margin-bottom: 0;</code></pre>
+
+<p>} .panel &gt; .table caption, .panel &gt; .table-responsive &gt; .table
+caption, .panel &gt; .panel-collapse &gt; .table caption {</p>
+
+<pre><code>padding-right: 15px;
+padding-left: 15px;</code></pre>
+
+<p>} .panel &gt; .table:first-child, .panel &gt; .table-responsive:first-child
+&gt; .table:first-child {</p>
+
+<pre><code>border-top-left-radius: 3px;
+border-top-right-radius: 3px;</code></pre>
+
+<p>} .panel &gt; .table:first-child &gt; thead:first-child &gt;
+tr:first-child, .panel &gt; .table-responsive:first-child &gt;
+.table:first-child &gt; thead:first-child &gt; tr:first-child, .panel &gt;
+.table:first-child &gt; tbody:first-child &gt; tr:first-child, .panel &gt;
+.table-responsive:first-child &gt; .table:first-child &gt;
+tbody:first-child &gt; tr:first-child {</p>
+
+<pre><code>border-top-left-radius: 3px;
+border-top-right-radius: 3px;</code></pre>
+
+<p>} .panel &gt; .table:first-child &gt; thead:first-child &gt; tr:first-child
+td:first-child, .panel &gt; .table-responsive:first-child &gt;
+.table:first-child &gt; thead:first-child &gt; tr:first-child
+td:first-child, .panel &gt; .table:first-child &gt; tbody:first-child &gt;
+tr:first-child td:first-child, .panel &gt; .table-responsive:first-child
+&gt; .table:first-child &gt; tbody:first-child &gt; tr:first-child
+td:first-child, .panel &gt; .table:first-child &gt; thead:first-child &gt;
+tr:first-child th:first-child, .panel &gt; .table-responsive:first-child
+&gt; .table:first-child &gt; thead:first-child &gt; tr:first-child
+th:first-child, .panel &gt; .table:first-child &gt; tbody:first-child &gt;
+tr:first-child th:first-child, .panel &gt; .table-responsive:first-child
+&gt; .table:first-child &gt; tbody:first-child &gt; tr:first-child
+th:first-child {</p>
+
+<pre><code>border-top-left-radius: 3px;</code></pre>
+
+<p>} .panel &gt; .table:first-child &gt; thead:first-child &gt; tr:first-child
+td:last-child, .panel &gt; .table-responsive:first-child &gt;
+.table:first-child &gt; thead:first-child &gt; tr:first-child
+td:last-child, .panel &gt; .table:first-child &gt; tbody:first-child &gt;
+tr:first-child td:last-child, .panel &gt; .table-responsive:first-child
+&gt; .table:first-child &gt; tbody:first-child &gt; tr:first-child
+td:last-child, .panel &gt; .table:first-child &gt; thead:first-child &gt;
+tr:first-child th:last-child, .panel &gt; .table-responsive:first-child
+&gt; .table:first-child &gt; thead:first-child &gt; tr:first-child
+th:last-child, .panel &gt; .table:first-child &gt; tbody:first-child &gt;
+tr:first-child th:last-child, .panel &gt; .table-responsive:first-child
+&gt; .table:first-child &gt; tbody:first-child &gt; tr:first-child
+th:last-child {</p>
+
+<pre><code>border-top-right-radius: 3px;</code></pre>
+
+<p>} .panel &gt; .table:last-child, .panel &gt; .table-responsive:last-child
+&gt; .table:last-child {</p>
+
+<pre><code>border-bottom-right-radius: 3px;
+border-bottom-left-radius: 3px;</code></pre>
+
+<p>} .panel &gt; .table:last-child &gt; tbody:last-child &gt; tr:last-child,
+.panel &gt; .table-responsive:last-child &gt; .table:last-child &gt;
+tbody:last-child &gt; tr:last-child, .panel &gt; .table:last-child &gt;
+tfoot:last-child &gt; tr:last-child, .panel &gt;
+.table-responsive:last-child &gt; .table:last-child &gt; tfoot:last-child
+&gt; tr:last-child {</p>
+
+<pre><code>border-bottom-right-radius: 3px;
+border-bottom-left-radius: 3px;</code></pre>
+
+<p>} .panel &gt; .table:last-child &gt; tbody:last-child &gt; tr:last-child
+td:first-child, .panel &gt; .table-responsive:last-child &gt;
+.table:last-child &gt; tbody:last-child &gt; tr:last-child td:first-child,
+.panel &gt; .table:last-child &gt; tfoot:last-child &gt; tr:last-child
+td:first-child, .panel &gt; .table-responsive:last-child &gt;
+.table:last-child &gt; tfoot:last-child &gt; tr:last-child td:first-child,
+.panel &gt; .table:last-child &gt; tbody:last-child &gt; tr:last-child
+th:first-child, .panel &gt; .table-responsive:last-child &gt;
+.table:last-child &gt; tbody:last-child &gt; tr:last-child th:first-child,
+.panel &gt; .table:last-child &gt; tfoot:last-child &gt; tr:last-child
+th:first-child, .panel &gt; .table-responsive:last-child &gt;
+.table:last-child &gt; tfoot:last-child &gt; tr:last-child th:first-child {</p>
+
+<pre><code>border-bottom-left-radius: 3px;</code></pre>
+
+<p>} .panel &gt; .table:last-child &gt; tbody:last-child &gt; tr:last-child
+td:last-child, .panel &gt; .table-responsive:last-child &gt;
+.table:last-child &gt; tbody:last-child &gt; tr:last-child td:last-child,
+.panel &gt; .table:last-child &gt; tfoot:last-child &gt; tr:last-child
+td:last-child, .panel &gt; .table-responsive:last-child &gt;
+.table:last-child &gt; tfoot:last-child &gt; tr:last-child td:last-child,
+.panel &gt; .table:last-child &gt; tbody:last-child &gt; tr:last-child
+th:last-child, .panel &gt; .table-responsive:last-child &gt;
+.table:last-child &gt; tbody:last-child &gt; tr:last-child th:last-child,
+.panel &gt; .table:last-child &gt; tfoot:last-child &gt; tr:last-child
+th:last-child, .panel &gt; .table-responsive:last-child &gt;
+.table:last-child &gt; tfoot:last-child &gt; tr:last-child th:last-child {</p>
+
+<pre><code>border-bottom-right-radius: 3px;</code></pre>
+
+<p>} .panel &gt; .panel-body + .table, .panel &gt; .panel-body +
+.table-responsive, .panel &gt; .table + .panel-body, .panel &gt;
+.table-responsive + .panel-body {</p>
+
+<pre><code>border-top: 1px solid #ddd;</code></pre>
+
+<p>} .panel &gt; .table &gt; tbody:first-child &gt; tr:first-child th, .panel
+&gt; .table &gt; tbody:first-child &gt; tr:first-child td {</p>
+
+<pre><code>border-top: 0;</code></pre>
+
+<p>} .panel &gt; .table-bordered, .panel &gt; .table-responsive &gt;
+.table-bordered {</p>
+
+<pre><code>border: 0;</code></pre>
+
+<p>} .panel &gt; .table-bordered &gt; thead &gt; tr &gt; th:first-child,
+.panel &gt; .table-responsive &gt; .table-bordered &gt; thead &gt; tr &gt;
+th:first-child, .panel &gt; .table-bordered &gt; tbody &gt; tr &gt;
+th:first-child, .panel &gt; .table-responsive &gt; .table-bordered &gt;
+tbody &gt; tr &gt; th:first-child, .panel &gt; .table-bordered &gt; tfoot
+&gt; tr &gt; th:first-child, .panel &gt; .table-responsive &gt;
+.table-bordered &gt; tfoot &gt; tr &gt; th:first-child, .panel &gt;
+.table-bordered &gt; thead &gt; tr &gt; td:first-child, .panel &gt;
+.table-responsive &gt; .table-bordered &gt; thead &gt; tr &gt;
+td:first-child, .panel &gt; .table-bordered &gt; tbody &gt; tr &gt;
+td:first-child, .panel &gt; .table-responsive &gt; .table-bordered &gt;
+tbody &gt; tr &gt; td:first-child, .panel &gt; .table-bordered &gt; tfoot
+&gt; tr &gt; td:first-child, .panel &gt; .table-responsive &gt;
+.table-bordered &gt; tfoot &gt; tr &gt; td:first-child {</p>
+
+<pre><code>border-left: 0;</code></pre>
+
+<p>} .panel &gt; .table-bordered &gt; thead &gt; tr &gt; th:last-child, .panel
+&gt; .table-responsive &gt; .table-bordered &gt; thead &gt; tr &gt;
+th:last-child, .panel &gt; .table-bordered &gt; tbody &gt; tr &gt;
+th:last-child, .panel &gt; .table-responsive &gt; .table-bordered &gt;
+tbody &gt; tr &gt; th:last-child, .panel &gt; .table-bordered &gt; tfoot
+&gt; tr &gt; th:last-child, .panel &gt; .table-responsive &gt;
+.table-bordered &gt; tfoot &gt; tr &gt; th:last-child, .panel &gt;
+.table-bordered &gt; thead &gt; tr &gt; td:last-child, .panel &gt;
+.table-responsive &gt; .table-bordered &gt; thead &gt; tr &gt;
+td:last-child, .panel &gt; .table-bordered &gt; tbody &gt; tr &gt;
+td:last-child, .panel &gt; .table-responsive &gt; .table-bordered &gt;
+tbody &gt; tr &gt; td:last-child, .panel &gt; .table-bordered &gt; tfoot
+&gt; tr &gt; td:last-child, .panel &gt; .table-responsive &gt;
+.table-bordered &gt; tfoot &gt; tr &gt; td:last-child {</p>
+
+<pre><code>border-right: 0;</code></pre>
+
+<p>} .panel &gt; .table-bordered &gt; thead &gt; tr:first-child &gt; td,
+.panel &gt; .table-responsive &gt; .table-bordered &gt; thead &gt;
+tr:first-child &gt; td, .panel &gt; .table-bordered &gt; tbody &gt;
+tr:first-child &gt; td, .panel &gt; .table-responsive &gt; .table-bordered
+&gt; tbody &gt; tr:first-child &gt; td, .panel &gt; .table-bordered &gt;
+thead &gt; tr:first-child &gt; th, .panel &gt; .table-responsive &gt;
+.table-bordered &gt; thead &gt; tr:first-child &gt; th, .panel &gt;
+.table-bordered &gt; tbody &gt; tr:first-child &gt; th, .panel &gt;
+.table-responsive &gt; .table-bordered &gt; tbody &gt; tr:first-child &gt;
+th {</p>
+
+<pre><code>border-bottom: 0;</code></pre>
+
+<p>} .panel &gt; .table-bordered &gt; tbody &gt; tr:last-child &gt; td, .panel
+&gt; .table-responsive &gt; .table-bordered &gt; tbody &gt; tr:last-child
+&gt; td, .panel &gt; .table-bordered &gt; tfoot &gt; tr:last-child &gt; td,
+.panel &gt; .table-responsive &gt; .table-bordered &gt; tfoot &gt;
+tr:last-child &gt; td, .panel &gt; .table-bordered &gt; tbody &gt;
+tr:last-child &gt; th, .panel &gt; .table-responsive &gt; .table-bordered
+&gt; tbody &gt; tr:last-child &gt; th, .panel &gt; .table-bordered &gt;
+tfoot &gt; tr:last-child &gt; th, .panel &gt; .table-responsive &gt;
+.table-bordered &gt; tfoot &gt; tr:last-child &gt; th {</p>
+
+<pre><code>border-bottom: 0;</code></pre>
+
+<p>} .panel &gt; .table-responsive {</p>
+
+<pre><code>margin-bottom: 0;
+border: 0;</code></pre>
+
+<p>} .panel-group {</p>
+
+<pre><code>margin-bottom: 20px;</code></pre>
+
+<p>} .panel-group .panel {</p>
+
+<pre><code>margin-bottom: 0;
+border-radius: 4px;</code></pre>
+
+<p>} .panel-group .panel + .panel {</p>
+
+<pre><code>margin-top: 5px;</code></pre>
+
+<p>} .panel-group .panel-heading {</p>
+
+<pre><code>border-bottom: 0;</code></pre>
+
+<p>} .panel-group .panel-heading + .panel-collapse &gt; .panel-body,
+.panel-group .panel-heading + .panel-collapse &gt; .list-group {</p>
+
+<pre><code>border-top: 1px solid #ddd;</code></pre>
+
+<p>} .panel-group .panel-footer {</p>
+
+<pre><code>border-top: 0;</code></pre>
+
+<p>} .panel-group .panel-footer + .panel-collapse .panel-body {</p>
+
+<pre><code>border-bottom: 1px solid #ddd;</code></pre>
+
+<p>} .panel-default {</p>
+
+<pre><code>border-color: #ddd;</code></pre>
+
+<p>} .panel-default &gt; .panel-heading {</p>
+
+<pre><code>color: #333;
+background-color: #f5f5f5;
+border-color: #ddd;</code></pre>
+
+<p>} .panel-default &gt; .panel-heading + .panel-collapse &gt; .panel-body {</p>
+
+<pre><code>border-top-color: #ddd;</code></pre>
+
+<p>} .panel-default &gt; .panel-heading .badge {</p>
+
+<pre><code>color: #f5f5f5;
+background-color: #333;</code></pre>
+
+<p>} .panel-default &gt; .panel-footer + .panel-collapse &gt; .panel-body {</p>
+
+<pre><code>border-bottom-color: #ddd;</code></pre>
+
+<p>} .panel-primary {</p>
+
+<pre><code>border-color: #337ab7;</code></pre>
+
+<p>} .panel-primary &gt; .panel-heading {</p>
+
+<pre><code>color: #fff;
+background-color: #337ab7;
+border-color: #337ab7;</code></pre>
+
+<p>} .panel-primary &gt; .panel-heading + .panel-collapse &gt; .panel-body {</p>
+
+<pre><code>border-top-color: #337ab7;</code></pre>
+
+<p>} .panel-primary &gt; .panel-heading .badge {</p>
+
+<pre><code>color: #337ab7;
+background-color: #fff;</code></pre>
+
+<p>} .panel-primary &gt; .panel-footer + .panel-collapse &gt; .panel-body {</p>
+
+<pre><code>border-bottom-color: #337ab7;</code></pre>
+
+<p>} .panel-success {</p>
+
+<pre><code>border-color: #d6e9c6;</code></pre>
+
+<p>} .panel-success &gt; .panel-heading {</p>
+
+<pre><code>color: #3c763d;
+background-color: #dff0d8;
+border-color: #d6e9c6;</code></pre>
+
+<p>} .panel-success &gt; .panel-heading + .panel-collapse &gt; .panel-body {</p>
+
+<pre><code>border-top-color: #d6e9c6;</code></pre>
+
+<p>} .panel-success &gt; .panel-heading .badge {</p>
+
+<pre><code>color: #dff0d8;
+background-color: #3c763d;</code></pre>
+
+<p>} .panel-success &gt; .panel-footer + .panel-collapse &gt; .panel-body {</p>
+
+<pre><code>border-bottom-color: #d6e9c6;</code></pre>
+
+<p>} .panel-info {</p>
+
+<pre><code>border-color: #bce8f1;</code></pre>
+
+<p>} .panel-info &gt; .panel-heading {</p>
+
+<pre><code>color: #31708f;
+background-color: #d9edf7;
+border-color: #bce8f1;</code></pre>
+
+<p>} .panel-info &gt; .panel-heading + .panel-collapse &gt; .panel-body {</p>
+
+<pre><code>border-top-color: #bce8f1;</code></pre>
+
+<p>} .panel-info &gt; .panel-heading .badge {</p>
+
+<pre><code>color: #d9edf7;
+background-color: #31708f;</code></pre>
+
+<p>} .panel-info &gt; .panel-footer + .panel-collapse &gt; .panel-body {</p>
+
+<pre><code>border-bottom-color: #bce8f1;</code></pre>
+
+<p>} .panel-warning {</p>
+
+<pre><code>border-color: #faebcc;</code></pre>
+
+<p>} .panel-warning &gt; .panel-heading {</p>
+
+<pre><code>color: #8a6d3b;
+background-color: #fcf8e3;
+border-color: #faebcc;</code></pre>
+
+<p>} .panel-warning &gt; .panel-heading + .panel-collapse &gt; .panel-body {</p>
+
+<pre><code>border-top-color: #faebcc;</code></pre>
+
+<p>} .panel-warning &gt; .panel-heading .badge {</p>
+
+<pre><code>color: #fcf8e3;
+background-color: #8a6d3b;</code></pre>
+
+<p>} .panel-warning &gt; .panel-footer + .panel-collapse &gt; .panel-body {</p>
+
+<pre><code>border-bottom-color: #faebcc;</code></pre>
+
+<p>} .panel-danger {</p>
+
+<pre><code>border-color: #ebccd1;</code></pre>
+
+<p>} .panel-danger &gt; .panel-heading {</p>
+
+<pre><code>color: #a94442;
+background-color: #f2dede;
+border-color: #ebccd1;</code></pre>
+
+<p>} .panel-danger &gt; .panel-heading + .panel-collapse &gt; .panel-body {</p>
+
+<pre><code>border-top-color: #ebccd1;</code></pre>
+
+<p>} .panel-danger &gt; .panel-heading .badge {</p>
+
+<pre><code>color: #f2dede;
+background-color: #a94442;</code></pre>
+
+<p>} .panel-danger &gt; .panel-footer + .panel-collapse &gt; .panel-body {</p>
+
+<pre><code>border-bottom-color: #ebccd1;</code></pre>
+
+<p>} .embed-responsive {</p>
+
+<pre><code>position: relative;
+display: block;
+height: 0;
+padding: 0;
+overflow: hidden;</code></pre>
+
+<p>} .embed-responsive .embed-responsive-item, .embed-responsive iframe,
+.embed-responsive embed, .embed-responsive object, .embed-responsive video
+{</p>
+
+<pre><code>position: absolute;
+top: 0;
+bottom: 0;
+left: 0;
+width: 100%;
+height: 100%;
+border: 0;</code></pre>
+
+<p>} .embed-responsive.embed-responsive-16by9 {</p>
+
+<pre><code>padding-bottom: 56.25%;</code></pre>
+
+<p>} .embed-responsive.embed-responsive-4by3 {</p>
+
+<pre><code>padding-bottom: 75%;</code></pre>
+
+<p>} .well {</p>
+
+<pre><code>min-height: 20px;
+padding: 19px;
+margin-bottom: 20px;
+background-color: #f5f5f5;
+border: 1px solid #e3e3e3;
+border-radius: 4px;
+-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .05);
+        box-shadow: inset 0 1px 1px rgba(0, 0, 0, .05);</code></pre>
+
+<p>} .well blockquote {</p>
+
+<pre><code>border-color: #ddd;
+border-color: rgba(0, 0, 0, .15);</code></pre>
+
+<p>} .well-lg {</p>
+
+<pre><code>padding: 24px;
+border-radius: 6px;</code></pre>
+
+<p>} .well-sm {</p>
+
+<pre><code>padding: 9px;
+border-radius: 3px;</code></pre>
+
+<p>} .close {</p>
+
+<pre><code>float: right;
+font-size: 21px;
+font-weight: bold;
+line-height: 1;
+color: #000;
+text-shadow: 0 1px 0 #fff;
+filter: alpha(opacity=20);
+opacity: .2;</code></pre>
+
+<p>} .close:hover, .close:focus {</p>
+
+<pre><code>color: #000;
+text-decoration: none;
+cursor: pointer;
+filter: alpha(opacity=50);
+opacity: .5;</code></pre>
+
+<p>} button.close {</p>
+
+<pre><code>-webkit-appearance: none;
+padding: 0;
+cursor: pointer;
+background: transparent;
+border: 0;</code></pre>
+
+<p>} .modal-open {</p>
+
+<pre><code>overflow: hidden;</code></pre>
+
+<p>} .modal {</p>
+
+<pre><code>position: fixed;
+top: 0;
+right: 0;
+bottom: 0;
+left: 0;
+z-index: 1040;
+display: none;
+overflow: hidden;
+-webkit-overflow-scrolling: touch;
+outline: 0;</code></pre>
+
+<p>} .modal.fade .modal-dialog {</p>
+
+<pre><code>-webkit-transition: -webkit-transform .3s ease-out;
+     -o-transition:      -o-transform .3s ease-out;
+        transition:         transform .3s ease-out;
+-webkit-transform: translate(0, -25%);
+    -ms-transform: translate(0, -25%);
+     -o-transform: translate(0, -25%);
+        transform: translate(0, -25%);</code></pre>
+
+<p>} .modal.in .modal-dialog {</p>
+
+<pre><code>-webkit-transform: translate(0, 0);
+    -ms-transform: translate(0, 0);
+     -o-transform: translate(0, 0);
+        transform: translate(0, 0);</code></pre>
+
+<p>} .modal-open .modal {</p>
+
+<pre><code>overflow-x: hidden;
+overflow-y: auto;</code></pre>
+
+<p>} .modal-dialog {</p>
+
+<pre><code>position: relative;
+width: auto;
+margin: 10px;</code></pre>
+
+<p>} .modal-content {</p>
+
+<pre><code>position: relative;
+background-color: #fff;
+-webkit-background-clip: padding-box;
+        background-clip: padding-box;
+border: 1px solid #999;
+border: 1px solid rgba(0, 0, 0, .2);
+border-radius: 6px;
+outline: 0;
+-webkit-box-shadow: 0 3px 9px rgba(0, 0, 0, .5);
+        box-shadow: 0 3px 9px rgba(0, 0, 0, .5);</code></pre>
+
+<p>} .modal-backdrop {</p>
+
+<pre><code>position: absolute;
+top: 0;
+right: 0;
+left: 0;
+background-color: #000;</code></pre>
+
+<p>} .modal-backdrop.fade {</p>
+
+<pre><code>filter: alpha(opacity=0);
+opacity: 0;</code></pre>
+
+<p>} .modal-backdrop.in {</p>
+
+<pre><code>filter: alpha(opacity=50);
+opacity: .5;</code></pre>
+
+<p>} .modal-header {</p>
+
+<pre><code>min-height: 16.42857143px;
+padding: 15px;
+border-bottom: 1px solid #e5e5e5;</code></pre>
+
+<p>} .modal-header .close {</p>
+
+<pre><code>margin-top: -2px;</code></pre>
+
+<p>} .modal-title {</p>
+
+<pre><code>margin: 0;
+line-height: 1.42857143;</code></pre>
+
+<p>} .modal-body {</p>
+
+<pre><code>position: relative;
+padding: 15px;</code></pre>
+
+<p>} .modal-footer {</p>
+
+<pre><code>padding: 15px;
+text-align: right;
+border-top: 1px solid #e5e5e5;</code></pre>
+
+<p>} .modal-footer .btn + .btn {</p>
+
+<pre><code>margin-bottom: 0;
+margin-left: 5px;</code></pre>
+
+<p>} .modal-footer .btn-group .btn + .btn {</p>
+
+<pre><code>margin-left: -1px;</code></pre>
+
+<p>} .modal-footer .btn-block + .btn-block {</p>
+
+<pre><code>margin-left: 0;</code></pre>
+
+<p>} .modal-scrollbar-measure {</p>
+
+<pre><code>position: absolute;
+top: -9999px;
+width: 50px;
+height: 50px;
+overflow: scroll;</code></pre>
+
+<p>} @media (min-width: 768px) {</p>
+
+<pre><code>.modal-dialog {
+  width: 600px;
+  margin: 30px auto;
+}
+.modal-content {
+  -webkit-box-shadow: 0 5px 15px rgba(0, 0, 0, .5);
+          box-shadow: 0 5px 15px rgba(0, 0, 0, .5);
+}
+.modal-sm {
+  width: 300px;
+}</code></pre>
+
+<p>} @media (min-width: 992px) {</p>
+
+<pre><code>.modal-lg {
+  width: 900px;
+}</code></pre>
+
+<p>} .tooltip {</p>
+
+<pre><code>position: absolute;
+z-index: 1070;
+display: block;
+font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif;
+font-size: 12px;
+font-weight: normal;
+line-height: 1.4;
+visibility: visible;
+filter: alpha(opacity=0);
+opacity: 0;</code></pre>
+
+<p>} .tooltip.in {</p>
+
+<pre><code>filter: alpha(opacity=90);
+opacity: .9;</code></pre>
+
+<p>} .tooltip.top {</p>
+
+<pre><code>padding: 5px 0;
+margin-top: -3px;</code></pre>
+
+<p>} .tooltip.right {</p>
+
+<pre><code>padding: 0 5px;
+margin-left: 3px;</code></pre>
+
+<p>} .tooltip.bottom {</p>
+
+<pre><code>padding: 5px 0;
+margin-top: 3px;</code></pre>
+
+<p>} .tooltip.left {</p>
+
+<pre><code>padding: 0 5px;
+margin-left: -3px;</code></pre>
+
+<p>} .tooltip-inner {</p>
+
+<pre><code>max-width: 200px;
+padding: 3px 8px;
+color: #fff;
+text-align: center;
+text-decoration: none;
+background-color: #000;
+border-radius: 4px;</code></pre>
+
+<p>} .tooltip-arrow {</p>
+
+<pre><code>position: absolute;
+width: 0;
+height: 0;
+border-color: transparent;
+border-style: solid;</code></pre>
+
+<p>} .tooltip.top .tooltip-arrow {</p>
+
+<pre><code>bottom: 0;
+left: 50%;
+margin-left: -5px;
+border-width: 5px 5px 0;
+border-top-color: #000;</code></pre>
+
+<p>} .tooltip.top-left .tooltip-arrow {</p>
+
+<pre><code>right: 5px;
+bottom: 0;
+margin-bottom: -5px;
+border-width: 5px 5px 0;
+border-top-color: #000;</code></pre>
+
+<p>} .tooltip.top-right .tooltip-arrow {</p>
+
+<pre><code>bottom: 0;
+left: 5px;
+margin-bottom: -5px;
+border-width: 5px 5px 0;
+border-top-color: #000;</code></pre>
+
+<p>} .tooltip.right .tooltip-arrow {</p>
+
+<pre><code>top: 50%;
+left: 0;
+margin-top: -5px;
+border-width: 5px 5px 5px 0;
+border-right-color: #000;</code></pre>
+
+<p>} .tooltip.left .tooltip-arrow {</p>
+
+<pre><code>top: 50%;
+right: 0;
+margin-top: -5px;
+border-width: 5px 0 5px 5px;
+border-left-color: #000;</code></pre>
+
+<p>} .tooltip.bottom .tooltip-arrow {</p>
+
+<pre><code>top: 0;
+left: 50%;
+margin-left: -5px;
+border-width: 0 5px 5px;
+border-bottom-color: #000;</code></pre>
+
+<p>} .tooltip.bottom-left .tooltip-arrow {</p>
+
+<pre><code>top: 0;
+right: 5px;
+margin-top: -5px;
+border-width: 0 5px 5px;
+border-bottom-color: #000;</code></pre>
+
+<p>} .tooltip.bottom-right .tooltip-arrow {</p>
+
+<pre><code>top: 0;
+left: 5px;
+margin-top: -5px;
+border-width: 0 5px 5px;
+border-bottom-color: #000;</code></pre>
+
+<p>} .popover {</p>
+
+<pre><code>position: absolute;
+top: 0;
+left: 0;
+z-index: 1060;
+display: none;
+max-width: 276px;
+padding: 1px;
+font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif;
+font-size: 14px;
+font-weight: normal;
+line-height: 1.42857143;
+text-align: left;
+white-space: normal;
+background-color: #fff;
+-webkit-background-clip: padding-box;
+        background-clip: padding-box;
+border: 1px solid #ccc;
+border: 1px solid rgba(0, 0, 0, .2);
+border-radius: 6px;
+-webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, .2);
+        box-shadow: 0 5px 10px rgba(0, 0, 0, .2);</code></pre>
+
+<p>} .popover.top {</p>
+
+<pre><code>margin-top: -10px;</code></pre>
+
+<p>} .popover.right {</p>
+
+<pre><code>margin-left: 10px;</code></pre>
+
+<p>} .popover.bottom {</p>
+
+<pre><code>margin-top: 10px;</code></pre>
+
+<p>} .popover.left {</p>
+
+<pre><code>margin-left: -10px;</code></pre>
+
+<p>} .popover-title {</p>
+
+<pre><code>padding: 8px 14px;
+margin: 0;
+font-size: 14px;
+background-color: #f7f7f7;
+border-bottom: 1px solid #ebebeb;
+border-radius: 5px 5px 0 0;</code></pre>
+
+<p>} .popover-content {</p>
+
+<pre><code>padding: 9px 14px;</code></pre>
+
+<p>} .popover &gt; .arrow, .popover &gt; .arrow:after {</p>
+
+<pre><code>position: absolute;
+display: block;
+width: 0;
+height: 0;
+border-color: transparent;
+border-style: solid;</code></pre>
+
+<p>} .popover &gt; .arrow {</p>
+
+<pre><code>border-width: 11px;</code></pre>
+
+<p>} .popover &gt; .arrow:after {</p>
+
+<pre><code>content: &quot;&quot;;
+border-width: 10px;</code></pre>
+
+<p>} .popover.top &gt; .arrow {</p>
+
+<pre><code>bottom: -11px;
+left: 50%;
+margin-left: -11px;
+border-top-color: #999;
+border-top-color: rgba(0, 0, 0, .25);
+border-bottom-width: 0;</code></pre>
+
+<p>} .popover.top &gt; .arrow:after {</p>
+
+<pre><code>bottom: 1px;
+margin-left: -10px;
+content: &quot; &quot;;
+border-top-color: #fff;
+border-bottom-width: 0;</code></pre>
+
+<p>} .popover.right &gt; .arrow {</p>
+
+<pre><code>top: 50%;
+left: -11px;
+margin-top: -11px;
+border-right-color: #999;
+border-right-color: rgba(0, 0, 0, .25);
+border-left-width: 0;</code></pre>
+
+<p>} .popover.right &gt; .arrow:after {</p>
+
+<pre><code>bottom: -10px;
+left: 1px;
+content: &quot; &quot;;
+border-right-color: #fff;
+border-left-width: 0;</code></pre>
+
+<p>} .popover.bottom &gt; .arrow {</p>
+
+<pre><code>top: -11px;
+left: 50%;
+margin-left: -11px;
+border-top-width: 0;
+border-bottom-color: #999;
+border-bottom-color: rgba(0, 0, 0, .25);</code></pre>
+
+<p>} .popover.bottom &gt; .arrow:after {</p>
+
+<pre><code>top: 1px;
+margin-left: -10px;
+content: &quot; &quot;;
+border-top-width: 0;
+border-bottom-color: #fff;</code></pre>
+
+<p>} .popover.left &gt; .arrow {</p>
+
+<pre><code>top: 50%;
+right: -11px;
+margin-top: -11px;
+border-right-width: 0;
+border-left-color: #999;
+border-left-color: rgba(0, 0, 0, .25);</code></pre>
+
+<p>} .popover.left &gt; .arrow:after {</p>
+
+<pre><code>right: 1px;
+bottom: -10px;
+content: &quot; &quot;;
+border-right-width: 0;
+border-left-color: #fff;</code></pre>
+
+<p>} .carousel {</p>
+
+<pre><code>position: relative;</code></pre>
+
+<p>} .carousel-inner {</p>
+
+<pre><code>position: relative;
+width: 100%;
+overflow: hidden;</code></pre>
+
+<p>} .carousel-inner &gt; .item {</p>
+
+<pre><code>position: relative;
+display: none;
+-webkit-transition: .6s ease-in-out left;
+     -o-transition: .6s ease-in-out left;
+        transition: .6s ease-in-out left;</code></pre>
+
+<p>} .carousel-inner &gt; .item &gt; img, .carousel-inner &gt; .item &gt; a
+&gt; img {</p>
+
+<pre><code>line-height: 1;</code></pre>
+
+<p>} @media all and (transform-3d), (-webkit-transform-3d) {</p>
+
+<pre><code>.carousel-inner &gt; .item {
+  -webkit-transition: -webkit-transform .6s ease-in-out;
+       -o-transition:      -o-transform .6s ease-in-out;
+          transition:         transform .6s ease-in-out;
+
+  -webkit-backface-visibility: hidden;
+          backface-visibility: hidden;
+  -webkit-perspective: 1000;
+          perspective: 1000;
+}
+.carousel-inner &gt; .item.next,
+.carousel-inner &gt; .item.active.right {
+  left: 0;
+  -webkit-transform: translate3d(100%, 0, 0);
+          transform: translate3d(100%, 0, 0);
+}
+.carousel-inner &gt; .item.prev,
+.carousel-inner &gt; .item.active.left {
+  left: 0;
+  -webkit-transform: translate3d(-100%, 0, 0);
+          transform: translate3d(-100%, 0, 0);
+}
+.carousel-inner &gt; .item.next.left,
+.carousel-inner &gt; .item.prev.right,
+.carousel-inner &gt; .item.active {
+  left: 0;
+  -webkit-transform: translate3d(0, 0, 0);
+          transform: translate3d(0, 0, 0);
+}</code></pre>
+
+<p>} .carousel-inner &gt; .active, .carousel-inner &gt; .next, .carousel-inner
+&gt; .prev {</p>
+
+<pre><code>display: block;</code></pre>
+
+<p>} .carousel-inner &gt; .active {</p>
+
+<pre><code>left: 0;</code></pre>
+
+<p>} .carousel-inner &gt; .next, .carousel-inner &gt; .prev {</p>
+
+<pre><code>position: absolute;
+top: 0;
+width: 100%;</code></pre>
+
+<p>} .carousel-inner &gt; .next {</p>
+
+<pre><code>left: 100%;</code></pre>
+
+<p>} .carousel-inner &gt; .prev {</p>
+
+<pre><code>left: -100%;</code></pre>
+
+<p>} .carousel-inner &gt; .next.left, .carousel-inner &gt; .prev.right {</p>
+
+<pre><code>left: 0;</code></pre>
+
+<p>} .carousel-inner &gt; .active.left {</p>
+
+<pre><code>left: -100%;</code></pre>
+
+<p>} .carousel-inner &gt; .active.right {</p>
+
+<pre><code>left: 100%;</code></pre>
+
+<p>} .carousel-control {</p>
+
+<pre><code>position: absolute;
+top: 0;
+bottom: 0;
+left: 0;
+width: 15%;
+font-size: 20px;
+color: #fff;
+text-align: center;
+text-shadow: 0 1px 2px rgba(0, 0, 0, .6);
+filter: alpha(opacity=50);
+opacity: .5;</code></pre>
+
+<p>} .carousel-control.left {</p>
+
+<pre><code>background-image: -webkit-linear-gradient(left, rgba(0, 0, 0, .5) 0%, rgba(0, 0, 0, .0001) 100%);
+background-image:      -o-linear-gradient(left, rgba(0, 0, 0, .5) 0%, rgba(0, 0, 0, .0001) 100%);
+background-image: -webkit-gradient(linear, left top, right top, from(rgba(0, 0, 0, .5)), to(rgba(0, 0, 0, .0001)));
+background-image:         linear-gradient(to right, rgba(0, 0, 0, .5) 0%, rgba(0, 0, 0, .0001) 100%);
+filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=&#39;#80000000&#39;, endColorstr=&#39;#00000000&#39;, GradientType=1);
+background-repeat: repeat-x;</code></pre>
+
+<p>} .carousel-control.right {</p>
+
+<pre><code>right: 0;
+left: auto;
+background-image: -webkit-linear-gradient(left, rgba(0, 0, 0, .0001) 0%, rgba(0, 0, 0, .5) 100%);
+background-image:      -o-linear-gradient(left, rgba(0, 0, 0, .0001) 0%, rgba(0, 0, 0, .5) 100%);
+background-image: -webkit-gradient(linear, left top, right top, from(rgba(0, 0, 0, .0001)), to(rgba(0, 0, 0, .5)));
+background-image:         linear-gradient(to right, rgba(0, 0, 0, .0001) 0%, rgba(0, 0, 0, .5) 100%);
+filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=&#39;#00000000&#39;, endColorstr=&#39;#80000000&#39;, GradientType=1);
+background-repeat: repeat-x;</code></pre>
+
+<p>} .carousel-control:hover, .carousel-control:focus {</p>
+
+<pre><code>color: #fff;
+text-decoration: none;
+filter: alpha(opacity=90);
+outline: 0;
+opacity: .9;</code></pre>
+
+<p>} .carousel-control .icon-prev, .carousel-control .icon-next,
+.carousel-control .glyphicon-chevron-left, .carousel-control
+.glyphicon-chevron-right {</p>
+
+<pre><code>position: absolute;
+top: 50%;
+z-index: 5;
+display: inline-block;</code></pre>
+
+<p>} .carousel-control .icon-prev, .carousel-control .glyphicon-chevron-left {</p>
+
+<pre><code>left: 50%;
+margin-left: -10px;</code></pre>
+
+<p>} .carousel-control .icon-next, .carousel-control .glyphicon-chevron-right
+{</p>
+
+<pre><code>right: 50%;
+margin-right: -10px;</code></pre>
+
+<p>} .carousel-control .icon-prev, .carousel-control .icon-next {</p>
+
+<pre><code>width: 20px;
+height: 20px;
+margin-top: -10px;
+font-family: serif;</code></pre>
+
+<p>} .carousel-control .icon-prev:before {</p>
+
+<pre><code>content: &#39;\2039&#39;;</code></pre>
+
+<p>} .carousel-control .icon-next:before {</p>
+
+<pre><code>content: &#39;\203a&#39;;</code></pre>
+
+<p>} .carousel-indicators {</p>
+
+<pre><code>position: absolute;
+bottom: 10px;
+left: 50%;
+z-index: 15;
+width: 60%;
+padding-left: 0;
+margin-left: -30%;
+text-align: center;
+list-style: none;</code></pre>
+
+<p>} .carousel-indicators li {</p>
+
+<pre><code>display: inline-block;
+width: 10px;
+height: 10px;
+margin: 1px;
+text-indent: -999px;
+cursor: pointer;
+background-color: #000 \9;
+background-color: rgba(0, 0, 0, 0);
+border: 1px solid #fff;
+border-radius: 10px;</code></pre>
+
+<p>} .carousel-indicators .active {</p>
+
+<pre><code>width: 12px;
+height: 12px;
+margin: 0;
+background-color: #fff;</code></pre>
+
+<p>} .carousel-caption {</p>
+
+<pre><code>position: absolute;
+right: 15%;
+bottom: 20px;
+left: 15%;
+z-index: 10;
+padding-top: 20px;
+padding-bottom: 20px;
+color: #fff;
+text-align: center;
+text-shadow: 0 1px 2px rgba(0, 0, 0, .6);</code></pre>
+
+<p>} .carousel-caption .btn {</p>
+
+<pre><code>text-shadow: none;</code></pre>
+
+<p>} @media screen and (min-width: 768px) {</p>
+
+<pre><code>.carousel-control .glyphicon-chevron-left,
+.carousel-control .glyphicon-chevron-right,
+.carousel-control .icon-prev,
+.carousel-control .icon-next {
+  width: 30px;
+  height: 30px;
+  margin-top: -15px;
+  font-size: 30px;
+}
+.carousel-control .glyphicon-chevron-left,
+.carousel-control .icon-prev {
+  margin-left: -15px;
+}
+.carousel-control .glyphicon-chevron-right,
+.carousel-control .icon-next {
+  margin-right: -15px;
+}
+.carousel-caption {
+  right: 20%;
+  left: 20%;
+  padding-bottom: 30px;
+}
+.carousel-indicators {
+  bottom: 20px;
+}</code></pre>
+
+<p>} .clearfix:before, .clearfix:after, .dl-horizontal dd:before,
+.dl-horizontal dd:after, .container:before, .container:after,
+.container-fluid:before, .container-fluid:after, .row:before, .row:after,
+.form-horizontal .form-group:before, .form-horizontal .form-group:after,
+.btn-toolbar:before, .btn-toolbar:after, .btn-group-vertical &gt;
+.btn-group:before, .btn-group-vertical &gt; .btn-group:after, .nav:before,
+.nav:after, .navbar:before, .navbar:after, .navbar-header:before,
+.navbar-header:after, .navbar-collapse:before, .navbar-collapse:after,
+.pager:before, .pager:after, .panel-body:before, .panel-body:after,
+.modal-footer:before, .modal-footer:after {</p>
+
+<pre><code>display: table;
+content: &quot; &quot;;</code></pre>
+
+<p>} .clearfix:after, .dl-horizontal dd:after, .container:after,
+.container-fluid:after, .row:after, .form-horizontal .form-group:after,
+.btn-toolbar:after, .btn-group-vertical &gt; .btn-group:after, .nav:after,
+.navbar:after, .navbar-header:after, .navbar-collapse:after, .pager:after,
+.panel-body:after, .modal-footer:after {</p>
+
+<pre><code>clear: both;</code></pre>
+
+<p>} .center-block {</p>
+
+<pre><code>display: block;
+margin-right: auto;
+margin-left: auto;</code></pre>
+
+<p>} .pull-right {</p>
+
+<pre><code>float: right !important;</code></pre>
+
+<p>} .pull-left {</p>
+
+<pre><code>float: left !important;</code></pre>
+
+<p>} .hide {</p>
+
+<pre><code>display: none !important;</code></pre>
+
+<p>} .show {</p>
+
+<pre><code>display: block !important;</code></pre>
+
+<p>} .invisible {</p>
+
+<pre><code>visibility: hidden;</code></pre>
+
+<p>} .text-hide {</p>
+
+<pre><code>font: 0/0 a;
+color: transparent;
+text-shadow: none;
+background-color: transparent;
+border: 0;</code></pre>
+
+<p>} .hidden {</p>
+
+<pre><code>display: none !important;
+visibility: hidden !important;</code></pre>
+
+<p>} .affix {</p>
+
+<pre><code>position: fixed;</code></pre>
+
+<p>} @-ms-viewport {</p>
+
+<pre><code>width: device-width;</code></pre>
+
+<p>} .visible-xs, .visible-sm, .visible-md, .visible-lg {</p>
+
+<pre><code>display: none !important;</code></pre>
+
+<p>} .visible-xs-block, .visible-xs-inline, .visible-xs-inline-block,
+.visible-sm-block, .visible-sm-inline, .visible-sm-inline-block,
+.visible-md-block, .visible-md-inline, .visible-md-inline-block,
+.visible-lg-block, .visible-lg-inline, .visible-lg-inline-block {</p>
+
+<pre><code>display: none !important;</code></pre>
+
+<p>} @media (max-width: 767px) {</p>
+
+<pre><code>.visible-xs {
+  display: block !important;
+}
+table.visible-xs {
+  display: table;
+}
+tr.visible-xs {
+  display: table-row !important;
+}
+th.visible-xs,
+td.visible-xs {
+  display: table-cell !important;
+}</code></pre>
+
+<p>} @media (max-width: 767px) {</p>
+
+<pre><code>.visible-xs-block {
+  display: block !important;
+}</code></pre>
+
+<p>} @media (max-width: 767px) {</p>
+
+<pre><code>.visible-xs-inline {
+  display: inline !important;
+}</code></pre>
+
+<p>} @media (max-width: 767px) {</p>
+
+<pre><code>.visible-xs-inline-block {
+  display: inline-block !important;
+}</code></pre>
+
+<p>} @media (min-width: 768px) and (max-width: 991px) {</p>
+
+<pre><code>.visible-sm {
+  display: block !important;
+}
+table.visible-sm {
+  display: table;
+}
+tr.visible-sm {
+  display: table-row !important;
+}
+th.visible-sm,
+td.visible-sm {
+  display: table-cell !important;
+}</code></pre>
+
+<p>} @media (min-width: 768px) and (max-width: 991px) {</p>
+
+<pre><code>.visible-sm-block {
+  display: block !important;
+}</code></pre>
+
+<p>} @media (min-width: 768px) and (max-width: 991px) {</p>
+
+<pre><code>.visible-sm-inline {
+  display: inline !important;
+}</code></pre>
+
+<p>} @media (min-width: 768px) and (max-width: 991px) {</p>
+
+<pre><code>.visible-sm-inline-block {
+  display: inline-block !important;
+}</code></pre>
+
+<p>} @media (min-width: 992px) and (max-width: 1199px) {</p>
+
+<pre><code>.visible-md {
+  display: block !important;
+}
+table.visible-md {
+  display: table;
+}
+tr.visible-md {
+  display: table-row !important;
+}
+th.visible-md,
+td.visible-md {
+  display: table-cell !important;
+}</code></pre>
+
+<p>} @media (min-width: 992px) and (max-width: 1199px) {</p>
+
+<pre><code>.visible-md-block {
+  display: block !important;
+}</code></pre>
+
+<p>} @media (min-width: 992px) and (max-width: 1199px) {</p>
+
+<pre><code>.visible-md-inline {
+  display: inline !important;
+}</code></pre>
+
+<p>} @media (min-width: 992px) and (max-width: 1199px) {</p>
+
+<pre><code>.visible-md-inline-block {
+  display: inline-block !important;
+}</code></pre>
+
+<p>} @media (min-width: 1200px) {</p>
+
+<pre><code>.visible-lg {
+  display: block !important;
+}
+table.visible-lg {
+  display: table;
+}
+tr.visible-lg {
+  display: table-row !important;
+}
+th.visible-lg,
+td.visible-lg {
+  display: table-cell !important;
+}</code></pre>
+
+<p>} @media (min-width: 1200px) {</p>
+
+<pre><code>.visible-lg-block {
+  display: block !important;
+}</code></pre>
+
+<p>} @media (min-width: 1200px) {</p>
+
+<pre><code>.visible-lg-inline {
+  display: inline !important;
+}</code></pre>
+
+<p>} @media (min-width: 1200px) {</p>
+
+<pre><code>.visible-lg-inline-block {
+  display: inline-block !important;
+}</code></pre>
+
+<p>} @media (max-width: 767px) {</p>
+
+<pre><code>.hidden-xs {
+  display: none !important;
+}</code></pre>
+
+<p>} @media (min-width: 768px) and (max-width: 991px) {</p>
+
+<pre><code>.hidden-sm {
+  display: none !important;
+}</code></pre>
+
+<p>} @media (min-width: 992px) and (max-width: 1199px) {</p>
+
+<pre><code>.hidden-md {
+  display: none !important;
+}</code></pre>
+
+<p>} @media (min-width: 1200px) {</p>
+
+<pre><code>.hidden-lg {
+  display: none !important;
+}</code></pre>
+
+<p>} .visible-print {</p>
+
+<pre><code>display: none !important;</code></pre>
+
+<p>} @media print {</p>
+
+<pre><code>.visible-print {
+  display: block !important;
+}
+table.visible-print {
+  display: table;
+}
+tr.visible-print {
+  display: table-row !important;
+}
+th.visible-print,
+td.visible-print {
+  display: table-cell !important;
+}</code></pre>
+
+<p>} .visible-print-block {</p>
+
+<pre><code>display: none !important;</code></pre>
+
+<p>} @media print {</p>
+
+<pre><code>.visible-print-block {
+  display: block !important;
+}</code></pre>
+
+<p>} .visible-print-inline {</p>
+
+<pre><code>display: none !important;</code></pre>
+
+<p>} @media print {</p>
+
+<pre><code>.visible-print-inline {
+  display: inline !important;
+}</code></pre>
+
+<p>} .visible-print-inline-block {</p>
+
+<pre><code>display: none !important;</code></pre>
+
+<p>} @media print {</p>
+
+<pre><code>.visible-print-inline-block {
+  display: inline-block !important;
+}</code></pre>
+
+<p>} @media print {</p>
+
+<pre><code>.hidden-print {
+  display: none !important;
+}</code></pre>
+
+<p>} /*# sourceMappingURL=bootstrap.css.map */</p>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

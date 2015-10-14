@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>TransloaditDocumentsParser</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../css/github.css" type="text/css" media="screen" />
+<script src="../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            <span class="type">Class</span> 
+            TransloaditDocumentsParser 
+            
+                <span class="parent">&lt; 
+                    
+                    Object
+                    
+                </span>
+            
+        </h1>
+        <ul class="files">
+            
+            <li><a href="../files/services/transloadit_documents_parser_rb.html">services/transloadit_documents_parser.rb</a></li>
+            
+        </ul>
+    </div>
+    <div id="bodyContent">
+        <div id="content">
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+    <!-- Method ref -->
+    <div class="sectiontitle">Methods</div>
+    <dl class="methods">
+      
+        <dt>E</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-c-extract">extract</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>N</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-c-new">new</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>P</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-c-parse">parse</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+    </dl>
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+    
+      <div class="sectiontitle">Class Public methods</div>
+      
+        <div class="method">
+          <div class="title method-title" id="method-c-extract">
+            
+              <b>extract</b>(uploads)
+            
+            <a href="../classes/TransloaditDocumentsParser.html#method-c-extract" name="method-c-extract" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-c-extract_source')" id="l_method-c-extract_source">show</a>
+                
+              </p>
+              <div id="method-c-extract_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File services/transloadit_documents_parser.rb, line 8</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">self</span>.<span class="ruby-identifier">extract</span> <span class="ruby-identifier">uploads</span>
+  
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">uploads</span>[<span class="ruby-value">:results</span>].<span class="ruby-identifier">nil?</span>
+    <span class="ruby-identifier">puts</span> <span class="ruby-string">&#39;+++++++++++++++++++++++++++++++++++++++++++++++++&#39;</span>
+    <span class="ruby-identifier">puts</span> <span class="ruby-string">&#39;ERROR: Unable to extract recordings: uploads nil&#39;</span>
+    <span class="ruby-identifier">puts</span> <span class="ruby-string">&#39;In TransloaditRecordingsParser#extract&#39;</span>
+    <span class="ruby-identifier">puts</span> <span class="ruby-string">&#39;+++++++++++++++++++++++++++++++++++++++++++++++++&#39;</span>
+    <span class="ruby-keyword">return</span> <span class="ruby-keyword">nil</span> 
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-identifier">transloadets</span>  = []
+  <span class="ruby-identifier">extracted</span>     = {}
+
+  
+  <span class="ruby-comment"># original file</span>
+  <span class="ruby-identifier">uploads</span>[<span class="ruby-value">:results</span>][<span class="ruby-string">&#39;:original&#39;</span>].<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">original</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">extracted</span>[ <span class="ruby-identifier">original</span>[<span class="ruby-value">:original_id</span>] ] =  { 
+                                              <span class="ruby-identifier">title</span><span class="ruby-operator">:</span>          <span class="ruby-identifier">original</span>[<span class="ruby-value">:name</span>], 
+                                              <span class="ruby-identifier">file_type</span><span class="ruby-operator">:</span>      <span class="ruby-identifier">original</span>[<span class="ruby-value">:type</span>],
+                                              <span class="ruby-identifier">mime</span><span class="ruby-operator">:</span>           <span class="ruby-identifier">original</span>[<span class="ruby-value">:mime</span>],
+                                              <span class="ruby-identifier">file</span><span class="ruby-operator">:</span>           <span class="ruby-identifier">original</span>[<span class="ruby-value">:url</span>].<span class="ruby-identifier">sub</span>(<span class="ruby-string">&#39;https://s3.amazonaws.com/digiramp&#39;</span>, <span class="ruby-string">&#39;https://s3-us-west-1.amazonaws.com/digiramp&#39;</span>),
+                                              <span class="ruby-identifier">file_size</span><span class="ruby-operator">:</span>      <span class="ruby-identifier">original</span>[<span class="ruby-value">:size</span>]
+                                            }
+  <span class="ruby-keyword">end</span>
+  
+  
+  <span class="ruby-keyword">begin</span>
+    <span class="ruby-identifier">uploads</span>[<span class="ruby-value">:results</span>][<span class="ruby-value">:image_thumb</span>].<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">image_thumb</span><span class="ruby-operator">|</span>
+      <span class="ruby-identifier">extracted</span>[ <span class="ruby-identifier">image_thumb</span>[<span class="ruby-value">:original_id</span>] ][<span class="ruby-value">:image_thumb</span>] = <span class="ruby-identifier">image_thumb</span>[<span class="ruby-value">:url</span>].<span class="ruby-identifier">sub</span>(<span class="ruby-string">&#39;https://s3.amazonaws.com/digiramp&#39;</span>, <span class="ruby-string">&#39;https://s3-us-west-1.amazonaws.com/digiramp&#39;</span>)
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">rescue</span>
+  <span class="ruby-keyword">end</span>
+  
+  
+  <span class="ruby-identifier">extracted</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span> <span class="ruby-identifier">k</span>, <span class="ruby-identifier">v</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">transloadets</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">v</span>
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-identifier">transloadets</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-c-new">
+            
+              <b>new</b>()
+            
+            <a href="../classes/TransloaditDocumentsParser.html#method-c-new" name="method-c-new" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-c-new_source')" id="l_method-c-new_source">show</a>
+                
+              </p>
+              <div id="method-c-new_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File services/transloadit_documents_parser.rb, line 3</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">initialize</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-c-parse">
+            
+              <b>parse</b>(uploads, account_id)
+            
+            <a href="../classes/TransloaditDocumentsParser.html#method-c-parse" name="method-c-parse" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-c-parse_source')" id="l_method-c-parse_source">show</a>
+                
+              </p>
+              <div id="method-c-parse_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File services/transloadit_documents_parser.rb, line 48</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">self</span>.<span class="ruby-identifier">parse</span> <span class="ruby-identifier">uploads</span>, <span class="ruby-identifier">account_id</span>
+  <span class="ruby-identifier">transloadets</span>  = <span class="ruby-identifier">extract</span>( <span class="ruby-identifier">uploads</span> )
+  
+
+  <span class="ruby-identifier">documents</span> = []
+  <span class="ruby-identifier">transloadets</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">transloaded</span><span class="ruby-operator">|</span>
+
+
+    
+    <span class="ruby-identifier">document</span> =   <span class="ruby-constant">Document</span>.<span class="ruby-identifier">create!</span>(  <span class="ruby-identifier">title</span><span class="ruby-operator">:</span>          <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:title</span>],
+                                    <span class="ruby-identifier">file_type</span><span class="ruby-operator">:</span>      <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:file_type</span>],
+                                    <span class="ruby-identifier">mime</span><span class="ruby-operator">:</span>           <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:mime</span>],
+                                    <span class="ruby-identifier">file</span><span class="ruby-operator">:</span>           <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:file</span>],
+                                    <span class="ruby-identifier">image_thumb</span><span class="ruby-operator">:</span>    <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:image_thumb</span>],
+                                    <span class="ruby-identifier">file_size</span><span class="ruby-operator">:</span>      <span class="ruby-identifier">transloaded</span>[<span class="ruby-value">:file_size</span>],
+                                    <span class="ruby-identifier">account_id</span><span class="ruby-operator">:</span>     <span class="ruby-identifier">account_id</span>
+                                  )
+    
+
+    <span class="ruby-identifier">documents</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">document</span>
+
+
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-identifier">documents</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+                        </div>
+
+    </div>
+  </body>
+</html>    

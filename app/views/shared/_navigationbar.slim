@@ -64,10 +64,8 @@
             /'&nbsp;
             'Opportunities
       li class="#{page == 'shop' ? 'active' : ''}"
-        = link_to shop_shop_index_path do
-          /i.fa.fa-shopping-cart
-          /'&nbsp;
-          'Shop
+        = link_to 'Shop', shop_shop_index_path, id: 'shop'
+
     
 
     ul class="nav navbar-nav navbar-right"

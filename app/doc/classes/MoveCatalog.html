@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>MoveCatalog</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../css/github.css" type="text/css" media="screen" />
+<script src="../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            <span class="type">Class</span> 
+            MoveCatalog 
+            
+                <span class="parent">&lt; 
+                    
+                    Object
+                    
+                </span>
+            
+        </h1>
+        <ul class="files">
+            
+            <li><a href="../files/services/move_catalog_rb.html">services/move_catalog.rb</a></li>
+            
+        </ul>
+    </div>
+    <div id="bodyContent">
+        <div id="content">
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+    <!-- Method ref -->
+    <div class="sectiontitle">Methods</div>
+    <dl class="methods">
+      
+        <dt>M</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-c-move_recordings_from">move_recordings_from</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-c-move_to_account">move_to_account</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>N</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-c-new">new</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+    </dl>
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+    
+      <div class="sectiontitle">Class Public methods</div>
+      
+        <div class="method">
+          <div class="title method-title" id="method-c-move_recordings_from">
+            
+              <b>move_recordings_from</b>(catalog)
+            
+            <a href="../classes/MoveCatalog.html#method-c-move_recordings_from" name="method-c-move_recordings_from" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-c-move_recordings_from_source')" id="l_method-c-move_recordings_from_source">show</a>
+                
+              </p>
+              <div id="method-c-move_recordings_from_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File services/move_catalog.rb, line 24</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">self</span>.<span class="ruby-identifier">move_recordings_from</span> <span class="ruby-identifier">catalog</span>
+  
+  <span class="ruby-identifier">recording_ids</span>     = <span class="ruby-identifier">catalog</span>.<span class="ruby-identifier">catalog_items</span>.<span class="ruby-identifier">where</span>(<span class="ruby-identifier">catalog_itemable_type</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;Recording&#39;</span>).<span class="ruby-identifier">pluck</span>(<span class="ruby-value">:catalog_itemable_id</span>)
+  <span class="ruby-identifier">recordings</span>        = <span class="ruby-constant">Recording</span>.<span class="ruby-identifier">where</span>(<span class="ruby-identifier">id</span><span class="ruby-operator">:</span> <span class="ruby-identifier">recording_ids</span>)
+  <span class="ruby-identifier">recordings</span>.<span class="ruby-identifier">update_all</span>(<span class="ruby-identifier">account_id</span><span class="ruby-operator">:</span> <span class="ruby-identifier">catalog</span>.<span class="ruby-identifier">account_id</span>)
+
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-c-move_to_account">
+            
+              <b>move_to_account</b>(catalog, account)
+            
+            <a href="../classes/MoveCatalog.html#method-c-move_to_account" name="method-c-move_to_account" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-c-move_to_account_source')" id="l_method-c-move_to_account_source">show</a>
+                
+              </p>
+              <div id="method-c-move_to_account_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File services/move_catalog.rb, line 6</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">self</span>.<span class="ruby-identifier">move_to_account</span> <span class="ruby-identifier">catalog</span>, <span class="ruby-identifier">account</span>
+  
+  <span class="ruby-identifier">puts</span> <span class="ruby-identifier">catalog</span>.<span class="ruby-identifier">title</span>
+  <span class="ruby-identifier">puts</span> <span class="ruby-identifier">catalog</span>.<span class="ruby-identifier">account_id</span>
+  <span class="ruby-identifier">puts</span> <span class="ruby-identifier">account</span>.<span class="ruby-identifier">id</span>
+  
+  <span class="ruby-comment"># move catalog to account</span>
+  <span class="ruby-identifier">catalog</span>.<span class="ruby-identifier">account_id</span> = <span class="ruby-identifier">account</span>.<span class="ruby-identifier">id</span>
+  <span class="ruby-identifier">catalog</span>.<span class="ruby-identifier">save!</span>
+  <span class="ruby-identifier">catalog</span>.<span class="ruby-identifier">catalog_users</span>.<span class="ruby-identifier">delete_all</span>
+  
+
+  <span class="ruby-comment"># move all the recordings to the new account</span>
+  <span class="ruby-identifier">move_recordings_from</span> <span class="ruby-identifier">catalog</span>
+  
+  
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-c-new">
+            
+              <b>new</b>()
+            
+            <a href="../classes/MoveCatalog.html#method-c-new" name="method-c-new" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-c-new_source')" id="l_method-c-new_source">show</a>
+                
+              </p>
+              <div id="method-c-new_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File services/move_catalog.rb, line 3</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">initialize</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+                        </div>
+
+    </div>
+  </body>
+</html>    

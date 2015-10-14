@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>_select_genre.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            _select_genre.slim
+        </h1>
+        <ul class="files">
+            <li>views/catalog/recordings/shared/_select_genre.slim</li>
+            <li>Last modified: 2015-07-05 15:22:06 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      <ul><li>
+<p>if <a href=":genre_category">params</a></p>
+
+<h2 id="label-render+-27shared-2Fpage_title-27-2C+locals-3A+-7Bblog-3A+blog-2C+blog_post-3A+-27Select+Genre-27-7D+">render &#39;shared/page_title&#39;, locals: {blog: blog, blog_post: &#39;Select Genre&#39;} </h2>
+
+<p>.row</p>
+
+<pre><code>.col-sm-6
+  /h3 = params[:genre_category].gsub(&#39;_&#39;, &#39; &#39;).upcase
+  h3 = params[:genre_category].gsub(&#39;_&#39;, &#39; &#39;).upcase
+.col-sm-5
+  -if @disable_more_genres
+    .text-danger
+      h3 You have reached the maximum of 4 Genre
+  -else
+    h3 You have added #{@added_genge_tags} of 4 Genre</code></pre>
+
+<p>.row</p>
+
+<pre><code>.col-sm-12
+  == render &quot;recordings/shared/category&quot;, blog: blog</code></pre>
+</li><li>
+<p>else</p>
+
+<h2 id="label-render+-27shared-2Fpage_title-27-2C+locals-3A+-7Bblog-3A+blog-2C+blog_post-3A+-27Select+Category-27-7D+">render &#39;shared/page_title&#39;, locals: {blog: blog, blog_post: &#39;Select Category&#39;} </h2>
+
+<p>.row</p>
+
+<pre><code>-Genre::GENRE_CATEGORY.each do |genre_category|
+  .col-sm-3
+    = render &#39;recordings/shared/badge&#39;, category: &#39;popular_music&#39;, \
+                                        locals: \
+                                        { blog: blog, \
+                                          identifyer: genre_category.gsub(&#39;_&#39;, &#39; &#39;).titleize, \
+                                          submit: &quot;genre_category&quot; \
+                                        }</code></pre>
+</li></ul>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

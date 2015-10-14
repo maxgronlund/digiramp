@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>index.html.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            index.html.slim
+        </h1>
+        <ul class="files">
+            <li>views/user/recording_users/index.html.slim</li>
+            <li>Last modified: 2015-08-04 16:27:51 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>wrapper</p>
+
+<pre><code>.full-width-top
+  == render &#39;shared/navigationbar&#39;, page: &#39;user&#39; 
+
+#sidebar-wrapper
+  ul class=&quot;sidebar-nav&quot;
+    == render &#39;users/shared/sidebar&#39;, selected: &#39;profile&#39;
+
+#page-content-wrapper
+  .container-fluid 
+    == render &#39;recordings/wizard_step&#39;, step: 2
+    .row
+      .col-sm-6
+        .help
+          .help-text
+            h2 Invited users
+          .help-button
+            == render &#39;admin/helps/help&#39;, identifier: &#39;recording users&#39;
+      .col-sm-6
+        .pull-right
+          .recording-navigation
+            =&gt; link_to edit_user_recording_basic_path(@user, @recording) do
+              .btn.btn-default
+                i.fa.fa-chevron-left
+                &#39;&amp;nbsp;
+                &#39;Back
+
+            = link_to edit_user_recording_lyric_path(@user, @recording) do
+              .btn.btn-default
+                &#39;Skip
+                &#39;&amp;nbsp;
+                i.fa.fa-chevron-right
+    .sexy_line
+    h4 = @recording.title
+    .row
+      .col-sm-6
+         .digi-box
+          = simple_form_for [:user, @user, @recording, @recording_user ], turboboost: true do |f|
+            = f.error_notification
+
+            .form-inputs
+              = f.hidden_field :recording_id, value: @recording.id
+              = f.input :email
+
+            .form-actions
+              .row
+                .col-sm-12
+                  .pull-right
+
+                    = f.submit &quot;Add user&quot;, class: &#39;btn btn-default&#39;
+      .col-sm-6
+        .digi-box
+          .table-responsive
+            table class=&quot;table table-hover&quot;
+              tbody
+                - @recording.recording_users.each do |recording_user|
+                  tr
+                    td 
+                      =&gt; link_to user_user_recording_recording_user_path( @user, @recording, recording_user), 
+                                      data: {:confirm =&gt; &#39;Are you sure?&#39;}, 
+                                      turboboost: true,
+                                      :method =&gt; :delete do
+                              .btn.btn-danger.btn-xs
+                                i.fa.fa-times
+                      = recording_user.email
+
+          br
+
+== render &#39;shared/site_footer&#39;</code></pre>
+
+<p>/= link_to &#39;New <a
+href="../../../../classes/Recording.html">Recording</a> user&#39;,
+new_recording_user_path</p>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

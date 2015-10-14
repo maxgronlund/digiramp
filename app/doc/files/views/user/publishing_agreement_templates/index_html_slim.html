@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>index.html.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            index.html.slim
+        </h1>
+        <ul class="files">
+            <li>views/user/publishing_agreement_templates/index.html.slim</li>
+            <li>Last modified: 2015-10-02 10:01:39 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>wrapper</p>
+
+<pre><code>.full-width-top
+  == render &#39;shared/navigationbar&#39;, page: &#39;dashboard&#39; 
+
+#sidebar-wrapper
+  ul class=&quot;sidebar-nav&quot;
+    == render &#39;users/shared/sidebar&#39;, selected: &#39;dashboard&#39;
+
+#page-content-wrapper
+  .container-fluid
+    == render &#39;shared/breadcrumbs&#39;, breadcrumbs: { links: { publishers: user_user_publishers_path(@user),
+                                                             publisher: user_user_publisher_path(@user, @publisher),
+                                                             &#39;publishing agreement&#39;.to_sym =&gt; user_user_publisher_publishing_agreement_path(@user, 
+                                                                     @publisher, 
+                                                                     @publishing_agreement)}}
+    == render &#39;shared/flash_message&#39;
+    .container-fluid
+      .row
+        .col-sm-8
+          .help
+            .help-text
+              h2 Publishing agreement templates
+
+            .help-button
+              == render &#39;admin/helps/help&#39;, identifier: &#39;user distribution agreement templates&#39;
+
+        .col-sm-4
+          .pull-right.pull-down-10
+            =&gt; link_to  user_user_publisher_publishing_agreement_path( @user, 
+                                                                     @publisher, 
+                                                                     @publishing_agreement) do
+                .btn.btn-default
+                  i.fa.fa-chevron-left
+                  &#39;&amp;nbsp;Back
+
+    .pull-down-10
+    .table-responsive
+      table class=&quot;table table-hover&quot;
+        thead
+          tr
+            th style=&quot;width: 76px;&quot;
+            th 
+              &#39;Title/ Description
+            th Signatures
+        tbody
+          - @documents.each do |document|
+            tr
+              td
+                =&gt; link_to user_user_publisher_publishing_agreement_publishing_agreement_template_path(\
+                                  @user, 
+                                  @publisher, 
+                                  @publishing_agreement, 
+                                  document.uuid) do
+                  .btn.btn-default.btn-xs
+                    &#39;Select
+
+              td  
+                .div style=&quot;max-width: 480px;&quot;
+                  b = document.title
+                  br = simple_format document.body
+              td 
+                - document.digital_signatures.each do |digital_signature|
+                  b style=&quot;text-transform: uppercase;&quot; 
+                    = digital_signature.role
+                    br
+
+== render &#39;shared/site_footer&#39;</code></pre>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

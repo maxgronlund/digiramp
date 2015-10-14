@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>_form.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            _form.slim
+        </h1>
+        <ul class="files">
+            <li>views/user/checking_accounts/_form.slim</li>
+            <li>Last modified: 2015-09-24 20:35:34 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>script type=“text/javascript” src=“<a
+href="https://js.stripe.com/v2">js.stripe.com/v2</a>/”</p>
+
+<h1 id="label-form_tag+user_checking_accounts_path-28id-3A+-40user.id-29-2C+-3Aclass+-3D-3E+-27form-horizontal-27-2C+-3Aid+-3D-3E-27account-form-27+do+">form_tag user_checking_accounts_path(id: @user.id), :class =&gt; &#39;form-horizontal&#39;, :id =&gt;&#39;account-form&#39; do </h1>
+
+<pre><code>.control-group
+  label.control-label for=&quot;fullName&quot;  Full Name
+  .controls
+    input#fullName name=&quot;fullName&quot; type=&quot;text&quot; 
+.control-group
+  label.control-label for=&quot;number&quot;  Routing Number
+  .controls
+    input#number.routingNumber placeholder=&quot;*********&quot; size=&quot;9&quot; type=&quot;text&quot; 
+.control-group
+  label.control-label Account Number
+  .controls
+    input.accountNumber type=&quot;text&quot; 
+.form-row
+  .controls
+    button.btn.btn-info type=&quot;submit&quot;  Pay</code></pre>
+
+<p>table</p>
+
+<pre><code>thead
+  tr
+    th Number
+    th Type
+tbody
+  tr
+    td.number
+      code 110000000
+    td STRIPE TEST BANK US routing number
+</code></pre>
+
+<p>table</p>
+
+<pre><code>thead
+  tr
+    th Number
+    th Type
+tbody
+  tr
+    td.number
+      code 000123456789
+    td Transfer will succeed.
+  tr
+    td.number
+      code 000111111116
+    td
+      | Transfer will fail with a
+      code no_account
+      | code.
+  tr
+    td.number
+      code 000111111113
+    td
+      | Transfer will fail with an
+      code account_closed
+      | code.
+  tr
+    td.number
+      code 000222222227
+    td
+      | Transfer will fail with an
+      code insufficient_funds
+      | code.
+  tr
+    td.number
+      code 000333333335
+    td
+      | Transfer will fail with a
+      code not_authorized
+      | code.
+  tr
+    td.number
+      code 000444444440
+    td
+      | Transfer will fail with an
+      code invalid_currency
+      | code.</code></pre>
+
+<p>javascript:</p>
+
+<pre><code>$(&#39;#account-form&#39;).submit(function() {
+  console.log(&#39;SUBMITTING&#39;);
+    Stripe.setPublishableKey(&#39;pk_test_4NSClcsd1oGSIlgzaMQVPx7I&#39;);
+    Stripe.bankAccount.createToken({
+      country: &#39;US&#39;,
+      routingNumber: $(&#39;.routingNumber&#39;).val(),
+      accountNumber: $(&#39;.accountNumber&#39;).val()
+    }, stripeResponseHandler);
+    return false;
+  });
+
+//function stripeResponseHandler(status, response) {
+//  var form = $(&#39;#account-form&#39;);
+//  form.append(&quot;&lt;input type=&#39;hidden&#39; name=&#39;stripeToken&#39; value=&#39;&quot; + response.id + &quot;&#39;/&gt;&quot;);
+//  form.get(0).submit();
+//}
+
+function stripeResponseHandler(status, response) {
+  var $form = $(&#39;#account-form&#39;);
+
+  if (response.error) {
+    // Show the errors on the form
+    $form.find(&#39;.bank-errors&#39;).text(response.error.message);
+    $form.find(&#39;button&#39;).prop(&#39;disabled&#39;, false);
+  } else {
+    // response contains id and bank_account, which contains additional bank account details
+    var token = response.id;
+    // Insert the token into the form so it gets submitted to the server
+    $form.append($(&#39;&lt;input type=&quot;hidden&quot; name=&quot;stripeToken&quot; /&gt;&#39;).val(token));
+    // and submit
+    $form.get(0).submit();
+  }
+}</code></pre>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

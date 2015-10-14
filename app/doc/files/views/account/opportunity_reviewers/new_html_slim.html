@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>new.html.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            new.html.slim
+        </h1>
+        <ul class="files">
+            <li>views/account/opportunity_reviewers/new.html.slim</li>
+            <li>Last modified: 2015-09-26 08:36:29 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>wrapper</p>
+
+<pre><code>.full-width-top
+  == render &#39;shared/navigationbar&#39;, page: &#39;home&#39; 
+
+#sidebar-wrapper
+  ul class=&quot;sidebar-nav&quot;
+    == render &#39;users/shared/sidebar&#39;, selected: &#39;user&#39;
+
+#page-content-wrapper
+  .container-fluid
+    == render &#39;shared/breadcrumbs&#39;, \
+        breadcrumbs: { links: { opportunities: account_account_opportunities_path(@account), \
+                                @opportunity.title.to_sym =&gt; account_account_opportunity_path(@account, @opportunity)}, current: &#39;&#39;}
+    .row
+      .col-sm-6
+
+        .row
+          .col-sm-12
+            .help
+              .help-text
+               h2 #{@account.title} &lt;funky&gt;Pro&lt;/funky&gt;
+              .help-button
+                == render &#39;admin/helps/help&#39;, identifier: &#39;opportunity reviewers&#39;
+
+      .col-sm-6
+        .pull-right
+          .recording-navigation
+            =&gt; link_to account_account_opportunity_path(@account, @opportunity) do
+                .btn.btn-default
+                  i.fa.fa-chevron-left
+                  &#39;&amp;nbsp;Back
+
+            /= link_to new_account_account_opportunity_opportunity_reviewer_path(@account, @opportunity) do
+            /    .btn.btn-info
+            /      i.fa.fa-user
+            /      &#39;&amp;nbsp;Invite reviewer
+
+    b = @opportunity.title
+    .pull-down-10
+    .digi-box
+      h4 New Reviewers
+      = simple_form_for [ :account, @account, @opportunity, @opportunity_evaluation], url: url_for(action: &#39;create&#39;, controller: &#39;opportunity_reviewers&#39;), method: &#39;post&#39; do |f|
+        = f.hidden_field :user_id, value: @user.id
+        = f.hidden_field :opportunity_id, value: @opportunity.id
+        .row
+          .col-sm-6
+            = f.input :emails, placeholder: &#39;e.g. john@doe.com, elvis@presley.com&#39;, 
+                      hint: &#39;Only valid emails will be accepted&#39;, 
+                      :input_html =&gt; {  style: &quot;height: 244px;&quot;}, autofocus:  true
+
+          .col-sm-6
+            - @opportunity_evaluation.subject = &quot;You have been invited review an opportunity on DigiRAMP&quot;
+            /- @opportunity_evaluation.body = @opportunity.body
+            = f.input :subject , label: &#39;Subject&#39;
+            = f.input :body, label: &#39;Message&#39;, :input_html =&gt; {  style: &quot;height: 172px;&quot;}
+
+        .row
+          .col-sm-12
+            .pull-right
+              = link_to &#39;Cancel&#39;, account_account_opportunity_path(@account, @opportunity), class: &#39;btn btn-default&#39;
+              &#39;&amp;nbsp;
+              = f.submit &#39;Send&#39;, class: &#39;btn btn-info&#39;
+
+        /= f.hidden_field :user_id, value: @user.id
+        /= f.hidden_field :account_id, value: @account.id
+        /
+        /= f.input :emails, label: &#39;Invitees&#39;
+        /= f.input :subject
+        /= f.input :body
+        /= f.submit &#39;Invite&#39;, class: &#39;btn btn-info&#39;
+
+== render &#39;shared/site_footer&#39;</code></pre>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

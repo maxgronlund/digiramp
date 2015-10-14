@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>_ipis.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            _ipis.slim
+        </h1>
+        <ul class="files">
+            <li>views/account/recordings/_ipis.slim</li>
+            <li>Last modified: 2015-07-05 15:22:06 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>-total_share = 0 h4 IPI&#39;s .digi-box</p>
+
+<pre><code>.row
+  .col-sm-4
+    b Role
+  .col-sm-6
+    b Email
+  .col-sm-2
+    b Share
+.sexy_line
+- @recording.recording_ipis.each do |recording_ipi|
+  .row
+    .col-sm-4
+      = recording_ipi.role
+    .col-sm-6
+      = recording_ipi.email
+    .col-sm-2
+      .pull-right
+        - total_share += recording_ipi.share
+        = number_to_percentage(recording_ipi.share, precision: 0)
+
+  .sexy_line
+  .row
+    .col-sm-4
+
+    .col-sm-6
+
+      .pull-right
+        b Total:
+
+    .col-sm-2
+
+      .pull-right
+        -if total_share &gt; 100
+          .expired
+            = number_to_percentage(total_share, precision: 0)  
+        -else
+          = number_to_percentage(total_share, precision: 0)  
+.sexy_line
+.row
+  .col-sm-12
+    .pull-right
+      = link_to &#39;More info&#39;, account_account_recording_recording_ipis_path(@account, @recording), class: &#39;btn btn-default&#39;</code></pre>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

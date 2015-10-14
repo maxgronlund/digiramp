@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>_show.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            _show.slim
+        </h1>
+        <ul class="files">
+            <li>views/user/creative_project_roles/_show.slim</li>
+            <li>Last modified: 2015-07-05 15:22:06 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>.row</p>
+
+<pre><code>.col-sm-12
+  h4 = creative_project_role.role.capitalize
+  - if creative_project_role.instrument.to_s != &#39;&#39;
+    h4
+      - if creative_project_role.instrument == &#39;Other&#39;
+        =creative_project_role.other_instrument
+      - else
+        = creative_project_role.instrument
+    .sexy_line</code></pre>
+
+<p>.row</p>
+
+<pre><code>.col-sm-6
+  -if creative_project_role.description.to_s != &#39;&#39;
+    b Description
+    = simple_format creative_project_role.description
+    .sexy_line
+  .row
+    .col-sm-12  
+        b Budget
+        br
+        = number_to_currency( creative_project_role.budget.to_f) 
+
+  -if creative_project_role.master_split.to_f != 0.0
+    .row
+      .col-sm-12
+        .sexy_line
+        b Master split
+        br
+        = number_to_percentage(creative_project_role.master_split, precision: 1) 
+
+  -if creative_project_role.copyright_split.to_f != 0.0
+    .row
+      .col-sm-12
+        .sexy_line
+        b Copyright split
+        br
+        = number_to_percentage(creative_project_role.copyright_split, precision: 1) 
+
+.col-sm-3 
+  b Genre
+  br
+  .list
+    - if creative_project_role.jazz
+      p Jazz
+    - if creative_project_role.rock
+      p Rock
+    - if creative_project_role.pop
+      p Pop
+    - if creative_project_role.hip_hop
+      p Hip hop
+    - if creative_project_role.edm
+      p EDM
+    - if creative_project_role.classical
+      p Classical
+    - if creative_project_role.experimental
+      p Experimental
+    - if creative_project_role.other_genre.to_s != &#39;&#39;
+      p Other
+
+.col-sm-3
+  b Locations
+  br
+  .list
+    - if creative_project_role.live_performance
+      p Live performance
+    - if creative_project_role.online_collaboration
+      p Online
+    - if creative_project_role.studio_sessions
+      &#39;Studio sessions
+    - if creative_project_role.location.to_s != &#39;&#39;
+      p = creative_project_role.location</code></pre>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

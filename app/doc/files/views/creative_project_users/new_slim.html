@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>new.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            new.slim
+        </h1>
+        <ul class="files">
+            <li>views/creative_project_users/new.slim</li>
+            <li>Last modified: 2015-09-26 13:37:49 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>wrapper</p>
+
+<pre><code>.full-width-top
+  == render &#39;shared/navigationbar&#39;, page: &#39;opportunities&#39;
+
+#sidebar-wrapper
+  ul class=&quot;sidebar-nav&quot;
+    - if current_user
+      == render &#39;user/opportunities/sidebar&#39;, selected: &#39;creative projects&#39;
+    - else
+     == render &#39;public_opportunities/sidebar&#39;, selected: &#39;creative projects&#39;
+
+#page-content-wrapper
+  .container-fluid
+    .row
+      .col-sm-5
+        .help
+          .help-text
+            h2 Join project
+            h4 = @creative_project.title
+          .help-button
+            == render &#39;admin/helps/help&#39;, identifier: &#39;joyn public creative projects&#39;
+
+      .col-sm-7.pull-down-10
+
+    .pull-down-10
+    .digi-box
+      = simple_form_for [  @creative_project, @creative_project_user], turboboost: true do |f|
+        = f.error_notification
+
+        .form-inputs
+          = f.input :message, :input_html =&gt; {  style: &quot;height: 260px;&quot;, placeholder: &quot;Write message&quot;}, autofocus: true
+          = f.hidden_field :creative_project_id,        value: @creative_project.id
+          /= f.hidden_field :creative_project_user_id,   value: @creative_project_user.id
+          = f.hidden_field :user_id,                    value: current_user.id
+          = f.hidden_field :created_by,                 value: current_user.id
+          = f.hidden_field :creative_project_role_id,   value: @creative_project_user.creative_project_role_id
+          = f.hidden_field :approved_by_project_manager, value: false
+          = f.hidden_field :approved_by_user           , value: true
+          = f.hidden_field :locked , value: false
+
+          /= f.input :email
+
+          = f.hidden_field :writer              , value: @creative_project_role.role == &#39;writer&#39;
+          = f.hidden_field :composer            , value: @creative_project_role.role == &#39;composer&#39;
+          = f.hidden_field :musician            , value: @creative_project_role.role == &#39;musician&#39;
+          = f.hidden_field :vocal               , value: @creative_project_role.role == &#39;vocal&#39;
+          = f.hidden_field :dancer              , value: @creative_project_role.role == &#39;dancer&#39;
+          = f.hidden_field :live_performer      , value: @creative_project_role.role == &#39;live_performer&#39;
+          = f.hidden_field :producer            , value: @creative_project_role.role == &#39;producer&#39;
+          = f.hidden_field :studio_facility     , value: @creative_project_role.role == &#39;studio_facility&#39;
+          = f.hidden_field :financial_service   , value: @creative_project_role.role == &#39;financial_service&#39;
+          = f.hidden_field :legal_service       , value: @creative_project_role.role == &#39;legal_service&#39;
+          = f.hidden_field :publicher           , value: @creative_project_role.role == &#39;publicher&#39;
+          = f.hidden_field :remixer             , value: @creative_project_role.role == &#39;remixer&#39;
+          = f.hidden_field :audio_engineer      , value: @creative_project_role.role == &#39;audio_engineer&#39;
+          = f.hidden_field :video_artist        , value: @creative_project_role.role == &#39;video_artist&#39;
+          = f.hidden_field :graphic_artist      , value: @creative_project_role.role == &#39;graphic_artist&#39;
+          = f.hidden_field :other               , value: @creative_project_role.role == &#39;other&#39;
+
+        .row
+          .col-sm-12
+            .pull-right
+              .form-actions
+                = f.submit &#39;Send&#39;, class: &#39;btn btn-info&#39;
+
+== render &#39;shared/site_footer&#39;</code></pre>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>
