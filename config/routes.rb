@@ -789,6 +789,7 @@ Digiramp::Application.routes.draw do
       resources :add_contacts_by_emails, only: [:create]
       #resources :deleted_messages, only: [:index, :update, :destroy]
       resources :admin_masters
+      resources :confirm_common_work_ipis, only: [:edit, :update]
       resources :digital_signatures
       resources :downloads, only: [:index]
       
@@ -999,6 +1000,7 @@ Digiramp::Application.routes.draw do
       resources :user_positions, only: [:index]
       resources :user_ipis
       resources :withdraw, only:[:index]
+      resources :user_notifications, only: [:index, :show]
       #resources :user_ipis, only: [:index]
 
     end

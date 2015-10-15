@@ -55,6 +55,20 @@ class Ipi < ActiveRecord::Base
   #  return false
   #end
   
+
+  # Invite and send notification email to a new user
+  def self.send_invitation
+    
+  end
+  
+  # Send notification email to an existing user
+  def self.notification
+    
+  end
+  
+ 
+ 
+  
   def configure_payment( royalty, price, recording_uuid )
     
     begin
@@ -163,13 +177,31 @@ class Ipi < ActiveRecord::Base
     end
   end
   
-  def attach_to_publisher
-    if self.user
-      if user.personal_publishing_status == "I own and control my own publishing"
-        
-      end
-    end
+  
+  # Attach to the users default publisher.
+  def attach_to_publishers user
+    #self.publisher_id
+    return nil unless self.user
+
+    if user.personal_publishing_status == "I have an exclusive publisher" || 
+       user.personal_publishing_status == "I own and control my own publishing"
+       self.publisher_id  = user.personal_publisher_id
+       self.save(validate: false)
+       attach_to_publishing_agreement
+    else
+      ap 'something fancy here'
+    end 
   end
+  
+  
+  
+  #def attach_to_publisher
+  #  if self.user
+  #    if user.personal_publishing_status == "I own and control my own publishing"
+  #      
+  #    end
+  #  end
+  #end
   
   def self.cached_find(id)
     Rails.cache.fetch([name, id]) { find(id) }

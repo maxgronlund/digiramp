@@ -1,0 +1,160 @@
+
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'user' 
+  
+  
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'users/shared/sidebar', selected: 'recordings'
+  
+  #page-content-wrapper
+    .container-fluid
+      /== render 'shared/breadcrumbs', breadcrumbs: { links: { 'Dashboard'.to_sym => user_user_control_panel_index_path(@user),
+      /                                                        'common work'.to_sym => user_user_common_work_path(@user, @common_work) }}
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { 'Dashboard'.to_sym => user_user_control_panel_index_path(@user),
+                                                               legal: user_user_legal_index_path(@user),
+                                                               'common works'.to_sym => user_user_creative_rights_path(@user)} }
+      .row
+        .col-sm-12
+          .help
+            .help-text
+              /h2 = @common_work.title
+              h2 
+               b © Confirm your role on&nbsp;
+               br = @common_work.title
+            .help-button
+              == render 'admin/helps/help', identifier: 'common work confirm ipi'
+        /.col-sm-5
+        /  .pull-right
+        /    .pull-down-10
+        /      = link_to edit_user_user_common_work_lyric_path(@user, @common_work) do
+        /        .btn.btn-default
+        /          i.fa.fa-chevron-left
+        /          '&nbsp;
+        /          'Back
+        /      =< link_to user_user_common_work_recording_path(@user, @common_work) do
+        /        .btn.btn-default
+        /          'Skip&nbsp;
+        /          i.fa.fa-chevron-right
+        /
+      .pull-down-10
+      - if( @common_work.total_share != 100.0) && (@common_work.common_work_ipis.count > 0)
+        .alert.alert-danger
+          'The creators split has to add up to 100%
+        .pull-down-10
+      .table-responsive
+        /.row.pull-down-10  
+        /  .col-sm-12
+        /    .pull-right
+        /      =< link_to new_user_user_common_work_common_work_ipi_path(@user, @common_work) do
+        /        .btn.btn-default
+        /          i.fa.fa-user-plus&nbsp;Add creator
+        table class="table table-hover"
+          thead
+            tr
+              /th
+              th Name/ email
+              th Roles
+              th Publisher
+              th Creators split
+              th 
+                .pull-right
+                  'Status
+      
+          tbody
+            - @common_work.common_work_ipis.each do |common_work_ipi|
+              - publishing_agreement = common_work_ipi.publishing_agreement
+              /div class="#{ 'alert alert-info' if common_work_ipi == @common_work_ipi}"
+              tr
+                /td  style="width: 64px;"
+                /  => link_to user_user_common_work_common_work_ipi_path(@user, @common_work, common_work_ipi),
+                /                                            turboboost: true,
+                /                                            data: { confirm: 'Are you sure?' }, 
+                /                                            method: :delete do
+                /                            .btn.btn-danger.btn-xs
+                /                              i.fa.fa-times
+                /  = link_to edit_user_user_common_work_common_work_ipi_path(@user, @common_work, common_work_ipi) do
+                /    .btn.btn-default.btn-xs
+                /      i.fa.fa-pencil
+                /
+                td 
+                  = common_work_ipi.get_full_name
+                  br = common_work_ipi.get_email
+              
+                td 
+                  - if common_work_ipi.music
+                    'Music
+                    br
+                  - if common_work_ipi.lyric
+                    'Lyric
+                    br
+                  - if common_work_ipi.melody
+                    'Melody
+                    br
+                  - if common_work_ipi.arrangement
+                    'Arrangement
+                td
+                  - if common_work_ipi.publisher
+                    = common_work_ipi.publisher.legal_name
+
+              
+                td
+              
+                  = number_to_percentage(common_work_ipi.share, precision: 2)   
+            
+                td 
+                  .pull-right
+                    = common_work_ipi.status
+                /td   
+                /  .pull-right
+                /    div class="confirmation-button-#{common_work_ipi.id.to_s}"
+                /      == render 'user/common_works/common_work_ipi_buttons', user: @user, common_work: @common_work, common_work_ipi: common_work_ipi
+          
+
+
+      .pull-down-10
+      .digi-box
+        .row
+          .col-sm-6
+            - if account = @common_work.account
+              - if user = account.user
+                b This work is uploaded and controlled by
+                .pull-down-10
+                = link_to user.user_name, user, class: 'btn btn-default'
+            
+
+          .col-sm-6
+            b I herby confirm that I'm the right full creator and it's correct I have contributed with:
+            .pull-down-10
+            - if @common_work_ipi.music
+              'Music
+              br
+            - if @common_work_ipi.lyric
+              'Lyric
+              br
+            - if @common_work_ipi.melody
+              'Melody
+              br
+            - if @common_work_ipi.arrangement
+              'Arrangement
+            .row
+              .col-sm-12
+                .pull-right
+                  .pull-down-10
+                    - if @common_work_ipi.confirmed?
+                      .btn.btn-info disabled="disabled"
+                        'Confirmed
+                    - else
+                      = link_to 'Confirm', user_user_confirm_common_work_ipi_path(@user, @common_work_ipi.uuid), 
+                                                                    method: 'put',
+                                                                    turboboost: true,
+                                                                    class: 'btn btn-info'
+                                        
+                                                                  
+                  /= link_to 'Confirm', '#', class: 'btn btn-info'
+
+  == render 'shared/site_footer'  
+  
+  
+ 

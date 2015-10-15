@@ -10,9 +10,10 @@
 #                    :title => '00 4'
 #                    }
 #     ...
-# when changes is made to any model associated with a recording
+# When a model associated with a recording is changed 
 # this service class should be created and validate should be called
 # Then a message descriping problems if any will be generated
+# and stored in a user_notification record
 
 class SalesService
   
@@ -103,16 +104,6 @@ class SalesService
     end
   
   end
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
   
   
   

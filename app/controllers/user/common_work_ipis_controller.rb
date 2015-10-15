@@ -23,7 +23,7 @@ class User::CommonWorkIpisController < ApplicationController
     @common_work_ipi          = CommonWorkIpi.find(params[:id])
     
     if @common_work_ipi.update(common_work_ipi_params)
-      @common_work_ipi.attach_to_ip
+      @common_work_ipi.attach_to_user current_user 
       redirect_to user_user_common_work_path(@user, @common_work)
     else
       render :edit
@@ -39,12 +39,12 @@ class User::CommonWorkIpisController < ApplicationController
   def create
     #ap params
     #ap '========================'
-    #ap params[:common_work_ipi][:email]
-    #ap params[:common_work_ipi][:uuid] = UUIDTools::UUID.timestamp_create().to_s
+    params[:common_work_ipi][:status] = 0
+    params[:common_work_ipi][:uuid] = UUIDTools::UUID.timestamp_create().to_s
 
     @common_work           = CommonWork.cached_find(params[:common_work_id])
     if @common_work_ipi    = CommonWorkIpi.create(common_work_ipi_params)
-      @common_work_ipi.attach_to_ip
+      @common_work_ipi.attach_to_user current_user
       redirect_to user_user_common_work_path( @user, @common_work)
     else
       render :new

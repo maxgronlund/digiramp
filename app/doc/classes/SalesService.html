@@ -305,7 +305,7 @@ descriping problems if any will be generated</p>
                 
               </p>
               <div id="method-i-validate_common_work_ipi_source" class="dyn-source">
-                <pre><span class="ruby-comment"># File services/sales_service.rb, line 177</span>
+                <pre><span class="ruby-comment"># File services/sales_service.rb, line 167</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">validate_common_work_ipi</span> <span class="ruby-identifier">common_work_ipi</span>
   
   <span class="ruby-keyword">if</span> <span class="ruby-identifier">ipi</span> = <span class="ruby-identifier">common_work_ipi</span>.<span class="ruby-identifier">ipi</span>
@@ -356,7 +356,7 @@ descriping problems if any will be generated</p>
                 
               </p>
               <div id="method-i-validate_common_work_ipis_source" class="dyn-source">
-                <pre><span class="ruby-comment"># File services/sales_service.rb, line 147</span>
+                <pre><span class="ruby-comment"># File services/sales_service.rb, line 137</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">validate_common_work_ipis</span> <span class="ruby-identifier">common_work</span>
   <span class="ruby-identifier">validated_common_work_ipis</span> = []
   <span class="ruby-identifier">status</span> = <span class="ruby-string">&#39;ok&#39;</span>
@@ -416,7 +416,7 @@ descriping problems if any will be generated</p>
                 
               </p>
               <div id="method-i-validate_document_source" class="dyn-source">
-                <pre><span class="ruby-comment"># File services/sales_service.rb, line 300</span>
+                <pre><span class="ruby-comment"># File services/sales_service.rb, line 290</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">validate_document</span> <span class="ruby-identifier">document</span>, <span class="ruby-identifier">ipi</span>
   <span class="ruby-keyword">if</span> <span class="ruby-identifier">document</span>.<span class="ruby-identifier">signed?</span>
     {
@@ -467,7 +467,7 @@ descriping problems if any will be generated</p>
                 
               </p>
               <div id="method-i-validate_existence_of_work_source" class="dyn-source">
-                <pre><span class="ruby-comment"># File services/sales_service.rb, line 121</span>
+                <pre><span class="ruby-comment"># File services/sales_service.rb, line 111</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">validate_existence_of_work</span>
   <span class="ruby-keyword">if</span> <span class="ruby-ivar">@common_work</span> = <span class="ruby-ivar">@recording</span>.<span class="ruby-identifier">common_work</span>
     
@@ -522,7 +522,7 @@ descriping problems if any will be generated</p>
                 
               </p>
               <div id="method-i-validate_ipi_source" class="dyn-source">
-                <pre><span class="ruby-comment"># File services/sales_service.rb, line 196</span>
+                <pre><span class="ruby-comment"># File services/sales_service.rb, line 186</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">validate_ipi</span> <span class="ruby-identifier">ipi</span>
   <span class="ruby-identifier">status</span> = <span class="ruby-string">&#39;ok&#39;</span>
   <span class="ruby-identifier">validated_ipi_publishers</span> = <span class="ruby-identifier">validate_ipi_publishers</span>( <span class="ruby-identifier">ipi</span> )
@@ -569,7 +569,7 @@ descriping problems if any will be generated</p>
                 
               </p>
               <div id="method-i-validate_ipi_publisher_source" class="dyn-source">
-                <pre><span class="ruby-comment"># File services/sales_service.rb, line 239</span>
+                <pre><span class="ruby-comment"># File services/sales_service.rb, line 229</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">validate_ipi_publisher</span> <span class="ruby-identifier">publisher</span>, <span class="ruby-identifier">ipi</span>
   
   <span class="ruby-identifier">status</span> = <span class="ruby-string">&#39;ok&#39;</span>
@@ -639,7 +639,7 @@ descriping problems if any will be generated</p>
                 
               </p>
               <div id="method-i-validate_ipi_publishers_source" class="dyn-source">
-                <pre><span class="ruby-comment"># File services/sales_service.rb, line 211</span>
+                <pre><span class="ruby-comment"># File services/sales_service.rb, line 201</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">validate_ipi_publishers</span> <span class="ruby-identifier">ipi</span>
   <span class="ruby-identifier">_publishers</span> = []
   <span class="ruby-identifier">status</span> = <span class="ruby-string">&#39;ok&#39;</span>
@@ -699,7 +699,7 @@ descriping problems if any will be generated</p>
                 
               </p>
               <div id="method-i-validate_publishing_agreements_source" class="dyn-source">
-                <pre><span class="ruby-comment"># File services/sales_service.rb, line 278</span>
+                <pre><span class="ruby-comment"># File services/sales_service.rb, line 268</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">validate_publishing_agreements</span> <span class="ruby-identifier">publishing_agreement</span>, <span class="ruby-identifier">ipi</span>
   
   <span class="ruby-keyword">if</span> <span class="ruby-identifier">document</span> = <span class="ruby-identifier">publishing_agreement</span>.<span class="ruby-identifier">document</span>

@@ -111,6 +111,18 @@
           </ul>
         </dd>
       
+        <dt>N</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-notify_new_user">notify_new_user</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
         <dt>P</dt>
         <dd>
           <ul>
@@ -200,7 +212,7 @@
           
           
             <div class="description">
-              <p>Attach to the users ip</p>
+              <p>Find the user based on the email if there is any</p>
             </div>
           
           
@@ -224,6 +236,8 @@
     <span class="ruby-keyword">self</span>.<span class="ruby-identifier">ipi_id</span> = <span class="ruby-identifier">user</span>.<span class="ruby-identifier">ipi</span>.<span class="ruby-identifier">id</span>
     <span class="ruby-keyword">self</span>.<span class="ruby-identifier">save</span>(<span class="ruby-identifier">validate</span><span class="ruby-operator">:</span> <span class="ruby-keyword">false</span>)
     <span class="ruby-keyword">self</span>.<span class="ruby-identifier">attach_to_publishers</span> <span class="ruby-identifier">user</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">notify_new_user</span>
   <span class="ruby-keyword">end</span>
 <span class="ruby-keyword">end</span></pre>
               </div>
@@ -241,7 +255,16 @@
           
           
             <div class="description">
-              
+              <p>Runs all the validations within the specified context. Returns true if no
+errors are found, false otherwise.</p>
+
+<p>If the argument is false (default is <code>nil</code>), the context is set
+to <code>:create</code> if <code>new_record?</code> is true, and to
+<code>:update</code> if it is not.</p>
+
+<p>Validations with no <code>:on</code> option will run no matter the context.
+Validations with # some <code>:on</code> option will only run in the
+specified context.</p>
             </div>
           
           
@@ -259,9 +282,8 @@
                 
               </p>
               <div id="method-i-attach_to_publishers_source" class="dyn-source">
-                <pre><span class="ruby-comment"># File models/common_work_ipi.rb, line 74</span>
+                <pre><span class="ruby-comment"># File models/common_work_ipi.rb, line 92</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">attach_to_publishers</span> <span class="ruby-identifier">user</span>
-  
   <span class="ruby-comment">#self.publisher_id</span>
   <span class="ruby-keyword">if</span> <span class="ruby-identifier">user</span>.<span class="ruby-identifier">personal_publishing_status</span> <span class="ruby-operator">==</span> <span class="ruby-string">&quot;I have an exclusive publisher&quot;</span> <span class="ruby-operator">||</span> 
      <span class="ruby-identifier">user</span>.<span class="ruby-identifier">personal_publishing_status</span> <span class="ruby-operator">==</span> <span class="ruby-string">&quot;I own and control my own publishing&quot;</span>
@@ -305,7 +327,7 @@
                 
               </p>
               <div id="method-i-attach_to_publishing_agreement_source" class="dyn-source">
-                <pre><span class="ruby-comment"># File models/common_work_ipi.rb, line 87</span>
+                <pre><span class="ruby-comment"># File models/common_work_ipi.rb, line 104</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">attach_to_publishing_agreement</span>
   
   <span class="ruby-keyword">if</span> <span class="ruby-identifier">ipi_publishers</span>   = <span class="ruby-identifier">publisher</span>.<span class="ruby-identifier">ipi_publishers</span>
@@ -456,6 +478,43 @@
           </div>
         
         <div class="method">
+          <div class="title method-title" id="method-i-notify_new_user">
+            
+              <b>notify_new_user</b>()
+            
+            <a href="../classes/CommonWorkIpi.html#method-i-notify_new_user" name="method-i-notify_new_user" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              <p>If no user with the email exists  send an invitation email to the email</p>
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-notify_new_user_source')" id="l_method-i-notify_new_user_source">show</a>
+                
+              </p>
+              <div id="method-i-notify_new_user_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/common_work_ipi.rb, line 78</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">notify_new_user</span>
+  
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
           <div class="title method-title" id="method-i-publisher_split">
             
               <b>publisher_split</b>()
@@ -523,7 +582,7 @@
                 
               </p>
               <div id="method-i-publishers_source" class="dyn-source">
-                <pre><span class="ruby-comment"># File models/common_work_ipi.rb, line 97</span>
+                <pre><span class="ruby-comment"># File models/common_work_ipi.rb, line 114</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">publishers</span>
   <span class="ruby-keyword">if</span> <span class="ruby-identifier">ipi</span>
     <span class="ruby-identifier">publisher_ids</span> = <span class="ruby-constant">IpiPublisher</span>.<span class="ruby-identifier">where</span>(<span class="ruby-identifier">ipi_id</span><span class="ruby-operator">:</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">ipi_id</span>).<span class="ruby-identifier">pluck</span>(<span class="ruby-value">:publisher_id</span>)

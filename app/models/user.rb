@@ -82,6 +82,8 @@ class User < ActiveRecord::Base
   has_many :subscriptions
   has_many :recording_ipis
   has_many :client_invitation
+  
+  has_many :common_work_ipis
  
   
 
@@ -123,6 +125,7 @@ class User < ActiveRecord::Base
   has_many :common_work_ipis , through: :ipis
   has_many :user_credits, dependent: :destroy
   has_many :issues,       dependent: :destroy
+  has_many :user_notifications
   
 
   # Activities
@@ -405,6 +408,7 @@ class User < ActiveRecord::Base
     end
   end
   
+  # test if a user has an email
   def has_email test_this_email
     test_this_email.downcase!
     return true if test_this_email == self.email
@@ -491,6 +495,16 @@ class User < ActiveRecord::Base
     
     if self.user_configuration
       self.user_configuration.destroy
+    end
+    
+    if self.common_work_ipis
+      self.common_work_ipis.update_all(
+        ipi_id: nil,
+        user_id: nil,
+        publishing_agreement_id: nil,
+        publisher_id: nil,
+        ipi_publisher_id: nil
+      )
     end
   end
   
@@ -957,6 +971,19 @@ class User < ActiveRecord::Base
     Connection.where("user_id = ?  OR connection_id = ?" , self.id, self.id).count
   end
   
+  # Send notification to an existing user
+  def send_notification options={}
+    ap '-- send_notification --'
+    ap options
+  end
+  
+  # send an infvitation to a new user
+  def self.send_invitation options={}
+    ap '-- send_invitation --'
+    ap options
+  end
+  
+
   
   # find or create a user 
   # and send an email invitation

@@ -1,0 +1,15 @@
+- common_work_ipi = CommonWorkIpi.cached_find(user_notification.asset_id)
+- common_work = common_work_ipi.common_work
+tr
+  td = user_notification.status
+  td 
+    b © Creator on the common work:&nbsp; 
+    br = common_work.title
+  td = user_notification.message
+  td 
+    - case user_notification.message
+    - when 'Confirm role'
+      = link_to 'Show confirmation request', edit_user_user_confirm_common_work_ipi_path(@user, common_work_ipi.uuid), class: 'btn btn-default btn-xs'
+    - when 'Email missing'
+      = link_to 'Add email', edit_user_user_common_work_common_work_ipi_path(@user, common_work_ipi.common_work, common_work_ipi.id), class: 'btn btn-default btn-xs'
+     

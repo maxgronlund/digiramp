@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151013091421) do
+ActiveRecord::Schema.define(version: 20151015190540) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1057,6 +1057,7 @@ ActiveRecord::Schema.define(version: 20151013091421) do
     t.integer  "publisher_id"
     t.integer  "ipi_publisher_id"
     t.string   "publishers_email"
+    t.integer  "user_id"
   end
 
   add_index "common_work_ipis", ["common_work_id"], name: "index_common_work_ipis_on_common_work_id", using: :btree
@@ -1064,6 +1065,7 @@ ActiveRecord::Schema.define(version: 20151013091421) do
   add_index "common_work_ipis", ["ipi_publisher_id"], name: "index_common_work_ipis_on_ipi_publisher_id", using: :btree
   add_index "common_work_ipis", ["publisher_id"], name: "index_common_work_ipis_on_publisher_id", using: :btree
   add_index "common_work_ipis", ["publishing_agreement_id"], name: "index_common_work_ipis_on_publishing_agreement_id", using: :btree
+  add_index "common_work_ipis", ["user_id"], name: "index_common_work_ipis_on_user_id", using: :btree
 
   create_table "common_work_items", force: :cascade do |t|
     t.integer  "account_id"
@@ -3451,6 +3453,19 @@ ActiveRecord::Schema.define(version: 20151013091421) do
 
   add_index "user_emails", ["user_id"], name: "index_user_emails_on_user_id", using: :btree
 
+  create_table "user_notifications", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "asset_id"
+    t.string   "asset_type"
+    t.string   "status"
+    t.text     "message"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "user_notifications", ["asset_type", "asset_id"], name: "index_user_notifications_on_asset_type_and_asset_id", using: :btree
+  add_index "user_notifications", ["user_id"], name: "index_user_notifications_on_user_id", using: :btree
+
   create_table "user_publishers", force: :cascade do |t|
     t.integer  "publisher_id"
     t.integer  "legal_document_id"
@@ -3828,6 +3843,7 @@ ActiveRecord::Schema.define(version: 20151013091421) do
   add_foreign_key "shop_stripe_transfers", "users"
   add_foreign_key "subscriptions", "coupons"
   add_foreign_key "subscriptions", "plans"
+  add_foreign_key "user_notifications", "users", on_delete: :cascade
   add_foreign_key "user_publishers", "publishers", on_delete: :cascade
   add_foreign_key "user_publishers", "users", on_delete: :cascade
   add_foreign_key "widgets", "accounts", on_delete: :cascade
