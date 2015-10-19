@@ -1,5 +1,7 @@
 = debug notification_message
-/- common_work_ipi = CommonWorkIpi.cached_find(notification_message.asset_id)
+- common_work_ipi = CommonWorkIpi.cached_find(notification_message.asset_id)
+- common_work     = common_work_ipi.common_work
+= notification_message.error_message
 /- common_work     = common_work_ipi.common_work
 /tr
 /  td Creator
