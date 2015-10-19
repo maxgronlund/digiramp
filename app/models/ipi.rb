@@ -212,14 +212,15 @@ class Ipi < ActiveRecord::Base
     if publishing_agreements.empty?
       em[:publishing_agreement]   = message_hash('No publishing agreement') 
     else
-      
+      publishing_agreements = []
       publishing_agreements.each do |publishing_agreement|
         
         unless publishing_agreement.do_validation
-          em["publishing_agreement_#{publishing_agreement.id}"] = publishing_agreement.error_message
-        
+          #em["publishing_agreement_#{publishing_agreement.id}"] = publishing_agreement.error_message
+          publishing_agreements << publishing_agreement.error_message
         end
       end
+      em[:publishing_agreements] = publishing_agreements unless publishing_agreements.empty?
     end
   end
   

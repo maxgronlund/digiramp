@@ -85,11 +85,12 @@ class CommonWorkIpi < ActiveRecord::Base
         user_id:    current_user.id,
         email:      current_user.email,
         full_name:  current_user.get_full_name
+        
       )
     else
       self.user ? send_notification : check_for_member
     end
-    ap self
+    
   end
   
   # notify the user about creation / update by email
