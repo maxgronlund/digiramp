@@ -12,6 +12,7 @@ class CommonWorkIpiMailer < ApplicationMailer
     ap '-- send_notification --'
     
     common_work_ipi   = CommonWorkIpi.cached_find(common_work_ipi_id)
+    return unless common_work_ipi.user
     email             = common_work_ipi.email
     link              = url_for( controller: "user/confirm_common_work_ipis", action: 'edit', user_id: common_work_ipi.user.slug, id: common_work_ipi.uuid )
                       
