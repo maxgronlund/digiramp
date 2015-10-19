@@ -115,11 +115,11 @@ class CommonWorkIpi < ActiveRecord::Base
   
   # Invite a new user to digiramp and send a notification
   def invite_user
-    if self.email
-      destroy_email_missing_notification
-    else
-      create_email_missing_notification
-    end
+    #if self.email
+    #  destroy_email_missing_notification
+    #else
+    #  create_email_missing_notification
+    #end
   end
   
   # Get the user if the user dont exists try the ip's user
