@@ -5,16 +5,17 @@ tr
   td = common_work.title
   td 
     - if error_message =  notification_message.error_message
-      - if ipi_message = error_message[:ipi]
-        - if ipi = Ipi.cached_find(ipi_message[:id]) rescue false
-          - if error_message =  ipi.error_message
-            = ipi.user.full_name
-            ':&nbsp;
-            = error_message
-        - else
-          = debug ipi_message
-           
-    /- if error_message = notification_message.error_message
+      = debug error_message
+      /- if ipi_message = error_message[:ipi]
+      /  - if ipi = Ipi.cached_find(ipi_message[:id]) rescue false
+      /    - if error_message =  ipi.error_message
+      /      = ipi.user.full_name
+      /      ':&nbsp;
+      /      = error_message
+      /  - else
+      /    = debug ipi_message
+      /     
+    /-/ if error_message = notification_message.error_message
     /  - if total_share = error_message[:total_share]
     /    = total_share[:message]
     /    br
