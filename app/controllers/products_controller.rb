@@ -24,8 +24,8 @@ class ProductsController < ApplicationController
   def permit_special_offer
     return if super?
     return if @shop_product.exclusive_offered_to_email.blank?
-    forbidden unless current_user
-    forbidden unless current_user.email == @shop_product.exclusive_offered_to_email
+    return forbidden unless current_user
+    return forbidden unless current_user.email == @shop_product.exclusive_offered_to_email
   end
   
 
