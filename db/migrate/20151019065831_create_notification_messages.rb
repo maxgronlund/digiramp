@@ -21,5 +21,11 @@ class CreateNotificationMessages < ActiveRecord::Migration
     add_foreign_key :notification_messages, :users, on_delete: :cascade
     
     remove_column :user_notifications, :error_message, :text
+    
+    PublishingAgreement.find_each do |publishing_agreement|
+      if document = publishing_agreement.documents.last
+        publishing_agreement.update(document_uuid: document.uuid)
+      end
+    end
   end
 end
