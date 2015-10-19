@@ -141,40 +141,40 @@ class PublishingAgreement < ActiveRecord::Base
   #  
   #end
   
-  #ef update_validation 
-  # ap 'publishing agreement update validation'
-  # 
-  # set_ok
-  # ipis.each do |ipi|
-  #   ipi.update_validation
-  # end
-  #
-  #nd
-  #
-  #ef do_validation 
-  # return true if self.ok
-  # set_ok
-  # self.ok
-  #nd
-  #
-  #ef error_message
-  # em = {}
-  # documents.each do |document|
-  #   unless document.do_validation
-  #     em["document_#{document.id}"] = document.error_message
-  #   end
-  # end
-  # em
-  #nd
+  def update_validation 
+    ap 'publishing agreement update validation'
+    
+    set_ok
+    ipis.each do |ipi|
+      ipi.update_validation
+    end
+
+  end
+  
+  def do_validation 
+    return true if self.ok
+    set_ok
+    self.ok
+  end
+  
+  def error_message
+    em = {}
+    documents.each do |document|
+      unless document.do_validation
+        em["document_#{document.id}"] = document.error_message
+      end
+    end
+    em
+  end
 
   private 
   
-    #def set_ok
-    #  update_columns( ok: error_message.empty? ) 
-    #end
+    def set_ok
+      update_columns( ok: error_message.empty? ) 
+    end
 
     def flush_cache
-      #update_validation
+      update_validation
       Rails.cache.delete([self.class.name, id])
     end
   
