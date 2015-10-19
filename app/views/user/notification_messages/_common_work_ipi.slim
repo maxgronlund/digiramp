@@ -14,8 +14,7 @@
             = ipi_message[:message]
             br
           - if status_message = error_message[:status] rescue false
-            
-            = status_message
+            = status_message[:message]
           /  - if ipi = Ipi.cached_find(ipi_message[:id]) rescue false
           /    - if error_message =  ipi.error_message
           /      = ipi.user.full_name
