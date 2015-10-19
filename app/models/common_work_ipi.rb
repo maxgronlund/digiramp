@@ -123,6 +123,14 @@ class CommonWorkIpi < ActiveRecord::Base
     end
   end
   
+  def destroy_email_missing_notification
+    
+  end
+  
+  def create_email_missing_notification
+    
+  end
+  
   # Get the user if the user dont exists try the ip's user
   def get_user
     return self.user if self.user
@@ -147,7 +155,6 @@ class CommonWorkIpi < ActiveRecord::Base
   # set the error flag and let the validation check buble up the stack
   def update_validation
     set_ok
-    ap self
     self.common_work.update_validation
   end
   
@@ -182,7 +189,7 @@ class CommonWorkIpi < ActiveRecord::Base
     end
     
     if self.pending?
-      em[:status] = message_hash('Creator confirmation is pending')
+      em[:status] = message_hash('Confirmation is pending')
     end
     em
   end
