@@ -100,36 +100,36 @@ class Document < ActiveRecord::Base
     !content_type.nil?
   end
   
-  def error_message
-    em = {}
-    document_users.each do |document_user|
-      unless document_user.do_validation
-        em["document_user_#{document_user_id}"] = document_user.error_message
-      end
-    end
-    
-    if self.body.blank?
-      em[:content] = "Document is blank"
-    end
-    em
-    
-  end
+  #def error_message
+  #  em = {}
+  #  document_users.each do |document_user|
+  #    unless document_user.do_validation
+  #      em["document_user_#{document_user_id}"] = document_user.error_message
+  #    end
+  #  end
+  #  
+  #  if self.body.blank?
+  #    em[:content] = "Document is blank"
+  #  end
+  #  em
+  #  
+  #end
   # check if the document is ok
   # save state
-  def update_validation 
-    ap 'document # update_validation'
-    set_ok
-    p = parent
-    parent.update_validation if p
-  end
-  
-  
-  def do_validation 
-    
-    return true if self.ok
-    set_ok
-    self.ok
-  end
+  #def update_validation 
+  #  ap 'document # update_validation'
+  #  set_ok
+  #  p = parent
+  #  parent.update_validation if p
+  #end
+  #
+  #
+  #def do_validation 
+  #  
+  #  return true if self.ok
+  #  set_ok
+  #  self.ok
+  #end
 
   
 private
@@ -157,7 +157,7 @@ private
  
   
   def flush_cache
-    update_validation
+    #update_validation
     Rails.cache.delete([self.class.name, uuid])
   end
 end

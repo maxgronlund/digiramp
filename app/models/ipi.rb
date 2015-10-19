@@ -189,59 +189,55 @@ class Ipi < ActiveRecord::Base
   end
   
   # boble up validation request to parrents
-  def update_validation
-    set_ok
-    
-    self.common_works.each do |common_work|
-      common_work.update_validation
-    end
-
-  end
+  #def update_validation
+  #  set_ok
+  #  
+  #  self.common_works.each do |common_work|
+  #    common_work.update_validation
+  #  end
+  #
+  #end
   
   # check if the ipi is valid return true or false
-  def do_validation 
-    return true if self.ok
-    set_ok
-    self.ok
-  end
+  #def do_validation 
+  #  return true if self.ok
+  #  set_ok
+  #  self.ok
+  #end
   
-  def error_message
-    em = {}
-    em[:publisher]   = 'No publisher assigned'   if publishers.empty?
-    
-    if publishing_agreements.empty?
-      em[:publishing_agreement]   = message_hash('No publishing agreement') 
-    else
-      publishing_agreements.each do |publishing_agreement|
-        unless publishing_agreement.do_validation
-          em["publishing_agreement_#{publishing_agreement.id}"] = publishing_agreement.error_message
-        end
-      end
-    end
-  end
-  
+  #def error_message
+  #  em = {}
+  #  em[:publisher]   = 'No publisher assigned'   if publishers.empty?
+  #  
+  #  if publishing_agreements.empty?
+  #    em[:publishing_agreement]   = message_hash('No publishing agreement') 
+  #  else
+  #    publishing_agreements.each do |publishing_agreement|
+  #      unless publishing_agreement.do_validation
+  #        em["publishing_agreement_#{publishing_agreement.id}"] = publishing_agreement.error_message
+  #      end
+  #    end
+  #  end
+  #end
+  #
   # build a message has for the error message
-  def message_hash msg
-    {
-      message:      msg,
-      type: self.class.name,
-      id:   self.id
-    }
-  end
+  #def message_hash msg
+  #  {
+  #    message:      msg,
+  #    type: self.class.name,
+  #    id:   self.id
+  #  }
+  #end
 
 
 private
 
-  def set_ok
-    #test_for_ok = error_message.empty?
-    #publishing_agreements.each do |publishing_agreement|
-    #  test_for_ok = false unless publishing_agreement.do_validation
-    #end
-    #if test_for_ok != self.ok
-    update_columns( ok: error_message.empty? ) 
-    #end   
-
-  end
+  #def set_ok
+  #
+  #  update_columns( ok: error_message.empty? ) 
+  #
+  #
+  #end
 
 
   def flush_cache
