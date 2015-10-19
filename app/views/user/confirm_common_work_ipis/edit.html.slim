@@ -140,9 +140,9 @@ session[:return_to_special_url] = request.url
           .col-sm-6
             - if @common_work_ipi.confirmed?
               .alert.alert-info
-                'You have confirmed it's correct you contributed to the work
+                'You have confirmed that you are a creator of this common work
             - else
-              b I herby confirm that I'm the right full creator and it's correct and I have contributed:
+              b I herby confirm that I'm a right full creator and it's correct and I have contributed:
             .pull-down-10
             - if @common_work_ipi.music
               'Music
@@ -159,16 +159,17 @@ session[:return_to_special_url] = request.url
               .col-sm-12
                 .pull-right
                   .pull-down-10
-                    => link_to user_user_confirm_common_work_ipi_path(@user, @common_work_ipi.uuid),
-                                                              turboboost: true,
-                                                              data: { confirm: 'Are you sure?' }, 
-                                                              method: :delete do
-                                              .btn.btn-default
-                                                'Dismiss
+                    
                     - if @common_work_ipi.confirmed?
                       .btn.btn-info disabled="disabled"
                         'Confirmed
                     - else
+                      => link_to user_user_confirm_common_work_ipi_path(@user, @common_work_ipi.uuid),
+                                                                turboboost: true,
+                                                                data: { confirm: 'Are you sure?' }, 
+                                                                method: :delete do
+                                                .btn.btn-default
+                                                  'Reject
                       = link_to 'Confirm', user_user_confirm_common_work_ipi_path(@user, @common_work_ipi.uuid), 
                                                                     method: 'put',
                                                                     turboboost: true,
