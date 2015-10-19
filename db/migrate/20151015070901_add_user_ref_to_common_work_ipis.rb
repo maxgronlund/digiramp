@@ -1,6 +1,15 @@
 class AddUserRefToCommonWorkIpis < ActiveRecord::Migration
   def change
     
+    create_table :notification_messages do |t|
+      t.belongs_to :user, index: true, foreign_key: false
+      t.references :asset, polymorphic: true, index: true
+      t.text :error_message
+      t.timestamps null: false
+    end
+    
+    add_foreign_key :notification_messages, :users, on_delete: :cascade
+    
     create_table :user_notifications do |t|
       t.belongs_to :user, index: true, foreign_key: false
       t.references :asset, polymorphic: true, index: true
