@@ -105,7 +105,7 @@ class Document < ActiveRecord::Base
     document_user_errors = []
     document_users.each do |document_user|
       unless document_user.do_validation
-        document_errors << {
+        document_user_errors << {
           error_message: document_user.error_message,
           asset_type: document_user.class.name,
           asset_id: document_user.id
