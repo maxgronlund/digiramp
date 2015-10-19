@@ -104,7 +104,7 @@ class Document < ActiveRecord::Base
     em = {}
     document_users.each do |document_user|
       unless document_user.do_validation
-        em["document_user_#{document_user_id}"] = document_user.error_message
+        em["document_user_#{document_user.id}"] = document_user.error_message
       end
     end
     

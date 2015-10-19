@@ -9,8 +9,7 @@ class CommonWorkIpiMailer < ApplicationMailer
 
 
   def send_notification common_work_ipi_id
-    ap '-- send_notification --'
-    
+
     common_work_ipi   = CommonWorkIpi.cached_find(common_work_ipi_id)
     return unless common_work_ipi.user
     email             = common_work_ipi.email
