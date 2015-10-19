@@ -222,6 +222,7 @@ class Ipi < ActiveRecord::Base
       end
       em[:publishing_agreements] = publishing_agreements unless publishing_agreements.empty?
     end
+    em
   end
   
   # build a message has for the error message

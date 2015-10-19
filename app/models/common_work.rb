@@ -454,16 +454,6 @@ class CommonWork < ActiveRecord::Base
     if total_share != 100.0
       em[:total_share] = message_hash('The creators split has to add up to 100%')
     end
-    #errors = []
-    #self.common_work_ipis.each do |common_work_ipi|
-    #  
-    #  unless common_work_ipi.do_validation
-    #    errors << common_work_ipi.error_message
-    #    #em["common_work_ipi_id_#{common_work_ipi.id}"] = common_work_ipi.error_message
-    #  end
-    #end
-    #em[:common_work_ipis] = errors unless errors.empty?
-    ap em
     em
   end
 private

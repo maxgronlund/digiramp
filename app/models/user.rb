@@ -805,6 +805,13 @@ class User < ActiveRecord::Base
     end
   end
   
+  def get_publisher_id
+    if pub = get_publisher
+      return pub.id
+    end
+    nil
+  end
+  
   #def publishing_administrator_email()  personal_publisher.administrator_email end
   #def publishing_administrator_email=(administrator_email)
   #  administrator = User.get_by_email(administrator_email) 

@@ -82,10 +82,10 @@ class CommonWorkIpi < ActiveRecord::Base
     if belongs_to_current_user?( current_user )
       
       self.update_columns(
-        user_id:    current_user.id,
-        email:      current_user.email,
-        full_name:  current_user.get_full_name
-        
+        user_id:      current_user.id,
+        email:        current_user.email,
+        full_name:    current_user.get_full_name,
+        publisher_id: current_user.get_publisher_id
       )
     else
       self.user ? send_notification : check_for_member
