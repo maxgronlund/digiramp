@@ -27,5 +27,4 @@ module Notification
       notification_message.destroy
     end
   end
-  
 end

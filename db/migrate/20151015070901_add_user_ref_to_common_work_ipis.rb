@@ -1,6 +1,7 @@
 class AddUserRefToCommonWorkIpis < ActiveRecord::Migration
   def change
     
+    
     create_table :notification_messages do |t|
       t.belongs_to :user, index: true, foreign_key: false
       t.references :asset, polymorphic: true, index: true
