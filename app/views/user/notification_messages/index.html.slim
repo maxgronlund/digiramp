@@ -31,12 +31,9 @@
                 
           tbody
             - @notification_messages.each do |notification_message|
+              /= debug notification_message
               = render "/user/notification_messages/#{notification_message.asset_type.underscore}", notification_message: notification_message
-              /tr
-              /  td = user_notification.message
-              /  td = user_notification.asset_type.underscore
-              /== render 'messages/message', message: message
-      
+              
       .row.pull-down-10
         .col-sm-12
           .pull-right

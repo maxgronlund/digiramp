@@ -102,11 +102,19 @@ class Document < ActiveRecord::Base
   
   def error_message
     em = {}
+    document_user_errors = []
     document_users.each do |document_user|
       unless document_user.do_validation
-        em["document_user_#{document_user.id}"] = document_user.error_message
+        document_errors << {
+          error_message: document_user.error_message,
+          asset_type: document_user.class.name,
+          asset_id: document_user.id
+        }
+        #em["document_user_#{document_user.id}"] = document_user.error_message
       end
     end
+    
+    em[:document_users] = document_user_errors unless document_user_errors.empty?
     
     if self.body.blank?
       em[:content] = "Document is blank"
