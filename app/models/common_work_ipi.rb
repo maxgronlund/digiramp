@@ -78,18 +78,21 @@ class CommonWorkIpi < ActiveRecord::Base
   # If no user is found <<tt>send_notification</tt> is called
   # Else <<tt>send_notification</tt> called
   def attach_to_user current_user
-    self.pending!
-    if belongs_to_current_user?( current_user )
-      
-      self.update_columns(
-        user_id:    current_user.id,
-        email:      current_user.email,
-        full_name:  current_user.get_full_name
-      )
-    else
-      self.user ? send_notification : check_for_member
+    begin
+      self.pending!
+      if belongs_to_current_user?( current_user )
+        
+        self.update_columns(
+          user_id:    current_user.id,
+          email:      current_user.email,
+          full_name:  current_user.get_full_name
+        )
+      #else
+      #  self.user ? send_notification : check_for_member
+      end
+    rescue
     end
-    ap self
+    
   end
   
   # notify the user about creation / update by email
