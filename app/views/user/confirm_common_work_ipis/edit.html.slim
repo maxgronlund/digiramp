@@ -1,4 +1,4 @@
-
+session[:return_to_special_url] = request.url
 #wrapper
   .full-width-top
     == render 'shared/navigationbar', page: 'user' 
@@ -95,9 +95,22 @@
                   - if common_work_ipi.arrangement
                     'Arrangement
                 td
-                  - if common_work_ipi.publisher
-                    = common_work_ipi.publisher.legal_name
-
+                  - if ipi = common_work_ipi.ipi
+                    - if user = common_work_ipi.user
+                      - if user.personal_publishing_status == "I own and control my own publishing"
+                        = user.personal_publisher.legal_name
+                      - elsif  user.personal_publishing_status == "I have an exclusive publisher"
+                        - if publisher = user.exclusive_publisher
+                          = publisher.legal_name
+                        - else 
+                          'Waiting for publishing confirmation from
+                          .pull-down-6
+                          = user.exclusive_publishers_email
+                      - else  
+                        - if ipi_publishers = ipi.ipi_publishers
+                          - ipi_publishers.each do |ipi_publisher|
+                            - if publisher = ipi_publisher.publisher
+                              = publisher.legal_name
               
                 td
               
@@ -125,7 +138,11 @@
             
 
           .col-sm-6
-            b I herby confirm that I'm the right full creator and it's correct I have contributed with:
+            - if @common_work_ipi.confirmed?
+              .alert.alert-info
+                'You have confirmed it's correct you contributed to the work
+            - else
+              b I herby confirm that I'm the right full creator and it's correct and I have contributed:
             .pull-down-10
             - if @common_work_ipi.music
               'Music
@@ -142,6 +159,12 @@
               .col-sm-12
                 .pull-right
                   .pull-down-10
+                    => link_to user_user_confirm_common_work_ipi_path(@user, @common_work_ipi.uuid),
+                                                              turboboost: true,
+                                                              data: { confirm: 'Are you sure?' }, 
+                                                              method: :delete do
+                                              .btn.btn-default
+                                                'Dismiss
                     - if @common_work_ipi.confirmed?
                       .btn.btn-info disabled="disabled"
                         'Confirmed

@@ -37,6 +37,9 @@
 
 
       == render 'recordings/wizard_step', step: 5
+      - unless @recording.contributors_share == 100.0
+        .alert.alert-danger
+          'The sum of all contributers share should be 100%
       .table-responsive
         .row
           .col-sm-12
@@ -62,7 +65,7 @@
               th style="max-width: 64px;"
               th Legal name / Email
               th Capacity
-              th Arists split
+              th Contributor share
               th 
                 .pull-right
                   'Status

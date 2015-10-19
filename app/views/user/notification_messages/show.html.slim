@@ -1,0 +1,91 @@
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'messages' 
+  
+  
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'messages/sidebar', selected: 'actions'
+  
+  #page-content-wrapper
+    .container-fluid
+      .row
+        .col-sm-8
+          .help
+            .help-text
+              h2 To do
+            .help-button
+              == render 'admin/helps/help', identifier: 'user notification show'
+        /.col-sm-4
+        /  .pull-right.pull-down-10
+        /    = link_to 'Mark all as read', new_user_unread_message_path(@user), class: 'btn btn-default'
+      .pull-down-10
+      - if error_message = @user_notification.error_message
+        - if common_work   = error_message[:common_work]          
+          - if common_work[:status] == 'error'
+            h4 
+              b Missing actions in&nbsp;
+              = common_work[:title]
+            .pull-down-10
+            - if common_work_ipis = common_work[:common_work_ipis]
+              - common_work_ipis.each do |common_work_ipi|
+                - if ipi = common_work_ipi[:ipi]
+                  - if ipi[:status] == 'error'
+                    - if publishers = ipi[:publishers]
+                      - publishers.each do |publisher|
+                        - if publisher[:status] == 'error'
+                          .digi-box
+                            h4 = publisher[:legal_name]
+                            - if publishing_agreements = publisher[:publishing_agreements]
+                              - publishing_agreements.each do |publishing_agreement|
+                                - if publishing_agreement[:status] == 'error'
+                                  - if document = publishing_agreement[:document]
+                                    - if _document = Document.find_by(uuid: document[:id])
+                                      - if document[:status] == 'error'
+                                        .sexy_line
+                                        .row
+                                          .col-sm-4
+                                            b = document[:title]
+                                          .col-sm-8
+                                              - if document_users = document[:document_users]
+                                                - document_users.each do |document_user|
+                                                  - if document_user[:status] == 'error'
+                                                    .row
+                                                      .col-sm-6
+                                                         = document_user[:message]
+                                                      .col-sm-6
+                                                        .pull-right
+                                                          - if document_user[:message].include?( "not assigned")
+                                                            = link_to 'Assign user', user_user_sign_document_path(@user, _document.uuid), class: 'btn btn-default btn-xs'
+                                                          - elsif document_user[:message].include?( "signature pending") && document_user[:user_id] == @user.id
+                                                            = link_to 'Sign', user_user_sign_document_path(@user, _document.uuid), class: 'btn btn-default btn-xs'
+                                                          - elsif document_user[:message].include?( "signature pending")
+                                                            = link_to 'Remind', user_path(document_user.user), class: 'btn btn-default btn-xs'
+                                                          
+                                              /.col-sm-4
+                                              /  = document[:title]
+                                              /.col-sm-4
+                                              /  = document[:message]
+                                              /.col-sm-4
+                                              /  .pull-right
+                                              /    /= debug document
+                                              /    - if _document = Document.find_by(uuid: document[:id])
+                                              /      
+                                              /      = link_to 'Sign', user_user_sign_document_path(@user, _document.uuid), class: 'btn btn-default btn-xs'
+                                              /
+                                      
+        - if recording = error_message[:recording]
+          - if recording[:status] == 'error'
+            .digi-box
+              .row
+                .col-sm-4
+                  h4 
+                    'Recording&nbsp;
+                    = recording[:titel]
+                .col-sm-4
+                  = recording[:message]
+                .col-sm-4
+                  .pull-right
+                    = link_to 'Fix', user_user_recording_right_path(@user, recording[:id]), class: 'btn btn-default btn-xs'
+          /= debug common_work
+  == render 'shared/site_footer'    

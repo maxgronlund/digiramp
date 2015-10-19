@@ -139,9 +139,14 @@ class User::ProductsController < ApplicationController
           @shop_product.distribution_agreement.configure_payment( @shop_product.price, @shop_product.recording.id)
         end
         
-        #if @shop_product.productable_type == 'Recording'
-        #  @shop_product.recording.update_stakes( @shop_product.recording )
-        #end
+        
+        
+        
+        if @shop_product.productable_type == 'Recording'
+          #@shop_product.recording.update_stakes( @shop_product.recording )
+          SalesService.new(@shop_product.recording.id)
+          
+        end
         #update_show_in_shop
         format.html { redirect_to user_user_product_path(@user, @shop_product) }
 

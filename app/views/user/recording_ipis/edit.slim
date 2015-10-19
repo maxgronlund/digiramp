@@ -25,7 +25,8 @@
               == render 'admin/helps/help', identifier: 'ipi credits on recording'
         .col-sm-6
           .pull-right.pull-down-10
-            = link_to user_user_recording_tag_path(@user, @recording ) do
+            / user/users/max-groenlund/recording_rights/3624
+            = link_to user_user_recording_right_path(@user, @recording ) do
               .btn.btn-default
                 i.fa.fa-chevron-left
                 '&nbsp;Back

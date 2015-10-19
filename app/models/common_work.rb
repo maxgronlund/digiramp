@@ -1,6 +1,7 @@
 class CommonWork < ActiveRecord::Base
   include PublicActivity::Common
   include PgSearch
+  include Notification
   
   pg_search_scope :search_common_work, against: [:title, :lyrics, :alternative_titles, :iswc_code, :description ], :using => [:tsearch],  :associated_against => {
       :recordings => [ :title, 
@@ -50,6 +51,7 @@ class CommonWork < ActiveRecord::Base
   
   has_many :common_work_items, dependent: :destroy
   
+  
   #has_many :catalog_items, as: :catalog_itemable, dependent: :destroy
   
   #mount_uploader :audio_file, AudioFileUploader
@@ -59,6 +61,8 @@ class CommonWork < ActiveRecord::Base
   #after_create :add_childs
   
   has_and_belongs_to_many :catalogs
+  
+  has_many :notification_messages, as: :assetable, dependent: :destroy
   
   #has_many :work_registrations , class_name: "Rights::WorkRegistration"
   
@@ -332,61 +336,6 @@ class CommonWork < ActiveRecord::Base
   end
   
 
-  # access control move to helper
-  
-  # check if user is an associate adminstrator or owner
-  #def is_accessible_by user
-  #  return true if user.can_manage 'access works', account
-  #  return false
-  #end
-  #
-  ## ipis
-  #def ipis_is_accessible_by user
-  #  # pessimistic locking
-  #  access = false
-  #  if user.can_manage 'access works', account
-  #    access = true
-  #  elsif work_user = WorkUser.cached_where(self.id, user.id)
-  #    access = true if work_user && work_user.access_ipis  
-  #  end
-  #  access
-  #end
-  #
-  ## files
-  #def files_is_accessible_by user
-  #  # pessimistic locking
-  #  access = false
-  #  if user.can_manage 'access works', account
-  #    access = true
-  #  elsif work_user = WorkUser.cached_where(self.id, user.id)
-  #    access = true if work_user && work_user.access_files  
-  #  end
-  #  access
-  #end
-  #
-  ## legal documents
-  #def legal_documents_is_accessible_by user
-  #  # pessimistic locking
-  #  access = false
-  #  if user.can_manage 'access works', account
-  #    access = true
-  #  elsif work_user = WorkUser.cached_where(self.id, user.id)
-  #    access = true if work_user && work_user.access_legal_documents  
-  #  end
-  #  access
-  #end
-  #
-  ## financial documents
-  #def financial_documents_is_accessible_by user
-  #  # pessimistic locking
-  #  access = false
-  #  if user.can_manage 'access works', account
-  #    access = true
-  #  elsif work_user = WorkUser.cached_where(self.id, user.id)
-  #    access = true if work_user && work_user.access_financial_documents  
-  #  end
-  #  access
-  #end
   
   
   
@@ -411,172 +360,7 @@ class CommonWork < ActiveRecord::Base
 
      end
   end
-  
-  #def to_csv
-  #  # please dry this up
-  #  CSV.generate do |csv|
-  #    #csv << column_names
-  #    csv << ['DigiRAMP CVS', '', '', '', '', '', '' ]
-  #    csv << ['']
-  #    csv << ['']
-  #    #all.each do |common_work|
-  #      
-  #      #recording_ids = ''
-  #      #common_work.recordings.each do |recording|
-  #      #  recording_ids << recording.id.to_s
-  #      #  recording_ids << ','
-  #      #end
-  #      # work info
-  #      csv << ['COMMON WORK']
-  #      csv << [  '','Title', 'ISWC Code','Alternative Titles', 'Description','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','',  'UUID' ]
-  #      csv << [  '',
-  #                self.title,
-  #                self.iswc_code,
-  #                self.alternative_titles,
-  #                self.description.to_s.squish,
-  #                '','','','','','','','','','','','','','','','','','','','','','','','','','','','','','', 
-  #                self.uuid.to_s, 
-  #              ]
-  #      # ipis
-  #      #if common_work.ipis.size > 0
-  #      if true
-  #        csv << ['' ]
-  #        csv << ['' ]
-  #        csv << ['IPI\'S' ]
-  #        csv << [  '',
-  #                  'IPI Code',
-  #                  'Full Name',
-  #                  'Role', 
-  #                  'Address', 
-  #                  'Email', 
-  #                  'Phone Number', 
-  #                  'Controlled', 
-  #                  'Territory', 
-  #                  'Share', 
-  #                  'Mech Owned %', 
-  #                  'Mech Collected %', 
-  #                  'Performance Owned %', 
-  #                  'Performance Collected %', 
-  #                  'Notes',
-  #                  'CAE Code',
-  #                  '','','','','','','','','','','','','','','','','','','', 
-  #                  'Common Work UUID',
-  #                ]
-  #        self.ipis.each do |ipi|
-  #          csv <<  [
-  #                    '',
-  #                    ipi.ipi_code.to_s,
-  #                    ipi.full_name.to_s,
-  #                    ipi.role.to_s,
-  #                    ipi.address.to_s,
-  #                    ipi.email.to_s,
-  #                    ipi.phone_number.to_s,
-  #                    ipi.controlled.to_s,
-  #                    ipi.territory.to_s,
-  #                    ipi.share.to_s,
-  #                    ipi.mech_owned.to_s,
-  #                    ipi.mech_collected.to_s,
-  #                    ipi.perf_owned.to_s,
-  #                    ipi.perf_collected.to_s,
-  #                    ipi.notes.to_s,
-  #                    ipi.cae_code.to_s,
-  #                    '','','','','','','','','','','','','','','','','','', '', 
-  #                    self.uuid
-  #                  ]
-  #        end
-  #        # recordings
-  #        #if common_work.recordings.size > 0
-  #        if true
-  #          csv << ['' ]
-  #          csv << ['' ]
-  #          csv << ['RECORDINGS' ]
-  #          csv << [  '',
-  #                    "Title",            
-  #                    "ISRC CODE",        
-  #                    "Artist",                   
-  #                    "BPM",              
-  #                    "Comment",          
-  #                    "Explicit",         
-  #                    "Clearance",        
-  #                    "Version",
-  #                    "Copyright",        
-  #                    "Production Company",
-  #                    "Available Date",
-  #                    "UPC CODE",         
-  #                    "Album Artist",
-  #                    "Album Title",
-  #                    "Grouping",
-  #                    "Composer",
-  #                    "Compilation",
-  #                    "Bitrate",
-  #                    "Samplerate",
-  #                    "Channels",
-  #                    "Year",             
-  #                    "Duration",         
-  #                    "Album Name",       
-  #                    "Genre",            
-  #                    "Performer",        
-  #                    "Band",             
-  #                    "Disc",             
-  #                    "Track", 
-  #                    "Vocal",            
-  #                    "Mood",             
-  #                    "instruments",      
-  #                    "Tempo",
-  #                    "MP3 File",
-  #                    'UUDI', 
-  #                    'Common Work UUID'
-  #                  ]
-  #          self.recordings.each do |recording|
-  #            csv <<  [
-  #                      '',
-  #                      recording.title.to_s,            
-  #                      recording.isrc_code.to_s,        
-  #                      recording.artist.to_s,                   
-  #                      recording.bpm.to_s,              
-  #                      recording.comment.to_s,          
-  #                      recording.explicit.to_s,         
-  #                      recording.clearance.to_s,        
-  #                      recording.version.to_s,
-  #                      recording.copyright.to_s,        
-  #                      recording.production_company.to_s,
-  #                      recording.available_date.to_s,
-  #                      recording.upc_code.to_s,         
-  #                      recording.album_artist.to_s,
-  #                      recording.album_title.to_s,
-  #                      recording.grouping.to_s,
-  #                      recording.composer.to_s,
-  #                      recording.compilation.to_s,
-  #                      recording.bitrate.to_s,
-  #                      recording.samplerate.to_s,
-  #                      recording.channels.to_s,
-  #                      recording.year.to_s,             
-  #                      recording.duration.to_s,         
-  #                      recording.album_name.to_s,       
-  #                      recording.genre.to_s,            
-  #                      recording.performer.to_s,        
-  #                      recording.band.to_s,             
-  #                      recording.disc.to_s,             
-  #                      recording.track.to_s,      
-  #                      recording.vocal.to_s,            
-  #                      recording.mood.to_s,             
-  #                      recording.instruments.to_s,      
-  #                      recording.tempo.to_s,
-  #                      recording.mp3,
-  #                      recording.uuid,
-  #                      self.uuid
-  #                    ]
-  #            end
-  #          end
-  #      end
-  #      csv << ['']
-  #      csv << ['']
-  #      csv << ['']
-  #      csv << ['']
-  #      #end
-  #
-  #  end
-  #end
+
   
   def to_csv
     CommonWorkToCsvService.process [self]
@@ -584,169 +368,7 @@ class CommonWork < ActiveRecord::Base
   
   def self.to_csv
     CommonWorkToCsvService.process all
-    #CommonWorkToCsvService.process self
-    #CSV.generate do |csv|
-    #  #csv << column_names
-    #  csv << ['DigiRAMP CVS', '', '', '', '', '', '' ]
-    #  csv << ['']
-    #  csv << ['']
-    #  all.each do |common_work|
-    #    CommonWorkToCsvService.process common_work
-    #    #recording_ids = ''
-    #    #common_work.recordings.each do |recording|
-    #    #  recording_ids << recording.id.to_s
-    #    #  recording_ids << ','
-    #    #end
-    #    # work info
-    #    csv << ['COMMON WORK']
-    #    csv << [  '','Title', 'ISWC Code','Alternative Titles', 'Description','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','',  'UUID' ]
-    #    csv << [  '',
-    #              common_work.title,
-    #              common_work.iswc_code,
-    #              common_work.alternative_titles,
-    #              common_work.description.to_s.squish,
-    #              '','','','','','','','','','','','','','','','','','','','','','','','','','','','','','', 
-    #              common_work.uuid.to_s, 
-    #            ]
-    #    # ipis
-    #    #if common_work.ipis.size > 0
-    #    if true
-    #      csv << ['' ]
-    #      csv << ['' ]
-    #      csv << ['IPI\'S' ]
-    #      csv << [  '',
-    #                'IPI Code',
-    #                'Full Name',
-    #                'Role', 
-    #                'Address', 
-    #                'Email', 
-    #                'Phone Number', 
-    #                'Controlled', 
-    #                'Territory', 
-    #                'Share', 
-    #                'Mech Owned %', 
-    #                'Mech Collected %', 
-    #                'Performance Owned %', 
-    #                'Performance Collected %', 
-    #                'Notes',
-    #                'CAE Code',
-    #                '','','','','','','','','','','','','','','','','','','', 
-    #                'Common Work UUID',
-    #              ]
-    #      common_work.ipis.each do |ipi|
-    #        csv <<  [
-    #                  '',
-    #                  ipi.ipi_code.to_s,
-    #                  ipi.full_name.to_s,
-    #                  ipi.role.to_s,
-    #                  ipi.address.to_s,
-    #                  ipi.email.to_s,
-    #                  ipi.phone_number.to_s,
-    #                  ipi.controlled.to_s,
-    #                  ipi.territory.to_s,
-    #                  ipi.share.to_s,
-    #                  ipi.mech_owned.to_s,
-    #                  ipi.mech_collected.to_s,
-    #                  ipi.perf_owned.to_s,
-    #                  ipi.perf_collected.to_s,
-    #                  ipi.notes.to_s,
-    #                  ipi.cae_code.to_s,
-    #                  '','','','','','','','','','','','','','','','','','', '', 
-    #                  common_work.uuid
-    #                ]
-    #      end
-    #      # recordings
-    #      #if common_work.recordings.size > 0
-    #      if true
-    #        csv << ['' ]
-    #        csv << ['' ]
-    #        csv << ['RECORDINGS' ]
-    #        csv << [  '',
-    #                  "Title",            
-    #                  "ISRC CODE",        
-    #                  "Artist",                   
-    #                  "BPM",              
-    #                  "Comment",          
-    #                  "Explicit",         
-    #                  "Clearance",        
-    #                  "Version",
-    #                  "Copyright",        
-    #                  "Production Company",
-    #                  "Available Date",
-    #                  "UPC CODE",         
-    #                  "Album Artist",
-    #                  "Album Title",
-    #                  "Grouping",
-    #                  "Composer",
-    #                  "Compilation",
-    #                  "Bitrate",
-    #                  "Samplerate",
-    #                  "Channels",
-    #                  "Year",             
-    #                  "Duration",         
-    #                  "Album Name",       
-    #                  "Genre",            
-    #                  "Performer",        
-    #                  "Band",             
-    #                  "Disc",             
-    #                  "Track", 
-    #                  "Vocal",            
-    #                  "Mood",             
-    #                  "instruments",      
-    #                  "Tempo",
-    #                  "MP3 File",
-    #                  'UUDI', 
-    #                  'Common Work UUID'
-    #                ]
-    #        common_work.recordings.each do |recording|
-    #          csv <<  [
-    #                    '',
-    #                    recording.title.to_s,            
-    #                    recording.isrc_code.to_s,        
-    #                    recording.artist.to_s,                   
-    #                    recording.bpm.to_s,              
-    #                    recording.comment.to_s,          
-    #                    recording.explicit.to_s,         
-    #                    recording.clearance.to_s,        
-    #                    recording.version.to_s,
-    #                    recording.copyright.to_s,        
-    #                    recording.production_company.to_s,
-    #                    recording.available_date.to_s,
-    #                    recording.upc_code.to_s,         
-    #                    recording.album_artist.to_s,
-    #                    recording.album_title.to_s,
-    #                    recording.grouping.to_s,
-    #                    recording.composer.to_s,
-    #                    recording.compilation.to_s,
-    #                    recording.bitrate.to_s,
-    #                    recording.samplerate.to_s,
-    #                    recording.channels.to_s,
-    #                    recording.year.to_s,             
-    #                    recording.duration.to_s,         
-    #                    recording.album_name.to_s,       
-    #                    recording.genre.to_s,            
-    #                    recording.performer.to_s,        
-    #                    recording.band.to_s,             
-    #                    recording.disc.to_s,             
-    #                    recording.track.to_s,      
-    #                    recording.vocal.to_s,            
-    #                    recording.mood.to_s,             
-    #                    recording.instruments.to_s,      
-    #                    recording.tempo.to_s,
-    #                    recording.mp3,
-    #                    recording.uuid,
-    #                    common_work.uuid
-    #                  ]
-    #          end
-    #        end
-    #    end
-    #    csv << ['']
-    #    csv << ['']
-    #    csv << ['']
-    #    csv << ['']
-    #  end
-    #
-    #end
+   
   end
   
   def add_to_catalog catalog_id
@@ -813,11 +435,54 @@ class CommonWork < ActiveRecord::Base
     
   end
 
-
+  def update_validation
+    
+    do_validation
+    ap self
+  end
+  
+  def error_message
+    em = {}
+    if total_share != 100.0
+      em[:total_share] = 'The creators split has to add up to 100%'
+    end
+    errors = []
+    self.common_work_ipis.each do |common_work_ipi|
+      
+      unless common_work_ipi.do_validation
+        errors << common_work_ipi.error_message
+        #em["common_work_ipi_id_#{common_work_ipi.id}"] = common_work_ipi.error_message
+      end
+    end
+    em[:common_work_ipis] = errors unless errors.empty?
+    em
+  end
 private
   #def update_counter_cache
   #  self.content_type = document.file.content_type
   #end
+  
+  def flush_cache
+    update_validation
+    Rails.cache.delete([self.class.name, id])
+  end
+  
+  
+  
+  def do_validation
+    em = error_message
+    update_columns( ok: em.empty? ) 
+
+    self.ok ? remove_notification_message(self.user_id) :
+      update_notification_message(self.user_id).update_columns( 
+        error_message: em
+    )
+    
+  end
+  
+
+
+  
   
   def flush_cache
     Rails.cache.delete([self.class.name, id])

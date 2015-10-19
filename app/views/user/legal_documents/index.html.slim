@@ -1,4 +1,5 @@
 - session[:return_to_special_url]         = request.url
+- session[:back_url]                      = request.url
 #wrapper
   .full-width-top
     == render 'shared/navigationbar', page: 'dashboard' 

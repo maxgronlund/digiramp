@@ -6,7 +6,7 @@
   #sidebar-wrapper
     ul class="sidebar-nav"
       == render 'messages/sidebar', selected: 'new'
-  
+    
   #page-content-wrapper
     .container-fluid
       .row
@@ -20,13 +20,12 @@
           .pull-right.pull-down-10
             = link_to 'Mark all as read', new_user_unread_message_path(@user), class: 'btn btn-default'
       .pull-down-10
-      table
-        .table-responsive
-          table class="table table-hover"
-            tbody
-              - @new_messages.each do |message|
-                == render 'messages/message', message: message
-        
+      .table-responsive
+        table class="table table-hover"
+          tbody
+            - @new_messages.each do |message|
+              == render 'messages/message', message: message
+      
       .row.pull-down-10
         .col-sm-12
           .pull-right

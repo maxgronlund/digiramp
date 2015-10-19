@@ -7,8 +7,9 @@ class User::CommonWorkIpisController < ApplicationController
 
   def edit
     @common_work              = CommonWork.cached_find(params[:common_work_id])
+    
     @common_work_ipi          = CommonWorkIpi.cached_find(params[:id])
-    #@publishing_agreements    = @user.publishing_agreements
+    
     
     if ipi = @common_work_ipi.ipi
       if user = ipi.user
@@ -21,13 +22,13 @@ class User::CommonWorkIpisController < ApplicationController
   def update
     @common_work              = CommonWork.cached_find(params[:common_work_id])
     @common_work_ipi          = CommonWorkIpi.find(params[:id])
-    
     if @common_work_ipi.update(common_work_ipi_params)
       @common_work_ipi.attach_to_user current_user 
       redirect_to user_user_common_work_path(@user, @common_work)
     else
       render :edit
     end
+
   end
 
   def new
@@ -53,10 +54,11 @@ class User::CommonWorkIpisController < ApplicationController
   end
   
   def destroy
-    ap 'destroy'
-    @common_work           = CommonWork.cached_find(params[:common_work_id])
+    ap '----------- destroy '
+    @common_work              = CommonWork.cached_find(params[:common_work_id])
     @common_work_ipi          = CommonWorkIpi.cached_find(params[:id])
     @common_work_ipi.destroy
+    @common_work.update_validation
     redirect_to user_user_common_work_path( @user, @common_work)
   end
   

@@ -15,6 +15,7 @@
       == render 'shared/breadcrumbs', breadcrumbs: { links: { 'Dashboard'.to_sym => user_user_control_panel_index_path(@user),
                                                                legal: user_user_legal_index_path(@user),
                                                                'common works'.to_sym => user_user_creative_rights_path(@user)} }
+      == render 'shared/flash_message'
       .row
         .col-sm-7
           .help
@@ -102,16 +103,20 @@
             - @common_work.common_work_ipis.each do |common_work_ipi|
               - publishing_agreement = common_work_ipi.publishing_agreement
               tr
-                td  style="width: 64px;"
-                  => link_to user_user_common_work_common_work_ipi_path(@user, @common_work, common_work_ipi),
-                                                            turboboost: true,
-                                                            data: { confirm: 'Are you sure?' }, 
-                                                            method: :delete do
-                                            .btn.btn-danger.btn-xs
-                                              i.fa.fa-times
-                  = link_to edit_user_user_common_work_common_work_ipi_path(@user, @common_work, common_work_ipi) do
-                    .btn.btn-default.btn-xs
-                      i.fa.fa-pencil
+                td  style="width: 80px;"
+                  - if common_work_ipi.confirmed?
+                    => link_to edit_user_user_common_work_common_work_ipi_path(@user, @common_work, common_work_ipi) do
+                      .btn.btn-default.btn-xs
+                        i.fa.fa-pencil
+                  - else
+                    => link_to user_user_common_work_common_work_ipi_path(@user, @common_work, common_work_ipi),
+                                                              data: { confirm: 'Are you sure?' }, 
+                                                              method: :delete do
+                                              .btn.btn-danger.btn-xs
+                                                i.fa.fa-times
+                    = link_to edit_user_user_common_work_common_work_ipi_path(@user, @common_work, common_work_ipi) do
+                      .btn.btn-default.btn-xs
+                        i.fa.fa-pencil
 
                 td 
                   = common_work_ipi.get_full_name
@@ -130,9 +135,25 @@
                   - if common_work_ipi.arrangement
                     'Arrangement
                 td
-                  - if common_work_ipi.publisher
-                    = common_work_ipi.publisher.legal_name
-
+                  - if ipi = common_work_ipi.ipi
+                    - if user = common_work_ipi.user
+                      - if user.personal_publishing_status == "I own and control my own publishing"
+                        = user.personal_publisher.legal_name
+                      - elsif  user.personal_publishing_status == "I have an exclusive publisher"
+                        - if publisher = user.exclusive_publisher
+                          = publisher.legal_name
+                        - else 
+                          'Waiting for publishing confirmation from
+                          .pull-down-6
+                          = user.exclusive_publishers_email
+                      - else  
+                        - if ipi_publishers = ipi.ipi_publishers
+                          - ipi_publishers.each do |ipi_publisher|
+                            - if publisher = ipi_publisher.publisher
+                              = publisher.legal_name
+                              .pull-down-6
+                 
+                    
               
                 td
               
@@ -140,77 +161,16 @@
             
                 td   
                   .pull-right
-                    div class="confirmation-button-#{common_work_ipi.id.to_s}"
-                      == render 'user/common_works/common_work_ipi_buttons', user: @user, common_work: @common_work, common_work_ipi: common_work_ipi
-          
-
-
-
-
-
+                    - if common_work_ipi.confirmed?
+                      .btn.btn-success.btn-xs disabled="disabled"
+                        'Confirmed
+                    - elsif common_work_ipi.pending?
+                      - if user = common_work_ipi.user
+                        => link_to 'Resend confirmation request',  user_user_common_work_request_ipi_confirmation_path( user,  @common_work, common_work_ipi), 
+                                                                class: 'btn btn-info btn-xs', method: 'put'
       
       
-
-      
-      /.pull-down-10
-      /.digi-box
-      /  .row
-      /    .col-sm-6
-      /      h4 Masters / Recordings
-      /    .col-sm-6
-      /      .pull-right
-      /        = link_to '#' do
-      /          .btn.btn-default
-      /            i.fa.fa-plus&nbsp;Add master
-      /  .table-responsive
-      /    table class="table table-hover"
-      /      thead
-      /        tr
-      /          th
-      /          th Title
-      /          th Artist
-      /          th ISRC
-      /          th Contributors
-      /          th
-      /            .pull-right
-      /              'Status
-      /      tbody
-      /        - @common_work.recordings.each do |recording|
-      /          tr
-      /            td style="width: 64px;"
-      /              => link_to '#' do
-      /                .btn.btn-danger.btn-xs
-      /                  i.fa.fa-times
-      /              = link_to edit_user_recording_basic_path(@user, recording) do
-      /                .btn.btn-default.btn-xs
-      /                  i.fa.fa-pencil
-      /            td = link_to recording.title, user_recording_path(@user, recording), class: 'btn btn-default btn-xs'
-      /            td = recording.artist
-      /            td = recording.isrc_code
-      /            td
-      /              - recording.recording_ipis.each do |recording_ipi|
-      /                  = recording_ipi.name
-      /            td
-      /              .pull-right
-      /                - recording.recording_ipis.each do |recording_ipi|
-      /                    = recording_ipi.status
-      /              
-      /  /div id="delete_recording_#{recording.id.to_s}"
-      /  /  #digiWhams  class="/recordings/#{recording.id.to_s}"
-      /  /    == render 'audio_player/show', recording: recording , description: true, target: '' 
-      /  /    /== render 'recordings/recording_with_icons', recording: recording,
-      /  /    /                                             info: true,
-      /  /    /                                             add_to_playlist: false, 
-      /  /    /                                             remove_from_playlist: false, 
-      /  /    /                                             edit: true, 
-      /  /    /                                             delete: false,
-      /  /    /                                             description: true,
-      /  /    /                                             share: false,
-      /  /    /                                             target: "",
-      /  /    /                                             music_request_link: false,
-      /  /    /                                             remove_from_request: false
-      /  /    /
-      /
+        
   == render 'shared/site_footer'  
   
   

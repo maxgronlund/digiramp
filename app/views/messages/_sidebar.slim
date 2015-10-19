@@ -30,11 +30,7 @@
         '&nbsp;
         'All 
     
-    /li class="#{'sidebar-selected' if selected == 'deleted'}"
-    /  = link_to user_user_deleted_messages_path(@user) do
-    /    i class="fa fa-trash"
-    /    '&nbsp;
-    /    'Trash 
+
     
     li class="#{'sidebar-selected' if selected == 'connections'}"
       = link_to user_user_connections_path(@user) do
@@ -43,7 +39,7 @@
         'Connections  
     
     li class="#{'sidebar-selected' if selected == 'actions'}"
-      = link_to user_user_user_notifications_path(@user) do
+      = link_to user_user_notification_messages_path(@user) do
         i class="fa fa-bell"
         '&nbsp;
         'To do 

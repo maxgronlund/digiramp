@@ -1,0 +1,26 @@
+- common_work_ipi = CommonWorkIpi.cached_find(notification_message.asset_id)
+- common_work = common_work_ipi.common_work
+tr
+  td Creator
+  td = common_work.title
+  td 
+    - if error_message =  notification_message.error_message
+      - if ipi_message = error_message[:ipi]
+        - if ipi = Ipi.cached_find(ipi_message[:id])
+          - if error_message =  ipi.error_message
+            = ipi.user.full_name
+            ':&nbsp;
+            = error_message[:message]
+           
+    /- if error_message = notification_message.error_message
+    /  - if total_share = error_message[:total_share]
+    /    = total_share[:message]
+    /    br
+  td 
+    /= debug common_work_ipi
+    /- case notification_message.error_message
+    /- when 'Confirm role'
+    /  = link_to 'Show confirmation request', edit_user_user_confirm_common_work_ipi_path(@user, common_work_ipi.uuid), class: 'btn btn-default btn-xs'
+    /- when 'Email missing'
+    /  = link_to 'Add email', edit_user_user_common_work_common_work_ipi_path(@user, common_work_ipi.common_work, common_work_ipi.id), class: 'btn btn-default btn-xs'
+    / 

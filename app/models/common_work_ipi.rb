@@ -6,6 +6,7 @@
 # * publisher
 # * ipi_publisher
 class CommonWorkIpi < ActiveRecord::Base
+  include Notification
   belongs_to :common_work
   belongs_to :ipi
   belongs_to :user
@@ -21,21 +22,14 @@ class CommonWorkIpi < ActiveRecord::Base
   
   after_commit :flush_cache
   
-  before_destroy :sanitize_relations
+  has_many :notification_messages, as: :assetable, dependent: :destroy
   
-  # Remove user_notifications
-  def sanitize_relations
-    if user_notifications = UserNotification.where(asset_id: self.id, asset_type: self.class.name)
-      user_notifications.destroy_all
-    end
-  end
+
   
+
   # Configure the payment 
   def configure_payment( royalty, price, recording_uuid, common_work_id )
-    ap '================================================================'
-    ap 'configure_payment'
-    ap self
-    
+
     begin
       # send money to the publisher
       royalty_left = self.publishing_agreement.configure_payment( royalty, price, recording_uuid )
@@ -84,9 +78,9 @@ class CommonWorkIpi < ActiveRecord::Base
   # If no user is found <<tt>send_notification</tt> is called
   # Else <<tt>send_notification</tt> called
   def attach_to_user current_user
-    ap 'attach_to_user'
+    self.pending!
     if belongs_to_current_user?( current_user )
-      ap 'belongs to current_user'
+      
       self.update_columns(
         user_id:    current_user.id,
         email:      current_user.email,
@@ -95,14 +89,14 @@ class CommonWorkIpi < ActiveRecord::Base
     else
       self.user ? send_notification : check_for_member
     end
+    ap self
   end
   
-  # notify the user about creation / update
+  # notify the user about creation / update by email
   def send_notification
-    
-    creat_confirm_common_work_ipi_notification
+    self.pending!
     CommonWorkIpiMailer.delay.send_notification self.id
-    destroy_email_missing_notification
+    update_validation
   end
   
   # check if the is a member with the email
@@ -121,13 +115,7 @@ class CommonWorkIpi < ActiveRecord::Base
   
   # Invite a new user to digiramp and send a notification
   def invite_user
-    ap '-- invite_user --'
     if self.email
-      User.send_invitation( 
-        email:   self.email,
-        type:    self.class.name,
-        id:      self.id
-      )
       destroy_email_missing_notification
     else
       create_email_missing_notification
@@ -147,86 +135,55 @@ class CommonWorkIpi < ActiveRecord::Base
     get_user && (get_user == current_user )
   end
   
-  # Remove user_notification when a problem is solved
-  def destroy_email_missing_notification
-    begin
-      if user_notification = UserNotification.find_by( 
-          user_id:    self.common_work.account.user_id,
-          asset_type: self.class.name,
-          asset_id:   self.id,
-          status: 'error', 
-          message: 'Email missing'
-        )
-        user_notification.destroy
-      end
-    rescue
-      ap 'account is missing'
-      ap common_work.title
-    end
-  end
-  
-  # Create a notification for the owner of the common work about an email for a common_work_ip is missing
-  def create_email_missing_notification
-    UserNotification.where( 
-        user_id:    self.common_work.account.user_id,
-        asset_type: self.class.name,
-        asset_id:   self.id,
-        status: 'error',
-        message: 'Email missing'
-      ).first_or_create( 
-        user_id:    self.common_work.account.user_id,
-        asset_type: self.class.name,
-        asset_id:   self.id,
-        status: 'error',
-        message: 'Email missing'
-      )
-  end
-  
-  # Create a notification for a user that he has to confirm his role on a common_work as a creator
-  def creat_confirm_common_work_ipi_notification
-    
-    UserNotification.where( 
-        user_id:    self.user_id,
-        asset_type: self.class.name,
-        asset_id:   self.id,
-        status:     'notice',
-        message:    'Confirm role'
-      ).first_or_create( 
-        user_id:    self.user_id,
-        asset_type: self.class.name,
-        asset_id:   self.id,
-        status:     'notice',
-        message:    'Confirm role'
-      )
-  end
-  
-  
-  
-
-  
-  
-  #def invite_new_publisher
-  #  
-  #end
-  #
-  #def attach_to_publishing_agreement
-  #  
-  #  if ipi_publishers   = publisher.ipi_publishers
-  #    if ipi_publisher  = ipi_publishers.find_by(ipi_id: ipi_id)
-  #      self.update(publishing_agreement_id: ipi_publisher.publishing_agreement_id)
-  #    end
-  #  end
-  #end
-
- 
+  # get the users publishers
   def publishers
-    #if self.user
-    #  user.common_work_publishers(self.id)
-    #end
     if ipi
       publisher_ids = IpiPublisher.where(ipi_id: self.ipi_id).pluck(:publisher_id)
       Publisher.where(id: publisher_ids)
     end
+  end
+  
+  # set the error flag and let the validation check buble up the stack
+  def update_validation
+    set_ok
+    ap self
+    self.common_work.update_validation
+  end
+  
+  # check if the common_work_ipi is ok
+  def do_validation
+    return true if self.ok
+    set_ok
+    self.ok
+  end
+  
+  # build a message has for the error message
+  def message_hash msg
+    {
+      message:      msg,
+      type: self.class.name,
+      id:   self.id
+    }
+  end
+  
+  # build an error message 
+  def error_message
+    em = {}
+    unless self.email
+      em[:email] = message_hash('Email missing')
+    end
+    
+    if _ipi = self.ipi
+      _error_message = _ipi.error_message
+      em[:ipi] = _error_message unless _error_message.empty?
+    else
+      em[:ipi] = message_hash('Creator not signed up')
+    end
+    
+    if self.pending?
+      em[:status] = message_hash('Creator confirmation is pending')
+    end
+    em
   end
   
   def self.cached_find(id)
@@ -234,8 +191,23 @@ class CommonWorkIpi < ActiveRecord::Base
   end
   
   private 
+  
+   # set the ok flag
+    def set_ok
+      em = error_message
+
+      if self.user
+        update_columns( ok: em.empty? ) 
+        self.ok ? remove_notification_message(self.user_id) : 
+          update_notification_message(self.user_id).update_columns(
+            error_message: em
+          )
+      end
+    end
+
 
     def flush_cache
+      update_validation
       Rails.cache.delete([self.class.name, id])
     end
     

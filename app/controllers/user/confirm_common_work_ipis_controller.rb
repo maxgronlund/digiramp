@@ -1,5 +1,5 @@
 class User::ConfirmCommonWorkIpisController < ApplicationController
-  before_action :access_user, only: [:update]
+  before_action :access_user, only: [:update, :destroy]
   
   # when a user receives a common_work_ipi email there is a link the this
   # function
@@ -26,13 +26,35 @@ class User::ConfirmCommonWorkIpisController < ApplicationController
     @common_work_ipi = CommonWorkIpi.find_by(uuid: params[:id])
     @common_work_ipi.confirmed!
     destroy_user_notification
+    
+    
+    @common_work_ipi.update(
+      ipi_id: @user.ipi.id,
+      publisher_id: publisher_id
+    )
+    
+    #if @user.personal_publishing_status == "I own and control my own publishing"
+    #  @common_work_ipi.ipi_id =
+    #end
     redirect_to :back
+  end
+  
+  def destroy
+    @common_work_ipi = CommonWorkIpi.find_by(uuid: params[:id])
+    @common_work_ipi.destroy
+    redirect_to user_path(@user)
   end
   
   
   
   private
-    
+    def publisher_id
+      publisher_id = nil
+      if publisher = @user.get_publisher
+        publisher_id = publisher.id
+      end
+      publisher_id
+    end
     
     def destroy_user_notification
     

@@ -75,24 +75,7 @@ class PublishingAgreement < ActiveRecord::Base
     end
   end
   
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
+
   
   def self.cached_find(id)
     Rails.cache.fetch([name, id]) { find(id) }
@@ -103,7 +86,11 @@ class PublishingAgreement < ActiveRecord::Base
   end
   
   def document
-    Document.cached_find(self.document_uuid)
+    begin
+      Document.cached_find(self.document_uuid)
+    rescue
+      nil
+    end
     #if document = Document.cached_find(self.document_id)
     #  document.update(document_type: 'Publishing agreement')
     #  return document
@@ -154,10 +141,40 @@ class PublishingAgreement < ActiveRecord::Base
   #  
   #end
   
+  def update_validation 
+    ap 'publishing agreement update validation'
+    
+    set_ok
+    ipis.each do |ipi|
+      ipi.update_validation
+    end
+
+  end
+  
+  def do_validation 
+    return true if self.ok
+    set_ok
+    self.ok
+  end
+  
+  def error_message
+    em = {}
+    documents.each do |document|
+      unless document.do_validation
+        em["document_#{document.id}"] = document.error_message
+      end
+    end
+    em
+  end
 
   private 
+  
+    def set_ok
+      update_columns( ok: error_message.empty? ) 
+    end
 
     def flush_cache
+      update_validation
       Rails.cache.delete([self.class.name, id])
     end
   

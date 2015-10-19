@@ -1,0 +1,28 @@
+- common_work = CommonWork.cached_find(notification_message.asset_id)
+
+tr
+  td = notification_message.asset_type
+  td = common_work.title
+  td 
+    /= debug user_notification
+    - if error_message = notification_message.error_message
+      -if common_work_ipis = error_message[:common_work_ipis]
+        - common_work_ipis.each do |common_work_ipi|
+          /= common_work_ipi
+          - if ipi_message =  common_work_ipi[:ipi]
+            - if ipi = Ipi.cached_find(ipi_message[:id]) rescue false
+              = ipi.get_full_name
+
+              '&nbsp;:&nbsp;
+            = ipi_message[:message]
+            br
+          /- if status = common_work_ipi[:status]
+          /  = status[:message]
+          /br
+      /- if total_share = error_message[:total_share]
+      /  = total_share[:message]
+      /  br
+  td 
+    .pull-right
+      = link_to 'Inspect', user_user_common_work_path(@user, common_work), class: 'btn btn-info btn-xs'
+     

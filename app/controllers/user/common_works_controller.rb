@@ -9,6 +9,10 @@ class User::CommonWorksController < ApplicationController
   def show
 
     @common_work  = CommonWork.cached_find(params[:id])
+    @notification_messages = NotificationMessage.where(
+      asset_id:   @common_work.id,
+      asset_type: @common_work.class.name,
+    )
 
     
     if params[:recording_id]

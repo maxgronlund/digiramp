@@ -12,8 +12,7 @@ class Document < ActiveRecord::Base
   
   has_many :document_users, primary_key: :uuid
   has_many :digital_signatures
-  has_many :digital_signatures,        as: :signable,     dependent: :destroy
-  
+  has_many :digital_signatures,        as: :signable,        dependent: :destroy
   
   TYPES = ['File', 'Financial', 'Legal', 'Template']
 
@@ -27,8 +26,8 @@ class Document < ActiveRecord::Base
   
   enum status: [ :draft, :execution_copy, :executed, :deleted, :archived, :expired ]
   
-
   after_commit :flush_cache
+  
 
   # !!! name
   def self.catalogs_search(documents, query)
@@ -54,6 +53,7 @@ class Document < ActiveRecord::Base
     end
     true
   end
+  
   
   def user
     begin
@@ -100,53 +100,64 @@ class Document < ActiveRecord::Base
     !content_type.nil?
   end
   
-  #def self.self_distribution
-  #  Document.where(uuid: "38e2814a-45ce-11e5-b8b5-d43d7eecec4d")
-  #  .first_or_create(
-  #    title: "Self Distribution",
-  #    document_type: "Template",
-  #    body: "You represent and warrant that you are free to enter into and abide by the \r\nterms of this Agreement and that you are the sole owner of the master recordings embodying the following compositions",
-  #    text_content: "DISTRIBUTION AGREEMENT",
-  #    tag: "Distribution",
-  #    uuid: "38e2814a-45ce-11e5-b8b5-d43d7eecec4d",
-  #  )
-  #end
-  #
-  #def self.self_publishing
-  #  Document.where(uuid: '5dcab336-5dd6-11e5-88f3-d43d7eecec4d')
-  #  .first_or_create(
-  #    title: "Self publishing",
-  #    document_type: "Template",
-  #    body: "Self publishing ( I validate i'm my own rightful publisher )",
-  #    text_content: "Self publishing ( I validate i'm my own rightful publisher )",
-  #    tag: "Publishing",
-  #    uuid: "5dcab336-5dd6-11e5-88f3-d43d7eecec4d",
-  #  )
-  #end
-  #
-  #
-  #
-  #
-  #
-  #def self.mp3_term_of_usage
-  #  Document.where(uuid: "38e2fddc-45ce-11e5-b8b5-d43d7eecec4d")
-  #  .first_or_create(
-  #    title: "Term of usage for a mp3 file bought in the shop",
-  #    document_type: "Template",
-  #    body: "You what you can use a mp3 for",
-  #    text_content: "MP3 usage agreement",
-  #    account_id: 380,
-  #    file_size: 0,
-  #    tag: "Recording",
-  #    uuid: "38e2fddc-45ce-11e5-b8b5-d43d7eecec4d",
-  #  )
-  #end
+  def error_message
+    em = {}
+    document_users.each do |document_user|
+      unless document_user.do_validation
+        em["document_user_#{document_user_id}"] = document_user.error_message
+      end
+    end
+    
+    if self.body.blank?
+      em[:content] = "Document is blank"
+    end
+    em
+    
+  end
+  # check if the document is ok
+  # save state
+  def update_validation 
+    ap 'document # update_validation'
+    set_ok
+    p = parent
+    parent.update_validation if p
+  end
   
- 
+  
+  def do_validation 
+    
+    return true if self.ok
+    set_ok
+    self.ok
+  end
+
   
 private
+
+  def set_ok
+    #test_for_ok = true
+    #test_for_ok = false if self.body.blank?
+    
+    
+    update_columns( ok: error_message.empty? ) 
+    
+  end
+
+  def parent
+    begin
+      case self.belongs_to_type
+        
+      when 'PublishingAgreement'
+        return PublishingAgreement.cached_find(self.belongs_to_id)
+      end
+    rescue => e
+      ErrorNotification.post "Document#update_parent: #{e}"
+    end
+  end
+ 
   
   def flush_cache
+    update_validation
     Rails.cache.delete([self.class.name, uuid])
   end
 end

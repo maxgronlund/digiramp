@@ -1,7 +1,6 @@
 # This class validates a recording by iterating true all the associated data. 
 # ==== Example
 #  sales_service = SalesService.new(RECORDING_ID)
-#  sales_service.validate
 #  # => {
 #          :status => 'ok',
 #     :common_work => {
@@ -21,9 +20,9 @@ class SalesService
   def initialize recording_id
     
     if @recording = Recording.cached_find(recording_id)
-      @error_message = nil
+      validate
     else
-      @error_message = {
+      {
         status: 'error',
         message: 'Recording not found'
       }
@@ -32,37 +31,86 @@ class SalesService
   
   # Entry point for a validation cycle
   #
-  # * Is there a common work
   # * Is is the commen_work 100% cleared
   # * is the recording 100% cleared
+  # * Build a user message if the work is not valid
   def validate
-    return @error_message if @error_message
+
+    status = 'ok'
     
-    {
-      status: 'ok',
-      common_work: validate_existence_of_work,
-      recording: validate_recording
+    validated_work = validate_work
+    if validated_work[:status] == 'error'
+      status = 'error'
+    end
+    
+    validated_recording = validate_recording
+    if validated_recording[:status] == 'error'
+      status = 'error'
+    end 
+    
+    @message = {
+      status: status,
+      common_work: validated_work,
+      recording: validated_recording
     }
+    update_user_notification
+  end
+  
+  # Create. Delete or Update UserNotification
+  def update_user_notification
+    
+    if user_notification = UserNotification.find_by(
+        user_id:        @recording.user_id,
+        asset_id:       @recording.id,
+        asset_type:     @recording.class.name,
+        
+      )
+      if @message[:status] == 'ok'
+        user_notification.destroy 
+      else
+        user_notification.update(
+          error_message: @message,
+          message:       'Recording not ready for sale'
+        )
+      end
+    elsif @message[:status] == 'error'
+       user_notification = UserNotification.create(
+         user_id:        @recording.user_id,
+         asset_id:       @recording.id,
+         asset_type:     @recording.class.name,
+         error_message:  @message,
+         message:       'Recording not ready for sale'
+       )
+    end
+    ap user_notification if user_notification
   end
   
   
   
-  # Check if the is 100% cleared
+  # Check if the recording is 100% cleared
   def validate_recording
     if recording_ipis = @recording.recording_ipis
       validated_recording_ipis = []
+      status = 'ok'
+      message = ''
       recording_ipis.each do |recording_ipi|
         validated_recording_ipi = validate_recording_ipi recording_ipi
-        
         validated_recording_ipis << validated_recording_ipi
-        
+        if validated_recording_ipi[:status] == 'error'
+          status = 'error'
+        end
+        unless @recording.contributors_share == 100.0
+          status = 'error'
+          message = 'The sum of all contributers share should be 100%'
+        end
       end
       
       {
-        status: 'ok',
-        id:               @recording.id,
-        titel:            @recording.title,
-        recording_ipis:   validated_recording_ipis
+        status:             status,
+        message:            message,
+        id:                 @recording.id,
+        titel:              @recording.title,
+        recording_ipis:     validated_recording_ipis
         
       }
     else
@@ -105,11 +153,28 @@ class SalesService
   
   end
   
-  
+  def validate_common_work common_work_id
+    begin
+      @common_work = CommonWork.cached_find(common_work_id)
+      validated_common_work = validate_common_work_ipis( @common_work )
+      validated_common_work[:status] == 'error' ? status = 'error' : status = 'ok'
+
+      {
+        status:           status,
+        id:               @common_work.id,
+        title:            @common_work.title,
+        common_work_ipis: validated_common_work[:common_work_ipis]
+      }
+    rescue
+    
+    end
+    
+    
+  end
   
   
   # Check if the work exists
-  def validate_existence_of_work
+  def validate_work
     if @common_work = @recording.common_work
       
       validated_common_work = validate_common_work_ipis( @common_work )
@@ -293,19 +358,61 @@ class SalesService
       {
         status: 'ok',
         title:  document.title,
-        id:     document.id
+        id:     document.uuid
       }
     else
       {
        status: 'error',
        message: 'Document not signed',
        title:  document.title,
-       id:     document.id 
+       id:     document.uuid,
+       document_users: validate_document_users( document )
       }
     end
     
   end
   
+  
+  def validate_document_users document
+    if document_users = document.document_users
+      validated_document_users = []
+      document_users.each do |document_user|
+        validated_document_users << validate_document_user( document_user )
+      end
+      return validated_document_users
+    else
+      {
+        status: 'error',
+        message: 'No users added to the document'
+      }
+    end
+
+  end
+  
+  def validate_document_user document_user
+    if( document_user.should_sign && document_user.digital_signature_id.nil?)
+      if user = document_user.user
+        {
+          status:   'error',
+          message:  "#{document_user.legal_name}'s signature pending",
+          id:       document_user.id,
+          user_id:  user.id
+        }
+        
+      else
+        {
+          status:   'error',
+          message:  "#{document_user.role} is not assigned to a user",
+          id:        document_user.id
+        }
+      end
+    else
+      {
+        status: 'ok',
+        id: document_user.id
+      }
+    end
+  end
   
   
   

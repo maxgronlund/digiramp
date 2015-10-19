@@ -40,9 +40,13 @@ class User::LegalDocumentUsersController < ApplicationController
 
   def destroy
     @document       = Document.cached_find(params[:legal_document_id])
-    @document_user = DocumentUser.cached_find(params[:id])
+    @document_user  = DocumentUser.cached_find(params[:id])
+    
     unless @document_user.signature
+      @document_user_id = @document_user.id
       @document_user.destroy
+    else
+      render nothing: true
     end
   end
   

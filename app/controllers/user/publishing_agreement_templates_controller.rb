@@ -13,7 +13,8 @@ class User::PublishingAgreementTemplatesController < ApplicationController
       template_id:          template.id,
       belongs_to_id:        @publishing_agreement.id,
       belongs_to_type:      @publishing_agreement.class.name,
-      expires:              false
+      expires:              false,
+      account_id:           @user.account.id
     )
     
     CopyMachine.create_document_users template, doc

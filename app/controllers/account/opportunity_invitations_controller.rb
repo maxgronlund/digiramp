@@ -41,24 +41,26 @@ class Account::OpportunityInvitationsController < ApplicationController
     params[:opportunity_invitation][:invitees].split(/, ?/).each do |email|
       
       if sanitized_email =  EmailSanitizer.saintize( email )
-
         if user  = User.find_or_create_from_email( sanitized_email )
-        
-          if @opportunity_user = OpportunityUser.find_by( opportunity_id:   @opportunity.id, 
-                                                          user_id:          user.id)
-             @opportunity_user.update(  provider:         @opportunity_invitation.provider,
-                                        reviewer:         @opportunity_invitation.reviewer,
-                                        can_download:     @opportunity_invitation.can_download,
-                                        uuid:             UUIDTools::UUID.timestamp_create().to_s
-                                      )
-             
-          else   @opportunity_user = OpportunityUser.create(  opportunity_id:   @opportunity.id, 
-                                                              user_id:          user.id,
-                                                              provider:         @opportunity_invitation.provider,
-                                                              reviewer:         @opportunity_invitation.reviewer,
-                                                              can_download:     @opportunity_invitation.can_download,
-                                                              uuid:             UUIDTools::UUID.timestamp_create().to_s
-                                                            )
+  
+          if @opportunity_user = OpportunityUser.find_by( 
+            opportunity_id:   @opportunity.id, 
+            user_id:          user.id
+          )
+             @opportunity_user.update(  
+              provider:         @opportunity_invitation.provider,
+              reviewer:         @opportunity_invitation.reviewer,
+              can_download:     @opportunity_invitation.can_download,
+              uuid:             UUIDTools::UUID.timestamp_create().to_s
+             )
+          else   @opportunity_user = OpportunityUser.create(  
+              opportunity_id:   @opportunity.id, 
+              user_id:          user.id,
+              provider:         @opportunity_invitation.provider,
+              reviewer:         @opportunity_invitation.reviewer,
+              can_download:     @opportunity_invitation.can_download,
+              uuid:             UUIDTools::UUID.timestamp_create().to_s
+            )
           end
           # send emailOpportunityFromPlaylistsController
           if user.account_activated

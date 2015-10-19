@@ -7,14 +7,20 @@
   .row
     .col-sm-6
       h4 
-        b = document.title
-      - if ( @user != document.user )
-        .alert.alert-info 
-          'Controlled by:&nbsp;
-          = document.controller_by
+        b => document.title
+        /= document.user.user_name
+      /- if ( @user != document.user )
+      /  .alert.alert-info 
+      /    'Controlled by:&nbsp;
+      /    = document.controller_by
     .col-sm-6
       .pull-right.pull-down-8
-        
+        /=  document.status
+        /.pull-down-4
+        /'Controlled by:&nbsp;
+        /= document.controller_by
+        /= document.id
+        /.pull-down-4
         => link_to user_user_legal_document_path( user, document.uuid, :format => 'pdf') do 
           .btn.btn-default.btn-xs
             i.fa.fa-file-pdf-o
@@ -23,8 +29,8 @@
             .btn.btn-default.btn-xs
               i.fa.fa-eye
         
-        - unless document.executed? || document.archived? ||  document.expired?
-          - if ( @user == document.user )
+        - if true#  document.executed? || document.archived? ||  document.expired? || false
+          - if @user == document.user
             => link_to user_user_legal_document_path( user, document.uuid), data: { confirm: 'Are you sure?' } , 
                                                     :method => :delete, 
                                                     turboboost: true do
@@ -34,7 +40,7 @@
               .btn.btn-default.btn-xs
                 i.fa.fa-user-plus&nbsp;Add user
             
-          - if ( @user == document.user ) || current_user_can_edit
+          - if true #( @user == document.user ) || current_user_can_edit
             = link_to edit_user_user_legal_document_path( user, document.uuid) do
               .btn.btn-default.btn-xs
                 i.fa.fa-pencil
@@ -54,16 +60,17 @@
         /th Status
     tbody
       - document.document_users.each do |document_user|
-        tr
+        tr id="document_user_#{document_user.id}"
           td 
             = document_user.full_name 
+           
                                      
             .pull-down-6
             - unless document_user.digital_signature_id
-              - if ( @user == document.user )
+              - if  @user == document.user 
                 => link_to user_user_legal_document_legal_document_user_path(user, document, document_user), data: { confirm: 'Are you sure?' } , 
                                                 :method => :delete, 
-                                                turboboost: true do
+                                                remote: true do
                   .btn.btn-danger.btn-xs
                     i.fa.fa-times
                 = link_to 'Edit', edit_user_user_legal_document_legal_document_user_path(user, document.uuid, document_user), class: 'btn btn-default btn-xs'

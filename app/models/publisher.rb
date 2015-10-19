@@ -58,6 +58,8 @@ class Publisher < ActiveRecord::Base
                             .first_or_create(email: self.email, user_id: self.user_id)
     end
   end
+  
+
 
   private 
 

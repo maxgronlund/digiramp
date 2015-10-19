@@ -227,7 +227,7 @@ class Recording < ActiveRecord::Base
 
     return false unless ipis_is_registered?
     recording_ipis.each do |recording_ipi|
-      ap "recording_ipi.accepted?: #{recording_ipi.accepted?}"
+      #ap "recording_ipi.accepted?: #{recording_ipi.accepted?}"
       return false unless recording_ipi.accepted?
     end
     true
@@ -259,15 +259,22 @@ class Recording < ActiveRecord::Base
   #  stks += Stake.where( asset_id: self.common_work_id, asset_type: 'CommonWork')
   #end
   
-  
-  
-  def validate_splits
-    #total = 0.0
-    #self.stakes.each do |stake|
-    #  total += stake.split_in_percent
-    #end
-    #return total == 1.0
+  def contributors_share
+    ps = 0.0
+    self.recording_ipis.each do |recording_ipi|
+      ps += recording_ipi.share
+    end
+    ps
   end
+  
+  
+  #def validate_splits
+  #  #total = 0.0
+  #  #self.stakes.each do |stake|
+  #  #  total += stake.split_in_percent
+  #  #end
+  #  #return total == 1.0
+  #end
 
   def uniqify_fields
     self.uniq_title              = self.title.to_uniq

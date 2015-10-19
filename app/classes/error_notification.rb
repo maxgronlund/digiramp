@@ -1,7 +1,7 @@
 module ErrorNotification
   
   def errored(error, obj)
-    message = "StripeChargeService #{error}: #{obj.inspect}"
+    message = "#{error}: #{obj.inspect}"
     ap 'error: ' + message if Rails.env.development?
     Opbeat.capture_message( message )
   end

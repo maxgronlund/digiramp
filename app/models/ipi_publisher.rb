@@ -55,6 +55,7 @@ class IpiPublisher < ActiveRecord::Base
     'na'  
   end
 
+ 
 
   private 
 

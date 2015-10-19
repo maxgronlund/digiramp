@@ -70,6 +70,7 @@ class User < ActiveRecord::Base
   has_many :accounts,         :through => :account_users  
   has_many :labels
   
+  # A user can have many publishers that he uses for publishing other persons
   has_many :user_publishers
   has_many :publishers,       :through => :user_publishers 
   has_many :distribution_agreements
@@ -126,6 +127,7 @@ class User < ActiveRecord::Base
   has_many :user_credits, dependent: :destroy
   has_many :issues,       dependent: :destroy
   has_many :user_notifications
+  has_many :notification_messages
   
 
   # Activities
@@ -784,8 +786,23 @@ class User < ActiveRecord::Base
     @personal_publisher ||= Publisher.find_by( user_id: self.id, id: self.personal_publisher_id)
   end
   
+  def exclusive_publisher
+    if publisher = Publisher.find_by(email: self.exclusive_publishers_email)
+      return publisher
+    end
+  end
+  
   def personal_publishing_agreement
     @personal_publishing_agreement ||= PublishingAgreement.find_by(personal_agreement: true, publisher_id: personal_publisher.id)
+  end
+  
+  def get_publisher
+    case self.personal_publishing_status
+    when "I own and control my own publishing"
+      personal_publisher
+    when "I have an exclusive publisher"
+      exclusive_publisher
+    end
   end
   
   #def publishing_administrator_email()  personal_publisher.administrator_email end
@@ -904,21 +921,21 @@ class User < ActiveRecord::Base
   end
   
 
-  
+  # Check if there is a user with the email if not create a niw one
   def self.find_or_create_from_email email
 
     if user = User.get_by_email( email )
       return user
     end
-    create_from email 
+    create_from_email email 
   end
   
   def self.create_user_with_account email
-    create_from email
+    create_from_email email
   end
   
-  # invite a user based on an email 
-  def self.create_from email
+  # invite a create a new user based on an email 
+  def self.create_from_email email
     
     if email = EmailSanitizer.saintize( email )
       user_name = create_uniq_user_name_from_email email
@@ -1088,13 +1105,15 @@ class User < ActiveRecord::Base
     end
   end
   
+  
+  
 
 
 private
 
   # obsolete
   def flush_cache
-    #logger.info 'OBSOLETE: user / flush_cache'
+    
     Rails.cache.delete([self.class.name, id])
     Rails.cache.delete([self.class.name, self.slug])
   end

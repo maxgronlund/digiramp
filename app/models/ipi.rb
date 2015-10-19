@@ -1,3 +1,6 @@
+# The Ipi representent an Interested Pary Information
+# Its also responsible for 
+
 class Ipi < ActiveRecord::Base
   
   has_one :address
@@ -17,7 +20,7 @@ class Ipi < ActiveRecord::Base
   has_many :common_work_ipis
   has_many :common_works, :through => :common_work_ipis
   
-  belongs_to :common_work
+  #belongs_to :common_work
   
   
   belongs_to :pro_affiliation
@@ -36,7 +39,6 @@ class Ipi < ActiveRecord::Base
   has_many :publishers,   :through => :ipi_publishers 
   
   
-  
   after_commit :flush_cache
   
 
@@ -45,30 +47,10 @@ class Ipi < ActiveRecord::Base
   
   
   
-  
-  #def publishing_agreement document_uuid
-  #  if publishing_agreement = PublishingAgreement.find_by(document_id: document_uuid)
-  #    if ipi_publishing_agreement = IpiPublishingAgreement.where( publishing_agreement_id: publishing_agreement.id, ipi_id: self.id).first
-  #      return true 
-  #    end
-  #  end
-  #  return false
-  #end
+
   
 
-  # Invite and send notification email to a new user
-  def self.send_invitation
-    
-  end
-  
-  # Send notification email to an existing user
-  def self.notification
-    
-  end
-  
- 
- 
-  
+  # Configure the payment. whould be moved to CommonWorkIpi
   def configure_payment( royalty, price, recording_uuid )
     
     begin
@@ -134,9 +116,9 @@ class Ipi < ActiveRecord::Base
     end
   end
   
-  def work_title
-    self.common_work ? self.common_work.title : 'Work missing!'
-  end
+  #def work_title
+  #  self.common_work ? self.common_work.title : 'Work missing!'
+  #end
   
   def get_account_id
     if user
@@ -156,17 +138,16 @@ class Ipi < ActiveRecord::Base
     attach_to_user
     send_confirmation_email
     send_confirmation_notification
-    
   end
 
-  def roles_as_string
-    roles = ''
-    roles += 'Writer. '           if self.lyric
-    roles += 'Composer. '         if self.music
-    roles += 'Arrengement. '      if self.arrangement
-    roles += 'Melody. '           if self.melody
-    roles                        
-  end
+  #def roles_as_string
+  #  roles = ''
+  #  roles += 'Writer. '           if self.lyric
+  #  roles += 'Composer. '         if self.music
+  #  roles += 'Arrengement. '      if self.arrangement
+  #  roles += 'Melody. '           if self.melody
+  #  roles                        
+  #end
 
   def attach_to_user
     self.update(uuid: UUIDTools::UUID.timestamp_create().to_s) if self.uuid.nil?
@@ -206,10 +187,61 @@ class Ipi < ActiveRecord::Base
   def self.cached_find(id)
     Rails.cache.fetch([name, id]) { find(id) }
   end
+  
+  # boble up validation request to parrents
+  def update_validation
+    set_ok
+    
+    self.common_works.each do |common_work|
+      common_work.update_validation
+    end
+
+  end
+  
+  # check if the ipi is valid return true or false
+  def do_validation 
+    return true if self.ok
+    set_ok
+    self.ok
+  end
+  
+  def error_message
+    em = {}
+    em[:publisher]   = 'No publisher assigned'   if publishers.empty?
+    
+    if publishing_agreements.empty?
+      em[:publishing_agreement]   = message_hash('No publishing agreement') 
+    else
+      publishing_agreements.each do |publishing_agreement|
+        unless publishing_agreement.do_validation
+          em["publishing_agreement_#{publishing_agreement.id}"] = publishing_agreement.error_message
+        end
+      end
+    end
+  end
+  
+  # build a message has for the error message
+  def message_hash msg
+    {
+      message:      msg,
+      type: self.class.name,
+      id:   self.id
+    }
+  end
 
 
 private
 
+  def set_ok
+    #test_for_ok = error_message.empty?
+    #publishing_agreements.each do |publishing_agreement|
+    #  test_for_ok = false unless publishing_agreement.do_validation
+    #end
+    #if test_for_ok != self.ok
+    update_columns( ok: error_message.empty? ) 
+    #end   
+
+  end
 
 
   def flush_cache

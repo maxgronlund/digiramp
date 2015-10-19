@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151015190540) do
+ActiveRecord::Schema.define(version: 20151019065831) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1058,6 +1058,7 @@ ActiveRecord::Schema.define(version: 20151015190540) do
     t.integer  "ipi_publisher_id"
     t.string   "publishers_email"
     t.integer  "user_id"
+    t.boolean  "ok"
   end
 
   add_index "common_work_ipis", ["common_work_id"], name: "index_common_work_ipis_on_common_work_id", using: :btree
@@ -1116,6 +1117,7 @@ ActiveRecord::Schema.define(version: 20151015190540) do
     t.string   "pro_work_id",            limit: 255, default: ""
     t.string   "pro_catalog",            limit: 255, default: ""
     t.boolean  "arrangement",                        default: false
+    t.boolean  "ok"
   end
 
   add_index "common_works", ["account_id"], name: "index_common_works_on_account_id", using: :btree
@@ -1451,6 +1453,7 @@ ActiveRecord::Schema.define(version: 20151015190540) do
     t.string   "font"
     t.date     "signed_on"
     t.integer  "digital_signature_id"
+    t.boolean  "ok"
   end
 
   add_index "document_users", ["account_id"], name: "index_document_users_on_account_id", using: :btree
@@ -1482,6 +1485,7 @@ ActiveRecord::Schema.define(version: 20151015190540) do
     t.string   "belongs_to_type"
     t.string   "content_type"
     t.string   "date"
+    t.boolean  "ok"
   end
 
   add_index "documents", ["account_id"], name: "index_documents_on_account_id", using: :btree
@@ -2063,6 +2067,7 @@ ActiveRecord::Schema.define(version: 20151015190540) do
     t.boolean  "i_am_the_publishing_designee",             default: false
     t.boolean  "publishing_designee",                      default: false
     t.boolean  "master_ipi",                               default: false
+    t.boolean  "ok"
   end
 
   add_index "ipis", ["common_work_id"], name: "index_ipis_on_common_work_id", using: :btree
@@ -2334,6 +2339,18 @@ ActiveRecord::Schema.define(version: 20151015190540) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  create_table "notification_messages", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "asset_id"
+    t.string   "asset_type"
+    t.text     "error_message"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+  end
+
+  add_index "notification_messages", ["asset_type", "asset_id"], name: "index_notification_messages_on_asset_type_and_asset_id", using: :btree
+  add_index "notification_messages", ["user_id"], name: "index_notification_messages_on_user_id", using: :btree
 
   create_table "notifications", force: :cascade do |t|
     t.integer  "account_id"
@@ -2747,6 +2764,7 @@ ActiveRecord::Schema.define(version: 20151015190540) do
     t.integer  "account_id"
     t.integer  "user_id"
     t.uuid     "uuid"
+    t.boolean  "ok"
   end
 
   add_index "publishing_agreements", ["account_id"], name: "index_publishing_agreements_on_account_id", using: :btree
@@ -3810,6 +3828,7 @@ ActiveRecord::Schema.define(version: 20151015190540) do
   add_foreign_key "music_submission_selections", "music_requests", on_delete: :cascade
   add_foreign_key "music_submission_selections", "music_submissions", on_delete: :cascade
   add_foreign_key "music_submission_selections", "opportunity_users", on_delete: :cascade
+  add_foreign_key "notification_messages", "users", on_delete: :cascade
   add_foreign_key "opportunities", "accounts", on_delete: :cascade
   add_foreign_key "playbacks", "accounts", on_delete: :cascade
   add_foreign_key "playlist_emails", "accounts", on_delete: :cascade

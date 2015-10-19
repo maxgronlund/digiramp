@@ -1,0 +1,46 @@
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'messages' 
+  
+  
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'messages/sidebar', selected: 'actions'
+  
+  #page-content-wrapper
+    .container-fluid
+      .row
+        .col-sm-8
+          .help
+            .help-text
+              h2 To do
+            .help-button
+              == render 'admin/helps/help', identifier: 'user actions'
+        /.col-sm-4
+        /  .pull-right.pull-down-10
+        /    = link_to 'Mark all as read', new_user_unread_message_path(@user), class: 'btn btn-default'
+      .pull-down-10
+      .table-responsive
+        table class="table table-hover"
+          thead
+            tr
+              th Type
+              th Asset
+              th Message 
+              th
+                
+          tbody
+            - @notification_messages.each do |notification_message|
+              = render "/user/notification_messages/#{notification_message.asset_type.underscore}", notification_message: notification_message
+              /tr
+              /  td = user_notification.message
+              /  td = user_notification.asset_type.underscore
+              /== render 'messages/message', message: message
+      
+      .row.pull-down-10
+        .col-sm-12
+          .pull-right
+            /== paginate(@user_notifications) 
+        
+                
+  == render 'shared/site_footer'    

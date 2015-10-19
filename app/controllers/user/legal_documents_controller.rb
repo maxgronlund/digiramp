@@ -3,7 +3,7 @@ class User::LegalDocumentsController < ApplicationController
   def index
     @account  = @user.account
     document_ids = @user.document_users.map {|document_user| document_user.document.uuid if document_user.document}
-    document_ids = @account.documents.map  {|document| document.uuid if document }
+    document_ids << @account.documents.map  {|document| document.uuid if document }
     @documents = Document.order(:title).where(uuid: document_ids.uniq)
   end
   
@@ -87,14 +87,16 @@ class User::LegalDocumentsController < ApplicationController
   end
   
   def destroy
+    ap 'destroy'
     begin
       document = Document.cached_find(params[:id])
       document.destroy!
     rescue => e
+      ap e.inspect
       ap e
       flash[:danger] = "You can't delete a document used" 
     end
-    redirect_to user_user_legal_documents_path(@user)
+    redirect_to_special_url user_user_legal_documents_path(@user)
   end
   
   private

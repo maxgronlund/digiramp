@@ -1,0 +1,12 @@
+- recording = Recording.cached_find(notification_message.asset_id)
+
+tr
+  td = notification_message[:status]
+  td 
+    b Recording:&nbsp; 
+    br = recording.title
+  td = notification_message[:message]
+  td 
+    /= user_notification[:error_message]
+    = link_to 'Fix isues', user_user_notification_message_path(@user, notification_message), class: 'btn btn-default btn-xs'
+     
