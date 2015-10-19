@@ -1,7 +1,7 @@
 class CommonWork < ActiveRecord::Base
   include PublicActivity::Common
   include PgSearch
-  include Notification
+  include NotificationModule
   
   pg_search_scope :search_common_work, against: [:title, :lyrics, :alternative_titles, :iswc_code, :description ], :using => [:tsearch],  :associated_against => {
       :recordings => [ :title, 

@@ -1,6 +1,6 @@
 # Create or Destroy a user_notificatio
 # include in model owned by a user
-module Notification
+module NotificationModule
   
   def update_notification_message user_id
 

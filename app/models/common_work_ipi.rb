@@ -6,7 +6,7 @@
 # * publisher
 # * ipi_publisher
 class CommonWorkIpi < ActiveRecord::Base
-  include Notification
+  include NotificationModule
   belongs_to :common_work
   belongs_to :ipi
   belongs_to :user

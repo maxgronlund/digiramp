@@ -1,5 +1,5 @@
 class DocumentUser < ActiveRecord::Base
-  include Notification
+  include NotificationModule
   has_paper_trail 
   belongs_to :document, primary_key: :uuid
   belongs_to :user
