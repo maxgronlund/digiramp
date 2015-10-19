@@ -58,7 +58,7 @@ class User::CommonWorkIpisController < ApplicationController
     @common_work              = CommonWork.cached_find(params[:common_work_id])
     @common_work_ipi          = CommonWorkIpi.cached_find(params[:id])
     @common_work_ipi.destroy
-    #@common_work.update_validation
+    @common_work.update_validation
     redirect_to user_user_common_work_path( @user, @common_work)
   end
   

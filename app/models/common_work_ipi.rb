@@ -6,7 +6,7 @@
 # * publisher
 # * ipi_publisher
 class CommonWorkIpi < ActiveRecord::Base
-  #include NotificationModule
+  include NotificationModule
   belongs_to :common_work
   belongs_to :ipi
   belongs_to :user
@@ -78,28 +78,25 @@ class CommonWorkIpi < ActiveRecord::Base
   # If no user is found <<tt>send_notification</tt> is called
   # Else <<tt>send_notification</tt> called
   def attach_to_user current_user
-    begin
-      self.pending!
-      if belongs_to_current_user?( current_user )
-        
-        self.update_columns(
-          user_id:    current_user.id,
-          email:      current_user.email,
-          full_name:  current_user.get_full_name
-        )
-      #else
-      #  self.user ? send_notification : check_for_member
-      end
-    rescue
+    self.pending!
+    if belongs_to_current_user?( current_user )
+      
+      self.update_columns(
+        user_id:    current_user.id,
+        email:      current_user.email,
+        full_name:  current_user.get_full_name
+      )
+    else
+      self.user ? send_notification : check_for_member
     end
-    
+    ap self
   end
   
   # notify the user about creation / update by email
   def send_notification
     self.pending!
     CommonWorkIpiMailer.delay.send_notification self.id
-    #update_validation
+    update_validation
   end
   
   # check if the is a member with the email
@@ -118,11 +115,11 @@ class CommonWorkIpi < ActiveRecord::Base
   
   # Invite a new user to digiramp and send a notification
   def invite_user
-    #if self.email
-    #  destroy_email_missing_notification
-    #else
-    #  create_email_missing_notification
-    #end
+    if self.email
+      destroy_email_missing_notification
+    else
+      create_email_missing_notification
+    end
   end
   
   # Get the user if the user dont exists try the ip's user
@@ -147,47 +144,47 @@ class CommonWorkIpi < ActiveRecord::Base
   end
   
   # set the error flag and let the validation check buble up the stack
-  #def update_validation
-  #  set_ok
-  #  ap self
-  #  self.common_work.update_validation
-  #end
-  #
-  ## check if the common_work_ipi is ok
-  #def do_validation
-  #  return true if self.ok
-  #  set_ok
-  #  self.ok
-  #end
-  #
-  ## build a message has for the error message
-  #def message_hash msg
-  #  {
-  #    message:      msg,
-  #    type: self.class.name,
-  #    id:   self.id
-  #  }
-  #end
-  #
-  ## build an error message 
-  #def error_message
-  #  em = {}
-  #  unless self.email
-  #    em[:email] = message_hash('Email missing')
-  #  end
-  #  
-  #  if _ipi = self.ipi
-  #    _error_message = _ipi.error_message
-  #    em[:ipi] = _error_message unless _error_message.empty?
-  #  else
-  #    em[:ipi] = message_hash('Creator not signed up')
-  #  end
-  #  
-  #  if self.pending?
-  #    em[:status] = message_hash('Creator confirmation is pending')
-  #  end
-  #  em
-  #end
+  def update_validation
+    set_ok
+    ap self
+    self.common_work.update_validation
+  end
+  
+  # check if the common_work_ipi is ok
+  def do_validation
+    return true if self.ok
+    set_ok
+    self.ok
+  end
+  
+  # build a message has for the error message
+  def message_hash msg
+    {
+      message:      msg,
+      type: self.class.name,
+      id:   self.id
+    }
+  end
+  
+  # build an error message 
+  def error_message
+    em = {}
+    unless self.email
+      em[:email] = message_hash('Email missing')
+    end
+    
+    if _ipi = self.ipi
+      _error_message = _ipi.error_message
+      em[:ipi] = _error_message unless _error_message.empty?
+    else
+      em[:ipi] = message_hash('Creator not signed up')
+    end
+    
+    if self.pending?
+      em[:status] = message_hash('Creator confirmation is pending')
+    end
+    em
+  end
   
   def self.cached_find(id)
     Rails.cache.fetch([name, id]) { find(id) }
@@ -210,7 +207,7 @@ class CommonWorkIpi < ActiveRecord::Base
 
 
     def flush_cache
-      #update_validation
+      update_validation
       Rails.cache.delete([self.class.name, id])
     end
     
