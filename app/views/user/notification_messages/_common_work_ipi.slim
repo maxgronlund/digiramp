@@ -11,6 +11,8 @@ tr
             = ipi.user.full_name
             ':&nbsp;
             = error_message[:message]
+        - else
+          = debug ipi_message
            
     /- if error_message = notification_message.error_message
     /  - if total_share = error_message[:total_share]
