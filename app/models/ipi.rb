@@ -207,14 +207,17 @@ class Ipi < ActiveRecord::Base
   
   def error_message
     em = {}
-    em[:publisher]   = 'No publisher assigned'   if publishers.empty?
+    em[:publisher]   = message_hash('No publisher assigned')   if publishers.empty?
     
     if publishing_agreements.empty?
       em[:publishing_agreement]   = message_hash('No publishing agreement') 
     else
+      
       publishing_agreements.each do |publishing_agreement|
+        
         unless publishing_agreement.do_validation
           em["publishing_agreement_#{publishing_agreement.id}"] = publishing_agreement.error_message
+        
         end
       end
     end
