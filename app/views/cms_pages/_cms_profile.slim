@@ -72,11 +72,15 @@
 
         /- if @user.settings.has_a_subscription
         /= debug @user.account_type
-        - if @user.account_type == 'Pro'
-          = link_to pro_account_info_index_path, id: "get_pro_account_info", class: 'bestPlanButton' do
+        - if @user.account_type == 'Pro' && current_user && current_user.account_type == 'Social'
+          = link_to user_user_subscriptions_path(current_user), id: "get_pro_account_info", class: 'bestPlanButton' do
             h4
               span class='label label-warning'
                'Pro user
+        - else
+          h4
+            span class='label label-warning'
+             'Pro user
         /=  image_tag @user.image_url(:avatar_184x184) 
         .pull-down-10
       
