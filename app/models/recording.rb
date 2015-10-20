@@ -214,7 +214,7 @@ class Recording < ActiveRecord::Base
   
   def is_cleared?
     #ap "get_common_work.is_cleared?: #{get_common_work.is_cleared?}"
-    ap "master_is_cleared?: #{master_is_cleared?}"
+    #ap "master_is_cleared?: #{master_is_cleared?}"
     return false unless get_common_work.is_cleared?
     return false unless master_is_cleared?
     
@@ -223,7 +223,7 @@ class Recording < ActiveRecord::Base
   
   def master_is_cleared?
     
-    ap "ipis_is_registered?: #{ipis_is_registered?}"
+    #ap "ipis_is_registered?: #{ipis_is_registered?}"
 
     return false unless ipis_is_registered?
     recording_ipis.each do |recording_ipi|
