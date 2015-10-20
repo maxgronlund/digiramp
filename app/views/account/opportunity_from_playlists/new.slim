@@ -35,7 +35,7 @@
               = f.input :title, autofocus:  true
               b 
                 '*Select playlist
-              == render 'shared/popover', identifier: 'recording', body: 'Please select a recording from your collection.'
+              == render 'shared/popover', identifier: 'Select a playlist to turn in to an opportunity'
               .chosen-label
                 = f.input :playlist_id, 
                           collection: @playlists,
