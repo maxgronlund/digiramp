@@ -61,7 +61,7 @@ class CommonWorkIpiMailer < ApplicationMailer
     return unless common_work_ipi   = CommonWorkIpi.cached_find(common_work_ipi_id)
     
     link = url_for(controller: "user/accept_creations/#{common_work_ipi.uuid}")
-    user/accept_creations/8d5cd840-76a4-11e5-a707-60334bfffe81
+    #user/accept_creations/8d5cd840-76a4-11e5-a707-60334bfffe81
     
   end
   
