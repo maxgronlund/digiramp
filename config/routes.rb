@@ -1,6 +1,7 @@
 Digiramp::Application.routes.draw do
 
 
+
   get 'contact/index'
 
   resources :labels
@@ -776,7 +777,7 @@ Digiramp::Application.routes.draw do
   
   #=================== USER =========================
   namespace :user do
-    
+    resources :accept_creations, only: [:show]
     resources :shop, only: [:index, :show]
     resources :checking_accounts
     resources :social_links, only: [:edit, :update]

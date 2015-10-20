@@ -57,14 +57,24 @@ class CommonWorkIpiMailer < ApplicationMailer
     end
   end
   
-
-  def invite_user common_work_ipi_id
-    #@greeting = "Hi"
-    #
-    #@ipi  = Ipi.cached_find(ipi_id)
-    #
-    #mail to: @ipi.email
+  def send_invitation
+    return unless common_work_ipi   = CommonWorkIpi.cached_find(common_work_ipi_id)
+    
+    link = url_for(controller: "user/accept_creations/#{common_work_ipi.uuid}")
+    user/accept_creations/8d5cd840-76a4-11e5-a707-60334bfffe81
+    
   end
+  
+
+  #def invite_user common_work_ipi_id
+  #  common_work_ipi   = CommonWorkIpi.cached_find(common_work_ipi_id)
+  #  return unless common_work_ipi.user
+  #  email             = common_work_ipi.email
+  #  
+  #  
+  #  
+  #  
+  #end
   
 end
 

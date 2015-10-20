@@ -100,37 +100,40 @@ class CommonWorkIpi < ActiveRecord::Base
     update_validation
   end
   
+  def send_invitation user
+    CommonWorkIpiMailer.delay.send_invitation self.id
+  end
+  
+  # Invite a new user to digiramp and send a notification
+  #def invite_user
+  #  self.pending!
+  #  CommonWorkIpiMailer.delay.send_notification self.id
+  #  update_validation
+  #end
+  
   # check if the is a member with the email
   def check_for_member
-    if user = User.get_by_email(self.email)
+    if user = User.find_or_create_from_email(self.email)
       self.update_columns(
         user_id:   user.id,
         email:     user.email,
         full_name: user.get_full_name
       )
-      send_notification
+      if user.account_activated
+        send_notification
+      else
+        user.add_token 
+        send_invitation user
+        
+      end
     else
-      invite_user
+      
     end
   end
   
-  # Invite a new user to digiramp and send a notification
-  def invite_user
-    if self.email
-      destroy_email_missing_notification
-    else
-      create_email_missing_notification
-    end
-  end
+   
   
-  def destroy_email_missing_notification
-    
-  end
-  
-  def create_email_missing_notification
-    
-  end
-  
+ 
   # Get the user if the user dont exists try the ip's user
   def get_user
     return self.user if self.user

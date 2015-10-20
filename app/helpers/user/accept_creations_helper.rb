@@ -1,0 +1,2 @@
+module User::AcceptCreationsHelper
+end

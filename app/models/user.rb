@@ -964,9 +964,6 @@ class User < ActiveRecord::Base
       # create an account
       UserAssetsFactory.new user
 
-      
-      
-      
       # return the new user
       return user
     end
@@ -1028,14 +1025,14 @@ class User < ActiveRecord::Base
       #user_name = User.create_uniq_user_name_from_email(email)
       secret_temp_password = UUIDTools::UUID.timestamp_create().to_s
       new_user = User.create( email:                  sanitized_email, 
-                                name:                   create_uniq_user_name_from_email(sanitized_email),
-                                user_name:              create_uniq_user_name_from_email(sanitized_email),
-                                invited:                true, 
-                                password:               secret_temp_password, 
-                                password_confirmation:  secret_temp_password,
-                                role:                   'Customer'
+                              name:                   create_uniq_user_name_from_email(sanitized_email),
+                              user_name:              create_uniq_user_name_from_email(sanitized_email),
+                              invited:                true, 
+                              password:               secret_temp_password, 
+                              password_confirmation:  secret_temp_password,
+                              role:                   'Customer'
                                 
-                              )
+                            )
       
       # apply a password reset token
       new_user.add_token

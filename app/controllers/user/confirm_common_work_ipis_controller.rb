@@ -10,12 +10,19 @@ class User::ConfirmCommonWorkIpisController < ApplicationController
       if current_user && @common_work_ipi.user.permits?(current_user) 
         @user = @common_work_ipi.user
         @common_work = @common_work_ipi.common_work
-        #@common_work_ipi.accepted!
       elsif current_user
         forbidden
       else
         session[:request_url] =  edit_user_user_confirm_common_work_ipi_path(@common_work_ipi.user, @common_work_ipi.uuid)
-        redirect_to login_new_path
+        if user = @common_work_ipi.user 
+          if @common_work_ipi.user.account_activated
+            redirect_to login_new_path
+          else
+            redirect_to user_accept_invitation_path
+          end
+        else
+          not_found
+        end
       end
     else
       not_found
