@@ -46,6 +46,7 @@
               /th Amount
               th Interval
               th Published
+              th Created at
               th
             
           tbody
@@ -57,6 +58,7 @@
                 /td = plan.amount
                 td = plan.interval
                 td = plan.published
+                td = l plan.created_at, format: :date
                 td
                   .pull-right
                     /=> link_to 'Show', admin_plan_path( plan ), class: 'btn btn-default btn-xs'
