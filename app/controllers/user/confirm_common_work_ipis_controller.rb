@@ -6,27 +6,47 @@ class User::ConfirmCommonWorkIpisController < ApplicationController
   #
   # If the user is not logged in the user will be taken to the login screen
   def edit
-    if @common_work_ipi = CommonWorkIpi.find_by(uuid: params[:id])
-      if current_user && @common_work_ipi.user.permits?(current_user) 
-        @user = @common_work_ipi.user
-        @common_work = @common_work_ipi.common_work
-      elsif current_user
-        forbidden
-      else
-        session[:request_url] =  edit_user_user_confirm_common_work_ipi_path(@common_work_ipi.user, @common_work_ipi.uuid)
-        if user = @common_work_ipi.user 
-          if @common_work_ipi.user.account_activated
-            redirect_to login_new_path
-          else
-            redirect_to user_accept_invitation_path
-          end
-        else
-          not_found
-        end
-      end
+    not_found unless @common_work_ipi = CommonWorkIpi.find_by(uuid: params[:id]) 
+    not_found unless @user            = User.cached_find(params[:user_id])
+    not_found unless @common_work     = @common_work_ipi.common_work
+
+    if super? || (current_user && current_user == @user)
+      # logged in all is ok
+    elsif current_user
+      # logged in as wrong user
+    
+    elsif @user.account_activated
+      # cool do nothing
     else
-      not_found
+      # ok please activate your account
+      session[:request_url] =  edit_user_user_confirm_common_work_ipi_path(@common_work_ipi.user, @common_work_ipi.uuid)
+      @user.password_reset_token
+      
+      
+      
+      
+      
+      
     end
+      
+      #if current_user && @common_work_ipi.user.permits?(current_user) 
+      #  @user = @common_work_ipi.user
+      #  @common_work = @common_work_ipi.common_work
+      #elsif current_user
+      #  forbidden
+      #else
+      #  session[:request_url] =  edit_user_user_confirm_common_work_ipi_path(@common_work_ipi.user, @common_work_ipi.uuid)
+      #  if user = @common_work_ipi.user 
+      #    if @common_work_ipi.user.account_activated
+      #      redirect_to login_new_path
+      #    #else
+      #    #  redirect_to user_accept_invitation_path
+      #    end
+      #  else
+      #    not_found
+      #  end
+      #end
+   
   end
 
   def update
