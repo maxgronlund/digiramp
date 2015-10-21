@@ -58,11 +58,55 @@ class CommonWorkIpiMailer < ApplicationMailer
   end
   
   def send_invitation common_work_ipi_id
-    return unless common_work_ipi   = CommonWorkIpi.cached_find(common_work_ipi_id)
+    return unless common_work_ipi   = CommonWorkIpi.cached_find(common_work_ipi_id) rescue false
+    return unless user              = common_work_ipi.user
+    return unless common_work       = common_work_ipi.common_work
+    return unless email             = common_work_ipi.email 
+    return unless common_work_user  = common_work.user
+    subject                         = "#{common_work_user.user_name} has mentioned you as an IP on DigiRAMP"
     
-    link = url_for(controller: "user/accept_creations/#{common_work_ipi.uuid}")
-    #user/accept_creations/8d5cd840-76a4-11e5-a707-60334bfffe81
+    #link = url_for(controller: "user/users/#{user.slug}/confirm_common_work_ipis/#{common_work_ipi.uuid}")
+    link = url_for( controller: "user/confirm_common_work_ipis", action: 'edit', user_id: common_work_user.slug, id: common_work_ipi.uuid )
+                      
     
+    
+    
+    
+    
+    begin
+      template_name = "ipi-confirmation"
+      template_content = []
+      message = {
+        to: [{email: email }],
+        from: {email: "noreply@digiramp.com"},
+        subject: subject,
+        tags: ["ipi", "confirmation", "common-work"],
+        track_clicks: true,
+        track_opens: true,
+        subaccount: user.mandrill_account_id,
+        recipient_metadata: [{rcpt: email, values: {common_work_ipi: common_work_ipi}}],
+        merge_vars: [
+          {
+           rcpt: email,
+           vars: [
+                   {name: "TITLE",       content: "Please claim your rights"},
+                   {name: "BODY",        content: "Click the link belove and recevie reconition, and revenue from sales and mechanical licenses if it's you production agreement" },
+                   {name: "LINK",        content: link }
+                  ]
+          }
+        ]
+      }
+    rescue => e
+      ErrorNotification.post "CommonWorkIpiMailer #{e.inspect}"
+    end  
+      
+    begin
+      mandril_client.messages.send_template template_name, template_content, message
+    rescue Mandrill::Error => e
+      ErrorNotification.post "CommonWorkIpiMailer#Mandrill - #{e.message}"
+    end
+    
+
   end
   
 

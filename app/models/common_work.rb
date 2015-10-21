@@ -465,6 +465,10 @@ class CommonWork < ActiveRecord::Base
     em
   end
   
+  def user
+    self.account.user if self.account
+  end
+  
   
 private
   #def update_counter_cache
