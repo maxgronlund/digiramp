@@ -44,7 +44,11 @@ class Publisher < ActiveRecord::Base
     common_work_ipis.update_all(publisher_id: nil)
   end
   
-  def personal_publishing_document
+  def user_publishing_agreement user
+    
+    if publishing_agreemet = publishing_agreements.where(user_id: user.id, )
+      
+    end
     
   end
 
@@ -73,9 +77,7 @@ class Publisher < ActiveRecord::Base
                  .first_or_create(publisher_id: self.id, user_id: self.user_id)
   end
   
-  def create_personal_publishing_document
-   
-  end
+
   
   
   

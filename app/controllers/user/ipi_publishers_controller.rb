@@ -52,7 +52,7 @@ class User::IpiPublishersController < ApplicationController
    
     @publisher      = Publisher.cached_find(params[:publisher_id])
     if @ipi_publisher  = IpiPublisher.create(ipi_publisher_params)
-      @ipi_publisher.attach_to_user
+      @ipi_publisher.attach_to_user current_user
       redirect_to user_user_publisher_ipi_publishers_path(@user, @publisher)
     else
       render :new
@@ -68,7 +68,7 @@ class User::IpiPublishersController < ApplicationController
    
     @publisher      = Publisher.cached_find(params[:publisher_id])
     if @ipi_publisher.update(ipi_publisher_params)
-      @ipi_publisher.attach_to_user
+      @ipi_publisher.attach_to_user current_user
       @ipi_publisher.attach_to_common_work_ipis
       redirect_to user_user_publisher_ipi_publishers_path(@user, @publisher)
     else

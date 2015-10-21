@@ -165,7 +165,7 @@ private
  
   
   def flush_cache
-    update_validation
+    update_validation unless self.destroyed?
     Rails.cache.delete([self.class.name, uuid])
   end
 end

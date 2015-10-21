@@ -22,7 +22,7 @@ class CommonWorkIpi < ActiveRecord::Base
   
   after_commit :flush_cache
   
-  has_many :notification_messages, as: :assetable, dependent: :destroy
+  has_many :notification_messages, as: :asset, dependent: :destroy
   
 
   
@@ -78,61 +78,37 @@ class CommonWorkIpi < ActiveRecord::Base
   # If no user is found <<tt>send_notification</tt> is called
   # Else <<tt>send_notification</tt> called
   def attach_to_user current_user
-    self.pending!
-    if belongs_to_current_user?( current_user )
-      
-      self.update_columns(
-        user_id:      current_user.id,
-        email:        current_user.email,
-        full_name:    current_user.get_full_name,
-        publisher_id: current_user.get_publisher_id
-      )
+    user = User.find_or_create_from_email(self.email)
+    self.update_columns(
+      user_id:      user.id,
+      email:        user.email,
+      full_name:    user.get_full_name,
+      publisher_id: user.get_publisher_id,
+      ipi_id:       user.ipi.id,
+      status:       user == current_user ? 2 : 0
+    )
+    if user.account_activated
+      send_notification unless self.confirmed?
     else
-      self.user ? send_notification : check_for_member
+      user.add_token 
+      send_invitation user
+      
     end
+
     
   end
   
   # notify the user about creation / update by email
   def send_notification
-    self.pending!
     CommonWorkIpiMailer.delay.send_notification self.id
     update_validation
   end
   
+  # invite a user to digiramp
   def send_invitation user
     CommonWorkIpiMailer.delay.send_invitation self.id
   end
-  
-  # Invite a new user to digiramp and send a notification
-  #def invite_user
-  #  self.pending!
-  #  CommonWorkIpiMailer.delay.send_notification self.id
-  #  update_validation
-  #end
-  
-  # check if the is a member with the email
-  def check_for_member
-    if user = User.find_or_create_from_email(self.email)
-      self.update_columns(
-        user_id:   user.id,
-        email:     user.email,
-        full_name: user.get_full_name
-      )
-      if user.account_activated
-        send_notification
-      else
-        user.add_token 
-        send_invitation user
-        
-      end
-    else
-      
-    end
-  end
-  
-   
-  
+
  
   # Get the user if the user dont exists try the ip's user
   def get_user
@@ -218,7 +194,7 @@ class CommonWorkIpi < ActiveRecord::Base
 
 
     def flush_cache
-      update_validation
+      update_validation unless self.destroyed?
       Rails.cache.delete([self.class.name, id])
     end
     

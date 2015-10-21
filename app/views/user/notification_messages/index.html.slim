@@ -27,12 +27,12 @@
               th Type
               th Asset
               th Message 
-              th
+              
                 
           tbody
             - @notification_messages.each do |notification_message|
-              /= debug notification_message
               = render "/user/notification_messages/#{notification_message.asset_type.underscore}", notification_message: notification_message
+
               
       .row.pull-down-10
         .col-sm-12

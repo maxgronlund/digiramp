@@ -436,9 +436,7 @@ class CommonWork < ActiveRecord::Base
   end
 
   def update_validation
-    
     do_validation
-    ap self
   end
   
   def message_hash msg
@@ -450,6 +448,7 @@ class CommonWork < ActiveRecord::Base
   end
   
   def error_message
+    ap 'CommonWork # error_message'
     em = {}
     if total_share != 100.0
       em[:total_share] = message_hash('The creators split has to add up to 100%')
@@ -465,20 +464,25 @@ class CommonWork < ActiveRecord::Base
     em[:common_work_ipis] = errors unless errors.empty?
     em
   end
+  
+  
 private
   #def update_counter_cache
   #  self.content_type = document.file.content_type
   #end
   
   def flush_cache
-    update_validation
+    update_validation unless self.destroyed?
     Rails.cache.delete([self.class.name, id])
   end
   
   
   
   def do_validation
+    ap 'CommonWork # do_validation'
+    
     em = error_message
+    ap em
     update_columns( ok: em.empty? ) 
 
     self.ok ? remove_notification_message(self.user_id) :

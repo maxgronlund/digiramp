@@ -100,12 +100,9 @@ class Ipi < ActiveRecord::Base
     return true if self.user && self.user.publishers
     false
   end
-  
-  
-  
-  def users_publishing_agreements
-    #return nil unless user
-    return user.get_publishing_agreements
+
+  def publishing_agreement
+    
   end
   
   def get_full_name
@@ -207,7 +204,9 @@ class Ipi < ActiveRecord::Base
   
   def error_message
     em = {}
-    em[:publisher]   = message_hash('No publisher assigned')   if publishers.empty?
+    #if self.user
+      
+    em[:publisher]   = message_hash('No publisher assigned')  unless self.user.get_publisher rescue nil#publishers.empty?
     
     if publishing_agreements.empty?
       em[:publishing_agreement]   = message_hash('No publishing agreement') 
@@ -222,6 +221,7 @@ class Ipi < ActiveRecord::Base
       end
       em[:publishing_agreements] = publishing_agreements unless publishing_agreements.empty?
     end
+    em = message_hash(em) unless em.empty?
     em
   end
   

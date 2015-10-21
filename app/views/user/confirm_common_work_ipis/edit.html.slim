@@ -143,18 +143,7 @@ session[:return_to_special_url] = request.url
                 'You have confirmed that you are a creator of this common work
             - else
               b I herby confirm that I'm a right full creator and it's correct and I have contributed:
-            .pull-down-10
-            - if @common_work_ipi.music
-              'Music
-              br
-            - if @common_work_ipi.lyric
-              'Lyric
-              br
-            - if @common_work_ipi.melody
-              'Melody
-              br
-            - if @common_work_ipi.arrangement
-              'Arrangement
+            
             .row
               .col-sm-12
                 .pull-right

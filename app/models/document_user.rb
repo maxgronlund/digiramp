@@ -90,7 +90,7 @@ class DocumentUser < ActiveRecord::Base
   end
 
   def flush_cache
-    update_validation rescue ''
+    update_validation unless self.destroyed?
     Rails.cache.delete([self.class.name, id])
   end
   

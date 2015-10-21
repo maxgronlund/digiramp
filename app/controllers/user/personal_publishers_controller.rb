@@ -19,7 +19,7 @@ class User::PersonalPublishersController < ApplicationController
   def update
 
     @user.update(user_params)
-    ap @user
+    
     redirect_to user_user_personal_publishers_path(@user)
   end
     

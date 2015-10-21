@@ -792,19 +792,29 @@ class User < ActiveRecord::Base
     end
   end
   
+  def publishing_agreement
+    if publisher = get_publisher
+      publisher.publishing_agreement.where()
+    end
+  end
+  
   def personal_publishing_agreement
     @personal_publishing_agreement ||= PublishingAgreement.find_by(personal_agreement: true, publisher_id: personal_publisher.id)
   end
   
+  # return the publisher based on publihing type
   def get_publisher
     case self.personal_publishing_status
     when "I own and control my own publishing"
       personal_publisher
     when "I have an exclusive publisher"
       exclusive_publisher
+    else
+      nil
     end
   end
   
+  # Return the publisher id or nil
   def get_publisher_id
     if pub = get_publisher
       return pub.id

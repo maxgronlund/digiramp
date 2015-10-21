@@ -13,66 +13,64 @@
                                                               publishers:  user_user_publishers_path(@user),
                                                               publisher:  user_user_publisher_path(@user,@publisher)}}
       == render 'shared/flash_message'
-      .row
-        .col-sm-9
-          .help
-            .help-text
-              h2 
-                b Edit revenue stream for&nbsp;
+      - unless user = @ipi_publisher.user
+        .alert.alert-error
+          'User deleted
+      - else
+        .row
+          .col-sm-9
+            .help
+              .help-text
+                h2 
+                  b Assign publishing agreement to&nbsp;
+                  = user.get_full_name
+                  
+               
+              .help-button
+                == render 'admin/helps/help', identifier: 'new user publisher publisher_ipi'
+          .col-sm-3
+            .pull-right.pull-down-10
+              = link_to  user_user_publisher_ipi_publishers_path(@user, @publisher) do
+                  .btn.btn-default
+                    i.fa.fa-chevron-left
+                    '&nbsp;Back
+              
+        h2 = @publisher.legal_name
+        .pull-down-10
+        
+        .row
+          .col-sm-6
+            .digi-box
+              = simple_form_for [:user, @user, @publisher, @ipi_publisher], turboboost: true do |f|
                 
-                '&nbsp;and&nbsp;
-                
-             
-            .help-button
-              == render 'admin/helps/help', identifier: 'new user publisher publisher_ipi'
-        .col-sm-3
-          .pull-right.pull-down-10
-            = link_to  user_user_publisher_ipi_publishers_path(@user, @publisher) do
-                .btn.btn-default
-                  i.fa.fa-chevron-left
-                  '&nbsp;Back
-            
-      h2 = @publisher.legal_name
-      .pull-down-10
-      
-      .row
-        .col-sm-6
-          .digi-box
-            = simple_form_for [:user, @user, @publisher, @ipi_publisher], turboboost: true do |f|
-              - if user = @ipi_publisher.user
                 .alert.alert-info
                   b This creator is linked to the DigiRAMP user
                   .pull-down-4
                   = "Full name: #{user.get_full_name}"
                   .pull-down-4
                   = "Email    : #{user.email}"
-              - else
+                
+                
+                
+                
+                
+                
                 b 
-                  '*Email
-                == render 'shared/popover', identifier: 'A revenue stream takes the publishers split and sent the remainding to the creator '
-                .pull-down-6
-                = f.input :email, label: false
-              
-              
-              
-              
-              
-              b 
-                '*Revenue stream
-              == render 'shared/popover', identifier: 'Select the revenue stream for this creator'
-              .chosen-label.pull-down-6
-                = f.input :publishing_agreement_id, 
-                          collection: @publishing_agreements,
-                          include_blank: false,
-                          label: false,
-                          input_html: { class: 'chosen-select', 'data-placeholder'.to_sym => "Distribution agreement" }
-                          
-              .row
-                .col-sm-12
-                  .pull-right
-                    = f.submit 'Save', class: 'btn btn-info'
-                                                                    
-                                                                    
+                  '*Revenue stream
+                == render 'shared/popover', identifier: 'Select the revenue stream for this creator'
+                .chosen-label.pull-down-6
+                  = f.input :publishing_agreement_id, 
+                            collection: @publishing_agreements,
+                            include_blank: false,
+                            label: false,
+                            input_html: { class: 'chosen-select', 'data-placeholder'.to_sym => "Distribution agreement" }
+                            
+                .row
+                  .col-sm-12
+                    .pull-right
+                      = f.submit 'Save', class: 'btn btn-info'
+                                                                      
+                                                                      
             
   
 

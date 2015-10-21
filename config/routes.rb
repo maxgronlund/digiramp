@@ -1,7 +1,6 @@
 Digiramp::Application.routes.draw do
 
 
-
   get 'contact/index'
 
   resources :labels
@@ -791,6 +790,7 @@ Digiramp::Application.routes.draw do
       #resources :deleted_messages, only: [:index, :update, :destroy]
       resources :admin_masters
       resources :confirm_common_work_ipis, only: [:edit, :update, :destroy]
+      resources :confirm_ipi_publishers, only:  [:edit, :update, :destroy]
       resources :digital_signatures
       resources :downloads, only: [:index]
       
