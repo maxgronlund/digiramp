@@ -51,6 +51,10 @@ class CommonWorkIpi < ActiveRecord::Base
   # Get full name
   # If a user is connected the users full name is returned
   def get_full_name
+    ap self
+    ap '================================'
+    ap self.user
+    ap '================================'
     if self.user 
       return user.get_full_name
     else
@@ -84,7 +88,7 @@ class CommonWorkIpi < ActiveRecord::Base
       self.update_columns(
         user_id:      user.id,
         email:        user.email,
-        full_name:    user.get_full_name,
+        #full_name:    user.get_full_name,
         publisher_id: user.get_publisher_id,
         ipi_id:       user.ipi.id,
         status:       user == current_user ? 2 : 0

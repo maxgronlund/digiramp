@@ -5,28 +5,38 @@
   .container
     .row
       .col-sm-6
-        h2 Welcome to DigiRAMP
-        b You have ben asked to confirm your rights on a work
+        h2  Welcome to DigiRAMP
+        = "#{@invitor.user_name} has mentioned you as a creator on #{@common_work.title}"
+        
       .col-sm-6
+        
 
         /.alert.alert-warning
         /  'No user with the email #{@ipi.email} found
     .sexy_line
     .row
+      .col-sm-3
       .col-sm-6
         .digi-box
-          h4 New to DigiRAMP
-          h3 Sign up
-          = simple_form_for [@user], turboboost: true    do |f|
+          h4 Signup and get your rights as a creator
           
+          /= simple_form_for [@user], turboboost: true    do |f|
+          = simple_form_for(  @user, :url => confirmation_creator_path(params[:id], uuid: params[:uuid]) ) do |f|
+            
+            b 
+              '* User name
+            .pull-down-6
             .input-group
               span class="input-group-addon" 
                 i.fa.fa-user
-              = f.input_field :user_name, input_html: {autocomplete: :off}, placeholder: 'Name', autocomplete: :off, autofocus: :off
-            br
+              = f.input_field :user_name, placeholder: 'Name'
+            .pull-down-10
+            b 
+              '* Email
+            .pull-down-6
             .input-group
               span class="input-group-addon" @
-              = f.input_field :email, input_html: {autocomplete: :off}, placeholder: 'Email', autocomplete: :off
+              = f.input_field :email, placeholder: 'Email'
             br
             .input-group
               span class="input-group-addon" 

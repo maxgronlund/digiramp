@@ -119,6 +119,7 @@
                         i.fa.fa-pencil
 
                 td 
+                  /= debug common_work_ipi
                   = common_work_ipi.get_full_name
                   br = common_work_ipi.get_email
               
@@ -168,6 +169,8 @@
                       - if user = common_work_ipi.user
                         => link_to 'Resend confirmation request',  user_user_common_work_request_ipi_confirmation_path( user,  @common_work, common_work_ipi), 
                                                                 class: 'btn btn-info btn-xs', method: 'put'
+                      - else
+                        'User not found
       
       
         

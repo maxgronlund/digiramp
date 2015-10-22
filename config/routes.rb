@@ -1,13 +1,13 @@
 Digiramp::Application.routes.draw do
 
 
-  namespace :confirmation do
-  get 'creator/edit'
-  end
-
-  namespace :confirmation do
-  get 'creator/update'
-  end
+  #namespace :confirmation do
+  #get 'creator/edit'
+  #end
+  #
+  #namespace :confirmation do
+  #get 'creator/update'
+  #end
 
   get 'contact/index'
 
@@ -238,6 +238,7 @@ Digiramp::Application.routes.draw do
   
   
   namespace :confirmation do
+    resources :creators, only: [:edit, :update]
     resources :ipi_confirmations
     resources :ipi_not_found, only: [:index]
     resources :user_not_found, only: [:index]

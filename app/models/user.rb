@@ -447,6 +447,7 @@ class User < ActiveRecord::Base
     self.wall_posts.where(user_id: self.id)
   end
   
+  # just before the user is destroyed the following models are updated
   def sanitize_relations
     # messages
     if send_messages       = Message.where(sender_id: self.id)
@@ -499,15 +500,19 @@ class User < ActiveRecord::Base
       self.user_configuration.destroy
     end
     
-    if self.common_work_ipis
-      self.common_work_ipis.update_all(
+
+
+    self.common_work_ipis.find_each do |common_work_ipi|
+      common_work_ipi.update_attributes(
         ipi_id: nil,
         user_id: nil,
         publishing_agreement_id: nil,
         publisher_id: nil,
-        ipi_publisher_id: nil
+        ipi_publisher_id: nil,
+        status: 0
       )
     end
+    
   end
   
   def self.system_user
@@ -760,8 +765,9 @@ class User < ActiveRecord::Base
   
   def pro_affiliation() 
     
-    pub = Publisher.find_by(user_id: self.id, personal_publisher: true)
-    pub.pro_affiliation_id 
+    if pub = Publisher.find_by(user_id: self.id, personal_publisher: true)
+      pub.pro_affiliation_id 
+    end
   
   end
     

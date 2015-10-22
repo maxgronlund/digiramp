@@ -19,14 +19,16 @@ class User::ConfirmCommonWorkIpisController < ApplicationController
     
     # The user exists but is not logged in
     elsif invited_user = User.get_by_email(@user.email)
-      ap invited_user
+      ap '------------------------------------------------------------------'
+      ap invited_user.account_activated
       session[:request_url] =  edit_user_user_confirm_common_work_ipi_path(@common_work_ipi.user, @common_work_ipi.uuid)
       # if the user is not confirmed go the the confirmation screen for new creators
       if invited_user.account_activated
-        redirect_to confirmation_creator_edit_path(uuid: @common_work_ipi.uuid)
+        #redirect_to confirmation_creator_edit_path(uuid: @common_work_ipi.uuid)
       # go to the login path
+      redirect_to login_index_path
       else
-        login_new_path
+        redirect_to edit_confirmation_creator_path(@user.password_reset_token, uuid: @common_work_ipi.uuid)
       end
     end
 
