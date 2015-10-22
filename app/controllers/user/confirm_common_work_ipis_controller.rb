@@ -4,48 +4,32 @@ class User::ConfirmCommonWorkIpisController < ApplicationController
   # when a user receives a common_work_ipi email there is a link the this
   # function
   #
-  # If the user is not logged in the user will be taken to the login screen
+  # If the user is not logged in login
+  # If the user is not confirmed go the the Confirmation#edit 
   def edit
     not_found unless @common_work_ipi = CommonWorkIpi.find_by(uuid: params[:id]) 
     not_found unless @user            = User.cached_find(params[:user_id])
     not_found unless @common_work     = @common_work_ipi.common_work
-
-    if super? || (current_user && current_user == @user)
-      # logged in all is ok
-    elsif current_user
-      # logged in as wrong user
     
-    elsif @user.account_activated
-      # cool do nothing
-    else
-      # ok please activate your account
+    # the user is logged in all is ok
+    # go to the real confirmation sreen for logged in users
+    if super? || (current_user && current_user == @user)
+      
+      edit_user_user_confirm_common_work_ipi_path(current_user, @common_work_ipi.uuid)
+    
+    # The user exists but is not logged in
+    elsif invited_user = User.get_by_email(@user.email)
+      ap invited_user
       session[:request_url] =  edit_user_user_confirm_common_work_ipi_path(@common_work_ipi.user, @common_work_ipi.uuid)
-      @user.password_reset_token
-      
-      
-      
-      
-      
-      
+      # if the user is not confirmed go the the confirmation screen for new creators
+      if invited_user.account_activated
+        redirect_to confirmation_creator_edit_path(uuid: @common_work_ipi.uuid)
+      # go to the login path
+      else
+        login_new_path
+      end
     end
-      
-      #if current_user && @common_work_ipi.user.permits?(current_user) 
-      #  @user = @common_work_ipi.user
-      #  @common_work = @common_work_ipi.common_work
-      #elsif current_user
-      #  forbidden
-      #else
-      #  session[:request_url] =  edit_user_user_confirm_common_work_ipi_path(@common_work_ipi.user, @common_work_ipi.uuid)
-      #  if user = @common_work_ipi.user 
-      #    if @common_work_ipi.user.account_activated
-      #      redirect_to login_new_path
-      #    #else
-      #    #  redirect_to user_accept_invitation_path
-      #    end
-      #  else
-      #    not_found
-      #  end
-      #end
+
    
   end
 

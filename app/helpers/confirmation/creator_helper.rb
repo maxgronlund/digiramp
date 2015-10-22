@@ -1,0 +1,2 @@
+module Confirmation::CreatorHelper
+end
