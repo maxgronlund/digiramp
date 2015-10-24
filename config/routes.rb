@@ -789,7 +789,7 @@ Digiramp::Application.routes.draw do
     resources :shop, only: [:index, :show]
     resources :checking_accounts
     resources :social_links, only: [:edit, :update]
-    resources :personal_publishers, only: [:show]
+    resources :personal_publishers#, only: [:edit, :update]
     
     #resources :common_work_lyrics
     resources :users do
@@ -955,7 +955,7 @@ Digiramp::Application.routes.draw do
       resources :shop_admin, only: [:index] 
       resources :select_product_type, only: [:index] 
       resources :special_offer, only: [:index] 
-      resources :personal_publishers
+      #resources :personal_publishers
       resources :publishers do
         resources :ipi_publishers
         resources :publishing_agreements do

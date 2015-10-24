@@ -1,3 +1,4 @@
+# Configure the publishing type for a user
 class User::PersonalPublishersController < ApplicationController
   before_action :access_user
   
@@ -17,17 +18,19 @@ class User::PersonalPublishersController < ApplicationController
   #end
   
   def update
-
     @user.update(user_params)
     
-    redirect_to user_user_personal_publishers_path(@user)
+    
+    
+    
+    redirect_to  user_user_legal_index_path(@user)
   end
     
   
   
-  def create
-    
-  end
+  #def create
+  #  
+  #end
   
   private
   def user_params
