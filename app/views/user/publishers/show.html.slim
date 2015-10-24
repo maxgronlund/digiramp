@@ -38,7 +38,10 @@
       - if @publisher.personal_publisher
         -if publishing_agreement = @publisher.publishing_agreements.first
           - if document = publishing_agreement.document
-            = link_to 'Edit ', edit_user_user_legal_document_path( @user, document.uuid)
+            .row
+              .col-sm-12
+                
+            = link_to 'Edit ', edit_user_user_legal_document_path( @user, document.uuid), class: 'btn btn-default'
       -else
         .pull-down-10
         .row
