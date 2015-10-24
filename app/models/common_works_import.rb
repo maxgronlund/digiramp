@@ -43,18 +43,18 @@ class CommonWorksImport < ActiveRecord::Base
           common_work.ascap_award_winner                    = details["ASCAP Award Winner"]
           
           # add to genre 
-          if common_work.genre.to_s == ''
-            # there is no genre so add it
-            common_work.genre   = details["Genre"]
-          elsif common_work.genre.include? details["Genre"]
-            # do nothing genre is alreaddy added
-          else
-            # add as comma seperated list
-            common_work.genre   += ','
-            common_work.genre   += details["Genre"]
-          end
+          #if common_work.genre.to_s == ''
+          #  # there is no genre so add it
+          #  common_work.genre   = details["Genre"]
+          #elsif common_work.genre.include? details["Genre"]
+          #  # do nothing genre is alreaddy added
+          #else
+          #  # add as comma seperated list
+          #  common_work.genre   += ','
+          #  common_work.genre   += details["Genre"]
+          #end
           common_work.work_type                             = details["Work Type"]
-          common_work.composite_type                        = details["Composite Type"]
+          #common_work.composite_type                        = details["Composite Type"]
           common_work.arrangement                           = (details["Arrangement of Public Domain Work"] != 'N')
         end
           
@@ -187,7 +187,7 @@ class CommonWorksImport < ActiveRecord::Base
       
 
       common_work.common_works_import_id    = self.id
-      common_work.bmi_catalog               = catalog[:catalog]
+      #common_work.bmi_catalog               = catalog[:catalog]
       common_work.iswc_code                 = work[:iswc]
       common_work.title                     = work[:title]
       common_work.registration_date         = work[:registration_date]   

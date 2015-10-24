@@ -80,11 +80,11 @@
             .digi-box
               = simple_format @common_work.lyrics
         .col-sm-6
-          -if  @common_work.artwork.to_s != ''
-            h4 Artwork
-            .thumbnail
-              = image_tag @common_work.artwork
-          
+          /-if  @common_work.artwork.to_s != ''
+          /  h4 Artwork
+          /  .thumbnail
+          /    = image_tag @common_work.artwork
+          /
           h4 Info
           .digi-box
             - if @common_work.surveyed_work.to_s != ''
@@ -93,8 +93,8 @@
               == render 'shared/meta_line' , locals: {title: 'Last distribution', data: @common_work.last_distribution}
             - if @common_work.work_status.to_s != ''
               == render 'shared/meta_line' , locals: {title: 'Work status', data: @common_work.work_status}
-            - if @common_work.ascap_award_winner.to_s != ''
-              == render 'shared/meta_line' , locals: {title: 'ASCAP Award winner', data: @common_work.ascap_award_winner}
+            /- if @common_work.ascap_award_winner.to_s != ''
+            /  == render 'shared/meta_line' , locals: {title: 'ASCAP Award winner', data: @common_work.ascap_award_winner}
             - if @common_work.work_type.to_s != ''
               == render 'shared/meta_line' , locals: {title: 'Work type', data: @common_work.work_type}
             - if @common_work.composite_type.to_s != ''
@@ -107,10 +107,10 @@
               == render 'shared/meta_line' , locals: {title: 'Submitter work id', data: @common_work.submitter_work_id}
             - if @common_work.registration_date.to_s != ''
               == render 'shared/meta_line' , locals: {title: 'Registration date', data: @common_work.registration_date}
-            - if @common_work.bmi_work_id.to_s != ''
-              == render 'shared/meta_line' , locals: {title: 'BMI Work ID', data: @common_work.bmi_work_id}
-            - if @common_work.bmi_catalog.to_s != ''
-              == render 'shared/meta_line' , locals: {title: 'BMI Work catalog', data: @common_work.bmi_catalog}
+            /- if @common_work.bmi_work_id.to_s != ''
+            /  == render 'shared/meta_line' , locals: {title: 'BMI Work ID', data: @common_work.bmi_work_id}
+            /- if @common_work.bmi_catalog.to_s != ''
+            /  == render 'shared/meta_line' , locals: {title: 'BMI Work catalog', data: @common_work.bmi_catalog}
             - if @common_work.registration_origin.to_s != ''
               == render 'shared/meta_line' , locals: {title: 'Registration origin', data: @common_work.registration_origin}
             - if @common_work.pro_work_id.to_s != ''

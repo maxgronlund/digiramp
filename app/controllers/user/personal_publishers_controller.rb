@@ -21,9 +21,22 @@ class User::PersonalPublishersController < ApplicationController
     @user.update(user_params)
     
     
-    
-    
-    redirect_to  user_user_legal_index_path(@user)
+    case @user.personal_publishing_status
+      
+    when 'I own and control my own publishing'
+      personal_publisher = @user.personal_publisher
+      unless @user.personal_publisher.confirmed_publishing?(@user.id)
+        go_to =   edit_user_user_publisher_legal_info_path(@user, personal_publisher)
+      end
+    when 'I have an exclusive publisher'
+      
+    when 'I have many publishers'
+      
+    when 'I have an administrator'
+
+
+    end
+    redirect_to  go_to || user_user_legal_index_path(@user)
   end
     
   

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151023102714) do
+ActiveRecord::Schema.define(version: 20151024153416) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1085,37 +1085,26 @@ ActiveRecord::Schema.define(version: 20151023102714) do
   create_table "common_works", force: :cascade do |t|
     t.string   "title",                  limit: 255
     t.string   "iswc_code",              limit: 255
-    t.datetime "created_at",                                                  null: false
-    t.datetime "updated_at",                                                  null: false
+    t.datetime "created_at",                                             null: false
+    t.datetime "updated_at",                                             null: false
     t.integer  "ascap_work_id"
     t.integer  "account_id"
     t.integer  "common_works_import_id"
-    t.string   "audio_file",             limit: 255
     t.string   "content_type",           limit: 255
     t.text     "description"
     t.text     "alternative_titles"
-    t.integer  "recording_preview_id"
     t.string   "step",                   limit: 255, default: "created"
     t.text     "lyrics"
     t.integer  "catalog_id"
     t.string   "uuid",                   limit: 255
     t.decimal  "completeness"
-    t.string   "artwork",                limit: 255
     t.string   "pro",                    limit: 255
     t.string   "surveyed_work",          limit: 255
     t.string   "last_distribution",      limit: 255
     t.string   "work_status",            limit: 255
-    t.string   "ascap_award_winner",     limit: 255
     t.string   "work_type",              limit: 255
-    t.string   "composite_type",         limit: 255
-    t.string   "genre",                  limit: 255
-    t.string   "submitter_work_id",      limit: 255
     t.string   "registration_date",      limit: 255, default: ""
-    t.string   "bmi_work_id",            limit: 255, default: ""
-    t.string   "bmi_catalog",            limit: 255, default: "Main catalog"
     t.string   "registration_origin",    limit: 255, default: ""
-    t.string   "pro_work_id",            limit: 255, default: ""
-    t.string   "pro_catalog",            limit: 255, default: ""
     t.boolean  "arrangement",                        default: false
     t.boolean  "ok"
   end
@@ -3485,18 +3474,6 @@ ActiveRecord::Schema.define(version: 20151023102714) do
   add_index "user_notifications", ["asset_type", "asset_id"], name: "index_user_notifications_on_asset_type_and_asset_id", using: :btree
   add_index "user_notifications", ["user_id"], name: "index_user_notifications_on_user_id", using: :btree
 
-  create_table "user_publishers", force: :cascade do |t|
-    t.integer  "publisher_id"
-    t.integer  "legal_document_id"
-    t.text     "notes"
-    t.datetime "created_at",        null: false
-    t.datetime "updated_at",        null: false
-    t.integer  "user_id"
-  end
-
-  add_index "user_publishers", ["publisher_id"], name: "index_user_publishers_on_publisher_id", using: :btree
-  add_index "user_publishers", ["user_id"], name: "index_user_publishers_on_user_id", using: :btree
-
   create_table "users", force: :cascade do |t|
     t.string   "name",                            limit: 255
     t.string   "email",                           limit: 255
@@ -3864,7 +3841,5 @@ ActiveRecord::Schema.define(version: 20151023102714) do
   add_foreign_key "subscriptions", "coupons"
   add_foreign_key "subscriptions", "plans"
   add_foreign_key "user_notifications", "users", on_delete: :cascade
-  add_foreign_key "user_publishers", "publishers", on_delete: :cascade
-  add_foreign_key "user_publishers", "users", on_delete: :cascade
   add_foreign_key "widgets", "accounts", on_delete: :cascade
 end

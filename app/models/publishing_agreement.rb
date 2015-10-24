@@ -85,6 +85,8 @@ class PublishingAgreement < ActiveRecord::Base
     Document.where(belongs_to_id: self.id, belongs_to_type: self.class.name)
   end
   
+  # this is the document signed by the publishing owner
+  # where the owner confirms he is a valid publisher for all content connected to the publishing
   def document
     begin
       Document.cached_find(self.document_uuid)

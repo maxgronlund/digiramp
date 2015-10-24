@@ -13,6 +13,12 @@ class User::PublishersController < ApplicationController
     #if params[:ipi_id]
     #  IpiPublishingAgreement.where()
     #end
+    @publishing_agreement_documen = nil
+    if @publisher.personal_publisher
+      if @publishing_agreement = @publisher.publishing_agreements.first
+        @publishing_agreement_document = @publishing_agreement.document
+      end
+    end
   end
 
   # GET /publishers/new

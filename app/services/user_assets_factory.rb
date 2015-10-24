@@ -141,10 +141,12 @@ class UserAssetsFactory
       :belongs_to_type  => @publishing_agreement.class.name,
       :account_id       => @account.id,
       :template_id      => template.id,
-      title:            template.title.gsub(' COPY', ''),
+      title:            template.title.gsub('COPY', ''),
       expires: false
     )
     CopyMachine.create_document_users template, doc
+    
+    @publishing_agreement.update(document_uuid: doc.uuid)
   end
   
   def create_ipi_publisher

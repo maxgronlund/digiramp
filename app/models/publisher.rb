@@ -10,11 +10,12 @@ class Publisher < ActiveRecord::Base
   
   validates :legal_name , :email, presence: true
   
-  has_many :user_publishers, dependent: :destroy
-  has_many :users,   :through => :user_publishers 
+  #has_many :user_publishers, dependent: :destroy
+  #has_many :users,   :through => :user_publishers 
   
   has_many :ipi_publishers
   has_many :ipis,   :through => :ipi_publishers 
+  
   has_many :common_work_ipis
   
   
@@ -35,7 +36,7 @@ class Publisher < ActiveRecord::Base
   #validates :email, presence: true, uniqueness: true
   # all users can create publishers
   # sometime they create a user on behalf of someone else
-  after_create :create_user_publisher
+  #after_create :create_user_publisher
   after_commit :flush_cache
   
   before_destroy :reset_common_work_ipis
@@ -44,10 +45,10 @@ class Publisher < ActiveRecord::Base
     common_work_ipis.update_all(publisher_id: nil)
   end
   
-  def user_publishing_agreement user
+  def user_publishing_agreement user_id
     
-    if publishing_agreemet = publishing_agreements.where(user_id: user.id, )
-      
+    if publishing_agreemet = publishing_agreements.find_by(user_id: user_id, )
+      return publishing_agreemet
     end
     
   end
@@ -63,6 +64,15 @@ class Publisher < ActiveRecord::Base
     end
   end
   
+  def confirmed_publishing?(published_user_id)
+    if ipis.find_by(user_id: published_user_id)
+      if _publishing_agreement = user_publishing_agreement( published_user_id )
+        return _publishing_agreement.ok
+      end
+    end
+    false
+  end
+  
 
 
   private 
@@ -72,10 +82,10 @@ class Publisher < ActiveRecord::Base
   end
 
   
-  def create_user_publisher
-    UserPublisher.where(publisher_id: self.id, user_id: self.user_id)
-                 .first_or_create(publisher_id: self.id, user_id: self.user_id)
-  end
+  #def create_user_publisher
+  #  UserPublisher.where(publisher_id: self.id, user_id: self.user_id)
+  #               .first_or_create(publisher_id: self.id, user_id: self.user_id)
+  #end
   
 
   

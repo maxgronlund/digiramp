@@ -145,13 +145,13 @@ class CommonWork < ActiveRecord::Base
   end
   
   
-  def audio_recordings 
-    recordings.where(media_type: 'recording') 
-  end
-  
-  def video_recordings 
-    recordings.where(media_type: 'video') 
-  end
+  #def audio_recordings 
+  #  recordings.where(media_type: 'recording') 
+  #end
+  #
+  #def video_recordings 
+  #  recordings.where(media_type: 'video') 
+  #end
 
 
   # if the user can edit
@@ -237,9 +237,9 @@ class CommonWork < ActiveRecord::Base
     
   end
 
-  def audio_preview
-    Recording.find(self.recording_preview_id).audio_file_url if Recording.exists?(self.recording_preview_id)
-  end
+  #def audio_preview
+  #  Recording.find(self.recording_preview_id).audio_file_url if Recording.exists?(self.recording_preview_id)
+  #end
   
   def self.attach recording, account_id, current_user
 
@@ -296,19 +296,26 @@ class CommonWork < ActiveRecord::Base
   end
   
   def update_completeness
+    fields_count    = 1.0
+    completed_count = 0.0
     
-    
-    value = 0
-    value += 5 unless self.recordings.size.to_i      == 0
-    value += 5 unless self.title.to_s                == ''
-    value += 5 unless self.description.to_s          == ''
-    value += 5 unless self.alternative_titles.to_s   == ''
-    value += 5 unless self.iswc_code.to_s            == ''
 
-    # 75% of the completeness is based on the recordings
-    value += recording_health * 0.75
-    self.completeness       = value
-    self.save!
+    completed_count += 1.0 unless self.recordings.size.to_i         == 0
+    fields_count    += 1.0                                          
+    completed_count += 1.0 unless self.title.to_s                   == ''
+    fields_count    += 1.0                                          
+    completed_count += 1.0 unless self.description.to_s             == ''
+    fields_count    += 1.0                                          
+    completed_count += 1.0 unless self.alternative_titles.to_s      == ''
+    fields_count    += 1.0                                          
+    completed_count += 1.0 unless self.iswc_code.to_s               == ''
+    fields_count    += 1.0
+    completed_count += 1.0 unless self.common_work_ipis.size.to_i   == ''
+    fields_count    += 1.0
+
+    
+    update_columns(completeness: completed_count / fields_count)
+    flush_cache
 
   end
   

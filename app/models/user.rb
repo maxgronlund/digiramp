@@ -71,8 +71,9 @@ class User < ActiveRecord::Base
   has_many :labels
   
   # A user can have many publishers that he uses for publishing other persons
-  has_many :user_publishers
-  has_many :publishers,       :through => :user_publishers 
+  #has_many :user_publishers
+  #has_many :publishers,       :through => :user_publishers 
+  has_many :publishers
   has_many :distribution_agreements
   
   has_many :comments,        as: :commentable,          dependent: :destroy
@@ -789,7 +790,7 @@ class User < ActiveRecord::Base
   end
   
   def personal_publisher
-    @personal_publisher ||= Publisher.find_by( user_id: self.id, id: self.personal_publisher_id)
+    Publisher.find_by( user_id: self.id, id: self.personal_publisher_id)
   end
   
   def exclusive_publisher
@@ -805,7 +806,7 @@ class User < ActiveRecord::Base
   end
   
   def personal_publishing_agreement
-    @personal_publishing_agreement ||= PublishingAgreement.find_by(personal_agreement: true, publisher_id: personal_publisher.id)
+    PublishingAgreement.find_by(personal_agreement: true, publisher_id: personal_publisher.id)
   end
   
   # return the publisher based on publihing type

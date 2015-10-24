@@ -1,3 +1,4 @@
+# export all information related to a common work as a csv file
 class CommonWorkToCsvService
   
   

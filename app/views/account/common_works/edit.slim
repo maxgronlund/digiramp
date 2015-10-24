@@ -26,41 +26,41 @@
                 
               /= f.label      :artwork, 'Thumbnail will be scaled to 184x184 pixels' 
               /= f.file_field :artwork, multiple: false
-              .fileinput.fileinput-new data-provides="fileinput"
-                .fileinput-new.thumbnail style="width: 184px; height: 184px;"
-                  - if @common_work.artwork
-                    = image_tag @common_work.artwork, size: '184x184'
-                  - else
-                    = image_tag 'default-cover.jpg'
-        
-                div.fileinput-preview.fileinput-exists.thumbnail style="max-width: 184px; max-height: 184px;"
-                div
-                  span.btn.btn-default.btn-file
-                    span class="fileinput-new"
-                      'Change image
-                    '&nbsp;
-                    span class="fileinput-exists"
-                      'Change
-                    = f.file_field :artwork, multiple: false
-        
-                  '&nbsp;
-                  a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput"
-                    'Remove
-                    
-                    
+              /.fileinput.fileinput-new data-provides="fileinput"
+              /  .fileinput-new.thumbnail style="width: 184px; height: 184px;"
+              /    - if @common_work.artwork
+              /      = image_tag @common_work.artwork, size: '184x184'
+              /    - else
+              /      = image_tag 'default-cover.jpg'
+              /
+              /  div.fileinput-preview.fileinput-exists.thumbnail style="max-width: 184px; max-height: 184px;"
+              /  div
+              /    span.btn.btn-default.btn-file
+              /      span class="fileinput-new"
+              /        'Change image
+              /      '&nbsp;
+              /      span class="fileinput-exists"
+              /        'Change
+              /      = f.file_field :artwork, multiple: false
+              /
+              /    '&nbsp;
+              /    a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput"
+              /      'Remove
+              /      
+              /      
               sexy_line
               /= f.input :artwork
               = f.input :title, :input_html => {  style: " width: 100%;", placeholder: "Title"}
               = f.input :alternative_titles, :input_html => {  style: "height: 120px;", placeholder: "Alternative Titles"}
               = f.input :description, :input_html => {  style: "height: 120px;", placeholder: "Description"}
               = f.input :iswc_code, label: 'ISWC Code',:input_html => {  placeholder: "ISWC Code"}
-              = f.input :surveyed_work
-              = f.input :last_distribution
-              = f.input :work_status
-              = f.input :ascap_award_winner
-              = f.input :work_type
-              = f.input :bmi_work_id
-              = f.input :bmi_catalog
+              /= f.input :surveyed_work
+              /= f.input :last_distribution
+              /= f.input :work_status
+              /= f.input :ascap_award_winner
+              /= f.input :work_type
+              /= f.input :bmi_work_id
+              /= f.input :bmi_catalog
               
               
           .col-sm-6
@@ -77,7 +77,7 @@
               = f.input :composite_type
               = f.input :arrangement, label: 'Arrangement of public domain work'
               = f.input :genre
-              = f.input :submitter_work_id
+              /= f.input :submitter_work_id
               = f.input :registration_date
               = f.input :registration_origin
               = f.input :pro_work_id

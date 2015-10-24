@@ -35,20 +35,25 @@
 
       .pull-down-10
       == render 'legal_informations'
-      .pull-down-10
-      .row
-        .col-sm-12
-          .pull-right
-            = link_to user_user_publisher_publishing_agreements_path(@user, @publisher)
-              .btn.btn-default
-                i.fa.fa-money
-                  '&nbsp;Publishing agreements
-            =< link_to user_user_publisher_ipi_publishers_path(@user, @publisher) 
-              .btn.btn-default
-                i.fa.fa-users
-                  '&nbsp;Creators
-            
+      - if @publisher.personal_publisher
+        -if publishing_agreement = @publisher.publishing_agreements.first
+          - if document = publishing_agreement.document
+            = link_to 'Edit ', edit_user_user_legal_document_path( @user, document.uuid)
+      -else
+        .pull-down-10
+        .row
+          .col-sm-12
+            .pull-right
+              = link_to user_user_publisher_publishing_agreements_path(@user, @publisher)
+                .btn.btn-default
+                  i.fa.fa-money
+                    '&nbsp;Publishing agreements
+              =< link_to user_user_publisher_ipi_publishers_path(@user, @publisher) 
+                .btn.btn-default
+                  i.fa.fa-users
+                    '&nbsp;Creators
               
+                
       /.table-responsive.pull-down-10
       /  .row
       /    .col-sm-6
