@@ -139,12 +139,7 @@ class SessionsController < ApplicationController
 private
   
   def initialize_session_for user
-    #ap 'initialize_session_for user'
-    #ap 'session[:current_page]'
-    #ap session[:current_page]
-    #ap 'session[:request_url]'
-    #ap session[:request_url]
-    
+ 
     
     provider = nil
     if env['omniauth.auth']

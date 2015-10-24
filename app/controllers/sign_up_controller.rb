@@ -1,7 +1,7 @@
 class SignUpController < ApplicationController
 
   #def create
-  #  ap 'SignUpController#create'
+  
   #  email = params['/sign_up']['email']
   #  
   #  sanitized_email = EmailSanitizer.saintize email

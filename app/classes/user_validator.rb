@@ -1,11 +1,7 @@
 class UserValidator < ActiveModel::Validator
   def validate(record)
     if user_email = UserEmail.find_by(email: record.email)
-      #ap 'user_email'
-      #ap user_email
-      #ap user_email.user_id
-      #ap 'record'
-      #ap record.id
+     
       unless user_email.user_id == record.id
         record.errors[:email] << 'Email used by another account!'
       end

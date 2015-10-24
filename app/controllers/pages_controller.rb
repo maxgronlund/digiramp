@@ -5,7 +5,7 @@ class PagesController < ApplicationController
   
   
   def down_for_maintenance
-    ap '================================================================ down for maintance'
+   
   end
   
   private

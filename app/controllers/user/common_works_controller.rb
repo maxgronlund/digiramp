@@ -15,11 +15,11 @@ class User::CommonWorksController < ApplicationController
     )
 
     
-    if params[:recording_id]
-      @recording  = Recording.cached_find(params[:recording_id])
-    else
-      @recording  = @common_work.recordings.first
-    end
+    #if params[:recording_id]
+    #  @recording  = Recording.cached_find(params[:recording_id])
+    #else
+    #  @recording  = @common_work.recordings.first
+    #end
 
 
     #if @recording.nil?
@@ -28,14 +28,12 @@ class User::CommonWorksController < ApplicationController
 
     #@no_ips     = @common_work.ipis.to_i.count + @recording.recording_ipis.to_i.count == 0
 
-    blog        = Blog.cached_find('Common Work Ipi')
-    @no_ipis_text = BlogPost.cached_find('No Ipis' , blog)
-    
+    blog                        = Blog.cached_find('Common Work Ipi')
+    @no_ipis_text               = BlogPost.cached_find('No Ipis' , blog)
     @upload_existing_contracts  = BlogPost.cached_find('Upload existing documents' , blog)
     @add_ipis                   = BlogPost.cached_find("Add IPI's" , blog)
     @im_the_only_ip             = BlogPost.cached_find("I'm the only IP" , blog)
-    
-      
+
     #end
       
   end

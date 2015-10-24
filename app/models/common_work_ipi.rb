@@ -51,10 +51,6 @@ class CommonWorkIpi < ActiveRecord::Base
   # Get full name
   # If a user is connected the users full name is returned
   def get_full_name
-    ap self
-    ap '================================'
-    ap self.user
-    ap '================================'
     if self.user 
       return user.get_full_name
     else

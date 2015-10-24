@@ -9,9 +9,7 @@ class User::DigitalSignaturesController < ApplicationController
   end
   
   def show
-    ap params
-    ap @digital_signature.uuid
-    ap @user.digital_signature_uuid
+   
     @user.update(digital_signature_uuid: @digital_signature.uuid) 
     redirect_to :back
   end

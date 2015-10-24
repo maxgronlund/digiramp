@@ -180,7 +180,7 @@ class UsersController < ApplicationController
       redirect_to user_user_user_configurations_path(@user)
       #user/users/test-4/user_configurations/1057/edit
     else
-      ap '==================== new ======================='
+      
       render :new
     end
 

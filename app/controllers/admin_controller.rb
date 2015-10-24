@@ -40,10 +40,7 @@ class AdminController < ApplicationController
       Shop::StripeTransfer.destroy_all
       Shop::Order.destroy_all
       Shop::Product.destroy_all
-      
-      
-      
-      ap 'shebang!'
+  
     end
     redirect_to :back
   end

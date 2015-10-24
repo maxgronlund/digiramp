@@ -13,9 +13,11 @@ class LikesController < ApplicationController
       #end
   end
   
+  
+  # This is called when a user click on the like button and it's not active
+  # The users followers are notified
+  # button is replaced using jquery
   def new
-    
-
     user = User.friendly.find(params[:user_id])
     
     like = Like.where(
@@ -30,7 +32,6 @@ class LikesController < ApplicationController
     recording    = Recording.cached_find(params[:recording_id])
     recording.update(uniq_likes_count:  recording.likes.count.to_uniq)
    
-    
 
              
     @unlike = '.unlike_recording_' + params[:recording_id].to_s   
@@ -46,6 +47,7 @@ class LikesController < ApplicationController
     
   end
   
+  # This is called when a user click on the like button and it is activated
   def destroy
     user          = User.friendly.find(params[:user_id])
     like          = Like.where(user_id: user.id, recording_id: params[:id]).first   

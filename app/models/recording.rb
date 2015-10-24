@@ -277,14 +277,14 @@ class Recording < ActiveRecord::Base
   #end
 
   def uniqify_fields
-    self.uniq_title              = self.title.to_uniq
     begin
-      self.uniq_position         = self.position.to_uniq
+      self.uniq_title              = self.title.to_uniq
+      self.uniq_position           = self.position.to_uniq
+      self.uniq_playbacks_count    = self.playbacks_count.to_uniq
+      self.uniq_likes_count        = self.likes_count.to_uniq
+      self.uuid = UUIDTools::UUID.timestamp_create().to_s if self.uuid.nil?
     rescue
     end
-    self.uniq_playbacks_count    = self.playbacks_count.to_uniq
-    self.uniq_likes_count        = self.likes_count.to_uniq
-    self.uuid = UUIDTools::UUID.timestamp_create().to_s if self.uuid.nil?
   end
   
   def notify_followers
@@ -638,7 +638,7 @@ class Recording < ActiveRecord::Base
       filename    = self.title.downcase.gsub(' ', '-') + '.mp3'
       secure_url  = s3_obj.presigned_url(:get, expires_in: 600,response_content_disposition: "attachment; filename='#{filename}'")
     rescue => e
-      ap e.inspect
+      
       secure_url = self.mp3
     end
     secure_url
