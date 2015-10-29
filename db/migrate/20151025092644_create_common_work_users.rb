@@ -29,7 +29,7 @@ class CreateCommonWorkUsers < ActiveRecord::Migration
         Rails.cache.delete([common_work.class.name, common_work.id])
         create_common_work_users common_work
       else
-        common_work.destroy
+        #common_work.destroy
       end
     end
   end
