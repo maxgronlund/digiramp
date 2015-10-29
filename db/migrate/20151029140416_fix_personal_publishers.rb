@@ -6,7 +6,7 @@ class FixPersonalPublishers < ActiveRecord::Migration
         create_personal_publisher user
       end
       unless publisher = Publisher.find_by( user_id: user.id, id: user.personal_publisher_id)
-        
+        create_personal_publisher user
       end
     end
   end
@@ -22,7 +22,7 @@ class FixPersonalPublishers < ActiveRecord::Migration
       personal_publisher: true,
       legal_name: user.get_full_name
     )
-    self.update_columns(personal_publisher_id: publisher.id)
+    user.update_columns(personal_publisher_id: publisher.id)
     ap publisher
   end
 end
