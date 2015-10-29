@@ -4,7 +4,7 @@ class FixPublishingAgreementsOnPersonalPublishers < ActiveRecord::Migration
       personal_publisher = user.personal_publisher
       unless personal_publisher
         publisher = Publisher.create( 
-          user_id: self.id,
+          user_id: user.id,
           personal_publisher: true,
           legal_name: user.get_full_name
         )
