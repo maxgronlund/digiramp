@@ -115,8 +115,8 @@ class User < ActiveRecord::Base
   
 
   has_one :dashboard
-  has_many :work_users,               dependent: :destroy
-  has_many :works,                    through: :work_users
+  #has_many :work_users,               dependent: :destroy
+  #has_many :works,                    through: :work_users
   has_many :invites
   
   # account_catalog a user administrates

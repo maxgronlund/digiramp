@@ -21,17 +21,17 @@ class CreateCommonWorkUsers < ActiveRecord::Migration
     
     
     
-    CommonWork.find_each do |common_work|
-      if account = common_work.account
-        common_work.update_columns(
-          user_id: account.user_id
-        )
-        Rails.cache.delete([common_work.class.name, common_work.id])
-        create_common_work_users common_work
-      else
-        #common_work.destroy
-      end
-    end
+    #CommonWork.find_each do |common_work|
+    #  if account = common_work.account
+    #    common_work.update_columns(
+    #      user_id: account.user_id
+    #    )
+    #    Rails.cache.delete([common_work.class.name, common_work.id])
+    #    create_common_work_users common_work
+    #  else
+    #    #common_work.destroy
+    #  end
+    #end
   end
   
   def create_common_work_users common_work
