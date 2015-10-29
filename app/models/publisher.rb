@@ -1,6 +1,6 @@
 class Publisher < ActiveRecord::Base
   has_paper_trail
-  enum status: [ :pending, :confirmed, :declined ]
+  enum status: [ :pending, :confirmed, :dismissed ]
   
   
   default_scope -> { order('created_at ASC') }
