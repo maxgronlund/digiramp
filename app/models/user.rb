@@ -783,7 +783,11 @@ class User < ActiveRecord::Base
   end
   
   def personal_publisher
-    Publisher.find_by( user_id: self.id, id: self.personal_publisher_id)
+    unless publsr = Publisher.find_by( user_id: self.id, id: self.personal_publisher_id)
+       publsr = Publisher.create( user_id: self.id)
+       self.update(personal_publisher_id: publsr.id)
+    end
+    publsr
   end
   
   def exclusive_publisher
@@ -799,6 +803,7 @@ class User < ActiveRecord::Base
   end
   
   def personal_publishing_agreement
+    
     begin
       PublishingAgreement.find_by(personal_agreement: true, publisher_id: personal_publisher.id)
     rescue => e
