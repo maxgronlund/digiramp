@@ -106,11 +106,11 @@
                           'Waiting for publishing confirmation from
                           .pull-down-6
                           = user.exclusive_publishers_email
-                      - else  
-                        - if ipi_publishers = ipi.ipi_publishers
-                          - ipi_publishers.each do |ipi_publisher|
-                            - if publisher = ipi_publisher.publisher
-                              = publisher.legal_name
+                      /- else  
+                      /  - if ipi_publishers = ipi.ipi_publishers
+                      /    - ipi_publishers.each do |ipi_publisher|
+                      /      - if publisher = ipi_publisher.publisher
+                      /        = publisher.legal_name
               
                 td
               
@@ -142,7 +142,7 @@
               .alert.alert-info
                 'You have confirmed that you are a creator of this common work
             - else
-              b I herby confirm that I'm a right full creator and it's correct and I have contributed:
+              b I herby confirm that I'm a right full creator and it's correct I have contributed
             
             .row
               .col-sm-12

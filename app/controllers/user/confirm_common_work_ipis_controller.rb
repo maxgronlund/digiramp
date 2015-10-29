@@ -26,7 +26,7 @@ class User::ConfirmCommonWorkIpisController < ApplicationController
       if invited_user.account_activated
         #redirect_to confirmation_creator_edit_path(uuid: @common_work_ipi.uuid)
       # go to the login path
-      redirect_to login_index_path
+      redirect_to login_new_path
       else
         redirect_to edit_confirmation_creator_path(@user.password_reset_token, uuid: @common_work_ipi.uuid)
       end

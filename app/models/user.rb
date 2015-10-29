@@ -60,7 +60,7 @@ class User < ActiveRecord::Base
 
 
   has_one :ipi, dependent: :destroy
-  has_one :address, dependent: :destroy
+  has_one :address
   has_one :publisher
   accepts_nested_attributes_for :address
   accepts_nested_attributes_for :publisher
@@ -517,6 +517,10 @@ class User < ActiveRecord::Base
     
     if self.user_configuration
       self.user_configuration.destroy
+    end
+    
+    if self.address
+      self.address.destroy
     end
     
 
