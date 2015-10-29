@@ -784,15 +784,22 @@ class User < ActiveRecord::Base
   end
   
   def personal_publisher
-    unless publisher = Publisher.find_by( user_id: self.id, id: self.personal_publisher_id)
-       publisher = Publisher.create( 
-         user_id: self.id,
-         personal_publisher: true
-       )
-       self.update(personal_publisher_id: publisher.id)
-       
-    end
-    publisher
+    Publisher.find_by( 
+      user_id: self.id, 
+      id: self.personal_publisher_id,
+      personal_publisher: true
+    )
+    
+    
+    #unless publisher = Publisher.find_by( user_id: self.id, id: self.personal_publisher_id)
+    #   publisher = Publisher.create( 
+    #     user_id: self.id,
+    #     personal_publisher: true
+    #   )
+    #   self.update(personal_publisher_id: publisher.id)
+    #   
+    #end
+    #publisher
   end
   
   def exclusive_publisher
