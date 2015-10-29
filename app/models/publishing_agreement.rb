@@ -1,6 +1,7 @@
 class PublishingAgreement < ActiveRecord::Base
   has_paper_trail
   belongs_to :publisher
+  belongs_to :user
   belongs_to :account
 
   has_many :ipi_publishing_agreements
