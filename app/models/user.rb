@@ -783,11 +783,15 @@ class User < ActiveRecord::Base
   end
   
   def personal_publisher
-    unless publsr = Publisher.find_by( user_id: self.id, id: self.personal_publisher_id)
-       publsr = Publisher.create( user_id: self.id)
-       self.update(personal_publisher_id: publsr.id)
+    unless publisher = Publisher.find_by( user_id: self.id, id: self.personal_publisher_id)
+       publisher = Publisher.create( 
+         user_id: self.id,
+         personal_publisher: true
+       )
+       self.update(personal_publisher_id: publisher.id)
+       
     end
-    publsr
+    publisher
   end
   
   def exclusive_publisher
@@ -808,7 +812,9 @@ class User < ActiveRecord::Base
       PublishingAgreement.find_by(personal_agreement: true, publisher_id: personal_publisher.id)
     rescue => e
       ErrorNotification.post "#{self.user_name} has no personal_publishing_agreement"
+      return nil
     end
+    
   end
   
   # return the publisher based on publihing type
