@@ -33,47 +33,47 @@ class AddEmailToSelfPublishingDocuments < ActiveRecord::Migration
         end
       end
       
-      if personal_publishing_agreement = user.personal_publishing_agreement
-        begin
-          if document = personal_publishing_agreement.document
-            if document_user = document.document_users.find_by(role: 'Publisher')
-              document_user.update(
-                email:                user.email,
-                user_id:              user.id,
-                digital_signature_id: digital_signature_id,
-                document_id:          document.id,
-                account_id:           user.account.id  ,
-                can_edit:             true,
-                should_sign:          true,
-              )
-              
-            else
-              document_user = DocumentUser.create(
-                email:                user.email,
-                user_id:              user.id,
-                digital_signature_id: digital_signature_id,
-                document_id:          document.id,
-                account_id:           user.account.id  ,
-                can_edit:             true,
-                should_sign:          true,
-              )
-            end
-            document_user.accepted! 
-          else
-            ap "document is missing"
-            ap user.id
-            ap personal_publishing_agreement.id
-            ap '---------------'
-          end
-        rescue
-          ap 'AddEmailToSelfPublishingDocuments'
-          ap personal_publishing_agreement.id
-        end
-      else
-        ap 'personal_publishing_agreement is missing'
-        ap user.id
-        ap '---------------'
-      end
+      #if personal_publishing_agreement = user.personal_publishing_agreement
+      #  begin
+      #    if document = personal_publishing_agreement.document
+      #      if document_user = document.document_users.find_by(role: 'Publisher')
+      #        document_user.update(
+      #          email:                user.email,
+      #          user_id:              user.id,
+      #          digital_signature_id: digital_signature_id,
+      #          document_id:          document.id,
+      #          account_id:           user.account.id  ,
+      #          can_edit:             true,
+      #          should_sign:          true,
+      #        )
+      #        
+      #      else
+      #        document_user = DocumentUser.create(
+      #          email:                user.email,
+      #          user_id:              user.id,
+      #          digital_signature_id: digital_signature_id,
+      #          document_id:          document.id,
+      #          account_id:           user.account.id  ,
+      #          can_edit:             true,
+      #          should_sign:          true,
+      #        )
+      #      end
+      #      document_user.accepted! 
+      #    else
+      #      ap "document is missing"
+      #      ap user.id
+      #      ap personal_publishing_agreement.id
+      #      ap '---------------'
+      #    end
+      #  rescue
+      #    ap 'AddEmailToSelfPublishingDocuments'
+      #    ap personal_publishing_agreement.id
+      #  end
+      #else
+      #  ap 'personal_publishing_agreement is missing'
+      #  ap user.id
+      #  ap '---------------'
+      #end
     end
   end
   
