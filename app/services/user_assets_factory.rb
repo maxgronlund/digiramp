@@ -230,7 +230,7 @@ class UserAssetsFactory
           user_id:        @user.id, 
           legal_name:     @user.get_full_name
         )
-        ap document_user
+        
       end
     end
     
