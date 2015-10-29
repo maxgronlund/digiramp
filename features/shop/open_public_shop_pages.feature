@@ -28,7 +28,8 @@ As an guest I can se the public shop pages
     Then I clik on the link with the id "sidebar-basket"
     Then I can see "Happy coder"
     Then I can see "Chunky beacon"
-    Then I clik on the link with the id "checkout-button"
-    #Then Does it look right
-    Then I fill in the address form and save
+    #Then I clik on the link with the id "checkout-button"
+    
+    #Then I fill in the address form and save
     #Then I fill in the payment form with wrong data and save
+    #Then Does it look right

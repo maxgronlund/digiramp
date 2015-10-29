@@ -31,6 +31,9 @@
       .pull-down-10
       
       .row
+        .col-sm-3
+          .alert.alert-warning
+            b !Changing your publishing status will affect all works where you are registered as a creator
         .col-sm-6
           .digi-box
             = simple_form_for [:user, @user ], turboboost: true, url: url_for(action: 'update', controller: '/user/personal_publishers'), method: 'put' do |f|
@@ -39,7 +42,7 @@
               .form-inputs
                 == render 'shared/flash_message'
           
-                = f.input :personal_publishing_status, collection: Publisher::PUBLISHING_TYPE, include_blank: false
+                = f.input :personal_publishing_status, collection: User::PUBLISHING_TYPE, include_blank: false
                 
                 div id="personal_publishing_status" style="display: #{'none;' unless @user.personal_publishing_status == 'I have an exclusive publisher'};"
                   = f.input :exclusive_publishers_email
@@ -53,11 +56,11 @@
                   .alert.alert-info
                     'I have many publishers and want to control my publishing individually on each work
                 
-                #publishing_administrated style="display: #{'none;' unless @user.personal_publishing_status == 'I have an administrator' }"
-                  = f.input :publishing_administrators_email
-                  .alert.alert-info
-                    'I have an administrator taking care of all my publishing
-                  
+                /#publishing_administrated style="display: #{'none;' unless @user.personal_publishing_status == 'I have an administrator' }"
+                /  = f.input :publishing_administrators_email
+                /  .alert.alert-info
+                /    'I have an administrator taking care of all my publishing
+                /  
                 
                 
                
@@ -65,7 +68,7 @@
                 .row
                   .col-sm-12
                     .pull-right
-                      = f.submit 'Save', class: 'btn btn-info'
+                      = f.submit 'Save', class: 'btn btn-info', data: { confirm: 'Are you sure?' }
   
               
   == render 'shared/site_footer'    
@@ -93,11 +96,7 @@ coffee:
       $('#many_publishers').css("display", "inline")
       $('#publishing_administrated').css("display", "none")
       
-    else if $('option:selected').val() == 'I have an administrator'
-      $('#personal_publishing_status').css("display", "none")
-      $('#personal_publishing').css("display", "none")
-      $('#many_publishers').css("display", "none")
-      $('#publishing_administrated').css("display", "inline")
+   
  
 
 

@@ -10,7 +10,7 @@ class UserParams
                     :account_activated,
                     :activated,
                     :first_name,                 
-                    :last_name,                  
+                    :last_name,               
                     :social_avatar,                
                     :author,                     
                     :producer,                   

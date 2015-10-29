@@ -1,76 +1,76 @@
-.nested-fields
-  .digi-box
-    .row
-      .col-sm-12
-        = f.input :show_credit_on_recordings,  :input_html => { class: 'icheck-me', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue"     }  
-    .row
-      .col-sm-8
-        .row
-          .col-sm-6
-            = f.input :full_name
-    
-          .col-sm-6
-            = f.input :email
-        .row
-          .col-sm-3
-            = f.input :writer,                :as => :boolean
-            /= f.input :writer, label: 'Hide my profile',  :input_html => { class: 'icheck-me', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue"     }  
-          .col-sm-3
-            = f.input :composer,              :as => :boolean
-          .col-sm-3
-            = f.input :original_publisher,    :as => :boolean
-          .col-sm-3
-            = f.input :administrator,         :as => :boolean
-        
-        .row
-          .col-sm-8
-    
-            - uuid =  (f.input :id).to_s.split('id="').last
-            - uuid =  uuid.split('" /></div>').first
-
-        div id="#{uuid}" class="panel-collapse collapse"
-          .row
-            .col-sm-3
-               = f.input :mech_owned
-            .col-sm-3
-               = f.input :mech_collected
-            .col-sm-3
-               = f.input :perf_owned
-            .col-sm-3
-               = f.input :perf_collected
-          .row
-            .col-sm-6
-              = f.input :ipi_code
-            .col-sm-6
-              = f.input :territory
-          .row
-            .col-sm-6
-              = f.input :phone_number
-              /= f.input :notes, :input_html => {  style: "height: 108px;", placeholder: "Notes"}
-            .col-sm-6
-              /= f.association :pro_affiliation, label: 'Performance Rights Organization'
-              = f.input :pro_affiliation_id, collection: ProAffiliation.order(:title), value_method: :id, include_blank: true, label: 'Performance Rights Organization'
-          .row
-            .col-sm-6
-              = f.input :address, :input_html => {  style: "height: 108px;", placeholder: "Address"}
-            .col-sm-6
-              = f.input :notes, :input_html => {  style: "height: 108px;", placeholder: "Notes"}
-          
-         
-          
-       
-      .col-sm-4
-        .work_ip_share
-          = f.input :share, label: 'Share %'
-        .row
-          .col-sm-12
-            .pull-right
-              
-              => link_to 'Advanced', "##{uuid}", 'data-toggle'.to_sym => 'collapse', 'data-parent'.to_sym => '#accordion', class: 'btn btn-default'
-                /a data-toggle="collapse" data-parent="#accordion" href="##{uuid}"
-                /  'Advanced
-              = link_to_remove_association "Remove", f  , class: 'btn btn-default'
-    
+/.nested-fields
+/  .digi-box
+/    .row
+/      .col-sm-12
+/        = f.input :show_credit_on_recordings,  :input_html => { class: 'icheck-me', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue"     }  
+/    .row
+/      .col-sm-8
+/        .row
+/          .col-sm-6
+/            = f.input :full_name
+/    
+/          .col-sm-6
+/            = f.input :email
+/        .row
+/          .col-sm-3
+/            = f.input :writer,                :as => :boolean
+/            /= f.input :writer, label: 'Hide my profile',  :input_html => { class: 'icheck-me', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue"     }  
+/          .col-sm-3
+/            = f.input :composer,              :as => :boolean
+/          .col-sm-3
+/            = f.input :original_publisher,    :as => :boolean
+/          .col-sm-3
+/            = f.input :administrator,         :as => :boolean
+/        
+/        .row
+/          .col-sm-8
+/    
+/            - uuid =  (f.input :id).to_s.split('id="').last
+/            - uuid =  uuid.split('" /></div>').first
+/
+/        div id="#{uuid}" class="panel-collapse collapse"
+/          .row
+/            .col-sm-3
+/               = f.input :mech_owned
+/            .col-sm-3
+/               = f.input :mech_collected
+/            .col-sm-3
+/               = f.input :perf_owned
+/            .col-sm-3
+/               = f.input :perf_collected
+/          .row
+/            .col-sm-6
+/              = f.input :ipi_code
+/            .col-sm-6
+/              = f.input :territory
+/          .row
+/            .col-sm-6
+/              = f.input :phone_number
+/              /= f.input :notes, :input_html => {  style: "height: 108px;", placeholder: "Notes"}
+/            .col-sm-6
+/              /= f.association :pro_affiliation, label: 'Performance Rights Organization'
+/              = f.input :pro_affiliation_id, collection: ProAffiliation.order(:title), value_method: :id, include_blank: true, label: 'Performance Rights Organization'
+/          .row
+/            .col-sm-6
+/              = f.input :address, :input_html => {  style: "height: 108px;", placeholder: "Address"}
+/            .col-sm-6
+/              = f.input :notes, :input_html => {  style: "height: 108px;", placeholder: "Notes"}
+/          
+/         
+/          
+/       
+/      .col-sm-4
+/        .work_ip_share
+/          = f.input :share, label: 'Share %'
+/        .row
+/          .col-sm-12
+/            .pull-right
+/              
+/              => link_to 'Advanced', "##{uuid}", 'data-toggle'.to_sym => 'collapse', 'data-parent'.to_sym => '#accordion', class: 'btn btn-default'
+/                /a data-toggle="collapse" data-parent="#accordion" href="##{uuid}"
+/                /  'Advanced
+/              = link_to_remove_association "Remove", f  , class: 'btn btn-default'
+/    
          
     
 

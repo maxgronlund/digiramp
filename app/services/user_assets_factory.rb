@@ -1,7 +1,7 @@
 # UserAssetsFactory.new user
 
 class UserAssetsFactory
-  
+  # create all the classes required for a new user
   def initialize user
     @user = user
     create_account
@@ -17,7 +17,7 @@ class UserAssetsFactory
     attach_to_documents
   end
 
-  
+  # create the account
   def create_account
 
     @account = Account.new(   
@@ -41,12 +41,14 @@ class UserAssetsFactory
 
   end
   
+  # create a label
   def create_label
     @label = Label.create( user_id: @user.id, account_id: @account.id, title: "#{@user.user_name}'s Label")
     @user.update(default_label_id: @label.id)
      
   end
   
+  # create a distribution agreement
   def create_distribution_agreement
     @distribution_agreement = DistributionAgreement.create(
       :label_id           => @label.id,
@@ -61,6 +63,7 @@ class UserAssetsFactory
     @label.update(default_distribution_agreement_id: @distribution_agreement.id)
   end
 
+  # create the documents fot a distribution agreement
   def create_distribution_agreement_document
     template  = Document.where(uuid: "38e2814a-45ce-11e5-b8b5-d43d7eecec4d")
     .first_or_create(
@@ -73,30 +76,42 @@ class UserAssetsFactory
     )
 
     doc       = CopyMachine.copy_document( template )
-    
+
     doc.update( 
       :belongs_to_id    => @distribution_agreement.id,
       :belongs_to_type  => @distribution_agreement.class.name,
       :account_id       => @account.id,
       :template_id      => template.id,
-      title:            @distribution_agreement.title.gsub(' COPY', ''),
+      title:            @distribution_agreement.title.gsub('COPY', ''),
       expires: false
     )
+    set_document_user( CopyMachine.create_document_users( template, doc ) , 'DISTRIBUTOR')
+    #document_users = CopyMachine.create_document_users( template, doc )
     
-    CopyMachine.create_document_users template, doc
+    #document_users.each do |document_user|
+    #  if document_user.role == 'DISTRIBUTOR'
+    #     document_user.update(
+    #      email:          @user.email,
+    #      user_id:        @user.id, 
+    #      legal_name:     @user.get_full_name
+    #    )
+    #    ap document_user
+    #  end
+    #end
+    
+   
+    
     
   end
   
   def create_ipi
     @ipi = Ipi.create(
       user_id:    @user.id, 
-      master_ipi: true,
       uuid:       UUIDTools::UUID.timestamp_create().to_s,
       email:      @user.email,
       full_name:  @user.full_name
     )
   end
-
 
   def create_publisher
     @publisher = Publisher.create(
@@ -115,7 +130,7 @@ class UserAssetsFactory
     
     @publishing_agreement = PublishingAgreement.create(
       publisher_id:       @publisher.id,
-      split:              50.0,
+      split:              0.0,
       title:              "Publishing agreement for #{@user.user_name}",
       personal_agreement: true,
       user_id:            @user.id,
@@ -144,9 +159,22 @@ class UserAssetsFactory
       title:            template.title.gsub('COPY', ''),
       expires: false
     )
-    CopyMachine.create_document_users template, doc
-    
+    set_document_user( CopyMachine.create_document_users( template, doc ) , 'Publisher')
+    #if document_users = CopyMachine.create_document_users( template, doc )
+    #  if document_user = document_users.first
+    #    document_user.update(
+    #      email:          @user.email,
+    #      account_id:     @user.account_id,
+    #      user_id:        @user.id, 
+    #      legal_name:     @user.get_full_name
+    #    )
+    #    ap document_user
+    #  end
+    #end
     @publishing_agreement.update(document_uuid: doc.uuid)
+    
+    
+    
   end
   
   def create_ipi_publisher
@@ -176,20 +204,37 @@ class UserAssetsFactory
       :belongs_to_type  => @account.class.name,
       :account_id       => @account.id,
       :template_id      => template.id,
-      title:            template.title.gsub(' COPY', ''),
+      title:            template.title.gsub('COPY', ''),
       expires: false
     )
-    CopyMachine.create_document_users template, doc
+    #CopyMachine.create_document_users template, doc 
+
+    
   end
   
   def attach_to_documents
     if document_users = DocumentUser.where(email: @user.email)
-      document_users.update_all(user_id: @user.id, account_id: @user.account_id)
+      document_users.update_all(
+        user_id: @user.id, 
+        account_id: @user.account_id
+      )
       @user.update(has_unsigned_documents: true)
     end
   end
   
-  
-  
+  def set_document_user document_users, role
+    document_users.each do |document_user|
+      if document_user.role == role
+         document_user.update(
+          email:          @user.email,
+          user_id:        @user.id, 
+          legal_name:     @user.get_full_name
+        )
+        ap document_user
+      end
+    end
+    
+  end
+
   
 end

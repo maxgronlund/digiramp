@@ -27,7 +27,7 @@ class Account::AccountUsersController < ApplicationController
     forbidden unless current_account_user.createx_user
     
     @account_user = @account.account_users.new( role: "Associate", 
-                                                invitation_title: "You have been invited to a DigiRAMP Account by #{current_user.name}",
+                                                invitation_title: "You have been invited to a DigiRAMP Account by #{current_user.get_full_name}",
                                                 invitation_message: "You are invited to an account on DigiRAMP, please sign in to your account and you will find a new account on your dashboard")
     @roles = AccountUser::ROLES
     @roles.delete("Account Owner")

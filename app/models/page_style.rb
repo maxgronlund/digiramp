@@ -8,4 +8,7 @@ class PageStyle < ActiveRecord::Base
   def self.deep_blue
     PageStyle.where(css_tag: 'deep_blue').first_or_create(css_tag: 'deep_blue', title: 'Deep blue', bgcolor: '#000')
   end
+  def self.plain_style
+    PageStyle.where(css_tag: 'plain_style').first_or_create(css_tag: 'plain_style', title: 'Plain', bgcolor: '#ffffff')
+  end
 end

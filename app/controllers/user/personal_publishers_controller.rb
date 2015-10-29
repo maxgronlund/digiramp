@@ -25,6 +25,8 @@ class User::PersonalPublishersController < ApplicationController
       
     when 'I own and control my own publishing'
       personal_publisher = @user.personal_publisher
+      @user.attach_common_work_ipis_to_personal_publisher
+      
       unless @user.personal_publisher.confirmed_publishing?(@user.id)
         go_to =   edit_user_user_publisher_legal_info_path(@user, personal_publisher)
       end
@@ -49,6 +51,8 @@ class User::PersonalPublishersController < ApplicationController
   def user_params
     params.require(:user).permit!#( UserParams::PUBLIC_PARAMS ) 
   end
+  
+  
   
   
 end

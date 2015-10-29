@@ -65,9 +65,9 @@ class UserConfiguration < ActiveRecord::Base
         return 'add_digital_signature' unless !user.digital_signature_uuid.nil?
       end
       
-      unless register_a_publisher_later
-        return 'register_a_publisher'  if user.user_publishers.count  == 0
-      end
+      #unless register_a_publisher_later
+      #  return 'register_a_publisher'  if user.user_publishers.count  == 0
+      #end
       
       
       unless self.upload_recordings_later           
@@ -127,9 +127,9 @@ class UserConfiguration < ActiveRecord::Base
         return 'add_digital_signature' unless !user.digital_signature_uuid.nil?
       end
       
-      unless self.register_a_publisher_later 
-        return 'register_a_publisher'         if user.user_publishers.count  == 0
-      end
+      #unless self.register_a_publisher_later 
+      #  return 'register_a_publisher'         if user.user_publishers.count  == 0
+      #end
       
       unless self.upload_recordings_later           
         return 'upload_recordings'    if user.recordings.count  == 0 
@@ -220,7 +220,7 @@ class UserConfiguration < ActiveRecord::Base
                 invite_friends_later:               user.client_invitations.count != 0,
                 post_on_facebook_later:             user.share_on_facebooks.count != 0,
                 post_on_twitter_later:              user.share_on_twitters.count  != 0,
-                register_a_publisher_later:         user.user_publishers.count    != 0,
+                #register_a_publisher_later:         user.user_publishers.count    != 0,
                 clear_a_recording_later:            !user.has_no_cleared_recording?,
                 enable_shop_later:                  user.has_enabled_shop,
                 like_a_recording_later:             user.likes != 0,

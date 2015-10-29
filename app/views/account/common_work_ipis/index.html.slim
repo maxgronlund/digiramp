@@ -33,75 +33,7 @@
                 =< link_to 'New IP', new_account_account_common_work_common_work_ipi_path(@account, @common_work),\
                           class: 'btn btn-info'
       .pull-down-10
-      - @common_work.ipis.each do |ipi|
-        
-        .digi-box
-          .row
-            .col-sm-12
-              h4 = ipi.full_name
-              .sexy_line
-          .row
-            .col-sm-4
-              'Capacity: #{ipi.role}
-              br
-              'IPI Code: #{ipi.ipi_code}
-              hr
-              b Address:
-              br
-              /= simple_format ipi.address
-              br
-              'Phone:&nbsp;#{ipi.phone_number}
-              br Email:&nbsp;#{ipi.email}
-             
-              
-            .col-sm-4
-              'Controlled: #{ipi.controlled}
-              br
-              '&nbsp;
-              hr
-              b Notes:
-              br
-              = simple_format ipi.notes
-            .col-sm-4
-              table
-                thead
-                  tr
-                    th Rights
-                    th &nbsp;&nbsp;
-                    th
-                tbody
-                  tr
-                    td Share
-                    td
-                    td = number_to_percentage(ipi.share, precision: 0) 
-                  tr
-                    td Mechanical Owened
-                    td
-                    td = number_to_percentage(ipi.mech_owned, precision: 0) 
-                  tr
-                    td Performance Owened
-                    td
-                    td = number_to_percentage(ipi.perf_owned, precision: 0) 
-                    
-                  tr
-                    td Mechanical Collected
-                    td
-                    td = number_to_percentage(ipi.mech_collected, precision: 0) 
-                  tr
-                    td Performance Collected
-                    td
-                    td = number_to_percentage(ipi.perf_collected, precision: 0)
-
-          .row
-            .col-sm-12
-              .pull-right
-                - if current_account_user.update_common_work_ipi
-                  = link_to 'Edit', edit_account_account_common_work_common_work_ipi_path(@account, @common_work, ipi), class: 'btn btn-default'
-                - if current_account_user.update_common_work_ipi
-                  =< link_to account_account_common_work_common_work_ipi_path(@account, @common_work, ipi), data: { confirm: 'Are you sure?' } , :method => :delete do
-                    .btn.btn-danger
-                      i class="fa fa-times"
-    
+      
   == render 'shared/site_footer'   
 
 

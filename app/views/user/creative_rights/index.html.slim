@@ -10,7 +10,7 @@
   #page-content-wrapper
     .container-fluid
       == render 'shared/breadcrumbs', breadcrumbs: { links: { 'Dashboard'.to_sym => user_user_control_panel_index_path(@user),
-                                                               legal: user_user_legal_index_path(@user)} }
+                                                              'legal'.to_sym => user_user_legal_index_path(@user)} }
       .row
         .col-sm-6
           .help
@@ -25,26 +25,87 @@
         .col-sm-6
         .col-sm-6
           .pull-right
-            = simple_form_for  [ @user ], :url => url_for(:action => 'index', \
-                                                          :controller => 'user/creative_rights'), \
-                                                          :method => 'get',\
-                                                          turboboost: true do |f|
-        
-              .input-group
-                span class="input-group-addon"
-                  i class= 'fa fa-search'
-                = text_field_tag "query", "", :class => 'search-query form-control', \
-                                              :placeholder => "Search", \
-                                              value: params[:query]
-                .input-group-btn
-                  = f.submit 'Go', class: "btn btn-info"
-                  '&nbsp;
-                  = link_to 'Clear', user_user_creative_rights_path(@user, clear: 'clear'), class: 'btn btn-default'
-
+            /= simple_form_for  [ @user ], :url => url_for(:action => 'index', \
+            /                                              :controller => 'user/creative_rights'), \
+            /                                              :method => 'get',\
+            /                                              turboboost: true do |f|
+            /
+            /  .input-group
+            /    span class="input-group-addon"
+            /      i class= 'fa fa-search'
+            /    = text_field_tag "query", "", :class => 'search-query form-control', \
+            /                                  :placeholder => "Search", \
+            /                                  value: params[:query]
+            /    .input-group-btn
+            /      = f.submit 'Go', class: "btn btn-info"
+            /      '&nbsp;
+            /      = link_to 'Clear', user_user_creative_rights_path(@user, clear: 'clear'), class: 'btn btn-default'
+            /
       .pull-down-10
-      == render 'index', recordings: @recordings
+        .table-responsive
+          table class="table table-hover"
+            thead
+              tr
+                th Title
+                th Managed by
+                th Recordings
+                th Creators
+                th Completeness
+                th
+            tbody
+              - @common_work_users.each do |common_work_user|
+                - if common_work = common_work_user.common_work
+                  tr
+                    - if common_work_user.can_manage_common_work
+                      td = link_to common_work.title, user_user_common_work_info_path(current_user, common_work), class: 'btn btn-default btn-xs'
+                      td = link_to common_work.user.full_name, common_work.user, class: 'btn btn-default btn-xs'
+                      td = link_to common_work.recordings.count, user_user_common_work_recording_path(current_user, common_work), class: 'btn btn-default btn-xs'
+                      td = link_to common_work.common_work_ipis.count, user_user_common_work_path(current_user, common_work), class: 'btn btn-default btn-xs'
+                      
+                    - else
+                      td = link_to common_work.title, user_user_common_work_info_path(current_user, common_work), class: 'btn btn-default btn-xs'
+                      td = link_to common_work.user.full_name, common_work.user, class: 'btn btn-default btn-xs'
+                      td
+                        .btn.btn-default.btn-xs disabled='disabled'
+                          = common_work.recordings.count
+                      td
+                        .btn.btn-default.btn-xs disabled='disabled'
+                          = common_work.common_work_ipis.count
+                      
+                        
+                    td 
+                      - if common_work.completeness < 1.0
+                        .progress
+                          div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: #{common_work.completeness*100}%"
+                            span class="sr-only"
+  
+  
+                      -else    
+                        .progress
+                          div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: #{100}%"
+                            span class="sr-only"
+                    td
+                      .pull-right
+                        - if common_work_user.can_manage_common_work
+                          = link_to edit_user_user_common_work_path(current_user, common_work)
+                            .btn.btn-default.btn-xs
+                              i.fa.fa-pencil
+                        - else
+                          .btn.btn-default.btn-xs disabled='disabled'
+                            i.fa.fa-pencil
+                            
+                      
+                      /= common_work.completeness
+      /== render 'index', recordings: @recordings
       /.add_recordings
       /  == render 'index', recordings: @recordings
+      
+
+      .pull-down-10
+      .row
+        .col-sm-12
+          .pull-right
+            = paginate(@common_work_users)
             
                         
             

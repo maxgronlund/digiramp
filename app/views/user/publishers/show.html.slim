@@ -38,11 +38,54 @@
       - if @publisher.personal_publisher
         -if publishing_agreement = @publisher.publishing_agreements.first
           - if document = publishing_agreement.document
+            Z
+            .pull-down-10
             .row
               .col-sm-12
+                .pull-right
+                  .pull-down-6
+                  => link_to 'Show and sign document', user_user_sign_document_path(@user, document.uuid), class: 'btn btn-success'
+                  = link_to 'Edit document', edit_user_user_legal_document_path( @user, document.uuid), class: 'btn btn-default'
+            .pull-down-10
+            .row
+              .col-sm-12
+                .table-responsive
+                  table class="table table-hover"
+                    thead
+                      tr
+                        th Title
+                        th Role
+                        th Date
+                        th Controled by
+                        th Signatures
+                        th
+                    tbody
                 
-            = link_to 'Edit ', edit_user_user_legal_document_path( @user, document.uuid), class: 'btn btn-default'
-      -else
+                      tr
+                        td 
+                          b = document.title
+                         
+                        td  
+                          - document.document_users.where(user_id: @user.id).each do |document_user|
+                            = document_user.role
+                        td = document.date
+                        td 
+                          -if user = document.user
+                            = user.full_name
+                     
+                        td
+                          table
+                            - document.document_users.where.not(user_id: nil).where(should_sign: true).each do |document_user|
+                              tr
+                                td 
+                                  => document_user.full_name
+                                  '&nbsp;
+                                td
+                                  '/&nbsp;
+                                  = document_user.role
+                                      
+                                      
+      - else
         .pull-down-10
         .row
           .col-sm-12

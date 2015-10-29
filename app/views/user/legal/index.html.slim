@@ -111,8 +111,7 @@
                 .alert.alert-warning
                   b = blog_post.title
                   = simple_format blog_post.body
-                  
-                      
+
 
               .pull-down-12.pull-right
                 - if @user.digital_signatures.count > 0
@@ -121,14 +120,7 @@
                 - else
                   = link_to 'Manage signatures', new_user_user_digital_signature_path(@user), 
                     class: 'btn btn-default'
-                      
-                      
-                      
-                      
-                      
-                      
-                      
-                      
+           
       .control-panel.pull-down-10
       
 
@@ -140,24 +132,24 @@
                 i.fa.fa-copyright
                 
               .title
-                h4 Works
+                h4 Common Works
               .body
                 'Manage rights for your assets
         
         
           
-        .control-panel-badge
-          = link_to  user_user_common_work_ipis_path(@user) do
-            .content
-              .icon.icon-blue
-                i.fa.fa-user
-                
-              .title
-                h4 Creations
-              .body
-                'Works where you are registered as a creator / IP
-        
-        
+        /.control-panel-badge
+        /  = link_to  user_user_common_work_ipis_path(@user) do
+        /    .content
+        /      .icon.icon-blue
+        /        i.fa.fa-user
+        /        
+        /      .title
+        /        h4 Creations
+        /      .body
+        /        'Works where you are registered as a creator / IP
+        /
+        /
           
         .control-panel-badge
           = link_to  user_user_legal_documents_path(@user) do

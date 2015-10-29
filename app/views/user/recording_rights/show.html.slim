@@ -57,7 +57,7 @@
                       = f.hidden_field :email, value: @user.email
                       = f.hidden_field :role, value: 'Other'
                       = f.hidden_field :share, value: 100
-                      = f.hidden_field :distribution_agreement_id, value:  @user.personal_distribution_agreement.id
+                      /= f.hidden_field :distribution_agreement_id, value:  @user.personal_distribution_agreement.id
                       = f.submit "I'm the only contributor", class: 'btn btn-warning'
         table class="table table-hover"
           thead

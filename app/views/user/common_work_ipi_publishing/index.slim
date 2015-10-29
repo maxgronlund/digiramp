@@ -1,0 +1,94 @@
+
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'user' 
+  
+  
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'users/shared/sidebar', selected: 'recordings'
+  
+  #page-content-wrapper
+    .container-fluid
+      /== render 'shared/breadcrumbs', breadcrumbs: { links: { 'Dashboard'.to_sym => user_user_control_panel_index_path(@user),
+      /                                                        'common work'.to_sym => user_user_common_work_path(@user, @common_work) }}
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { 'Dashboard'.to_sym => user_user_control_panel_index_path(@user),
+                                                               legal: user_user_legal_index_path(@user),
+                                                               'common works'.to_sym => user_user_creative_rights_path(@user)} }
+      == render 'shared/flash_message'
+      .row
+        .col-sm-12
+          .help
+            .help-text  
+              /h2 = @common_work.title
+              h2 
+               b Publishing for&nbsp;
+               = "#{@common_work.title}"
+            .help-button
+              == render 'admin/helps/help', identifier: 'common work credits'
+        /.col-sm-5
+        /  .pull-right
+        /    .pull-down-10
+        /      = link_to edit_user_user_common_work_lyric_path(@user, @common_work) do
+        /        .btn.btn-default
+        /          i.fa.fa-chevron-left
+        /          '&nbsp;
+        /          'Back
+        /      =< link_to user_user_common_work_recording_path(@user, @common_work) do
+        /        .btn.btn-default
+        /          'Skip&nbsp;
+        /          i.fa.fa-chevron-right
+        /
+      .pull-down-10
+        - case @user.status
+        
+        - when "is_self_published"
+          .alert.alert-info
+            = "#{@user.get_full_name} is self published"
+        
+        
+          - @common_work_ipi.common_work_ipi_publishers.each do |common_work_ipi_publisher|
+            -if  publisher = common_work_ipi_publisher.publisher
+              .digi-box
+                .row
+                  .col-sm-8
+                    h4 = publisher.legal_name
+                  .col-sm-4
+                    .pull-right
+                      - if personal_publishing_agreement = @user.personal_publishing_agreement
+                        - if document = personal_publishing_agreement.document
+                          
+                          => link_to user_user_legal_document_path( @user, document.uuid, :format => 'pdf') do 
+                            .btn.btn-default
+                              i.fa.fa-file-pdf-o&nbsp;
+                              'Legal documentation
+                      
+                        
+            
+        - when 'have_many_publishers'
+          .row
+            .col-sm-12
+              .pull-right
+                = link_to 'Add publisher', '#', class: 'btn btn-info'
+          .pull-down-10
+          - @common_work_ipi.common_work_ipi_publishers.each do |common_work_ipi_publisher|
+            - if  publisher = common_work_ipi_publisher.publisher
+              .digi-box
+                .row
+                  .col-sm-8
+                    h4 = publisher.legal_name
+                  .col-sm-4
+                    .pull-right
+                      - if personal_publishing_agreement = @user.personal_publishing_agreement
+                        - if document = personal_publishing_agreement.document
+                          
+                          => link_to user_user_legal_document_path( @user, document.uuid, :format => 'pdf') do 
+                            .btn.btn-default
+                              i.fa.fa-file-pdf-o&nbsp;
+                              'Legal documentation
+      
+        
+  == render 'shared/site_footer'  
+  
+  
+ 

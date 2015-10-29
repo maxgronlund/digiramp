@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151024153416) do
+ActiveRecord::Schema.define(version: 20151027133527) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1034,11 +1034,24 @@ ActiveRecord::Schema.define(version: 20151024153416) do
     t.datetime "updated_at",                            null: false
   end
 
+  create_table "common_work_ipi_publishers", force: :cascade do |t|
+    t.integer  "common_work_ipi_id"
+    t.integer  "publisher_id"
+    t.decimal  "publishing_split"
+    t.integer  "publishing_agreement_id"
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+  end
+
+  add_index "common_work_ipi_publishers", ["common_work_ipi_id"], name: "index_common_work_ipi_publishers_on_common_work_ipi_id", using: :btree
+  add_index "common_work_ipi_publishers", ["publisher_id"], name: "index_common_work_ipi_publishers_on_publisher_id", using: :btree
+  add_index "common_work_ipi_publishers", ["publishing_agreement_id"], name: "index_common_work_ipi_publishers_on_publishing_agreement_id", using: :btree
+
   create_table "common_work_ipis", force: :cascade do |t|
     t.integer  "common_work_id"
     t.integer  "ipi_id"
-    t.datetime "created_at",              null: false
-    t.datetime "updated_at",              null: false
+    t.datetime "created_at",                              null: false
+    t.datetime "updated_at",                              null: false
     t.boolean  "lyric"
     t.boolean  "music"
     t.boolean  "melody"
@@ -1059,6 +1072,7 @@ ActiveRecord::Schema.define(version: 20151024153416) do
     t.string   "publishers_email"
     t.integer  "user_id"
     t.boolean  "ok"
+    t.boolean  "can_edit_common_work",    default: false
   end
 
   add_index "common_work_ipis", ["common_work_id"], name: "index_common_work_ipis_on_common_work_id", using: :btree
@@ -1081,6 +1095,19 @@ ActiveRecord::Schema.define(version: 20151024153416) do
   add_index "common_work_items", ["account_id"], name: "index_common_work_items_on_account_id", using: :btree
   add_index "common_work_items", ["attachable_id", "attachable_type"], name: "index_common_work_items_on_attachable_id_and_attachable_type", using: :btree
   add_index "common_work_items", ["common_work_id"], name: "index_common_work_items_on_common_work_id", using: :btree
+
+  create_table "common_work_users", force: :cascade do |t|
+    t.string   "common_work_title"
+    t.integer  "common_work_id"
+    t.integer  "user_id"
+    t.string   "publisher_belongs_to"
+    t.boolean  "can_manage_common_work"
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
+  add_index "common_work_users", ["common_work_id"], name: "index_common_work_users_on_common_work_id", using: :btree
+  add_index "common_work_users", ["user_id"], name: "index_common_work_users_on_user_id", using: :btree
 
   create_table "common_works", force: :cascade do |t|
     t.string   "title",                  limit: 255
@@ -1107,11 +1134,13 @@ ActiveRecord::Schema.define(version: 20151024153416) do
     t.string   "registration_origin",    limit: 255, default: ""
     t.boolean  "arrangement",                        default: false
     t.boolean  "ok"
+    t.integer  "user_id"
   end
 
   add_index "common_works", ["account_id"], name: "index_common_works_on_account_id", using: :btree
   add_index "common_works", ["catalog_id"], name: "index_common_works_on_catalog_id", using: :btree
   add_index "common_works", ["common_works_import_id"], name: "index_common_works_on_common_works_import_id", using: :btree
+  add_index "common_works", ["user_id"], name: "index_common_works_on_user_id", using: :btree
 
   create_table "common_works_imports", force: :cascade do |t|
     t.integer  "account_id"
@@ -2009,60 +2038,19 @@ ActiveRecord::Schema.define(version: 20151024153416) do
   add_index "ipi_publishing_agreements", ["publishing_agreement_id"], name: "index_ipi_publishing_agreements_on_publishing_agreement_id", using: :btree
 
   create_table "ipis", force: :cascade do |t|
-    t.string   "full_name",                    limit: 255
+    t.string   "full_name",          limit: 255
     t.text     "address"
-    t.string   "email",                        limit: 255
-    t.string   "phone_number",                 limit: 255
-    t.string   "role",                         limit: 255
-    t.integer  "common_work_id"
-    t.integer  "import_ipi_id"
-    t.datetime "created_at",                                                   null: false
-    t.datetime "updated_at",                                                   null: false
+    t.string   "email",              limit: 255
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
     t.integer  "user_id"
-    t.string   "ipi_code",                     limit: 255
-    t.string   "cae_code",                     limit: 255
-    t.boolean  "controlled"
-    t.string   "territory",                    limit: 255
-    t.decimal  "share",                                    default: 0.0,       null: false
-    t.decimal  "mech_owned",                               default: 0.0,       null: false
-    t.decimal  "mech_collected",                           default: 0.0,       null: false
-    t.decimal  "perf_owned",                               default: 0.0,       null: false
-    t.decimal  "perf_collected",                           default: 0.0,       null: false
-    t.text     "notes"
-    t.boolean  "has_agreement"
-    t.boolean  "linked_to_ascap_member"
-    t.boolean  "controlled_by_submitter"
-    t.string   "ascap_work_id",                limit: 255
-    t.string   "bmi_work_id",                  limit: 255, default: ""
-    t.boolean  "lyric",                                    default: false
-    t.boolean  "music",                                    default: false
-    t.boolean  "administrator",                            default: false
-    t.boolean  "producer",                                 default: false
-    t.boolean  "original_publisher",                       default: false
-    t.boolean  "artist",                                   default: false
-    t.boolean  "distributor",                              default: false
-    t.boolean  "remixer",                                  default: false
-    t.boolean  "other",                                    default: false
-    t.boolean  "publisher",                                default: false
-    t.string   "uuid",                         limit: 255
+    t.string   "ipi_code",           limit: 255
+    t.string   "cae_code",           limit: 255
+    t.string   "uuid",               limit: 255
     t.integer  "pro_affiliation_id"
-    t.boolean  "show_credit_on_recordings",                default: false
-    t.string   "confirmation",                 limit: 255, default: "Missing"
-    t.string   "title",                        limit: 255, default: ""
-    t.text     "message",                                  default: ""
-    t.integer  "ipi_id"
-    t.boolean  "melody",                                   default: false
-    t.boolean  "arrangement",                              default: false
-    t.integer  "status"
-    t.boolean  "i_am_the_publishing_designee",             default: false
-    t.boolean  "publishing_designee",                      default: false
-    t.boolean  "master_ipi",                               default: false
     t.boolean  "ok"
   end
 
-  add_index "ipis", ["common_work_id"], name: "index_ipis_on_common_work_id", using: :btree
-  add_index "ipis", ["import_ipi_id"], name: "index_ipis_on_import_ipi_id", using: :btree
-  add_index "ipis", ["ipi_id"], name: "index_ipis_on_ipi_id", using: :btree
   add_index "ipis", ["pro_affiliation_id"], name: "index_ipis_on_pro_affiliation_id", using: :btree
   add_index "ipis", ["user_id"], name: "index_ipis_on_user_id", using: :btree
 
@@ -3475,101 +3463,100 @@ ActiveRecord::Schema.define(version: 20151024153416) do
   add_index "user_notifications", ["user_id"], name: "index_user_notifications_on_user_id", using: :btree
 
   create_table "users", force: :cascade do |t|
-    t.string   "name",                            limit: 255
-    t.string   "email",                           limit: 255
-    t.string   "password_digest",                 limit: 255
+    t.string   "name",                       limit: 255
+    t.string   "email",                      limit: 255
+    t.string   "password_digest",            limit: 255
     t.boolean  "admin"
-    t.string   "role",                                        default: "Customer"
-    t.datetime "created_at",                                                       null: false
-    t.datetime "updated_at",                                                       null: false
-    t.string   "image",                           limit: 255
+    t.string   "role",                                   default: "Customer"
+    t.datetime "created_at",                                                  null: false
+    t.datetime "updated_at",                                                  null: false
+    t.string   "image",                      limit: 255
     t.text     "crop_params"
     t.text     "profile"
-    t.string   "auth_token",                      limit: 255
-    t.string   "password_reset_token",            limit: 255
+    t.string   "auth_token",                 limit: 255
+    t.string   "password_reset_token",       limit: 255
     t.datetime "password_reset_sent_at"
     t.integer  "current_account_id"
-    t.string   "avatar_url",                      limit: 255
-    t.boolean  "show_welcome_message",                        default: true
-    t.boolean  "activated",                                   default: true
-    t.string   "uuid",                            limit: 255, default: ""
+    t.string   "avatar_url",                 limit: 255
+    t.boolean  "show_welcome_message",                   default: true
+    t.boolean  "activated",                              default: true
+    t.string   "uuid",                       limit: 255, default: ""
     t.integer  "curent_catalog_id"
-    t.boolean  "invited",                                     default: false
-    t.boolean  "administrator",                               default: false
-    t.boolean  "has_a_collection",                            default: true
-    t.string   "old_role",                        limit: 255, default: ""
-    t.boolean  "account_activated",                           default: true
-    t.string   "provider",                        limit: 255, default: "DigiRAMP"
-    t.string   "uid",                             limit: 255, default: ""
-    t.boolean  "email_missing",                               default: false
-    t.string   "social_avatar",                   limit: 255, default: ""
-    t.string   "slug",                            limit: 255
-    t.string   "default_widget_key",              limit: 255
+    t.boolean  "invited",                                default: false
+    t.boolean  "administrator",                          default: false
+    t.boolean  "has_a_collection",                       default: true
+    t.string   "old_role",                   limit: 255, default: ""
+    t.boolean  "account_activated",                      default: true
+    t.string   "provider",                   limit: 255, default: "DigiRAMP"
+    t.string   "uid",                        limit: 255, default: ""
+    t.boolean  "email_missing",                          default: false
+    t.string   "social_avatar",              limit: 255, default: ""
+    t.string   "slug",                       limit: 255
+    t.string   "default_widget_key",         limit: 255
     t.integer  "default_playlist_id"
-    t.boolean  "writer",                                      default: false
-    t.boolean  "author",                                      default: false
-    t.boolean  "producer",                                    default: false
-    t.boolean  "composer",                                    default: false
-    t.boolean  "remixer",                                     default: false
-    t.boolean  "musician",                                    default: false
-    t.boolean  "dj",                                          default: false
-    t.string   "user_name",                       limit: 255, default: ""
-    t.integer  "views",                                       default: 0
-    t.string   "profession",                      limit: 255
-    t.integer  "followers_count",                             default: 0
-    t.boolean  "private_profile",                             default: false
-    t.boolean  "artist",                                      default: false
-    t.integer  "completeness",                                default: 0
-    t.integer  "messages_not_read",                           default: 0
-    t.text     "search_field",                                default: ""
-    t.boolean  "featured",                                    default: false
+    t.boolean  "writer",                                 default: false
+    t.boolean  "author",                                 default: false
+    t.boolean  "producer",                               default: false
+    t.boolean  "composer",                               default: false
+    t.boolean  "remixer",                                default: false
+    t.boolean  "musician",                               default: false
+    t.boolean  "dj",                                     default: false
+    t.string   "user_name",                  limit: 255, default: ""
+    t.integer  "views",                                  default: 0
+    t.string   "profession",                 limit: 255
+    t.integer  "followers_count",                        default: 0
+    t.boolean  "private_profile",                        default: false
+    t.boolean  "artist",                                 default: false
+    t.integer  "completeness",                           default: 0
+    t.integer  "messages_not_read",                      default: 0
+    t.text     "search_field",                           default: ""
+    t.boolean  "featured",                               default: false
     t.datetime "featured_date"
-    t.string   "uniq_followers_count",            limit: 255, default: ""
-    t.string   "gender",                          limit: 255, default: ""
-    t.string   "uniq_completeness",               limit: 255, default: ""
-    t.string   "link_to_facebook",                limit: 255, default: ""
-    t.string   "link_to_twitter",                 limit: 255, default: ""
-    t.string   "link_to_linkedin",                limit: 255, default: ""
-    t.string   "link_to_google_plus",             limit: 255, default: ""
-    t.boolean  "subscribe_to_opportunities",                  default: true
-    t.string   "link_to_homepage",                limit: 255
-    t.boolean  "initialized",                                 default: false
+    t.string   "uniq_followers_count",       limit: 255, default: ""
+    t.string   "gender",                     limit: 255, default: ""
+    t.string   "uniq_completeness",          limit: 255, default: ""
+    t.string   "link_to_facebook",           limit: 255, default: ""
+    t.string   "link_to_twitter",            limit: 255, default: ""
+    t.string   "link_to_linkedin",           limit: 255, default: ""
+    t.string   "link_to_google_plus",        limit: 255, default: ""
+    t.boolean  "subscribe_to_opportunities",             default: true
+    t.string   "link_to_homepage",           limit: 255
+    t.boolean  "initialized",                            default: false
     t.text     "short_description"
-    t.boolean  "show_introduction",                           default: false
+    t.boolean  "show_introduction",                      default: false
     t.integer  "default_cms_page_id"
-    t.integer  "news_count",                                  default: 0
+    t.integer  "news_count",                             default: 0
     t.integer  "page_style_id"
-    t.string   "top_tag",                         limit: 255
-    t.string   "backdrop_image",                  limit: 255
-    t.string   "link_to_tumblr",                  limit: 255, default: ""
-    t.string   "link_to_instagram",               limit: 255, default: ""
-    t.string   "link_to_youtube",                 limit: 255, default: ""
-    t.string   "phone_number",                    limit: 255, default: ""
+    t.string   "top_tag",                    limit: 255
+    t.string   "backdrop_image",             limit: 255
+    t.string   "link_to_tumblr",             limit: 255, default: ""
+    t.string   "link_to_instagram",          limit: 255, default: ""
+    t.string   "link_to_youtube",            limit: 255, default: ""
+    t.string   "phone_number",               limit: 255, default: ""
     t.string   "stripe_customer_id"
-    t.boolean  "salesperson",                                 default: false
+    t.boolean  "salesperson",                            default: false
     t.string   "stripe_recipient_id"
-    t.boolean  "has_enabled_shop",                            default: false
-    t.boolean  "has_an_approved_shop",                        default: false
+    t.boolean  "has_enabled_shop",                       default: false
+    t.boolean  "has_an_approved_shop",                   default: false
     t.string   "stripe_id"
     t.string   "stripe_access_key"
     t.string   "stripe_publishable_key"
     t.string   "stripe_refresh_token"
-    t.string   "account_type",                                default: "Social"
+    t.string   "account_type",                           default: "Social"
     t.string   "mandrill_account_id"
     t.integer  "super_catalog_user_id"
     t.integer  "super_account_user_id"
-    t.integer  "user_likes",                                  default: 0
-    t.integer  "likings",                                     default: 0
+    t.integer  "user_likes",                             default: 0
+    t.integer  "likings",                                default: 0
     t.text     "seller_info"
     t.string   "ipi_code"
     t.uuid     "digital_signature_uuid"
     t.integer  "default_label_id"
-    t.integer  "liked_users_count",                           default: 0
+    t.integer  "liked_users_count",                      default: 0
     t.boolean  "has_unsigned_documents"
     t.integer  "personal_publisher_id"
-    t.string   "personal_publishing_status",                  default: ""
-    t.string   "exclusive_publishers_email",                  default: ""
-    t.string   "publishing_administrators_email",             default: ""
+    t.string   "exclusive_publishers_email",             default: ""
+    t.integer  "status"
   end
 
   add_index "users", ["default_cms_page_id"], name: "index_users_on_default_cms_page_id", using: :btree
@@ -3778,9 +3765,13 @@ ActiveRecord::Schema.define(version: 20151024153416) do
   add_foreign_key "client_invitations", "accounts", on_delete: :cascade
   add_foreign_key "client_invitations", "client_groups", on_delete: :cascade
   add_foreign_key "clients", "accounts", on_delete: :cascade
+  add_foreign_key "common_work_ipi_publishers", "common_work_ipis", on_delete: :cascade
+  add_foreign_key "common_work_ipi_publishers", "publishers", on_delete: :cascade
   add_foreign_key "common_work_ipis", "common_works", on_delete: :cascade
   add_foreign_key "common_work_ipis", "ipis", on_delete: :cascade
   add_foreign_key "common_work_ipis", "publishing_agreements", on_delete: :cascade
+  add_foreign_key "common_work_users", "common_works", on_delete: :cascade
+  add_foreign_key "common_work_users", "users", on_delete: :cascade
   add_foreign_key "common_works_imports", "accounts", on_delete: :cascade
   add_foreign_key "contracts", "accounts", on_delete: :cascade
   add_foreign_key "creative_projects", "accounts", on_delete: :cascade

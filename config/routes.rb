@@ -1,30 +1,6 @@
 Digiramp::Application.routes.draw do
 
 
-  #namespace :confirmation do
-  #get 'creator/edit'
-  #end
-  #
-  #namespace :confirmation do
-  #get 'creator/update'
-  #end
-
-  get 'contact/index'
-
-  resources :labels
- 
-  namespace :user do
-  get 'find_publisher/edit'
-  end
-
-  namespace :user do
-  get 'register_publisher/edit'
-  end
-
-  namespace :user do
-  get 'self_publishing/edit'
-  end
-
   #resources :document_users
   get 'landing_page/index'
   
@@ -490,6 +466,7 @@ Digiramp::Application.routes.draw do
   resources :accept_invitations
   resources :activate_account
   resources :activate_catalog_user
+  resources :labels
   
   get "download/image_file"
   get "download/artwork"
@@ -820,6 +797,7 @@ Digiramp::Application.routes.draw do
       #get "shop"         => "shop#index",     :as => :user_user_shop_index
       #resources :shop, only: [:index]
       resources :common_work_recordings, only: [:show]
+      resources :common_work_infos, only: [:show]
       resources :create_shop, only: [:index] 
       resources :coupon_batches, only: [:show]
       resources :accept_recording_ipis
@@ -839,11 +817,12 @@ Digiramp::Application.routes.draw do
         resources :ipi_confirmations
         resources :accept_ipis, only: [:update]
         resources :request_ipi_confirmations
-        
+        #resources :common_work_ipi_publishers#, only: [:edit, :update] 
         #resources :please_clear_rights, only: [:index]
       end
-      resources :common_work_ipis, only: [:index] 
-      resources :common_work_ipi_publishers, only: [:edit, :update]         
+      resources :common_work_ipis, only: [:index] do
+        resources :common_work_ipi_publishing#, only: [:edit, :update] 
+      end        
       resources :common_work_without_recordings, only: [:index, :show]
       resources :common_work_lyrics, only: [:edit, :update]
       resources :common_work_credits, only: [:edit, :update]

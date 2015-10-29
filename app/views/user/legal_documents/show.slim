@@ -38,30 +38,12 @@
           .col-sm-12 
             = simple_format @document.text_content
         .pull-down-10
-        .row
-          - @document.document_users.each do |document_user|
-            .col-sm-6
-              - if document_user.signed_on
-                br
-                .pull-down-8
-                
-                - if document_user.digital_signature
-                  = "#{document_user.signed_on}"
-                  br
-                  'ACCEPTED AND AGREED TO BY:
-                  =  image_tag document_user.digital_signature.image_url(:image_300x50), class: 'img-responsive'
-                - else
-                  'ACCEPTED AND AGREED TO BY:
-                  'Date:
-                  h4 &nbsp;
-                
-                .uppercase
-                  = document_user.role
-                br
-                
-               
-
-
+        - @document.document_users.find_in_batches( batch_size: 2) do |document_user|
+          .row
+            == render '/user/sign_documents/signature', document_user: document_user[0]
+            - if document_user[1]
+              == render '/user/sign_documents/signature', document_user: document_user[1]
+         
       
                   
 

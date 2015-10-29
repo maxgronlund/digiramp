@@ -125,7 +125,7 @@ class Document < ActiveRecord::Base
   # check if the document is ok
   # save state
   def update_validation 
-    ap 'document # update_validation'
+    #ap 'document # update_validation'
     set_ok
     p = parent
     parent.update_validation if p

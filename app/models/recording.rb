@@ -653,52 +653,9 @@ class Recording < ActiveRecord::Base
    
   end
   
+  # 
   def transfer_commonwork
 
-    if self.account_id != self.common_work.account_id
-      
-      common_work_copy = self.account.common_works.where(uuid: self.common_work.uuid)
-                                   .first_or_create(
-                                      title:                               self.common_work.title,
-                                      iswc_code:                           self.common_work.iswc_code,                      
-                                      ascap_work_id:                       self.common_work.ascap_work_id,
-                                      account_id:                          self.account_id,
-                                      common_works_import_id:              nil,
-                                      audio_file:                          nil,
-                                      content_type:                        self.common_work.content_type,
-                                      description:                         self.common_work.description,
-                                      alternative_titles:                  self.common_work.alternative_titles,
-                                      recording_preview_id:                nil,
-                                      step:                                self.common_work.step,                             
-                                      lyrics:                              self.common_work.lyrics,
-                                      catalog_id:                          self.common_work.catalog_id,
-                                      uuid:                                self.common_work.uuid,
-                                      completeness:                        self.common_work.completeness,
-                                      artwork:                             nil,
-                                      pro:                                 self.common_work.pro,
-                                      surveyed_work:                       self.common_work.surveyed_work,
-                                      last_distribution:                   self.common_work.last_distribution,
-                                      work_status:                         self.common_work.work_status,
-                                      #ascap_award_winner:                  self.common_work.ascap_award_winner,
-                                      work_type:                           self.common_work.work_type,
-                                      #composite_type:                      self.common_work.composite_type,
-                                      arrangement:                         self.common_work.arrangement,
-                                      #genre:                               self.common_work.genre,
-                                      submitter_work_id:                   self.common_work.submitter_work_id,
-                                      registration_date:                   self.common_work.registration_date,                
-                                      #bmi_work_id:                         self.common_work.bmi_work_id,                      
-                                      #bmi_catalog:                         self.common_work.bmi_catalog,                      
-                                      registration_origin:                 self.common_work.registration_origin,              
-                                      pro_work_id:                         self.common_work.pro_work_id,                      
-                                      pro_catalog:                         self.common_work.pro_catalog
-                                      )
-    
-    
-    common_work_copy.copy_ipis_from( self.common_work )
-    
-    self.common_work_id = common_work_copy.id
-    self.save!
-    end
     
   end 
   

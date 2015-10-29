@@ -42,7 +42,7 @@ class Digiwham::RecordingsController < ApplicationController
       
       
       
-        Activity.notify_followers(  'Listen to this recording', user_id, 'Recording', @recording.id )
+        Activity.notify_followers(  'Listened to this recording', user_id, 'Recording', @recording.id )
       end
     
       

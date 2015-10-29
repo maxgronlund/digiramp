@@ -26,8 +26,12 @@ class CommonWork < ActiveRecord::Base
 
   
   belongs_to :account
+  belongs_to :user
   #belongs_to :ascap_import
   belongs_to :common_works_import
+  
+  has_many :common_work_users
+  has_many :users,         :through => :common_work_users  
 
   
   has_many :recordings, dependent: :destroy
@@ -62,7 +66,7 @@ class CommonWork < ActiveRecord::Base
   
   has_and_belongs_to_many :catalogs
   
-  has_many :notification_messages, as: :assetable, dependent: :destroy
+  has_many :notification_messages, as: :asset, dependent: :destroy
   
   #has_many :work_registrations , class_name: "Rights::WorkRegistration"
   
@@ -296,7 +300,7 @@ class CommonWork < ActiveRecord::Base
   end
   
   def update_completeness
-    fields_count    = 1.0
+    fields_count    = 0.0
     completed_count = 0.0
     
 
@@ -310,12 +314,12 @@ class CommonWork < ActiveRecord::Base
     fields_count    += 1.0                                          
     completed_count += 1.0 unless self.iswc_code.to_s               == ''
     fields_count    += 1.0
-    completed_count += 1.0 unless self.common_work_ipis.size.to_i   == ''
+    completed_count += 1.0 unless self.common_work_ipis.size.to_i   == 0
     fields_count    += 1.0
 
     
     update_columns(completeness: completed_count / fields_count)
-    flush_cache
+    #flush_cache
 
   end
   
@@ -394,53 +398,7 @@ class CommonWork < ActiveRecord::Base
       
   end
   
-  def copy_ipis_from common_work
-   
-    common_work.ipis.each do |ipi|
-      
-      
-      self.ipis.where(uuid: ipi.uuid)
-               .first_or_create(
-                      legal_name:               ipi.full_name,                  
-                      address:                  ipi.address,
-                      email:                    ipi.email,
-                      phone_number:             ipi.phone_number,
-                      role:                     ipi.role,
-                      common_work_id:           self.id,
-                      import_ipi_id:            nil,          
-                      user_id:                  ipi.user_id,
-                      ipi_code:                 ipi.ipi_code,
-                      cae_code:                 ipi.cae_code,
-                      controlled:               ipi.controlled,
-                      territory:                ipi.territory,
-                      share:                    ipi.share,                
-                      mech_owned:               ipi.mech_owned,           
-                      mech_collected:           ipi.mech_collected,       
-                      perf_owned:               ipi.perf_owned,           
-                      perf_collected:           ipi.perf_collected,       
-                      notes:                    ipi.notes,
-                      pro:                      ipi.pro,
-                      has_agreement:            ipi.has_agreement,
-                      linked_to_ascap_member:   ipi.linked_to_ascap_member,
-                      controlled_by_submitter:  ipi.controlled_by_submitter,
-                      ascap_work_id:            ipi.ascap_work_id,
-                      bmi_work_id:              ipi.bmi_work_id,          
-                      writer:                   ipi.writer,               
-                      composer:                 ipi.composer,             
-                      administrator:            ipi.administrator,        
-                      producer:                 ipi.producer,             
-                      original_publisher:       ipi.original_publisher,   
-                      artist:                   ipi.artist,               
-                      distributor:              ipi.distributor,          
-                      remixer:                  ipi.remixer,              
-                      other:                    ipi.other,                
-                      publisher:                ipi.publisher,            
-                      uuid:                     UUIDTools::UUID.timestamp_create().to_s
-                    )
-      
-    end
-    
-  end
+  
 
   def update_validation
     do_validation
@@ -508,6 +466,7 @@ private
   
   
   def flush_cache
+    update_completeness unless self.destroyed?
     Rails.cache.delete([self.class.name, id])
   end
   

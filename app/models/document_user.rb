@@ -1,4 +1,7 @@
 class DocumentUser < ActiveRecord::Base
+  
+  default_scope -> { order('created_at ASC') }
+  
   include NotificationModule
   has_paper_trail 
   belongs_to :document, primary_key: :uuid
@@ -18,6 +21,8 @@ class DocumentUser < ActiveRecord::Base
   def self.cached_find(id)
     Rails.cache.fetch([name, id]) { find(id) }
   end
+  
+  
   
   def assign_to_user
     if self.email

@@ -6,8 +6,8 @@ class User::CreativeRightsController < ApplicationController
   
   def index
 
-    @common_works = CommonWork.account_search(@user.account, params[:query] ).order('title desc').page(params[:page]).per(48)
-
+    #@common_works = CommonWork.account_search(@user.account, params[:query] ).order('title desc').page(params[:page]).per(48)
+    @common_work_users = @user.common_work_users.order('common_work_title asc').page(params[:page]).per(48)
   end
 
   def show

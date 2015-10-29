@@ -34,7 +34,7 @@ class Catalog::CatalogUsersController < ApplicationController
     
     
     
-    @catalog_user   = CatalogUser.new( title: "You have been invited the #{@catalog.title.upcase!} catalog by #{current_user.name}", 
+    @catalog_user   = CatalogUser.new( title: "You have been invited the #{@catalog.title.upcase!} catalog by #{current_user.get_full_name}", 
                                        body: "You can access the #{@catalog.title.upcase!} catalog from #{@catalog.account.title} on your controll panel",
                                        account_id: @catalog.account_id,
                                        uuid: UUIDTools::UUID.timestamp_create().to_s)

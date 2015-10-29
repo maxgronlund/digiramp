@@ -1,75 +1,75 @@
-#wrap
-  div class="#{'profile' if account_owner?}"
-    .full-width-top
-      == render 'admin/shared/navbar', page: 'account' 
-  .container
-    == render 'admin/shared/messages'
-    == render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
-                                                            catalogs: catalog_account_catalogs_path(@account), \
-                                                            @catalog.title.to_sym => catalog_account_catalog_path(@account, @catalog), \
-                                                            }, current: 'edit ipis'}
-    
-    
-    == render 'shared/page_title', locals: {blog: Blog.cached_find('Common Work Ipi'), blog_post: 'Edit IPIS'}
-    
-   
-    div class="account_id"      id="#{@account.id}"
-  	div class="catalog_id"      id="#{@catalog.id}"
-    div class="common_work_id"  id="#{@common_work.id}"
-    .hide-alert
-      div class="alert alert-warning "
-        b ALERT!
-        br
-        'Total exceeds 200%
-    .edit-ipis
-      .table-responsive
-        table id="mainTable" class="table table-striped"
-          thead
-            tr
-              th Full Name
-              th Mech Owned
-              th mech collected
-              th perf owned
-              th perf collected
-        
-          
-          tbody
-            - @common_work.ipis.each do |ipi|
-              tr
-                td id="#{ipi.id}" class="full_name"
-                  = ipi.full_name
-                td id="#{ipi.id}" class="mech_owned"
-                  = ipi.mech_owned
-                td id="#{ipi.id}" class="mech_collected"
-                  = ipi.mech_collected
-                td id="#{ipi.id}" class="perf_owned"
-                  = ipi.perf_owned
-                td id="#{ipi.id}" class="perf_collected"
-                  = ipi.perf_collected
-        
-              
-  	      tfoot
-            tr
-              
-              th
-                strong TOTAL
-              th
-              th
-              th
-              th
-        
-        
-    .pull-right
-      = link_to 'Cancel', '#', class: 'btn btn-default btn-lg'
-      '&nbsp;
-      = link_to 'Save', '#', class: 'btn btn-info btn-lg'
-
-
-      
-
-      
-  /= debug @common_work.ipis.first
--cache (['footer', Admin.cached_find(1).version]) do      
-  =render 'shared/footer'
-  
-
+/#wrap
+/  div class="#{'profile' if account_owner?}"
+/    .full-width-top
+/      == render 'admin/shared/navbar', page: 'account' 
+/  .container
+/    == render 'admin/shared/messages'
+/    == render 'shared/breadcrumbs', breadcrumbs: { links: { @account.title.to_sym => account_path(@account), \
+/                                                            catalogs: catalog_account_catalogs_path(@account), \
+/                                                            @catalog.title.to_sym => catalog_account_catalog_path(@account, @catalog), \
+/                                                            }, current: 'edit ipis'}
+/    
+/    
+/    == render 'shared/page_title', locals: {blog: Blog.cached_find('Common Work Ipi'), blog_post: 'Edit IPIS'}
+/    
+/   
+/    div class="account_id"      id="#{@account.id}"
+/  	div class="catalog_id"      id="#{@catalog.id}"
+/    div class="common_work_id"  id="#{@common_work.id}"
+/    .hide-alert
+/      div class="alert alert-warning "
+/        b ALERT!
+/        br
+/        'Total exceeds 200%
+/    .edit-ipis
+/      .table-responsive
+/        table id="mainTable" class="table table-striped"
+/          thead
+/            tr
+/              th Full Name
+/              th Mech Owned
+/              th mech collected
+/              th perf owned
+/              th perf collected
+/        
+/          
+/          tbody
+/            - @common_work.ipis.each do |ipi|
+/              tr
+/                td id="#{ipi.id}" class="full_name"
+/                  = ipi.full_name
+/                td id="#{ipi.id}" class="mech_owned"
+/                  = ipi.mech_owned
+/                td id="#{ipi.id}" class="mech_collected"
+/                  = ipi.mech_collected
+/                td id="#{ipi.id}" class="perf_owned"
+/                  = ipi.perf_owned
+/                td id="#{ipi.id}" class="perf_collected"
+/                  = ipi.perf_collected
+/        
+/              
+/  	      tfoot
+/            tr
+/              
+/              th
+/                strong TOTAL
+/              th
+/              th
+/              th
+/              th
+/        
+/        
+/    .pull-right
+/      = link_to 'Cancel', '#', class: 'btn btn-default btn-lg'
+/      '&nbsp;
+/      = link_to 'Save', '#', class: 'btn btn-info btn-lg'
+/
+/
+/      
+/
+/      
+/  /= debug @common_work.ipis.first
+/-cache (['footer', Admin.cached_find(1).version]) do      
+/  =render 'shared/footer'
+/  
+/

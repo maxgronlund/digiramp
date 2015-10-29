@@ -64,7 +64,11 @@ module AddressMix
   def country()           address.country end
   
   def full_name
-    [address.first_name, address.middle_name, address.last_name].join(' ').gsub('  ', ' ')
+    fn = []
+    fn << address.first_name if address.first_name
+    fn << address.middle_name if address.middle_name
+    fn << address.last_name if address.last_name
+    fn.empty? ? nil : fn.join(' ')
   end 
 
   def copy_address_to destination

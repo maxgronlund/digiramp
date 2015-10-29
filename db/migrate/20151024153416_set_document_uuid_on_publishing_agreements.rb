@@ -40,9 +40,9 @@ class SetDocumentUuidOnPublishingAgreements < ActiveRecord::Migration
     CopyMachine.create_document_users template, doc
     if document_user = doc.document_users.first
       if publisher = publishing_agreement.publisher
-        document_user.update_column(email: publisher.email)
+        document_user.update_columns(email: publisher.email)
       end
     end
-    
+    doc
   end
 end

@@ -40,8 +40,10 @@ class User < ActiveRecord::Base
                                 #ignoring: :accents
                                     
                                     
-  
-
+  ROLES           = ["Super", "Customer", "Backend Editor"]
+  SECRET_NAME     = "RGeiHK8yUB6a"
+  PUBLISHING_TYPE = ['Publishing is not configured','I own and control my own publishing', 'I have an exclusive publisher', 'I have many publishers' ]
+  enum status: [ :has_to_set_publishing, :is_self_published, :has_an_exclusive_publisher, :have_many_publishers ]
   validates :email, presence: true, uniqueness: true
   validates_formatting_of :email
   validates_with UserValidator
@@ -57,8 +59,8 @@ class User < ActiveRecord::Base
   validates_formatting_of :link_to_homepage        , :using => :url, :allow_blank => true      # URLs
 
 
-  has_one :ipi
-  has_one :address
+  has_one :ipi, dependent: :destroy
+  has_one :address, dependent: :destroy
   has_one :publisher
   accepts_nested_attributes_for :address
   accepts_nested_attributes_for :publisher
@@ -69,6 +71,8 @@ class User < ActiveRecord::Base
   has_many :account_users
   has_many :accounts,         :through => :account_users  
   has_many :labels
+  has_many :common_works
+  has_many :common_work_users
   
   # A user can have many publishers that he uses for publishing other persons
   #has_many :user_publishers
@@ -123,8 +127,8 @@ class User < ActiveRecord::Base
   has_many :project_tasks
   has_many :projects
   
-  has_many :ipis
-  has_many :common_work_ipis , through: :ipis
+  #has_many :ipis
+  has_many :common_work_ipis
   has_many :user_credits, dependent: :destroy
   has_many :issues,       dependent: :destroy
   has_many :user_notifications
@@ -139,10 +143,7 @@ class User < ActiveRecord::Base
   
 
   after_commit    :set_propperties
-  #before_save     :update_meta
-  #before_create   :update_meta
-  #before_create :set_token
-  
+
   before_create   :setup_basics
   after_create    :set_default_relations
   before_destroy  :sanitize_relations
@@ -246,6 +247,32 @@ class User < ActiveRecord::Base
   
   def administrated_by user
     
+  end
+
+  def personal_publishing_status
+    case status 
+    when "has_to_set_publishing"
+      return "Publishing is not configured"
+    when "is_self_published"
+      return "I own and control my own publishing"
+    when "has_an_exclusive_publisher"
+      return "I have an exclusive publisher"
+    when "have_many_publishers"
+      return "I have many publishers"
+    end
+  end
+
+  def personal_publishing_status=(status)
+    case status 
+    when "I own and control my own publishing"
+      self.is_self_published!
+    when "I have an exclusive publisher"
+      self.has_an_exclusive_publisher!
+    when "I have many publishers"
+      self.have_many_publishers! 
+    else
+      self.has_to_set_publishing!
+    end
   end
   
   # user by?
@@ -428,16 +455,7 @@ class User < ActiveRecord::Base
     end 
     nil
   end
-  
-  def confirm_ips
-    #self
-    if ipis = Ipi.where(email: self.email, confirmation: 'Missing')
-      
-      ipis.update_all(user_id: self.id)
-      return true
-    end
-    false
-  end
+
   
   def styling
     #unless style = PageStyle.where(id: self.page_style_id).first
@@ -472,7 +490,7 @@ class User < ActiveRecord::Base
                                 privacy: 'Only me'
                               )
     
-    self.ipis.update_all(user_id: nil)
+   
     
     if shop_orders = Shop::Order.where(user_id: self.id)
       shop_orders.update_all(user_id: nil)
@@ -533,13 +551,7 @@ class User < ActiveRecord::Base
     end
     user
   end
-  
-  #def update_search_field
-  #  UserSearchField.process self
-  #end
-  
-  
-  
+ 
   def unread_messages
     self.received_massages.where(read: false, recipient_removed: false).count
   end
@@ -549,8 +561,8 @@ class User < ActiveRecord::Base
     set_token
     self.uuid                  = UUIDTools::UUID.timestamp_create().to_s
     self.uniq_followers_count  = "0".to_uniq
-    self.page_style_id         = PageStyle.deep_blue.id
-    update_meta
+    self.page_style_id         = PageStyle.plain_style.id
+    
   end
   
   
@@ -585,6 +597,7 @@ class User < ActiveRecord::Base
     
     SlackService.user_signed_up(self) if Rails.env.production?
     
+    update_meta
     
     #ProfessionalInfo.create(user_id: self.id)
   end
@@ -593,17 +606,7 @@ class User < ActiveRecord::Base
     StripeCustomer.where(stripe_id: self.stripe_customer_id )
   end
   
-  #def update_completeness
-  #  UserCompleteness.process self
-  #end
-  
 
-  
-  ROLES       = ["Super", "Customer", "Backend Editor"]
-  SECRET_NAME = "RGeiHK8yUB6a"
-  
-
-  
   
   def following?(other_user)
     self.relationships.find_by(followed_id: other_user.id)
@@ -716,23 +719,9 @@ class User < ActiveRecord::Base
   end
   
   def get_full_name
-    if self.full_name.split.join == ''
-      self.address.update(first_name: self.user_name.strip)
-    end
-    self.full_name
+    self.full_name ? self.full_name : self.user_name
   end
 
-
-  
-  #def full_name
-  #  full_name = self.user_name
-  #  if self.first_name && self.last_name
-  #    full_name = self.first_name +  ' ' +self.last_name
-  #  end
-  #  full_name
-  #end
-  #
- 
   def get_account_id
     self.account.id
   end
@@ -806,7 +795,11 @@ class User < ActiveRecord::Base
   end
   
   def personal_publishing_agreement
-    PublishingAgreement.find_by(personal_agreement: true, publisher_id: personal_publisher.id)
+    begin
+      PublishingAgreement.find_by(personal_agreement: true, publisher_id: personal_publisher.id)
+    rescue => e
+      ErrorNotification.post "#{self.user_name} has no personal_publishing_agreement"
+    end
   end
   
   # return the publisher based on publihing type
@@ -861,7 +854,9 @@ class User < ActiveRecord::Base
     end
   end
   
-  def personal_distribution_agreement() label.default_distribution_agreement end
+  def personal_distribution_agreement
+     label.default_distribution_agreement if label
+  end
   
   
   
@@ -1127,19 +1122,30 @@ class User < ActiveRecord::Base
   end
   
   
-  
+  def attach_common_work_ipis_to_personal_publisher
 
-
-private
-
-  # obsolete
-  def flush_cache
+    self.common_work_ipis.each do |common_work_ipi|
+      common_work_ipi.common_work_ipi_publishers.destroy_all
+    end
     
+    self.common_work_ipis.each do |common_work_ipi|
+      CommonWorkIpiPublisher.create(
+        common_work_ipi_id:             common_work_ipi.id,
+        publisher_id:                   personal_publisher.id,
+        publishing_agreement_id:        personal_publishing_agreement.id,
+        publishing_split:               0.0
+      )
+
+    end
+  end
+  
+  def flush_cache
     Rails.cache.delete([self.class.name, id])
     Rails.cache.delete([self.class.name, self.slug])
   end
 
-  
+private
+
   def get_record_class id_name_or_record
     return id_name_or_record if id_name_or_record.kind_of? String
     case class_name = id_name_or_record.class.to_s

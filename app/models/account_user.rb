@@ -299,8 +299,7 @@ class AccountUser < ActiveRecord::Base
   def get_name
     return name       unless name.to_s == ''
     if user
-      return user.full_name  unless user.name.to_s == ''
-      return user.email
+      return user.get_full_name
     end
     return email
   end

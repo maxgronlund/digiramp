@@ -1,7 +1,7 @@
 class Publisher < ActiveRecord::Base
   has_paper_trail
   enum status: [ :pending, :confirmed, :declined ]
-  PUBLISHING_TYPE = ['I own and control my own publishing', 'I have an exclusive publisher', 'I have many publishers', 'I have an administrator' ]
+  
   
   default_scope -> { order('created_at ASC') }
   #scope :first, -> { order("created_at").first }
@@ -14,7 +14,8 @@ class Publisher < ActiveRecord::Base
   #has_many :users,   :through => :user_publishers 
   
   has_many :ipi_publishers
-  has_many :ipis,   :through => :ipi_publishers 
+  #has_many :ipis,   :through => :ipi_publishers 
+  has_many :ipis,   :through => :publishing_agreements 
   
   has_many :common_work_ipis
   
@@ -29,7 +30,7 @@ class Publisher < ActiveRecord::Base
   accepts_nested_attributes_for :address
   include AddressMix
   
-  has_many :ipis,   :through => :publishing_agreements 
+  
 
   
   validates_with PublisherValidator, fields: [:email] 

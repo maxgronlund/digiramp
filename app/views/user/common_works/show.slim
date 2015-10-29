@@ -93,7 +93,7 @@
               th
               th Name/ email
               th Roles
-              th Publisher
+              th Publishing
               th Creators split
               th 
                 .pull-right
@@ -136,23 +136,32 @@
                   - if common_work_ipi.arrangement
                     'Arrangement
                 td
-                  - if ipi = common_work_ipi.ipi
-                    - if user = common_work_ipi.user
-                      - if user.personal_publishing_status == "I own and control my own publishing"
-                        = user.personal_publisher.legal_name
-                      - elsif  user.personal_publishing_status == "I have an exclusive publisher"
-                        - if publisher = user.exclusive_publisher
-                          = publisher.legal_name
-                        - else 
-                          'Waiting for publishing confirmation from
-                          .pull-down-6
-                          = user.exclusive_publishers_email
-                      - else  
-                        - if ipi_publishers = ipi.ipi_publishers
-                          - ipi_publishers.each do |ipi_publisher|
-                            - if publisher = ipi_publisher.publisher
-                              = publisher.legal_name
-                              .pull-down-6
+                  - if user = common_work_ipi.user
+                  
+                    => link_to user_user_common_work_ipi_common_work_ipi_publishing_index_path( common_work_ipi.user, common_work_ipi) do
+                          .btn.btn-default.btn-xs
+                            i.fa.fa-pencil
+                  - else
+                    .btn.btn-default.btn-xs disabled="disabled"
+                      i.fa.fa-pencil
+                    '&nbsp;
+                  /- if ipi = common_work_ipi.ipi
+                  /  - if user = common_work_ipi.user
+                  /    - if user.personal_publishing_status == "I own and control my own publishing"
+                  /      = user.personal_publisher.legal_name
+                  /    - elsif  user.personal_publishing_status == "I have an exclusive publisher"
+                  /      - if publisher = user.exclusive_publisher
+                  /        = publisher.legal_name
+                  /      - else 
+                  /        'Waiting for publishing confirmation from
+                  /        .pull-down-6
+                  /        = user.exclusive_publishers_email
+                  /    - else  
+                  /      - if ipi_publishers = ipi.ipi_publishers
+                  /        - ipi_publishers.each do |ipi_publisher|
+                  /          - if publisher = ipi_publisher.publisher
+                  /            = publisher.legal_name
+                  /            .pull-down-6
                  
                     
               

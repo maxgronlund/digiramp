@@ -4,15 +4,17 @@
 # * user
 # * publishing_agreement
 # * publisher
-# * ipi_publisher
+
 class CommonWorkIpi < ActiveRecord::Base
   include NotificationModule
   belongs_to :common_work
   belongs_to :ipi
   belongs_to :user
   belongs_to :publishing_agreement
-  belongs_to :publisher
-  belongs_to :ipi_publisher
+  #belongs_to :publisher
+  #belongs_to :ipi_publisher
+  has_many :common_work_ipi_publishers, dependent: :destroy
+  has_many :publishers, through: :common_work_ipi_publishers
   
   validates_presence_of :email, :share
   validates_formatting_of :email, :using => :email
@@ -58,6 +60,10 @@ class CommonWorkIpi < ActiveRecord::Base
     end
   end
   
+  def get_publishers
+    
+  end
+  
   # Get the email from the IP
   #
   # if no IP is attached return the email the common_work_ipi was created with
@@ -70,6 +76,8 @@ class CommonWorkIpi < ActiveRecord::Base
       return  self.email
     end
   end
+  
+  
 
   
 
@@ -138,6 +146,13 @@ class CommonWorkIpi < ActiveRecord::Base
   
   # set the error flag and let the validation check buble up the stack
   def update_validation
+    if common_work_user
+      common_work_user.can_manage_common_work 
+    else
+      ap 'common_work_user id nil'
+      ap self.id
+      ap '.'
+    end
     set_ok
     self.common_work.update_validation
   end
@@ -156,6 +171,22 @@ class CommonWorkIpi < ActiveRecord::Base
       type: self.class.name,
       id:   self.id
     }
+  end
+  
+
+  
+  def can_manage_common_work()        
+    common_work_user ? common_work_user.can_manage_common_work : false
+  end
+  
+  def can_manage_common_work=( b )
+    common_work_user.update(can_manage_common_work: b) if common_work_user
+  end
+  
+  
+  
+  def common_work_user
+    CommonWorkUser.find_by(user_id: self.user_id, common_work_id: self.common_work_id)
   end
   
   # build an error message 

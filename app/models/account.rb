@@ -427,15 +427,15 @@ class Account < ActiveRecord::Base
     end
   end
 
-
-  
-private
-
   def flush_cache
     
     Rails.cache.delete([self.class.name, id])
     #Admin.cached_find(1).raise_accounts_version
   end
+  
+private
+
+  
 
   #def init_activity_log
   #  ActivityLog.create!(account_id: id) unless ActivityLog.exists?(account_id: id)

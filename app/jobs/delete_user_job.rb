@@ -14,8 +14,11 @@ class DeleteUserJob < ActiveJob::Base
       if client_invitations = ClientInvitation.where(email: user.email)
         client_invitations.destroy_all
       end
-      user.account.destroy!  
+      user.account.flush_cache
+      user.account.destroy
+      user.flush_cache
       user.destroy
+      
       
     else
       ErrorNotification.post "Unable to delete user: #{user_id}"

@@ -11,7 +11,7 @@ class CatalogUsersController < ApplicationController
   
   def new
     @catalog        = Catalog.cached_find(params[:catalog_id])
-    @catalog_user   = CatalogUser.new( title: "You have been invited to a DigiRAMP Catalog by #{current_user.name}", 
+    @catalog_user   = CatalogUser.new( title: "You have been invited to a DigiRAMP Catalog by #{current_user.get_full_name}", 
                                        body: "You are invited to a Catalog on DigiRAMP. You can access it from #{@catalog.account.title} on your home page",
                                        account_id: @catalog.account_id,
                                        uuid:       UUIDTools::UUID.timestamp_create().to_s)

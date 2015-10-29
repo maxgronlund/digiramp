@@ -149,20 +149,22 @@ class UsersController < ApplicationController
   end
 
   def create
-
+    ap '================== create ========================='
     session[:show_profile_completeness] = true
     params[:user][:show_introduction]   = true
     params[:user][:name]                = params[:user][:user_name]
     params[:user][:email].downcase! if params[:user][:email]
-    
-    @user                = User.new(user_params)
-      
-    if @user.save
+
+    if @user = User.create(user_params)
+      ap '==========================================='
+      ap @user.full_name
+      ap '==========================================='
       finished("landing_page")
       finished("invitation_from_user")
       
       DefaultAvararJob.perform_later @user.id
-
+      
+      ap '================ UserAssetsFactory ==========================='
       UserAssetsFactory.new @user
       
       #@user.setup_personal_publishing
@@ -176,11 +178,11 @@ class UsersController < ApplicationController
                 recipient_type: @user.class.name,
                     account_id: @user.account.id) 
 
-      @user.confirm_ips
+      #@user.confirm_ips
       redirect_to user_user_user_configurations_path(@user)
       #user/users/test-4/user_configurations/1057/edit
     else
-      
+      flash[:danger] = "Please check" 
       render :new
     end
 
@@ -206,7 +208,7 @@ class UsersController < ApplicationController
     @user.slug  = nil
     params[:user][:email_missing] = false
     params[:user][:initialized]   = true
-    params[:user][:name]          = params[:user][:user_name] if params[:user][:user_name]
+    #params[:user][:name]          = params[:user][:user_name] if params[:user][:user_name]
     if @user.update(user_params)
       @user.update_meta
       @user.save!

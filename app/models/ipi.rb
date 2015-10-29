@@ -8,24 +8,12 @@ class Ipi < ActiveRecord::Base
   include AddressMix
   
   #has_paper_trail
-  enum status: [ :pending, :accepted, :dismissed, :in_progress ]
-  
-  has_many :activity_events, as: :activity_eventable
-  
-  #has_many :ipi_publishing_agreements
-  has_many :ipi_publishing_agreements, dependent: :destroy
-  has_many :publishing_agreements, :through => :ipi_publishing_agreements
-  
 
-  has_many :common_work_ipis
-  has_many :common_works, :through => :common_work_ipis
-  
-  #belongs_to :common_work
-  
   
   belongs_to :pro_affiliation
   
-  belongs_to :import_ipi
+  #belongs_to :import_ipi
+  has_many :common_work_ipis
   belongs_to :user
   validates_with IpiValidator 
   #validates_presence_of :email
@@ -35,20 +23,13 @@ class Ipi < ActiveRecord::Base
   #after_update :attach_user_credits
   #before_destroy :remove_user_credits
   
-  has_many :ipi_publishers
-  has_many :publishers,   :through => :ipi_publishers 
+  #has_many :ipi_publishers
+  #has_many :publishers,   :through => :ipi_publishers 
   
   
   after_commit :flush_cache
   
 
-  ROLES = [ "Writer", "Composer", "Administrator", "Producer", "Original Publisher",  "Artist", "Distributor", "Remixer", "Other", "Publisher"]
-  
-  
-  
-  
-
-  
 
   # Configure the payment. whould be moved to CommonWorkIpi
   def configure_payment( royalty, price, recording_uuid )
@@ -189,9 +170,9 @@ class Ipi < ActiveRecord::Base
   def update_validation
     set_ok
     
-    self.common_works.each do |common_work|
-      common_work.update_validation
-    end
+    #self.common_works.each do |common_work|
+    #  common_work.update_validation
+    #end
 
   end
   
@@ -206,21 +187,21 @@ class Ipi < ActiveRecord::Base
     em = {}
     #if self.user
       
-    em[:publisher]   = message_hash('No publisher assigned')  unless self.user.get_publisher rescue nil#publishers.empty?
-    
-    if publishing_agreements.empty?
-      em[:publishing_agreement]   = message_hash('No publishing agreement') 
-    else
-      publishing_agreements = []
-      publishing_agreements.each do |publishing_agreement|
-        
-        unless publishing_agreement.do_validation
-          #em["publishing_agreement_#{publishing_agreement.id}"] = publishing_agreement.error_message
-          publishing_agreements << publishing_agreement.error_message
-        end
-      end
-      em[:publishing_agreements] = publishing_agreements unless publishing_agreements.empty?
-    end
+    #em[:publisher]   = message_hash('No publisher assigned')  unless self.user.get_publisher rescue nil#publishers.empty?
+    #
+    #if publishing_agreements.empty?
+    #  em[:publishing_agreement]   = message_hash('No publishing agreement') 
+    #else
+    #  publishing_agreements = []
+    #  publishing_agreements.each do |publishing_agreement|
+    #    
+    #    unless publishing_agreement.do_validation
+    #      #em["publishing_agreement_#{publishing_agreement.id}"] = publishing_agreement.error_message
+    #      publishing_agreements << publishing_agreement.error_message
+    #    end
+    #  end
+    #  em[:publishing_agreements] = publishing_agreements unless publishing_agreements.empty?
+    #end
     em = message_hash(em) unless em.empty?
     em
   end

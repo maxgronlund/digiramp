@@ -14,12 +14,12 @@
         .pull-down-10
         b Alias / Artist name:&nbsp;
         = @common_work_ipi_user.user_name
-        .pull-down-10
-        - if publisher = @common_work_ipi.publisher
-          b Publisher:&nbsp;
-          = publisher.legal_name
-        - else
-          b ! Publisher is not assigned
+        /.pull-down-10
+        /- if publisher = @common_work_ipi.publisher
+        /  b Publisher:&nbsp;
+        /  = publisher.legal_name
+        /- else
+        /  b ! Publisher is not assigned
         /= f.input :full_name,  :input_html => {disabled: 'disabled'}, label: 'Full name (updated by user)'
         /= f.input :alias,  :input_html => {disabled: 'disabled'}, label: 'Alias (updated by user)'
         /= @common_work_ipi_user.full_name
@@ -63,7 +63,9 @@
           == render 'shared/popover', identifier: 'Share of the income between creators ( often defined in a song writer agreement )'
           .pull-down-6
           = f.input :share, label: false, input_html: { style: "max-width:150px;" }, hint: "All creators's share should add up to 100%"
-
+          
+          = f.input :can_manage_common_work,    :as => :boolean,  :input_html => { class: 'icheck-me', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue"     }   , label: 'Can edit common work'
+          
        
           
         .col-sm-6
