@@ -447,6 +447,7 @@ class User < ActiveRecord::Base
   end
   
   def self.get_by_email get_by_email
+    return nil unless get_by_email
     get_by_email.downcase!
     if user =  User.find_by(email: get_by_email)
       return user
