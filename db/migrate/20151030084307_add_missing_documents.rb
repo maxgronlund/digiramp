@@ -19,7 +19,6 @@ class AddMissingDocuments < ActiveRecord::Migration
     ap '========================================================'
     ap "Missing missing_publishers: #{missing_publishers}"
     ap "Missing missing_publishing_agreements: #{missing_publishing_agreements}"
-    ap user.email
     ap '========================================================'
   end
   
