@@ -74,7 +74,7 @@ class DocumentUser < ActiveRecord::Base
   
   def set_ok
     em = error_message 
-    ap em
+    #ap em
     update_columns( ok: em.blank? )
     if self.user
       self.ok ? remove_notification_message(self.user_id) :

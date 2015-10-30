@@ -800,15 +800,31 @@ class User < ActiveRecord::Base
   end
   
   def personal_publishing_agreement
-    
-    begin
-      PublishingAgreement.find_by(personal_agreement: true, publisher_id: personal_publisher.id)
-    rescue => e
+    if publishing_agreement = PublishingAgreement.find_by(personal_agreement: true, publisher_id: personal_publisher.id)
+      return publishing_agreement
+    else
       ErrorNotification.post "#{self.user_name} has no personal_publishing_agreement"
       return nil
     end
-    
   end
+  
+  def personal_publishing_agreement_document
+    if personal_publishing_agreement
+      if document = personal_publishing_agreement.document
+        return document
+      end
+    end
+  end
+  
+  def personal_publishing_agreement_document_user
+    if document = personal_publishing_agreement_document
+      if document_user = personal_publishing_agreement_document.document_users.where(user_id: self.id).first
+        return document_user
+      end
+    end
+  end
+  
+  
   
   # return the publisher based on publihing type
   def get_publisher
