@@ -5,7 +5,7 @@ class AddMissingDocuments < ActiveRecord::Migration
     missing_publishing_agreements = 0
     
     User.find_each do |user|
-      if user.user.personal_publishing_agreement
+      if user.personal_publishing_agreement
         if user.personal_publisher
           create_personal_publishing_agreement user
         else
