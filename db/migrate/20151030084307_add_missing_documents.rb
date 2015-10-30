@@ -59,7 +59,7 @@ class AddMissingDocuments < ActiveRecord::Migration
       expires: false
     )
 
-    personal_publishing_agreement.update(document_uuid: doc.uuid)
+    user.personal_publishing_agreement.update(document_uuid: doc.uuid)
     
     create_document_user user
     
