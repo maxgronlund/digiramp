@@ -6,10 +6,11 @@ class AddDocToPersonalPublishingAgreements2 < ActiveRecord::Migration
       if user.personal_publishing_agreement_document_user
       else
         missing_document_users += 1
-        create_document_user user
-        if user.personal_publishing_agreement_document
-        else
-          missing_documents += 1
+          if user.personal_publishing_agreement_document
+            create_document_user user
+          else
+            missing_documents += 1
+          end
         end
       end
     end
@@ -34,5 +35,7 @@ class AddDocToPersonalPublishingAgreements2 < ActiveRecord::Migration
     )
     
   end
+  
+
   
 end
