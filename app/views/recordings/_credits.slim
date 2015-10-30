@@ -1,34 +1,34 @@
-- if @common_work
-  - ipis      =  @common_work.ipis.where(show_credit_on_recordings: true)
-  - rec_ipis  = RecordingIpi.where(show_credit_on_recording: true, recording_id: @recording.id)
-  - unless rec_ipis.empty? || ipis.empty?
-    .row
-      .col-sm-12
-        .pull-right
-          a data-toggle="collapse" data-parent="#credits" href="#credits"
-            .btn.btn-default
-              'Show credits
-    .panel-collapse.collapse.pull-down-10 id="credits"  
-    
-      .digi-box
-        - ipis.each do |ipi|
-          b = ipi.role
-          br
-          i
-            - if user = ipi.user
-              = link_to user.user_name, user_ipis_path(user)
-            - else
-              = ipi.full_name
-          .sexy_line
-          
-        - rec_ipis.each do |rec_ipi|
-          b = rec_ipi.role
-          br
-          i
-            - if user = rec_ipi.user
-              = link_to user.user_name, user_ipis_path(user)
-            - else
-              = rec_ipi.name
-          p = rec_ipi.credit_for
-          .sexy_line
-    .pull-down-10
+/- if @common_work
+/  - ipis      =  @common_work.ipis.where(show_credit_on_recordings: true)
+/  - rec_ipis  = RecordingIpi.where(show_credit_on_recording: true, recording_id: @recording.id)
+/  - unless rec_ipis.empty? || ipis.empty?
+/    .row
+/      .col-sm-12
+/        .pull-right
+/          a data-toggle="collapse" data-parent="#credits" href="#credits"
+/            .btn.btn-default
+/              'Show credits
+/    .panel-collapse.collapse.pull-down-10 id="credits"  
+/    
+/      .digi-box
+/        - ipis.each do |ipi|
+/          b = ipi.role
+/          br
+/          i
+/            - if user = ipi.user
+/              = link_to user.user_name, user_ipis_path(user)
+/            - else
+/              = ipi.full_name
+/          .sexy_line
+/          
+/        - rec_ipis.each do |rec_ipi|
+/          b = rec_ipi.role
+/          br
+/          i
+/            - if user = rec_ipi.user
+/              = link_to user.user_name, user_ipis_path(user)
+/            - else
+/              = rec_ipi.name
+/          p = rec_ipi.credit_for
+/          .sexy_line
+/    .pull-down-10

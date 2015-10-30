@@ -57,13 +57,13 @@
                 - if common_work = common_work_user.common_work
                   tr
                     - if common_work_user.can_manage_common_work
-                      td = link_to common_work.title, user_user_common_work_info_path(current_user, common_work), class: 'btn btn-default btn-xs'
+                      td = link_to common_work.title, user_user_common_work_info_path(@user, common_work), class: 'btn btn-default btn-xs'
                       td = link_to common_work.user.full_name, common_work.user, class: 'btn btn-default btn-xs'
-                      td = link_to common_work.recordings.count, user_user_common_work_recording_path(current_user, common_work), class: 'btn btn-default btn-xs'
-                      td = link_to common_work.common_work_ipis.count, user_user_common_work_path(current_user, common_work), class: 'btn btn-default btn-xs'
+                      td = link_to common_work.recordings.count, user_user_common_work_recording_path(@user, common_work), class: 'btn btn-default btn-xs'
+                      td = link_to common_work.common_work_ipis.count, user_user_common_work_path(@user, common_work), class: 'btn btn-default btn-xs'
                       
                     - else
-                      td = link_to common_work.title, user_user_common_work_info_path(current_user, common_work), class: 'btn btn-default btn-xs'
+                      td = link_to common_work.title, user_user_common_work_info_path(@user, common_work), class: 'btn btn-default btn-xs'
                       td = link_to common_work.user.full_name, common_work.user, class: 'btn btn-default btn-xs'
                       td
                         .btn.btn-default.btn-xs disabled='disabled'
