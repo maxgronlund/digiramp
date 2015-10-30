@@ -90,6 +90,7 @@ class User < ActiveRecord::Base
   has_many :client_invitation
   
   has_many :common_work_ipis
+  has_many :common_work_ipi_publishers
  
   
 
@@ -128,7 +129,6 @@ class User < ActiveRecord::Base
   has_many :projects
   
   #has_many :ipis
-  has_many :common_work_ipis
   has_many :user_credits, dependent: :destroy
   has_many :issues,       dependent: :destroy
   has_many :user_notifications
@@ -1157,7 +1157,8 @@ class User < ActiveRecord::Base
         common_work_ipi_id:             common_work_ipi.id,
         publisher_id:                   personal_publisher.id,
         publishing_agreement_id:        personal_publishing_agreement.id,
-        publishing_split:               0.0
+        publishing_split:               0.0,
+        user_id:                        self.id
       )
 
     end

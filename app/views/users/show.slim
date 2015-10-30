@@ -11,6 +11,16 @@
         .container-fluid
           .row
             .col-sm-8
+              - if @user.permits? current_user
+                - if @user.has_to_set_publishing? && @user.common_work_ipi_publishers
+                  .alert.alert-warning
+                    'You have been mentioned as a publisher but your publishing status is not set
+                    .row
+                      .col-sm-12
+                        .pull-right
+                          = link_to 'Set', edit_user_personal_publisher_path(@user), class: 'btn btn-info'
+                    
+                    
               - if current_user && (current_user.id == @user.id) && @user.user_configuration.show?
                 .pull-down-10
                   == render 'nudging' , user: @user

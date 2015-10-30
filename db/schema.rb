@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151030215648) do
+ActiveRecord::Schema.define(version: 20151030224511) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1041,11 +1041,13 @@ ActiveRecord::Schema.define(version: 20151030215648) do
     t.integer  "publishing_agreement_id"
     t.datetime "created_at",              null: false
     t.datetime "updated_at",              null: false
+    t.integer  "user_id"
   end
 
   add_index "common_work_ipi_publishers", ["common_work_ipi_id"], name: "index_common_work_ipi_publishers_on_common_work_ipi_id", using: :btree
   add_index "common_work_ipi_publishers", ["publisher_id"], name: "index_common_work_ipi_publishers_on_publisher_id", using: :btree
   add_index "common_work_ipi_publishers", ["publishing_agreement_id"], name: "index_common_work_ipi_publishers_on_publishing_agreement_id", using: :btree
+  add_index "common_work_ipi_publishers", ["user_id"], name: "index_common_work_ipi_publishers_on_user_id", using: :btree
 
   create_table "common_work_ipis", force: :cascade do |t|
     t.integer  "common_work_id"
