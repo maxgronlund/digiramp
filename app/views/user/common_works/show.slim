@@ -1,4 +1,4 @@
-
+- common_work_ipis = @common_work.common_work_ipis
 #wrapper
   .full-width-top
     == render 'shared/navigationbar', page: 'user' 
@@ -64,14 +64,15 @@
             .col-sm-4
               .pull-right
                 
-          .row
-            .col-sm-12
-              .pull-right
-                = link_to "I own and control all publishing and master rights ",user_user_publishing_designee_path(@user, @common_work.id),
-                                      turboboost: true, 
-                                      data: {confirm: "By clicking OK you confirm that: 1) You are the only writer/composer/producer/performer on this recording. 2) There is no other publisher or label besides your own. 3) There are no other owners or contributors to any portion of this copyright or recording.4) There are no samples or parts of any other song or recoding in this work."},
-                                      class: 'btn btn-warning'
-       
+          /.row
+          /  .col-sm-12
+          /    .pull-right
+          /      
+          /      /= link_to "I own and control all publishing and master rights ",user_user_publishing_designee_path(@user, @common_work.id),
+          /      /                      turboboost: true, 
+          /      /                      data: {confirm: "By clicking OK you confirm that: 1) You are the only writer/composer/producer/performer on this recording. 2) There is no other publisher or label besides your own. 3) There are no other owners or contributors to any portion of this copyright or recording.4) There are no samples or parts of any other song or recoding in this work."},
+          /      /                      class: 'btn btn-warning'
+          /
         
       
 
@@ -84,6 +85,10 @@
         .row.pull-down-10  
           .col-sm-12
             .pull-right
+              - if common_work_ipis.empty?
+                = link_to user_user_publishing_designee_path(@user, @common_work.id)
+                  .btn.btn-default
+                    i.fa.fa-user-plus&nbsp;I'm the only creator
               =< link_to new_user_user_common_work_common_work_ipi_path(@user, @common_work) do
                 .btn.btn-default
                   i.fa.fa-user-plus&nbsp;Add creator
@@ -100,23 +105,18 @@
                   'Status
       
           tbody
-            - @common_work.common_work_ipis.each do |common_work_ipi|
+            - common_work_ipis.each do |common_work_ipi|
               - publishing_agreement = common_work_ipi.publishing_agreement
               tr
                 td  style="width: 80px;"
-                  - if common_work_ipi.confirmed?
-                    => link_to edit_user_user_common_work_common_work_ipi_path(@user, @common_work, common_work_ipi) do
-                      .btn.btn-default.btn-xs
-                        i.fa.fa-pencil
-                  - else
-                    => link_to user_user_common_work_common_work_ipi_path(@user, @common_work, common_work_ipi),
-                                                              data: { confirm: 'Are you sure?' }, 
-                                                              method: :delete do
-                                              .btn.btn-danger.btn-xs
-                                                i.fa.fa-times
-                    = link_to edit_user_user_common_work_common_work_ipi_path(@user, @common_work, common_work_ipi) do
-                      .btn.btn-default.btn-xs
-                        i.fa.fa-pencil
+                  => link_to user_user_common_work_common_work_ipi_path(@user, @common_work, common_work_ipi),
+                                                            data: { confirm: 'Are you sure?' }, 
+                                                            method: :delete do
+                                            .btn.btn-danger.btn-xs
+                                              i.fa.fa-times
+                  = link_to edit_user_user_common_work_common_work_ipi_path(@user, @common_work, common_work_ipi) do
+                    .btn.btn-default.btn-xs
+                      i.fa.fa-pencil
 
                 td 
                   /= debug common_work_ipi
@@ -136,11 +136,14 @@
                   - if common_work_ipi.arrangement
                     'Arrangement
                 td
+                  - common_work_ipi.common_work_ipi_publishers.each do |common_work_ipi_publisher|
+                    - if publisher = common_work_ipi_publisher.publisher
+                      = publisher.legal_name
+                      .pull-down-6
                   - if user = common_work_ipi.user
-                  
                     => link_to user_user_common_work_ipi_common_work_ipi_publishing_index_path( common_work_ipi.user, common_work_ipi) do
                           .btn.btn-default.btn-xs
-                            i.fa.fa-pencil
+                            i.fa.fa-pencil&nbsp;Edit publishing
                   - else
                     .btn.btn-default.btn-xs disabled="disabled"
                       i.fa.fa-pencil

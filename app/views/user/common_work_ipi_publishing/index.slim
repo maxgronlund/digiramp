@@ -1,4 +1,5 @@
 
+
 #wrapper
   .full-width-top
     == render 'shared/navigationbar', page: 'user' 
@@ -51,19 +52,21 @@
             -if  publisher = common_work_ipi_publisher.publisher
               .digi-box
                 .row
-                  .col-sm-8
+                  .col-sm-6
                     h4 = publisher.legal_name
-                  .col-sm-4
-                    .pull-right
-                      - if personal_publishing_agreement = @user.personal_publishing_agreement
-                        - if document = personal_publishing_agreement.document
-                          
+                  - if personal_publishing_agreement = @user.personal_publishing_agreement
+                    .col-sm-3
+                      'Publishers share:&nbsp;
+                      = number_to_percentage( personal_publishing_agreement.split, precision: 2)
+                    - if document = personal_publishing_agreement.document
+                      .col-sm-3
+                        .pull-right
                           => link_to user_user_legal_document_path( @user, document.uuid, :format => 'pdf') do 
                             .btn.btn-default
                               i.fa.fa-file-pdf-o&nbsp;
                               'Legal documentation
-                      
                         
+                          
             
         - when 'have_many_publishers'
           .row
@@ -91,4 +94,4 @@
   == render 'shared/site_footer'  
   
   
- 
+
