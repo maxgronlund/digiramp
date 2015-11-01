@@ -30,7 +30,9 @@
             tr
               th
               th Legal name
+              th Controlled by
               th Public
+              
               /th Email,
               /th Phone number
               /th Ipi code
@@ -66,9 +68,12 @@
                   -if publisher.user_id == @user.id
                     = link_to publisher.legal_name, user_user_publisher_path(publisher.user, publisher), class: 'btn btn-default btn-xs'
                   - else
-                    = publisher.legal_name
+                     = link_to publisher.legal_name, publisher_path( publisher), class: 'btn btn-default btn-xs'
                 /td = publisher.email
                 /td = publisher.phone_number
+                td
+                  - if user = publisher.user
+                    = link_to user.get_full_name, user, class: 'btn btn-default btn-xs'
                 td
                   - if publisher.show_on_public_page
                     '√ Yes

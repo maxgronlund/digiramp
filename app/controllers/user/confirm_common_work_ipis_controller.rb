@@ -46,6 +46,20 @@ class User::ConfirmCommonWorkIpisController < ApplicationController
       publisher_id: publisher_id
     )
     
+    if common_work     = @common_work_ipi.common_work
+      common_work_user = CommonWorkUser.where(
+        common_work_id:           common_work.id,
+        user_id:                  @common_work_ipi.user_id
+      )
+      .first_or_create(
+        common_work_title:        common_work.title,
+        common_work_id:           common_work.id,
+        user_id:                  @common_work_ipi.user_id,
+        can_manage_common_work:   @common_work_ipi.can_edit_common_work
+      )
+      
+    end
+    
     #if @user.personal_publishing_status == "I own and control my own publishing"
     #  @common_work_ipi.ipi_id =
     #end

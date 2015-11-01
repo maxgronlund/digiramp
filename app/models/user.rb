@@ -221,7 +221,9 @@ class User < ActiveRecord::Base
   has_many :document_users
   has_many :documents, through: :document_users
   has_many :distribution_agreements
-  has_many :publishing_agreement
+  has_many :publishing_agreements
+  has_many :user_publishers, dependent: :destroy
+  has_many :publishers, through: :user_publishers
   
   
   #def account_id() @account_id ||= self.account.id end
@@ -250,7 +252,7 @@ class User < ActiveRecord::Base
   end
 
   def personal_publishing_status
-    case status 
+    case self.status 
     when "has_to_set_publishing"
       return "Publishing is not configured"
     when "is_self_published"
@@ -259,6 +261,19 @@ class User < ActiveRecord::Base
       return "I have an exclusive publisher"
     when "have_many_publishers"
       return "I have many publishers"
+    end
+  end
+  
+  def publishing
+    case self.status 
+    when "has_to_set_publishing"
+      return "Not configured"
+    when "is_self_published"
+      return "Self published"
+    when "has_an_exclusive_publisher"
+      return "Exclusive published"
+    when "have_many_publishers"
+      return "Has many publishers"
     end
   end
 
@@ -311,7 +326,7 @@ class User < ActiveRecord::Base
   def get_documents
     self.documents
     #documents.publishing_agreements.where(status: [0, 1, 2])
-    # enum status: [ :draft, :execution_copy, :executed, :deleted ]
+    #  [ :draft, :execution_copy, :executed, :deleted ]
   end
   
   def liked_users

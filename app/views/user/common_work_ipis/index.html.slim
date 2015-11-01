@@ -66,13 +66,13 @@
                   
                   
                 td 
-                  - if publisher =  common_work_ipi.publisher
-                    = publisher.legal_name
+                  /- if publisher =  common_work_ipi.publisher
+                  /  = publisher.legal_name
                     
                 td 
-                  - if publisher =  common_work_ipi.publisher
-                    /= debug common_work_ipi.ipi_publisher.publishing_agreement.split
-                    = number_to_percentage(common_work_ipi.publisher_split, precision: 2) 
+                  /- if publisher =  common_work_ipi.publisher
+                  /  /= debug common_work_ipi.ipi_publisher.publishing_agreement.split
+                  /  = number_to_percentage(common_work_ipi.publisher_split, precision: 2) 
                 td  
                   /.pull-right
                   /  = link_to user_user_common_work_common_work_ipi_publisher_path(@user, @common_work, common_work_ipi) do

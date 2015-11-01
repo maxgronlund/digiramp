@@ -18,10 +18,7 @@ class CommonWorkIpiMailer < ApplicationMailer
     common_work       = common_work_ipi.common_work
     user              = common_work_ipi.user
     subject           = "#{user.user_name} has mentioned you as an IP on DigiRAMP"
-    #title        = "Confirm IPI"
-    #body         = "You have been mentioned by #{user.user_name} as an IP on DigiRAMP Please confirm"
-    
-    
+
 
     begin
       template_name = "ipi-confirmation"
@@ -65,13 +62,7 @@ class CommonWorkIpiMailer < ApplicationMailer
     return unless common_work_user  = common_work.user
     subject                         = "#{common_work_user.user_name} has mentioned you as an IP on DigiRAMP"
     
-    #link = url_for(controller: "user/users/#{user.slug}/confirm_common_work_ipis/#{common_work_ipi.uuid}")
     link = url_for( controller: "user/confirm_common_work_ipis", action: 'edit', user_id: common_work_ipi.user.slug, id: common_work_ipi.uuid )
-                      
-    ap link
-    
-    
-    
     
     begin
       template_name = "ipi-confirmation"
@@ -105,20 +96,9 @@ class CommonWorkIpiMailer < ApplicationMailer
     rescue Mandrill::Error => e
       ErrorNotification.post "CommonWorkIpiMailer#Mandrill - #{e.message}"
     end
-    
 
   end
-  
 
-  #def invite_user common_work_ipi_id
-  #  common_work_ipi   = CommonWorkIpi.cached_find(common_work_ipi_id)
-  #  return unless common_work_ipi.user
-  #  email             = common_work_ipi.email
-  #  
-  #  
-  #  
-  #  
-  #end
   
 end
 

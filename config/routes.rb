@@ -1,6 +1,8 @@
 Digiramp::Application.routes.draw do
 
 
+
+
   #resources :document_users
   get 'landing_page/index'
   
@@ -806,7 +808,7 @@ Digiramp::Application.routes.draw do
       resources :confirm_ipis
       resources :creative_rights, only: [:index, :show, :destroy]
       resources :common_works do
-        
+        #resources :common_work_ipi_publishing, only: [:new, :create, :destroy, :edit, :update] 
         resources :common_work_ipis
         resources :common_work_contracts
         resources :confirm_work_rights, only: [:index]
@@ -820,8 +822,8 @@ Digiramp::Application.routes.draw do
         #resources :common_work_ipi_publishers#, only: [:edit, :update] 
         #resources :please_clear_rights, only: [:index]
       end
-      resources :common_work_ipis, only: [:index] do
-        resources :common_work_ipi_publishing#, only: [:edit, :update] 
+      resources :common_work_ipis do
+        resources :common_work_ipi_publishing
       end        
       resources :common_work_without_recordings, only: [:index, :show]
       resources :common_work_lyrics, only: [:edit, :update]
@@ -988,6 +990,7 @@ Digiramp::Application.routes.draw do
       resources :user_emails
       resources :user_positions, only: [:index]
       resources :user_ipis
+      resources :user_publishers, only: [:create, :destroy]
       resources :withdraw, only:[:index]
       resources :notification_messages, only: [:index, :show]
       #resources :user_ipis, only: [:index]

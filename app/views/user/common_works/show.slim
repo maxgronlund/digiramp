@@ -136,14 +136,31 @@
                   - if common_work_ipi.arrangement
                     'Arrangement
                 td
-                  - common_work_ipi.common_work_ipi_publishers.each do |common_work_ipi_publisher|
-                    - if publisher = common_work_ipi_publisher.publisher
-                      = publisher.legal_name
-                      .pull-down-6
                   - if user = common_work_ipi.user
-                    => link_to user_user_common_work_ipi_common_work_ipi_publishing_index_path( common_work_ipi.user, common_work_ipi) do
+                    /b = user.publishing
+                    /.
+                    /- common_work_ipi.common_work_ipi_publishers.each do |common_work_ipi_publisher|
+                    /  - if publisher = common_work_ipi_publisher.publisher
+                    /    = publisher.legal_name
+                    /    .pull-down-6
+                    /= debug user.status
+                    - case user.status
+                    
+                    - when 'has_to_set_publishing'
+                      .alert.alert-danger
+                        'Publishing status unknown
+                    - when "have_many_publishers"
+                      b Many publishers
+                      .pull-down-4
+                      => link_to user_user_common_work_ipi_common_work_ipi_publishing_index_path( common_work_ipi.user, common_work_ipi) do
+                            .btn.btn-default.btn-xs
+                              i.fa.fa-pencil&nbsp;Configure
+                    - else
+                      - if document = user.personal_publishing_agreement_document
+                        => link_to user_user_legal_document_path( @user, document.uuid, :format => 'pdf')
                           .btn.btn-default.btn-xs
-                            i.fa.fa-pencil&nbsp;Edit publishing
+                            i.fa.fa-file-pdf-o&nbsp;
+                            'Legal documentation
                   - else
                     .btn.btn-default.btn-xs disabled="disabled"
                       i.fa.fa-pencil

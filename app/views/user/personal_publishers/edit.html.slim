@@ -31,18 +31,14 @@
       .pull-down-10
       
       .row
-        .col-sm-3
-          .alert.alert-warning
-            b !Changing your publishing status will affect all works where you are registered as a creator
         .col-sm-6
           .digi-box
             = simple_form_for [:user, @user ], turboboost: true, url: url_for(action: 'update', controller: '/user/personal_publishers'), method: 'put' do |f|
               = f.error_notification
             
               .form-inputs
-                == render 'shared/flash_message'
           
-                = f.input :personal_publishing_status, collection: User::PUBLISHING_TYPE, include_blank: false
+                = f.input :personal_publishing_status, collection: User::PUBLISHING_TYPE, include_blank: false, label: 'Publishing'
                 
                 div id="personal_publishing_status" style="display: #{'none;' unless @user.personal_publishing_status == 'I have an exclusive publisher'};"
                   = f.input :exclusive_publishers_email
@@ -52,10 +48,10 @@
                   .alert.alert-info
                     'I have no publisher and control and administate my own publishing
                 
-                #many_publishers style="display: #{'none;' unless @user.personal_publishing_status == 'I have many publishers' }"
-                  .alert.alert-info
-                    'I have many publishers and want to control my publishing individually on each work
-                
+                /#many_publishers style="display: #{'none;' unless @user.personal_publishing_status == 'I have many publishers' }"
+                /  .alert.alert-info
+                /    'I have many publishers and control my publishing individually on each work
+                /
                 /#publishing_administrated style="display: #{'none;' unless @user.personal_publishing_status == 'I have an administrator' }"
                 /  = f.input :publishing_administrators_email
                 /  .alert.alert-info
@@ -69,8 +65,39 @@
                   .col-sm-12
                     .pull-right
                       = f.submit 'Save', class: 'btn btn-info', data: { confirm: 'Are you sure?' }
+        
+        .col-sm-6
+          #many_publishers style="display: #{'none;' unless @user.personal_publishing_status == 'I have many publishers' }"
+            .alert.alert-info
+              'I have many publishers and control my publishing individually on each work
+            - if @user.have_many_publishers?
+              .digi-box
+                h4 Publishers
+                - @user.user_publishers.each do |user_publisher|
+                  - if publisher = user_publisher.publisher
+                    b = publisher.legal_name
+                    .pull-down-4
+                    = publisher.email
+                    
+                  - else
+                    .alert.alert-danger
+                      b Pending
+                      .pull-down-4
+                      = user_publisher.email
+                  .sexy_line
+              .digi-box
+                h4 Add publisher
+                = simple_form_for [:user, @user, @user_publisher] do |f|
+                  = f.hidden_field :user_id, value: @user.id
+                  = f.input :email, placeholder: 'Publishers email', hint: 'A confirmation email will be send to the email address'
+                  .row
+                    .col-sm-12
+                      .pull-right
+                        = f.submit 'Save', class: 'btn btn-info'
+            
+            
   
-              
+  
   == render 'shared/site_footer'    
   
   
@@ -93,7 +120,7 @@ coffee:
     else if $('option:selected').val() == 'I have many publishers'
       $('#personal_publishing_status').css("display", "none")
       $('#personal_publishing').css("display", "none")
-      $('#many_publishers').css("display", "inline")
+      #$('#many_publishers').css("display", "inline")
       $('#publishing_administrated').css("display", "none")
       
    

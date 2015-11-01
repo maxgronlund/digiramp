@@ -79,18 +79,39 @@
           
             td
               b Publishing
-              - @user.publishers.each do |publisher|  
-                .sexy_line  
-                = publisher.legal_name
-                - if ipi_code = publisher.ipi_code
-                  br
-                  = "IPI CODE: #{ipi_code}"
+              .pull-down-6
+              - case @user.status
                   
-                - if pro_affiliation = publisher.pro_affiliation
-                  br
-                  = "PRO: #{pro_affiliation.title}"
-                  
+              - when 'has_to_set_publishing'
+                .alert.alert-warning
+                  'Not configured
+              - when 'is_self_published'
+                - if publisher = @user.personal_publisher
+                  = publisher.legal_name
+              
+              - when 'has_an_exclusive_publisher'
+                - if publisher = @user.exclusive_publisher
+                  = publisher.legal_name
+                - else
+                  .alert.alert-warning
+                    b Not confirmed by:
+                    .
+                    = @user.exclusive_publishers_email
+      
+              - when 'have_many_publishers'
+              
+                - @user.publishers.each do |publisher|  
+                  .sexy_line  
+                  = publisher.legal_name
+                  - if ipi_code = publisher.ipi_code
+                    br
+                    = "IPI CODE: #{ipi_code}"
                     
+                  - if pro_affiliation = publisher.pro_affiliation
+                    br
+                    = "PRO: #{pro_affiliation.title}"
+                    
+                
             td
               - blog = Blog.cached_find('Legal information')
               - blog_post             = BlogPost.cached_find( 'add digital signature' , blog )

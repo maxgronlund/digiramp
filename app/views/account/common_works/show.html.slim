@@ -97,14 +97,11 @@
             /  == render 'shared/meta_line' , locals: {title: 'ASCAP Award winner', data: @common_work.ascap_award_winner}
             - if @common_work.work_type.to_s != ''
               == render 'shared/meta_line' , locals: {title: 'Work type', data: @common_work.work_type}
-            - if @common_work.composite_type.to_s != ''
-              == render 'shared/meta_line' , locals: {title: 'Composite type', data: @common_work.composite_type}
+            
             - if @common_work.arrangement.to_s != ''
               == render 'shared/meta_line' , locals: {title: 'Arrangement of public domain work', data: @common_work.arrangement}
-            - if @common_work.genre.to_s != ''
-              == render 'shared/meta_line' , locals: {title: 'Genre', data: @common_work.genre}
-            - if @common_work.submitter_work_id.to_s != ''
-              == render 'shared/meta_line' , locals: {title: 'Submitter work id', data: @common_work.submitter_work_id}
+            
+            
             - if @common_work.registration_date.to_s != ''
               == render 'shared/meta_line' , locals: {title: 'Registration date', data: @common_work.registration_date}
             /- if @common_work.bmi_work_id.to_s != ''
@@ -113,10 +110,8 @@
             /  == render 'shared/meta_line' , locals: {title: 'BMI Work catalog', data: @common_work.bmi_catalog}
             - if @common_work.registration_origin.to_s != ''
               == render 'shared/meta_line' , locals: {title: 'Registration origin', data: @common_work.registration_origin}
-            - if @common_work.pro_work_id.to_s != ''
-              == render 'shared/meta_line' , locals: {title: 'PRO work ID', data: @common_work.pro_work_id}
-            - if @common_work.pro_catalog.to_s != ''
-              == render 'shared/meta_line' , locals: {title: 'PRO catalog', data: @common_work.pro_catalog}
+           
+            
             
           /= debug @common_work
     

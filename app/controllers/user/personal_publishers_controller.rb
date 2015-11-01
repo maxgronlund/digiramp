@@ -8,10 +8,10 @@ class User::PersonalPublishersController < ApplicationController
   end
 
   
-  #
-  #def edit
-  #  @publisher = Publisher.cached_find(params[:id])
-  #end
+  
+  def edit
+    @user_publisher = UserPublisher.new
+  end
   #
   #def new
   #  
@@ -24,16 +24,26 @@ class User::PersonalPublishersController < ApplicationController
     case @user.personal_publishing_status
       
     when 'I own and control my own publishing'
+      
+      remove_all_uper_publishers
+      attach_personal_publisher_to_common_work_ipis
+      
       personal_publisher = @user.personal_publisher
       @user.attach_common_work_ipis_to_personal_publisher
       
+      
+      
       unless @user.personal_publisher.confirmed_publishing?(@user.id)
-        go_to =   edit_user_user_publisher_legal_info_path(@user, personal_publisher)
+        if personal_publisher.address_line_1.blank?
+          go_to =   edit_user_user_publisher_legal_info_path(@user, personal_publisher)
+        else
+          go_to = user_user_legal_index_path(@user)
+        end
       end
     when 'I have an exclusive publisher'
       
     when 'I have many publishers'
-      
+      go_to = edit_user_personal_publisher_path(@user)
     when 'I have an administrator'
 
 
@@ -52,6 +62,27 @@ class User::PersonalPublishersController < ApplicationController
     params.require(:user).permit!#( UserParams::PUBLIC_PARAMS ) 
   end
   
+  def remove_all_uper_publishers
+    @user.user_publishers.destroy_all
+  end
+  
+  def attach_personal_publisher_to_common_work_ipis
+    
+    if publisher = @user.personal_publisher
+      @user.common_work_ipis.each do |common_work_ipi|
+          UserPublisher.where(
+          user_id:         @user.id,
+          publisher_id:    publisher.id,
+          email:           publisher.email
+        )
+        .first_or_create(
+          user_id:         @user.id,
+          publisher_id:    publisher.id,
+          email:           publisher.email
+        )
+      end
+    end
+  end
   
   
   

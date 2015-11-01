@@ -38,8 +38,6 @@ class User::CommonWorkIpisController < ApplicationController
   end
   
   def create
-    #ap params
-    #ap '========================'
     params[:common_work_ipi][:status] = 0
     params[:common_work_ipi][:uuid] = UUIDTools::UUID.timestamp_create().to_s
 
@@ -54,7 +52,6 @@ class User::CommonWorkIpisController < ApplicationController
   end
   
   def destroy
-    ap '----------- destroy '
     @common_work              = CommonWork.cached_find(params[:common_work_id])
     @common_work_ipi          = CommonWorkIpi.cached_find(params[:id])
     @common_work_ipi.destroy

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151030224511) do
+ActiveRecord::Schema.define(version: 20151101091707) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1042,6 +1042,7 @@ ActiveRecord::Schema.define(version: 20151030224511) do
     t.datetime "created_at",              null: false
     t.datetime "updated_at",              null: false
     t.integer  "user_id"
+    t.string   "email"
   end
 
   add_index "common_work_ipi_publishers", ["common_work_ipi_id"], name: "index_common_work_ipi_publishers_on_common_work_ipi_id", using: :btree
@@ -1102,7 +1103,6 @@ ActiveRecord::Schema.define(version: 20151030224511) do
     t.string   "common_work_title"
     t.integer  "common_work_id"
     t.integer  "user_id"
-    t.string   "publisher_belongs_to"
     t.boolean  "can_manage_common_work"
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
@@ -3464,6 +3464,17 @@ ActiveRecord::Schema.define(version: 20151030224511) do
   add_index "user_notifications", ["asset_type", "asset_id"], name: "index_user_notifications_on_asset_type_and_asset_id", using: :btree
   add_index "user_notifications", ["user_id"], name: "index_user_notifications_on_user_id", using: :btree
 
+  create_table "user_publishers", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "publisher_id"
+    t.string   "email"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
+  add_index "user_publishers", ["publisher_id"], name: "index_user_publishers_on_publisher_id", using: :btree
+  add_index "user_publishers", ["user_id"], name: "index_user_publishers_on_user_id", using: :btree
+
   create_table "users", force: :cascade do |t|
     t.string   "name",                       limit: 255
     t.string   "email",                      limit: 255
@@ -3834,5 +3845,7 @@ ActiveRecord::Schema.define(version: 20151030224511) do
   add_foreign_key "subscriptions", "coupons"
   add_foreign_key "subscriptions", "plans"
   add_foreign_key "user_notifications", "users", on_delete: :cascade
+  add_foreign_key "user_publishers", "publishers"
+  add_foreign_key "user_publishers", "users"
   add_foreign_key "widgets", "accounts", on_delete: :cascade
 end

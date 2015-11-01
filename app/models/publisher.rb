@@ -24,6 +24,7 @@ class Publisher < ActiveRecord::Base
   
   belongs_to :account
   belongs_to :user
+  has_many   :user_publishers, dependent: :destroy
   belongs_to :pro_affiliation
   
   has_one :address
