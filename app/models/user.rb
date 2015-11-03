@@ -61,9 +61,9 @@ class User < ActiveRecord::Base
 
   has_one :ipi, dependent: :destroy
   has_one :address
-  has_one :publisher
+  #has_one :publisher
   accepts_nested_attributes_for :address
-  accepts_nested_attributes_for :publisher
+  #accepts_nested_attributes_for :publisher
   include AddressMix
   
   has_one  :account
@@ -77,7 +77,7 @@ class User < ActiveRecord::Base
   # A user can have many publishers that he uses for publishing other persons
   #has_many :user_publishers
   #has_many :publishers,       :through => :user_publishers 
-  has_many :publishers
+  #has_many :publishers
   has_many :distribution_agreements
   
   has_many :comments,        as: :commentable,          dependent: :destroy
@@ -550,6 +550,10 @@ class User < ActiveRecord::Base
         ipi_publisher_id: nil,
         status: 0
       )
+    end
+    
+    if self.user_publishers
+      user_publishers.destroy_all
     end
     
   end

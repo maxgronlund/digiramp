@@ -55,16 +55,16 @@
                 
                 
                 
-                b 
-                  '*Revenue stream
-                == render 'shared/popover', identifier: 'Select the revenue stream for this creator'
-                .chosen-label.pull-down-6
-                  = f.input :publishing_agreement_id, 
-                            collection: @publishing_agreements,
-                            include_blank: false,
-                            label: false,
-                            input_html: { class: 'chosen-select', 'data-placeholder'.to_sym => "Distribution agreement" }
-                            
+                /b 
+                /  '*Revenue stream
+                /== render 'shared/popover', identifier: 'Select the revenue stream for this creator'
+                /.chosen-label.pull-down-6
+                /  = f.input :publishing_agreement_id, 
+                /            collection: @publishing_agreements,
+                /            include_blank: false,
+                /            label: false,
+                /            input_html: { class: 'chosen-select', 'data-placeholder'.to_sym => "Distribution agreement" }
+                /            
                 .row
                   .col-sm-12
                     .pull-right

@@ -1,0 +1,54 @@
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'opportunities' 
+  
+  
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+        == render 'public_opportunities/sidebar', selected: 'opportunities'
+    
+  
+  #page-content-wrapper
+    .container-fluid
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { admin: admin_index_path }, current: ''}
+      .row
+        .col-sm-5
+
+          h2 = @blog.title
+      
+        /.col-sm-7
+        /  .pull-down-10
+        /    = simple_form_for  [ @blog ], :url => url_for(:action => 'index', \
+        /                                                  :controller => 'faq'), \
+        /                                                  :method => 'get',
+        /                                                  turboboost: true do |f|
+        /    
+        /      .input-group
+        /        span class="input-group-addon"
+        /          i class= 'fa fa-search'
+        /        = text_field_tag "query", "", :class => 'search-query form-control', \
+        /                                      :placeholder => 'Search topic', \
+        /                                      value: params[:query]
+        /        .input-group-btn
+        /          = f.submit 'Search', class: "btn btn-info"
+        /          '&nbsp;
+        /          = link_to 'Clear', faq_path, class: 'btn btn-default'        
+        /    
+        /         
+      .pull-down-10
+    
+      /def self.cached_find('FAQ , @blog)
+    
+      .digi-box
+        - @blog.blog_posts.each do |blog_post|
+          h4 = blog_post.title
+          = simple_format blog_post.body
+      - if super?
+        .row
+          .col-sm-12
+            .pull-right
+              = link_to 'Add question', new_admin_blog_blog_post_path(@blog), class: 'btn btn-info'
+            
+        
+      
+  == render 'shared/site_footer'    

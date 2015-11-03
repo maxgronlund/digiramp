@@ -41,9 +41,15 @@ class Publisher < ActiveRecord::Base
   #after_create :create_user_publisher
   after_commit :flush_cache
   
-  before_destroy :reset_common_work_ipis
+  before_destroy :sanitize_relations
   
-  def reset_common_work_ipis
+  def sanitize_relations
+    
+    if self.user_publishers
+      user_publishers.destroy_all
+    end
+    
+    
     common_work_ipis.update_all(publisher_id: nil)
   end
   

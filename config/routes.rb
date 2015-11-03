@@ -3,6 +3,8 @@ Digiramp::Application.routes.draw do
 
 
 
+  
+
   #resources :document_users
   get 'landing_page/index'
   
@@ -29,7 +31,8 @@ Digiramp::Application.routes.draw do
   
   resources :addresses
 
-  
+
+  get 'faq', to: 'faq#index', as: 'faq'
 
   namespace :stripe do
     resources :success

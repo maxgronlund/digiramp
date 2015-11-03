@@ -30,7 +30,7 @@
       .digi-box 
         = simple_form_for [:user, @user, @publisher] do |f|
           = f.error_notification
-
+          
           .form-inputs
             == render 'shared/flash_message'
             .row
@@ -49,9 +49,10 @@
                   = f.input :show_on_public_page, input_html: { class: 'icheck-me acceptance', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue" }
           
                   span.help-block Make this publisher avaliable to the public
-
+                  .pull-down-24
+                = f.input :ipi_code, placeholder: 'Optional', label: 'IPI code'
               .col-sm-6
-                = f.input :email, :hint => "Publishers email"
+                = f.input :email,  placeholder: "Publishers email", hint: "Uniqe email used to identify the publisher"
                 = f.input :legal_name, :hint => "Publishers legal name"
           .form-actions
             .row

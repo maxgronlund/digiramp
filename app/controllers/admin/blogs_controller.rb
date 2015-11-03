@@ -43,7 +43,7 @@ class Admin::BlogsController < ApplicationController
   end
 
   def update
-    params[:blog][:version] = @blog.version + 1
+    #params[:blog][:version] = @blog.version + 1
     if @blog.update(blog_params)
       redirect_to admin_blogs_path(page: params[:page])
     else

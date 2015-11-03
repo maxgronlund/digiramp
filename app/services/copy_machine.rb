@@ -59,7 +59,16 @@ class CopyMachine
       '34debb4c-5e09-11e5-a542-d43d7eecec4d',
       publishing_agreement
     )
-
+    
+    UserPublisher.where(
+      publisher_id: publisher_id,
+      user_id:      publisher.user_id
+    )
+    .first_or_create(
+      publisher_id: publisher_id,
+      user_id:      publisher.user_id,
+      email:       publisher.email
+    )
   end
   
   def self.setup_publishing_agreement(publisher_id, personal_agreement, title, user)

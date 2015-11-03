@@ -41,13 +41,11 @@ class User::PublishersController < ApplicationController
       if @publisher.save
         @user.copy_address_to( @publisher.address ) 
         CopyMachine.setup_publisher @publisher.id
-        #if @publisher.personal_publisher
-        #  @user.copy_address_to( @publisher.address ) 
-        #end
+        
         format.html { redirect_to edit_user_user_publisher_legal_info_path(@publisher.user, @publisher), info: 'Please add legal informations.' }
         format.json { render :show, status: :created, location: @publisher }
       else
-        format.html { render :new, info: 'Publisher was successfully destroyed.' }
+        format.html { render :new, info: 'Unable to create publisher.' }
         format.json { render json: @publisher.errors, status: :unprocessable_entity }
       end
     end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151101091707) do
+ActiveRecord::Schema.define(version: 20151101141315) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -3845,7 +3845,5 @@ ActiveRecord::Schema.define(version: 20151101091707) do
   add_foreign_key "subscriptions", "coupons"
   add_foreign_key "subscriptions", "plans"
   add_foreign_key "user_notifications", "users", on_delete: :cascade
-  add_foreign_key "user_publishers", "publishers"
-  add_foreign_key "user_publishers", "users"
   add_foreign_key "widgets", "accounts", on_delete: :cascade
 end
