@@ -1,11 +1,11 @@
 #wrapper
   .full-width-top
-    == render 'shared/navigationbar', page: 'opportunities' 
+    == render 'shared/navigationbar', page: 'faq' 
   
   
   #sidebar-wrapper
     ul class="sidebar-nav"
-        == render 'public_opportunities/sidebar', selected: 'opportunities'
+      /== render 'public_opportunities/sidebar', selected: 'opportunities'
     
   
   #page-content-wrapper
@@ -39,10 +39,13 @@
     
       /def self.cached_find('FAQ , @blog)
     
-      .digi-box
-        - @blog.blog_posts.each do |blog_post|
-          h4 = blog_post.title
+      
+      - @blog.blog_posts.each do |blog_post|
+        .digi-box
+          h4 
+            b = blog_post.title
           = simple_format blog_post.body
+        .pull-down-10
       - if super?
         .row
           .col-sm-12
