@@ -148,7 +148,7 @@ class Shop::Order < ActiveRecord::Base
           
           self.order_lines[index] = product.as_json.merge( "total_price"        => (order_item.quantity * product.price),
                                                            "quantity"           => order_item.quantity,
-                                                           "shop_order_item_id" => order_item.id,
+                                                           "order_item_id" => order_item.id,
                                                            "seller_info"        => order_item.seller_info)
                                                            
                                                            

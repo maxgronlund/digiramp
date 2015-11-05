@@ -212,14 +212,14 @@ class Stake < ActiveRecord::Base
       stripe_transfer = Shop::StripeTransfer
       .where(   
         shop_order_id:        params[:order_id],
-        shop_order_item_id:   params[:order_item_id], 
+        order_item_id:        params[:order_item_id], 
         account_id:           self.account_id,
         user_id:              self.user_id,  
         stake_id:             self.id
       )
       .first_or_create( 
         shop_order_id:        params[:order_id],
-        shop_order_item_id:   params[:order_item_id], 
+        order_item_id:        params[:order_item_id], 
         account_id:           self.account_id,
         user_id:              self.user_id,  
         stake_id:             self.id,  

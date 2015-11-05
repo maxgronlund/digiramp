@@ -2,7 +2,7 @@ class Shop::StripeTransfer < ActiveRecord::Base
   include ErrorNotification
   has_paper_trail
   
-  belongs_to :order_item,    class_name: "Shop::OrderItem", foreign_key: "shop_order_item_id"
+  belongs_to :order_item,    class_name: "Shop::OrderItem", foreign_key: "order_item_id"
   belongs_to :order,         class_name: "Shop::Order"
   belongs_to :user
   belongs_to :account

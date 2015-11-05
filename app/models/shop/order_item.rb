@@ -2,9 +2,10 @@ class Shop::OrderItem < ActiveRecord::Base
   include ErrorNotification
   default_scope -> { order('created_at ASC') }
   
-  belongs_to :shop_order,    class_name: "Shop::Order"
-  belongs_to :shop_product,  class_name: "Shop::Product"
-  has_many   :stripe_transfers, class_name: "Shop::StripeTransfer"
+  belongs_to :shop_order,         class_name: "Shop::Order"
+  belongs_to :shop_product,       class_name: "Shop::Product"
+  has_many   :stripe_transfers,   class_name: "Shop::StripeTransfer"
+  has_many   :recording_downloads,   class_name: "RecordingDownload"
   
   validates_with OrderItemValidator
   after_commit :flush_cache
@@ -87,13 +88,13 @@ class Shop::OrderItem < ActiveRecord::Base
     self.shop_product.additional_download_url
   end
   
-  def last
-    Shop::OrderItem.order(:created_at).last
-  end
-  
-  def first
-    Shop::OrderItem.order(:created_at).first
-  end
+  #def last
+  #  Shop::OrderItem.order(:created_at).last
+  #end
+  #
+  #def first
+  #  Shop::OrderItem.order(:created_at).first
+  #end
   
   def title
     self.shop_product ? self.shop_product.product_title : 'na'

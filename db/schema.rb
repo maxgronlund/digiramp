@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151101141315) do
+ActiveRecord::Schema.define(version: 20151105145418) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -2765,14 +2765,13 @@ ActiveRecord::Schema.define(version: 20151101141315) do
     t.integer  "recording_id"
     t.integer  "downloads"
     t.string   "uuid"
-    t.integer  "shop_order_item_id"
-    t.datetime "created_at",         null: false
-    t.datetime "updated_at",         null: false
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
     t.uuid     "shop_product_id"
+    t.uuid     "order_item_id"
   end
 
   add_index "recording_downloads", ["recording_id"], name: "index_recording_downloads_on_recording_id", using: :btree
-  add_index "recording_downloads", ["shop_order_item_id"], name: "index_recording_downloads_on_shop_order_item_id", using: :btree
   add_index "recording_downloads", ["shop_product_id"], name: "index_recording_downloads_on_shop_product_id", using: :btree
   add_index "recording_downloads", ["user_id"], name: "index_recording_downloads_on_user_id", using: :btree
 
@@ -3216,7 +3215,7 @@ ActiveRecord::Schema.define(version: 20151101141315) do
 
   create_table "shop_stripe_transfers", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
     t.uuid     "shop_order_id"
-    t.uuid     "shop_order_item_id"
+    t.uuid     "order_item_id"
     t.integer  "user_id"
     t.integer  "account_id"
     t.uuid     "stake_id"
@@ -3236,8 +3235,8 @@ ActiveRecord::Schema.define(version: 20151101141315) do
   end
 
   add_index "shop_stripe_transfers", ["account_id"], name: "index_shop_stripe_transfers_on_account_id", using: :btree
+  add_index "shop_stripe_transfers", ["order_item_id"], name: "index_shop_stripe_transfers_on_order_item_id", using: :btree
   add_index "shop_stripe_transfers", ["shop_order_id"], name: "index_shop_stripe_transfers_on_shop_order_id", using: :btree
-  add_index "shop_stripe_transfers", ["shop_order_item_id"], name: "index_shop_stripe_transfers_on_shop_order_item_id", using: :btree
   add_index "shop_stripe_transfers", ["stake_id"], name: "index_shop_stripe_transfers_on_stake_id", using: :btree
   add_index "shop_stripe_transfers", ["user_id"], name: "index_shop_stripe_transfers_on_user_id", using: :btree
 
@@ -3838,7 +3837,7 @@ ActiveRecord::Schema.define(version: 20151101141315) do
   add_foreign_key "shop_products", "label_recordings", on_delete: :cascade
   add_foreign_key "shop_products", "users"
   add_foreign_key "shop_stripe_transfers", "accounts"
-  add_foreign_key "shop_stripe_transfers", "shop_order_items", on_delete: :cascade
+  add_foreign_key "shop_stripe_transfers", "shop_order_items", column: "order_item_id", on_delete: :cascade
   add_foreign_key "shop_stripe_transfers", "shop_orders"
   add_foreign_key "shop_stripe_transfers", "stakes"
   add_foreign_key "shop_stripe_transfers", "users"

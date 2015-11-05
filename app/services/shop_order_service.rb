@@ -17,7 +17,7 @@ class ShopOrderService
                              .first_or_create(user_id: shop_order.user_id, 
                                               recording_id: product.productable_id,
                                               uuid: UUIDTools::UUID.timestamp_create().to_s,
-                                              shop_order_item_id: order_item.id,
+                                              order_item_id: order_item.id,
                                               shop_product_id: product.id)
           #else
           #  ErrorNotification.post "ShopOrderService#handle_downloabels: #{product.productable_type} type not found"
