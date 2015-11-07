@@ -517,7 +517,7 @@ class User < ActiveRecord::Base
     end
     
     if self.stripe_transfers
-      self.stripe_transfers.update_all(user_id: nil, shop_order_id: nil, shop_order_item_id: nil )
+      self.stripe_transfers.update_all(user_id: nil, shop_order_id: nil )
     end
     
     unless self.mandrill_account_id.blank?
