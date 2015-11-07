@@ -184,7 +184,7 @@ class CommonWorkIpi < ActiveRecord::Base
     
     if self.user
       if user.has_to_set_publishing?
-        em[:publishing] = message_hash("#{user.get_full_name} publishing status not set")
+        em[:publishing] = message_hash(self, "#{user.get_full_name} publishing status not set")
       else
         self.common_work_ipi_publishers(true).each do |common_work_ipi_publisher|
           common_work_ipi_publisher.update_validation
