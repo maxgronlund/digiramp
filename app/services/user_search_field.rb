@@ -24,11 +24,7 @@ class UserSearchField
     search_field_content <<  'artist '                if user.artist
     search_field_content <<  user.country             if user.country
     search_field_content <<  user.city                if user.city
-    
-    
-    
     user.user_emails.each { |user_email| search_field_content << user_email.email + ' ' }
-    ap search_field_content
     user.search_field = search_field_content.join(" ")
   end
   

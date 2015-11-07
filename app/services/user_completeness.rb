@@ -33,15 +33,6 @@ class UserCompleteness
     user.completeness       = (completeness / nr_required_params * 100).to_i
     user.uniq_completeness  = user.completeness.to_uniq
 
-    #artist        
-    #author
-    #composer
-    #writer
-    #
-    #musician
-    #producer
-    #remixer
-    #dj
     
   end
   

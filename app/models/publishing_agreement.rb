@@ -145,10 +145,8 @@ class PublishingAgreement < ActiveRecord::Base
   #end
   
   def update_validation 
-    ap 'publishing agreement update validation'
-    
     set_ok
-    ipis.each do |ipi|
+    ipis(true).each do |ipi|
       ipi.update_validation
     end
 
@@ -162,7 +160,7 @@ class PublishingAgreement < ActiveRecord::Base
   
   def error_message
     em = {}
-    documents.each do |document|
+    documents(true).each do |document|
       unless document.do_validation
         em["document_#{document.id}"] = document.error_message
       end

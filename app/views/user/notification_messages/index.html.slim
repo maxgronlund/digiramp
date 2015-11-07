@@ -33,8 +33,8 @@
                 
           tbody
             - @notification_messages.each do |notification_message|
-              tr
-                td =  notification_message.id
+              /tr
+              /  td =  notification_message.id
               = render "/user/notification_messages/#{notification_message.asset_type.underscore}", notification_message: notification_message
 
               
