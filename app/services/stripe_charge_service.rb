@@ -71,7 +71,7 @@ class StripeChargeService
           raise 'No order found'  
         end
       rescue => e
-        errored('StripeChargeService#subscribe', e )
+        errored('StripeChargeService#charge.succeeded', e )
       end
       
       

@@ -136,7 +136,7 @@
           
           
             <div class="description">
-              
+              <p>This is called when a user click on the like button and it is activated</p>
             </div>
           
           
@@ -154,7 +154,7 @@
                 
               </p>
               <div id="method-i-destroy_source" class="dyn-source">
-                <pre><span class="ruby-comment"># File controllers/likes_controller.rb, line 49</span>
+                <pre><span class="ruby-comment"># File controllers/likes_controller.rb, line 51</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">destroy</span>
   <span class="ruby-identifier">user</span>          = <span class="ruby-constant">User</span>.<span class="ruby-identifier">friendly</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:user_id</span>])
   <span class="ruby-identifier">like</span>          = <span class="ruby-constant">Like</span>.<span class="ruby-identifier">where</span>(<span class="ruby-identifier">user_id</span><span class="ruby-operator">:</span> <span class="ruby-identifier">user</span>.<span class="ruby-identifier">id</span>, <span class="ruby-identifier">recording_id</span><span class="ruby-operator">:</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>]).<span class="ruby-identifier">first</span>   
@@ -226,7 +226,8 @@
           
           
             <div class="description">
-              
+              <p>This is called when a user click on the like button and it&#39;s not active
+The users followers are notified button is replaced using jquery</p>
             </div>
           
           
@@ -244,10 +245,8 @@
                 
               </p>
               <div id="method-i-new_source" class="dyn-source">
-                <pre><span class="ruby-comment"># File controllers/likes_controller.rb, line 16</span>
+                <pre><span class="ruby-comment"># File controllers/likes_controller.rb, line 20</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">new</span>
-  
-
   <span class="ruby-identifier">user</span> = <span class="ruby-constant">User</span>.<span class="ruby-identifier">friendly</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:user_id</span>])
   
   <span class="ruby-identifier">like</span> = <span class="ruby-constant">Like</span>.<span class="ruby-identifier">where</span>(
@@ -262,7 +261,6 @@
   <span class="ruby-identifier">recording</span>    = <span class="ruby-constant">Recording</span>.<span class="ruby-identifier">cached_find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:recording_id</span>])
   <span class="ruby-identifier">recording</span>.<span class="ruby-identifier">update</span>(<span class="ruby-identifier">uniq_likes_count</span><span class="ruby-operator">:</span>  <span class="ruby-identifier">recording</span>.<span class="ruby-identifier">likes</span>.<span class="ruby-identifier">count</span>.<span class="ruby-identifier">to_uniq</span>)
  
-  
 
            
   <span class="ruby-ivar">@unlike</span> = <span class="ruby-string">&#39;.unlike_recording_&#39;</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:recording_id</span>].<span class="ruby-identifier">to_s</span>   
@@ -306,7 +304,7 @@
                 
               </p>
               <div id="method-i-show_source" class="dyn-source">
-                <pre><span class="ruby-comment"># File controllers/likes_controller.rb, line 45</span>
+                <pre><span class="ruby-comment"># File controllers/likes_controller.rb, line 46</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">show</span>
   
 <span class="ruby-keyword">end</span></pre>

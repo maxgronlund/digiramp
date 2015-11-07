@@ -1,4 +1,5 @@
 class Shop::Product < ActiveRecord::Base
+  include ErrorNotification
   belongs_to :user
   belongs_to :account
   belongs_to :recording
@@ -26,8 +27,9 @@ class Shop::Product < ActiveRecord::Base
   default_scope -> { order('created_at ASC') }
   scope :on_sale,  ->  { where( valid_for_sale: true).order("title asc")  }
   
-  
+  # obsolete 
   def product_title
+    return self.title unless self.title.blank?
     self.productable ? self.productable.title : 'na'
   end
 
@@ -40,6 +42,17 @@ class Shop::Product < ActiveRecord::Base
       return sels.productable.get_shop_art
     else
       return self.image
+    end
+  end
+  
+  def charge_succeeded params
+
+    begin
+      stakeholders.each  do |stake|
+        stake.charge_succeeded params
+      end
+    rescue => e
+      post_error "Shop::Product#charge_succeeded: #{e.inspect}"
     end
   end
   
@@ -118,11 +131,8 @@ class Shop::Product < ActiveRecord::Base
     
     return nil if self.zip_file.nil?
     begin
-      secure_url = self.zip_file_url.gsub("https://digiramp.s3.amazonaws.com/", '')
-      
-      file_name = File.basename(self.zip_file_url)
-      
-      
+      secure_url  = self.zip_file_url.gsub("https://digiramp.s3.amazonaws.com/", '')
+      file_name   = File.basename(self.zip_file_url)
       bucket      = s3.bucket(Rails.application.secrets.aws_s3_bucket)
       s3_obj      = bucket.object(secure_url)
       filename    = file_name.downcase.gsub(' ', '-')
@@ -178,18 +188,22 @@ class Shop::Product < ActiveRecord::Base
   end
   
   def valid_for_sale!
-    ap '---------------------- Valid for sale ----------------'
-    ap self.category
-    ap connected_to_stripe
+    #ap '---------------------- Valid for sale ----------------'
+    #ap self.category
+    #ap connected_to_stripe
     #ap self.category
     begin 
       case self.category
      
       when 'recording'
-        ap recording.is_cleared? && connected_to_stripe
-        self.update( valid_for_sale: (recording.is_cleared? && connected_to_stripe) )
+        ap recording.is_cleared? && self.connected_to_stripe
+        self.update( 
+          valid_for_sale: (recording.is_cleared? && connected_to_stripe) 
+        )
       when 'physical-product'
-        self.update(valid_for_sale: (self.units_on_stock > 0) && connected_to_stripe)
+        self.update(
+          valid_for_sale: (self.units_on_stock > 0) && connected_to_stripe
+        )
       when 'service'
         
       end
@@ -208,9 +222,11 @@ class Shop::Product < ActiveRecord::Base
   end
   
   def configure_stakeholder
-    ap '--------------------------------------'
-    ap 'configure_stakeholder'
-    ap '--------------------------------------'
+    if Rails.env.development?
+      ap '--------------------------------------'
+      ap 'configure_stakeholder'
+      ap '--------------------------------------'
+    end
     if self.productable_type == 'Recording'
       #recording.update_stakes self
     else
@@ -235,6 +251,7 @@ class Shop::Product < ActiveRecord::Base
         asset_type:          self.class.name
       )
     end
+    ap stake
   end
 
   private 

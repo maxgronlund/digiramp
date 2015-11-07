@@ -216,9 +216,13 @@
                 <pre><span class="ruby-comment"># File controllers/user/legal_document_users_controller.rb, line 41</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">destroy</span>
   <span class="ruby-ivar">@document</span>       = <span class="ruby-constant">Document</span>.<span class="ruby-identifier">cached_find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:legal_document_id</span>])
-  <span class="ruby-ivar">@document_user</span> = <span class="ruby-constant">DocumentUser</span>.<span class="ruby-identifier">cached_find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
+  <span class="ruby-ivar">@document_user</span>  = <span class="ruby-constant">DocumentUser</span>.<span class="ruby-identifier">cached_find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
+  
   <span class="ruby-keyword">unless</span> <span class="ruby-ivar">@document_user</span>.<span class="ruby-identifier">signature</span>
+    <span class="ruby-ivar">@document_user_id</span> = <span class="ruby-ivar">@document_user</span>.<span class="ruby-identifier">id</span>
     <span class="ruby-ivar">@document_user</span>.<span class="ruby-identifier">destroy</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">render</span> <span class="ruby-identifier">nothing</span><span class="ruby-operator">:</span> <span class="ruby-keyword">true</span>
   <span class="ruby-keyword">end</span>
 <span class="ruby-keyword">end</span></pre>
               </div>

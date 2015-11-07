@@ -23,7 +23,7 @@
         </h1>
         <ul class="files">
             <li>views/shared/_navigationbar.slim</li>
-            <li>Last modified: 2015-10-13 19:23:18 +0200</li>
+            <li>Last modified: 2015-11-03 19:03:13 +0100</li>
         </ul>
     </div>
 
@@ -137,6 +137,11 @@
             = link_to user_issues_path(current_user) do
               i class=&quot;fa fa-life-ring&quot;
               &#39;&amp;nbsp;Support
+
+          li class=&quot;#{page == &#39;faq&#39; ? &#39;active&#39; : &#39;&#39;}&quot;
+            = link_to faq_path do
+              i class=&quot;fa fa-question&quot;
+              &#39;&amp;nbsp;FAQ
 
           li class=&quot;#{page == &#39;contact&#39; ? &#39;active&#39; : &#39;&#39;}&quot;
             = link_to support_index_path do

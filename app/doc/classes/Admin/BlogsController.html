@@ -435,7 +435,7 @@ layout “core_admin”</p>
               <div id="method-i-update_source" class="dyn-source">
                 <pre><span class="ruby-comment"># File controllers/admin/blogs_controller.rb, line 45</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">update</span>
-  <span class="ruby-identifier">params</span>[<span class="ruby-value">:blog</span>][<span class="ruby-value">:version</span>] = <span class="ruby-ivar">@blog</span>.<span class="ruby-identifier">version</span> <span class="ruby-operator">+</span> <span class="ruby-number">1</span>
+  <span class="ruby-comment">#params[:blog][:version] = @blog.version + 1</span>
   <span class="ruby-keyword">if</span> <span class="ruby-ivar">@blog</span>.<span class="ruby-identifier">update</span>(<span class="ruby-identifier">blog_params</span>)
     <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">admin_blogs_path</span>(<span class="ruby-identifier">page</span><span class="ruby-operator">:</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:page</span>])
   <span class="ruby-keyword">else</span>

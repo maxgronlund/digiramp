@@ -261,7 +261,6 @@ class CommonWork < ActiveRecord::Base
     recording.common_work_id = common_work.id
     recording.save
     common_work.update_completeness
-
     common_work
   end
   
@@ -401,26 +400,20 @@ class CommonWork < ActiveRecord::Base
   
 
   def update_validation
+    #ap 'CommonWork#update_validation'
     do_validation
   end
   
-  def message_hash msg
-    {
-      message:      msg,
-      type: self.class.name,
-      id:   self.id
-    }
-  end
   
   def error_message
-    ap 'CommonWork # error_message'
+    #ap 'CommonWork#error_message'
     em = {}
     if total_share != 100.0
-      em[:total_share] = message_hash('The creators split has to add up to 100%')
+      em[:total_share] = message_hash( self, 'The creators split has to add up to 100%')
     end
 
     errors = []
-    self.common_work_ipis.each do |common_work_ipi|
+    self.common_work_ipis(true).each do |common_work_ipi|
       
       unless common_work_ipi.do_validation
         errors << common_work_ipi.error_message
@@ -444,34 +437,25 @@ private
     update_validation unless self.destroyed?
     Rails.cache.delete([self.class.name, id])
   end
-  
-  
-  
-  def do_validation
-    ap 'CommonWork # do_validation'
-    
-    em = error_message
-    ap em
-    update_columns( ok: em.empty? ) 
 
-    self.ok ? remove_notification_message(self.user_id) :
-      update_notification_message(self.user_id).update_columns( 
-        error_message: em
-    )
+  def do_validation
+    #ap 'CommonWork#do_validation'
+    em = error_message
+    #ap em
+    update( ok: em.empty? ) 
+
+    self.ok ?
+      remove_notification_message(self, self.user_id) :
+      update_notification_message(self, self.user_id).update(  error_message: em )
     
   end
-  
 
-
-  
-  
   def flush_cache
     update_completeness unless self.destroyed?
     Rails.cache.delete([self.class.name, id])
   end
   
   def update_uuids
-
     if self.uuid.to_s == ''
       self.uuid = UUIDTools::UUID.timestamp_create().to_s
     end

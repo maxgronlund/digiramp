@@ -8,7 +8,7 @@
 class CommonWorkIpiMailer < ApplicationMailer
 
 
-  def send_notification common_work_ipi_id
+  def send_notification common_work_ipi_id, from_user_id
 
     common_work_ipi   = CommonWorkIpi.cached_find(common_work_ipi_id)
     return unless common_work_ipi.user
@@ -17,7 +17,8 @@ class CommonWorkIpiMailer < ApplicationMailer
                       
     common_work       = common_work_ipi.common_work
     user              = common_work_ipi.user
-    subject           = "#{user.user_name} has mentioned you as an IP on DigiRAMP"
+    from_user         = User.cached_find(from_user_id)
+    subject           = "#{from_user.get_full_name} has mentioned you as a creator on DigiRAMP"
 
 
     begin
@@ -30,7 +31,7 @@ class CommonWorkIpiMailer < ApplicationMailer
         tags: ["ipi", "confirmation", "common-work"],
         track_clicks: true,
         track_opens: true,
-        subaccount: user.mandrill_account_id,
+        subaccount: from_user.mandrill_account_id,
         recipient_metadata: [{rcpt: email, values: {common_work_ipi: common_work_ipi}}],
         merge_vars: [
           {
@@ -54,13 +55,14 @@ class CommonWorkIpiMailer < ApplicationMailer
     end
   end
   
-  def send_invitation common_work_ipi_id
+  def send_invitation common_work_ipi_id, from_user_id
     return unless common_work_ipi   = CommonWorkIpi.cached_find(common_work_ipi_id) rescue false
     return unless user              = common_work_ipi.user
     return unless common_work       = common_work_ipi.common_work
     return unless email             = common_work_ipi.email 
     return unless common_work_user  = common_work.user
-    subject                         = "#{common_work_user.user_name} has mentioned you as an IP on DigiRAMP"
+    from_user                       = User.cached_find(from_user_id)
+    subject                         = "#{from_user.get_full_name} has mentioned you as a creator on DigiRAMP"
     
     link = url_for( controller: "user/confirm_common_work_ipis", action: 'edit', user_id: common_work_ipi.user.slug, id: common_work_ipi.uuid )
     
@@ -74,7 +76,7 @@ class CommonWorkIpiMailer < ApplicationMailer
         tags: ["ipi", "confirmation", "common-work"],
         track_clicks: true,
         track_opens: true,
-        subaccount: user.mandrill_account_id,
+        subaccount: from_user.mandrill_account_id,
         recipient_metadata: [{rcpt: email, values: {common_work_ipi: common_work_ipi}}],
         merge_vars: [
           {

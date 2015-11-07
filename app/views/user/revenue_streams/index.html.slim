@@ -48,7 +48,7 @@
               - generated_income = stake.generated_income
               tr
                 td = stake.title
-                td = stake.description
+                td = stake.type_of_asset
                 td = stake.units
                 td = number_to_currency( stake.flat_rate_in_cent * 0.01, precision: 2, locale: 'en')
                 /td = number_to_percentage(stake.split, precision: 4) 

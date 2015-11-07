@@ -23,7 +23,7 @@
         </h1>
         <ul class="files">
             <li>views/user/recording_rights/show.html.slim</li>
-            <li>Last modified: 2015-10-03 12:58:10 +0200</li>
+            <li>Last modified: 2015-10-29 07:45:28 +0100</li>
         </ul>
     </div>
 
@@ -69,6 +69,9 @@
             /    &#39;Common work
 
     == render &#39;recordings/wizard_step&#39;, step: 5
+    - unless @recording.contributors_share == 100.0
+      .alert.alert-danger
+        &#39;The sum of all contributers share should be 100%
     .table-responsive
       .row
         .col-sm-12
@@ -86,7 +89,7 @@
                     = f.hidden_field :email, value: @user.email
                     = f.hidden_field :role, value: &#39;Other&#39;
                     = f.hidden_field :share, value: 100
-                    = f.hidden_field :distribution_agreement_id, value:  @user.personal_distribution_agreement.id
+                    /= f.hidden_field :distribution_agreement_id, value:  @user.personal_distribution_agreement.id
                     = f.submit &quot;I&#39;m the only contributor&quot;, class: &#39;btn btn-warning&#39;
       table class=&quot;table table-hover&quot;
         thead
@@ -94,7 +97,7 @@
             th style=&quot;max-width: 64px;&quot;
             th Legal name / Email
             th Capacity
-            th Arists split
+            th Contributor share
             th 
               .pull-right
                 &#39;Status

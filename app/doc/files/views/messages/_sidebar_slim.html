@@ -23,7 +23,7 @@
         </h1>
         <ul class="files">
             <li>views/messages/_sidebar.slim</li>
-            <li>Last modified: 2015-10-06 10:13:53 +0200</li>
+            <li>Last modified: 2015-10-19 09:32:49 +0200</li>
         </ul>
     </div>
 
@@ -62,17 +62,17 @@
       &#39;&amp;nbsp;
       &#39;All 
 
-  /li class=&quot;#{&#39;sidebar-selected&#39; if selected == &#39;deleted&#39;}&quot;
-  /  = link_to user_user_deleted_messages_path(@user) do
-  /    i class=&quot;fa fa-trash&quot;
-  /    &#39;&amp;nbsp;
-  /    &#39;Trash 
-
   li class=&quot;#{&#39;sidebar-selected&#39; if selected == &#39;connections&#39;}&quot;
     = link_to user_user_connections_path(@user) do
       i class=&quot;fa fa-users&quot;
       &#39;&amp;nbsp;
-      &#39;Connections</code></pre>
+      &#39;Connections  
+
+  li class=&quot;#{&#39;sidebar-selected&#39; if selected == &#39;actions&#39;}&quot;
+    = link_to user_user_notification_messages_path(@user) do
+      i class=&quot;fa fa-bell&quot;
+      &#39;&amp;nbsp;
+      &#39;To do</code></pre>
 
     </div>
   

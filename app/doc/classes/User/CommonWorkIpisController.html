@@ -178,16 +178,14 @@
                 
               </p>
               <div id="method-i-create_source" class="dyn-source">
-                <pre><span class="ruby-comment"># File controllers/user/common_work_ipis_controller.rb, line 39</span>
+                <pre><span class="ruby-comment"># File controllers/user/common_work_ipis_controller.rb, line 40</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">create</span>
-  <span class="ruby-comment">#ap params</span>
-  <span class="ruby-comment">#ap &#39;========================&#39;</span>
-  <span class="ruby-comment">#ap params[:common_work_ipi][:email]</span>
-  <span class="ruby-comment">#ap params[:common_work_ipi][:uuid] = UUIDTools::UUID.timestamp_create().to_s</span>
+  <span class="ruby-identifier">params</span>[<span class="ruby-value">:common_work_ipi</span>][<span class="ruby-value">:status</span>] = <span class="ruby-number">0</span>
+  <span class="ruby-identifier">params</span>[<span class="ruby-value">:common_work_ipi</span>][<span class="ruby-value">:uuid</span>] = <span class="ruby-constant">UUIDTools</span><span class="ruby-operator">::</span><span class="ruby-constant">UUID</span>.<span class="ruby-identifier">timestamp_create</span>().<span class="ruby-identifier">to_s</span>
 
   <span class="ruby-ivar">@common_work</span>           = <span class="ruby-constant">CommonWork</span>.<span class="ruby-identifier">cached_find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:common_work_id</span>])
   <span class="ruby-keyword">if</span> <span class="ruby-ivar">@common_work_ipi</span>    = <span class="ruby-constant">CommonWorkIpi</span>.<span class="ruby-identifier">create</span>(<span class="ruby-identifier">common_work_ipi_params</span>)
-    <span class="ruby-ivar">@common_work_ipi</span>.<span class="ruby-identifier">attach_to_ip</span>
+    <span class="ruby-ivar">@common_work_ipi</span>.<span class="ruby-identifier">attach_to_user</span> <span class="ruby-identifier">current_user</span>
     <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">user_user_common_work_path</span>( <span class="ruby-ivar">@user</span>, <span class="ruby-ivar">@common_work</span>)
   <span class="ruby-keyword">else</span>
     <span class="ruby-identifier">render</span> <span class="ruby-value">:new</span>
@@ -227,12 +225,12 @@
                 
               </p>
               <div id="method-i-destroy_source" class="dyn-source">
-                <pre><span class="ruby-comment"># File controllers/user/common_work_ipis_controller.rb, line 55</span>
+                <pre><span class="ruby-comment"># File controllers/user/common_work_ipis_controller.rb, line 54</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">destroy</span>
-  <span class="ruby-identifier">ap</span> <span class="ruby-string">&#39;destroy&#39;</span>
-  <span class="ruby-ivar">@common_work</span>           = <span class="ruby-constant">CommonWork</span>.<span class="ruby-identifier">cached_find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:common_work_id</span>])
+  <span class="ruby-ivar">@common_work</span>              = <span class="ruby-constant">CommonWork</span>.<span class="ruby-identifier">cached_find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:common_work_id</span>])
   <span class="ruby-ivar">@common_work_ipi</span>          = <span class="ruby-constant">CommonWorkIpi</span>.<span class="ruby-identifier">cached_find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
   <span class="ruby-ivar">@common_work_ipi</span>.<span class="ruby-identifier">destroy</span>
+  <span class="ruby-ivar">@common_work</span>.<span class="ruby-identifier">update_validation</span>
   <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">user_user_common_work_path</span>( <span class="ruby-ivar">@user</span>, <span class="ruby-ivar">@common_work</span>)
 <span class="ruby-keyword">end</span></pre>
               </div>
@@ -271,8 +269,9 @@
                 <pre><span class="ruby-comment"># File controllers/user/common_work_ipis_controller.rb, line 8</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">edit</span>
   <span class="ruby-ivar">@common_work</span>              = <span class="ruby-constant">CommonWork</span>.<span class="ruby-identifier">cached_find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:common_work_id</span>])
+  
   <span class="ruby-ivar">@common_work_ipi</span>          = <span class="ruby-constant">CommonWorkIpi</span>.<span class="ruby-identifier">cached_find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
-  <span class="ruby-comment">#@publishing_agreements    = @user.publishing_agreements</span>
+  
   
   <span class="ruby-keyword">if</span> <span class="ruby-identifier">ipi</span> = <span class="ruby-ivar">@common_work_ipi</span>.<span class="ruby-identifier">ipi</span>
     <span class="ruby-keyword">if</span> <span class="ruby-identifier">user</span> = <span class="ruby-identifier">ipi</span>.<span class="ruby-identifier">user</span>
@@ -351,7 +350,7 @@
                 
               </p>
               <div id="method-i-new_source" class="dyn-source">
-                <pre><span class="ruby-comment"># File controllers/user/common_work_ipis_controller.rb, line 33</span>
+                <pre><span class="ruby-comment"># File controllers/user/common_work_ipis_controller.rb, line 34</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">new</span>
   <span class="ruby-ivar">@common_work</span>        = <span class="ruby-constant">CommonWork</span>.<span class="ruby-identifier">cached_find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:common_work_id</span>])
   <span class="ruby-ivar">@common_work_ipi</span>    = <span class="ruby-constant">CommonWorkIpi</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">share</span><span class="ruby-operator">:</span> <span class="ruby-number">0</span>)
@@ -390,17 +389,17 @@
                 
               </p>
               <div id="method-i-update_source" class="dyn-source">
-                <pre><span class="ruby-comment"># File controllers/user/common_work_ipis_controller.rb, line 21</span>
+                <pre><span class="ruby-comment"># File controllers/user/common_work_ipis_controller.rb, line 22</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">update</span>
   <span class="ruby-ivar">@common_work</span>              = <span class="ruby-constant">CommonWork</span>.<span class="ruby-identifier">cached_find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:common_work_id</span>])
   <span class="ruby-ivar">@common_work_ipi</span>          = <span class="ruby-constant">CommonWorkIpi</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
-  
   <span class="ruby-keyword">if</span> <span class="ruby-ivar">@common_work_ipi</span>.<span class="ruby-identifier">update</span>(<span class="ruby-identifier">common_work_ipi_params</span>)
-    <span class="ruby-ivar">@common_work_ipi</span>.<span class="ruby-identifier">attach_to_ip</span>
+    <span class="ruby-ivar">@common_work_ipi</span>.<span class="ruby-identifier">attach_to_user</span> <span class="ruby-identifier">current_user</span> 
     <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">user_user_common_work_path</span>(<span class="ruby-ivar">@user</span>, <span class="ruby-ivar">@common_work</span>)
   <span class="ruby-keyword">else</span>
     <span class="ruby-identifier">render</span> <span class="ruby-value">:edit</span>
   <span class="ruby-keyword">end</span>
+
 <span class="ruby-keyword">end</span></pre>
               </div>
             </div>

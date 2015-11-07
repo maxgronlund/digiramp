@@ -38,6 +38,13 @@
     <div id="bodyContent">
         <div id="content">
   
+    <div class="description">
+      
+<p>This class holds one item on an order.  Each item can belongs to many
+stakeholders The order_item keeps track of payments and state</p>
+
+    </div>
+  
 
 
   
@@ -108,30 +115,6 @@
               
               <li>
                 <a href="#method-i-download_url">download_url</a>
-              </li>
-            
-          </ul>
-        </dd>
-      
-        <dt>F</dt>
-        <dd>
-          <ul>
-            
-              
-              <li>
-                <a href="#method-i-first">first</a>
-              </li>
-            
-          </ul>
-        </dd>
-      
-        <dt>L</dt>
-        <dd>
-          <ul>
-            
-              
-              <li>
-                <a href="#method-i-last">last</a>
               </li>
             
           </ul>
@@ -231,7 +214,7 @@
                 
               </p>
               <div id="method-c-cached_find_source" class="dyn-source">
-                <pre><span class="ruby-comment"># File models/shop/order_item.rb, line 12</span>
+                <pre><span class="ruby-comment"># File models/shop/order_item.rb, line 17</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">self</span>.<span class="ruby-identifier">cached_find</span>(<span class="ruby-identifier">id</span>)
   <span class="ruby-constant">Rails</span>.<span class="ruby-identifier">cache</span>.<span class="ruby-identifier">fetch</span>([<span class="ruby-identifier">name</span>, <span class="ruby-identifier">id</span>]) { <span class="ruby-identifier">find</span>(<span class="ruby-identifier">id</span>) }
 <span class="ruby-keyword">end</span></pre>
@@ -252,7 +235,7 @@
           
           
             <div class="description">
-              
+              <p>Get url to additional content</p>
             </div>
           
           
@@ -270,7 +253,7 @@
                 
               </p>
               <div id="method-i-additional_download_url_source" class="dyn-source">
-                <pre><span class="ruby-comment"># File models/shop/order_item.rb, line 86</span>
+                <pre><span class="ruby-comment"># File models/shop/order_item.rb, line 78</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">additional_download_url</span>
   <span class="ruby-keyword">self</span>.<span class="ruby-identifier">shop_product</span>.<span class="ruby-identifier">additional_download_url</span>
 <span class="ruby-keyword">end</span></pre>
@@ -289,7 +272,7 @@
           
           
             <div class="description">
-              
+              <p>Get the buyers account_id</p>
             </div>
           
           
@@ -307,7 +290,7 @@
                 
               </p>
               <div id="method-i-buyer_account_id_source" class="dyn-source">
-                <pre><span class="ruby-comment"># File models/shop/order_item.rb, line 73</span>
+                <pre><span class="ruby-comment"># File models/shop/order_item.rb, line 63</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">buyer_account_id</span>
   <span class="ruby-keyword">begin</span>
     <span class="ruby-keyword">self</span>.<span class="ruby-identifier">shop_order</span>.<span class="ruby-identifier">buyer_account_id</span>
@@ -331,7 +314,8 @@
           
           
             <div class="description">
-              <p>transfer payment to all stakeholders called when payments success</p>
+              <p>When the order is paid for then it&#39;s time pass the payment on to all
+stakeholders</p>
             </div>
           
           
@@ -349,18 +333,14 @@
                 
               </p>
               <div id="method-i-charge_succeeded_source" class="dyn-source">
-                <pre><span class="ruby-comment"># File models/shop/order_item.rb, line 18</span>
+                <pre><span class="ruby-comment"># File models/shop/order_item.rb, line 24</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">charge_succeeded</span> <span class="ruby-identifier">params</span>
 
   <span class="ruby-keyword">begin</span>
     <span class="ruby-keyword">self</span>.<span class="ruby-identifier">update</span>(<span class="ruby-identifier">sold</span><span class="ruby-operator">:</span> <span class="ruby-keyword">true</span>)
     
     <span class="ruby-identifier">params</span>[<span class="ruby-value">:order_item_id</span>] = <span class="ruby-keyword">self</span>.<span class="ruby-identifier">id</span>
-    <span class="ruby-identifier">product</span>                = <span class="ruby-keyword">self</span>.<span class="ruby-identifier">shop_product</span>
-    
-    <span class="ruby-identifier">product</span>.<span class="ruby-identifier">stakeholders</span>.<span class="ruby-identifier">each</span>  <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">stake</span><span class="ruby-operator">|</span>
-      <span class="ruby-identifier">stake</span>.<span class="ruby-identifier">charge_succeeded</span> <span class="ruby-identifier">params</span>
-    <span class="ruby-keyword">end</span>
+    <span class="ruby-keyword">self</span>.<span class="ruby-identifier">shop_product</span>.<span class="ruby-identifier">charge_succeeded</span>( <span class="ruby-identifier">params</span> )
 
   <span class="ruby-keyword">rescue</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
     <span class="ruby-identifier">post_error</span> <span class="ruby-node">&quot;OrderItem#charge_succeeded: #{e.inspect}&quot;</span>
@@ -381,7 +361,7 @@
           
           
             <div class="description">
-              
+              <p>Get additional info about the product</p>
             </div>
           
           
@@ -399,7 +379,7 @@
                 
               </p>
               <div id="method-i-description_source" class="dyn-source">
-                <pre><span class="ruby-comment"># File models/shop/order_item.rb, line 35</span>
+                <pre><span class="ruby-comment"># File models/shop/order_item.rb, line 38</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">description</span>
   <span class="ruby-keyword">return</span> <span class="ruby-identifier">shop_product</span>.<span class="ruby-identifier">additional_info</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">shop_product</span>
   <span class="ruby-string">&#39;na&#39;</span>
@@ -419,7 +399,7 @@
           
           
             <div class="description">
-              
+              <p>Get download url</p>
             </div>
           
           
@@ -437,83 +417,9 @@
                 
               </p>
               <div id="method-i-download_url_source" class="dyn-source">
-                <pre><span class="ruby-comment"># File models/shop/order_item.rb, line 82</span>
+                <pre><span class="ruby-comment"># File models/shop/order_item.rb, line 73</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">download_url</span>
   <span class="ruby-keyword">self</span>.<span class="ruby-identifier">shop_product</span>.<span class="ruby-identifier">download_url</span>
-<span class="ruby-keyword">end</span></pre>
-              </div>
-            </div>
-            
-          </div>
-        
-        <div class="method">
-          <div class="title method-title" id="method-i-first">
-            
-              <b>first</b>()
-            
-            <a href="../../classes/Shop/OrderItem.html#method-i-first" name="method-i-first" class="permalink">Link</a>
-          </div>
-          
-          
-            <div class="description">
-              
-            </div>
-          
-          
-          
-
-          
-          
-          
-            
-            <div class="sourcecode">
-              
-              <p class="source-link">
-                Source: 
-                <a href="javascript:toggleSource('method-i-first_source')" id="l_method-i-first_source">show</a>
-                
-              </p>
-              <div id="method-i-first_source" class="dyn-source">
-                <pre><span class="ruby-comment"># File models/shop/order_item.rb, line 94</span>
-<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">first</span>
-  <span class="ruby-constant">Shop</span><span class="ruby-operator">::</span><span class="ruby-constant">OrderItem</span>.<span class="ruby-identifier">order</span>(<span class="ruby-value">:created_at</span>).<span class="ruby-identifier">first</span>
-<span class="ruby-keyword">end</span></pre>
-              </div>
-            </div>
-            
-          </div>
-        
-        <div class="method">
-          <div class="title method-title" id="method-i-last">
-            
-              <b>last</b>()
-            
-            <a href="../../classes/Shop/OrderItem.html#method-i-last" name="method-i-last" class="permalink">Link</a>
-          </div>
-          
-          
-            <div class="description">
-              
-            </div>
-          
-          
-          
-
-          
-          
-          
-            
-            <div class="sourcecode">
-              
-              <p class="source-link">
-                Source: 
-                <a href="javascript:toggleSource('method-i-last_source')" id="l_method-i-last_source">show</a>
-                
-              </p>
-              <div id="method-i-last_source" class="dyn-source">
-                <pre><span class="ruby-comment"># File models/shop/order_item.rb, line 90</span>
-<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">last</span>
-  <span class="ruby-constant">Shop</span><span class="ruby-operator">::</span><span class="ruby-constant">OrderItem</span>.<span class="ruby-identifier">order</span>(<span class="ruby-value">:created_at</span>).<span class="ruby-identifier">last</span>
 <span class="ruby-keyword">end</span></pre>
               </div>
             </div>
@@ -530,7 +436,7 @@
           
           
             <div class="description">
-              
+              <p>Get the sellers account_id</p>
             </div>
           
           
@@ -548,7 +454,7 @@
                 
               </p>
               <div id="method-i-seller_account_id_source" class="dyn-source">
-                <pre><span class="ruby-comment"># File models/shop/order_item.rb, line 64</span>
+                <pre><span class="ruby-comment"># File models/shop/order_item.rb, line 53</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">seller_account_id</span>
   <span class="ruby-keyword">begin</span>
     <span class="ruby-keyword">self</span>.<span class="ruby-identifier">shop_product</span>.<span class="ruby-identifier">account_id</span>
@@ -572,21 +478,7 @@
           
           
             <div class="description">
-              <p>def payment_fee_pr_stakeholder stakeholders, payment_fee_pr_order_item</p>
-
-<pre><code># what it the fee pr item
-split_between = 1
-
-split_between = stakeholders.count unless stakeholders.count
-begin
-  split_between = stakeholders.count ? stakeholders.count.to_f : 1.0
-  payment_fee_pr_order_item / split_between
-rescue =&gt; error
-  post_error &quot;OrderItem#payment_fee_pr_stakeholder: #{error.inspect}&quot;
-end
-</code></pre>
-
-<p>end</p>
+              <p>Get info about the seller</p>
             </div>
           
           
@@ -604,7 +496,7 @@ end
                 
               </p>
               <div id="method-i-seller_info_source" class="dyn-source">
-                <pre><span class="ruby-comment"># File models/shop/order_item.rb, line 56</span>
+                <pre><span class="ruby-comment"># File models/shop/order_item.rb, line 44</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">seller_info</span>
   <span class="ruby-identifier">seller</span> = <span class="ruby-keyword">self</span>.<span class="ruby-identifier">shop_product</span>.<span class="ruby-identifier">seller_info</span>
   <span class="ruby-keyword">if</span> <span class="ruby-identifier">seller</span>[<span class="ruby-value">:id</span>] <span class="ruby-operator">==</span> <span class="ruby-string">&#39;error&#39;</span>
@@ -627,7 +519,7 @@ end
           
           
             <div class="description">
-              
+              <p>Get product title</p>
             </div>
           
           
@@ -645,7 +537,7 @@ end
                 
               </p>
               <div id="method-i-title_source" class="dyn-source">
-                <pre><span class="ruby-comment"># File models/shop/order_item.rb, line 98</span>
+                <pre><span class="ruby-comment"># File models/shop/order_item.rb, line 83</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">title</span>
   <span class="ruby-keyword">self</span>.<span class="ruby-identifier">shop_product</span> <span class="ruby-operator">?</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">shop_product</span>.<span class="ruby-identifier">product_title</span> <span class="ruby-operator">:</span> <span class="ruby-string">&#39;na&#39;</span>
 <span class="ruby-keyword">end</span></pre>

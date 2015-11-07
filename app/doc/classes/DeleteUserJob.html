@@ -131,8 +131,11 @@
     <span class="ruby-keyword">if</span> <span class="ruby-identifier">client_invitations</span> = <span class="ruby-constant">ClientInvitation</span>.<span class="ruby-identifier">where</span>(<span class="ruby-identifier">email</span><span class="ruby-operator">:</span> <span class="ruby-identifier">user</span>.<span class="ruby-identifier">email</span>)
       <span class="ruby-identifier">client_invitations</span>.<span class="ruby-identifier">destroy_all</span>
     <span class="ruby-keyword">end</span>
-    <span class="ruby-identifier">user</span>.<span class="ruby-identifier">account</span>.<span class="ruby-identifier">destroy!</span>  
+    <span class="ruby-identifier">user</span>.<span class="ruby-identifier">account</span>.<span class="ruby-identifier">flush_cache</span>
+    <span class="ruby-identifier">user</span>.<span class="ruby-identifier">account</span>.<span class="ruby-identifier">destroy</span>
+    <span class="ruby-identifier">user</span>.<span class="ruby-identifier">flush_cache</span>
     <span class="ruby-identifier">user</span>.<span class="ruby-identifier">destroy</span>
+    
     
   <span class="ruby-keyword">else</span>
     <span class="ruby-constant">ErrorNotification</span>.<span class="ruby-identifier">post</span> <span class="ruby-node">&quot;Unable to delete user: #{user_id}&quot;</span>

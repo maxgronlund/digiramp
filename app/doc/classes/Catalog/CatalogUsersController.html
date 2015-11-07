@@ -442,7 +442,7 @@
   
   
   
-  <span class="ruby-ivar">@catalog_user</span>   = <span class="ruby-constant">CatalogUser</span>.<span class="ruby-identifier">new</span>( <span class="ruby-identifier">title</span><span class="ruby-operator">:</span> <span class="ruby-node">&quot;You have been invited the #{@catalog.title.upcase!} catalog by #{current_user.name}&quot;</span>, 
+  <span class="ruby-ivar">@catalog_user</span>   = <span class="ruby-constant">CatalogUser</span>.<span class="ruby-identifier">new</span>( <span class="ruby-identifier">title</span><span class="ruby-operator">:</span> <span class="ruby-node">&quot;You have been invited the #{@catalog.title.upcase!} catalog by #{current_user.get_full_name}&quot;</span>, 
                                      <span class="ruby-identifier">body</span><span class="ruby-operator">:</span> <span class="ruby-node">&quot;You can access the #{@catalog.title.upcase!} catalog from #{@catalog.account.title} on your controll panel&quot;</span>,
                                      <span class="ruby-identifier">account_id</span><span class="ruby-operator">:</span> <span class="ruby-ivar">@catalog</span>.<span class="ruby-identifier">account_id</span>,
                                      <span class="ruby-identifier">uuid</span><span class="ruby-operator">:</span> <span class="ruby-constant">UUIDTools</span><span class="ruby-operator">::</span><span class="ruby-constant">UUID</span>.<span class="ruby-identifier">timestamp_create</span>().<span class="ruby-identifier">to_s</span>)

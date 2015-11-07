@@ -166,7 +166,7 @@
                 
               </p>
               <div id="method-i-delete_source" class="dyn-source">
-                <pre><span class="ruby-comment"># File controllers/user/common_works_controller.rb, line 66</span>
+                <pre><span class="ruby-comment"># File controllers/user/common_works_controller.rb, line 68</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">delete</span>
 <span class="ruby-keyword">end</span></pre>
               </div>
@@ -206,7 +206,7 @@
                 
               </p>
               <div id="method-i-edit_source" class="dyn-source">
-                <pre><span class="ruby-comment"># File controllers/user/common_works_controller.rb, line 46</span>
+                <pre><span class="ruby-comment"># File controllers/user/common_works_controller.rb, line 48</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">edit</span>
   <span class="ruby-comment">#@recording    = Recording.cached_find(params[:recording_id])</span>
   <span class="ruby-ivar">@common_work</span> = <span class="ruby-constant">CommonWork</span>.<span class="ruby-identifier">cached_find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
@@ -285,13 +285,17 @@
 <span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">show</span>
 
   <span class="ruby-ivar">@common_work</span>  = <span class="ruby-constant">CommonWork</span>.<span class="ruby-identifier">cached_find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
+  <span class="ruby-ivar">@notification_messages</span> = <span class="ruby-constant">NotificationMessage</span>.<span class="ruby-identifier">where</span>(
+    <span class="ruby-identifier">asset_id</span><span class="ruby-operator">:</span>   <span class="ruby-ivar">@common_work</span>.<span class="ruby-identifier">id</span>,
+    <span class="ruby-identifier">asset_type</span><span class="ruby-operator">:</span> <span class="ruby-ivar">@common_work</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">name</span>,
+  )
 
   
-  <span class="ruby-keyword">if</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:recording_id</span>]
-    <span class="ruby-ivar">@recording</span>  = <span class="ruby-constant">Recording</span>.<span class="ruby-identifier">cached_find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:recording_id</span>])
-  <span class="ruby-keyword">else</span>
-    <span class="ruby-ivar">@recording</span>  = <span class="ruby-ivar">@common_work</span>.<span class="ruby-identifier">recordings</span>.<span class="ruby-identifier">first</span>
-  <span class="ruby-keyword">end</span>
+  <span class="ruby-comment">#if params[:recording_id]</span>
+  <span class="ruby-comment">#  @recording  = Recording.cached_find(params[:recording_id])</span>
+  <span class="ruby-comment">#else</span>
+  <span class="ruby-comment">#  @recording  = @common_work.recordings.first</span>
+  <span class="ruby-comment">#end</span>
 
 
   <span class="ruby-comment">#if @recording.nil?</span>
@@ -300,14 +304,12 @@
 
   <span class="ruby-comment">#@no_ips     = @common_work.ipis.to_i.count + @recording.recording_ipis.to_i.count == 0</span>
 
-  <span class="ruby-identifier">blog</span>        = <span class="ruby-constant">Blog</span>.<span class="ruby-identifier">cached_find</span>(<span class="ruby-string">&#39;Common Work Ipi&#39;</span>)
-  <span class="ruby-ivar">@no_ipis_text</span> = <span class="ruby-constant">BlogPost</span>.<span class="ruby-identifier">cached_find</span>(<span class="ruby-string">&#39;No Ipis&#39;</span> , <span class="ruby-identifier">blog</span>)
-  
+  <span class="ruby-identifier">blog</span>                        = <span class="ruby-constant">Blog</span>.<span class="ruby-identifier">cached_find</span>(<span class="ruby-string">&#39;Common Work Ipi&#39;</span>)
+  <span class="ruby-ivar">@no_ipis_text</span>               = <span class="ruby-constant">BlogPost</span>.<span class="ruby-identifier">cached_find</span>(<span class="ruby-string">&#39;No Ipis&#39;</span> , <span class="ruby-identifier">blog</span>)
   <span class="ruby-ivar">@upload_existing_contracts</span>  = <span class="ruby-constant">BlogPost</span>.<span class="ruby-identifier">cached_find</span>(<span class="ruby-string">&#39;Upload existing documents&#39;</span> , <span class="ruby-identifier">blog</span>)
   <span class="ruby-ivar">@add_ipis</span>                   = <span class="ruby-constant">BlogPost</span>.<span class="ruby-identifier">cached_find</span>(<span class="ruby-string">&quot;Add IPI&#39;s&quot;</span> , <span class="ruby-identifier">blog</span>)
   <span class="ruby-ivar">@im_the_only_ip</span>             = <span class="ruby-constant">BlogPost</span>.<span class="ruby-identifier">cached_find</span>(<span class="ruby-string">&quot;I&#39;m the only IP&quot;</span> , <span class="ruby-identifier">blog</span>)
-  
-    
+
   <span class="ruby-comment">#end</span>
     
 <span class="ruby-keyword">end</span></pre>
@@ -344,7 +346,7 @@
                 
               </p>
               <div id="method-i-update_source" class="dyn-source">
-                <pre><span class="ruby-comment"># File controllers/user/common_works_controller.rb, line 51</span>
+                <pre><span class="ruby-comment"># File controllers/user/common_works_controller.rb, line 53</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">update</span>
   <span class="ruby-comment">#@recording    = Recording.cached_find(params[:common_work][:recording_id])</span>
   <span class="ruby-comment">#params[:common_work].delete :recording_id</span>

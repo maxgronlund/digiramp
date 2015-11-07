@@ -6,11 +6,16 @@
           'Creator on&nbsp;
           br 
           i = common_work.title
-        td = common_work_ipi.get_full_name
-        td  
-          /= debug error_message
-            
         td 
+          /= common_work_ipi.get_full_name
+        td  
+          - if status = error_message[:status]
+            = status[:message]
+            
+        td
+          .pull-right
+            - link  = url_for( controller: "user/confirm_common_work_ipis", action: 'edit', user_id: common_work_ipi.user.slug, id: common_work_ipi.uuid )
+            = link_to 'Confirm', link, class: 'btn btn-info btn-xs'
           
           
     

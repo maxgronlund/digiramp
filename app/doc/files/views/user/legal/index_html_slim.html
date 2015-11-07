@@ -23,7 +23,7 @@
         </h1>
         <ul class="files">
             <li>views/user/legal/index.html.slim</li>
-            <li>Last modified: 2015-10-04 09:37:15 +0200</li>
+            <li>Last modified: 2015-10-31 15:09:29 +0100</li>
         </ul>
     </div>
 
@@ -113,16 +113,37 @@
 
           td
             b Publishing
-            - @user.publishers.each do |publisher|  
-              .sexy_line  
-              = publisher.legal_name
-              - if ipi_code = publisher.ipi_code
-                br
-                = &quot;IPI CODE: #{ipi_code}&quot;
+            .pull-down-6
+            - case @user.status
 
-              - if pro_affiliation = publisher.pro_affiliation
-                br
-                = &quot;PRO: #{pro_affiliation.title}&quot;
+            - when &#39;has_to_set_publishing&#39;
+              .alert.alert-warning
+                &#39;Not configured
+            - when &#39;is_self_published&#39;
+              - if publisher = @user.personal_publisher
+                = publisher.legal_name
+
+            - when &#39;has_an_exclusive_publisher&#39;
+              - if publisher = @user.exclusive_publisher
+                = publisher.legal_name
+              - else
+                .alert.alert-warning
+                  b Not confirmed by:
+                  .
+                  = @user.exclusive_publishers_email
+
+            - when &#39;have_many_publishers&#39;
+
+              - @user.publishers.each do |publisher|  
+                .sexy_line  
+                = publisher.legal_name
+                - if ipi_code = publisher.ipi_code
+                  br
+                  = &quot;IPI CODE: #{ipi_code}&quot;
+
+                - if pro_affiliation = publisher.pro_affiliation
+                  br
+                  = &quot;PRO: #{pro_affiliation.title}&quot;
 
           td
             - blog = Blog.cached_find(&#39;Legal information&#39;)
@@ -161,20 +182,22 @@
               i.fa.fa-copyright
 
             .title
-              h4 Works
+              h4 Common Works
             .body
               &#39;Manage rights for your assets
 
-      .control-panel-badge
-        = link_to  user_user_common_work_ipis_path(@user) do
-          .content
-            .icon.icon-blue
-              i.fa.fa-user
-
-            .title
-              h4 Creations
-            .body
-              &#39;Works where you are registered as a creator / IP
+      /.control-panel-badge
+      /  = link_to  user_user_common_work_ipis_path(@user) do
+      /    .content
+      /      .icon.icon-blue
+      /        i.fa.fa-user
+      /        
+      /      .title
+      /        h4 Creations
+      /      .body
+      /        &#39;Works where you are registered as a creator / IP
+      /
+      /
 
       .control-panel-badge
         = link_to  user_user_legal_documents_path(@user) do
@@ -210,7 +233,7 @@
               &#39;Edit and administrate resordings
 
       .control-panel-badge
-        = link_to  user_user_personal_publishers_path(@user) do
+        = link_to  edit_user_personal_publisher_path(@user) do
           .content
             .icon.icon-blue
               i.fa.fa-truck

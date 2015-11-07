@@ -1,0 +1,19 @@
+- if common_work_ipi_publisher = CommonWorkIpiPublisher.cached_find(notification_message.asset_id) rescue false
+  - if common_work_ipi = common_work_ipi_publisher.common_work_ipi
+    - if common_work = common_work_ipi.common_work
+  
+      tr
+        td
+          'Publishing on
+          br
+          i = common_work.title
+        td 
+          /= debug common_work_ipi_publisher
+        td 
+          - if error_message = notification_message.error_message
+            - if publishing_agreement = error_message[:publishing_agreement]
+              = publishing_agreement[:message]
+        td
+    
+  
+/= notification_message[:error_message]

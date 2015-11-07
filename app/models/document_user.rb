@@ -77,8 +77,8 @@ class DocumentUser < ActiveRecord::Base
     #ap em
     update_columns( ok: em.blank? )
     if self.user
-      self.ok ? remove_notification_message(self.user_id) :
-      update_notification_message(self.user_id).update_columns(
+      self.ok ? remove_notification_message(self, self.user_id) :
+      update_notification_message(self, self.user_id).update_columns(
         error_massage: em
       )
     end

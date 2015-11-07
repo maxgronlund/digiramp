@@ -118,15 +118,14 @@
                 
               </p>
               <div id="method-i-show_source" class="dyn-source">
-                <pre><span class="ruby-comment"># File controllers/user/publishing_designees_controller.rb, line 2</span>
+                <pre><span class="ruby-comment"># File controllers/user/publishing_designees_controller.rb, line 7</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">show</span>
-  
   <span class="ruby-ivar">@common_work</span> = <span class="ruby-constant">CommonWork</span>.<span class="ruby-identifier">cached_find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
-  <span class="ruby-ivar">@user</span>        = <span class="ruby-constant">User</span>.<span class="ruby-identifier">cached_find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:user_id</span>])
+  
   <span class="ruby-keyword">begin</span>
-    <span class="ruby-identifier">find_or_create_ip</span>
-    <span class="ruby-identifier">find_or_create_common_work_ipi</span>                         
-    <span class="ruby-identifier">find_or_create_recording_ipi</span>
+    <span class="ruby-identifier">create_common_work_ipi</span> 
+    <span class="ruby-identifier">create_common_work_user</span>
+    <span class="ruby-identifier">create_common_work_ipi_publisher</span>                        
   <span class="ruby-keyword">rescue</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
     <span class="ruby-constant">ErrorNotification</span>.<span class="ruby-identifier">post_object</span> <span class="ruby-string">&#39;User::PublishingDesigneesController#show&#39;</span>, <span class="ruby-identifier">e</span>
   <span class="ruby-keyword">end</span>

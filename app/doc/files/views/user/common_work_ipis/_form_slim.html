@@ -23,7 +23,7 @@
         </h1>
         <ul class="files">
             <li>views/user/common_work_ipis/_form.slim</li>
-            <li>Last modified: 2015-10-03 15:06:11 +0200</li>
+            <li>Last modified: 2015-10-29 07:45:28 +0100</li>
         </ul>
     </div>
 
@@ -48,12 +48,12 @@
     .pull-down-10
     b Alias / Artist name:&amp;nbsp;
     = @common_work_ipi_user.user_name
-    .pull-down-10
-    - if publisher = @common_work_ipi.publisher
-      b Publisher:&amp;nbsp;
-      = publisher.legal_name
-    - else
-      b ! Publisher is not assigned
+    /.pull-down-10
+    /- if publisher = @common_work_ipi.publisher
+    /  b Publisher:&amp;nbsp;
+    /  = publisher.legal_name
+    /- else
+    /  b ! Publisher is not assigned
     /= f.input :full_name,  :input_html =&gt; {disabled: &#39;disabled&#39;}, label: &#39;Full name (updated by user)&#39;
     /= f.input :alias,  :input_html =&gt; {disabled: &#39;disabled&#39;}, label: &#39;Alias (updated by user)&#39;
     /= @common_work_ipi_user.full_name</code></pre>
@@ -97,6 +97,8 @@
         == render &#39;shared/popover&#39;, identifier: &#39;Share of the income between creators ( often defined in a song writer agreement )&#39;
         .pull-down-6
         = f.input :share, label: false, input_html: { style: &quot;max-width:150px;&quot; }, hint: &quot;All creators&#39;s share should add up to 100%&quot;
+
+        = f.input :can_manage_common_work,    :as =&gt; :boolean,  :input_html =&gt; { class: &#39;icheck-me&#39;, &#39;data-skin&#39;.to_sym =&gt; &quot;square&quot;, &#39;data-color&#39;.to_sym =&gt; &quot;blue&quot;     }   , label: &#39;Can edit common work&#39;
 
       .col-sm-6
         b Roles
@@ -158,7 +160,7 @@ table class=&quot;table table-hover&quot;
             br
           - if common_work_ipi.arrangement
             &#39;Arrangement
-        td = number_to_percentage(common_work_ipi.share, precision: 0)   
+        td = number_to_percentage(common_work_ipi.share, precision: 2)   
 
         /td   
         /  .pull-right

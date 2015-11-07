@@ -26,6 +26,13 @@ class CommonWorkIpi < ActiveRecord::Base
   
   has_many :notification_messages, as: :asset, dependent: :destroy
   
+  before_destroy :sanitize_relations
+  
+  
+  def sanitize_relations
+    common_work_user.destroy if common_work_user
+  end
+  
 
   
 
@@ -82,44 +89,43 @@ class CommonWorkIpi < ActiveRecord::Base
   
 
   # Find attach the user based on the email
-  #
+  # If user is equal to current user the status is set to confirmed
   # If no user is found <<tt>send_notification</tt> is called
   # Else <<tt>send_notification</tt> called
   def attach_to_user current_user
+    #ap 'CommonWorkIpi#attach_to_user'
     begin
       user = User.find_or_create_from_email(self.email)
-      
-      self.update_columns(
+
+      self.update(
         user_id:      user.id,
         email:        user.email,
-        #full_name:    user.get_full_name,
-        publisher_id: user.get_publisher_id,
+        #publisher_id: user.get_publisher_id,
         ipi_id:       user.ipi.id,
         status:       user == current_user ? 2 : 0
       )
-      
+ 
       if user.account_activated
-        send_notification unless self.confirmed?
+        send_notification(current_user.id) unless self.confirmed?
       else
         user.add_token 
-        send_invitation user
+        send_invitation( user, current_user.id)
       end
     rescue
-      
+      ErrorNotification.post "CommonWorkIpi#attach_to_user : #{self.id}"
     end
-
-    
   end
-  
+
   # notify the user about creation / update by email
-  def send_notification
-    CommonWorkIpiMailer.delay.send_notification self.id
-    update_validation
+  def send_notification current_user_id
+    #ap "send_notification"
+    CommonWorkIpiMailer.delay.send_notification( self.id, current_user_id )
   end
   
   # invite a user to digiramp
-  def send_invitation user
-    CommonWorkIpiMailer.delay.send_invitation self.id
+  def send_invitation( user, current_user_id )
+    #ap "send_invitation"
+    CommonWorkIpiMailer.delay.send_invitation( self.id, current_user_id )
   end
 
  
@@ -144,37 +150,8 @@ class CommonWorkIpi < ActiveRecord::Base
     end
   end
   
-  # set the error flag and let the validation check buble up the stack
-  def update_validation
-    if common_work_user
-      common_work_user.can_manage_common_work 
-    else
-      ap 'common_work_user id nil'
-      ap self.id
-      ap '.'
-    end
-    set_ok
-    self.common_work.update_validation
-  end
-  
-  # check if the common_work_ipi is ok
-  def do_validation
-    return true if self.ok
-    set_ok
-    self.ok
-  end
-  
-  # build a message has for the error message
-  def message_hash msg
-    {
-      message:      msg,
-      type: self.class.name,
-      id:   self.id
-    }
-  end
   
 
-  
   def can_manage_common_work()        
     common_work_user ? common_work_user.can_manage_common_work : false
   end
@@ -182,31 +159,59 @@ class CommonWorkIpi < ActiveRecord::Base
   def can_manage_common_work=( b )
     common_work_user.update(can_manage_common_work: b) if common_work_user
   end
-  
-  
-  
+
   def common_work_user
     CommonWorkUser.find_by(user_id: self.user_id, common_work_id: self.common_work_id)
   end
   
-  # build an error message 
+  # validate or build an error message 
   def error_message
     em = {}
     unless self.email
-      em[:email] = message_hash('Email missing')
+      em[:email] = message_hash(self, 'Email missing')
     end
     
     if _ipi = self.ipi
       _error_message = _ipi.error_message
       em[:ipi] = _error_message unless _error_message.empty?
     else
-      em[:ipi] = message_hash('Creator not signed up')
+      em[:ipi] = message_hash( self, 'Creator not signed up')
     end
     
     if self.pending?
-      em[:status] = message_hash('Confirmation is pending')
+      em[:status] = message_hash( self, 'Confirmation is pending')
     end
+    
+    if self.user
+      if user.has_to_set_publishing?
+        em[:publishing] = message_hash("#{user.get_full_name} publishing status not set")
+      else
+        self.common_work_ipi_publishers(true).each do |common_work_ipi_publisher|
+          common_work_ipi_publisher.update_validation
+        end
+      end
+    else
+      em[:user] = message_hash( self, 'User is missing')
+    end
+    
     em
+  end
+  
+  # set the error flag and let the validation check buble up the stack
+  def update_validation
+    #ap 'CommonWorkIpi#update_validation'
+    set_ok
+    self.common_work.update_validation if self.common_work
+  end
+  
+  # check if the common_work_ipi is ok
+  def do_validation
+    #ap 'CommonWorkIpi#do_validation'
+    #ap "id: #{self.id}"
+    #ap "ok: #{self.ok}"
+    return true if self.ok
+    set_ok
+    self.ok
   end
   
   def self.cached_find(id)
@@ -215,22 +220,28 @@ class CommonWorkIpi < ActiveRecord::Base
   
   private 
   
-   # set the ok flag
+    # set the ok flag
     def set_ok
+     # ap 'CommonWorkIpi#set_ok'
       em = error_message
-
+      
       if self.user
-        update_columns( ok: em.empty? ) 
-        self.ok ? remove_notification_message(self.user_id) : 
-          update_notification_message(self.user_id).update_columns(
-            error_message: em
-          )
+        self.update( ok: em.empty? ) 
+        #ap '-----------------------------------------------'
+        #ap "id: #{self.id}"
+        #ap "ok: #{self.ok}"
+        #ap em
+        #ap '-----------------------------------------------'
+        self.ok ? 
+          remove_notification_message(self, self.user_id) : 
+          update_notification_message(self, self.user_id).update(error_message: em )
       end
     end
 
 
     def flush_cache
-      update_validation unless self.destroyed?
+      ap 'CommonWorkIpi#flush_cache'
+      #update_validation unless self.destroyed?
       Rails.cache.delete([self.class.name, id])
     end
     

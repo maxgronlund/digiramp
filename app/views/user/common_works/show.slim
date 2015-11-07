@@ -155,12 +155,20 @@
                       => link_to user_user_common_work_ipi_common_work_ipi_publishing_index_path( common_work_ipi.user, common_work_ipi) do
                             .btn.btn-default.btn-xs
                               i.fa.fa-pencil&nbsp;Configure
-                    - else
+                    - when "is_self_published"
+                      b Self published
+                      .pull-down-4
                       - if document = user.personal_publishing_agreement_document
-                        => link_to user_user_legal_document_path( @user, document.uuid, :format => 'pdf')
-                          .btn.btn-default.btn-xs
-                            i.fa.fa-file-pdf-o&nbsp;
-                            'Legal documentation
+                        - if document.signed?
+                          => link_to user_user_legal_document_path( @user, document.uuid, :format => 'pdf')
+                            .btn.btn-default.btn-xs
+                              i.fa.fa-file-pdf-o&nbsp;
+                              'Legal documentation
+                        - else
+                          .red-text 
+                           'Document not signed
+                    - else
+                      b Publishing status not set
                   - else
                     .btn.btn-default.btn-xs disabled="disabled"
                       i.fa.fa-pencil

@@ -24,7 +24,7 @@ class User::UsersController < ApplicationController
       @user.personal_publisher.update(ipi_code: @user.ipi_code)
     end
     
-    update_ips
+    #update_ips
     redirect_to user_user_legal_index_path( @user)
   end
   
@@ -34,8 +34,8 @@ class User::UsersController < ApplicationController
   
   private
   
-  def update_ips
-    @user.ipis.update_all(full_name: @user.full_name)
-  end
+  #def update_ips
+  #  @user.ipis.update_all(full_name: @user.full_name)
+  #end
   
 end

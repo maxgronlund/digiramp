@@ -24,15 +24,11 @@ class User::PersonalPublishersController < ApplicationController
     case @user.personal_publishing_status
       
     when 'I own and control my own publishing'
-      
       remove_all_uper_publishers
       attach_personal_publisher_to_common_work_ipis
-      
       personal_publisher = @user.personal_publisher
       @user.attach_common_work_ipis_to_personal_publisher
-      
-      
-      
+
       unless @user.personal_publisher.confirmed_publishing?(@user.id)
         if personal_publisher.address_line_1.blank?
           go_to =   edit_user_user_publisher_legal_info_path(@user, personal_publisher)
@@ -46,7 +42,10 @@ class User::PersonalPublishersController < ApplicationController
       go_to = edit_user_personal_publisher_path(@user)
     when 'I have an administrator'
 
-
+    end
+    
+    @user.common_work_ipis.each do |common_work_ipi|
+      common_work_ipi.update_validation
     end
     redirect_to  go_to || user_user_legal_index_path(@user)
   end
@@ -63,7 +62,11 @@ class User::PersonalPublishersController < ApplicationController
   end
   
   def remove_all_uper_publishers
-    @user.user_publishers.destroy_all
+    begin
+      @user.user_publishers.destroy_all
+    rescue => e
+      ErrorNotification.post( "PersonalPublisherController#remove_all_uper_publishers#{e}" )
+    end
   end
   
   def attach_personal_publisher_to_common_work_ipis

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151105145418) do
+ActiveRecord::Schema.define(version: 20151107065812) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1043,6 +1043,7 @@ ActiveRecord::Schema.define(version: 20151105145418) do
     t.datetime "updated_at",              null: false
     t.integer  "user_id"
     t.string   "email"
+    t.boolean  "ok"
   end
 
   add_index "common_work_ipi_publishers", ["common_work_ipi_id"], name: "index_common_work_ipi_publishers_on_common_work_ipi_id", using: :btree
@@ -3221,17 +3222,18 @@ ActiveRecord::Schema.define(version: 20151105145418) do
     t.uuid     "stake_id"
     t.decimal  "split"
     t.date     "due_date"
-    t.integer  "amount",             default: 0
-    t.datetime "created_at",                             null: false
-    t.datetime "updated_at",                             null: false
+    t.integer  "amount",              default: 0
+    t.datetime "created_at",                              null: false
+    t.datetime "updated_at",                              null: false
     t.string   "destination"
     t.string   "source_transaction"
-    t.string   "currency",           default: "usd"
-    t.string   "state",              default: "pending"
+    t.string   "currency",            default: "usd"
+    t.string   "state",               default: "pending"
     t.string   "stripe_errors"
     t.string   "description"
-    t.integer  "application_fee",    default: 0
-    t.integer  "payment_fee",        default: 0
+    t.integer  "application_fee",     default: 0
+    t.integer  "payment_fee",         default: 0
+    t.string   "destination_payment"
   end
 
   add_index "shop_stripe_transfers", ["account_id"], name: "index_shop_stripe_transfers_on_account_id", using: :btree

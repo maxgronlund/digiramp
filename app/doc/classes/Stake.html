@@ -327,8 +327,12 @@
               <div id="method-i-charge_succeeded_source" class="dyn-source">
                 <pre><span class="ruby-comment"># File models/stake.rb, line 137</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">charge_succeeded</span> <span class="ruby-identifier">params</span>
-  <span class="ruby-identifier">ap</span> <span class="ruby-string">&#39;Stake#charge_succeeded&#39;</span>
-  <span class="ruby-identifier">ap</span> <span class="ruby-identifier">params</span>
+  
+  <span class="ruby-keyword">if</span> <span class="ruby-constant">Rails</span>.<span class="ruby-identifier">env</span>.<span class="ruby-identifier">development?</span>
+    <span class="ruby-identifier">ap</span> <span class="ruby-string">&#39;Stake#charge_succeeded&#39;</span>
+    <span class="ruby-identifier">ap</span> <span class="ruby-identifier">params</span>
+  <span class="ruby-keyword">end</span>
+  
   <span class="ruby-keyword">begin</span>
     <span class="ruby-identifier">transfer_to_stakeholders_account</span> <span class="ruby-identifier">params</span>
     <span class="ruby-identifier">transfer_to_streams</span> <span class="ruby-identifier">params</span>
@@ -664,10 +668,12 @@ ap self
                 
               </p>
               <div id="method-i-update_income_source" class="dyn-source">
-                <pre><span class="ruby-comment"># File models/stake.rb, line 148</span>
+                <pre><span class="ruby-comment"># File models/stake.rb, line 152</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">update_income</span> <span class="ruby-identifier">params</span>
-  <span class="ruby-identifier">ap</span> <span class="ruby-string">&#39;Stake#update_income&#39;</span>
-  <span class="ruby-identifier">ap</span> <span class="ruby-identifier">params</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-constant">Rails</span>.<span class="ruby-identifier">env</span>.<span class="ruby-identifier">development?</span>
+    <span class="ruby-identifier">ap</span> <span class="ruby-string">&#39;Stake#update_income&#39;</span>
+    <span class="ruby-identifier">ap</span> <span class="ruby-identifier">params</span>
+  <span class="ruby-keyword">end</span>
   <span class="ruby-constant">Income</span>.<span class="ruby-identifier">create</span>(
     <span class="ruby-identifier">stake_id</span><span class="ruby-operator">:</span>             <span class="ruby-keyword">self</span>.<span class="ruby-identifier">id</span>,
     <span class="ruby-identifier">user_id</span><span class="ruby-operator">:</span>              <span class="ruby-keyword">self</span>.<span class="ruby-identifier">user_id</span>,

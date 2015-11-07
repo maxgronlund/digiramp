@@ -847,21 +847,21 @@ class User < ActiveRecord::Base
   
   # return the publisher based on publihing type
   def get_publisher
-    case self.personal_publishing_status
-    when "I own and control my own publishing"
-      personal_publisher
-    when "I have an exclusive publisher"
-      exclusive_publisher
-    else
-      nil
-    end
+    #case self.personal_publishing_status
+    #when "I own and control my own publishing"
+    #  personal_publisher
+    #when "I have an exclusive publisher"
+    #  exclusive_publisher
+    #else
+    #  nil
+    #end
   end
   
   # Return the publisher id or nil
   def get_publisher_id
-    if pub = get_publisher
-      return pub.id
-    end
+    #if pub = get_publisher
+    #  return pub.id
+    #end
     nil
   end
   

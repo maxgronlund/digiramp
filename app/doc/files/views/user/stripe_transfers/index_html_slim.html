@@ -23,7 +23,7 @@
         </h1>
         <ul class="files">
             <li>views/user/stripe_transfers/index.html.slim</li>
-            <li>Last modified: 2015-10-06 13:49:05 +0200</li>
+            <li>Last modified: 2015-11-05 17:35:34 +0100</li>
         </ul>
     </div>
 
@@ -76,6 +76,7 @@
           - @stripe_transfers.each do |stripe_transfer|
             tr
               td = stripe_transfer.description
+              /td = link_to &#39;Show on stripe&#39;, &quot;https://dashboard.stripe.com/test/payments/#{stripe_transfer.source_transaction}&quot;, class: &#39;btn btn-default btn-xs&#39;
               td = stripe_transfer.source_transaction
               td = stripe_transfer.state
               td = number_to_currency(stripe_transfer.application_fee * 0.01, locale: :en, precision: 2)    

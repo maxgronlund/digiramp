@@ -23,7 +23,7 @@
         </h1>
         <ul class="files">
             <li>views/user/ipi_publishers/edit.slim</li>
-            <li>Last modified: 2015-10-03 16:28:18 +0200</li>
+            <li>Last modified: 2015-11-01 15:01:06 +0100</li>
         </ul>
     </div>
 
@@ -47,59 +47,56 @@
                                                             publishers:  user_user_publishers_path(@user),
                                                             publisher:  user_user_publisher_path(@user,@publisher)}}
     == render &#39;shared/flash_message&#39;
-    .row
-      .col-sm-9
-        .help
-          .help-text
-            h2 
-              b Edit revenue stream for&amp;nbsp;
+    - unless user = @ipi_publisher.user
+      .alert.alert-error
+        &#39;User deleted
+    - else
+      .row
+        .col-sm-9
+          .help
+            .help-text
+              h2 
+                b Assign publishing agreement to&amp;nbsp;
+                = user.get_full_name
 
-              &#39;&amp;nbsp;and&amp;nbsp;
+            .help-button
+              == render &#39;admin/helps/help&#39;, identifier: &#39;new user publisher publisher_ipi&#39;
+        .col-sm-3
+          .pull-right.pull-down-10
+            = link_to  user_user_publisher_ipi_publishers_path(@user, @publisher) do
+                .btn.btn-default
+                  i.fa.fa-chevron-left
+                  &#39;&amp;nbsp;Back
 
-          .help-button
-            == render &#39;admin/helps/help&#39;, identifier: &#39;new user publisher publisher_ipi&#39;
-      .col-sm-3
-        .pull-right.pull-down-10
-          = link_to  user_user_publisher_ipi_publishers_path(@user, @publisher) do
-              .btn.btn-default
-                i.fa.fa-chevron-left
-                &#39;&amp;nbsp;Back
+      h2 = @publisher.legal_name
+      .pull-down-10
 
-    h2 = @publisher.legal_name
-    .pull-down-10
+      .row
+        .col-sm-6
+          .digi-box
+            = simple_form_for [:user, @user, @publisher, @ipi_publisher], turboboost: true do |f|
 
-    .row
-      .col-sm-6
-        .digi-box
-          = simple_form_for [:user, @user, @publisher, @ipi_publisher], turboboost: true do |f|
-            - if user = @ipi_publisher.user
               .alert.alert-info
                 b This creator is linked to the DigiRAMP user
                 .pull-down-4
                 = &quot;Full name: #{user.get_full_name}&quot;
                 .pull-down-4
                 = &quot;Email    : #{user.email}&quot;
-            - else
-              b 
-                &#39;*Email
-              == render &#39;shared/popover&#39;, identifier: &#39;A revenue stream takes the publishers split and sent the remainding to the creator &#39;
-              .pull-down-6
-              = f.input :email, label: false
 
-            b 
-              &#39;*Revenue stream
-            == render &#39;shared/popover&#39;, identifier: &#39;Select the revenue stream for this creator&#39;
-            .chosen-label.pull-down-6
-              = f.input :publishing_agreement_id, 
-                        collection: @publishing_agreements,
-                        include_blank: false,
-                        label: false,
-                        input_html: { class: &#39;chosen-select&#39;, &#39;data-placeholder&#39;.to_sym =&gt; &quot;Distribution agreement&quot; }
-
-            .row
-              .col-sm-12
-                .pull-right
-                  = f.submit &#39;Save&#39;, class: &#39;btn btn-info&#39;</code></pre>
+              /b 
+              /  &#39;*Revenue stream
+              /== render &#39;shared/popover&#39;, identifier: &#39;Select the revenue stream for this creator&#39;
+              /.chosen-label.pull-down-6
+              /  = f.input :publishing_agreement_id, 
+              /            collection: @publishing_agreements,
+              /            include_blank: false,
+              /            label: false,
+              /            input_html: { class: &#39;chosen-select&#39;, &#39;data-placeholder&#39;.to_sym =&gt; &quot;Distribution agreement&quot; }
+              /            
+              .row
+                .col-sm-12
+                  .pull-right
+                    = f.submit &#39;Save&#39;, class: &#39;btn btn-info&#39;</code></pre>
 
 <p>/ this view is rendered when the user and current_user and ipi is valid /=
 debug @user_credits /#wrapper /  .full-width-top /    == render

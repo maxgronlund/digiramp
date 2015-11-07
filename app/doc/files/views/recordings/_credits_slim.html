@@ -23,7 +23,7 @@
         </h1>
         <ul class="files">
             <li>views/recordings/_credits.slim</li>
-            <li>Last modified: 2015-07-29 16:05:26 +0200</li>
+            <li>Last modified: 2015-10-31 00:51:02 +0100</li>
         </ul>
     </div>
 
@@ -31,49 +31,27 @@
         <div id="content">
   
     <div class="description">
-      <ul><li>
-<p>if @common_work</p>
-<ul><li>
-<p>ipis      =  @common_work.ipis.where(show_credit_on_recordings: true)</p>
-</li><li>
-<p>rec_ipis  = RecordingIpi.where(show_credit_on_recording: true,
-recording_id: @recording.id)</p>
-</li><li>
-<p>unless rec_ipis.empty? || ipis.empty? .row</p>
+      
+<p>/- if @common_work /  - ipis      = 
+@common_work.ipis.where(show_credit_on_recordings: true) /  - rec_ipis  =
+RecordingIpi.where(show_credit_on_recording: true, recording_id:
+@recording.id) /  - unless rec_ipis.empty? || ipis.empty? /    .row /     
+.col-sm-12 /        .pull-right /          a data-toggle=“collapse”
+data-parent=“#credits” href=“#credits” /            .btn.btn-default /     
+&#39;Show credits /    .panel-collapse.collapse.pull-down-10 id=“credits”</p>
 
-<pre><code>.col-sm-12
-  .pull-right
-    a data-toggle=&quot;collapse&quot; data-parent=&quot;#credits&quot; href=&quot;#credits&quot;
-      .btn.btn-default
-        &#39;Show credits</code></pre>
+<p>/</p>
 
-<p>.panel-collapse.collapse.pull-down-10 id=“credits”</p>
+<p>/      .digi-box /        - ipis.each do |ipi| /          b = ipi.role /   
+br /          i /            - if user = ipi.user /              = link_to
+user.user_name, user_ipis_path(user) /            - else /              =
+ipi.full_name /          .sexy_line /</p>
 
-<pre><code>.digi-box
-  - ipis.each do |ipi|
-    b = ipi.role
-    br
-    i
-      - if user = ipi.user
-        = link_to user.user_name, user_ipis_path(user)
-      - else
-        = ipi.full_name
-    .sexy_line
-
-  - rec_ipis.each do |rec_ipi|
-    b = rec_ipi.role
-    br
-    i
-      - if user = rec_ipi.user
-        = link_to user.user_name, user_ipis_path(user)
-      - else
-        = rec_ipi.name
-    p = rec_ipi.credit_for
-    .sexy_line</code></pre>
-
-<p>.pull-down-10</p>
-</li></ul>
-</li></ul>
+<p>/        - rec_ipis.each do |rec_ipi| /          b = rec_ipi.role /        
+br /          i /            - if user = rec_ipi.user /              =
+link_to user.user_name, user_ipis_path(user) /            - else /         
+= rec_ipi.name /          p = rec_ipi.credit_for /          .sexy_line /   
+.pull-down-10</p>
 
     </div>
   

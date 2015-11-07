@@ -455,7 +455,7 @@ href="../files/views/shared/_address_slim.html">views/shared/_address.slim</a></
                 
               </p>
               <div id="method-i-copy_address_to_source" class="dyn-source">
-                <pre><span class="ruby-comment"># File classes/address_mix.rb, line 70</span>
+                <pre><span class="ruby-comment"># File classes/address_mix.rb, line 74</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">copy_address_to</span> <span class="ruby-identifier">destination</span>
 
   <span class="ruby-keyword">if</span> <span class="ruby-identifier">destination</span>.<span class="ruby-identifier">first_name</span>.<span class="ruby-identifier">nil?</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-operator">!</span><span class="ruby-keyword">self</span>.<span class="ruby-identifier">first_name</span>.<span class="ruby-identifier">nil?</span> 
@@ -601,7 +601,11 @@ href="../files/views/shared/_address_slim.html">views/shared/_address.slim</a></
               <div id="method-i-full_name_source" class="dyn-source">
                 <pre><span class="ruby-comment"># File classes/address_mix.rb, line 66</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">full_name</span>
-  [<span class="ruby-identifier">address</span>.<span class="ruby-identifier">first_name</span>, <span class="ruby-identifier">address</span>.<span class="ruby-identifier">middle_name</span>, <span class="ruby-identifier">address</span>.<span class="ruby-identifier">last_name</span>].<span class="ruby-identifier">join</span>(<span class="ruby-string">&#39; &#39;</span>).<span class="ruby-identifier">gsub</span>(<span class="ruby-string">&#39;  &#39;</span>, <span class="ruby-string">&#39; &#39;</span>)
+  <span class="ruby-identifier">fn</span> = []
+  <span class="ruby-identifier">fn</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">address</span>.<span class="ruby-identifier">first_name</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">address</span>.<span class="ruby-identifier">first_name</span>
+  <span class="ruby-identifier">fn</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">address</span>.<span class="ruby-identifier">middle_name</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">address</span>.<span class="ruby-identifier">middle_name</span>
+  <span class="ruby-identifier">fn</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">address</span>.<span class="ruby-identifier">last_name</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">address</span>.<span class="ruby-identifier">last_name</span>
+  <span class="ruby-identifier">fn</span>.<span class="ruby-identifier">empty?</span> <span class="ruby-operator">?</span> <span class="ruby-keyword">nil</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">fn</span>.<span class="ruby-identifier">join</span>(<span class="ruby-string">&#39; &#39;</span>)
 <span class="ruby-keyword">end</span></pre>
               </div>
             </div>

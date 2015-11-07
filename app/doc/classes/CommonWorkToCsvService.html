@@ -38,6 +38,12 @@
     <div id="bodyContent">
         <div id="content">
   
+    <div class="description">
+      
+<p>export all information related to a common work as a csv file</p>
+
+    </div>
+  
 
 
   
@@ -118,7 +124,7 @@
                 
               </p>
               <div id="method-c-process_source" class="dyn-source">
-                <pre><span class="ruby-comment"># File services/common_work_to_csv_service.rb, line 4</span>
+                <pre><span class="ruby-comment"># File services/common_work_to_csv_service.rb, line 5</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">self</span>.<span class="ruby-identifier">process</span> <span class="ruby-identifier">selector</span>
   <span class="ruby-comment"># please dry this up</span>
   <span class="ruby-constant">CSV</span>.<span class="ruby-identifier">generate</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">csv</span><span class="ruby-operator">|</span>
@@ -151,20 +157,10 @@
         <span class="ruby-identifier">csv</span> <span class="ruby-operator">&lt;&lt;</span> [<span class="ruby-string">&#39;IPI\S&#39;</span> ]
         <span class="ruby-identifier">csv</span> <span class="ruby-operator">&lt;&lt;</span> [  <span class="ruby-string">&#39;&#39;</span>,
                   <span class="ruby-string">&#39;IPI Code&#39;</span>,
-                  <span class="ruby-string">&#39;Full Name&#39;</span>,
-                  <span class="ruby-string">&#39;Role&#39;</span>, 
-                  <span class="ruby-string">&#39;Address&#39;</span>, 
-                  <span class="ruby-string">&#39;Email&#39;</span>, 
-                  <span class="ruby-string">&#39;Phone Number&#39;</span>, 
-                  <span class="ruby-string">&#39;Controlled&#39;</span>, 
-                  <span class="ruby-string">&#39;Territory&#39;</span>, 
-                  <span class="ruby-string">&#39;Share&#39;</span>, 
-                  <span class="ruby-string">&#39;Mech Owned %&#39;</span>, 
-                  <span class="ruby-string">&#39;Mech Collected %&#39;</span>, 
-                  <span class="ruby-string">&#39;Performance Owned %&#39;</span>, 
-                  <span class="ruby-string">&#39;Performance Collected %&#39;</span>, 
-                  <span class="ruby-string">&#39;Notes&#39;</span>,
                   <span class="ruby-string">&#39;CAE Code&#39;</span>,
+                  <span class="ruby-string">&#39;Full Name&#39;</span>,
+                  <span class="ruby-string">&#39;Phone Number&#39;</span>, 
+                  
                   <span class="ruby-string">&#39;&#39;</span>,<span class="ruby-string">&#39;&#39;</span>,<span class="ruby-string">&#39;&#39;</span>,<span class="ruby-string">&#39;&#39;</span>,<span class="ruby-string">&#39;&#39;</span>,<span class="ruby-string">&#39;&#39;</span>,<span class="ruby-string">&#39;&#39;</span>,<span class="ruby-string">&#39;&#39;</span>,<span class="ruby-string">&#39;&#39;</span>,<span class="ruby-string">&#39;&#39;</span>,<span class="ruby-string">&#39;&#39;</span>,<span class="ruby-string">&#39;&#39;</span>,<span class="ruby-string">&#39;&#39;</span>,<span class="ruby-string">&#39;&#39;</span>,<span class="ruby-string">&#39;&#39;</span>,<span class="ruby-string">&#39;&#39;</span>,<span class="ruby-string">&#39;&#39;</span>,<span class="ruby-string">&#39;&#39;</span>,<span class="ruby-string">&#39;&#39;</span>, 
                   <span class="ruby-string">&#39;Common Work UUID&#39;</span>,
                 ]
@@ -172,20 +168,9 @@
           <span class="ruby-identifier">csv</span> <span class="ruby-operator">&lt;&lt;</span>  [
                     <span class="ruby-string">&#39;&#39;</span>,
                     <span class="ruby-identifier">ipi</span>.<span class="ruby-identifier">ipi_code</span>.<span class="ruby-identifier">to_s</span>,
+                    <span class="ruby-identifier">ipi</span>.<span class="ruby-identifier">cea_code</span>.<span class="ruby-identifier">to_s</span>,
                     <span class="ruby-identifier">ipi</span>.<span class="ruby-identifier">full_name</span>.<span class="ruby-identifier">to_s</span>,
-                    <span class="ruby-identifier">ipi</span>.<span class="ruby-identifier">role</span>.<span class="ruby-identifier">to_s</span>,
-                    <span class="ruby-identifier">ipi</span>.<span class="ruby-identifier">address</span>.<span class="ruby-identifier">to_s</span>,
                     <span class="ruby-identifier">ipi</span>.<span class="ruby-identifier">email</span>.<span class="ruby-identifier">to_s</span>,
-                    <span class="ruby-identifier">ipi</span>.<span class="ruby-identifier">phone_number</span>.<span class="ruby-identifier">to_s</span>,
-                    <span class="ruby-identifier">ipi</span>.<span class="ruby-identifier">controlled</span>.<span class="ruby-identifier">to_s</span>,
-                    <span class="ruby-identifier">ipi</span>.<span class="ruby-identifier">territory</span>.<span class="ruby-identifier">to_s</span>,
-                    <span class="ruby-identifier">ipi</span>.<span class="ruby-identifier">share</span>.<span class="ruby-identifier">to_s</span>,
-                    <span class="ruby-identifier">ipi</span>.<span class="ruby-identifier">mech_owned</span>.<span class="ruby-identifier">to_s</span>,
-                    <span class="ruby-identifier">ipi</span>.<span class="ruby-identifier">mech_collected</span>.<span class="ruby-identifier">to_s</span>,
-                    <span class="ruby-identifier">ipi</span>.<span class="ruby-identifier">perf_owned</span>.<span class="ruby-identifier">to_s</span>,
-                    <span class="ruby-identifier">ipi</span>.<span class="ruby-identifier">perf_collected</span>.<span class="ruby-identifier">to_s</span>,
-                    <span class="ruby-identifier">ipi</span>.<span class="ruby-identifier">notes</span>.<span class="ruby-identifier">to_s</span>,
-                    <span class="ruby-identifier">ipi</span>.<span class="ruby-identifier">cae_code</span>.<span class="ruby-identifier">to_s</span>,
                     <span class="ruby-string">&#39;&#39;</span>,<span class="ruby-string">&#39;&#39;</span>,<span class="ruby-string">&#39;&#39;</span>,<span class="ruby-string">&#39;&#39;</span>,<span class="ruby-string">&#39;&#39;</span>,<span class="ruby-string">&#39;&#39;</span>,<span class="ruby-string">&#39;&#39;</span>,<span class="ruby-string">&#39;&#39;</span>,<span class="ruby-string">&#39;&#39;</span>,<span class="ruby-string">&#39;&#39;</span>,<span class="ruby-string">&#39;&#39;</span>,<span class="ruby-string">&#39;&#39;</span>,<span class="ruby-string">&#39;&#39;</span>,<span class="ruby-string">&#39;&#39;</span>,<span class="ruby-string">&#39;&#39;</span>,<span class="ruby-string">&#39;&#39;</span>,<span class="ruby-string">&#39;&#39;</span>,<span class="ruby-string">&#39;&#39;</span>, <span class="ruby-string">&#39;&#39;</span>, 
                     <span class="ruby-identifier">common_work</span>.<span class="ruby-identifier">uuid</span>
                   ]

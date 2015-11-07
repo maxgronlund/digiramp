@@ -23,7 +23,7 @@
         </h1>
         <ul class="files">
             <li>views/users/show.slim</li>
-            <li>Last modified: 2015-09-27 16:04:20 +0200</li>
+            <li>Last modified: 2015-10-30 23:36:39 +0100</li>
         </ul>
     </div>
 
@@ -47,6 +47,15 @@
       .container-fluid
         .row
           .col-sm-8
+            - if @user.permits? current_user
+              - if @user.has_to_set_publishing? &amp;&amp; @user.common_work_ipi_publishers
+                .alert.alert-warning
+                  &#39;You have been mentioned as a publisher but your publishing status is not set
+                  .row
+                    .col-sm-12
+                      .pull-right
+                        = link_to &#39;Set&#39;, edit_user_personal_publisher_path(@user), class: &#39;btn btn-info&#39;
+
             - if current_user &amp;&amp; (current_user.id == @user.id) &amp;&amp; @user.user_configuration.show?
               .pull-down-10
                 == render &#39;nudging&#39; , user: @user

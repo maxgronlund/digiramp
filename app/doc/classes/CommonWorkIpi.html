@@ -38,6 +38,22 @@
     <div id="bodyContent">
         <div id="content">
   
+    <div class="description">
+      
+<p>This class connect an <a href="Ipi.html">Ipi</a> with a CommenWork.  It
+also links to all entity of interest</p>
+<ul><li>
+<p>common work</p>
+</li><li>
+<p>user</p>
+</li><li>
+<p>publishing_agreement</p>
+</li><li>
+<p>publisher</p>
+</li></ul>
+
+    </div>
+  
 
 
   
@@ -61,17 +77,19 @@
             
               
               <li>
-                <a href="#method-i-attach_to_ip">attach_to_ip</a>,
+                <a href="#method-i-attach_to_user">attach_to_user</a>
               </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>B</dt>
+        <dd>
+          <ul>
             
               
               <li>
-                <a href="#method-i-attach_to_publishers">attach_to_publishers</a>,
-              </li>
-            
-              
-              <li>
-                <a href="#method-i-attach_to_publishing_agreement">attach_to_publishing_agreement</a>
+                <a href="#method-i-belongs_to_current_user-3F">belongs_to_current_user?</a>
               </li>
             
           </ul>
@@ -88,7 +106,46 @@
             
               
               <li>
+                <a href="#method-i-can_manage_common_work">can_manage_common_work</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-i-can_manage_common_work-3D">can_manage_common_work=</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-i-common_work_user">common_work_user</a>,
+              </li>
+            
+              
+              <li>
                 <a href="#method-i-configure_payment">configure_payment</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>D</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-do_validation">do_validation</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>E</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-error_message">error_message</a>
               </li>
             
           </ul>
@@ -105,19 +162,29 @@
             
               
               <li>
-                <a href="#method-i-get_full_name">get_full_name</a>
+                <a href="#method-i-get_full_name">get_full_name</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-i-get_publishers">get_publishers</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-i-get_user">get_user</a>
               </li>
             
           </ul>
         </dd>
       
-        <dt>N</dt>
+        <dt>M</dt>
         <dd>
           <ul>
             
               
               <li>
-                <a href="#method-i-notify_new_user">notify_new_user</a>
+                <a href="#method-i-message_hash">message_hash</a>
               </li>
             
           </ul>
@@ -140,9 +207,52 @@
           </ul>
         </dd>
       
+        <dt>S</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-send_invitation">send_invitation</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-i-send_notification">send_notification</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>U</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-update_validation">update_validation</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
     </dl>
   
 
+  
+    <!-- Includes -->
+    <div class="sectiontitle">Included Modules</div>
+    <ul>
+      
+        <li>
+          
+            <a href="NotificationModule.html">
+              NotificationModule
+            </a>
+          
+        </li>
+      
+    </ul>
   
 
 
@@ -191,7 +301,7 @@
                 
               </p>
               <div id="method-c-cached_find_source" class="dyn-source">
-                <pre><span class="ruby-comment"># File models/common_work_ipi.rb, line 61</span>
+                <pre><span class="ruby-comment"># File models/common_work_ipi.rb, line 212</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">self</span>.<span class="ruby-identifier">cached_find</span>(<span class="ruby-identifier">id</span>)
   <span class="ruby-constant">Rails</span>.<span class="ruby-identifier">cache</span>.<span class="ruby-identifier">fetch</span>([<span class="ruby-identifier">name</span>, <span class="ruby-identifier">id</span>]) { <span class="ruby-identifier">find</span>(<span class="ruby-identifier">id</span>) }
 <span class="ruby-keyword">end</span></pre>
@@ -203,16 +313,19 @@
       <div class="sectiontitle">Instance Public methods</div>
       
         <div class="method">
-          <div class="title method-title" id="method-i-attach_to_ip">
+          <div class="title method-title" id="method-i-attach_to_user">
             
-              <b>attach_to_ip</b>()
+              <b>attach_to_user</b>(current_user)
             
-            <a href="../classes/CommonWorkIpi.html#method-i-attach_to_ip" name="method-i-attach_to_ip" class="permalink">Link</a>
+            <a href="../classes/CommonWorkIpi.html#method-i-attach_to_user" name="method-i-attach_to_user" class="permalink">Link</a>
           </div>
           
           
             <div class="description">
-              <p>Find the user based on the email if there is any</p>
+              <p>Find attach the user based on the email</p>
+
+<p>If no user is found &lt;<code>send_notification</code> is called Else
+&lt;<code>send_notification</code> called</p>
             </div>
           
           
@@ -226,115 +339,183 @@
               
               <p class="source-link">
                 Source: 
-                <a href="javascript:toggleSource('method-i-attach_to_ip_source')" id="l_method-i-attach_to_ip_source">show</a>
+                <a href="javascript:toggleSource('method-i-attach_to_user_source')" id="l_method-i-attach_to_user_source">show</a>
                 
               </p>
-              <div id="method-i-attach_to_ip_source" class="dyn-source">
-                <pre><span class="ruby-comment"># File models/common_work_ipi.rb, line 66</span>
-<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">attach_to_ip</span>
-  <span class="ruby-keyword">if</span> <span class="ruby-identifier">user</span> = <span class="ruby-constant">User</span>.<span class="ruby-identifier">get_by_email</span>(<span class="ruby-keyword">self</span>.<span class="ruby-identifier">email</span>)
-    <span class="ruby-keyword">self</span>.<span class="ruby-identifier">ipi_id</span> = <span class="ruby-identifier">user</span>.<span class="ruby-identifier">ipi</span>.<span class="ruby-identifier">id</span>
-    <span class="ruby-keyword">self</span>.<span class="ruby-identifier">save</span>(<span class="ruby-identifier">validate</span><span class="ruby-operator">:</span> <span class="ruby-keyword">false</span>)
-    <span class="ruby-keyword">self</span>.<span class="ruby-identifier">attach_to_publishers</span> <span class="ruby-identifier">user</span>
-  <span class="ruby-keyword">else</span>
-    <span class="ruby-identifier">notify_new_user</span>
-  <span class="ruby-keyword">end</span>
-<span class="ruby-keyword">end</span></pre>
-              </div>
-            </div>
-            
-          </div>
-        
-        <div class="method">
-          <div class="title method-title" id="method-i-attach_to_publishers">
-            
-              <b>attach_to_publishers</b>(user)
-            
-            <a href="../classes/CommonWorkIpi.html#method-i-attach_to_publishers" name="method-i-attach_to_publishers" class="permalink">Link</a>
-          </div>
-          
-          
-            <div class="description">
-              <p>Runs all the validations within the specified context. Returns true if no
-errors are found, false otherwise.</p>
-
-<p>If the argument is false (default is <code>nil</code>), the context is set
-to <code>:create</code> if <code>new_record?</code> is true, and to
-<code>:update</code> if it is not.</p>
-
-<p>Validations with no <code>:on</code> option will run no matter the context.
-Validations with # some <code>:on</code> option will only run in the
-specified context.</p>
-            </div>
-          
-          
-          
-
-          
-          
-          
-            
-            <div class="sourcecode">
-              
-              <p class="source-link">
-                Source: 
-                <a href="javascript:toggleSource('method-i-attach_to_publishers_source')" id="l_method-i-attach_to_publishers_source">show</a>
-                
-              </p>
-              <div id="method-i-attach_to_publishers_source" class="dyn-source">
-                <pre><span class="ruby-comment"># File models/common_work_ipi.rb, line 92</span>
-<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">attach_to_publishers</span> <span class="ruby-identifier">user</span>
-  <span class="ruby-comment">#self.publisher_id</span>
-  <span class="ruby-keyword">if</span> <span class="ruby-identifier">user</span>.<span class="ruby-identifier">personal_publishing_status</span> <span class="ruby-operator">==</span> <span class="ruby-string">&quot;I have an exclusive publisher&quot;</span> <span class="ruby-operator">||</span> 
-     <span class="ruby-identifier">user</span>.<span class="ruby-identifier">personal_publishing_status</span> <span class="ruby-operator">==</span> <span class="ruby-string">&quot;I own and control my own publishing&quot;</span>
-    <span class="ruby-keyword">self</span>.<span class="ruby-identifier">publisher_id</span>  = <span class="ruby-identifier">user</span>.<span class="ruby-identifier">personal_publisher_id</span>
-    <span class="ruby-keyword">self</span>.<span class="ruby-identifier">save</span>(<span class="ruby-identifier">validate</span><span class="ruby-operator">:</span> <span class="ruby-keyword">false</span>)
-    <span class="ruby-identifier">attach_to_publishing_agreement</span>
-  <span class="ruby-keyword">else</span>
-    <span class="ruby-identifier">ap</span> <span class="ruby-string">&#39;something fancy here&#39;</span>
-  <span class="ruby-keyword">end</span> 
-<span class="ruby-keyword">end</span></pre>
-              </div>
-            </div>
-            
-          </div>
-        
-        <div class="method">
-          <div class="title method-title" id="method-i-attach_to_publishing_agreement">
-            
-              <b>attach_to_publishing_agreement</b>()
-            
-            <a href="../classes/CommonWorkIpi.html#method-i-attach_to_publishing_agreement" name="method-i-attach_to_publishing_agreement" class="permalink">Link</a>
-          </div>
-          
-          
-            <div class="description">
-              
-            </div>
-          
-          
-          
-
-          
-          
-          
-            
-            <div class="sourcecode">
-              
-              <p class="source-link">
-                Source: 
-                <a href="javascript:toggleSource('method-i-attach_to_publishing_agreement_source')" id="l_method-i-attach_to_publishing_agreement_source">show</a>
-                
-              </p>
-              <div id="method-i-attach_to_publishing_agreement_source" class="dyn-source">
-                <pre><span class="ruby-comment"># File models/common_work_ipi.rb, line 104</span>
-<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">attach_to_publishing_agreement</span>
-  
-  <span class="ruby-keyword">if</span> <span class="ruby-identifier">ipi_publishers</span>   = <span class="ruby-identifier">publisher</span>.<span class="ruby-identifier">ipi_publishers</span>
-    <span class="ruby-keyword">if</span> <span class="ruby-identifier">ipi_publisher</span>  = <span class="ruby-identifier">ipi_publishers</span>.<span class="ruby-identifier">find_by</span>(<span class="ruby-identifier">ipi_id</span><span class="ruby-operator">:</span> <span class="ruby-identifier">ipi_id</span>)
-      <span class="ruby-keyword">self</span>.<span class="ruby-identifier">update</span>(<span class="ruby-identifier">publishing_agreement_id</span><span class="ruby-operator">:</span> <span class="ruby-identifier">ipi_publisher</span>.<span class="ruby-identifier">publishing_agreement_id</span>)
+              <div id="method-i-attach_to_user_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/common_work_ipi.rb, line 88</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">attach_to_user</span> <span class="ruby-identifier">current_user</span>
+  <span class="ruby-keyword">begin</span>
+    <span class="ruby-identifier">user</span> = <span class="ruby-constant">User</span>.<span class="ruby-identifier">find_or_create_from_email</span>(<span class="ruby-keyword">self</span>.<span class="ruby-identifier">email</span>)
+    
+    <span class="ruby-keyword">self</span>.<span class="ruby-identifier">update_columns</span>(
+      <span class="ruby-identifier">user_id</span><span class="ruby-operator">:</span>      <span class="ruby-identifier">user</span>.<span class="ruby-identifier">id</span>,
+      <span class="ruby-identifier">email</span><span class="ruby-operator">:</span>        <span class="ruby-identifier">user</span>.<span class="ruby-identifier">email</span>,
+      <span class="ruby-comment">#full_name:    user.get_full_name,</span>
+      <span class="ruby-identifier">publisher_id</span><span class="ruby-operator">:</span> <span class="ruby-identifier">user</span>.<span class="ruby-identifier">get_publisher_id</span>,
+      <span class="ruby-identifier">ipi_id</span><span class="ruby-operator">:</span>       <span class="ruby-identifier">user</span>.<span class="ruby-identifier">ipi</span>.<span class="ruby-identifier">id</span>,
+      <span class="ruby-identifier">status</span><span class="ruby-operator">:</span>       <span class="ruby-identifier">user</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">current_user</span> <span class="ruby-operator">?</span> <span class="ruby-number">2</span> <span class="ruby-operator">:</span> <span class="ruby-number">0</span>
+    )
+    
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">user</span>.<span class="ruby-identifier">account_activated</span>
+      <span class="ruby-identifier">send_notification</span> <span class="ruby-keyword">unless</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">confirmed?</span>
+    <span class="ruby-keyword">else</span>
+      <span class="ruby-identifier">user</span>.<span class="ruby-identifier">add_token</span> 
+      <span class="ruby-identifier">send_invitation</span> <span class="ruby-identifier">user</span>
     <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">rescue</span>
+    
   <span class="ruby-keyword">end</span>
+
+  
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-belongs_to_current_user-3F">
+            
+              <b>belongs_to_current_user?</b>(current_user)
+            
+            <a href="../classes/CommonWorkIpi.html#method-i-belongs_to_current_user-3F" name="method-i-belongs_to_current_user-3F" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              <p>Check if the</p>
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-belongs_to_current_user-3F_source')" id="l_method-i-belongs_to_current_user-3F_source">show</a>
+                
+              </p>
+              <div id="method-i-belongs_to_current_user-3F_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/common_work_ipi.rb, line 135</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">belongs_to_current_user?</span> <span class="ruby-identifier">current_user</span>
+  <span class="ruby-identifier">get_user</span> <span class="ruby-operator">&amp;&amp;</span> (<span class="ruby-identifier">get_user</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">current_user</span> )
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-can_manage_common_work">
+            
+              <b>can_manage_common_work</b>()
+            
+            <a href="../classes/CommonWorkIpi.html#method-i-can_manage_common_work" name="method-i-can_manage_common_work" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-can_manage_common_work_source')" id="l_method-i-can_manage_common_work_source">show</a>
+                
+              </p>
+              <div id="method-i-can_manage_common_work_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/common_work_ipi.rb, line 178</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">can_manage_common_work</span>()        
+  <span class="ruby-identifier">common_work_user</span> <span class="ruby-operator">?</span> <span class="ruby-identifier">common_work_user</span>.<span class="ruby-identifier">can_manage_common_work</span> <span class="ruby-operator">:</span> <span class="ruby-keyword">false</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-can_manage_common_work-3D">
+            
+              <b>can_manage_common_work=</b>( b )
+            
+            <a href="../classes/CommonWorkIpi.html#method-i-can_manage_common_work-3D" name="method-i-can_manage_common_work-3D" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-can_manage_common_work-3D_source')" id="l_method-i-can_manage_common_work-3D_source">show</a>
+                
+              </p>
+              <div id="method-i-can_manage_common_work-3D_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/common_work_ipi.rb, line 182</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">can_manage_common_work=</span>( <span class="ruby-identifier">b</span> )
+  <span class="ruby-identifier">common_work_user</span>.<span class="ruby-identifier">update</span>(<span class="ruby-identifier">can_manage_common_work</span><span class="ruby-operator">:</span> <span class="ruby-identifier">b</span>) <span class="ruby-keyword">if</span> <span class="ruby-identifier">common_work_user</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-common_work_user">
+            
+              <b>common_work_user</b>()
+            
+            <a href="../classes/CommonWorkIpi.html#method-i-common_work_user" name="method-i-common_work_user" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-common_work_user_source')" id="l_method-i-common_work_user_source">show</a>
+                
+              </p>
+              <div id="method-i-common_work_user_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/common_work_ipi.rb, line 188</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">common_work_user</span>
+  <span class="ruby-constant">CommonWorkUser</span>.<span class="ruby-identifier">find_by</span>(<span class="ruby-identifier">user_id</span><span class="ruby-operator">:</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">user_id</span>, <span class="ruby-identifier">common_work_id</span><span class="ruby-operator">:</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">common_work_id</span>)
 <span class="ruby-keyword">end</span></pre>
               </div>
             </div>
@@ -351,7 +532,7 @@ specified context.</p>
           
           
             <div class="description">
-              
+              <p>Configure the payment</p>
             </div>
           
           
@@ -369,12 +550,9 @@ specified context.</p>
                 
               </p>
               <div id="method-i-configure_payment_source" class="dyn-source">
-                <pre><span class="ruby-comment"># File models/common_work_ipi.rb, line 17</span>
+                <pre><span class="ruby-comment"># File models/common_work_ipi.rb, line 33</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">configure_payment</span>( <span class="ruby-identifier">royalty</span>, <span class="ruby-identifier">price</span>, <span class="ruby-identifier">recording_uuid</span>, <span class="ruby-identifier">common_work_id</span> )
-  <span class="ruby-identifier">ap</span> <span class="ruby-string">&#39;================================================================&#39;</span>
-  <span class="ruby-identifier">ap</span> <span class="ruby-string">&#39;configure_payment&#39;</span>
-  <span class="ruby-identifier">ap</span> <span class="ruby-keyword">self</span>
-  
+
   <span class="ruby-keyword">begin</span>
     <span class="ruby-comment"># send money to the publisher</span>
     <span class="ruby-identifier">royalty_left</span> = <span class="ruby-keyword">self</span>.<span class="ruby-identifier">publishing_agreement</span>.<span class="ruby-identifier">configure_payment</span>( <span class="ruby-identifier">royalty</span>, <span class="ruby-identifier">price</span>, <span class="ruby-identifier">recording_uuid</span> )
@@ -391,6 +569,97 @@ specified context.</p>
           </div>
         
         <div class="method">
+          <div class="title method-title" id="method-i-do_validation">
+            
+              <b>do_validation</b>()
+            
+            <a href="../classes/CommonWorkIpi.html#method-i-do_validation" name="method-i-do_validation" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              <p>check if the common_work_ipi is ok</p>
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-do_validation_source')" id="l_method-i-do_validation_source">show</a>
+                
+              </p>
+              <div id="method-i-do_validation_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/common_work_ipi.rb, line 161</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">do_validation</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">true</span> <span class="ruby-keyword">if</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">ok</span>
+  <span class="ruby-identifier">set_ok</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">ok</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-error_message">
+            
+              <b>error_message</b>()
+            
+            <a href="../classes/CommonWorkIpi.html#method-i-error_message" name="method-i-error_message" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              <p>build an error message</p>
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-error_message_source')" id="l_method-i-error_message_source">show</a>
+                
+              </p>
+              <div id="method-i-error_message_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/common_work_ipi.rb, line 193</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">error_message</span>
+  <span class="ruby-identifier">em</span> = {}
+  <span class="ruby-keyword">unless</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">email</span>
+    <span class="ruby-identifier">em</span>[<span class="ruby-value">:email</span>] = <span class="ruby-identifier">message_hash</span>(<span class="ruby-string">&#39;Email missing&#39;</span>)
+  <span class="ruby-keyword">end</span>
+  
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">_ipi</span> = <span class="ruby-keyword">self</span>.<span class="ruby-identifier">ipi</span>
+    <span class="ruby-identifier">_error_message</span> = <span class="ruby-identifier">_ipi</span>.<span class="ruby-identifier">error_message</span>
+    <span class="ruby-identifier">em</span>[<span class="ruby-value">:ipi</span>] = <span class="ruby-identifier">_error_message</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">_error_message</span>.<span class="ruby-identifier">empty?</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">em</span>[<span class="ruby-value">:ipi</span>] = <span class="ruby-identifier">message_hash</span>(<span class="ruby-string">&#39;Creator not signed up&#39;</span>)
+  <span class="ruby-keyword">end</span>
+  
+  <span class="ruby-keyword">if</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">pending?</span>
+    <span class="ruby-identifier">em</span>[<span class="ruby-value">:status</span>] = <span class="ruby-identifier">message_hash</span>(<span class="ruby-string">&#39;Confirmation is pending&#39;</span>)
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-identifier">em</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
           <div class="title method-title" id="method-i-get_email">
             
               <b>get_email</b>()
@@ -400,7 +669,9 @@ specified context.</p>
           
           
             <div class="description">
-              
+              <p>Get the email from the IP</p>
+
+<p>if no IP is attached return the email the common_work_ipi was created with</p>
             </div>
           
           
@@ -418,7 +689,7 @@ specified context.</p>
                 
               </p>
               <div id="method-i-get_email_source" class="dyn-source">
-                <pre><span class="ruby-comment"># File models/common_work_ipi.rb, line 51</span>
+                <pre><span class="ruby-comment"># File models/common_work_ipi.rb, line 70</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">get_email</span>
   <span class="ruby-keyword">if</span> <span class="ruby-identifier">ipi</span> = <span class="ruby-keyword">self</span>.<span class="ruby-identifier">ipi</span>
     <span class="ruby-keyword">if</span> <span class="ruby-identifier">user</span> = <span class="ruby-identifier">ipi</span>.<span class="ruby-identifier">user</span>
@@ -443,7 +714,7 @@ specified context.</p>
           
           
             <div class="description">
-              
+              <p>Get full name If a user is connected the users full name is returned</p>
             </div>
           
           
@@ -461,13 +732,10 @@ specified context.</p>
                 
               </p>
               <div id="method-i-get_full_name_source" class="dyn-source">
-                <pre><span class="ruby-comment"># File models/common_work_ipi.rb, line 40</span>
+                <pre><span class="ruby-comment"># File models/common_work_ipi.rb, line 55</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">get_full_name</span>
-  <span class="ruby-keyword">if</span> <span class="ruby-identifier">ipi</span> = <span class="ruby-keyword">self</span>.<span class="ruby-identifier">ipi</span>
-    <span class="ruby-keyword">if</span> <span class="ruby-identifier">user</span> = <span class="ruby-identifier">ipi</span>.<span class="ruby-identifier">user</span>
-      <span class="ruby-keyword">return</span> <span class="ruby-identifier">user</span>.<span class="ruby-identifier">full_name</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">user</span>.<span class="ruby-identifier">full_name</span> <span class="ruby-operator">!=</span> <span class="ruby-string">&#39; &#39;</span>
-      <span class="ruby-keyword">return</span> <span class="ruby-identifier">user</span>.<span class="ruby-identifier">user_name</span>
-    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">user</span> 
+    <span class="ruby-keyword">return</span> <span class="ruby-identifier">user</span>.<span class="ruby-identifier">get_full_name</span>
   <span class="ruby-keyword">else</span>
     <span class="ruby-keyword">return</span>  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">full_name</span>
   <span class="ruby-keyword">end</span>
@@ -478,16 +746,16 @@ specified context.</p>
           </div>
         
         <div class="method">
-          <div class="title method-title" id="method-i-notify_new_user">
+          <div class="title method-title" id="method-i-get_publishers">
             
-              <b>notify_new_user</b>()
+              <b>get_publishers</b>()
             
-            <a href="../classes/CommonWorkIpi.html#method-i-notify_new_user" name="method-i-notify_new_user" class="permalink">Link</a>
+            <a href="../classes/CommonWorkIpi.html#method-i-get_publishers" name="method-i-get_publishers" class="permalink">Link</a>
           </div>
           
           
             <div class="description">
-              <p>If no user with the email exists  send an invitation email to the email</p>
+              
             </div>
           
           
@@ -501,13 +769,94 @@ specified context.</p>
               
               <p class="source-link">
                 Source: 
-                <a href="javascript:toggleSource('method-i-notify_new_user_source')" id="l_method-i-notify_new_user_source">show</a>
+                <a href="javascript:toggleSource('method-i-get_publishers_source')" id="l_method-i-get_publishers_source">show</a>
                 
               </p>
-              <div id="method-i-notify_new_user_source" class="dyn-source">
-                <pre><span class="ruby-comment"># File models/common_work_ipi.rb, line 78</span>
-<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">notify_new_user</span>
+              <div id="method-i-get_publishers_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/common_work_ipi.rb, line 63</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">get_publishers</span>
   
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-get_user">
+            
+              <b>get_user</b>()
+            
+            <a href="../classes/CommonWorkIpi.html#method-i-get_user" name="method-i-get_user" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              <p>Get the user if the user dont exists try the ip&#39;s user</p>
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-get_user_source')" id="l_method-i-get_user_source">show</a>
+                
+              </p>
+              <div id="method-i-get_user_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/common_work_ipi.rb, line 127</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">get_user</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">user</span> <span class="ruby-keyword">if</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">user</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">ipi</span> = <span class="ruby-keyword">self</span>.<span class="ruby-identifier">ipi</span>
+    <span class="ruby-keyword">return</span> <span class="ruby-identifier">ipi</span>.<span class="ruby-identifier">user</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-message_hash">
+            
+              <b>message_hash</b>(msg)
+            
+            <a href="../classes/CommonWorkIpi.html#method-i-message_hash" name="method-i-message_hash" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              <p>build a message has for the error message</p>
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-message_hash_source')" id="l_method-i-message_hash_source">show</a>
+                
+              </p>
+              <div id="method-i-message_hash_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/common_work_ipi.rb, line 168</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">message_hash</span> <span class="ruby-identifier">msg</span>
+  {
+    <span class="ruby-identifier">message</span><span class="ruby-operator">:</span>      <span class="ruby-identifier">msg</span>,
+    <span class="ruby-identifier">type</span><span class="ruby-operator">:</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">name</span>,
+    <span class="ruby-identifier">id</span><span class="ruby-operator">:</span>   <span class="ruby-keyword">self</span>.<span class="ruby-identifier">id</span>
+  }
 <span class="ruby-keyword">end</span></pre>
               </div>
             </div>
@@ -524,7 +873,7 @@ specified context.</p>
           
           
             <div class="description">
-              
+              <p>Get the publisher split based on the publishing agreement</p>
             </div>
           
           
@@ -542,12 +891,11 @@ specified context.</p>
                 
               </p>
               <div id="method-i-publisher_split_source" class="dyn-source">
-                <pre><span class="ruby-comment"># File models/common_work_ipi.rb, line 33</span>
+                <pre><span class="ruby-comment"># File models/common_work_ipi.rb, line 47</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">publisher_split</span>
   <span class="ruby-keyword">if</span> <span class="ruby-identifier">publishing_agreement</span>
     <span class="ruby-keyword">return</span> <span class="ruby-identifier">publishing_agreement</span>.<span class="ruby-identifier">split</span>
   <span class="ruby-keyword">end</span>
-  
 <span class="ruby-keyword">end</span></pre>
               </div>
             </div>
@@ -564,7 +912,7 @@ specified context.</p>
           
           
             <div class="description">
-              
+              <p>get the users publishers</p>
             </div>
           
           
@@ -582,12 +930,132 @@ specified context.</p>
                 
               </p>
               <div id="method-i-publishers_source" class="dyn-source">
-                <pre><span class="ruby-comment"># File models/common_work_ipi.rb, line 114</span>
+                <pre><span class="ruby-comment"># File models/common_work_ipi.rb, line 140</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">publishers</span>
   <span class="ruby-keyword">if</span> <span class="ruby-identifier">ipi</span>
     <span class="ruby-identifier">publisher_ids</span> = <span class="ruby-constant">IpiPublisher</span>.<span class="ruby-identifier">where</span>(<span class="ruby-identifier">ipi_id</span><span class="ruby-operator">:</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">ipi_id</span>).<span class="ruby-identifier">pluck</span>(<span class="ruby-value">:publisher_id</span>)
     <span class="ruby-constant">Publisher</span>.<span class="ruby-identifier">where</span>(<span class="ruby-identifier">id</span><span class="ruby-operator">:</span> <span class="ruby-identifier">publisher_ids</span>)
   <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-send_invitation">
+            
+              <b>send_invitation</b>(user)
+            
+            <a href="../classes/CommonWorkIpi.html#method-i-send_invitation" name="method-i-send_invitation" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              <p>invite a user to digiramp</p>
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-send_invitation_source')" id="l_method-i-send_invitation_source">show</a>
+                
+              </p>
+              <div id="method-i-send_invitation_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/common_work_ipi.rb, line 121</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">send_invitation</span> <span class="ruby-identifier">user</span>
+  <span class="ruby-constant">CommonWorkIpiMailer</span>.<span class="ruby-identifier">delay</span>.<span class="ruby-identifier">send_invitation</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">id</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-send_notification">
+            
+              <b>send_notification</b>()
+            
+            <a href="../classes/CommonWorkIpi.html#method-i-send_notification" name="method-i-send_notification" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              <p>notify the user about creation / update by email</p>
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-send_notification_source')" id="l_method-i-send_notification_source">show</a>
+                
+              </p>
+              <div id="method-i-send_notification_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/common_work_ipi.rb, line 115</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">send_notification</span>
+  <span class="ruby-constant">CommonWorkIpiMailer</span>.<span class="ruby-identifier">delay</span>.<span class="ruby-identifier">send_notification</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">id</span>
+  <span class="ruby-identifier">update_validation</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-update_validation">
+            
+              <b>update_validation</b>()
+            
+            <a href="../classes/CommonWorkIpi.html#method-i-update_validation" name="method-i-update_validation" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              <p>set the error flag and let the validation check buble up the stack</p>
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-update_validation_source')" id="l_method-i-update_validation_source">show</a>
+                
+              </p>
+              <div id="method-i-update_validation_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/common_work_ipi.rb, line 148</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">update_validation</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">common_work_user</span>
+    <span class="ruby-identifier">common_work_user</span>.<span class="ruby-identifier">can_manage_common_work</span> 
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">ap</span> <span class="ruby-string">&#39;common_work_user id nil&#39;</span>
+    <span class="ruby-identifier">ap</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">id</span>
+    <span class="ruby-identifier">ap</span> <span class="ruby-string">&#39;.&#39;</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-identifier">set_ok</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">common_work</span>.<span class="ruby-identifier">update_validation</span>
 <span class="ruby-keyword">end</span></pre>
               </div>
             </div>

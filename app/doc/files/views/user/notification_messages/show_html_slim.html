@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>show.html.slim</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../../../css/reset.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../../../css/github.css" type="text/css" media="screen" />
+<script src="../../../../js/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/jquery-effect.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>     
+    <div class="banner">
+        
+        <h1>
+            show.html.slim
+        </h1>
+        <ul class="files">
+            <li>views/user/notification_messages/show.html.slim</li>
+            <li>Last modified: 2015-10-17 00:54:31 +0200</li>
+        </ul>
+    </div>
+
+    <div id="bodyContent">
+        <div id="content">
+  
+    <div class="description">
+      
+<p>wrapper</p>
+
+<pre><code>.full-width-top
+  == render &#39;shared/navigationbar&#39;, page: &#39;messages&#39; 
+
+#sidebar-wrapper
+  ul class=&quot;sidebar-nav&quot;
+    == render &#39;messages/sidebar&#39;, selected: &#39;actions&#39;
+
+#page-content-wrapper
+  .container-fluid
+    .row
+      .col-sm-8
+        .help
+          .help-text
+            h2 To do
+          .help-button
+            == render &#39;admin/helps/help&#39;, identifier: &#39;user notification show&#39;
+      /.col-sm-4
+      /  .pull-right.pull-down-10
+      /    = link_to &#39;Mark all as read&#39;, new_user_unread_message_path(@user), class: &#39;btn btn-default&#39;
+    .pull-down-10
+    - if error_message = @user_notification.error_message
+      - if common_work   = error_message[:common_work]          
+        - if common_work[:status] == &#39;error&#39;
+          h4 
+            b Missing actions in&amp;nbsp;
+            = common_work[:title]
+          .pull-down-10
+          - if common_work_ipis = common_work[:common_work_ipis]
+            - common_work_ipis.each do |common_work_ipi|
+              - if ipi = common_work_ipi[:ipi]
+                - if ipi[:status] == &#39;error&#39;
+                  - if publishers = ipi[:publishers]
+                    - publishers.each do |publisher|
+                      - if publisher[:status] == &#39;error&#39;
+                        .digi-box
+                          h4 = publisher[:legal_name]
+                          - if publishing_agreements = publisher[:publishing_agreements]
+                            - publishing_agreements.each do |publishing_agreement|
+                              - if publishing_agreement[:status] == &#39;error&#39;
+                                - if document = publishing_agreement[:document]
+                                  - if _document = Document.find_by(uuid: document[:id])
+                                    - if document[:status] == &#39;error&#39;
+                                      .sexy_line
+                                      .row
+                                        .col-sm-4
+                                          b = document[:title]
+                                        .col-sm-8
+                                            - if document_users = document[:document_users]
+                                              - document_users.each do |document_user|
+                                                - if document_user[:status] == &#39;error&#39;
+                                                  .row
+                                                    .col-sm-6
+                                                       = document_user[:message]
+                                                    .col-sm-6
+                                                      .pull-right
+                                                        - if document_user[:message].include?( &quot;not assigned&quot;)
+                                                          = link_to &#39;Assign user&#39;, user_user_sign_document_path(@user, _document.uuid), class: &#39;btn btn-default btn-xs&#39;
+                                                        - elsif document_user[:message].include?( &quot;signature pending&quot;) &amp;&amp; document_user[:user_id] == @user.id
+                                                          = link_to &#39;Sign&#39;, user_user_sign_document_path(@user, _document.uuid), class: &#39;btn btn-default btn-xs&#39;
+                                                        - elsif document_user[:message].include?( &quot;signature pending&quot;)
+                                                          = link_to &#39;Remind&#39;, user_path(document_user.user), class: &#39;btn btn-default btn-xs&#39;
+
+                                            /.col-sm-4
+                                            /  = document[:title]
+                                            /.col-sm-4
+                                            /  = document[:message]
+                                            /.col-sm-4
+                                            /  .pull-right
+                                            /    /= debug document
+                                            /    - if _document = Document.find_by(uuid: document[:id])
+                                            /      
+                                            /      = link_to &#39;Sign&#39;, user_user_sign_document_path(@user, _document.uuid), class: &#39;btn btn-default btn-xs&#39;
+                                            /
+
+      - if recording = error_message[:recording]
+        - if recording[:status] == &#39;error&#39;
+          .digi-box
+            .row
+              .col-sm-4
+                h4 
+                  &#39;Recording&amp;nbsp;
+                  = recording[:titel]
+              .col-sm-4
+                = recording[:message]
+              .col-sm-4
+                .pull-right
+                  = link_to &#39;Fix&#39;, user_user_recording_right_path(@user, recording[:id]), class: &#39;btn btn-default btn-xs&#39;
+        /= debug common_work
+== render &#39;shared/site_footer&#39;</code></pre>
+
+    </div>
+  
+
+
+  
+
+
+  
+  
+
+
+  
+
+
+  
+
+  
+
+
+
+  
+
+    
+
+    
+
+    
+
+
+    
+
+
+    <!-- Methods -->
+              </div>
+
+    </div>
+  </body>
+</html>

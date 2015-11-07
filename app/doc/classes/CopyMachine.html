@@ -245,19 +245,22 @@ source_doc, dest_doc</p>
               <div id="method-c-create_document_users_source" class="dyn-source">
                 <pre><span class="ruby-comment"># File services/copy_machine.rb, line 26</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">self</span>.<span class="ruby-identifier">create_document_users</span> <span class="ruby-identifier">source_doc</span>, <span class="ruby-identifier">dest_doc</span>
+  <span class="ruby-identifier">document_users</span> = []
   <span class="ruby-keyword">if</span> <span class="ruby-identifier">digital_signatures</span> = <span class="ruby-identifier">source_doc</span>.<span class="ruby-identifier">digital_signatures</span>
+    
     <span class="ruby-identifier">digital_signatures</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">digital_signature</span><span class="ruby-operator">|</span>
       <span class="ruby-identifier">document_user</span> = <span class="ruby-constant">DocumentUser</span>.<span class="ruby-identifier">new</span>(
         <span class="ruby-identifier">document_id</span><span class="ruby-operator">:</span>    <span class="ruby-identifier">dest_doc</span>.<span class="ruby-identifier">uuid</span>,
-        <span class="ruby-identifier">account_id</span><span class="ruby-operator">:</span>     <span class="ruby-identifier">dest_doc</span>.<span class="ruby-identifier">account_id</span>,
         <span class="ruby-identifier">can_edit</span><span class="ruby-operator">:</span>       <span class="ruby-keyword">true</span>,
         <span class="ruby-identifier">should_sign</span><span class="ruby-operator">:</span>    <span class="ruby-keyword">true</span>,
         <span class="ruby-identifier">role</span><span class="ruby-operator">:</span>           <span class="ruby-identifier">digital_signature</span>.<span class="ruby-identifier">role</span>
       )
       <span class="ruby-identifier">document_user</span>.<span class="ruby-identifier">save</span>(<span class="ruby-identifier">validate</span><span class="ruby-operator">:</span> <span class="ruby-keyword">false</span>)
+      <span class="ruby-identifier">document_users</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">document_user</span>
     <span class="ruby-keyword">end</span>
+    
   <span class="ruby-keyword">end</span>
-  
+  <span class="ruby-identifier">document_users</span>
 <span class="ruby-keyword">end</span></pre>
               </div>
             </div>
@@ -293,7 +296,7 @@ publisher_id</p>
                 
               </p>
               <div id="method-c-setup_publisher_source" class="dyn-source">
-                <pre><span class="ruby-comment"># File services/copy_machine.rb, line 92</span>
+                <pre><span class="ruby-comment"># File services/copy_machine.rb, line 47</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">self</span>.<span class="ruby-identifier">setup_publisher</span> <span class="ruby-identifier">publisher_id</span>
   
   <span class="ruby-identifier">publisher</span> = <span class="ruby-constant">Publisher</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">publisher_id</span>)
@@ -309,7 +312,16 @@ publisher_id</p>
     <span class="ruby-string">&#39;34debb4c-5e09-11e5-a542-d43d7eecec4d&#39;</span>,
     <span class="ruby-identifier">publishing_agreement</span>
   )
-
+  
+  <span class="ruby-constant">UserPublisher</span>.<span class="ruby-identifier">where</span>(
+    <span class="ruby-identifier">publisher_id</span><span class="ruby-operator">:</span> <span class="ruby-identifier">publisher_id</span>,
+    <span class="ruby-identifier">user_id</span><span class="ruby-operator">:</span>      <span class="ruby-identifier">publisher</span>.<span class="ruby-identifier">user_id</span>
+  )
+  .<span class="ruby-identifier">first_or_create</span>(
+    <span class="ruby-identifier">publisher_id</span><span class="ruby-operator">:</span> <span class="ruby-identifier">publisher_id</span>,
+    <span class="ruby-identifier">user_id</span><span class="ruby-operator">:</span>      <span class="ruby-identifier">publisher</span>.<span class="ruby-identifier">user_id</span>,
+    <span class="ruby-identifier">email</span><span class="ruby-operator">:</span>       <span class="ruby-identifier">publisher</span>.<span class="ruby-identifier">email</span>
+  )
 <span class="ruby-keyword">end</span></pre>
               </div>
             </div>
@@ -344,7 +356,7 @@ publisher_id</p>
                 
               </p>
               <div id="method-c-setup_publishing_agreement_source" class="dyn-source">
-                <pre><span class="ruby-comment"># File services/copy_machine.rb, line 110</span>
+                <pre><span class="ruby-comment"># File services/copy_machine.rb, line 74</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">self</span>.<span class="ruby-identifier">setup_publishing_agreement</span>(<span class="ruby-identifier">publisher_id</span>, <span class="ruby-identifier">personal_agreement</span>, <span class="ruby-identifier">title</span>, <span class="ruby-identifier">user</span>)
   <span class="ruby-constant">PublishingAgreement</span>.<span class="ruby-identifier">create</span>(
     <span class="ruby-identifier">publisher_id</span><span class="ruby-operator">:</span>       <span class="ruby-identifier">publisher_id</span>,
@@ -389,7 +401,7 @@ publisher_id</p>
                 
               </p>
               <div id="method-c-setup_publishing_documents_source" class="dyn-source">
-                <pre><span class="ruby-comment"># File services/copy_machine.rb, line 122</span>
+                <pre><span class="ruby-comment"># File services/copy_machine.rb, line 86</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">self</span>.<span class="ruby-identifier">setup_publishing_documents</span>( <span class="ruby-identifier">publisher</span>, <span class="ruby-identifier">uuid</span>, <span class="ruby-identifier">publishing_agreement</span> )
 
   <span class="ruby-identifier">template</span>  = <span class="ruby-constant">Document</span>.<span class="ruby-identifier">where</span>(<span class="ruby-identifier">uuid</span><span class="ruby-operator">:</span> <span class="ruby-identifier">uuid</span>)

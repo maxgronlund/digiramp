@@ -157,6 +157,8 @@
                 <pre><span class="ruby-comment"># File controllers/user/user_configurations_controller.rb, line 12</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">edit</span>
   <span class="ruby-ivar">@body_color</span> = <span class="ruby-node">&quot;#FFFFFF&quot;</span>
+  <span class="ruby-identifier">ap</span> <span class="ruby-string">&#39;user_configurations/1/edit&#39;</span>
+  <span class="ruby-identifier">ap</span> <span class="ruby-ivar">@user</span>.<span class="ruby-identifier">full_name</span>
 <span class="ruby-keyword">end</span></pre>
               </div>
             </div>
@@ -229,7 +231,7 @@
                 
               </p>
               <div id="method-i-show_source" class="dyn-source">
-                <pre><span class="ruby-comment"># File controllers/user/user_configurations_controller.rb, line 33</span>
+                <pre><span class="ruby-comment"># File controllers/user/user_configurations_controller.rb, line 35</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">show</span>
   <span class="ruby-identifier">ap</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:later</span>]
   <span class="ruby-keyword">if</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:later</span>]
@@ -270,7 +272,7 @@
                 
               </p>
               <div id="method-i-update_source" class="dyn-source">
-                <pre><span class="ruby-comment"># File controllers/user/user_configurations_controller.rb, line 18</span>
+                <pre><span class="ruby-comment"># File controllers/user/user_configurations_controller.rb, line 20</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">update</span>
   
   <span class="ruby-keyword">if</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:commit</span>] <span class="ruby-operator">==</span> <span class="ruby-string">&quot;Don&#39;t ask me again&quot;</span>

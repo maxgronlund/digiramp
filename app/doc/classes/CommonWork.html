@@ -81,17 +81,7 @@
             
               
               <li>
-                <a href="#method-i-attache_ipis_true">attache_ipis_true</a>,
-              </li>
-            
-              
-              <li>
-                <a href="#method-i-audio_preview">audio_preview</a>,
-              </li>
-            
-              
-              <li>
-                <a href="#method-i-audio_recordings">audio_recordings</a>
+                <a href="#method-i-attache_ipis_true">attache_ipis_true</a>
               </li>
             
           </ul>
@@ -118,12 +108,7 @@
             
               
               <li>
-                <a href="#method-i-configure_publishers_payment">configure_publishers_payment</a>,
-              </li>
-            
-              
-              <li>
-                <a href="#method-i-copy_ipis_from">copy_ipis_from</a>
+                <a href="#method-i-configure_publishers_payment">configure_publishers_payment</a>
               </li>
             
           </ul>
@@ -135,7 +120,12 @@
             
               
               <li>
-                <a href="#method-i-editable_by">editable_by</a>
+                <a href="#method-i-editable_by">editable_by</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-i-error_message">error_message</a>
               </li>
             
           </ul>
@@ -199,6 +189,18 @@
               
               <li>
                 <a href="#method-i-legal_documents">legal_documents</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>M</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-message_hash">message_hash</a>
               </li>
             
           </ul>
@@ -284,6 +286,16 @@
             
               
               <li>
+                <a href="#method-i-update_validation">update_validation</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-i-user">user</a>,
+              </li>
+            
+              
+              <li>
                 <a href="#method-i-user_can_access_files">user_can_access_files</a>,
               </li>
             
@@ -295,18 +307,6 @@
               
               <li>
                 <a href="#method-i-user_id">user_id</a>
-              </li>
-            
-          </ul>
-        </dd>
-      
-        <dt>V</dt>
-        <dd>
-          <ul>
-            
-              
-              <li>
-                <a href="#method-i-video_recordings">video_recordings</a>
               </li>
             
           </ul>
@@ -329,6 +329,14 @@
         <li>
           
             PgSearch
+          
+        </li>
+      
+        <li>
+          
+            <a href="NotificationModule.html">
+              NotificationModule
+            </a>
           
         </li>
       
@@ -399,7 +407,7 @@
                 
               </p>
               <div id="method-c-account_search_source" class="dyn-source">
-                <pre><span class="ruby-comment"># File models/common_work.rb, line 260</span>
+                <pre><span class="ruby-comment"># File models/common_work.rb, line 268</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">self</span>.<span class="ruby-identifier">account_search</span>(<span class="ruby-identifier">account</span>, <span class="ruby-identifier">query</span>)
   <span class="ruby-identifier">common_works</span> = <span class="ruby-identifier">account</span>.<span class="ruby-identifier">common_works</span>
   <span class="ruby-keyword">if</span> <span class="ruby-identifier">query</span>.<span class="ruby-identifier">present?</span>
@@ -422,7 +430,12 @@
           
           
             <div class="description">
-              
+              <p>def audio_preview</p>
+
+<pre><code>Recording.find(self.recording_preview_id).audio_file_url if Recording.exists?(self.recording_preview_id)
+</code></pre>
+
+<p>end</p>
             </div>
           
           
@@ -440,7 +453,7 @@
                 
               </p>
               <div id="method-c-attach_source" class="dyn-source">
-                <pre><span class="ruby-comment"># File models/common_work.rb, line 240</span>
+                <pre><span class="ruby-comment"># File models/common_work.rb, line 248</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">self</span>.<span class="ruby-identifier">attach</span> <span class="ruby-identifier">recording</span>, <span class="ruby-identifier">account_id</span>, <span class="ruby-identifier">current_user</span>
 
   <span class="ruby-identifier">common_work</span> = <span class="ruby-constant">CommonWork</span>.<span class="ruby-identifier">create</span>(<span class="ruby-identifier">title</span><span class="ruby-operator">:</span> <span class="ruby-identifier">recording</span>.<span class="ruby-identifier">title</span>, 
@@ -493,7 +506,7 @@
                 
               </p>
               <div id="method-c-cached_find_source" class="dyn-source">
-                <pre><span class="ruby-comment"># File models/common_work.rb, line 394</span>
+                <pre><span class="ruby-comment"># File models/common_work.rb, line 354</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">self</span>.<span class="ruby-identifier">cached_find</span>(<span class="ruby-identifier">id</span>)
   <span class="ruby-constant">Rails</span>.<span class="ruby-identifier">cache</span>.<span class="ruby-identifier">fetch</span>([<span class="ruby-identifier">name</span>, <span class="ruby-identifier">id</span>]) { <span class="ruby-identifier">find</span>(<span class="ruby-identifier">id</span>) }
 <span class="ruby-keyword">end</span></pre>
@@ -530,7 +543,7 @@
                 
               </p>
               <div id="method-c-catalog_search_source" class="dyn-source">
-                <pre><span class="ruby-comment"># File models/common_work.rb, line 281</span>
+                <pre><span class="ruby-comment"># File models/common_work.rb, line 289</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">self</span>.<span class="ruby-identifier">catalog_search</span>(<span class="ruby-identifier">catalog</span>, <span class="ruby-identifier">query</span>)
   
   <span class="ruby-identifier">common_works</span> = <span class="ruby-identifier">catalog</span>.<span class="ruby-identifier">common_works</span>
@@ -572,7 +585,7 @@
                 
               </p>
               <div id="method-c-find_from_collection_source" class="dyn-source">
-                <pre><span class="ruby-comment"># File models/common_work.rb, line 270</span>
+                <pre><span class="ruby-comment"># File models/common_work.rb, line 278</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">self</span>.<span class="ruby-identifier">find_from_collection</span>(<span class="ruby-identifier">account</span>, <span class="ruby-identifier">catalog</span>, <span class="ruby-identifier">query</span>)
 
   <span class="ruby-identifier">common_works</span>    = <span class="ruby-constant">CommonWork</span>.<span class="ruby-identifier">where</span>(<span class="ruby-identifier">id</span><span class="ruby-operator">:</span> <span class="ruby-identifier">account</span>.<span class="ruby-identifier">common_work_ids</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">catalog</span>.<span class="ruby-identifier">common_work_ids</span>)
@@ -615,7 +628,7 @@
                 
               </p>
               <div id="method-c-to_counter_point_source" class="dyn-source">
-                <pre><span class="ruby-comment"># File models/common_work.rb, line 398</span>
+                <pre><span class="ruby-comment"># File models/common_work.rb, line 358</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">self</span>.<span class="ruby-identifier">to_counter_point</span>
    <span class="ruby-constant">CSV</span>.<span class="ruby-identifier">generate</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">csv</span><span class="ruby-operator">|</span>
      <span class="ruby-identifier">csv</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">CounterPointColumns</span><span class="ruby-operator">::</span><span class="ruby-constant">COLUMNS</span>
@@ -665,172 +678,10 @@
                 
               </p>
               <div id="method-c-to_csv_source" class="dyn-source">
-                <pre><span class="ruby-comment"># File models/common_work.rb, line 585</span>
+                <pre><span class="ruby-comment"># File models/common_work.rb, line 380</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">self</span>.<span class="ruby-identifier">to_csv</span>
   <span class="ruby-constant">CommonWorkToCsvService</span>.<span class="ruby-identifier">process</span> <span class="ruby-identifier">all</span>
-  <span class="ruby-comment">#CommonWorkToCsvService.process self</span>
-  <span class="ruby-comment">#CSV.generate do |csv|</span>
-  <span class="ruby-comment">#  #csv &lt;&lt; column_names</span>
-  <span class="ruby-comment">#  csv &lt;&lt; [&#39;DigiRAMP CVS&#39;, &#39;&#39;, &#39;&#39;, &#39;&#39;, &#39;&#39;, &#39;&#39;, &#39;&#39; ]</span>
-  <span class="ruby-comment">#  csv &lt;&lt; [&#39;&#39;]</span>
-  <span class="ruby-comment">#  csv &lt;&lt; [&#39;&#39;]</span>
-  <span class="ruby-comment">#  all.each do |common_work|</span>
-  <span class="ruby-comment">#    CommonWorkToCsvService.process common_work</span>
-  <span class="ruby-comment">#    #recording_ids = &#39;&#39;</span>
-  <span class="ruby-comment">#    #common_work.recordings.each do |recording|</span>
-  <span class="ruby-comment">#    #  recording_ids &lt;&lt; recording.id.to_s</span>
-  <span class="ruby-comment">#    #  recording_ids &lt;&lt; &#39;,&#39;</span>
-  <span class="ruby-comment">#    #end</span>
-  <span class="ruby-comment">#    # work info</span>
-  <span class="ruby-comment">#    csv &lt;&lt; [&#39;COMMON WORK&#39;]</span>
-  <span class="ruby-comment">#    csv &lt;&lt; [  &#39;&#39;,&#39;Title&#39;, &#39;ISWC Code&#39;,&#39;Alternative Titles&#39;, &#39;Description&#39;,&#39;&#39;,&#39;&#39;,&#39;&#39;,&#39;&#39;,&#39;&#39;,&#39;&#39;,&#39;&#39;,&#39;&#39;,&#39;&#39;,&#39;&#39;,&#39;&#39;,&#39;&#39;,&#39;&#39;,&#39;&#39;,&#39;&#39;,&#39;&#39;,&#39;&#39;,&#39;&#39;,&#39;&#39;,&#39;&#39;,&#39;&#39;,&#39;&#39;,&#39;&#39;,&#39;&#39;,&#39;&#39;,&#39;&#39;,&#39;&#39;,&#39;&#39;,&#39;&#39;,&#39;&#39;,  &#39;UUID&#39; ]</span>
-  <span class="ruby-comment">#    csv &lt;&lt; [  &#39;&#39;,</span>
-  <span class="ruby-comment">#              common_work.title,</span>
-  <span class="ruby-comment">#              common_work.iswc_code,</span>
-  <span class="ruby-comment">#              common_work.alternative_titles,</span>
-  <span class="ruby-comment">#              common_work.description.to_s.squish,</span>
-  <span class="ruby-comment">#              &#39;&#39;,&#39;&#39;,&#39;&#39;,&#39;&#39;,&#39;&#39;,&#39;&#39;,&#39;&#39;,&#39;&#39;,&#39;&#39;,&#39;&#39;,&#39;&#39;,&#39;&#39;,&#39;&#39;,&#39;&#39;,&#39;&#39;,&#39;&#39;,&#39;&#39;,&#39;&#39;,&#39;&#39;,&#39;&#39;,&#39;&#39;,&#39;&#39;,&#39;&#39;,&#39;&#39;,&#39;&#39;,&#39;&#39;,&#39;&#39;,&#39;&#39;,&#39;&#39;,&#39;&#39;, </span>
-  <span class="ruby-comment">#              common_work.uuid.to_s, </span>
-  <span class="ruby-comment">#            ]</span>
-  <span class="ruby-comment">#    # ipis</span>
-  <span class="ruby-comment">#    #if common_work.ipis.size &gt; 0</span>
-  <span class="ruby-comment">#    if true</span>
-  <span class="ruby-comment">#      csv &lt;&lt; [&#39;&#39; ]</span>
-  <span class="ruby-comment">#      csv &lt;&lt; [&#39;&#39; ]</span>
-  <span class="ruby-comment">#      csv &lt;&lt; [&#39;IPI\&#39;S&#39; ]</span>
-  <span class="ruby-comment">#      csv &lt;&lt; [  &#39;&#39;,</span>
-  <span class="ruby-comment">#                &#39;IPI Code&#39;,</span>
-  <span class="ruby-comment">#                &#39;Full Name&#39;,</span>
-  <span class="ruby-comment">#                &#39;Role&#39;, </span>
-  <span class="ruby-comment">#                &#39;Address&#39;, </span>
-  <span class="ruby-comment">#                &#39;Email&#39;, </span>
-  <span class="ruby-comment">#                &#39;Phone Number&#39;, </span>
-  <span class="ruby-comment">#                &#39;Controlled&#39;, </span>
-  <span class="ruby-comment">#                &#39;Territory&#39;, </span>
-  <span class="ruby-comment">#                &#39;Share&#39;, </span>
-  <span class="ruby-comment">#                &#39;Mech Owned %&#39;, </span>
-  <span class="ruby-comment">#                &#39;Mech Collected %&#39;, </span>
-  <span class="ruby-comment">#                &#39;Performance Owned %&#39;, </span>
-  <span class="ruby-comment">#                &#39;Performance Collected %&#39;, </span>
-  <span class="ruby-comment">#                &#39;Notes&#39;,</span>
-  <span class="ruby-comment">#                &#39;CAE Code&#39;,</span>
-  <span class="ruby-comment">#                &#39;&#39;,&#39;&#39;,&#39;&#39;,&#39;&#39;,&#39;&#39;,&#39;&#39;,&#39;&#39;,&#39;&#39;,&#39;&#39;,&#39;&#39;,&#39;&#39;,&#39;&#39;,&#39;&#39;,&#39;&#39;,&#39;&#39;,&#39;&#39;,&#39;&#39;,&#39;&#39;,&#39;&#39;, </span>
-  <span class="ruby-comment">#                &#39;Common Work UUID&#39;,</span>
-  <span class="ruby-comment">#              ]</span>
-  <span class="ruby-comment">#      common_work.ipis.each do |ipi|</span>
-  <span class="ruby-comment">#        csv &lt;&lt;  [</span>
-  <span class="ruby-comment">#                  &#39;&#39;,</span>
-  <span class="ruby-comment">#                  ipi.ipi_code.to_s,</span>
-  <span class="ruby-comment">#                  ipi.full_name.to_s,</span>
-  <span class="ruby-comment">#                  ipi.role.to_s,</span>
-  <span class="ruby-comment">#                  ipi.address.to_s,</span>
-  <span class="ruby-comment">#                  ipi.email.to_s,</span>
-  <span class="ruby-comment">#                  ipi.phone_number.to_s,</span>
-  <span class="ruby-comment">#                  ipi.controlled.to_s,</span>
-  <span class="ruby-comment">#                  ipi.territory.to_s,</span>
-  <span class="ruby-comment">#                  ipi.share.to_s,</span>
-  <span class="ruby-comment">#                  ipi.mech_owned.to_s,</span>
-  <span class="ruby-comment">#                  ipi.mech_collected.to_s,</span>
-  <span class="ruby-comment">#                  ipi.perf_owned.to_s,</span>
-  <span class="ruby-comment">#                  ipi.perf_collected.to_s,</span>
-  <span class="ruby-comment">#                  ipi.notes.to_s,</span>
-  <span class="ruby-comment">#                  ipi.cae_code.to_s,</span>
-  <span class="ruby-comment">#                  &#39;&#39;,&#39;&#39;,&#39;&#39;,&#39;&#39;,&#39;&#39;,&#39;&#39;,&#39;&#39;,&#39;&#39;,&#39;&#39;,&#39;&#39;,&#39;&#39;,&#39;&#39;,&#39;&#39;,&#39;&#39;,&#39;&#39;,&#39;&#39;,&#39;&#39;,&#39;&#39;, &#39;&#39;, </span>
-  <span class="ruby-comment">#                  common_work.uuid</span>
-  <span class="ruby-comment">#                ]</span>
-  <span class="ruby-comment">#      end</span>
-  <span class="ruby-comment">#      # recordings</span>
-  <span class="ruby-comment">#      #if common_work.recordings.size &gt; 0</span>
-  <span class="ruby-comment">#      if true</span>
-  <span class="ruby-comment">#        csv &lt;&lt; [&#39;&#39; ]</span>
-  <span class="ruby-comment">#        csv &lt;&lt; [&#39;&#39; ]</span>
-  <span class="ruby-comment">#        csv &lt;&lt; [&#39;RECORDINGS&#39; ]</span>
-  <span class="ruby-comment">#        csv &lt;&lt; [  &#39;&#39;,</span>
-  <span class="ruby-comment">#                  &quot;Title&quot;,            </span>
-  <span class="ruby-comment">#                  &quot;ISRC CODE&quot;,        </span>
-  <span class="ruby-comment">#                  &quot;Artist&quot;,                   </span>
-  <span class="ruby-comment">#                  &quot;BPM&quot;,              </span>
-  <span class="ruby-comment">#                  &quot;Comment&quot;,          </span>
-  <span class="ruby-comment">#                  &quot;Explicit&quot;,         </span>
-  <span class="ruby-comment">#                  &quot;Clearance&quot;,        </span>
-  <span class="ruby-comment">#                  &quot;Version&quot;,</span>
-  <span class="ruby-comment">#                  &quot;Copyright&quot;,        </span>
-  <span class="ruby-comment">#                  &quot;Production Company&quot;,</span>
-  <span class="ruby-comment">#                  &quot;Available Date&quot;,</span>
-  <span class="ruby-comment">#                  &quot;UPC CODE&quot;,         </span>
-  <span class="ruby-comment">#                  &quot;Album Artist&quot;,</span>
-  <span class="ruby-comment">#                  &quot;Album Title&quot;,</span>
-  <span class="ruby-comment">#                  &quot;Grouping&quot;,</span>
-  <span class="ruby-comment">#                  &quot;Composer&quot;,</span>
-  <span class="ruby-comment">#                  &quot;Compilation&quot;,</span>
-  <span class="ruby-comment">#                  &quot;Bitrate&quot;,</span>
-  <span class="ruby-comment">#                  &quot;Samplerate&quot;,</span>
-  <span class="ruby-comment">#                  &quot;Channels&quot;,</span>
-  <span class="ruby-comment">#                  &quot;Year&quot;,             </span>
-  <span class="ruby-comment">#                  &quot;Duration&quot;,         </span>
-  <span class="ruby-comment">#                  &quot;Album Name&quot;,       </span>
-  <span class="ruby-comment">#                  &quot;Genre&quot;,            </span>
-  <span class="ruby-comment">#                  &quot;Performer&quot;,        </span>
-  <span class="ruby-comment">#                  &quot;Band&quot;,             </span>
-  <span class="ruby-comment">#                  &quot;Disc&quot;,             </span>
-  <span class="ruby-comment">#                  &quot;Track&quot;, </span>
-  <span class="ruby-comment">#                  &quot;Vocal&quot;,            </span>
-  <span class="ruby-comment">#                  &quot;Mood&quot;,             </span>
-  <span class="ruby-comment">#                  &quot;instruments&quot;,      </span>
-  <span class="ruby-comment">#                  &quot;Tempo&quot;,</span>
-  <span class="ruby-comment">#                  &quot;MP3 File&quot;,</span>
-  <span class="ruby-comment">#                  &#39;UUDI&#39;, </span>
-  <span class="ruby-comment">#                  &#39;Common Work UUID&#39;</span>
-  <span class="ruby-comment">#                ]</span>
-  <span class="ruby-comment">#        common_work.recordings.each do |recording|</span>
-  <span class="ruby-comment">#          csv &lt;&lt;  [</span>
-  <span class="ruby-comment">#                    &#39;&#39;,</span>
-  <span class="ruby-comment">#                    recording.title.to_s,            </span>
-  <span class="ruby-comment">#                    recording.isrc_code.to_s,        </span>
-  <span class="ruby-comment">#                    recording.artist.to_s,                   </span>
-  <span class="ruby-comment">#                    recording.bpm.to_s,              </span>
-  <span class="ruby-comment">#                    recording.comment.to_s,          </span>
-  <span class="ruby-comment">#                    recording.explicit.to_s,         </span>
-  <span class="ruby-comment">#                    recording.clearance.to_s,        </span>
-  <span class="ruby-comment">#                    recording.version.to_s,</span>
-  <span class="ruby-comment">#                    recording.copyright.to_s,        </span>
-  <span class="ruby-comment">#                    recording.production_company.to_s,</span>
-  <span class="ruby-comment">#                    recording.available_date.to_s,</span>
-  <span class="ruby-comment">#                    recording.upc_code.to_s,         </span>
-  <span class="ruby-comment">#                    recording.album_artist.to_s,</span>
-  <span class="ruby-comment">#                    recording.album_title.to_s,</span>
-  <span class="ruby-comment">#                    recording.grouping.to_s,</span>
-  <span class="ruby-comment">#                    recording.composer.to_s,</span>
-  <span class="ruby-comment">#                    recording.compilation.to_s,</span>
-  <span class="ruby-comment">#                    recording.bitrate.to_s,</span>
-  <span class="ruby-comment">#                    recording.samplerate.to_s,</span>
-  <span class="ruby-comment">#                    recording.channels.to_s,</span>
-  <span class="ruby-comment">#                    recording.year.to_s,             </span>
-  <span class="ruby-comment">#                    recording.duration.to_s,         </span>
-  <span class="ruby-comment">#                    recording.album_name.to_s,       </span>
-  <span class="ruby-comment">#                    recording.genre.to_s,            </span>
-  <span class="ruby-comment">#                    recording.performer.to_s,        </span>
-  <span class="ruby-comment">#                    recording.band.to_s,             </span>
-  <span class="ruby-comment">#                    recording.disc.to_s,             </span>
-  <span class="ruby-comment">#                    recording.track.to_s,      </span>
-  <span class="ruby-comment">#                    recording.vocal.to_s,            </span>
-  <span class="ruby-comment">#                    recording.mood.to_s,             </span>
-  <span class="ruby-comment">#                    recording.instruments.to_s,      </span>
-  <span class="ruby-comment">#                    recording.tempo.to_s,</span>
-  <span class="ruby-comment">#                    recording.mp3,</span>
-  <span class="ruby-comment">#                    recording.uuid,</span>
-  <span class="ruby-comment">#                    common_work.uuid</span>
-  <span class="ruby-comment">#                  ]</span>
-  <span class="ruby-comment">#          end</span>
-  <span class="ruby-comment">#        end</span>
-  <span class="ruby-comment">#    end</span>
-  <span class="ruby-comment">#    csv &lt;&lt; [&#39;&#39;]</span>
-  <span class="ruby-comment">#    csv &lt;&lt; [&#39;&#39;]</span>
-  <span class="ruby-comment">#    csv &lt;&lt; [&#39;&#39;]</span>
-  <span class="ruby-comment">#    csv &lt;&lt; [&#39;&#39;]</span>
-  <span class="ruby-comment">#  end</span>
-  <span class="ruby-comment">#</span>
-  <span class="ruby-comment">#end</span>
+ 
 <span class="ruby-keyword">end</span></pre>
               </div>
             </div>
@@ -867,7 +718,7 @@
                 
               </p>
               <div id="method-i-add_to_catalog_source" class="dyn-source">
-                <pre><span class="ruby-comment"># File models/common_work.rb, line 752</span>
+                <pre><span class="ruby-comment"># File models/common_work.rb, line 385</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">add_to_catalog</span> <span class="ruby-identifier">catalog_id</span>
 
   <span class="ruby-keyword">if</span> <span class="ruby-identifier">catalog_id</span>
@@ -916,7 +767,7 @@
                 
               </p>
               <div id="method-i-artworks_source" class="dyn-source">
-                <pre><span class="ruby-comment"># File models/common_work.rb, line 329</span>
+                <pre><span class="ruby-comment"># File models/common_work.rb, line 344</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">artworks</span>
   <span class="ruby-identifier">artwork_ids</span> = <span class="ruby-keyword">self</span>.<span class="ruby-identifier">common_work_items</span>.<span class="ruby-identifier">where</span>( <span class="ruby-identifier">attachable_type</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;Artwork&#39;</span>).<span class="ruby-identifier">pluck</span>(<span class="ruby-value">:attachable_id</span>)
   <span class="ruby-ivar">@artworks</span> = <span class="ruby-constant">Artwork</span>.<span class="ruby-identifier">where</span>(<span class="ruby-identifier">id</span><span class="ruby-operator">:</span> <span class="ruby-identifier">artwork_ids</span>)
@@ -954,7 +805,7 @@
                 
               </p>
               <div id="method-i-attache_ipis_true_source" class="dyn-source">
-                <pre><span class="ruby-comment"># File models/common_work.rb, line 219</span>
+                <pre><span class="ruby-comment"># File models/common_work.rb, line 227</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">attache_ipis_true</span> <span class="ruby-identifier">recording_id</span>
   <span class="ruby-keyword">self</span>.<span class="ruby-identifier">ipis</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">ipi</span><span class="ruby-operator">|</span>
     <span class="ruby-keyword">unless</span> <span class="ruby-identifier">ipi</span>.<span class="ruby-identifier">email</span>.<span class="ruby-identifier">to_s</span> <span class="ruby-operator">==</span> <span class="ruby-string">&#39;&#39;</span>
@@ -970,80 +821,6 @@
     <span class="ruby-keyword">end</span>
   <span class="ruby-keyword">end</span>
   
-<span class="ruby-keyword">end</span></pre>
-              </div>
-            </div>
-            
-          </div>
-        
-        <div class="method">
-          <div class="title method-title" id="method-i-audio_preview">
-            
-              <b>audio_preview</b>()
-            
-            <a href="../classes/CommonWork.html#method-i-audio_preview" name="method-i-audio_preview" class="permalink">Link</a>
-          </div>
-          
-          
-            <div class="description">
-              
-            </div>
-          
-          
-          
-
-          
-          
-          
-            
-            <div class="sourcecode">
-              
-              <p class="source-link">
-                Source: 
-                <a href="javascript:toggleSource('method-i-audio_preview_source')" id="l_method-i-audio_preview_source">show</a>
-                
-              </p>
-              <div id="method-i-audio_preview_source" class="dyn-source">
-                <pre><span class="ruby-comment"># File models/common_work.rb, line 236</span>
-<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">audio_preview</span>
-  <span class="ruby-constant">Recording</span>.<span class="ruby-identifier">find</span>(<span class="ruby-keyword">self</span>.<span class="ruby-identifier">recording_preview_id</span>).<span class="ruby-identifier">audio_file_url</span> <span class="ruby-keyword">if</span> <span class="ruby-constant">Recording</span>.<span class="ruby-identifier">exists?</span>(<span class="ruby-keyword">self</span>.<span class="ruby-identifier">recording_preview_id</span>)
-<span class="ruby-keyword">end</span></pre>
-              </div>
-            </div>
-            
-          </div>
-        
-        <div class="method">
-          <div class="title method-title" id="method-i-audio_recordings">
-            
-              <b>audio_recordings</b>()
-            
-            <a href="../classes/CommonWork.html#method-i-audio_recordings" name="method-i-audio_recordings" class="permalink">Link</a>
-          </div>
-          
-          
-            <div class="description">
-              
-            </div>
-          
-          
-          
-
-          
-          
-          
-            
-            <div class="sourcecode">
-              
-              <p class="source-link">
-                Source: 
-                <a href="javascript:toggleSource('method-i-audio_recordings_source')" id="l_method-i-audio_recordings_source">show</a>
-                
-              </p>
-              <div id="method-i-audio_recordings_source" class="dyn-source">
-                <pre><span class="ruby-comment"># File models/common_work.rb, line 144</span>
-<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">audio_recordings</span> 
-  <span class="ruby-identifier">recordings</span>.<span class="ruby-identifier">where</span>(<span class="ruby-identifier">media_type</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;recording&#39;</span>) 
 <span class="ruby-keyword">end</span></pre>
               </div>
             </div>
@@ -1078,7 +855,7 @@
                 
               </p>
               <div id="method-i-clear_rights_source" class="dyn-source">
-                <pre><span class="ruby-comment"># File models/common_work.rb, line 132</span>
+                <pre><span class="ruby-comment"># File models/common_work.rb, line 140</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">clear_rights</span>
   
 <span class="ruby-keyword">end</span></pre>
@@ -1115,7 +892,7 @@
                 
               </p>
               <div id="method-i-configure_publishers_payment_source" class="dyn-source">
-                <pre><span class="ruby-comment"># File models/common_work.rb, line 88</span>
+                <pre><span class="ruby-comment"># File models/common_work.rb, line 96</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">configure_publishers_payment</span>( <span class="ruby-identifier">price</span>, <span class="ruby-identifier">recording_uuid</span> )
   <span class="ruby-comment">#ap &#39;==========================================&#39;</span>
   <span class="ruby-comment">#ap &#39;configure_publishers_payment&#39;</span>
@@ -1135,87 +912,6 @@
     <span class="ruby-keyword">return</span> <span class="ruby-number">0.0</span>
   <span class="ruby-keyword">end</span>
   <span class="ruby-identifier">price</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">royalty</span>
-<span class="ruby-keyword">end</span></pre>
-              </div>
-            </div>
-            
-          </div>
-        
-        <div class="method">
-          <div class="title method-title" id="method-i-copy_ipis_from">
-            
-              <b>copy_ipis_from</b>(common_work)
-            
-            <a href="../classes/CommonWork.html#method-i-copy_ipis_from" name="method-i-copy_ipis_from" class="permalink">Link</a>
-          </div>
-          
-          
-            <div class="description">
-              
-            </div>
-          
-          
-          
-
-          
-          
-          
-            
-            <div class="sourcecode">
-              
-              <p class="source-link">
-                Source: 
-                <a href="javascript:toggleSource('method-i-copy_ipis_from_source')" id="l_method-i-copy_ipis_from_source">show</a>
-                
-              </p>
-              <div id="method-i-copy_ipis_from_source" class="dyn-source">
-                <pre><span class="ruby-comment"># File models/common_work.rb, line 768</span>
-<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">copy_ipis_from</span> <span class="ruby-identifier">common_work</span>
- 
-  <span class="ruby-identifier">common_work</span>.<span class="ruby-identifier">ipis</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">ipi</span><span class="ruby-operator">|</span>
-    
-    
-    <span class="ruby-keyword">self</span>.<span class="ruby-identifier">ipis</span>.<span class="ruby-identifier">where</span>(<span class="ruby-identifier">uuid</span><span class="ruby-operator">:</span> <span class="ruby-identifier">ipi</span>.<span class="ruby-identifier">uuid</span>)
-             .<span class="ruby-identifier">first_or_create</span>(
-                    <span class="ruby-identifier">legal_name</span><span class="ruby-operator">:</span>               <span class="ruby-identifier">ipi</span>.<span class="ruby-identifier">full_name</span>,                  
-                    <span class="ruby-identifier">address</span><span class="ruby-operator">:</span>                  <span class="ruby-identifier">ipi</span>.<span class="ruby-identifier">address</span>,
-                    <span class="ruby-identifier">email</span><span class="ruby-operator">:</span>                    <span class="ruby-identifier">ipi</span>.<span class="ruby-identifier">email</span>,
-                    <span class="ruby-identifier">phone_number</span><span class="ruby-operator">:</span>             <span class="ruby-identifier">ipi</span>.<span class="ruby-identifier">phone_number</span>,
-                    <span class="ruby-identifier">role</span><span class="ruby-operator">:</span>                     <span class="ruby-identifier">ipi</span>.<span class="ruby-identifier">role</span>,
-                    <span class="ruby-identifier">common_work_id</span><span class="ruby-operator">:</span>           <span class="ruby-keyword">self</span>.<span class="ruby-identifier">id</span>,
-                    <span class="ruby-identifier">import_ipi_id</span><span class="ruby-operator">:</span>            <span class="ruby-keyword">nil</span>,          
-                    <span class="ruby-identifier">user_id</span><span class="ruby-operator">:</span>                  <span class="ruby-identifier">ipi</span>.<span class="ruby-identifier">user_id</span>,
-                    <span class="ruby-identifier">ipi_code</span><span class="ruby-operator">:</span>                 <span class="ruby-identifier">ipi</span>.<span class="ruby-identifier">ipi_code</span>,
-                    <span class="ruby-identifier">cae_code</span><span class="ruby-operator">:</span>                 <span class="ruby-identifier">ipi</span>.<span class="ruby-identifier">cae_code</span>,
-                    <span class="ruby-identifier">controlled</span><span class="ruby-operator">:</span>               <span class="ruby-identifier">ipi</span>.<span class="ruby-identifier">controlled</span>,
-                    <span class="ruby-identifier">territory</span><span class="ruby-operator">:</span>                <span class="ruby-identifier">ipi</span>.<span class="ruby-identifier">territory</span>,
-                    <span class="ruby-identifier">share</span><span class="ruby-operator">:</span>                    <span class="ruby-identifier">ipi</span>.<span class="ruby-identifier">share</span>,                
-                    <span class="ruby-identifier">mech_owned</span><span class="ruby-operator">:</span>               <span class="ruby-identifier">ipi</span>.<span class="ruby-identifier">mech_owned</span>,           
-                    <span class="ruby-identifier">mech_collected</span><span class="ruby-operator">:</span>           <span class="ruby-identifier">ipi</span>.<span class="ruby-identifier">mech_collected</span>,       
-                    <span class="ruby-identifier">perf_owned</span><span class="ruby-operator">:</span>               <span class="ruby-identifier">ipi</span>.<span class="ruby-identifier">perf_owned</span>,           
-                    <span class="ruby-identifier">perf_collected</span><span class="ruby-operator">:</span>           <span class="ruby-identifier">ipi</span>.<span class="ruby-identifier">perf_collected</span>,       
-                    <span class="ruby-identifier">notes</span><span class="ruby-operator">:</span>                    <span class="ruby-identifier">ipi</span>.<span class="ruby-identifier">notes</span>,
-                    <span class="ruby-identifier">pro</span><span class="ruby-operator">:</span>                      <span class="ruby-identifier">ipi</span>.<span class="ruby-identifier">pro</span>,
-                    <span class="ruby-identifier">has_agreement</span><span class="ruby-operator">:</span>            <span class="ruby-identifier">ipi</span>.<span class="ruby-identifier">has_agreement</span>,
-                    <span class="ruby-identifier">linked_to_ascap_member</span><span class="ruby-operator">:</span>   <span class="ruby-identifier">ipi</span>.<span class="ruby-identifier">linked_to_ascap_member</span>,
-                    <span class="ruby-identifier">controlled_by_submitter</span><span class="ruby-operator">:</span>  <span class="ruby-identifier">ipi</span>.<span class="ruby-identifier">controlled_by_submitter</span>,
-                    <span class="ruby-identifier">ascap_work_id</span><span class="ruby-operator">:</span>            <span class="ruby-identifier">ipi</span>.<span class="ruby-identifier">ascap_work_id</span>,
-                    <span class="ruby-identifier">bmi_work_id</span><span class="ruby-operator">:</span>              <span class="ruby-identifier">ipi</span>.<span class="ruby-identifier">bmi_work_id</span>,          
-                    <span class="ruby-identifier">writer</span><span class="ruby-operator">:</span>                   <span class="ruby-identifier">ipi</span>.<span class="ruby-identifier">writer</span>,               
-                    <span class="ruby-identifier">composer</span><span class="ruby-operator">:</span>                 <span class="ruby-identifier">ipi</span>.<span class="ruby-identifier">composer</span>,             
-                    <span class="ruby-identifier">administrator</span><span class="ruby-operator">:</span>            <span class="ruby-identifier">ipi</span>.<span class="ruby-identifier">administrator</span>,        
-                    <span class="ruby-identifier">producer</span><span class="ruby-operator">:</span>                 <span class="ruby-identifier">ipi</span>.<span class="ruby-identifier">producer</span>,             
-                    <span class="ruby-identifier">original_publisher</span><span class="ruby-operator">:</span>       <span class="ruby-identifier">ipi</span>.<span class="ruby-identifier">original_publisher</span>,   
-                    <span class="ruby-identifier">artist</span><span class="ruby-operator">:</span>                   <span class="ruby-identifier">ipi</span>.<span class="ruby-identifier">artist</span>,               
-                    <span class="ruby-identifier">distributor</span><span class="ruby-operator">:</span>              <span class="ruby-identifier">ipi</span>.<span class="ruby-identifier">distributor</span>,          
-                    <span class="ruby-identifier">remixer</span><span class="ruby-operator">:</span>                  <span class="ruby-identifier">ipi</span>.<span class="ruby-identifier">remixer</span>,              
-                    <span class="ruby-identifier">other</span><span class="ruby-operator">:</span>                    <span class="ruby-identifier">ipi</span>.<span class="ruby-identifier">other</span>,                
-                    <span class="ruby-identifier">publisher</span><span class="ruby-operator">:</span>                <span class="ruby-identifier">ipi</span>.<span class="ruby-identifier">publisher</span>,            
-                    <span class="ruby-identifier">uuid</span><span class="ruby-operator">:</span>                     <span class="ruby-constant">UUIDTools</span><span class="ruby-operator">::</span><span class="ruby-constant">UUID</span>.<span class="ruby-identifier">timestamp_create</span>().<span class="ruby-identifier">to_s</span>
-                  )
-    
-  <span class="ruby-keyword">end</span>
-  
 <span class="ruby-keyword">end</span></pre>
               </div>
             </div>
@@ -1250,12 +946,63 @@
                 
               </p>
               <div id="method-i-editable_by_source" class="dyn-source">
-                <pre><span class="ruby-comment"># File models/common_work.rb, line 154</span>
+                <pre><span class="ruby-comment"># File models/common_work.rb, line 162</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">editable_by</span> <span class="ruby-identifier">user</span>
   <span class="ruby-identifier">recordings</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">recording</span><span class="ruby-operator">|</span>
     <span class="ruby-keyword">return</span> <span class="ruby-keyword">true</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">recording</span>.<span class="ruby-identifier">update_common_work_ids</span>.<span class="ruby-identifier">include?</span>  <span class="ruby-identifier">user</span>.<span class="ruby-identifier">id</span>
   <span class="ruby-keyword">end</span>
   <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-error_message">
+            
+              <b>error_message</b>()
+            
+            <a href="../classes/CommonWork.html#method-i-error_message" name="method-i-error_message" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-error_message_source')" id="l_method-i-error_message_source">show</a>
+                
+              </p>
+              <div id="method-i-error_message_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/common_work.rb, line 415</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">error_message</span>
+  <span class="ruby-identifier">ap</span> <span class="ruby-string">&#39;CommonWork # error_message&#39;</span>
+  <span class="ruby-identifier">em</span> = {}
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">total_share</span> <span class="ruby-operator">!=</span> <span class="ruby-number">100.0</span>
+    <span class="ruby-identifier">em</span>[<span class="ruby-value">:total_share</span>] = <span class="ruby-identifier">message_hash</span>(<span class="ruby-string">&#39;The creators split has to add up to 100%&#39;</span>)
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-identifier">errors</span> = []
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">common_work_ipis</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">common_work_ipi</span><span class="ruby-operator">|</span>
+    
+    <span class="ruby-keyword">unless</span> <span class="ruby-identifier">common_work_ipi</span>.<span class="ruby-identifier">do_validation</span>
+      <span class="ruby-identifier">errors</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">common_work_ipi</span>.<span class="ruby-identifier">error_message</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-identifier">em</span>[<span class="ruby-value">:common_work_ipis</span>] = <span class="ruby-identifier">errors</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">errors</span>.<span class="ruby-identifier">empty?</span>
+  <span class="ruby-identifier">em</span>
 <span class="ruby-keyword">end</span></pre>
               </div>
             </div>
@@ -1290,7 +1037,7 @@
                 
               </p>
               <div id="method-i-files_source" class="dyn-source">
-                <pre><span class="ruby-comment"># File models/common_work.rb, line 203</span>
+                <pre><span class="ruby-comment"># File models/common_work.rb, line 211</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">files</span>
   <span class="ruby-keyword">self</span>.<span class="ruby-identifier">attachments</span>.<span class="ruby-identifier">files</span>
 <span class="ruby-keyword">end</span></pre>
@@ -1327,7 +1074,7 @@
                 
               </p>
               <div id="method-i-financial_documents_source" class="dyn-source">
-                <pre><span class="ruby-comment"># File models/common_work.rb, line 211</span>
+                <pre><span class="ruby-comment"># File models/common_work.rb, line 219</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">financial_documents</span>
   <span class="ruby-keyword">self</span>.<span class="ruby-identifier">attachments</span>.<span class="ruby-identifier">financial_documents</span>
 <span class="ruby-keyword">end</span></pre>
@@ -1364,7 +1111,7 @@
                 
               </p>
               <div id="method-i-health_source" class="dyn-source">
-                <pre><span class="ruby-comment"># File models/common_work.rb, line 290</span>
+                <pre><span class="ruby-comment"># File models/common_work.rb, line 298</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">health</span>
   <span class="ruby-identifier">completeness</span>
 <span class="ruby-keyword">end</span></pre>
@@ -1401,7 +1148,7 @@
                 
               </p>
               <div id="method-i-is_cleared-3F_source" class="dyn-source">
-                <pre><span class="ruby-comment"># File models/common_work.rb, line 117</span>
+                <pre><span class="ruby-comment"># File models/common_work.rb, line 125</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">is_cleared?</span>
   <span class="ruby-identifier">total_share</span> <span class="ruby-operator">==</span> <span class="ruby-number">100.0</span>
   <span class="ruby-comment">#return false if common_work_ipis.count == 0</span>
@@ -1443,7 +1190,7 @@
                 
               </p>
               <div id="method-i-is_registered-3F_source" class="dyn-source">
-                <pre><span class="ruby-comment"># File models/common_work.rb, line 109</span>
+                <pre><span class="ruby-comment"># File models/common_work.rb, line 117</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">is_registered?</span>
   <span class="ruby-keyword">return</span> <span class="ruby-keyword">true</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">common_work_ipis</span>.<span class="ruby-identifier">count</span> <span class="ruby-operator">&gt;</span> <span class="ruby-number">0</span>
 <span class="ruby-keyword">end</span></pre>
@@ -1480,9 +1227,50 @@
                 
               </p>
               <div id="method-i-legal_documents_source" class="dyn-source">
-                <pre><span class="ruby-comment"># File models/common_work.rb, line 207</span>
+                <pre><span class="ruby-comment"># File models/common_work.rb, line 215</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">legal_documents</span>
   <span class="ruby-keyword">self</span>.<span class="ruby-identifier">attachments</span>.<span class="ruby-identifier">legal_documents</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-message_hash">
+            
+              <b>message_hash</b>(msg)
+            
+            <a href="../classes/CommonWork.html#method-i-message_hash" name="method-i-message_hash" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-message_hash_source')" id="l_method-i-message_hash_source">show</a>
+                
+              </p>
+              <div id="method-i-message_hash_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/common_work.rb, line 407</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">message_hash</span> <span class="ruby-identifier">msg</span>
+  {
+    <span class="ruby-identifier">message</span><span class="ruby-operator">:</span>      <span class="ruby-identifier">msg</span>,
+    <span class="ruby-identifier">type</span><span class="ruby-operator">:</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">name</span>,
+    <span class="ruby-identifier">id</span><span class="ruby-operator">:</span>   <span class="ruby-keyword">self</span>.<span class="ruby-identifier">id</span>
+  }
 <span class="ruby-keyword">end</span></pre>
               </div>
             </div>
@@ -1517,7 +1305,7 @@
                 
               </p>
               <div id="method-i-recording_genres_source" class="dyn-source">
-                <pre><span class="ruby-comment"># File models/common_work.rb, line 170</span>
+                <pre><span class="ruby-comment"># File models/common_work.rb, line 178</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">recording_genres</span>
   <span class="ruby-identifier">genres</span> = []
   <span class="ruby-keyword">self</span>.<span class="ruby-identifier">recordings</span>.<span class="ruby-identifier">includes</span>(<span class="ruby-value">:genres</span>).<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">recording</span><span class="ruby-operator">|</span>
@@ -1561,7 +1349,7 @@
                 
               </p>
               <div id="method-i-recording_health_source" class="dyn-source">
-                <pre><span class="ruby-comment"># File models/common_work.rb, line 311</span>
+                <pre><span class="ruby-comment"># File models/common_work.rb, line 326</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">recording_health</span>
   <span class="ruby-identifier">rec_health</span>        = <span class="ruby-number">0</span>
   <span class="ruby-identifier">recording_factor</span>  = <span class="ruby-number">1</span>
@@ -1612,7 +1400,7 @@
                 
               </p>
               <div id="method-i-recording_id_source" class="dyn-source">
-                <pre><span class="ruby-comment"># File models/common_work.rb, line 136</span>
+                <pre><span class="ruby-comment"># File models/common_work.rb, line 144</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">recording_id</span> 
 <span class="ruby-keyword">end</span></pre>
               </div>
@@ -1648,7 +1436,7 @@
                 
               </p>
               <div id="method-i-recording_instruments_source" class="dyn-source">
-                <pre><span class="ruby-comment"># File models/common_work.rb, line 192</span>
+                <pre><span class="ruby-comment"># File models/common_work.rb, line 200</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">recording_instruments</span>
   <span class="ruby-identifier">instruments</span> = []
   <span class="ruby-keyword">self</span>.<span class="ruby-identifier">recordings</span>.<span class="ruby-identifier">includes</span>(<span class="ruby-value">:instruments</span>).<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">recording</span><span class="ruby-operator">|</span>
@@ -1692,7 +1480,7 @@
                 
               </p>
               <div id="method-i-recording_moods_source" class="dyn-source">
-                <pre><span class="ruby-comment"># File models/common_work.rb, line 181</span>
+                <pre><span class="ruby-comment"># File models/common_work.rb, line 189</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">recording_moods</span>
   <span class="ruby-identifier">moods</span> = []
   <span class="ruby-keyword">self</span>.<span class="ruby-identifier">recordings</span>.<span class="ruby-identifier">includes</span>(<span class="ruby-value">:moods</span>).<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">recording</span><span class="ruby-operator">|</span>
@@ -1736,7 +1524,7 @@
                 
               </p>
               <div id="method-i-royalty_source" class="dyn-source">
-                <pre><span class="ruby-comment"># File models/common_work.rb, line 113</span>
+                <pre><span class="ruby-comment"># File models/common_work.rb, line 121</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">royalty</span>
   <span class="ruby-number">10.0</span>
 <span class="ruby-keyword">end</span></pre>
@@ -1755,174 +1543,7 @@
           
           
             <div class="description">
-              <p>def <a href="CommonWork.html#method-i-to_csv">#to_csv</a></p>
-
-<pre><code># please dry this up
-CSV.generate do |csv|
-  #csv &lt;&lt; column_names
-  csv &lt;&lt; [&#39;DigiRAMP CVS&#39;, &#39;&#39;, &#39;&#39;, &#39;&#39;, &#39;&#39;, &#39;&#39;, &#39;&#39; ]
-  csv &lt;&lt; [&#39;&#39;]
-  csv &lt;&lt; [&#39;&#39;]
-  #all.each do |common_work|
-
-    #recording_ids = &#39;&#39;
-    #common_work.recordings.each do |recording|
-    #  recording_ids &lt;&lt; recording.id.to_s
-    #  recording_ids &lt;&lt; &#39;,&#39;
-    #end
-    # work info
-    csv &lt;&lt; [&#39;COMMON WORK&#39;]
-    csv &lt;&lt; [  &#39;&#39;,&#39;Title&#39;, &#39;ISWC Code&#39;,&#39;Alternative Titles&#39;, &#39;Description&#39;,&#39;&#39;,&#39;&#39;,&#39;&#39;,&#39;&#39;,&#39;&#39;,&#39;&#39;,&#39;&#39;,&#39;&#39;,&#39;&#39;,&#39;&#39;,&#39;&#39;,&#39;&#39;,&#39;&#39;,&#39;&#39;,&#39;&#39;,&#39;&#39;,&#39;&#39;,&#39;&#39;,&#39;&#39;,&#39;&#39;,&#39;&#39;,&#39;&#39;,&#39;&#39;,&#39;&#39;,&#39;&#39;,&#39;&#39;,&#39;&#39;,&#39;&#39;,&#39;&#39;,&#39;&#39;,  &#39;UUID&#39; ]
-    csv &lt;&lt; [  &#39;&#39;,
-              self.title,
-              self.iswc_code,
-              self.alternative_titles,
-              self.description.to_s.squish,
-              &#39;&#39;,&#39;&#39;,&#39;&#39;,&#39;&#39;,&#39;&#39;,&#39;&#39;,&#39;&#39;,&#39;&#39;,&#39;&#39;,&#39;&#39;,&#39;&#39;,&#39;&#39;,&#39;&#39;,&#39;&#39;,&#39;&#39;,&#39;&#39;,&#39;&#39;,&#39;&#39;,&#39;&#39;,&#39;&#39;,&#39;&#39;,&#39;&#39;,&#39;&#39;,&#39;&#39;,&#39;&#39;,&#39;&#39;,&#39;&#39;,&#39;&#39;,&#39;&#39;,&#39;&#39;, 
-              self.uuid.to_s, 
-            ]
-    # ipis
-    #if common_work.ipis.size &gt; 0
-    if true
-      csv &lt;&lt; [&#39;&#39; ]
-      csv &lt;&lt; [&#39;&#39; ]
-      csv &lt;&lt; [&#39;IPI\&#39;S&#39; ]
-      csv &lt;&lt; [  &#39;&#39;,
-                &#39;IPI Code&#39;,
-                &#39;Full Name&#39;,
-                &#39;Role&#39;, 
-                &#39;Address&#39;, 
-                &#39;Email&#39;, 
-                &#39;Phone Number&#39;, 
-                &#39;Controlled&#39;, 
-                &#39;Territory&#39;, 
-                &#39;Share&#39;, 
-                &#39;Mech Owned %&#39;, 
-                &#39;Mech Collected %&#39;, 
-                &#39;Performance Owned %&#39;, 
-                &#39;Performance Collected %&#39;, 
-                &#39;Notes&#39;,
-                &#39;CAE Code&#39;,
-                &#39;&#39;,&#39;&#39;,&#39;&#39;,&#39;&#39;,&#39;&#39;,&#39;&#39;,&#39;&#39;,&#39;&#39;,&#39;&#39;,&#39;&#39;,&#39;&#39;,&#39;&#39;,&#39;&#39;,&#39;&#39;,&#39;&#39;,&#39;&#39;,&#39;&#39;,&#39;&#39;,&#39;&#39;, 
-                &#39;Common Work UUID&#39;,
-              ]
-      self.ipis.each do |ipi|
-        csv &lt;&lt;  [
-                  &#39;&#39;,
-                  ipi.ipi_code.to_s,
-                  ipi.full_name.to_s,
-                  ipi.role.to_s,
-                  ipi.address.to_s,
-                  ipi.email.to_s,
-                  ipi.phone_number.to_s,
-                  ipi.controlled.to_s,
-                  ipi.territory.to_s,
-                  ipi.share.to_s,
-                  ipi.mech_owned.to_s,
-                  ipi.mech_collected.to_s,
-                  ipi.perf_owned.to_s,
-                  ipi.perf_collected.to_s,
-                  ipi.notes.to_s,
-                  ipi.cae_code.to_s,
-                  &#39;&#39;,&#39;&#39;,&#39;&#39;,&#39;&#39;,&#39;&#39;,&#39;&#39;,&#39;&#39;,&#39;&#39;,&#39;&#39;,&#39;&#39;,&#39;&#39;,&#39;&#39;,&#39;&#39;,&#39;&#39;,&#39;&#39;,&#39;&#39;,&#39;&#39;,&#39;&#39;, &#39;&#39;, 
-                  self.uuid
-                ]
-      end
-      # recordings
-      #if common_work.recordings.size &gt; 0
-      if true
-        csv &lt;&lt; [&#39;&#39; ]
-        csv &lt;&lt; [&#39;&#39; ]
-        csv &lt;&lt; [&#39;RECORDINGS&#39; ]
-        csv &lt;&lt; [  &#39;&#39;,
-                  &quot;Title&quot;,            
-                  &quot;ISRC CODE&quot;,        
-                  &quot;Artist&quot;,                   
-                  &quot;BPM&quot;,              
-                  &quot;Comment&quot;,          
-                  &quot;Explicit&quot;,         
-                  &quot;Clearance&quot;,        
-                  &quot;Version&quot;,
-                  &quot;Copyright&quot;,        
-                  &quot;Production Company&quot;,
-                  &quot;Available Date&quot;,
-                  &quot;UPC CODE&quot;,         
-                  &quot;Album Artist&quot;,
-                  &quot;Album Title&quot;,
-                  &quot;Grouping&quot;,
-                  &quot;Composer&quot;,
-                  &quot;Compilation&quot;,
-                  &quot;Bitrate&quot;,
-                  &quot;Samplerate&quot;,
-                  &quot;Channels&quot;,
-                  &quot;Year&quot;,             
-                  &quot;Duration&quot;,         
-                  &quot;Album Name&quot;,       
-                  &quot;Genre&quot;,            
-                  &quot;Performer&quot;,        
-                  &quot;Band&quot;,             
-                  &quot;Disc&quot;,             
-                  &quot;Track&quot;, 
-                  &quot;Vocal&quot;,            
-                  &quot;Mood&quot;,             
-                  &quot;instruments&quot;,      
-                  &quot;Tempo&quot;,
-                  &quot;MP3 File&quot;,
-                  &#39;UUDI&#39;, 
-                  &#39;Common Work UUID&#39;
-                ]
-        self.recordings.each do |recording|
-          csv &lt;&lt;  [
-                    &#39;&#39;,
-                    recording.title.to_s,            
-                    recording.isrc_code.to_s,        
-                    recording.artist.to_s,                   
-                    recording.bpm.to_s,              
-                    recording.comment.to_s,          
-                    recording.explicit.to_s,         
-                    recording.clearance.to_s,        
-                    recording.version.to_s,
-                    recording.copyright.to_s,        
-                    recording.production_company.to_s,
-                    recording.available_date.to_s,
-                    recording.upc_code.to_s,         
-                    recording.album_artist.to_s,
-                    recording.album_title.to_s,
-                    recording.grouping.to_s,
-                    recording.composer.to_s,
-                    recording.compilation.to_s,
-                    recording.bitrate.to_s,
-                    recording.samplerate.to_s,
-                    recording.channels.to_s,
-                    recording.year.to_s,             
-                    recording.duration.to_s,         
-                    recording.album_name.to_s,       
-                    recording.genre.to_s,            
-                    recording.performer.to_s,        
-                    recording.band.to_s,             
-                    recording.disc.to_s,             
-                    recording.track.to_s,      
-                    recording.vocal.to_s,            
-                    recording.mood.to_s,             
-                    recording.instruments.to_s,      
-                    recording.tempo.to_s,
-                    recording.mp3,
-                    recording.uuid,
-                    self.uuid
-                  ]
-          end
-        end
-    end
-    csv &lt;&lt; [&#39;&#39;]
-    csv &lt;&lt; [&#39;&#39;]
-    csv &lt;&lt; [&#39;&#39;]
-    csv &lt;&lt; [&#39;&#39;]
-    #end
-
-end
-</code></pre>
-
-<p>end</p>
+              
             </div>
           
           
@@ -1940,7 +1561,7 @@ end
                 
               </p>
               <div id="method-i-to_csv_source" class="dyn-source">
-                <pre><span class="ruby-comment"># File models/common_work.rb, line 581</span>
+                <pre><span class="ruby-comment"># File models/common_work.rb, line 376</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">to_csv</span>
   <span class="ruby-constant">CommonWorkToCsvService</span>.<span class="ruby-identifier">process</span> [<span class="ruby-keyword">self</span>]
 <span class="ruby-keyword">end</span></pre>
@@ -1977,7 +1598,7 @@ end
                 
               </p>
               <div id="method-i-total_share_source" class="dyn-source">
-                <pre><span class="ruby-comment"># File models/common_work.rb, line 215</span>
+                <pre><span class="ruby-comment"># File models/common_work.rb, line 223</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">total_share</span>
   <span class="ruby-identifier">common_work_ipis</span>.<span class="ruby-identifier">sum</span>(<span class="ruby-value">:share</span>)
 <span class="ruby-keyword">end</span></pre>
@@ -2014,21 +1635,28 @@ end
                 
               </p>
               <div id="method-i-update_completeness_source" class="dyn-source">
-                <pre><span class="ruby-comment"># File models/common_work.rb, line 294</span>
+                <pre><span class="ruby-comment"># File models/common_work.rb, line 302</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">update_completeness</span>
+  <span class="ruby-identifier">fields_count</span>    = <span class="ruby-number">0.0</span>
+  <span class="ruby-identifier">completed_count</span> = <span class="ruby-number">0.0</span>
   
-  
-  <span class="ruby-identifier">value</span> = <span class="ruby-number">0</span>
-  <span class="ruby-identifier">value</span> <span class="ruby-operator">+=</span> <span class="ruby-number">5</span> <span class="ruby-keyword">unless</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">recordings</span>.<span class="ruby-identifier">size</span>.<span class="ruby-identifier">to_i</span>      <span class="ruby-operator">==</span> <span class="ruby-number">0</span>
-  <span class="ruby-identifier">value</span> <span class="ruby-operator">+=</span> <span class="ruby-number">5</span> <span class="ruby-keyword">unless</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">title</span>.<span class="ruby-identifier">to_s</span>                <span class="ruby-operator">==</span> <span class="ruby-string">&#39;&#39;</span>
-  <span class="ruby-identifier">value</span> <span class="ruby-operator">+=</span> <span class="ruby-number">5</span> <span class="ruby-keyword">unless</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">description</span>.<span class="ruby-identifier">to_s</span>          <span class="ruby-operator">==</span> <span class="ruby-string">&#39;&#39;</span>
-  <span class="ruby-identifier">value</span> <span class="ruby-operator">+=</span> <span class="ruby-number">5</span> <span class="ruby-keyword">unless</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">alternative_titles</span>.<span class="ruby-identifier">to_s</span>   <span class="ruby-operator">==</span> <span class="ruby-string">&#39;&#39;</span>
-  <span class="ruby-identifier">value</span> <span class="ruby-operator">+=</span> <span class="ruby-number">5</span> <span class="ruby-keyword">unless</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">iswc_code</span>.<span class="ruby-identifier">to_s</span>            <span class="ruby-operator">==</span> <span class="ruby-string">&#39;&#39;</span>
 
-  <span class="ruby-comment"># 75% of the completeness is based on the recordings</span>
-  <span class="ruby-identifier">value</span> <span class="ruby-operator">+=</span> <span class="ruby-identifier">recording_health</span> <span class="ruby-operator">*</span> <span class="ruby-number">0.75</span>
-  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">completeness</span>       = <span class="ruby-identifier">value</span>
-  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">save!</span>
+  <span class="ruby-identifier">completed_count</span> <span class="ruby-operator">+=</span> <span class="ruby-number">1.0</span> <span class="ruby-keyword">unless</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">recordings</span>.<span class="ruby-identifier">size</span>.<span class="ruby-identifier">to_i</span>         <span class="ruby-operator">==</span> <span class="ruby-number">0</span>
+  <span class="ruby-identifier">fields_count</span>    <span class="ruby-operator">+=</span> <span class="ruby-number">1.0</span>                                          
+  <span class="ruby-identifier">completed_count</span> <span class="ruby-operator">+=</span> <span class="ruby-number">1.0</span> <span class="ruby-keyword">unless</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">title</span>.<span class="ruby-identifier">to_s</span>                   <span class="ruby-operator">==</span> <span class="ruby-string">&#39;&#39;</span>
+  <span class="ruby-identifier">fields_count</span>    <span class="ruby-operator">+=</span> <span class="ruby-number">1.0</span>                                          
+  <span class="ruby-identifier">completed_count</span> <span class="ruby-operator">+=</span> <span class="ruby-number">1.0</span> <span class="ruby-keyword">unless</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">description</span>.<span class="ruby-identifier">to_s</span>             <span class="ruby-operator">==</span> <span class="ruby-string">&#39;&#39;</span>
+  <span class="ruby-identifier">fields_count</span>    <span class="ruby-operator">+=</span> <span class="ruby-number">1.0</span>                                          
+  <span class="ruby-identifier">completed_count</span> <span class="ruby-operator">+=</span> <span class="ruby-number">1.0</span> <span class="ruby-keyword">unless</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">alternative_titles</span>.<span class="ruby-identifier">to_s</span>      <span class="ruby-operator">==</span> <span class="ruby-string">&#39;&#39;</span>
+  <span class="ruby-identifier">fields_count</span>    <span class="ruby-operator">+=</span> <span class="ruby-number">1.0</span>                                          
+  <span class="ruby-identifier">completed_count</span> <span class="ruby-operator">+=</span> <span class="ruby-number">1.0</span> <span class="ruby-keyword">unless</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">iswc_code</span>.<span class="ruby-identifier">to_s</span>               <span class="ruby-operator">==</span> <span class="ruby-string">&#39;&#39;</span>
+  <span class="ruby-identifier">fields_count</span>    <span class="ruby-operator">+=</span> <span class="ruby-number">1.0</span>
+  <span class="ruby-identifier">completed_count</span> <span class="ruby-operator">+=</span> <span class="ruby-number">1.0</span> <span class="ruby-keyword">unless</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">common_work_ipis</span>.<span class="ruby-identifier">size</span>.<span class="ruby-identifier">to_i</span>   <span class="ruby-operator">==</span> <span class="ruby-number">0</span>
+  <span class="ruby-identifier">fields_count</span>    <span class="ruby-operator">+=</span> <span class="ruby-number">1.0</span>
+
+  
+  <span class="ruby-identifier">update_columns</span>(<span class="ruby-identifier">completeness</span><span class="ruby-operator">:</span> <span class="ruby-identifier">completed_count</span> <span class="ruby-operator">/</span> <span class="ruby-identifier">fields_count</span>)
+  <span class="ruby-comment">#flush_cache</span>
 
 <span class="ruby-keyword">end</span></pre>
               </div>
@@ -2069,7 +1697,7 @@ end
                 
               </p>
               <div id="method-i-update_publishers_payment_source" class="dyn-source">
-                <pre><span class="ruby-comment"># File models/common_work.rb, line 77</span>
+                <pre><span class="ruby-comment"># File models/common_work.rb, line 85</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">update_publishers_payment</span>
   <span class="ruby-keyword">begin</span>
     <span class="ruby-keyword">self</span>.<span class="ruby-identifier">recordings</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">recording</span><span class="ruby-operator">|</span>
@@ -2078,6 +1706,80 @@ end
   <span class="ruby-keyword">rescue</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
     <span class="ruby-constant">ErrorNotification</span>.<span class="ruby-identifier">post_object</span> <span class="ruby-string">&#39;CommonWork#update_publishers_payment&#39;</span>, <span class="ruby-identifier">e</span>
   <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-update_validation">
+            
+              <b>update_validation</b>()
+            
+            <a href="../classes/CommonWork.html#method-i-update_validation" name="method-i-update_validation" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-update_validation_source')" id="l_method-i-update_validation_source">show</a>
+                
+              </p>
+              <div id="method-i-update_validation_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/common_work.rb, line 403</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">update_validation</span>
+  <span class="ruby-identifier">do_validation</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-user">
+            
+              <b>user</b>()
+            
+            <a href="../classes/CommonWork.html#method-i-user" name="method-i-user" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-user_source')" id="l_method-i-user_source">show</a>
+                
+              </p>
+              <div id="method-i-user_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/common_work.rb, line 433</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">user</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">account</span>.<span class="ruby-identifier">user</span> <span class="ruby-keyword">if</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">account</span>
 <span class="ruby-keyword">end</span></pre>
               </div>
             </div>
@@ -2112,7 +1814,7 @@ end
                 
               </p>
               <div id="method-i-user_can_access_files_source" class="dyn-source">
-                <pre><span class="ruby-comment"># File models/common_work.rb, line 162</span>
+                <pre><span class="ruby-comment"># File models/common_work.rb, line 170</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">user_can_access_files</span> <span class="ruby-identifier">user</span>
   <span class="ruby-identifier">recordings</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">recording</span><span class="ruby-operator">|</span>
     <span class="ruby-keyword">return</span> <span class="ruby-keyword">true</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">recording</span>.<span class="ruby-identifier">update_common_work_ids</span>.<span class="ruby-identifier">include?</span>  <span class="ruby-identifier">user</span>.<span class="ruby-identifier">id</span>
@@ -2152,7 +1854,7 @@ end
                 
               </p>
               <div id="method-i-user_credits_source" class="dyn-source">
-                <pre><span class="ruby-comment"># File models/common_work.rb, line 139</span>
+                <pre><span class="ruby-comment"># File models/common_work.rb, line 147</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">user_credits</span>
   <span class="ruby-comment">#UserCredit.where(ipiable_id: ipi_ids, ipiable_type: &#39;Ipi&#39;, show_credit_on_recordings: true)</span>
 <span class="ruby-keyword">end</span></pre>
@@ -2189,48 +1891,11 @@ end
                 
               </p>
               <div id="method-i-user_id_source" class="dyn-source">
-                <pre><span class="ruby-comment"># File models/common_work.rb, line 126</span>
+                <pre><span class="ruby-comment"># File models/common_work.rb, line 134</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">user_id</span>
   <span class="ruby-keyword">if</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">account</span>
     <span class="ruby-keyword">return</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">account</span>.<span class="ruby-identifier">user_id</span>
   <span class="ruby-keyword">end</span>
-<span class="ruby-keyword">end</span></pre>
-              </div>
-            </div>
-            
-          </div>
-        
-        <div class="method">
-          <div class="title method-title" id="method-i-video_recordings">
-            
-              <b>video_recordings</b>()
-            
-            <a href="../classes/CommonWork.html#method-i-video_recordings" name="method-i-video_recordings" class="permalink">Link</a>
-          </div>
-          
-          
-            <div class="description">
-              
-            </div>
-          
-          
-          
-
-          
-          
-          
-            
-            <div class="sourcecode">
-              
-              <p class="source-link">
-                Source: 
-                <a href="javascript:toggleSource('method-i-video_recordings_source')" id="l_method-i-video_recordings_source">show</a>
-                
-              </p>
-              <div id="method-i-video_recordings_source" class="dyn-source">
-                <pre><span class="ruby-comment"># File models/common_work.rb, line 148</span>
-<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">video_recordings</span> 
-  <span class="ruby-identifier">recordings</span>.<span class="ruby-identifier">where</span>(<span class="ruby-identifier">media_type</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;video&#39;</span>) 
 <span class="ruby-keyword">end</span></pre>
               </div>
             </div>

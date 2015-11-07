@@ -23,7 +23,7 @@
         </h1>
         <ul class="files">
             <li>views/user/publishers/show.html.slim</li>
-            <li>Last modified: 2015-10-03 08:20:38 +0200</li>
+            <li>Last modified: 2015-10-29 07:45:28 +0100</li>
         </ul>
     </div>
 
@@ -65,18 +65,68 @@
 
     .pull-down-10
     == render &#39;legal_informations&#39;
-    .pull-down-10
-    .row
-      .col-sm-12
-        .pull-right
-          = link_to user_user_publisher_publishing_agreements_path(@user, @publisher)
-            .btn.btn-info
-              i.fa.fa-money
-                &#39;&amp;nbsp;Revenue streams
-          =&lt; link_to user_user_publisher_ipi_publishers_path(@user, @publisher) 
-            .btn.btn-default
-              i.fa.fa-users
-                &#39;&amp;nbsp;Creators
+    - if @publisher.personal_publisher
+      -if publishing_agreement = @publisher.publishing_agreements.first
+        - if document = publishing_agreement.document
+          Z
+          .pull-down-10
+          .row
+            .col-sm-12
+              .pull-right
+                .pull-down-6
+                =&gt; link_to &#39;Show and sign document&#39;, user_user_sign_document_path(@user, document.uuid), class: &#39;btn btn-success&#39;
+                = link_to &#39;Edit document&#39;, edit_user_user_legal_document_path( @user, document.uuid), class: &#39;btn btn-default&#39;
+          .pull-down-10
+          .row
+            .col-sm-12
+              .table-responsive
+                table class=&quot;table table-hover&quot;
+                  thead
+                    tr
+                      th Title
+                      th Role
+                      th Date
+                      th Controled by
+                      th Signatures
+                      th
+                  tbody
+
+                    tr
+                      td 
+                        b = document.title
+
+                      td  
+                        - document.document_users.where(user_id: @user.id).each do |document_user|
+                          = document_user.role
+                      td = document.date
+                      td 
+                        -if user = document.user
+                          = user.full_name
+
+                      td
+                        table
+                          - document.document_users.where.not(user_id: nil).where(should_sign: true).each do |document_user|
+                            tr
+                              td 
+                                =&gt; document_user.full_name
+                                &#39;&amp;nbsp;
+                              td
+                                &#39;/&amp;nbsp;
+                                = document_user.role
+
+    - else
+      .pull-down-10
+      .row
+        .col-sm-12
+          .pull-right
+            = link_to user_user_publisher_publishing_agreements_path(@user, @publisher)
+              .btn.btn-default
+                i.fa.fa-money
+                  &#39;&amp;nbsp;Publishing agreements
+            =&lt; link_to user_user_publisher_ipi_publishers_path(@user, @publisher) 
+              .btn.btn-default
+                i.fa.fa-users
+                  &#39;&amp;nbsp;Creators
 
     /.table-responsive.pull-down-10
     /  .row

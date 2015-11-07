@@ -23,7 +23,7 @@
         </h1>
         <ul class="files">
             <li>services/sales_service.rb</li>
-            <li>Last modified: 2015-10-14 18:48:13 +0200</li>
+            <li>Last modified: 2015-10-21 19:30:13 +0200</li>
         </ul>
     </div>
 
@@ -37,7 +37,6 @@
 <h4 id="label-Example">Example</h4>
 
 <pre><code>sales_service = SalesService.new(RECORDING_ID)
-sales_service.validate
 # =&gt; {
         :status =&gt; &#39;ok&#39;,
    :common_work =&gt; {
@@ -47,9 +46,9 @@ sales_service.validate
                   }
    ...</code></pre>
 
-<p>when changes is made to any model associated with a recording this service
-class should be created and validate should be called Then a message
-descriping problems if any will be generated</p>
+<p>When a model associated with a recording is changed  this service class
+should be created and validate should be called Then a message descriping
+problems if any will be generated and stored in a user_notification record</p>
 
     </div>
   

@@ -33,8 +33,9 @@
         table class="table table-hover"
           thead
             tr
-              th description
-              th Source transaction
+              th Description
+              th Transaction
+              
               th State
               th Application fee
               th amount
@@ -42,7 +43,9 @@
             - @stripe_transfers.each do |stripe_transfer|
               tr
                 td = stripe_transfer.description
-                td = stripe_transfer.source_transaction
+                td
+                   - unless stripe_transfer.destination_payment.blank?
+                    = link_to 'Manage', "https://dashboard.stripe.com/test/payments/#{stripe_transfer.destination_payment}", class: 'btn btn-default btn-xs'
                 td = stripe_transfer.state
                 td = number_to_currency(stripe_transfer.application_fee * 0.01, locale: :en, precision: 2)    
                 td = number_to_currency(stripe_transfer.amount * 0.01, locale: :en, precision: 2)   

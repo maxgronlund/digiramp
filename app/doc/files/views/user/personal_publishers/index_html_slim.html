@@ -23,7 +23,7 @@
         </h1>
         <ul class="files">
             <li>views/user/personal_publishers/index.html.slim</li>
-            <li>Last modified: 2015-10-04 09:39:26 +0200</li>
+            <li>Last modified: 2015-10-29 07:45:28 +0100</li>
         </ul>
     </div>
 
@@ -32,6 +32,103 @@
   
     <div class="description">
       
+<p>wrapper</p>
+
+<pre><code>.full-width-top
+  == render &#39;shared/navigationbar&#39;, page: &#39;dashboard&#39; 
+
+#sidebar-wrapper
+  ul class=&quot;sidebar-nav&quot;
+    == render &#39;users/shared/sidebar&#39;, selected: &#39;dashboard&#39;
+
+#page-content-wrapper
+  .container-fluid
+    == render &#39;shared/breadcrumbs&#39;, breadcrumbs: { links: { dashboard: user_user_control_panel_index_path(@user),
+                                                            legal: user_user_legal_index_path(@user)} }
+    == render &#39;shared/flash_message&#39;
+    .row
+      .col-sm-6
+        .help
+          .help-text
+            h2 
+              b Configure publishing type for
+              br = @user.get_full_name
+
+          .help-button
+            == render &#39;admin/helps/help&#39;, identifier: &#39;user legal information&#39;
+      .col-sm-6
+        .pull-right.pull-down-10
+          =&gt; link_to  user_user_legal_index_path(@user) do
+                .btn.btn-default
+                  i.fa.fa-chevron-left
+                  &#39;&amp;nbsp;Back
+
+    .pull-down-10
+
+    .row
+      .col-sm-6
+        .digi-box
+          = simple_form_for [:user, @user ], turboboost: true, url: url_for(action: &#39;update&#39;, controller: &#39;/user/personal_publishers&#39;), method: &#39;put&#39; do |f|
+            = f.error_notification
+          /
+          /  .form-inputs
+          /    == render &#39;shared/flash_message&#39;
+          /
+          /    = f.input :personal_publishing_status, collection: Publisher::PUBLISHING_TYPE, include_blank: false
+          /    
+          /    div id=&quot;personal_publishing_status&quot; style=&quot;display: #{&#39;none;&#39; unless @user.personal_publishing_status == &#39;I have an exclusive publisher&#39;};&quot;
+          /      = f.input :exclusive_publishers_email
+          /      
+          /    
+          /    #personal_publishing style=&quot;display: #{&#39;none;&#39; unless @user.personal_publishing_status == &#39;I own and control my own publishing&#39; }&quot;
+          /      .alert.alert-info
+          /        &#39;I have no publisher and control and administate my own publishing
+          /    
+          /    #many_publishers style=&quot;display: #{&#39;none;&#39; unless @user.personal_publishing_status == &#39;I have many publishers&#39; }&quot;
+          /      .alert.alert-info
+          /        &#39;I have many publishers and want to control my publishing individually on each work
+          /    
+          /    #publishing_administrated style=&quot;display: #{&#39;none;&#39; unless @user.personal_publishing_status == &#39;I have an administrator&#39; }&quot;
+          /      = f.input :publishing_administrators_email
+          /      .alert.alert-info
+          /        &#39;I have an administrator taking care of all my publishing
+          /      
+          /    
+          /    
+          /   
+          /    
+          /    .row
+          /      .col-sm-12
+          /        .pull-right
+          /          = f.submit &#39;Save&#39;, class: &#39;btn btn-info&#39;
+          /
+
+== render &#39;shared/site_footer&#39;</code></pre>
+
+<p>coffee:</p>
+
+<pre><code>$(&#39;#user_personal_publishing_status&#39;).change -&gt;
+  if $(&#39;option:selected&#39;).val() == &#39;I own and control my own publishing&#39;
+    $(&#39;#personal_publishing_status&#39;).css(&quot;display&quot;, &quot;none&quot;)
+    $(&#39;#personal_publishing&#39;).css(&quot;display&quot;, &quot;inline&quot;)
+    $(&#39;#many_publishers&#39;).css(&quot;display&quot;, &quot;none&quot;)
+    $(&#39;#publishing_administrated&#39;).css(&quot;display&quot;, &quot;none&quot;)
+
+  else if $(&#39;option:selected&#39;).val() == &#39;I have an exclusive publisher&#39;
+    $(&#39;#personal_publishing_status&#39;).css(&quot;display&quot;, &quot;inline&quot;)
+    $(&#39;#personal_publishing&#39;).css(&quot;display&quot;, &quot;none&quot;)
+    $(&#39;#many_publishers&#39;).css(&quot;display&quot;, &quot;none&quot;)
+    $(&#39;#publishing_administrated&#39;).css(&quot;display&quot;, &quot;none&quot;)
+
+  else if $(&#39;option:selected&#39;).val() == &#39;I have many publishers&#39;
+    $(&#39;#personal_publishing_status&#39;).css(&quot;display&quot;, &quot;none&quot;)
+    $(&#39;#personal_publishing&#39;).css(&quot;display&quot;, &quot;none&quot;)
+    $(&#39;#many_publishers&#39;).css(&quot;display&quot;, &quot;inline&quot;)
+    $(&#39;#publishing_administrated&#39;).css(&quot;display&quot;, &quot;none&quot;)
+
+  else if $(&#39;option:selected&#39;).val() == &#39;I have an administrator&#39;
+    $(&#39;#personal_publishing_status&#39;).css(&quot;display&quot;, &quot;none&quot;)</code></pre>
+
 <p>/#wrapper /  .full-width-top /    == render &#39;shared/navigationbar&#39;,
 page: &#39;dashboard&#39;  /</p>
 
@@ -43,42 +140,30 @@ page: &#39;dashboard&#39;  /</p>
 user_user_control_panel_index_path(@user), /                               
 legal: user_user_legal_index_path(@user)} } /      == render
 &#39;shared/flash_message&#39; /      .row /        .col-sm-6 /         
-.help /            .help-text /              h2  /                b
-Configure publishing for /                br = @user.get_full_name /</p>
+.help /            .help-text /              h2 Legal /</p>
 
 <p>/            .help-button /              == render
 &#39;admin/helps/help&#39;, identifier: &#39;user legal information&#39; / 
 .col-sm-6 /          .pull-right.pull-down-10 /            =&gt; link_to 
 user_user_legal_index_path(@user) do /                  .btn.btn-default / 
-i.fa.fa-chevron-left /                    &#39;&amp;nbsp;Back / /     
-.pull-down-10 /</p>
+i.fa.fa-chevron-left /                    &#39;&amp;nbsp;Back / / /     
+.table-responsive /        table.table.table-bordered /          thead /   
+tr /              th /              th Name /              th IPI Code /   
+th PRO /          tbody /            - @publishers.each do |publisher|</p>
 
-<p>/      .row /        .col-sm-6 /          .digi-box /            =
-simple_form_for [:user, @user ], turboboost: true, url: url_for(action:
-&#39;update&#39;, controller: &#39;personal_publishers&#39;), method:
-&#39;put&#39; do |f| /              = f.error_notification /</p>
+<p>/              tr /                td =&gt; link_to
+edit_user_user_personal_publisher_path(@user, publisher) do /              
+.btn.btn-default.btn-xs /                    i.fa.fa-pencil /</p>
 
-<p>/              .form-inputs /                == render
-&#39;shared/flash_message&#39; /</p>
+<p>/                td = link_to publisher.legal_name,
+user_user_personal_publisher_path(@user, publisher), class: &#39;btn
+btn-default btn-xs&#39; /                td /                  - if
+ipi_code = publisher.ipi_code /                    = ipi_code /            
+- else /                    &#39;- /                td</p>
 
-<p>/                = f.input :personal_publishing_status, collection:
-Publisher::PUBLISHING_TYPE /                = f.input
-:exclusive_publishers_email /</p>
-
-<p>/                .row /                  .col-sm-12 /                   
-.pull-right /                      = f.submit &#39;Save&#39;, class:
-&#39;btn btn-info&#39; /</p>
-
-<p>/</p>
-
-<p>/</p>
-
-<p>/                /= f.input :personal_publisher, :input_html =&gt; { class:
-&#39;icheck-me acceptance&#39;, &#39;data-skin&#39;.to_sym =&gt; “square”,
-&#39;data-color&#39;.to_sym =&gt; “blue”     }  /                /span
-class=“help-block”  /                /  &#39;Check this if you have your
-own publishing company or want to create one /                /.col-sm-6 / 
-/= f.input :legal_name, :hint =&gt; “Publishers legal name” /</p>
+<p>/                  - if pro_affiliation = publisher.pro_affiliation /      
+= pro_affiliation.title /                  - else /                   
+&#39;- /</p>
 
 <p>/</p>
 
@@ -101,64 +186,6 @@ own publishing company or want to create one /                /.col-sm-6 /
 <p>/</p>
 
 <p>/  == render &#39;shared/site_footer&#39;</p>
-
-<p>wrapper</p>
-
-<pre><code>.full-width-top
-  == render &#39;shared/navigationbar&#39;, page: &#39;dashboard&#39; 
-
-#sidebar-wrapper
-  ul class=&quot;sidebar-nav&quot;
-    == render &#39;users/shared/sidebar&#39;, selected: &#39;dashboard&#39;
-
-#page-content-wrapper
-  .container-fluid
-    == render &#39;shared/breadcrumbs&#39;, breadcrumbs: { links: { dashboard: user_user_control_panel_index_path(@user),
-                                                            legal: user_user_legal_index_path(@user)} }
-    == render &#39;shared/flash_message&#39;
-    .row
-      .col-sm-6
-        .help
-          .help-text
-            h2 Legal
-
-          .help-button
-            == render &#39;admin/helps/help&#39;, identifier: &#39;user legal information&#39;
-      .col-sm-6
-        .pull-right.pull-down-10
-          =&gt; link_to  user_user_legal_index_path(@user) do
-                .btn.btn-default
-                  i.fa.fa-chevron-left
-                  &#39;&amp;nbsp;Back
-
-    .table-responsive
-      table.table.table-bordered
-        thead
-          tr
-            th
-            th Name
-            th IPI Code
-            th PRO
-        tbody
-          - @publishers.each do |publisher|  
-            tr
-              td =&gt; link_to edit_user_user_personal_publisher_path(@user, publisher) do
-                .btn.btn-default.btn-xs
-                  i.fa.fa-pencil
-
-              td = link_to publisher.legal_name, user_user_personal_publisher_path(@user, publisher), class: &#39;btn btn-default btn-xs&#39;
-              td
-                - if ipi_code = publisher.ipi_code
-                  = ipi_code
-                - else
-                  &#39;-
-              td  
-                - if pro_affiliation = publisher.pro_affiliation
-                  = pro_affiliation.title
-                - else
-                  &#39;-
-
-== render &#39;shared/site_footer&#39;</code></pre>
 
     </div>
   

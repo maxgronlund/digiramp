@@ -250,9 +250,9 @@
       <span class="ruby-keyword">return</span> <span class="ruby-string">&#39;add_digital_signature&#39;</span> <span class="ruby-keyword">unless</span> <span class="ruby-operator">!</span><span class="ruby-identifier">user</span>.<span class="ruby-identifier">digital_signature_uuid</span>.<span class="ruby-identifier">nil?</span>
     <span class="ruby-keyword">end</span>
     
-    <span class="ruby-keyword">unless</span> <span class="ruby-identifier">register_a_publisher_later</span>
-      <span class="ruby-keyword">return</span> <span class="ruby-string">&#39;register_a_publisher&#39;</span>  <span class="ruby-keyword">if</span> <span class="ruby-identifier">user</span>.<span class="ruby-identifier">user_publishers</span>.<span class="ruby-identifier">count</span>  <span class="ruby-operator">==</span> <span class="ruby-number">0</span>
-    <span class="ruby-keyword">end</span>
+    <span class="ruby-comment">#unless register_a_publisher_later</span>
+    <span class="ruby-comment">#  return &#39;register_a_publisher&#39;  if user.user_publishers.count  == 0</span>
+    <span class="ruby-comment">#end</span>
     
     
     <span class="ruby-keyword">unless</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">upload_recordings_later</span>           
@@ -312,9 +312,9 @@
       <span class="ruby-keyword">return</span> <span class="ruby-string">&#39;add_digital_signature&#39;</span> <span class="ruby-keyword">unless</span> <span class="ruby-operator">!</span><span class="ruby-identifier">user</span>.<span class="ruby-identifier">digital_signature_uuid</span>.<span class="ruby-identifier">nil?</span>
     <span class="ruby-keyword">end</span>
     
-    <span class="ruby-keyword">unless</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">register_a_publisher_later</span> 
-      <span class="ruby-keyword">return</span> <span class="ruby-string">&#39;register_a_publisher&#39;</span>         <span class="ruby-keyword">if</span> <span class="ruby-identifier">user</span>.<span class="ruby-identifier">user_publishers</span>.<span class="ruby-identifier">count</span>  <span class="ruby-operator">==</span> <span class="ruby-number">0</span>
-    <span class="ruby-keyword">end</span>
+    <span class="ruby-comment">#unless self.register_a_publisher_later </span>
+    <span class="ruby-comment">#  return &#39;register_a_publisher&#39;         if user.user_publishers.count  == 0</span>
+    <span class="ruby-comment">#end</span>
     
     <span class="ruby-keyword">unless</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">upload_recordings_later</span>           
       <span class="ruby-keyword">return</span> <span class="ruby-string">&#39;upload_recordings&#39;</span>    <span class="ruby-keyword">if</span> <span class="ruby-identifier">user</span>.<span class="ruby-identifier">recordings</span>.<span class="ruby-identifier">count</span>  <span class="ruby-operator">==</span> <span class="ruby-number">0</span> 
@@ -438,7 +438,7 @@
               <span class="ruby-identifier">invite_friends_later</span><span class="ruby-operator">:</span>               <span class="ruby-identifier">user</span>.<span class="ruby-identifier">client_invitations</span>.<span class="ruby-identifier">count</span> <span class="ruby-operator">!=</span> <span class="ruby-number">0</span>,
               <span class="ruby-identifier">post_on_facebook_later</span><span class="ruby-operator">:</span>             <span class="ruby-identifier">user</span>.<span class="ruby-identifier">share_on_facebooks</span>.<span class="ruby-identifier">count</span> <span class="ruby-operator">!=</span> <span class="ruby-number">0</span>,
               <span class="ruby-identifier">post_on_twitter_later</span><span class="ruby-operator">:</span>              <span class="ruby-identifier">user</span>.<span class="ruby-identifier">share_on_twitters</span>.<span class="ruby-identifier">count</span>  <span class="ruby-operator">!=</span> <span class="ruby-number">0</span>,
-              <span class="ruby-identifier">register_a_publisher_later</span><span class="ruby-operator">:</span>         <span class="ruby-identifier">user</span>.<span class="ruby-identifier">user_publishers</span>.<span class="ruby-identifier">count</span>    <span class="ruby-operator">!=</span> <span class="ruby-number">0</span>,
+              <span class="ruby-comment">#register_a_publisher_later:         user.user_publishers.count    != 0,</span>
               <span class="ruby-identifier">clear_a_recording_later</span><span class="ruby-operator">:</span>            <span class="ruby-operator">!</span><span class="ruby-identifier">user</span>.<span class="ruby-identifier">has_no_cleared_recording?</span>,
               <span class="ruby-identifier">enable_shop_later</span><span class="ruby-operator">:</span>                  <span class="ruby-identifier">user</span>.<span class="ruby-identifier">has_enabled_shop</span>,
               <span class="ruby-identifier">like_a_recording_later</span><span class="ruby-operator">:</span>             <span class="ruby-identifier">user</span>.<span class="ruby-identifier">likes</span> <span class="ruby-operator">!=</span> <span class="ruby-number">0</span>,

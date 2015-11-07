@@ -23,7 +23,7 @@
         </h1>
         <ul class="files">
             <li>views/user/recording_ipis/edit.slim</li>
-            <li>Last modified: 2015-10-03 18:02:42 +0200</li>
+            <li>Last modified: 2015-10-16 22:47:53 +0200</li>
         </ul>
     </div>
 
@@ -58,7 +58,8 @@ debug @user_credits wrapper</p>
             == render &#39;admin/helps/help&#39;, identifier: &#39;ipi credits on recording&#39;
       .col-sm-6
         .pull-right.pull-down-10
-          = link_to user_user_recording_tag_path(@user, @recording ) do
+          / user/users/max-groenlund/recording_rights/3624
+          = link_to user_user_recording_right_path(@user, @recording ) do
             .btn.btn-default
               i.fa.fa-chevron-left
               &#39;&amp;nbsp;Back

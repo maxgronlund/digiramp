@@ -23,7 +23,7 @@
         </h1>
         <ul class="files">
             <li>views/user/publishers/new.html.slim</li>
-            <li>Last modified: 2015-10-03 19:08:07 +0200</li>
+            <li>Last modified: 2015-11-01 14:26:56 +0100</li>
         </ul>
     </div>
 
@@ -84,9 +84,10 @@
                 = f.input :show_on_public_page, input_html: { class: &#39;icheck-me acceptance&#39;, &#39;data-skin&#39;.to_sym =&gt; &quot;square&quot;, &#39;data-color&#39;.to_sym =&gt; &quot;blue&quot; }
 
                 span.help-block Make this publisher avaliable to the public
-
+                .pull-down-24
+              = f.input :ipi_code, placeholder: &#39;Optional&#39;, label: &#39;IPI code&#39;
             .col-sm-6
-              = f.input :email, :hint =&gt; &quot;Publishers email&quot;
+              = f.input :email,  placeholder: &quot;Publishers email&quot;, hint: &quot;Uniqe email used to identify the publisher&quot;
               = f.input :legal_name, :hint =&gt; &quot;Publishers legal name&quot;
         .form-actions
           .row

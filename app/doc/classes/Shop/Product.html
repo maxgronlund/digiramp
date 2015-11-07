@@ -88,6 +88,11 @@
             
               
               <li>
+                <a href="#method-i-charge_succeeded">charge_succeeded</a>,
+              </li>
+            
+              
+              <li>
                 <a href="#method-i-configure_stakeholder">configure_stakeholder</a>
               </li>
             
@@ -231,6 +236,20 @@
   
 
   
+    <!-- Includes -->
+    <div class="sectiontitle">Included Modules</div>
+    <ul>
+      
+        <li>
+          
+            <a href="../ErrorNotification.html">
+              ErrorNotification
+            </a>
+          
+        </li>
+      
+    </ul>
+  
 
 
 
@@ -308,7 +327,7 @@
                 
               </p>
               <div id="method-c-attach_source" class="dyn-source">
-                <pre><span class="ruby-comment"># File models/shop/product.rb, line 85</span>
+                <pre><span class="ruby-comment"># File models/shop/product.rb, line 97</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">self</span>.<span class="ruby-identifier">attach</span> <span class="ruby-identifier">record</span>, <span class="ruby-identifier">product_params</span> = {}
 
   <span class="ruby-identifier">product</span> = <span class="ruby-constant">Shop</span><span class="ruby-operator">::</span><span class="ruby-constant">Product</span>.<span class="ruby-identifier">create</span>(  <span class="ruby-identifier">title</span><span class="ruby-operator">:</span>                         <span class="ruby-identifier">product_params</span>[<span class="ruby-value">:title</span>], 
@@ -361,7 +380,7 @@
                 
               </p>
               <div id="method-c-cached_find_source" class="dyn-source">
-                <pre><span class="ruby-comment"># File models/shop/product.rb, line 48</span>
+                <pre><span class="ruby-comment"># File models/shop/product.rb, line 60</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">self</span>.<span class="ruby-identifier">cached_find</span>(<span class="ruby-identifier">id</span>)
   <span class="ruby-constant">Rails</span>.<span class="ruby-identifier">cache</span>.<span class="ruby-identifier">fetch</span>([<span class="ruby-identifier">name</span>, <span class="ruby-identifier">id</span>]) { <span class="ruby-identifier">find</span>(<span class="ruby-identifier">id</span>) }
 <span class="ruby-keyword">end</span></pre>
@@ -400,7 +419,7 @@
                 
               </p>
               <div id="method-i-add_productable_source" class="dyn-source">
-                <pre><span class="ruby-comment"># File models/shop/product.rb, line 57</span>
+                <pre><span class="ruby-comment"># File models/shop/product.rb, line 69</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">add_productable</span> <span class="ruby-identifier">type</span>, <span class="ruby-identifier">id</span>
   <span class="ruby-keyword">self</span>.<span class="ruby-identifier">productable_type</span> = <span class="ruby-identifier">type</span>
   <span class="ruby-keyword">self</span>.<span class="ruby-identifier">productable_type</span> = <span class="ruby-identifier">type</span>
@@ -438,7 +457,7 @@
                 
               </p>
               <div id="method-i-additional_download_url_source" class="dyn-source">
-                <pre><span class="ruby-comment"># File models/shop/product.rb, line 114</span>
+                <pre><span class="ruby-comment"># File models/shop/product.rb, line 126</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">additional_download_url</span>
 
   <span class="ruby-keyword">return</span> <span class="ruby-keyword">nil</span> <span class="ruby-keyword">if</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">zip_file_url</span>.<span class="ruby-identifier">nil?</span>
@@ -446,11 +465,8 @@
   
   <span class="ruby-keyword">return</span> <span class="ruby-keyword">nil</span> <span class="ruby-keyword">if</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">zip_file</span>.<span class="ruby-identifier">nil?</span>
   <span class="ruby-keyword">begin</span>
-    <span class="ruby-identifier">secure_url</span> = <span class="ruby-keyword">self</span>.<span class="ruby-identifier">zip_file_url</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-string">&quot;https://digiramp.s3.amazonaws.com/&quot;</span>, <span class="ruby-string">&#39;&#39;</span>)
-    
-    <span class="ruby-identifier">file_name</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">basename</span>(<span class="ruby-keyword">self</span>.<span class="ruby-identifier">zip_file_url</span>)
-    
-    
+    <span class="ruby-identifier">secure_url</span>  = <span class="ruby-keyword">self</span>.<span class="ruby-identifier">zip_file_url</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-string">&quot;https://digiramp.s3.amazonaws.com/&quot;</span>, <span class="ruby-string">&#39;&#39;</span>)
+    <span class="ruby-identifier">file_name</span>   = <span class="ruby-constant">File</span>.<span class="ruby-identifier">basename</span>(<span class="ruby-keyword">self</span>.<span class="ruby-identifier">zip_file_url</span>)
     <span class="ruby-identifier">bucket</span>      = <span class="ruby-identifier">s3</span>.<span class="ruby-identifier">bucket</span>(<span class="ruby-constant">Rails</span>.<span class="ruby-identifier">application</span>.<span class="ruby-identifier">secrets</span>.<span class="ruby-identifier">aws_s3_bucket</span>)
     <span class="ruby-identifier">s3_obj</span>      = <span class="ruby-identifier">bucket</span>.<span class="ruby-identifier">object</span>(<span class="ruby-identifier">secure_url</span>)
     <span class="ruby-identifier">filename</span>    = <span class="ruby-identifier">file_name</span>.<span class="ruby-identifier">downcase</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-string">&#39; &#39;</span>, <span class="ruby-string">&#39;-&#39;</span>)
@@ -459,6 +475,50 @@
     <span class="ruby-constant">ErrorNotification</span>.<span class="ruby-identifier">post</span> <span class="ruby-node">&quot;Product::additional_download_url id: #{e.inspect}&quot;</span>
   <span class="ruby-keyword">end</span>
   <span class="ruby-keyword">nil</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-charge_succeeded">
+            
+              <b>charge_succeeded</b>(params)
+            
+            <a href="../../classes/Shop/Product.html#method-i-charge_succeeded" name="method-i-charge_succeeded" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-charge_succeeded_source')" id="l_method-i-charge_succeeded_source">show</a>
+                
+              </p>
+              <div id="method-i-charge_succeeded_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/shop/product.rb, line 47</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">charge_succeeded</span> <span class="ruby-identifier">params</span>
+
+  <span class="ruby-keyword">begin</span>
+    <span class="ruby-identifier">stakeholders</span>.<span class="ruby-identifier">each</span>  <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">stake</span><span class="ruby-operator">|</span>
+      <span class="ruby-identifier">stake</span>.<span class="ruby-identifier">charge_succeeded</span> <span class="ruby-identifier">params</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">rescue</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
+    <span class="ruby-identifier">post_error</span> <span class="ruby-node">&quot;Shop::Product#charge_succeeded: #{e.inspect}&quot;</span>
+  <span class="ruby-keyword">end</span>
 <span class="ruby-keyword">end</span></pre>
               </div>
             </div>
@@ -493,7 +553,7 @@
                 
               </p>
               <div id="method-i-configure_stakeholder_source" class="dyn-source">
-                <pre><span class="ruby-comment"># File models/shop/product.rb, line 210</span>
+                <pre><span class="ruby-comment"># File models/shop/product.rb, line 219</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">configure_stakeholder</span>
   <span class="ruby-identifier">ap</span> <span class="ruby-string">&#39;--------------------------------------&#39;</span>
   <span class="ruby-identifier">ap</span> <span class="ruby-string">&#39;configure_stakeholder&#39;</span>
@@ -556,7 +616,7 @@
                 
               </p>
               <div id="method-i-download_url_source" class="dyn-source">
-                <pre><span class="ruby-comment"># File models/shop/product.rb, line 105</span>
+                <pre><span class="ruby-comment"># File models/shop/product.rb, line 117</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">download_url</span>
   <span class="ruby-keyword">case</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">productable_type</span>
   <span class="ruby-keyword">when</span> <span class="ruby-string">&#39;Recording&#39;</span>
@@ -598,7 +658,7 @@
                 
               </p>
               <div id="method-i-exclusive_offer-3F_source" class="dyn-source">
-                <pre><span class="ruby-comment"># File models/shop/product.rb, line 52</span>
+                <pre><span class="ruby-comment"># File models/shop/product.rb, line 64</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">exclusive_offer?</span>
   <span class="ruby-comment">#if self.category == </span>
   <span class="ruby-operator">!</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">exclusive_offered_to_email</span>.<span class="ruby-identifier">blank?</span>
@@ -636,7 +696,7 @@
                 
               </p>
               <div id="method-i-get_item_source" class="dyn-source">
-                <pre><span class="ruby-comment"># File models/shop/product.rb, line 62</span>
+                <pre><span class="ruby-comment"># File models/shop/product.rb, line 74</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">get_item</span>
   <span class="ruby-keyword">case</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">productable_type</span>
   <span class="ruby-keyword">when</span> <span class="ruby-string">&#39;Recording&#39;</span>
@@ -677,7 +737,7 @@
                 
               </p>
               <div id="method-i-get_shop_art_source" class="dyn-source">
-                <pre><span class="ruby-comment"># File models/shop/product.rb, line 172</span>
+                <pre><span class="ruby-comment"># File models/shop/product.rb, line 181</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">get_shop_art</span> <span class="ruby-identifier">thumb_size</span>
   <span class="ruby-keyword">if</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">productable</span>
    <span class="ruby-identifier">productable</span>.<span class="ruby-identifier">get_shop_art</span>
@@ -718,7 +778,7 @@
                 
               </p>
               <div id="method-i-get_total_share_source" class="dyn-source">
-                <pre><span class="ruby-comment"># File models/shop/product.rb, line 164</span>
+                <pre><span class="ruby-comment"># File models/shop/product.rb, line 173</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">get_total_share</span>
   <span class="ruby-identifier">total</span> = <span class="ruby-number">0.0</span>
   <span class="ruby-keyword">self</span>.<span class="ruby-identifier">stakeholders</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">stakeholder</span><span class="ruby-operator">|</span>
@@ -759,7 +819,7 @@
                 
               </p>
               <div id="method-i-product_image_source" class="dyn-source">
-                <pre><span class="ruby-comment"># File models/shop/product.rb, line 38</span>
+                <pre><span class="ruby-comment"># File models/shop/product.rb, line 39</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">product_image</span>
   <span class="ruby-keyword">if</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">productable_type</span> <span class="ruby-operator">==</span> <span class="ruby-string">&#39;Recording&#39;</span>
     <span class="ruby-keyword">return</span> <span class="ruby-identifier">sels</span>.<span class="ruby-identifier">productable</span>.<span class="ruby-identifier">get_shop_art</span>
@@ -800,7 +860,7 @@
                 
               </p>
               <div id="method-i-product_title_source" class="dyn-source">
-                <pre><span class="ruby-comment"># File models/shop/product.rb, line 30</span>
+                <pre><span class="ruby-comment"># File models/shop/product.rb, line 31</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">product_title</span>
   <span class="ruby-keyword">self</span>.<span class="ruby-identifier">productable</span> <span class="ruby-operator">?</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">productable</span>.<span class="ruby-identifier">title</span> <span class="ruby-operator">:</span> <span class="ruby-string">&#39;na&#39;</span>
 <span class="ruby-keyword">end</span></pre>
@@ -837,7 +897,7 @@
                 
               </p>
               <div id="method-i-recording_source" class="dyn-source">
-                <pre><span class="ruby-comment"># File models/shop/product.rb, line 136</span>
+                <pre><span class="ruby-comment"># File models/shop/product.rb, line 145</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">recording</span>
   <span class="ruby-keyword">return</span> <span class="ruby-keyword">nil</span> <span class="ruby-keyword">unless</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">productable_type</span> <span class="ruby-operator">==</span> <span class="ruby-string">&#39;Recording&#39;</span>
   <span class="ruby-constant">Recording</span>.<span class="ruby-identifier">cached_find</span>(<span class="ruby-keyword">self</span>.<span class="ruby-identifier">productable_id</span>)
@@ -875,7 +935,7 @@
                 
               </p>
               <div id="method-i-seller_info_source" class="dyn-source">
-                <pre><span class="ruby-comment"># File models/shop/product.rb, line 34</span>
+                <pre><span class="ruby-comment"># File models/shop/product.rb, line 35</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">seller_info</span>
   <span class="ruby-identifier">account</span>.<span class="ruby-identifier">user</span>.<span class="ruby-identifier">seller_info</span>
 <span class="ruby-keyword">end</span></pre>
@@ -912,7 +972,7 @@
                 
               </p>
               <div id="method-i-shop_image_source" class="dyn-source">
-                <pre><span class="ruby-comment"># File models/shop/product.rb, line 70</span>
+                <pre><span class="ruby-comment"># File models/shop/product.rb, line 82</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">shop_image</span> <span class="ruby-identifier">size</span>
   <span class="ruby-keyword">case</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">productable_type</span>
     
@@ -959,7 +1019,7 @@
                 
               </p>
               <div id="method-i-stakeholders_source" class="dyn-source">
-                <pre><span class="ruby-comment"># File models/shop/product.rb, line 141</span>
+                <pre><span class="ruby-comment"># File models/shop/product.rb, line 150</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">stakeholders</span>
   <span class="ruby-keyword">case</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">productable_type</span>
   <span class="ruby-keyword">when</span> <span class="ruby-string">&#39;Recording&#39;</span>
@@ -1002,7 +1062,7 @@
                 
               </p>
               <div id="method-i-total_stakes_source" class="dyn-source">
-                <pre><span class="ruby-comment"># File models/shop/product.rb, line 160</span>
+                <pre><span class="ruby-comment"># File models/shop/product.rb, line 169</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">total_stakes</span>
   <span class="ruby-ivar">@total_share</span> <span class="ruby-operator">||=</span> <span class="ruby-identifier">get_total_share</span>
 <span class="ruby-keyword">end</span></pre>
@@ -1039,7 +1099,7 @@
                 
               </p>
               <div id="method-i-update_stock_source" class="dyn-source">
-                <pre><span class="ruby-comment"># File models/shop/product.rb, line 152</span>
+                <pre><span class="ruby-comment"># File models/shop/product.rb, line 161</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">update_stock</span>
   <span class="ruby-keyword">if</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">units_on_stock</span> 
     <span class="ruby-keyword">self</span>.<span class="ruby-identifier">units_on_stock</span> <span class="ruby-operator">-=</span> <span class="ruby-number">1</span> 
@@ -1080,7 +1140,7 @@
                 
               </p>
               <div id="method-i-valid_for_sale-21_source" class="dyn-source">
-                <pre><span class="ruby-comment"># File models/shop/product.rb, line 180</span>
+                <pre><span class="ruby-comment"># File models/shop/product.rb, line 189</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">valid_for_sale!</span>
   <span class="ruby-identifier">ap</span> <span class="ruby-string">&#39;---------------------- Valid for sale ----------------&#39;</span>
   <span class="ruby-identifier">ap</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">category</span>

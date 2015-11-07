@@ -23,7 +23,7 @@
         </h1>
         <ul class="files">
             <li>views/user/order_items/show.html.slim</li>
-            <li>Last modified: 2015-07-21 23:34:10 +0200</li>
+            <li>Last modified: 2015-11-05 15:29:49 +0100</li>
         </ul>
     </div>
 
@@ -64,46 +64,44 @@
     .digi-box
       /= debug @shop_product.stakes
 
-      /h4 Transfers
-      /.table-responsive
-      /  table class=&quot;table table-hover&quot;
-      /    thead
-      /      tr
-      /        th Date
-      /        th User
-      /        th Amount
-      /        th state
-      /    tbody
-      /      - @stripe_transfers.to_a.each do |stripe_transfer|
-      /        tr
-      /          td = l stripe_transfer.created_at, format: :date
-      /            /= debug stripe_transfer
-      /          td
-      /            - if user = stripe_transfer.user
-      /              - if member = User.find_by(email: user.email)
-      /                - if user.email == &#39;digiramp_system_default_957@digiramp.com&#39;
-      /                  &#39;DigiRAMP fee
-      /                - else
-      /                  = link_to user.email, member
-      /              - else
-      /                = user.email
-      /          td  
-      /            b = number_to_currency(stripe_transfer.amount * 0.01, locale: &#39;en&#39;, precision: 2)
-      /          td 
-      /            
-      /            - if stripe_transfer.stripe_errors.blank?
-      /              - case stripe_transfer.state
-      /              
-      /              - when &#39;pending&#39;
-      /                &#39;Payment is accepted by gateway
-      /              
-      /              - when &#39;finished&#39;
-      /                &#39;Payment is transfered to your account
-      /            - else
-      /              .alert.alert-danger
-      /                = stripe_transfer.stripe_errors
-      /        
-      /        
+      h4 Transfers
+      .table-responsive
+        table class=&quot;table table-hover&quot;
+          thead
+            tr
+              th Date
+              th User
+              th Amount
+              th state
+          tbody
+            - @stripe_transfers.to_a.each do |stripe_transfer|
+              tr
+                td = l stripe_transfer.created_at, format: :date
+                  /= debug stripe_transfer
+                td
+                  - if user = stripe_transfer.user
+                    - if member = User.find_by(email: user.email)
+                      - if user.email == &#39;digiramp_system_default_957@digiramp.com&#39;
+                        &#39;DigiRAMP fee
+                      - else
+                        = link_to user.email, member
+                    - else
+                      = user.email
+                td  
+                  b = number_to_currency(stripe_transfer.amount * 0.01, locale: &#39;en&#39;, precision: 2)
+                td 
+
+                  - if stripe_transfer.stripe_errors.blank?
+                    - case stripe_transfer.state
+
+                    - when &#39;pending&#39;
+                      &#39;Payment is accepted by gateway
+
+                    - when &#39;finished&#39;
+                      &#39;Payment is transfered to your account
+                  - else
+                    .alert.alert-danger
+                      = stripe_transfer.stripe_errors
 
 == render &#39;shared/site_footer&#39;</code></pre>
 

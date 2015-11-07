@@ -23,7 +23,7 @@
         </h1>
         <ul class="files">
             <li>views/account/common_work_ipis/_form.slim</li>
-            <li>Last modified: 2015-09-24 20:35:34 +0200</li>
+            <li>Last modified: 2015-10-29 07:45:28 +0100</li>
         </ul>
     </div>
 
@@ -37,43 +37,48 @@
 <pre><code>.row
   .col-sm-6
     h4 Info
-    = f.input :role, collection: Ipi::ROLES, include_blank: false, label: &#39;Capacity&#39;
+    /= f.input :role, collection: Ipi::ROLES, include_blank: false, label: &#39;Capacity&#39;
     = f.input :ipi_code
     = f.input :cae_code
-    h4 Address
+    /h4 Address
     = f.input :full_name
-    = f.input :address
+    /= f.input :address
     = f.input :email
-    = f.input :phone_number
+    /= f.input :phone_number
 
-  .col-sm-6
-    h4 Notes
-    div id=&quot;toolbar&quot; class=&quot;wysihtml5-toolbar&quot;
-      a data-wysihtml5-command=&quot;bold&quot; Bold
-      &#39;&amp;nbsp; 
-      a data-wysihtml5-command=&quot;italic&quot; Italic
-      .pull-right
-        a data-wysihtml5-action=&quot;change_view&quot;  Html 
-    =f.input :notes, label: false, :input_html =&gt; {  style: &quot;height: 140px;&quot;, id: &#39;wysihtml5_editor&#39;}
-
-    h4 Rights
-    = f.input :controlled
-    = f.input :territory
-    = f.input :share       
-
-    h4 Mechanical
-    .row
-      .col-sm-6
-        = f.input :mech_owned , label: &#39;Owned&#39;
-      .col-sm-6
-          = f.input :mech_collected, label: &#39;Collected&#39;
-
-    h4 Performance
-    .row
-      .col-sm-6
-        = f.input :perf_owned , label: &#39;Owned&#39;
-      .col-sm-6
-        = f.input :perf_collected, label: &#39;Collected&#39;
+  /.col-sm-6
+  /  h4 Notes
+  /  div id=&quot;toolbar&quot; class=&quot;wysihtml5-toolbar&quot;
+  /    a data-wysihtml5-command=&quot;bold&quot; Bold
+  /    &#39;&amp;nbsp; 
+  /    a data-wysihtml5-command=&quot;italic&quot; Italic
+  /    .pull-right
+  /      a data-wysihtml5-action=&quot;change_view&quot;  Html 
+  /  =f.input :notes, label: false, :input_html =&gt; {  style: &quot;height: 140px;&quot;, id: &#39;wysihtml5_editor&#39;}
+  /      
+  /  
+  /  h4 Rights
+  /  = f.input :controlled
+  /  = f.input :territory
+  /  = f.input :share       
+  /  
+  /
+  /
+  /
+  /  h4 Mechanical
+  /  .row
+  /    .col-sm-6
+  /      = f.input :mech_owned , label: &#39;Owned&#39;
+  /    .col-sm-6
+  /        = f.input :mech_collected, label: &#39;Collected&#39;
+  /
+  /  h4 Performance
+  /  .row
+  /    .col-sm-6
+  /      = f.input :perf_owned , label: &#39;Owned&#39;
+  /    .col-sm-6
+  /      = f.input :perf_collected, label: &#39;Collected&#39;
+  /  
 
 .row
   .col-sm-12

@@ -245,8 +245,8 @@
                 <pre><span class="ruby-comment"># File controllers/user/creative_rights_controller.rb, line 7</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">index</span>
 
-  <span class="ruby-ivar">@common_works</span> = <span class="ruby-constant">CommonWork</span>.<span class="ruby-identifier">account_search</span>(<span class="ruby-ivar">@user</span>.<span class="ruby-identifier">account</span>, <span class="ruby-identifier">params</span>[<span class="ruby-value">:query</span>] ).<span class="ruby-identifier">order</span>(<span class="ruby-string">&#39;title desc&#39;</span>).<span class="ruby-identifier">page</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:page</span>]).<span class="ruby-identifier">per</span>(<span class="ruby-number">48</span>)
-
+  <span class="ruby-comment">#@common_works = CommonWork.account_search(@user.account, params[:query] ).order(&#39;title desc&#39;).page(params[:page]).per(48)</span>
+  <span class="ruby-ivar">@common_work_users</span> = <span class="ruby-ivar">@user</span>.<span class="ruby-identifier">common_work_users</span>.<span class="ruby-identifier">order</span>(<span class="ruby-string">&#39;common_work_title asc&#39;</span>).<span class="ruby-identifier">page</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:page</span>]).<span class="ruby-identifier">per</span>(<span class="ruby-number">48</span>)
 <span class="ruby-keyword">end</span></pre>
               </div>
             </div>

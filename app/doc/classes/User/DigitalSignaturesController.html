@@ -178,7 +178,7 @@
                 
               </p>
               <div id="method-i-create_source" class="dyn-source">
-                <pre><span class="ruby-comment"># File controllers/user/digital_signatures_controller.rb, line 39</span>
+                <pre><span class="ruby-comment"># File controllers/user/digital_signatures_controller.rb, line 37</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">create</span>
   <span class="ruby-identifier">params</span>[<span class="ruby-value">:digital_signature</span>][<span class="ruby-value">:uuid</span>] = <span class="ruby-constant">UUIDTools</span><span class="ruby-operator">::</span><span class="ruby-constant">UUID</span>.<span class="ruby-identifier">timestamp_create</span>().<span class="ruby-identifier">to_s</span>
   <span class="ruby-ivar">@digital_signature</span> = <span class="ruby-constant">DigitalSignature</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">digital_signature_params</span>)
@@ -227,7 +227,7 @@
                 
               </p>
               <div id="method-i-destroy_source" class="dyn-source">
-                <pre><span class="ruby-comment"># File controllers/user/digital_signatures_controller.rb, line 57</span>
+                <pre><span class="ruby-comment"># File controllers/user/digital_signatures_controller.rb, line 55</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">destroy</span>
   <span class="ruby-ivar">@digital_signature</span>.<span class="ruby-identifier">hidden</span> = <span class="ruby-keyword">true</span>
   <span class="ruby-ivar">@digital_signature</span>.<span class="ruby-identifier">save</span>
@@ -314,7 +314,7 @@
                 
               </p>
               <div id="method-i-new_source" class="dyn-source">
-                <pre><span class="ruby-comment"># File controllers/user/digital_signatures_controller.rb, line 20</span>
+                <pre><span class="ruby-comment"># File controllers/user/digital_signatures_controller.rb, line 18</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">new</span>
   <span class="ruby-ivar">@digital_signature</span> = <span class="ruby-constant">DigitalSignature</span>.<span class="ruby-identifier">new</span>
 <span class="ruby-keyword">end</span></pre>
@@ -353,9 +353,7 @@
               <div id="method-i-show_source" class="dyn-source">
                 <pre><span class="ruby-comment"># File controllers/user/digital_signatures_controller.rb, line 11</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">show</span>
-  <span class="ruby-identifier">ap</span> <span class="ruby-identifier">params</span>
-  <span class="ruby-identifier">ap</span> <span class="ruby-ivar">@digital_signature</span>.<span class="ruby-identifier">uuid</span>
-  <span class="ruby-identifier">ap</span> <span class="ruby-ivar">@user</span>.<span class="ruby-identifier">digital_signature_uuid</span>
+ 
   <span class="ruby-ivar">@user</span>.<span class="ruby-identifier">update</span>(<span class="ruby-identifier">digital_signature_uuid</span><span class="ruby-operator">:</span> <span class="ruby-ivar">@digital_signature</span>.<span class="ruby-identifier">uuid</span>) 
   <span class="ruby-identifier">redirect_to</span> <span class="ruby-value">:back</span>
 <span class="ruby-keyword">end</span></pre>
@@ -392,7 +390,7 @@
                 
               </p>
               <div id="method-i-update_source" class="dyn-source">
-                <pre><span class="ruby-comment"># File controllers/user/digital_signatures_controller.rb, line 24</span>
+                <pre><span class="ruby-comment"># File controllers/user/digital_signatures_controller.rb, line 22</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">update</span>
 
   <span class="ruby-comment">#@digital_signature = DigitalSignature.cached_find(params[:id])</span>

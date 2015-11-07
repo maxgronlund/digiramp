@@ -38,6 +38,14 @@
     <div id="bodyContent">
         <div id="content">
   
+    <div class="description">
+      
+<p>This class joyn a publisher with an <a href="Ipi.html">Ipi</a> All users
+can own one or many publishing companies From a publishing company the
+owner can invite creators to be published</p>
+
+    </div>
+  
 
 
   
@@ -96,6 +104,23 @@
           </ul>
         </dd>
       
+        <dt>S</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-send_invitation">send_invitation</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-i-send_notification">send_notification</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
         <dt>T</dt>
         <dd>
           <ul>
@@ -103,6 +128,18 @@
               
               <li>
                 <a href="#method-i-title">title</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
+        <dt>U</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-update_validation">update_validation</a>
               </li>
             
           </ul>
@@ -159,7 +196,7 @@
                 
               </p>
               <div id="method-c-cached_find_source" class="dyn-source">
-                <pre><span class="ruby-comment"># File models/ipi_publisher.rb, line 27</span>
+                <pre><span class="ruby-comment"># File models/ipi_publisher.rb, line 94</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">self</span>.<span class="ruby-identifier">cached_find</span>(<span class="ruby-identifier">id</span>)
   <span class="ruby-constant">Rails</span>.<span class="ruby-identifier">cache</span>.<span class="ruby-identifier">fetch</span>([<span class="ruby-identifier">name</span>, <span class="ruby-identifier">id</span>]) { <span class="ruby-identifier">find</span>(<span class="ruby-identifier">id</span>) }
 <span class="ruby-keyword">end</span></pre>
@@ -180,7 +217,7 @@
           
           
             <div class="description">
-              
+              <p>When a user sets his own publishing</p>
             </div>
           
           
@@ -198,7 +235,7 @@
                 
               </p>
               <div id="method-i-attach_to_common_work_ipis_source" class="dyn-source">
-                <pre><span class="ruby-comment"># File models/ipi_publisher.rb, line 41</span>
+                <pre><span class="ruby-comment"># File models/ipi_publisher.rb, line 76</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">attach_to_common_work_ipis</span>
   
   <span class="ruby-constant">CommonWorkIpi</span>.<span class="ruby-identifier">where</span>(
@@ -218,7 +255,7 @@
         <div class="method">
           <div class="title method-title" id="method-i-attach_to_user">
             
-              <b>attach_to_user</b>()
+              <b>attach_to_user</b>(current_user)
             
             <a href="../classes/IpiPublisher.html#method-i-attach_to_user" name="method-i-attach_to_user" class="permalink">Link</a>
           </div>
@@ -243,15 +280,21 @@
                 
               </p>
               <div id="method-i-attach_to_user_source" class="dyn-source">
-                <pre><span class="ruby-comment"># File models/ipi_publisher.rb, line 31</span>
-<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">attach_to_user</span>
-  <span class="ruby-keyword">if</span> <span class="ruby-identifier">user</span> = <span class="ruby-constant">User</span>.<span class="ruby-identifier">get_by_email</span>( <span class="ruby-keyword">self</span>.<span class="ruby-identifier">email</span> )
+                <pre><span class="ruby-comment"># File models/ipi_publisher.rb, line 36</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">attach_to_user</span> <span class="ruby-identifier">current_user</span>
+  <span class="ruby-identifier">user</span> = <span class="ruby-constant">User</span>.<span class="ruby-identifier">find_or_create_from_email</span>(<span class="ruby-keyword">self</span>.<span class="ruby-identifier">email</span>)
     <span class="ruby-keyword">self</span>.<span class="ruby-identifier">update</span>(
-      <span class="ruby-identifier">ipi_id</span><span class="ruby-operator">:</span> <span class="ruby-identifier">user</span>.<span class="ruby-identifier">ipi</span>.<span class="ruby-identifier">id</span>,
+      <span class="ruby-identifier">ipi_id</span><span class="ruby-operator">:</span>  <span class="ruby-identifier">user</span>.<span class="ruby-identifier">ipi</span>.<span class="ruby-identifier">id</span>,
       <span class="ruby-identifier">user_id</span><span class="ruby-operator">:</span> <span class="ruby-identifier">user</span>.<span class="ruby-identifier">id</span>,
       <span class="ruby-identifier">email</span><span class="ruby-operator">:</span>   <span class="ruby-identifier">user</span>.<span class="ruby-identifier">email</span>
     )
-  <span class="ruby-keyword">end</span>
+    <span class="ruby-keyword">self</span>.<span class="ruby-identifier">confirmed!</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">current_user</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">user</span>
+ <span class="ruby-keyword">if</span> <span class="ruby-identifier">user</span>.<span class="ruby-identifier">account_activated</span>
+   <span class="ruby-identifier">send_notification</span> <span class="ruby-keyword">unless</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">user</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">current_user</span>
+ <span class="ruby-keyword">else</span>
+   <span class="ruby-identifier">user</span>.<span class="ruby-identifier">add_token</span> 
+   <span class="ruby-identifier">send_invitation</span> <span class="ruby-identifier">user</span>
+ <span class="ruby-keyword">end</span>
 <span class="ruby-keyword">end</span></pre>
               </div>
             </div>
@@ -286,7 +329,7 @@
                 
               </p>
               <div id="method-i-reset_common_work_ipis_source" class="dyn-source">
-                <pre><span class="ruby-comment"># File models/ipi_publisher.rb, line 15</span>
+                <pre><span class="ruby-comment"># File models/ipi_publisher.rb, line 22</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">reset_common_work_ipis</span>
   <span class="ruby-constant">CommonWorkIpi</span>.<span class="ruby-identifier">where</span>(
     <span class="ruby-identifier">email</span><span class="ruby-operator">:</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">email</span>, 
@@ -304,11 +347,123 @@
           </div>
         
         <div class="method">
+          <div class="title method-title" id="method-i-send_invitation">
+            
+              <b>send_invitation</b>(user)
+            
+            <a href="../classes/IpiPublisher.html#method-i-send_invitation" name="method-i-send_invitation" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              <p>invite a user to digiramp</p>
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-send_invitation_source')" id="l_method-i-send_invitation_source">show</a>
+                
+              </p>
+              <div id="method-i-send_invitation_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/ipi_publisher.rb, line 63</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">send_invitation</span> <span class="ruby-identifier">user</span>
+  <span class="ruby-constant">PublisherMailer</span>.<span class="ruby-identifier">delay</span>.<span class="ruby-identifier">send_invitation</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">id</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-send_notification">
+            
+              <b>send_notification</b>()
+            
+            <a href="../classes/IpiPublisher.html#method-i-send_notification" name="method-i-send_notification" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              <p>notify the user about creation / update by email</p>
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-send_notification_source')" id="l_method-i-send_notification_source">show</a>
+                
+              </p>
+              <div id="method-i-send_notification_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/ipi_publisher.rb, line 58</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">send_notification</span>
+  <span class="ruby-constant">PublisherMailer</span>.<span class="ruby-identifier">delay</span>.<span class="ruby-identifier">send_notification</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">id</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
           <div class="title method-title" id="method-i-title">
             
               <b>title</b>()
             
             <a href="../classes/IpiPublisher.html#method-i-title" name="method-i-title" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              <p>get the publishers legal name</p>
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-title_source')" id="l_method-i-title_source">show</a>
+                
+              </p>
+              <div id="method-i-title_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/ipi_publisher.rb, line 89</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">title</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">publisher</span>.<span class="ruby-identifier">legal_name</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">publisher</span>
+  <span class="ruby-string">&#39;na&#39;</span>  
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-update_validation">
+            
+              <b>update_validation</b>()
+            
+            <a href="../classes/IpiPublisher.html#method-i-update_validation" name="method-i-update_validation" class="permalink">Link</a>
           </div>
           
           
@@ -327,14 +482,13 @@
               
               <p class="source-link">
                 Source: 
-                <a href="javascript:toggleSource('method-i-title_source')" id="l_method-i-title_source">show</a>
+                <a href="javascript:toggleSource('method-i-update_validation_source')" id="l_method-i-update_validation_source">show</a>
                 
               </p>
-              <div id="method-i-title_source" class="dyn-source">
-                <pre><span class="ruby-comment"># File models/ipi_publisher.rb, line 53</span>
-<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">title</span>
-  <span class="ruby-keyword">return</span> <span class="ruby-identifier">publisher</span>.<span class="ruby-identifier">legal_name</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">publisher</span>
-  <span class="ruby-string">&#39;na&#39;</span>  
+              <div id="method-i-update_validation_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/ipi_publisher.rb, line 67</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">update_validation</span>
+  
 <span class="ruby-keyword">end</span></pre>
               </div>
             </div>

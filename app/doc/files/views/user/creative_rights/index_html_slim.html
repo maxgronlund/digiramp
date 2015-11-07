@@ -23,7 +23,7 @@
         </h1>
         <ul class="files">
             <li>views/user/creative_rights/index.html.slim</li>
-            <li>Last modified: 2015-09-29 18:58:13 +0200</li>
+            <li>Last modified: 2015-10-31 00:33:25 +0100</li>
         </ul>
     </div>
 
@@ -44,7 +44,7 @@
 #page-content-wrapper
   .container-fluid
     == render &#39;shared/breadcrumbs&#39;, breadcrumbs: { links: { &#39;Dashboard&#39;.to_sym =&gt; user_user_control_panel_index_path(@user),
-                                                             legal: user_user_legal_index_path(@user)} }
+                                                            &#39;legal&#39;.to_sym =&gt; user_user_legal_index_path(@user)} }
     .row
       .col-sm-6
         .help
@@ -59,26 +59,83 @@
       .col-sm-6
       .col-sm-6
         .pull-right
-          = simple_form_for  [ @user ], :url =&gt; url_for(:action =&gt; &#39;index&#39;, \
-                                                        :controller =&gt; &#39;user/creative_rights&#39;), \
-                                                        :method =&gt; &#39;get&#39;,\
-                                                        turboboost: true do |f|
-
-            .input-group
-              span class=&quot;input-group-addon&quot;
-                i class= &#39;fa fa-search&#39;
-              = text_field_tag &quot;query&quot;, &quot;&quot;, :class =&gt; &#39;search-query form-control&#39;, \
-                                            :placeholder =&gt; &quot;Search&quot;, \
-                                            value: params[:query]
-              .input-group-btn
-                = f.submit &#39;Go&#39;, class: &quot;btn btn-info&quot;
-                &#39;&amp;nbsp;
-                = link_to &#39;Clear&#39;, user_user_creative_rights_path(@user, clear: &#39;clear&#39;), class: &#39;btn btn-default&#39;
-
+          /= simple_form_for  [ @user ], :url =&gt; url_for(:action =&gt; &#39;index&#39;, \
+          /                                              :controller =&gt; &#39;user/creative_rights&#39;), \
+          /                                              :method =&gt; &#39;get&#39;,\
+          /                                              turboboost: true do |f|
+          /
+          /  .input-group
+          /    span class=&quot;input-group-addon&quot;
+          /      i class= &#39;fa fa-search&#39;
+          /    = text_field_tag &quot;query&quot;, &quot;&quot;, :class =&gt; &#39;search-query form-control&#39;, \
+          /                                  :placeholder =&gt; &quot;Search&quot;, \
+          /                                  value: params[:query]
+          /    .input-group-btn
+          /      = f.submit &#39;Go&#39;, class: &quot;btn btn-info&quot;
+          /      &#39;&amp;nbsp;
+          /      = link_to &#39;Clear&#39;, user_user_creative_rights_path(@user, clear: &#39;clear&#39;), class: &#39;btn btn-default&#39;
+          /
     .pull-down-10
-    == render &#39;index&#39;, recordings: @recordings
+      .table-responsive
+        table class=&quot;table table-hover&quot;
+          thead
+            tr
+              th Title
+              th Managed by
+              th Recordings
+              th Creators
+              th Completeness
+              th
+          tbody
+            - @common_work_users.each do |common_work_user|
+              - if common_work = common_work_user.common_work
+                tr
+                  - if common_work_user.can_manage_common_work
+                    td = link_to common_work.title, user_user_common_work_info_path(@user, common_work), class: &#39;btn btn-default btn-xs&#39;
+                    td = link_to common_work.user.full_name, common_work.user, class: &#39;btn btn-default btn-xs&#39;
+                    td = link_to common_work.recordings.count, user_user_common_work_recording_path(@user, common_work), class: &#39;btn btn-default btn-xs&#39;
+                    td = link_to common_work.common_work_ipis.count, user_user_common_work_path(@user, common_work), class: &#39;btn btn-default btn-xs&#39;
+
+                  - else
+                    td = link_to common_work.title, user_user_common_work_info_path(@user, common_work), class: &#39;btn btn-default btn-xs&#39;
+                    td = link_to common_work.user.full_name, common_work.user, class: &#39;btn btn-default btn-xs&#39;
+                    td
+                      .btn.btn-default.btn-xs disabled=&#39;disabled&#39;
+                        = common_work.recordings.count
+                    td
+                      .btn.btn-default.btn-xs disabled=&#39;disabled&#39;
+                        = common_work.common_work_ipis.count
+
+                  td 
+                    - if common_work.completeness &lt; 1.0
+                      .progress
+                        div class=&quot;progress-bar progress-bar-warning&quot; role=&quot;progressbar&quot; aria-valuenow=&quot;40&quot; aria-valuemin=&quot;0&quot; aria-valuemax=&quot;100&quot; style=&quot;width: #{common_work.completeness*100}%&quot;
+                          span class=&quot;sr-only&quot;
+
+                    -else    
+                      .progress
+                        div class=&quot;progress-bar progress-bar-success&quot; role=&quot;progressbar&quot; aria-valuenow=&quot;40&quot; aria-valuemin=&quot;0&quot; aria-valuemax=&quot;100&quot; style=&quot;width: #{100}%&quot;
+                          span class=&quot;sr-only&quot;
+                  td
+                    .pull-right
+                      - if common_work_user.can_manage_common_work
+                        = link_to edit_user_user_common_work_path(current_user, common_work)
+                          .btn.btn-default.btn-xs
+                            i.fa.fa-pencil
+                      - else
+                        .btn.btn-default.btn-xs disabled=&#39;disabled&#39;
+                          i.fa.fa-pencil
+
+                    /= common_work.completeness
+    /== render &#39;index&#39;, recordings: @recordings
     /.add_recordings
     /  == render &#39;index&#39;, recordings: @recordings
+
+    .pull-down-10
+    .row
+      .col-sm-12
+        .pull-right
+          = paginate(@common_work_users)
 
 == render &#39;shared/site_footer&#39;</code></pre>
 

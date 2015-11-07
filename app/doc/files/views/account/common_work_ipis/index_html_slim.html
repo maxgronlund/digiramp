@@ -23,7 +23,7 @@
         </h1>
         <ul class="files">
             <li>views/account/common_work_ipis/index.html.slim</li>
-            <li>Last modified: 2015-09-30 22:02:53 +0200</li>
+            <li>Last modified: 2015-10-29 07:45:28 +0100</li>
         </ul>
     </div>
 
@@ -68,73 +68,6 @@
               =&lt; link_to &#39;New IP&#39;, new_account_account_common_work_common_work_ipi_path(@account, @common_work),\
                         class: &#39;btn btn-info&#39;
     .pull-down-10
-    - @common_work.ipis.each do |ipi|
-
-      .digi-box
-        .row
-          .col-sm-12
-            h4 = ipi.full_name
-            .sexy_line
-        .row
-          .col-sm-4
-            &#39;Capacity: #{ipi.role}
-            br
-            &#39;IPI Code: #{ipi.ipi_code}
-            hr
-            b Address:
-            br
-            /= simple_format ipi.address
-            br
-            &#39;Phone:&amp;nbsp;#{ipi.phone_number}
-            br Email:&amp;nbsp;#{ipi.email}
-
-          .col-sm-4
-            &#39;Controlled: #{ipi.controlled}
-            br
-            &#39;&amp;nbsp;
-            hr
-            b Notes:
-            br
-            = simple_format ipi.notes
-          .col-sm-4
-            table
-              thead
-                tr
-                  th Rights
-                  th &amp;nbsp;&amp;nbsp;
-                  th
-              tbody
-                tr
-                  td Share
-                  td
-                  td = number_to_percentage(ipi.share, precision: 0) 
-                tr
-                  td Mechanical Owened
-                  td
-                  td = number_to_percentage(ipi.mech_owned, precision: 0) 
-                tr
-                  td Performance Owened
-                  td
-                  td = number_to_percentage(ipi.perf_owned, precision: 0) 
-
-                tr
-                  td Mechanical Collected
-                  td
-                  td = number_to_percentage(ipi.mech_collected, precision: 0) 
-                tr
-                  td Performance Collected
-                  td
-                  td = number_to_percentage(ipi.perf_collected, precision: 0)
-
-        .row
-          .col-sm-12
-            .pull-right
-              - if current_account_user.update_common_work_ipi
-                = link_to &#39;Edit&#39;, edit_account_account_common_work_common_work_ipi_path(@account, @common_work, ipi), class: &#39;btn btn-default&#39;
-              - if current_account_user.update_common_work_ipi
-                =&lt; link_to account_account_common_work_common_work_ipi_path(@account, @common_work, ipi), data: { confirm: &#39;Are you sure?&#39; } , :method =&gt; :delete do
-                  .btn.btn-danger
-                    i class=&quot;fa fa-times&quot;
 
 == render &#39;shared/site_footer&#39;</code></pre>
 

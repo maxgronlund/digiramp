@@ -23,7 +23,7 @@
         </h1>
         <ul class="files">
             <li>views/account/common_works/edit.slim</li>
-            <li>Last modified: 2015-09-26 08:28:13 +0200</li>
+            <li>Last modified: 2015-10-29 07:45:28 +0100</li>
         </ul>
     </div>
 
@@ -60,40 +60,41 @@
 
             /= f.label      :artwork, &#39;Thumbnail will be scaled to 184x184 pixels&#39; 
             /= f.file_field :artwork, multiple: false
-            .fileinput.fileinput-new data-provides=&quot;fileinput&quot;
-              .fileinput-new.thumbnail style=&quot;width: 184px; height: 184px;&quot;
-                - if @common_work.artwork
-                  = image_tag @common_work.artwork, size: &#39;184x184&#39;
-                - else
-                  = image_tag &#39;default-cover.jpg&#39;
-
-              div.fileinput-preview.fileinput-exists.thumbnail style=&quot;max-width: 184px; max-height: 184px;&quot;
-              div
-                span.btn.btn-default.btn-file
-                  span class=&quot;fileinput-new&quot;
-                    &#39;Change image
-                  &#39;&amp;nbsp;
-                  span class=&quot;fileinput-exists&quot;
-                    &#39;Change
-                  = f.file_field :artwork, multiple: false
-
-                &#39;&amp;nbsp;
-                a href=&quot;#&quot; class=&quot;btn btn-default fileinput-exists&quot; data-dismiss=&quot;fileinput&quot;
-                  &#39;Remove
-
+            /.fileinput.fileinput-new data-provides=&quot;fileinput&quot;
+            /  .fileinput-new.thumbnail style=&quot;width: 184px; height: 184px;&quot;
+            /    - if @common_work.artwork
+            /      = image_tag @common_work.artwork, size: &#39;184x184&#39;
+            /    - else
+            /      = image_tag &#39;default-cover.jpg&#39;
+            /
+            /  div.fileinput-preview.fileinput-exists.thumbnail style=&quot;max-width: 184px; max-height: 184px;&quot;
+            /  div
+            /    span.btn.btn-default.btn-file
+            /      span class=&quot;fileinput-new&quot;
+            /        &#39;Change image
+            /      &#39;&amp;nbsp;
+            /      span class=&quot;fileinput-exists&quot;
+            /        &#39;Change
+            /      = f.file_field :artwork, multiple: false
+            /
+            /    &#39;&amp;nbsp;
+            /    a href=&quot;#&quot; class=&quot;btn btn-default fileinput-exists&quot; data-dismiss=&quot;fileinput&quot;
+            /      &#39;Remove
+            /      
+            /      
             sexy_line
             /= f.input :artwork
             = f.input :title, :input_html =&gt; {  style: &quot; width: 100%;&quot;, placeholder: &quot;Title&quot;}
             = f.input :alternative_titles, :input_html =&gt; {  style: &quot;height: 120px;&quot;, placeholder: &quot;Alternative Titles&quot;}
             = f.input :description, :input_html =&gt; {  style: &quot;height: 120px;&quot;, placeholder: &quot;Description&quot;}
             = f.input :iswc_code, label: &#39;ISWC Code&#39;,:input_html =&gt; {  placeholder: &quot;ISWC Code&quot;}
-            = f.input :surveyed_work
-            = f.input :last_distribution
-            = f.input :work_status
-            = f.input :ascap_award_winner
-            = f.input :work_type
-            = f.input :bmi_work_id
-            = f.input :bmi_catalog
+            /= f.input :surveyed_work
+            /= f.input :last_distribution
+            /= f.input :work_status
+            /= f.input :ascap_award_winner
+            /= f.input :work_type
+            /= f.input :bmi_work_id
+            /= f.input :bmi_catalog
 
         .col-sm-6
           .digi-box
@@ -109,7 +110,7 @@
             = f.input :composite_type
             = f.input :arrangement, label: &#39;Arrangement of public domain work&#39;
             = f.input :genre
-            = f.input :submitter_work_id
+            /= f.input :submitter_work_id
             = f.input :registration_date
             = f.input :registration_origin
             = f.input :pro_work_id

@@ -23,7 +23,7 @@
         </h1>
         <ul class="files">
             <li>views/user/sign_documents/show.html.slim</li>
-            <li>Last modified: 2015-10-06 11:19:31 +0200</li>
+            <li>Last modified: 2015-10-26 18:14:53 +0100</li>
         </ul>
     </div>
 
@@ -63,7 +63,11 @@
       .col-sm-6
 
         .pull-right.pull-down-10
-          =&gt; link_to  user_user_unsigned_documents_path(@user) do
+          /- if session[:return_to_special_url]
+          /  - link = session[:return_to_special_url]
+          /- else 
+          /  - link = user_user_unsigned_documents_path(@user)
+          =&gt; link_to user_user_unsigned_documents_path(@user) do
               .btn.btn-default
                 i.fa.fa-chevron-left
                 &#39;&amp;nbsp;Back

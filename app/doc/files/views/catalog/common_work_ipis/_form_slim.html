@@ -23,7 +23,7 @@
         </h1>
         <ul class="files">
             <li>views/catalog/common_work_ipis/_form.slim</li>
-            <li>Last modified: 2015-09-24 20:35:34 +0200</li>
+            <li>Last modified: 2015-10-29 07:45:28 +0100</li>
         </ul>
     </div>
 
@@ -32,77 +32,38 @@
   
     <div class="description">
       
-<h1 id="label-f.hidden_field+-3Acommon_work_id-2C+value-3A+-40common_work.id">f.hidden_field :common_work_id, value: @common_work.id</h1>
+<p>/= f.hidden_field :common_work_id, value: @common_work.id /.row / 
+.col-sm-6 /    .panel.panel-primary /      .panel-heading /        &#39;IP
+/      .panel-body /  /        = f.input :role, collection: Ipi::ROLES,
+include_blank: false, label: &#39;Capacity&#39; /        = f.input
+:ipi_code /        = f.input :cae_code /    .panel.panel-primary /     
+.panel-heading /        &#39;Contact /      .panel-body /  /        =
+f.input :full_name /        = f.input :address /        = f.input :email / 
+= f.input :phone_number / /  .col-sm-6 /    .panel.panel-primary /     
+.panel-heading /        &#39;Notes /      .panel-body /         div
+id=“toolbar” class=“wysihtml5-toolbar” /           a
+data-wysihtml5-command=“bold” Bold /           &#39;&amp;nbsp;  /          
+a data-wysihtml5-command=“italic” Italic /         =f.input :notes, label:
+false, :input_html =&gt; {  style: “height: 370px;”, id:
+&#39;wysihtml5_editor&#39;} /  / /    .panel.panel-primary /     
+.panel-heading /        &#39;Rights /      .panel-body /          = f.input
+:controlled /          = f.input :territory /          = f.input :share</p>
 
-<p>.row</p>
+<p>/ / / /.row /  .col-sm-6 /    .panel.panel-primary /      .panel-heading / 
+&#39;Mechanical /      .panel-body /        .row /          .col-sm-6 /    
+= f.input :mech_owned , label: &#39;Owned&#39; /          .col-sm-6 /      
+= f.input :mech_collected, label: &#39;Collected&#39; /  .col-sm-6</p>
 
-<pre><code>.col-sm-6
-  .panel.panel-primary
-    .panel-heading
-      &#39;IP
-    .panel-body
+<p>/    .panel.panel-primary /      .panel-heading /        &#39;Performance /
+.panel-body /        .row /          .col-sm-6 /            = f.input
+:perf_owned , label: &#39;Owned&#39; /          .col-sm-6 /            =
+f.input :perf_collected, label: &#39;Collected&#39; / /  /    .row /     
+.col-sm-12 /        .pull-right /          = f.submit &#39;Save&#39;,
+class: &#39;btn btn-info btn-default btn-lg&#39; /</p>
 
-      = f.input :role, collection: Ipi::ROLES, include_blank: false, label: &#39;Capacity&#39;
-      = f.input :ipi_code
-      = f.input :cae_code
-  .panel.panel-primary
-    .panel-heading
-      &#39;Contact
-    .panel-body
+<p>/</p>
 
-      = f.input :full_name
-      = f.input :address
-      = f.input :email
-      = f.input :phone_number
-
-.col-sm-6
-  .panel.panel-primary
-    .panel-heading
-      &#39;Notes
-    .panel-body
-       div id=&quot;toolbar&quot; class=&quot;wysihtml5-toolbar&quot;
-         a data-wysihtml5-command=&quot;bold&quot; Bold
-         &#39;&amp;nbsp; 
-         a data-wysihtml5-command=&quot;italic&quot; Italic
-       =f.input :notes, label: false, :input_html =&gt; {  style: &quot;height: 370px;&quot;, id: &#39;wysihtml5_editor&#39;}
-
-  .panel.panel-primary
-    .panel-heading
-      &#39;Rights
-    .panel-body
-        = f.input :controlled
-        = f.input :territory
-        = f.input :share</code></pre>
-
-<p>.row</p>
-
-<pre><code>.col-sm-6
-  .panel.panel-primary
-    .panel-heading
-      &#39;Mechanical
-    .panel-body
-      .row
-        .col-sm-6
-          = f.input :mech_owned , label: &#39;Owned&#39;
-        .col-sm-6
-          = f.input :mech_collected, label: &#39;Collected&#39;
-.col-sm-6       
-  .panel.panel-primary
-    .panel-heading
-      &#39;Performance
-    .panel-body
-      .row
-        .col-sm-6
-          = f.input :perf_owned , label: &#39;Owned&#39;
-        .col-sm-6
-          = f.input :perf_collected, label: &#39;Collected&#39;
-
-  .row
-    .col-sm-12
-      .pull-right
-        = f.submit &#39;Save&#39;, class: &#39;btn btn-info btn-default btn-lg&#39;
-
-.col-sm-3</code></pre>
+<p>/  .col-sm-3</p>
 
     </div>
   

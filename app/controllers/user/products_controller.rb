@@ -126,27 +126,40 @@ class User::ProductsController < ApplicationController
   # PATCH/PUT /shop/products/1
   # PATCH/PUT /shop/products/1.json
   def update
+    if Rails.env.development?
+      ap @shop_product
+    end
     @category     = @shop_product.category
 
     params[:shop_product][:connected_to_stripe] = @user.is_stripe_connected
     
     respond_to do |format|
       if @shop_product.update(shop_product_params)
-        @shop_product.configure_stakeholder
-        @shop_product.valid_for_sale!
         
-        if @shop_product.distribution_agreement
-          @shop_product.distribution_agreement.configure_payment( @shop_product.price, @shop_product.recording.id)
+        if Rails.env.development?
+          ap @shop_product
         end
         
-        
-        
-        
-        if @shop_product.productable_type == 'Recording'
-          #@shop_product.recording.update_stakes( @shop_product.recording )
-          SalesService.new(@shop_product.recording.id)
+        case @shop_product.productable_type
           
+        when "Recording"
+          update_recording
         end
+        #@shop_product.configure_stakeholder
+        #@shop_product.valid_for_sale!
+        
+        #if distribution_agreement = @shop_product.distribution_agreement
+        #  distribution_agreement.configure_payment( @shop_product.price, @shop_product.recording.id)
+        #end
+        
+        
+        
+        
+        #if @shop_product.productable_type == 'Recording'
+        #  #@shop_product.recording.update_stakes( @shop_product.recording )
+        #  SalesService.new(@shop_product.recording.id)
+        #  
+        #end
         #update_show_in_shop
         format.html { redirect_to user_user_product_path(@user, @shop_product) }
 
@@ -174,6 +187,10 @@ class User::ProductsController < ApplicationController
         format.json { render json: @shop_product.errors, status: :unprocessable_entity }
       end
     end
+    
+  end
+  
+  def update_recording
     
   end
   

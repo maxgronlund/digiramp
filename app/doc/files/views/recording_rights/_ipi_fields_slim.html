@@ -23,7 +23,7 @@
         </h1>
         <ul class="files">
             <li>views/recording_rights/_ipi_fields.slim</li>
-            <li>Last modified: 2015-07-05 15:22:06 +0200</li>
+            <li>Last modified: 2015-10-29 07:45:28 +0100</li>
         </ul>
     </div>
 
@@ -32,77 +32,67 @@
   
     <div class="description">
       
-<p>.nested-fields</p>
+<p>/.nested-fields /  .row /    .col-sm-8 /      .row /        .col-sm-6 /    
+= f.input :full_name / /        .col-sm-6 /          = f.input :email /    
+.row /        .col-sm-3 /          = f.input :writer,                :as
+=&gt; :boolean /          /= f.input :writer, label: &#39;Hide my
+profile&#39;,  :input_html =&gt; { class: &#39;icheck-me&#39;,
+&#39;data-skin&#39;.to_sym =&gt; “square”, &#39;data-color&#39;.to_sym
+=&gt; “blue”     }</p>
 
-<pre><code>.row
-  .col-sm-8
-    .row
-      .col-sm-6
-        = f.input :full_name
+<p>/        .col-sm-3 /          = f.input :composer,              :as =&gt;
+:boolean /        .col-sm-3 /          = f.input :original_publisher,   
+:as =&gt; :boolean /        .col-sm-3 /          = f.input :administrator, 
+:as =&gt; :boolean /</p>
 
-      .col-sm-6
-        = f.input :email
-    .row
-      .col-sm-3
-        = f.input :writer,                :as =&gt; :boolean
-        /= f.input :writer, label: &#39;Hide my profile&#39;,  :input_html =&gt; { class: &#39;icheck-me&#39;, &#39;data-skin&#39;.to_sym =&gt; &quot;square&quot;, &#39;data-color&#39;.to_sym =&gt; &quot;blue&quot;     }  
-      .col-sm-3
-        = f.input :composer,              :as =&gt; :boolean
-      .col-sm-3
-        = f.input :original_publisher,    :as =&gt; :boolean
-      .col-sm-3
-        = f.input :administrator,         :as =&gt; :boolean
+<p>/      .row /        .col-sm-8 / /          - uuid =  (f.input
+:id).to_s.split(&#39;id=&#39;).last /          - uuid =  uuid.split(&#39;
+name=&#39;).first /          - uuid =  uuid.gsub(&#39;“&#39;, &#39;&#39;) /
+/      div id=”#{uuid}“ class=”panel-collapse collapse“ /        .row /    
+.col-sm-3 /             = f.input :mech_owned /          .col-sm-3 /       
+= f.input :mech_collected /          .col-sm-3 /             = f.input
+:perf_owned /          .col-sm-3 /             = f.input :perf_collected / 
+.row /          .col-sm-6 /            = f.input :ipi_code /         
+.col-sm-6 /            = f.input :territory /        .row /         
+.col-sm-6 /            = f.input :phone_number /            /= f.input
+:notes, :input_html =&gt; {  style: ”height: 108px;“, placeholder: ”Notes“}
+/          .col-sm-6 /            /= f.input :pro_affiliation, collection:
+ProAffiliation.order(:title).all, label: &#39;Performance <a
+href="../../../classes/Rights.html">Rights</a> Organization&#39; /         
+= f.input :pro_affiliation_id, collection: ProAffiliation.order(:title),
+value_method: :id, include_blank: true, label: &#39;Performance <a
+href="../../../classes/Rights.html">Rights</a> Organization&#39; /       
+.row /          .col-sm-6 /            = f.input :address, :input_html
+=&gt; {  style: ”height: 108px;“, placeholder: ”Address“} /         
+.col-sm-6 /            = f.input :notes, :input_html =&gt; {  style:
+”height: 108px;“, placeholder: ”Notes“} /</p>
 
-    .row
-      .col-sm-8
+<p>/</p>
 
-        - uuid =  (f.input :id).to_s.split(&#39;id=&#39;).last
-        - uuid =  uuid.split(&#39; name=&#39;).first
-        - uuid =  uuid.gsub(&#39;&quot;&#39;, &#39;&#39;)
+<p>/</p>
 
-    div id=&quot;#{uuid}&quot; class=&quot;panel-collapse collapse&quot;
-      .row
-        .col-sm-3
-           = f.input :mech_owned
-        .col-sm-3
-           = f.input :mech_collected
-        .col-sm-3
-           = f.input :perf_owned
-        .col-sm-3
-           = f.input :perf_collected
-      .row
-        .col-sm-6
-          = f.input :ipi_code
-        .col-sm-6
-          = f.input :territory
-      .row
-        .col-sm-6
-          = f.input :phone_number
-          /= f.input :notes, :input_html =&gt; {  style: &quot;height: 108px;&quot;, placeholder: &quot;Notes&quot;}
-        .col-sm-6
-          /= f.input :pro_affiliation, collection: ProAffiliation.order(:title).all, label: &#39;Performance Rights Organization&#39;
-          = f.input :pro_affiliation_id, collection: ProAffiliation.order(:title), value_method: :id, include_blank: true, label: &#39;Performance Rights Organization&#39;
-      .row
-        .col-sm-6
-          = f.input :address, :input_html =&gt; {  style: &quot;height: 108px;&quot;, placeholder: &quot;Address&quot;}
-        .col-sm-6
-          = f.input :notes, :input_html =&gt; {  style: &quot;height: 108px;&quot;, placeholder: &quot;Notes&quot;}
+<p>/</p>
 
-  .col-sm-4
-    .work_ip_share
-      = f.input :share, label: &#39;Share %&#39;
-    .row
-      .col-sm-12
-        .pull-right
+<p>/    .col-sm-4 /      .work_ip_share /        = f.input :share, label:
+&#39;Share %&#39; /      .row /        .col-sm-12 /          .pull-right /</p>
 
-          =&gt; link_to &#39;Advanced&#39;, &quot;##{uuid}&quot;, &#39;data-toggle&#39;.to_sym =&gt; &#39;collapse&#39;, &#39;data-parent&#39;.to_sym =&gt; &#39;#accordion&#39;, class: &#39;btn btn-default&#39;
-            /a data-toggle=&quot;collapse&quot; data-parent=&quot;#accordion&quot; href=&quot;##{uuid}&quot;
-            /  &#39;Advanced
-          = link_to_remove_association &quot;Remove&quot;, f  , class: &#39;btn btn-default&#39;
+<p>/            =&gt; link_to &#39;Advanced&#39;, “##{uuid}”,
+&#39;data-toggle&#39;.to_sym =&gt; &#39;collapse&#39;,
+&#39;data-parent&#39;.to_sym =&gt; &#39;#accordion&#39;, class: &#39;btn
+btn-default&#39; /              /a data-toggle=“collapse”
+data-parent=“#accordion” href=“##{uuid}” /              /  &#39;Advanced / 
+= link_to_remove_association “Remove”, f  , class: &#39;btn
+btn-default&#39; /</p>
 
-.row
-  .col-sm-12
-    .sexy_line</code></pre>
+<p>/</p>
+
+<p>/</p>
+
+<p>/  .row /    .col-sm-12 /      .sexy_line /</p>
+
+<p>/ /</p>
+
+<p>/</p>
 
     </div>
   

@@ -2,9 +2,10 @@
   
   tr
     td 
-      'Common work
+      = link_to 'Common work', user_user_common_work_path(@user, common_work), class: 'btn btn-default btn-xs'
       /br = notification_message.id
-    td = common_work.title
+    td 
+      =  common_work.title
     td
        
       /= debug user_notification
@@ -12,8 +13,8 @@
         
         - if total_share = error_message[:total_share]
           = total_share[:message]
-          .pull-right
-            = link_to 'Inspect', user_user_common_work_path(@user, common_work), class: 'btn btn-info btn-xs'
+          /.pull-right
+          /  = link_to 'Inspect', user_user_common_work_path(@user, common_work), class: 'btn btn-info btn-xs'
           .sexy_line
         - if common_work_ipis = error_message[:common_work_ipis]
           - common_work_ipis.each do |common_work_ipi_message|
@@ -27,6 +28,10 @@
                     => link_to 'Resend confirmation request',  user_user_common_work_request_ipi_confirmation_path( user,  common_work_ipi.common_work, common_work_ipi), 
                                                             class: 'btn btn-info btn-xs', method: 'put'
                 .sexy_line
+            - if publishing = common_work_ipi_message[:publishing]
+              = publishing[:message]
+              
+            
               /= status[:message]
               /= debug message = ipi[:message]
               /- if message == 'Creator not signed up'

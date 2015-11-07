@@ -7,20 +7,19 @@ class User::ConfirmCommonWorkIpisController < ApplicationController
   # If the user is not logged in login
   # If the user is not confirmed go the the Confirmation#edit 
   def edit
+    
     not_found unless @common_work_ipi = CommonWorkIpi.find_by(uuid: params[:id]) 
     not_found unless @user            = User.cached_find(params[:user_id])
     not_found unless @common_work     = @common_work_ipi.common_work
-    
+
     # the user is logged in all is ok
     # go to the real confirmation sreen for logged in users
     if super? || (current_user && current_user == @user)
-      
       edit_user_user_confirm_common_work_ipi_path(current_user, @common_work_ipi.uuid)
     
     # The user exists but is not logged in
     elsif invited_user = User.get_by_email(@user.email)
-      ap '------------------------------------------------------------------'
-      ap invited_user.account_activated
+      
       session[:request_url] =  edit_user_user_confirm_common_work_ipi_path(@common_work_ipi.user, @common_work_ipi.uuid)
       # if the user is not confirmed go the the confirmation screen for new creators
       if invited_user.account_activated
@@ -38,13 +37,7 @@ class User::ConfirmCommonWorkIpisController < ApplicationController
   def update
     @common_work_ipi = CommonWorkIpi.find_by(uuid: params[:id])
     @common_work_ipi.confirmed!
-    destroy_user_notification
-    
-    
-    @common_work_ipi.update(
-      ipi_id: @user.ipi.id,
-      publisher_id: publisher_id
-    )
+    @common_work_ipi.update( ipi_id: @user.ipi.id )
     
     if common_work     = @common_work_ipi.common_work
       common_work_user = CommonWorkUser.where(
@@ -57,12 +50,10 @@ class User::ConfirmCommonWorkIpisController < ApplicationController
         user_id:                  @common_work_ipi.user_id,
         can_manage_common_work:   @common_work_ipi.can_edit_common_work
       )
+      @common_work_ipi.update_validation
       
     end
     
-    #if @user.personal_publishing_status == "I own and control my own publishing"
-    #  @common_work_ipi.ipi_id =
-    #end
     redirect_to :back
   end
   
@@ -83,18 +74,7 @@ class User::ConfirmCommonWorkIpisController < ApplicationController
       publisher_id
     end
     
-    def destroy_user_notification
     
-      if user_notification = UserNotification.find_by( 
-          user_id:    @common_work_ipi.user_id,
-          asset_type: @common_work_ipi.class.name,
-          asset_id:   @common_work_ipi.id,
-          status:     'notice',
-          message:    'Confirm role'
-        )
-        user_notification.destroy
-      end
-    end
     
     
     

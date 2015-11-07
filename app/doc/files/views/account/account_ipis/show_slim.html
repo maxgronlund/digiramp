@@ -23,7 +23,7 @@
         </h1>
         <ul class="files">
             <li>views/account/account_ipis/show.slim</li>
-            <li>Last modified: 2015-09-26 07:50:30 +0200</li>
+            <li>Last modified: 2015-10-29 07:45:28 +0100</li>
         </ul>
     </div>
 
@@ -61,23 +61,24 @@
     .pull-down-10
 
     .digi-box 
-      h4 = @ipi_code.title
-      .row
-        .col-sm-12
-          .table-responsive
-            table class=&quot;table table-hover&quot;
-              thead
-                tr
-                  th Work
-                  th Capacity
-                  th PRO
-                  th
-              tbody                    
-                - @ipis.each do |ipi|
-                  tr
-                    td = ipi.common_work.title
-                    td = ipi.role
-                    td = ipi.pro_affiliation
+      /h4 = @ipi_code.title
+      /.row
+      /  .col-sm-12
+      /    .table-responsive
+      /      table class=&quot;table table-hover&quot;
+      /        thead
+      /          tr
+      /            th Work
+      /            th Capacity
+      /            th PRO
+      /            th
+      /        tbody                    
+      /          - @ipis.each do |ipi|
+      /            tr
+      /              td = ipi.common_work.title
+      /              td = ipi.role
+      /              td = ipi.pro_affiliation
+      /                
 
 == render &#39;shared/site_footer&#39;</code></pre>
 

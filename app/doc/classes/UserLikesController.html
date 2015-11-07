@@ -141,16 +141,7 @@
   <span class="ruby-identifier">session</span>[<span class="ruby-value">:user_query</span>] = <span class="ruby-keyword">nil</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:clear</span>] <span class="ruby-operator">==</span> <span class="ruby-string">&#39;clear&#39;</span>
   <span class="ruby-identifier">params</span>[<span class="ruby-value">:query</span>]  = <span class="ruby-identifier">session</span>[<span class="ruby-value">:user_query</span>]
   <span class="ruby-ivar">@users</span> = <span class="ruby-ivar">@user</span>.<span class="ruby-identifier">liked_users</span>.<span class="ruby-identifier">search</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:query</span>]).<span class="ruby-identifier">page</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:page</span>]).<span class="ruby-identifier">per</span>(<span class="ruby-number">8</span>)
-  <span class="ruby-comment">#user_ids = ItemLike.where(like_type: &#39;User&#39;, user_id: @user.id).pluck(:id)</span>
-  <span class="ruby-comment">#ap user_ids</span>
-  <span class="ruby-comment">#@users = User</span>
-  <span class="ruby-comment">#  .where(id: user_ids)</span>
-  <span class="ruby-comment">#  .public_profiles.search(params[:query])</span>
-  <span class="ruby-comment">#  .order(:id)</span>
-  <span class="ruby-comment">#  .page(params[:page])</span>
-  <span class="ruby-comment">#  .per(8)</span>
-  
-  <span class="ruby-comment">#@users = @user.followers.public_profiles.search(params[:query]).page(params[:page]).per(8)</span>
+ 
 <span class="ruby-keyword">end</span></pre>
               </div>
             </div>
@@ -185,7 +176,7 @@
                 
               </p>
               <div id="method-i-new_source" class="dyn-source">
-                <pre><span class="ruby-comment"># File controllers/user_likes_controller.rb, line 27</span>
+                <pre><span class="ruby-comment"># File controllers/user_likes_controller.rb, line 18</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">new</span>
   
   <span class="ruby-ivar">@user</span> = <span class="ruby-constant">User</span>.<span class="ruby-identifier">cached_find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:user_id</span>])

@@ -23,7 +23,7 @@
         </h1>
         <ul class="files">
             <li>views/user/legal_documents/show.slim</li>
-            <li>Last modified: 2015-10-02 23:23:23 +0200</li>
+            <li>Last modified: 2015-10-29 07:45:28 +0100</li>
         </ul>
     </div>
 
@@ -70,26 +70,11 @@
         .col-sm-12 
           = simple_format @document.text_content
       .pull-down-10
-      .row
-        - @document.document_users.each do |document_user|
-          .col-sm-6
-            - if document_user.signed_on
-              br
-              .pull-down-8
-
-              - if document_user.digital_signature
-                = &quot;#{document_user.signed_on}&quot;
-                br
-                &#39;ACCEPTED AND AGREED TO BY:
-                =  image_tag document_user.digital_signature.image_url(:image_300x50), class: &#39;img-responsive&#39;
-              - else
-                &#39;ACCEPTED AND AGREED TO BY:
-                &#39;Date:
-                h4 &amp;nbsp;
-
-              .uppercase
-                = document_user.role
-              br
+      - @document.document_users.find_in_batches( batch_size: 2) do |document_user|
+        .row
+          == render &#39;/user/sign_documents/signature&#39;, document_user: document_user[0]
+          - if document_user[1]
+            == render &#39;/user/sign_documents/signature&#39;, document_user: document_user[1]
 
 == render &#39;shared/site_footer&#39;</code></pre>
 

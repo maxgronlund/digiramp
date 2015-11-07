@@ -23,7 +23,7 @@
         </h1>
         <ul class="files">
             <li>views/user/publishers/index.html.slim</li>
-            <li>Last modified: 2015-10-03 14:51:09 +0200</li>
+            <li>Last modified: 2015-11-01 13:15:06 +0100</li>
         </ul>
     </div>
 
@@ -65,7 +65,9 @@
           tr
             th
             th Legal name
+            th Controlled by
             th Public
+
             /th Email,
             /th Phone number
             /th Ipi code
@@ -100,9 +102,12 @@
                 -if publisher.user_id == @user.id
                   = link_to publisher.legal_name, user_user_publisher_path(publisher.user, publisher), class: &#39;btn btn-default btn-xs&#39;
                 - else
-                  = publisher.legal_name
+                   = link_to publisher.legal_name, publisher_path( publisher), class: &#39;btn btn-default btn-xs&#39;
               /td = publisher.email
               /td = publisher.phone_number
+              td
+                - if user = publisher.user
+                  = link_to user.get_full_name, user, class: &#39;btn btn-default btn-xs&#39;
               td
                 - if publisher.show_on_public_page
                   &#39;√ Yes

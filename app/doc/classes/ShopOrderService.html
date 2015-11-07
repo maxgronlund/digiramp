@@ -134,7 +134,7 @@
                            .<span class="ruby-identifier">first_or_create</span>(<span class="ruby-identifier">user_id</span><span class="ruby-operator">:</span> <span class="ruby-identifier">shop_order</span>.<span class="ruby-identifier">user_id</span>, 
                                             <span class="ruby-identifier">recording_id</span><span class="ruby-operator">:</span> <span class="ruby-identifier">product</span>.<span class="ruby-identifier">productable_id</span>,
                                             <span class="ruby-identifier">uuid</span><span class="ruby-operator">:</span> <span class="ruby-constant">UUIDTools</span><span class="ruby-operator">::</span><span class="ruby-constant">UUID</span>.<span class="ruby-identifier">timestamp_create</span>().<span class="ruby-identifier">to_s</span>,
-                                            <span class="ruby-identifier">shop_order_item_id</span><span class="ruby-operator">:</span> <span class="ruby-identifier">order_item</span>.<span class="ruby-identifier">id</span>,
+                                            <span class="ruby-identifier">order_item_id</span><span class="ruby-operator">:</span> <span class="ruby-identifier">order_item</span>.<span class="ruby-identifier">id</span>,
                                             <span class="ruby-identifier">shop_product_id</span><span class="ruby-operator">:</span> <span class="ruby-identifier">product</span>.<span class="ruby-identifier">id</span>)
         <span class="ruby-comment">#else</span>
         <span class="ruby-comment">#  ErrorNotification.post &quot;ShopOrderService#handle_downloabels: #{product.productable_type} type not found&quot;</span>

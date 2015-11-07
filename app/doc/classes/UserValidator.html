@@ -121,11 +121,7 @@
                 <pre><span class="ruby-comment"># File classes/user_validator.rb, line 2</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">validate</span>(<span class="ruby-identifier">record</span>)
   <span class="ruby-keyword">if</span> <span class="ruby-identifier">user_email</span> = <span class="ruby-constant">UserEmail</span>.<span class="ruby-identifier">find_by</span>(<span class="ruby-identifier">email</span><span class="ruby-operator">:</span> <span class="ruby-identifier">record</span>.<span class="ruby-identifier">email</span>)
-    <span class="ruby-comment">#ap &#39;user_email&#39;</span>
-    <span class="ruby-comment">#ap user_email</span>
-    <span class="ruby-comment">#ap user_email.user_id</span>
-    <span class="ruby-comment">#ap &#39;record&#39;</span>
-    <span class="ruby-comment">#ap record.id</span>
+   
     <span class="ruby-keyword">unless</span> <span class="ruby-identifier">user_email</span>.<span class="ruby-identifier">user_id</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">record</span>.<span class="ruby-identifier">id</span>
       <span class="ruby-identifier">record</span>.<span class="ruby-identifier">errors</span>[<span class="ruby-value">:email</span>] <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-string">&#39;Email used by another account!&#39;</span>
     <span class="ruby-keyword">end</span>

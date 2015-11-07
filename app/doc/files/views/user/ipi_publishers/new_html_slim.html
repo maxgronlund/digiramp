@@ -23,7 +23,7 @@
         </h1>
         <ul class="files">
             <li>views/user/ipi_publishers/new.html.slim</li>
-            <li>Last modified: 2015-10-03 15:59:05 +0200</li>
+            <li>Last modified: 2015-11-01 14:41:35 +0100</li>
         </ul>
     </div>
 
@@ -75,19 +75,21 @@
               &#39;*Email
             == render &#39;shared/popover&#39;, identifier: &#39;This email is used to link a creator to this publisher, the creator should receive an email asking for confirmation&#39;
             .pull-down-6
-            = f.input :email, label: false
+            = f.input :email, label: false, placeholder: &#39;Creators email&#39;
 
-            b
-              &#39;* Revenue stream
-            == render &#39;shared/popover&#39;, identifier: &#39;The revenue stream defines your share as a publisher, you can add as many streams as you want&#39;
-            .chosen-label
-              = f.input :publishing_agreement_id, 
-                        collection: @publishing_agreements,
-                        include_blank: false,
-                        label: false,
-                        multiple: false,
-                        input_html: { class: &#39;chosen-select&#39;, &#39;data-placeholder&#39;.to_sym =&gt; &quot;Select recording...&quot; }
-
+            /b
+            /  &#39;* Revenue stream
+            /== render &#39;shared/popover&#39;, identifier: &#39;The revenue stream defines your share as a publisher, you can add as many streams as you want&#39;
+            /.chosen-label
+            /  = f.input :publishing_agreement_id, 
+            /            collection: @publishing_agreements,
+            /            include_blank: false,
+            /            label: false,
+            /            multiple: false,
+            /            input_html: { class: &#39;chosen-select&#39;, &#39;data-placeholder&#39;.to_sym =&gt; &quot;Select recording...&quot; }
+            /
+            /
+            /
             .row
               .col-sm-12
                 .pull-right

@@ -214,7 +214,7 @@
                 
               </p>
               <div id="method-i-after_update_path_source" class="dyn-source">
-                <pre><span class="ruby-comment"># File controllers/user/products_controller.rb, line 176</span>
+                <pre><span class="ruby-comment"># File controllers/user/products_controller.rb, line 181</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">after_update_path</span>
   <span class="ruby-identifier">session</span>[<span class="ruby-value">:user_product_path</span>] = <span class="ruby-keyword">nil</span>
   <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">user_user_product_path</span>(<span class="ruby-ivar">@user</span>, <span class="ruby-ivar">@shop_product</span>)
@@ -313,7 +313,7 @@ put it aside</p>
                 
               </p>
               <div id="method-i-destroy_source" class="dyn-source">
-                <pre><span class="ruby-comment"># File controllers/user/products_controller.rb, line 184</span>
+                <pre><span class="ruby-comment"># File controllers/user/products_controller.rb, line 189</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">destroy</span>
 
   <span class="ruby-ivar">@shop_product</span>.<span class="ruby-identifier">user_id</span>              = <span class="ruby-constant">User</span>.<span class="ruby-identifier">system_user</span>.<span class="ruby-identifier">id</span>
@@ -628,9 +628,14 @@ put it aside</p>
         <span class="ruby-ivar">@shop_product</span>.<span class="ruby-identifier">distribution_agreement</span>.<span class="ruby-identifier">configure_payment</span>( <span class="ruby-ivar">@shop_product</span>.<span class="ruby-identifier">price</span>, <span class="ruby-ivar">@shop_product</span>.<span class="ruby-identifier">recording</span>.<span class="ruby-identifier">id</span>)
       <span class="ruby-keyword">end</span>
       
-      <span class="ruby-comment">#if @shop_product.productable_type == &#39;Recording&#39;</span>
-      <span class="ruby-comment">#  @shop_product.recording.update_stakes( @shop_product.recording )</span>
-      <span class="ruby-comment">#end</span>
+      
+      
+      
+      <span class="ruby-keyword">if</span> <span class="ruby-ivar">@shop_product</span>.<span class="ruby-identifier">productable_type</span> <span class="ruby-operator">==</span> <span class="ruby-string">&#39;Recording&#39;</span>
+        <span class="ruby-comment">#@shop_product.recording.update_stakes( @shop_product.recording )</span>
+        <span class="ruby-constant">SalesService</span>.<span class="ruby-identifier">new</span>(<span class="ruby-ivar">@shop_product</span>.<span class="ruby-identifier">recording</span>.<span class="ruby-identifier">id</span>)
+        
+      <span class="ruby-keyword">end</span>
       <span class="ruby-comment">#update_show_in_shop</span>
       <span class="ruby-identifier">format</span>.<span class="ruby-identifier">html</span> { <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">user_user_product_path</span>(<span class="ruby-ivar">@user</span>, <span class="ruby-ivar">@shop_product</span>) }
 

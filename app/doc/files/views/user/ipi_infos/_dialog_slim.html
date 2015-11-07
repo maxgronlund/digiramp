@@ -23,7 +23,7 @@
         </h1>
         <ul class="files">
             <li>views/user/ipi_infos/_dialog.slim</li>
-            <li>Last modified: 2015-07-05 15:22:06 +0200</li>
+            <li>Last modified: 2015-10-29 07:45:28 +0100</li>
         </ul>
     </div>
 
@@ -32,110 +32,85 @@
   
     <div class="description">
       
-<p>div class=“old-ipi-info-dialog-#{ipi.id.to_s}”</p>
+<p>/div class=“old-ipi-info-dialog-#{ipi.id.to_s}” /  .modal.fade
+id=&#39;digirampDialog&#39; tabindex=“-1” role=“dialog”
+aria-labelledby=“modal-label” aria-hidden=“true” /    .modal-dialog /     
+.modal-content /        .modal-header /          button type=“button”
+class=“close” data-dismiss=“modal” /            span aria-hidden=“true”
+&amp;times; /            span class=“sr-only” Close /</p>
 
-<pre><code>.modal.fade id=&#39;digirampDialog&#39; tabindex=&quot;-1&quot; role=&quot;dialog&quot; aria-labelledby=&quot;modal-label&quot; aria-hidden=&quot;true&quot;
-  .modal-dialog
-    .modal-content
-      .modal-header
-        button type=&quot;button&quot; class=&quot;close&quot; data-dismiss=&quot;modal&quot;
-          span aria-hidden=&quot;true&quot; &amp;times;
-          span class=&quot;sr-only&quot; Close
+<p>/          h4 class=“modal-title” id=“myModalLabel” /            =
+ipi.full_name /          &#39;Work IPI / /          .row /           
+.col-sm-6 /              .table-responsive /                table
+class=“table table-hover” /                  tbody /                    tr
+/                      th Role: /                      td  /               
+b = ipi.roles_as_string /</p>
 
-        h4 class=&quot;modal-title&quot; id=&quot;myModalLabel&quot;
-          = ipi.full_name
-        &#39;Work IPI
+<p>/                    - unless ipi.pro_affiliation.nil? /                   
+tr /                        th PRO: /                        td  =
+ipi.pro_affiliation.title /</p>
 
-        .row
-          .col-sm-6
-            .table-responsive
-              table class=&quot;table table-hover&quot;
-                tbody
-                  tr
-                    th Role:
-                    td 
-                      b = ipi.roles_as_string
+<p>/                    - unless ipi.address.to_s == &#39;&#39; /             
+tr /                        th Address: /                        td  =
+simple_format ipi.address /                    - unless ipi.email.to_s ==
+&#39;&#39; /                      tr /                        th Email: /  
+td  = ipi.email /</p>
 
-                  - unless ipi.pro_affiliation.nil?
-                    tr
-                      th PRO:
-                      td  = ipi.pro_affiliation.title
+<p>/                    - unless ipi.phone_number.to_s == &#39;&#39; /        
+tr /                        th Phone Number /                        td =
+ipi.phone_number /</p>
 
-                  - unless ipi.address.to_s == &#39;&#39;
-                    tr
-                      th Address:
-                      td  = simple_format ipi.address
-                  - unless ipi.email.to_s == &#39;&#39;
-                    tr
-                      th Email:
-                      td  = ipi.email
+<p>/                    - unless ipi.ipi_code.to_s == &#39;&#39; /            
+tr /                        th IPI Code: /                        td  =
+ipi.ipi_code /</p>
 
-                  - unless ipi.phone_number.to_s == &#39;&#39;
-                    tr
-                      th Phone Number
-                      td = ipi.phone_number
+<p>/                    - unless ipi.bmi_work_id.to_s == &#39;&#39; /         
+tr /                        th BMI Work Id: /                        td  =
+ipi.bmi_work_id /</p>
 
-                  - unless ipi.ipi_code.to_s == &#39;&#39;
-                    tr
-                      th IPI Code:
-                      td  = ipi.ipi_code
+<p>/                    - unless ipi.cae_code.to_s == &#39;&#39; /            
+tr /                        th CAE Code: /                        td  =
+ipi.cae_code /            .col-sm-6 /              .table-responsive /     
+table class=“table table-hover” /                  tbody /                 
+- unless ipi.controlled.to_s == &#39;&#39; /                      tr /     
+th  Controlled: /                        td  = ipi.controlled /</p>
 
-                  - unless ipi.bmi_work_id.to_s == &#39;&#39;
-                    tr
-                      th BMI Work Id:
-                      td  = ipi.bmi_work_id
+<p>/                    - unless ipi.territory.to_s == &#39;&#39; /           
+tr /                        th Territory: /                        td  =
+ipi.territory /</p>
 
-                  - unless ipi.cae_code.to_s == &#39;&#39;
-                    tr
-                      th CAE Code:
-                      td  = ipi.cae_code
-          .col-sm-6
-            .table-responsive
-              table class=&quot;table table-hover&quot;
-                tbody
-                  - unless ipi.controlled.to_s == &#39;&#39;
-                    tr
-                      th  Controlled:
-                      td  = ipi.controlled
+<p>/                    - unless ipi.share.to_s == &#39;&#39; /               
+tr /                        th  Share: /                        td =
+number_to_percentage(ipi.share, precision: 0)  / /</p>
 
-                  - unless ipi.territory.to_s == &#39;&#39;
-                    tr
-                      th Territory:
-                      td  = ipi.territory
+<p>/                    - unless ipi.mech_owned.to_s == &#39;&#39; /          
+tr /                        th Mechanical Owned /                        td
+= number_to_percentage(ipi.mech_owned, precision: 0)  /</p>
 
-                  - unless ipi.share.to_s == &#39;&#39;
-                    tr
-                      th  Share:
-                      td = number_to_percentage(ipi.share, precision: 0) 
+<p>/                    - unless ipi.mech_collected.to_s == &#39;&#39;</p>
 
-                  - unless ipi.mech_owned.to_s == &#39;&#39;
-                    tr
-                      th Mechanical Owned
-                      td = number_to_percentage(ipi.mech_owned, precision: 0) 
+<p>/                      tr /                        th Mechanical Collected:
+/                        td = number_to_percentage(ipi.mech_collected,
+precision: 0)  /</p>
 
-                  - unless ipi.mech_collected.to_s == &#39;&#39;  
-                    tr
-                      th Mechanical Collected:
-                      td = number_to_percentage(ipi.mech_collected, precision: 0) 
+<p>/                    - unless ipi.perf_owned.to_s == &#39;&#39;</p>
 
-                  - unless ipi.perf_owned.to_s == &#39;&#39;  
-                    tr
-                      th Performance Owned:
-                      td = number_to_percentage(ipi.perf_owned, precision: 0) 
+<p>/                      tr /                        th Performance Owned: / 
+td = number_to_percentage(ipi.perf_owned, precision: 0)  /</p>
 
-                  - unless ipi.perf_collected.to_s == &#39;&#39;  
-                    tr
-                      th Performance Collected:
-                      td = number_to_percentage(ipi.perf_collected, precision: 0)
+<p>/                    - unless ipi.perf_collected.to_s == &#39;&#39;</p>
 
-                  - unless ipi.notes.to_s == &#39;&#39;  
-                    tr
-                      th Notes:
-                      td = simple_format ipi.notes
-            /= debug ipi
+<p>/                      tr /                        th Performance
+Collected: /                        td =
+number_to_percentage(ipi.perf_collected, precision: 0) /</p>
 
-        .modal-footer
-          = link_to &quot;Close&quot;, &#39;#&#39; , class: &#39;btn btn-default&#39;,  &quot;data-dismiss&quot;.to_sym =&gt; &quot;modal&quot;</code></pre>
+<p>/                    - unless ipi.notes.to_s == &#39;&#39;</p>
+
+<p>/                      tr /                        th Notes: /             
+td = simple_format ipi.notes /              /= debug ipi /</p>
+
+<p>/          .modal-footer /            = link_to “Close”, &#39;#&#39; ,
+class: &#39;btn btn-default&#39;,  “data-dismiss”.to_sym =&gt; “modal”</p>
 
     </div>
   

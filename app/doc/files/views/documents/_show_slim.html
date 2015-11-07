@@ -23,7 +23,7 @@
         </h1>
         <ul class="files">
             <li>views/documents/_show.slim</li>
-            <li>Last modified: 2015-10-02 22:55:44 +0200</li>
+            <li>Last modified: 2015-10-19 16:08:04 +0200</li>
         </ul>
     </div>
 
@@ -49,14 +49,20 @@
 <pre><code>.row
   .col-sm-6
     h4 
-      b = document.title
-    - if ( @user != document.user )
-      .alert.alert-info 
-        &#39;Controlled by:&amp;nbsp;
-        = document.controller_by
+      b =&gt; document.title
+      /= document.user.user_name
+    /- if ( @user != document.user )
+    /  .alert.alert-info 
+    /    &#39;Controlled by:&amp;nbsp;
+    /    = document.controller_by
   .col-sm-6
     .pull-right.pull-down-8
-
+      /=  document.status
+      /.pull-down-4
+      /&#39;Controlled by:&amp;nbsp;
+      /= document.controller_by
+      /= document.id
+      /.pull-down-4
       =&gt; link_to user_user_legal_document_path( user, document.uuid, :format =&gt; &#39;pdf&#39;) do 
         .btn.btn-default.btn-xs
           i.fa.fa-file-pdf-o
@@ -65,8 +71,8 @@
           .btn.btn-default.btn-xs
             i.fa.fa-eye
 
-      - unless document.executed? || document.archived? ||  document.expired?
-        - if ( @user == document.user )
+      - if true#  document.executed? || document.archived? ||  document.expired? || false
+        - if @user == document.user
           =&gt; link_to user_user_legal_document_path( user, document.uuid), data: { confirm: &#39;Are you sure?&#39; } , 
                                                   :method =&gt; :delete, 
                                                   turboboost: true do
@@ -76,7 +82,7 @@
             .btn.btn-default.btn-xs
               i.fa.fa-user-plus&amp;nbsp;Add user
 
-        - if ( @user == document.user ) || current_user_can_edit
+        - if true #( @user == document.user ) || current_user_can_edit
           = link_to edit_user_user_legal_document_path( user, document.uuid) do
             .btn.btn-default.btn-xs
               i.fa.fa-pencil
@@ -93,16 +99,16 @@ table class=&quot;table table-hover&quot;
       /th Status
   tbody
     - document.document_users.each do |document_user|
-      tr
+      tr id=&quot;document_user_#{document_user.id}&quot;
         td 
           = document_user.full_name 
 
           .pull-down-6
           - unless document_user.digital_signature_id
-            - if ( @user == document.user )
+            - if  @user == document.user 
               =&gt; link_to user_user_legal_document_legal_document_user_path(user, document, document_user), data: { confirm: &#39;Are you sure?&#39; } , 
                                               :method =&gt; :delete, 
-                                              turboboost: true do
+                                              remote: true do
                 .btn.btn-danger.btn-xs
                   i.fa.fa-times
               = link_to &#39;Edit&#39;, edit_user_user_legal_document_legal_document_user_path(user, document.uuid, document_user), class: &#39;btn btn-default btn-xs&#39;

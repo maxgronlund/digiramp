@@ -1,3 +1,4 @@
+# Handle transfers from one stripe account to another stripe account
 class Shop::StripeTransfer < ActiveRecord::Base
   include ErrorNotification
   has_paper_trail
@@ -61,8 +62,11 @@ class Shop::StripeTransfer < ActiveRecord::Base
       source_transaction:     self.source_transaction,
       currency:               self.currency,
       description:            self.description,
-      metadata:               {'description' => self.description},
-      statement_descriptor:   'DigiRAMP Payment',
+      metadata:               {
+                                'description' => self.description,
+                                'order_item_id' => self.order_item_id
+                              },
+      statement_descriptor:   "#{self.description}",
       application_fee:        self.application_fee
     )
     self.finis!

@@ -23,7 +23,7 @@
         </h1>
         <ul class="files">
             <li>views/account/opportunity_from_playlists/new.slim</li>
-            <li>Last modified: 2015-09-26 08:36:37 +0200</li>
+            <li>Last modified: 2015-10-20 16:47:50 +0200</li>
         </ul>
     </div>
 
@@ -68,7 +68,7 @@
             = f.input :title, autofocus:  true
             b 
               &#39;*Select playlist
-            == render &#39;shared/popover&#39;, id: &#39;recording&#39;, body: &#39;Please select a recording from your collection.&#39;
+            == render &#39;shared/popover&#39;, identifier: &#39;Select a playlist to turn in to an opportunity&#39;
             .chosen-label
               = f.input :playlist_id, 
                         collection: @playlists,

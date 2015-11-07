@@ -190,12 +190,12 @@
                 
               </p>
               <div id="method-i-create_source" class="dyn-source">
-                <pre><span class="ruby-comment"># File controllers/user/ipi_publishers_controller.rb, line 51</span>
+                <pre><span class="ruby-comment"># File controllers/user/ipi_publishers_controller.rb, line 24</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">create</span>
  
   <span class="ruby-ivar">@publisher</span>      = <span class="ruby-constant">Publisher</span>.<span class="ruby-identifier">cached_find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:publisher_id</span>])
   <span class="ruby-keyword">if</span> <span class="ruby-ivar">@ipi_publisher</span>  = <span class="ruby-constant">IpiPublisher</span>.<span class="ruby-identifier">create</span>(<span class="ruby-identifier">ipi_publisher_params</span>)
-    <span class="ruby-ivar">@ipi_publisher</span>.<span class="ruby-identifier">attach_to_user</span>
+    <span class="ruby-ivar">@ipi_publisher</span>.<span class="ruby-identifier">attach_to_user</span> <span class="ruby-identifier">current_user</span>
     <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">user_user_publisher_ipi_publishers_path</span>(<span class="ruby-ivar">@user</span>, <span class="ruby-ivar">@publisher</span>)
   <span class="ruby-keyword">else</span>
     <span class="ruby-identifier">render</span> <span class="ruby-value">:new</span>
@@ -234,7 +234,7 @@
                 
               </p>
               <div id="method-i-destroy_source" class="dyn-source">
-                <pre><span class="ruby-comment"># File controllers/user/ipi_publishers_controller.rb, line 79</span>
+                <pre><span class="ruby-comment"># File controllers/user/ipi_publishers_controller.rb, line 52</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">destroy</span>
   <span class="ruby-ivar">@publisher</span>  = <span class="ruby-constant">Publisher</span>.<span class="ruby-identifier">cached_find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:publisher_id</span>])
   <span class="ruby-ivar">@ipi_publisher</span>.<span class="ruby-identifier">destroy</span>
@@ -273,7 +273,7 @@
                 
               </p>
               <div id="method-i-edit_source" class="dyn-source">
-                <pre><span class="ruby-comment"># File controllers/user/ipi_publishers_controller.rb, line 62</span>
+                <pre><span class="ruby-comment"># File controllers/user/ipi_publishers_controller.rb, line 35</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">edit</span>
   <span class="ruby-ivar">@publisher</span>  = <span class="ruby-constant">Publisher</span>.<span class="ruby-identifier">cached_find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:publisher_id</span>])
   <span class="ruby-ivar">@publishing_agreements</span> = <span class="ruby-ivar">@publisher</span>.<span class="ruby-identifier">publishing_agreements</span>
@@ -313,7 +313,7 @@
               <div id="method-i-index_source" class="dyn-source">
                 <pre><span class="ruby-comment"># File controllers/user/ipi_publishers_controller.rb, line 5</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">index</span>
-  <span class="ruby-identifier">ap</span> <span class="ruby-identifier">params</span>
+
   <span class="ruby-ivar">@publisher</span> = <span class="ruby-constant">Publisher</span>.<span class="ruby-identifier">cached_find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:publisher_id</span>])
   <span class="ruby-ivar">@ipi_publishers</span> = <span class="ruby-ivar">@publisher</span>.<span class="ruby-identifier">ipi_publishers</span>
   
@@ -356,34 +356,7 @@
   <span class="ruby-ivar">@publisher</span>      = <span class="ruby-constant">Publisher</span>.<span class="ruby-identifier">cached_find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:publisher_id</span>])
   <span class="ruby-ivar">@ipi_publisher</span>  = <span class="ruby-constant">IpiPublisher</span>.<span class="ruby-identifier">new</span>
   <span class="ruby-ivar">@publishing_agreements</span> = <span class="ruby-ivar">@publisher</span>.<span class="ruby-identifier">publishing_agreements</span>
-  <span class="ruby-comment">#ap params</span>
-  <span class="ruby-comment">#@common_work  = CommonWork.cached_find(params[:common_work_id])</span>
-  <span class="ruby-comment">#@ipi          = Ipi.cached_find(params[:ipi_id])</span>
-  <span class="ruby-comment">#</span>
-  <span class="ruby-comment">#</span>
-  <span class="ruby-comment">#if user = @ipi.user</span>
-  <span class="ruby-comment">#   </span>
-  <span class="ruby-comment">#  @documents    = user.get_publishing_agreements</span>
-  <span class="ruby-comment">#else</span>
-  <span class="ruby-comment">#  @documents = []</span>
-  <span class="ruby-comment">#end</span>
-  <span class="ruby-comment">#</span>
-  <span class="ruby-comment">##ap @documents</span>
-  <span class="ruby-comment">#</span>
-  <span class="ruby-comment">#if document_id =  params[:document_id]</span>
-  <span class="ruby-comment">#  @document = Document.cached_find(document_id)</span>
-  <span class="ruby-comment">#  ap &#39;--------------------- document found --------------------------&#39;</span>
-  <span class="ruby-comment">#  </span>
-  <span class="ruby-comment">#  if publishing_agreement = PublishingAgreement.find_by(document_id: @document.uuid)</span>
-  <span class="ruby-comment">#    agreement = IpiPublishingAgreement.where( ipi_id: @ipi.id,</span>
-  <span class="ruby-comment">#                                  publishing_agreement_id: publishing_agreement.id)</span>
-  <span class="ruby-comment">#                .first_or_create( ipi_id: @ipi.id, </span>
-  <span class="ruby-comment">#                                  publishing_agreement_id: publishing_agreement.id)</span>
-  <span class="ruby-comment">#    ap agreement</span>
-  <span class="ruby-comment">#  end</span>
-  <span class="ruby-comment">#  </span>
-  <span class="ruby-comment">#  redirect_to user_user_common_work_ipi_path(@user, @common_work, @ipi)</span>
-  <span class="ruby-comment">#end</span>
+ 
   
 <span class="ruby-keyword">end</span></pre>
               </div>
@@ -456,12 +429,12 @@
                 
               </p>
               <div id="method-i-update_source" class="dyn-source">
-                <pre><span class="ruby-comment"># File controllers/user/ipi_publishers_controller.rb, line 67</span>
+                <pre><span class="ruby-comment"># File controllers/user/ipi_publishers_controller.rb, line 40</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">update</span>
  
   <span class="ruby-ivar">@publisher</span>      = <span class="ruby-constant">Publisher</span>.<span class="ruby-identifier">cached_find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:publisher_id</span>])
   <span class="ruby-keyword">if</span> <span class="ruby-ivar">@ipi_publisher</span>.<span class="ruby-identifier">update</span>(<span class="ruby-identifier">ipi_publisher_params</span>)
-    <span class="ruby-ivar">@ipi_publisher</span>.<span class="ruby-identifier">attach_to_user</span>
+    <span class="ruby-ivar">@ipi_publisher</span>.<span class="ruby-identifier">attach_to_user</span> <span class="ruby-identifier">current_user</span>
     <span class="ruby-ivar">@ipi_publisher</span>.<span class="ruby-identifier">attach_to_common_work_ipis</span>
     <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">user_user_publisher_ipi_publishers_path</span>(<span class="ruby-ivar">@user</span>, <span class="ruby-ivar">@publisher</span>)
   <span class="ruby-keyword">else</span>

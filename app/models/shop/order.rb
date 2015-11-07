@@ -1,3 +1,9 @@
+# This class holds an order. 
+# The order is proccessed and has different states
+# * pending
+# * processing
+# * finished
+# * errored
 
 class Shop::Order < ActiveRecord::Base
   
@@ -55,8 +61,11 @@ class Shop::Order < ActiveRecord::Base
     
   end
   
+  # charge the sustomers credit card
   def charge_card
-    
+    if Rails.env.development?
+      ap 'order#charge_card'
+    end
     save!
     begin
       charge = Stripe::Charge.create( amount: self.total_price.to_i.to_s,
@@ -82,6 +91,7 @@ class Shop::Order < ActiveRecord::Base
     end
   end
   
+  # when a user sign in / sign up and there is items in the basket
   def merge_with_and_delete old_shop_order
     
     old_shop_order.order_items.to_a.each do |order_item|
@@ -92,6 +102,7 @@ class Shop::Order < ActiveRecord::Base
     end
     old_shop_order.destroy!
   end
+  
   
   def buyer_account_id
     return nil unless self.user
@@ -182,7 +193,9 @@ class Shop::Order < ActiveRecord::Base
     self.order_content[:total_price]
   end
   
-  # the order is paid for, time to pay the stakeholders
+  # When the order is paid for
+  # then it's time pass the payment on to
+  # each individual order item
   def charge_succeeded params
 
 

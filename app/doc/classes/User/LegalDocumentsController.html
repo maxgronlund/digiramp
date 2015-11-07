@@ -243,14 +243,16 @@
               <div id="method-i-destroy_source" class="dyn-source">
                 <pre><span class="ruby-comment"># File controllers/user/legal_documents_controller.rb, line 89</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">destroy</span>
+  <span class="ruby-identifier">ap</span> <span class="ruby-string">&#39;destroy&#39;</span>
   <span class="ruby-keyword">begin</span>
     <span class="ruby-identifier">document</span> = <span class="ruby-constant">Document</span>.<span class="ruby-identifier">cached_find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
     <span class="ruby-identifier">document</span>.<span class="ruby-identifier">destroy!</span>
   <span class="ruby-keyword">rescue</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
+    <span class="ruby-identifier">ap</span> <span class="ruby-identifier">e</span>.<span class="ruby-identifier">inspect</span>
     <span class="ruby-identifier">ap</span> <span class="ruby-identifier">e</span>
     <span class="ruby-identifier">flash</span>[<span class="ruby-value">:danger</span>] = <span class="ruby-string">&quot;You can&#39;t delete a document used&quot;</span> 
   <span class="ruby-keyword">end</span>
-  <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">user_user_legal_documents_path</span>(<span class="ruby-ivar">@user</span>)
+  <span class="ruby-identifier">redirect_to_special_url</span> <span class="ruby-identifier">user_user_legal_documents_path</span>(<span class="ruby-ivar">@user</span>)
 <span class="ruby-keyword">end</span></pre>
               </div>
             </div>
@@ -327,7 +329,7 @@
 <span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">index</span>
   <span class="ruby-ivar">@account</span>  = <span class="ruby-ivar">@user</span>.<span class="ruby-identifier">account</span>
   <span class="ruby-identifier">document_ids</span> = <span class="ruby-ivar">@user</span>.<span class="ruby-identifier">document_users</span>.<span class="ruby-identifier">map</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">document_user</span><span class="ruby-operator">|</span> <span class="ruby-identifier">document_user</span>.<span class="ruby-identifier">document</span>.<span class="ruby-identifier">uuid</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">document_user</span>.<span class="ruby-identifier">document</span>}
-  <span class="ruby-identifier">document_ids</span> = <span class="ruby-ivar">@account</span>.<span class="ruby-identifier">documents</span>.<span class="ruby-identifier">map</span>  {<span class="ruby-operator">|</span><span class="ruby-identifier">document</span><span class="ruby-operator">|</span> <span class="ruby-identifier">document</span>.<span class="ruby-identifier">uuid</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">document</span> }
+  <span class="ruby-identifier">document_ids</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-ivar">@account</span>.<span class="ruby-identifier">documents</span>.<span class="ruby-identifier">map</span>  {<span class="ruby-operator">|</span><span class="ruby-identifier">document</span><span class="ruby-operator">|</span> <span class="ruby-identifier">document</span>.<span class="ruby-identifier">uuid</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">document</span> }
   <span class="ruby-ivar">@documents</span> = <span class="ruby-constant">Document</span>.<span class="ruby-identifier">order</span>(<span class="ruby-value">:title</span>).<span class="ruby-identifier">where</span>(<span class="ruby-identifier">uuid</span><span class="ruby-operator">:</span> <span class="ruby-identifier">document_ids</span>.<span class="ruby-identifier">uniq</span>)
 <span class="ruby-keyword">end</span></pre>
               </div>

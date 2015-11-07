@@ -23,7 +23,7 @@
         </h1>
         <ul class="files">
             <li>views/admin/plans/index.html.slim</li>
-            <li>Last modified: 2015-09-24 20:35:34 +0200</li>
+            <li>Last modified: 2015-10-20 18:06:58 +0200</li>
         </ul>
     </div>
 
@@ -80,6 +80,7 @@
             /th Amount
             th Interval
             th Published
+            th Created at
             th
 
         tbody
@@ -91,6 +92,7 @@
               /td = plan.amount
               td = plan.interval
               td = plan.published
+              td = l plan.created_at, format: :date
               td
                 .pull-right
                   /=&gt; link_to &#39;Show&#39;, admin_plan_path( plan ), class: &#39;btn btn-default btn-xs&#39;

@@ -13,26 +13,29 @@
       == render 'shared/breadcrumbs', breadcrumbs: { links: { 'Dashboard'.to_sym =>user_user_control_panel_index_path(@user),
                                                               'Revenue streams'.to_sym => user_user_revenue_streams_path(@user)}, current: ''}
       .row
-        .col-sm-6
+        .col-sm-8
           .help
             .help-text
-              h2 Revenue stream
+              h2 
+                b Revenue stream for
+                br = @stake.title
             .help-button
               == render 'admin/helps/help', identifier: 'user revenue stream'
-        .col-sm-6
+           
+        .col-sm-4
           .pull-right.pull-down-10
             = link_to  user_user_revenue_streams_path(@user) do
                 .btn.btn-default
                   i.fa.fa-chevron-left&nbsp;Back
                   
-      = "Source id: #{@stake.channel_uuid} | Source title: #{@stake.title}"
+      = "Source id: #{@stake.channel_uuid}"
       .pull-down-10
       .digi-box 
-        h4 Redistribute income stream  
-        = simple_form_for [:user, @user, @stake, Stake.new(split: 10)], url: url_for( action: 'create', 
+        h4 Redistribute revenue stream  
+        = simple_form_for [:user, @user, @stake, Stake.new(split: 0.0) ], url: url_for( action: 'create', 
                                                                                   controller: 'user/revenue_streams'), 
-                                                                    turboboost: true, 
                                                                     :method => 'post' do |f|
+            
             = f.hidden_field :account_id, value: @user.account.id
             = f.hidden_field :user_id,    value: @user.id
             = f.hidden_field :asset_id, value:   @stake.id
@@ -44,16 +47,17 @@
             = f.hidden_field :expired,           value: @stake.expired
             = f.hidden_field :unassigned, value: true
             /= f.hidden_field :original_source, value: @stake.original_source
-            .row
-              .col-sm-6
-                = f.input :email
-              
-              .col-sm-6
-                = f.input :split, input_html: {min: "1", max: "100"}
+            .form-inputs
+              .row
+                .col-sm-6
+                  = f.input :email
+                
+                .col-sm-6
+                  = f.input :split, input_html: {min: "1", max: "100"}
             .row
               .col-sm-12
                 .pull-right
-                    = f.submit 'Save', class: 'btn btn-default'
+                    = f.submit 'Save', class: 'btn btn-info'
       .digi-box
         h4 Recipients
       
@@ -75,7 +79,7 @@
                           .btn.btn-danger.btn-xs
                             i.fa.fa-times
                   td = stakeholder.email
-                  td = stakeholder.split
+                  td = number_to_percentage(stakeholder.split, precision: 2)
                   td = stakeholder.account_id ? 'Yes': 'No'
                   
                   

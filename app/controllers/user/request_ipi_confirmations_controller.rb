@@ -6,8 +6,8 @@ class User::RequestIpiConfirmationsController < ApplicationController
     @common_work_ipi  = CommonWorkIpi.cached_find(params[:id])
     
     
-    @common_work_ipi.user ? @common_work_ipi.send_notification : @common_work_ipi.check_for_member
-    flash[:info] = "Confirmation request is sent" 
+    @common_work_ipi.user ? @common_work_ipi.send_notification(current_user.id) : @common_work_ipi.check_for_member
+    flash[:info] = "Confirmation request was sent" 
     
     #
     #@ipi.title    = "Please confirm your rights on #{@common_work.title}"

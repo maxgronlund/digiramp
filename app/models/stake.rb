@@ -46,7 +46,27 @@ class Stake < ActiveRecord::Base
       return DistributionAgreement.find_by(uuid: self.asset_id)
     when "PublishingAgreement"
       return PublishingAgreement.cached_find(self.asset_id)
+    when "Stake"
+      return Stake.cached_find(self.asset_id)
     end
+  end
+  
+  def type_of_asset
+    case self.asset_type
+    when 'Recording'
+      return 'Recording'
+    when 'Shop::Product'
+      return 'Product'
+    when 'RecordingIpi'
+      return 'Production fee'
+    when "DistributionAgreement"
+      return 'Distribution fee'
+    when "PublishingAgreement"
+      return 'Royalty'
+    when "Stake"
+      return "Revenue split"
+    end
+    
   end
   
 
@@ -93,34 +113,40 @@ class Stake < ActiveRecord::Base
       return self.asset.title if self.asset
       'na'
     rescue => e
-      errored('Stake#description', e )
-    end
-    '500 na'
-  end
-  
-  def description
-    if self.ip_type
-      case self.ip_type
-      when 'RecordingIpi'
-        return  'Master royalty'
-      when 'Ipi'
-        return 'Mechanical royalty'
-      when 'PublishingAgreement'
-        return 'Publishing'
-      when 'DistributionAgreement'
-        return 'Distribution'
-      end
-    else
-      case self.asset_type
-      when 'Shop::Product'
-        return 'Physical product'
-      end
+      errored('Stake#title', e )
     end
     'na'
   end
   
+  def description
+    if Rails.env.development?
+      ap "stake#description"
+      ap self.ip_type
+      ap self.asset_type
+    end
+    if self.ip_type
+      case self.ip_type
+      when 'RecordingIpi'
+        return "Marster royalty for #{title}"
+      when "Ipi"
+        return "Mechanical royalty for #{title}"
+      when 'PublishingAgreement'
+        return "Publishing of #{title}"
+      when 'DistributionAgreement'
+        return  "Distribution of #{title}"
+      end
+    end
+    
+    case self.asset_type
+    when 'Shop::Product'
+      return self.title
+    end
+    
+    'na'
+  end
+  
   def fees 
-    total = Income.where( stake_id: self.id ).sum :application_fee
+    total =  Income.where( stake_id: self.id ).sum :application_fee
     total += Income.where( stake_id: self.id ).sum :payment_fee
     - total
   end
@@ -135,8 +161,12 @@ class Stake < ActiveRecord::Base
   
   
   def charge_succeeded params
-    ap 'Stake#charge_succeeded'
-    ap params
+    
+    if Rails.env.development?
+      ap 'Stake#charge_succeeded'
+      ap params
+    end
+    
     begin
       transfer_to_stakeholders_account params
       transfer_to_streams params
@@ -146,8 +176,10 @@ class Stake < ActiveRecord::Base
   end
   
   def update_income params
-    ap 'Stake#update_income'
-    ap params
+    if Rails.env.development?
+      ap 'Stake#update_income'
+      ap params
+    end
     Income.create(
       stake_id:             self.id,
       user_id:              self.user_id,
@@ -163,8 +195,10 @@ class Stake < ActiveRecord::Base
 
   # create a stripe transfer 
   def transfer_to_stakeholders_account params
-    ap 'Stake#transfer_to_stakeholders_account'
-    ap params
+    if Rails.env.development?
+      ap 'Stake#transfer_to_stakeholders_account'
+      ap params
+    end
     begin
       
       params[:amount]           = self.flat_rate_in_cent * params[:all_fees_in_percent]
@@ -189,8 +223,7 @@ class Stake < ActiveRecord::Base
   
 
   def transfer_to_streams params
-    
-    
+
     begin
       self.stakeholders.each do |stake|
         params[:amount]           = params[:amount]            * stake.split
@@ -204,7 +237,7 @@ class Stake < ActiveRecord::Base
   end
   
   def send_micro_transaction  params
-    ap 'send_micro_transaction'
+    ap 'stake#send_micro_transaction'
     ap params
     
     begin

@@ -23,7 +23,7 @@
         </h1>
         <ul class="files">
             <li>views/user/common_works/show.slim</li>
-            <li>Last modified: 2015-10-08 15:19:12 +0200</li>
+            <li>Last modified: 2015-11-01 09:03:35 +0100</li>
         </ul>
     </div>
 
@@ -31,7 +31,10 @@
         <div id="content">
   
     <div class="description">
-      
+      <ul><li>
+<p>common_work_ipis = @common_work.common_work_ipis</p>
+</li></ul>
+
 <p>wrapper</p>
 
 <pre><code>.full-width-top
@@ -48,6 +51,7 @@
     == render &#39;shared/breadcrumbs&#39;, breadcrumbs: { links: { &#39;Dashboard&#39;.to_sym =&gt; user_user_control_panel_index_path(@user),
                                                              legal: user_user_legal_index_path(@user),
                                                              &#39;common works&#39;.to_sym =&gt; user_user_creative_rights_path(@user)} }
+    == render &#39;shared/flash_message&#39;
     .row
       .col-sm-7
         .help
@@ -95,13 +99,15 @@
           .col-sm-4
             .pull-right
 
-        .row
-          .col-sm-12
-            .pull-right
-              = link_to &quot;I own and control all publishing and master rights &quot;,user_user_publishing_designee_path(@user, @common_work.id),
-                                    turboboost: true, 
-                                    data: {confirm: &quot;By clicking OK you confirm that: 1) You are the only writer/composer/producer/performer on this recording. 2) There is no other publisher or label besides your own. 3) There are no other owners or contributors to any portion of this copyright or recording.4) There are no samples or parts of any other song or recoding in this work.&quot;},
-                                    class: &#39;btn btn-warning&#39;
+        /.row
+        /  .col-sm-12
+        /    .pull-right
+        /      
+        /      /= link_to &quot;I own and control all publishing and master rights &quot;,user_user_publishing_designee_path(@user, @common_work.id),
+        /      /                      turboboost: true, 
+        /      /                      data: {confirm: &quot;By clicking OK you confirm that: 1) You are the only writer/composer/producer/performer on this recording. 2) There is no other publisher or label besides your own. 3) There are no other owners or contributors to any portion of this copyright or recording.4) There are no samples or parts of any other song or recoding in this work.&quot;},
+        /      /                      class: &#39;btn btn-warning&#39;
+        /
 
     - if( @common_work.total_share != 100.0) &amp;&amp; (@common_work.common_work_ipis.count &gt; 0)
       .alert.alert-danger
@@ -111,6 +117,10 @@
       .row.pull-down-10  
         .col-sm-12
           .pull-right
+            - if common_work_ipis.empty?
+              = link_to user_user_publishing_designee_path(@user, @common_work.id)
+                .btn.btn-default
+                  i.fa.fa-user-plus&amp;nbsp;I&#39;m the only creator
             =&lt; link_to new_user_user_common_work_common_work_ipi_path(@user, @common_work) do
               .btn.btn-default
                 i.fa.fa-user-plus&amp;nbsp;Add creator
@@ -120,19 +130,18 @@
             th
             th Name/ email
             th Roles
-            th Publisher
+            th Publishing
             th Creators split
             th 
               .pull-right
                 &#39;Status
 
         tbody
-          - @common_work.common_work_ipis.each do |common_work_ipi|
+          - common_work_ipis.each do |common_work_ipi|
             - publishing_agreement = common_work_ipi.publishing_agreement
             tr
-              td  style=&quot;width: 64px;&quot;
+              td  style=&quot;width: 80px;&quot;
                 =&gt; link_to user_user_common_work_common_work_ipi_path(@user, @common_work, common_work_ipi),
-                                                          turboboost: true,
                                                           data: { confirm: &#39;Are you sure?&#39; }, 
                                                           method: :delete do
                                           .btn.btn-danger.btn-xs
@@ -142,6 +151,7 @@
                     i.fa.fa-pencil
 
               td 
+                /= debug common_work_ipi
                 = common_work_ipi.get_full_name
                 br = common_work_ipi.get_email
 
@@ -158,77 +168,69 @@
                 - if common_work_ipi.arrangement
                   &#39;Arrangement
               td
-                - if common_work_ipi.publisher
-                  = common_work_ipi.publisher.legal_name
+                - if user = common_work_ipi.user
+                  /b = user.publishing
+                  /.
+                  /- common_work_ipi.common_work_ipi_publishers.each do |common_work_ipi_publisher|
+                  /  - if publisher = common_work_ipi_publisher.publisher
+                  /    = publisher.legal_name
+                  /    .pull-down-6
+                  /= debug user.status
+                  - case user.status
+
+                  - when &#39;has_to_set_publishing&#39;
+                    .alert.alert-danger
+                      &#39;Publishing status unknown
+                  - when &quot;have_many_publishers&quot;
+                    b Many publishers
+                    .pull-down-4
+                    =&gt; link_to user_user_common_work_ipi_common_work_ipi_publishing_index_path( common_work_ipi.user, common_work_ipi) do
+                          .btn.btn-default.btn-xs
+                            i.fa.fa-pencil&amp;nbsp;Configure
+                  - else
+                    - if document = user.personal_publishing_agreement_document
+                      =&gt; link_to user_user_legal_document_path( @user, document.uuid, :format =&gt; &#39;pdf&#39;)
+                        .btn.btn-default.btn-xs
+                          i.fa.fa-file-pdf-o&amp;nbsp;
+                          &#39;Legal documentation
+                - else
+                  .btn.btn-default.btn-xs disabled=&quot;disabled&quot;
+                    i.fa.fa-pencil
+                  &#39;&amp;nbsp;
+                /- if ipi = common_work_ipi.ipi
+                /  - if user = common_work_ipi.user
+                /    - if user.personal_publishing_status == &quot;I own and control my own publishing&quot;
+                /      = user.personal_publisher.legal_name
+                /    - elsif  user.personal_publishing_status == &quot;I have an exclusive publisher&quot;
+                /      - if publisher = user.exclusive_publisher
+                /        = publisher.legal_name
+                /      - else 
+                /        &#39;Waiting for publishing confirmation from
+                /        .pull-down-6
+                /        = user.exclusive_publishers_email
+                /    - else  
+                /      - if ipi_publishers = ipi.ipi_publishers
+                /        - ipi_publishers.each do |ipi_publisher|
+                /          - if publisher = ipi_publisher.publisher
+                /            = publisher.legal_name
+                /            .pull-down-6
 
               td
 
-                = number_to_percentage(common_work_ipi.share, precision: 0)   
+                = number_to_percentage(common_work_ipi.share, precision: 2)   
 
               td   
                 .pull-right
-                  div class=&quot;confirmation-button-#{common_work_ipi.id.to_s}&quot;
-                    == render &#39;user/common_works/common_work_ipi_buttons&#39;, user: @user, common_work: @common_work, common_work_ipi: common_work_ipi
+                  - if common_work_ipi.confirmed?
+                    .btn.btn-success.btn-xs disabled=&quot;disabled&quot;
+                      &#39;Confirmed
+                  - elsif common_work_ipi.pending?
+                    - if user = common_work_ipi.user
+                      =&gt; link_to &#39;Resend confirmation request&#39;,  user_user_common_work_request_ipi_confirmation_path( user,  @common_work, common_work_ipi), 
+                                                              class: &#39;btn btn-info btn-xs&#39;, method: &#39;put&#39;
+                    - else
+                      &#39;User not found
 
-    /.pull-down-10
-    /.digi-box
-    /  .row
-    /    .col-sm-6
-    /      h4 Masters / Recordings
-    /    .col-sm-6
-    /      .pull-right
-    /        = link_to &#39;#&#39; do
-    /          .btn.btn-default
-    /            i.fa.fa-plus&amp;nbsp;Add master
-    /  .table-responsive
-    /    table class=&quot;table table-hover&quot;
-    /      thead
-    /        tr
-    /          th
-    /          th Title
-    /          th Artist
-    /          th ISRC
-    /          th Contributors
-    /          th
-    /            .pull-right
-    /              &#39;Status
-    /      tbody
-    /        - @common_work.recordings.each do |recording|
-    /          tr
-    /            td style=&quot;width: 64px;&quot;
-    /              =&gt; link_to &#39;#&#39; do
-    /                .btn.btn-danger.btn-xs
-    /                  i.fa.fa-times
-    /              = link_to edit_user_recording_basic_path(@user, recording) do
-    /                .btn.btn-default.btn-xs
-    /                  i.fa.fa-pencil
-    /            td = link_to recording.title, user_recording_path(@user, recording), class: &#39;btn btn-default btn-xs&#39;
-    /            td = recording.artist
-    /            td = recording.isrc_code
-    /            td
-    /              - recording.recording_ipis.each do |recording_ipi|
-    /                  = recording_ipi.name
-    /            td
-    /              .pull-right
-    /                - recording.recording_ipis.each do |recording_ipi|
-    /                    = recording_ipi.status
-    /              
-    /  /div id=&quot;delete_recording_#{recording.id.to_s}&quot;
-    /  /  #digiWhams  class=&quot;/recordings/#{recording.id.to_s}&quot;
-    /  /    == render &#39;audio_player/show&#39;, recording: recording , description: true, target: &#39;&#39; 
-    /  /    /== render &#39;recordings/recording_with_icons&#39;, recording: recording,
-    /  /    /                                             info: true,
-    /  /    /                                             add_to_playlist: false, 
-    /  /    /                                             remove_from_playlist: false, 
-    /  /    /                                             edit: true, 
-    /  /    /                                             delete: false,
-    /  /    /                                             description: true,
-    /  /    /                                             share: false,
-    /  /    /                                             target: &quot;&quot;,
-    /  /    /                                             music_request_link: false,
-    /  /    /                                             remove_from_request: false
-    /  /    /
-    /
 == render &#39;shared/site_footer&#39;</code></pre>
 
     </div>

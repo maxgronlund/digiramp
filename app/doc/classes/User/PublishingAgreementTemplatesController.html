@@ -175,7 +175,8 @@
     <span class="ruby-identifier">template_id</span><span class="ruby-operator">:</span>          <span class="ruby-identifier">template</span>.<span class="ruby-identifier">id</span>,
     <span class="ruby-identifier">belongs_to_id</span><span class="ruby-operator">:</span>        <span class="ruby-ivar">@publishing_agreement</span>.<span class="ruby-identifier">id</span>,
     <span class="ruby-identifier">belongs_to_type</span><span class="ruby-operator">:</span>      <span class="ruby-ivar">@publishing_agreement</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">name</span>,
-    <span class="ruby-identifier">expires</span><span class="ruby-operator">:</span>              <span class="ruby-keyword">false</span>
+    <span class="ruby-identifier">expires</span><span class="ruby-operator">:</span>              <span class="ruby-keyword">false</span>,
+    <span class="ruby-identifier">account_id</span><span class="ruby-operator">:</span>           <span class="ruby-ivar">@user</span>.<span class="ruby-identifier">account</span>.<span class="ruby-identifier">id</span>
   )
   
   <span class="ruby-constant">CopyMachine</span>.<span class="ruby-identifier">create_document_users</span> <span class="ruby-identifier">template</span>, <span class="ruby-identifier">doc</span>

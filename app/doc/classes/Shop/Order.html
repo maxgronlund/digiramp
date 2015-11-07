@@ -38,6 +38,22 @@
     <div id="bodyContent">
         <div id="content">
   
+    <div class="description">
+      
+<p>This class holds an order.  The order is proccessed and has different
+states</p>
+<ul><li>
+<p>pending</p>
+</li><li>
+<p>processing</p>
+</li><li>
+<p>finished</p>
+</li><li>
+<p>errored</p>
+</li></ul>
+
+    </div>
+  
 
 
   
@@ -259,7 +275,7 @@
                 
               </p>
               <div id="method-c-cached_find_source" class="dyn-source">
-                <pre><span class="ruby-comment"># File models/shop/order.rb, line 138</span>
+                <pre><span class="ruby-comment"># File models/shop/order.rb, line 149</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">self</span>.<span class="ruby-identifier">cached_find</span>(<span class="ruby-identifier">id</span>)
   <span class="ruby-constant">Rails</span>.<span class="ruby-identifier">cache</span>.<span class="ruby-identifier">fetch</span>([<span class="ruby-identifier">name</span>, <span class="ruby-identifier">id</span>]) { <span class="ruby-identifier">find</span>(<span class="ruby-identifier">id</span>) }
 <span class="ruby-keyword">end</span></pre>
@@ -298,7 +314,7 @@
                 
               </p>
               <div id="method-i-buyer_account_id_source" class="dyn-source">
-                <pre><span class="ruby-comment"># File models/shop/order.rb, line 96</span>
+                <pre><span class="ruby-comment"># File models/shop/order.rb, line 107</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">buyer_account_id</span>
   <span class="ruby-keyword">return</span> <span class="ruby-keyword">nil</span> <span class="ruby-keyword">unless</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">user</span>
   <span class="ruby-keyword">return</span> <span class="ruby-keyword">nil</span> <span class="ruby-keyword">unless</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">user</span>.<span class="ruby-identifier">account</span>
@@ -319,7 +335,7 @@
           
           
             <div class="description">
-              
+              <p>charge the sustomers credit card</p>
             </div>
           
           
@@ -337,9 +353,11 @@
                 
               </p>
               <div id="method-i-charge_card_source" class="dyn-source">
-                <pre><span class="ruby-comment"># File models/shop/order.rb, line 58</span>
+                <pre><span class="ruby-comment"># File models/shop/order.rb, line 65</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">charge_card</span>
-  
+  <span class="ruby-keyword">if</span> <span class="ruby-constant">Rails</span>.<span class="ruby-identifier">env</span>.<span class="ruby-identifier">development?</span>
+    <span class="ruby-identifier">ap</span> <span class="ruby-string">&#39;order#charge_card&#39;</span>
+  <span class="ruby-keyword">end</span>
   <span class="ruby-identifier">save!</span>
   <span class="ruby-keyword">begin</span>
     <span class="ruby-identifier">charge</span> = <span class="ruby-constant">Stripe</span><span class="ruby-operator">::</span><span class="ruby-constant">Charge</span>.<span class="ruby-identifier">create</span>( <span class="ruby-identifier">amount</span><span class="ruby-operator">:</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">total_price</span>.<span class="ruby-identifier">to_i</span>.<span class="ruby-identifier">to_s</span>,
@@ -379,7 +397,8 @@
           
           
             <div class="description">
-              <p>the order is paid for, time to pay the stakeholders</p>
+              <p>When the order is paid for then it&#39;s time pass the payment on to each
+individual order item</p>
             </div>
           
           
@@ -397,7 +416,7 @@
                 
               </p>
               <div id="method-i-charge_succeeded_source" class="dyn-source">
-                <pre><span class="ruby-comment"># File models/shop/order.rb, line 186</span>
+                <pre><span class="ruby-comment"># File models/shop/order.rb, line 199</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">charge_succeeded</span> <span class="ruby-identifier">params</span>
 
 
@@ -448,7 +467,7 @@
                 
               </p>
               <div id="method-i-invalid-3F_source" class="dyn-source">
-                <pre><span class="ruby-comment"># File models/shop/order.rb, line 124</span>
+                <pre><span class="ruby-comment"># File models/shop/order.rb, line 135</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">invalid?</span>
   <span class="ruby-constant">OrderValidator</span>.<span class="ruby-identifier">check_validity_on</span>( <span class="ruby-keyword">self</span> )
 <span class="ruby-keyword">end</span></pre>
@@ -485,7 +504,7 @@
                 
               </p>
               <div id="method-i-items_count_source" class="dyn-source">
-                <pre><span class="ruby-comment"># File models/shop/order.rb, line 128</span>
+                <pre><span class="ruby-comment"># File models/shop/order.rb, line 139</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">items_count</span>
   <span class="ruby-identifier">count</span> = <span class="ruby-number">0</span>
   <span class="ruby-keyword">self</span>.<span class="ruby-identifier">order_items</span>.<span class="ruby-identifier">to_a</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">shop_item</span><span class="ruby-operator">|</span>
@@ -508,7 +527,7 @@
           
           
             <div class="description">
-              
+              <p>when a user sign in / sign up and there is items in the basket</p>
             </div>
           
           
@@ -526,7 +545,7 @@
                 
               </p>
               <div id="method-i-merge_with_and_delete_source" class="dyn-source">
-                <pre><span class="ruby-comment"># File models/shop/order.rb, line 85</span>
+                <pre><span class="ruby-comment"># File models/shop/order.rb, line 95</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">merge_with_and_delete</span> <span class="ruby-identifier">old_shop_order</span>
   
   <span class="ruby-identifier">old_shop_order</span>.<span class="ruby-identifier">order_items</span>.<span class="ruby-identifier">to_a</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">order_item</span><span class="ruby-operator">|</span>
@@ -570,7 +589,7 @@
                 
               </p>
               <div id="method-i-payment_source_source" class="dyn-source">
-                <pre><span class="ruby-comment"># File models/shop/order.rb, line 177</span>
+                <pre><span class="ruby-comment"># File models/shop/order.rb, line 188</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">payment_source</span>
   <span class="ruby-keyword">self</span>.<span class="ruby-identifier">order_content</span>[<span class="ruby-value">:payment_source</span>]
 <span class="ruby-keyword">end</span></pre>
@@ -607,7 +626,7 @@
                 
               </p>
               <div id="method-i-price_total_source" class="dyn-source">
-                <pre><span class="ruby-comment"># File models/shop/order.rb, line 181</span>
+                <pre><span class="ruby-comment"># File models/shop/order.rb, line 192</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">price_total</span>
   <span class="ruby-keyword">self</span>.<span class="ruby-identifier">order_content</span>[<span class="ruby-value">:total_price</span>]
 <span class="ruby-keyword">end</span></pre>
@@ -644,7 +663,7 @@
                 
               </p>
               <div id="method-i-require_shipping_address_source" class="dyn-source">
-                <pre><span class="ruby-comment"># File models/shop/order.rb, line 164</span>
+                <pre><span class="ruby-comment"># File models/shop/order.rb, line 175</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">require_shipping_address</span>
   <span class="ruby-keyword">self</span>.<span class="ruby-identifier">order_items</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">order_item</span><span class="ruby-operator">|</span>
     <span class="ruby-keyword">if</span> <span class="ruby-identifier">product</span> = <span class="ruby-identifier">order_item</span>.<span class="ruby-identifier">shop_product</span>
@@ -686,7 +705,7 @@
                 
               </p>
               <div id="method-i-shipping_address_source" class="dyn-source">
-                <pre><span class="ruby-comment"># File models/shop/order.rb, line 173</span>
+                <pre><span class="ruby-comment"># File models/shop/order.rb, line 184</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">shipping_address</span>
   <span class="ruby-constant">Address</span>.<span class="ruby-identifier">find_by</span>(<span class="ruby-identifier">addressable_id</span><span class="ruby-operator">:</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">id</span>, <span class="ruby-identifier">addressable_type</span><span class="ruby-operator">:</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">name</span>)
 <span class="ruby-keyword">end</span></pre>
@@ -723,7 +742,7 @@
                 
               </p>
               <div id="method-i-store_order_lines_source" class="dyn-source">
-                <pre><span class="ruby-comment"># File models/shop/order.rb, line 142</span>
+                <pre><span class="ruby-comment"># File models/shop/order.rb, line 153</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">store_order_lines</span>
   
   <span class="ruby-keyword">begin</span>
@@ -733,7 +752,7 @@
         
         <span class="ruby-keyword">self</span>.<span class="ruby-identifier">order_lines</span>[<span class="ruby-identifier">index</span>] = <span class="ruby-identifier">product</span>.<span class="ruby-identifier">as_json</span>.<span class="ruby-identifier">merge</span>( <span class="ruby-string">&quot;total_price&quot;</span>        =<span class="ruby-operator">&gt;</span> (<span class="ruby-identifier">order_item</span>.<span class="ruby-identifier">quantity</span> <span class="ruby-operator">*</span> <span class="ruby-identifier">product</span>.<span class="ruby-identifier">price</span>),
                                                          <span class="ruby-string">&quot;quantity&quot;</span>           =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">order_item</span>.<span class="ruby-identifier">quantity</span>,
-                                                         <span class="ruby-string">&quot;shop_order_item_id&quot;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">order_item</span>.<span class="ruby-identifier">id</span>,
+                                                         <span class="ruby-string">&quot;order_item_id&quot;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">order_item</span>.<span class="ruby-identifier">id</span>,
                                                          <span class="ruby-string">&quot;seller_info&quot;</span>        =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">order_item</span>.<span class="ruby-identifier">seller_info</span>)
                                                          
                                                          
@@ -778,7 +797,7 @@
                 
               </p>
               <div id="method-i-total_price_source" class="dyn-source">
-                <pre><span class="ruby-comment"># File models/shop/order.rb, line 113</span>
+                <pre><span class="ruby-comment"># File models/shop/order.rb, line 124</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">total_price</span>
   <span class="ruby-identifier">tp</span>  = <span class="ruby-number">0.0</span>
 
@@ -822,7 +841,7 @@
                 
               </p>
               <div id="method-i-units_of_product_source" class="dyn-source">
-                <pre><span class="ruby-comment"># File models/shop/order.rb, line 102</span>
+                <pre><span class="ruby-comment"># File models/shop/order.rb, line 113</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">units_of_product</span> <span class="ruby-identifier">product_id</span>
   <span class="ruby-identifier">cnt</span> = <span class="ruby-number">0</span>
   <span class="ruby-keyword">if</span> <span class="ruby-identifier">items</span> = <span class="ruby-keyword">self</span>.<span class="ruby-identifier">order_items</span>.<span class="ruby-identifier">where</span>(<span class="ruby-identifier">shop_product_id</span><span class="ruby-operator">:</span> <span class="ruby-identifier">product_id</span>)

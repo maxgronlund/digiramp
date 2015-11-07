@@ -23,7 +23,7 @@
         </h1>
         <ul class="files">
             <li>views/user/work_rights/index.html.slim</li>
-            <li>Last modified: 2015-09-26 13:30:26 +0200</li>
+            <li>Last modified: 2015-10-29 07:45:28 +0100</li>
         </ul>
     </div>
 
@@ -101,23 +101,23 @@
                 .row
                   .col-sm-6
                     = f.input :iswc_code, label: &#39;ISWC Code&#39;,:input_html =&gt; {  placeholder: &quot;ISWC Code&quot;}
-                  .col-sm-6
-                    = f.input :surveyed_work
+                  /.col-sm-6
+                  /  = f.input :surveyed_work
                 .row
                   .col-sm-6
                     = f.input :last_distribution
                   .col-sm-6
                     = f.input :work_status
                 .row
-                  .col-sm-6
-                    = f.input :ascap_award_winner
+                  /.col-sm-6
+                  /  = f.input :ascap_award_winner
                   .col-sm-6
                     = f.input :work_type
-                .row
-                  .col-sm-6
-                     = f.input :bmi_work_id
-                  .col-sm-6
-                    = f.input :bmi_catalog
+                /.row
+                /  .col-sm-6
+                /     = f.input :bmi_work_id
+                /  .col-sm-6
+                /    = f.input :bmi_catalog
 
                 .row
                   .col-sm-6
@@ -125,19 +125,19 @@
                   .col-sm-6
                     = f.input :registration_date
 
+                /.row
+                /  .col-sm-6
+                /    
+                /    = f.input :pro_catalog
+                /  .col-sm-6
+                /    = f.input :pro_work_id
+
                 .row
-                  .col-sm-6
-
-                    = f.input :pro_catalog
-                  .col-sm-6
-                    = f.input :pro_work_id
-
-                .row
-                  .col-sm-6
-
-                     = f.input :submitter_work_id
-                  .col-sm-6
-                    = f.input :pro_work_id
+                  /.col-sm-6
+                  /   
+                  /   = f.input :submitter_work_id
+                  /.col-sm-6
+                  /  = f.input :pro_work_id
 
               .col-sm-6
                 h4 Lyrics

@@ -632,6 +632,18 @@
           </ul>
         </dd>
       
+        <dt>F</dt>
+        <dd>
+          <ul>
+            
+              
+              <li>
+                <a href="#method-i-flush_cache">flush_cache</a>
+              </li>
+            
+          </ul>
+        </dd>
+      
         <dt>G</dt>
         <dd>
           <ul>
@@ -865,7 +877,7 @@
                 
               </p>
               <div id="method-c-cached_find_source" class="dyn-source">
-                <pre><span class="ruby-comment"># File models/account.rb, line 304</span>
+                <pre><span class="ruby-comment"># File models/account.rb, line 305</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">self</span>.<span class="ruby-identifier">cached_find</span>(<span class="ruby-identifier">id</span>)
   <span class="ruby-constant">Rails</span>.<span class="ruby-identifier">cache</span>.<span class="ruby-identifier">fetch</span>([<span class="ruby-identifier">name</span>, <span class="ruby-identifier">id</span>]) { <span class="ruby-identifier">find_by</span>(<span class="ruby-identifier">id</span><span class="ruby-operator">:</span> <span class="ruby-identifier">id</span>) }
 <span class="ruby-keyword">end</span></pre>
@@ -910,7 +922,7 @@ self.save!
                 
               </p>
               <div id="method-c-search_source" class="dyn-source">
-                <pre><span class="ruby-comment"># File models/account.rb, line 316</span>
+                <pre><span class="ruby-comment"># File models/account.rb, line 317</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">self</span>.<span class="ruby-identifier">search</span>( <span class="ruby-identifier">query</span>)
   <span class="ruby-keyword">if</span> <span class="ruby-identifier">query</span>.<span class="ruby-identifier">present?</span>
     <span class="ruby-keyword">return</span> <span class="ruby-constant">Account</span>.<span class="ruby-identifier">search_account</span>(<span class="ruby-identifier">query</span>)
@@ -953,7 +965,7 @@ self.save!
                 
               </p>
               <div id="method-i-account_owner_source" class="dyn-source">
-                <pre><span class="ruby-comment"># File models/account.rb, line 229</span>
+                <pre><span class="ruby-comment"># File models/account.rb, line 230</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">account_owner</span>
   <span class="ruby-constant">User</span>.<span class="ruby-identifier">cached_find</span>(<span class="ruby-identifier">user_id</span>)
 <span class="ruby-keyword">end</span></pre>
@@ -990,7 +1002,7 @@ self.save!
                 
               </p>
               <div id="method-i-add_user_source" class="dyn-source">
-                <pre><span class="ruby-comment"># File models/account.rb, line 242</span>
+                <pre><span class="ruby-comment"># File models/account.rb, line 243</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">add_user</span> <span class="ruby-identifier">user_id</span>
 
 <span class="ruby-keyword">end</span></pre>
@@ -1027,7 +1039,7 @@ self.save!
                 
               </p>
               <div id="method-i-administrator_source" class="dyn-source">
-                <pre><span class="ruby-comment"># File models/account.rb, line 214</span>
+                <pre><span class="ruby-comment"># File models/account.rb, line 215</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">administrator</span>
   <span class="ruby-keyword">begin</span>
     <span class="ruby-keyword">return</span> <span class="ruby-constant">User</span>.<span class="ruby-identifier">cached_find</span>(<span class="ruby-keyword">self</span>.<span class="ruby-identifier">administrator_id</span>)
@@ -1074,7 +1086,7 @@ self.save!
                 
               </p>
               <div id="method-i-administrator_email_source" class="dyn-source">
-                <pre><span class="ruby-comment"># File models/account.rb, line 257</span>
+                <pre><span class="ruby-comment"># File models/account.rb, line 258</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">administrator_email</span>
   <span class="ruby-identifier">administrators_account_user</span>.<span class="ruby-identifier">user</span>.<span class="ruby-identifier">email</span>.<span class="ruby-identifier">downcase</span>
 <span class="ruby-keyword">end</span></pre>
@@ -1111,7 +1123,7 @@ self.save!
                 
               </p>
               <div id="method-i-administrator_email-3D_source" class="dyn-source">
-                <pre><span class="ruby-comment"># File models/account.rb, line 247</span>
+                <pre><span class="ruby-comment"># File models/account.rb, line 248</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">administrator_email=</span>(<span class="ruby-identifier">administrator_email</span>)
   
   <span class="ruby-identifier">console</span>.<span class="ruby-identifier">log</span> <span class="ruby-string">&#39;+++++++++++++++++++++++++++++++++++++++++++++++++&#39;</span>
@@ -1153,7 +1165,7 @@ self.save!
                 
               </p>
               <div id="method-i-administrators_account_user_source" class="dyn-source">
-                <pre><span class="ruby-comment"># File models/account.rb, line 282</span>
+                <pre><span class="ruby-comment"># File models/account.rb, line 283</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">administrators_account_user</span>
   <span class="ruby-keyword">if</span> <span class="ruby-constant">User</span>.<span class="ruby-identifier">exists?</span>(<span class="ruby-keyword">self</span>.<span class="ruby-identifier">administrator_id</span>)
     <span class="ruby-keyword">if</span> <span class="ruby-identifier">account_user</span> = <span class="ruby-constant">AccountUser</span>.<span class="ruby-identifier">cached_where</span>( <span class="ruby-keyword">self</span>.<span class="ruby-identifier">id</span>, <span class="ruby-keyword">self</span>.<span class="ruby-identifier">administrator_id</span> )
@@ -1204,7 +1216,7 @@ self.save!
                 
               </p>
               <div id="method-i-atached_ipi_codes_source" class="dyn-source">
-                <pre><span class="ruby-comment"># File models/account.rb, line 236</span>
+                <pre><span class="ruby-comment"># File models/account.rb, line 237</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">atached_ipi_codes</span>
   <span class="ruby-constant">IpiCode</span>.<span class="ruby-identifier">where</span>(<span class="ruby-identifier">account_id</span><span class="ruby-operator">:</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">id</span>, <span class="ruby-identifier">ipiable_type</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;Account&#39;</span>)
 <span class="ruby-keyword">end</span></pre>
@@ -1241,7 +1253,7 @@ self.save!
                 
               </p>
               <div id="method-i-can_be_accessed_by_source" class="dyn-source">
-                <pre><span class="ruby-comment"># File models/account.rb, line 339</span>
+                <pre><span class="ruby-comment"># File models/account.rb, line 340</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">can_be_accessed_by</span> <span class="ruby-identifier">user_id</span>
   <span class="ruby-keyword">return</span> <span class="ruby-keyword">true</span> <span class="ruby-keyword">if</span> <span class="ruby-constant">User</span>.<span class="ruby-identifier">cached_find</span>(<span class="ruby-identifier">user_id</span>).<span class="ruby-identifier">super?</span>
   <span class="ruby-constant">AccountUser</span>.<span class="ruby-identifier">exists?</span>( <span class="ruby-identifier">account_id</span><span class="ruby-operator">:</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">id</span>, <span class="ruby-identifier">user_id</span><span class="ruby-operator">:</span> <span class="ruby-identifier">user_id</span>)
@@ -1279,7 +1291,7 @@ self.save!
                 
               </p>
               <div id="method-i-cleanup_relations_source" class="dyn-source">
-                <pre><span class="ruby-comment"># File models/account.rb, line 155</span>
+                <pre><span class="ruby-comment"># File models/account.rb, line 156</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">cleanup_relations</span>
   <span class="ruby-keyword">if</span> <span class="ruby-identifier">unlocked_creative_projects</span>    = <span class="ruby-keyword">self</span>.<span class="ruby-identifier">creative_projects</span>.<span class="ruby-identifier">where</span>(<span class="ruby-identifier">locked</span><span class="ruby-operator">:</span> <span class="ruby-keyword">false</span>)
     <span class="ruby-identifier">unlocked_creative_projects</span>.<span class="ruby-identifier">destroy_all</span>
@@ -1322,7 +1334,7 @@ self.save!
                 
               </p>
               <div id="method-i-create_label_source" class="dyn-source">
-                <pre><span class="ruby-comment"># File models/account.rb, line 147</span>
+                <pre><span class="ruby-comment"># File models/account.rb, line 148</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">create_label</span>
   <span class="ruby-constant">Label</span>.<span class="ruby-identifier">create_label</span>( <span class="ruby-keyword">self</span>.<span class="ruby-identifier">id</span> )
 <span class="ruby-keyword">end</span></pre>
@@ -1359,7 +1371,7 @@ self.save!
                 
               </p>
               <div id="method-i-current_plan_source" class="dyn-source">
-                <pre><span class="ruby-comment"># File models/account.rb, line 172</span>
+                <pre><span class="ruby-comment"># File models/account.rb, line 173</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">current_plan</span>
   <span class="ruby-comment"># can return nil</span>
   <span class="ruby-keyword">return</span> <span class="ruby-identifier">current_subscription</span>.<span class="ruby-identifier">plan</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">current_subscription</span>
@@ -1397,7 +1409,7 @@ self.save!
                 
               </p>
               <div id="method-i-current_subscription_source" class="dyn-source">
-                <pre><span class="ruby-comment"># File models/account.rb, line 177</span>
+                <pre><span class="ruby-comment"># File models/account.rb, line 178</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">current_subscription</span>
   <span class="ruby-comment"># latest subscription not expired</span>
   <span class="ruby-identifier">subscription</span> = <span class="ruby-identifier">subscriptions</span>.<span class="ruby-identifier">last</span>
@@ -1435,7 +1447,7 @@ self.save!
                 
               </p>
               <div id="method-i-email_source" class="dyn-source">
-                <pre><span class="ruby-comment"># File models/account.rb, line 271</span>
+                <pre><span class="ruby-comment"># File models/account.rb, line 272</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">email</span>
   <span class="ruby-keyword">if</span> <span class="ruby-identifier">admin</span> = <span class="ruby-keyword">self</span>.<span class="ruby-identifier">administrator</span>
     <span class="ruby-keyword">return</span> <span class="ruby-identifier">admin</span>.<span class="ruby-identifier">email</span>
@@ -1443,6 +1455,45 @@ self.save!
     <span class="ruby-keyword">return</span> <span class="ruby-identifier">admin</span>.<span class="ruby-identifier">email</span>
   <span class="ruby-keyword">end</span>
   <span class="ruby-keyword">nil</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-flush_cache">
+            
+              <b>flush_cache</b>()
+            
+            <a href="../classes/Account.html#method-i-flush_cache" name="method-i-flush_cache" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-flush_cache_source')" id="l_method-i-flush_cache_source">show</a>
+                
+              </p>
+              <div id="method-i-flush_cache_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/account.rb, line 430</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">flush_cache</span>
+  
+  <span class="ruby-constant">Rails</span>.<span class="ruby-identifier">cache</span>.<span class="ruby-identifier">delete</span>([<span class="ruby-keyword">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">name</span>, <span class="ruby-identifier">id</span>])
+  <span class="ruby-comment">#Admin.cached_find(1).raise_accounts_version</span>
 <span class="ruby-keyword">end</span></pre>
               </div>
             </div>
@@ -1477,7 +1528,7 @@ self.save!
                 
               </p>
               <div id="method-i-get_account_user_source" class="dyn-source">
-                <pre><span class="ruby-comment"># File models/account.rb, line 329</span>
+                <pre><span class="ruby-comment"># File models/account.rb, line 330</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">get_account_user</span> <span class="ruby-identifier">user_id</span>, <span class="ruby-identifier">role</span>
   <span class="ruby-constant">AccountUser</span>.<span class="ruby-identifier">where</span>( <span class="ruby-identifier">account_id</span><span class="ruby-operator">:</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">id</span>, 
                      <span class="ruby-identifier">user_id</span><span class="ruby-operator">:</span> <span class="ruby-identifier">user_id</span>
@@ -1520,7 +1571,7 @@ self.save!
                 
               </p>
               <div id="method-i-get_account_users_source" class="dyn-source">
-                <pre><span class="ruby-comment"># File models/account.rb, line 400</span>
+                <pre><span class="ruby-comment"># File models/account.rb, line 401</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">get_account_users</span>
   <span class="ruby-constant">User</span>.<span class="ruby-identifier">where</span>(<span class="ruby-identifier">id</span><span class="ruby-operator">:</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">account_user_ids</span>).<span class="ruby-identifier">pluck</span>(<span class="ruby-value">:user_name</span>, <span class="ruby-value">:id</span>)
 <span class="ruby-keyword">end</span></pre>
@@ -1557,7 +1608,7 @@ self.save!
                 
               </p>
               <div id="method-i-get_users_and_supers_source" class="dyn-source">
-                <pre><span class="ruby-comment"># File models/account.rb, line 405</span>
+                <pre><span class="ruby-comment"># File models/account.rb, line 406</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">get_users_and_supers</span>
   <span class="ruby-comment">#users_and_supers = self.users + User.supers</span>
   <span class="ruby-comment">#users_and_supers.uniq!</span>
@@ -1599,7 +1650,7 @@ self.save!
                 
               </p>
               <div id="method-i-has_no_name-3F_source" class="dyn-source">
-                <pre><span class="ruby-comment"># File models/account.rb, line 198</span>
+                <pre><span class="ruby-comment"># File models/account.rb, line 199</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">has_no_name?</span>
   <span class="ruby-identifier">title</span> <span class="ruby-operator">==</span> <span class="ruby-constant">Account</span><span class="ruby-operator">::</span><span class="ruby-constant">SECRET_NAME</span>
 <span class="ruby-keyword">end</span></pre>
@@ -1636,7 +1687,7 @@ self.save!
                 
               </p>
               <div id="method-i-is_administrated_source" class="dyn-source">
-                <pre><span class="ruby-comment"># File models/account.rb, line 395</span>
+                <pre><span class="ruby-comment"># File models/account.rb, line 396</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">is_administrated</span>
   <span class="ruby-keyword">self</span>.<span class="ruby-identifier">administrator_id</span>  <span class="ruby-operator">!=</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">user_id</span>
 <span class="ruby-keyword">end</span></pre>
@@ -1673,7 +1724,7 @@ self.save!
                 
               </p>
               <div id="method-i-link_source" class="dyn-source">
-                <pre><span class="ruby-comment"># File models/account.rb, line 262</span>
+                <pre><span class="ruby-comment"># File models/account.rb, line 263</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">link</span>
   <span class="ruby-keyword">case</span> <span class="ruby-identifier">account_type</span>.<span class="ruby-identifier">to_s</span>
   <span class="ruby-keyword">when</span> <span class="ruby-string">&#39;supervisor&#39;</span>
@@ -1715,7 +1766,7 @@ self.save!
                 
               </p>
               <div id="method-i-owner_has_no_name-3F_source" class="dyn-source">
-                <pre><span class="ruby-comment"># File models/account.rb, line 203</span>
+                <pre><span class="ruby-comment"># File models/account.rb, line 204</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">owner_has_no_name?</span>
   <span class="ruby-identifier">account_owner</span>.<span class="ruby-identifier">name</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">account</span>.<span class="ruby-identifier">user</span>.<span class="ruby-identifier">email</span>
 <span class="ruby-keyword">end</span></pre>
@@ -1752,7 +1803,7 @@ self.save!
                 
               </p>
               <div id="method-i-owners_account_user_source" class="dyn-source">
-                <pre><span class="ruby-comment"># File models/account.rb, line 300</span>
+                <pre><span class="ruby-comment"># File models/account.rb, line 301</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">owners_account_user</span>
   <span class="ruby-keyword">return</span> <span class="ruby-constant">AccountUser</span>.<span class="ruby-identifier">where</span>(<span class="ruby-identifier">user_id</span><span class="ruby-operator">:</span> <span class="ruby-identifier">user_id</span>, <span class="ruby-identifier">account_id</span><span class="ruby-operator">:</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">id</span>).<span class="ruby-identifier">first</span>
 <span class="ruby-keyword">end</span></pre>
@@ -1789,7 +1840,7 @@ self.save!
                 
               </p>
               <div id="method-i-reassign_administrator_source" class="dyn-source">
-                <pre><span class="ruby-comment"># File models/account.rb, line 370</span>
+                <pre><span class="ruby-comment"># File models/account.rb, line 371</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">reassign_administrator</span> <span class="ruby-identifier">old_administrator_id</span>
 
   <span class="ruby-keyword">if</span> <span class="ruby-identifier">old_administrator</span> = <span class="ruby-constant">AccountUser</span>.<span class="ruby-identifier">where</span>(<span class="ruby-identifier">user_id</span><span class="ruby-operator">:</span> <span class="ruby-identifier">old_administrator_id</span>, <span class="ruby-identifier">account_id</span><span class="ruby-operator">:</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">id</span>).<span class="ruby-identifier">first</span>
@@ -1846,7 +1897,7 @@ self.save!
                 
               </p>
               <div id="method-i-set_uuid_source" class="dyn-source">
-                <pre><span class="ruby-comment"># File models/account.rb, line 190</span>
+                <pre><span class="ruby-comment"># File models/account.rb, line 191</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">set_uuid</span>
   <span class="ruby-keyword">self</span>.<span class="ruby-identifier">title</span> = <span class="ruby-keyword">self</span>.<span class="ruby-identifier">title</span>.<span class="ruby-identifier">strip</span>
   <span class="ruby-keyword">self</span>.<span class="ruby-identifier">uuid</span> = <span class="ruby-constant">UUIDTools</span><span class="ruby-operator">::</span><span class="ruby-constant">UUID</span>.<span class="ruby-identifier">timestamp_create</span>().<span class="ruby-identifier">to_s</span>
@@ -1885,7 +1936,7 @@ self.save!
                 
               </p>
               <div id="method-i-show_welcome_message-3F_source" class="dyn-source">
-                <pre><span class="ruby-comment"># File models/account.rb, line 210</span>
+                <pre><span class="ruby-comment"># File models/account.rb, line 211</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">show_welcome_message?</span>
   <span class="ruby-identifier">account_owner</span>.<span class="ruby-identifier">show_welcome_message</span>
 <span class="ruby-keyword">end</span></pre>
@@ -1922,7 +1973,7 @@ self.save!
                 
               </p>
               <div id="method-i-transfer_codes_source" class="dyn-source">
-                <pre><span class="ruby-comment"># File models/account.rb, line 185</span>
+                <pre><span class="ruby-comment"># File models/account.rb, line 186</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">transfer_codes</span>
 <span class="ruby-keyword">end</span></pre>
               </div>
@@ -1958,7 +2009,7 @@ self.save!
                 
               </p>
               <div id="method-i-transfer_codes-3D_source" class="dyn-source">
-                <pre><span class="ruby-comment"># File models/account.rb, line 183</span>
+                <pre><span class="ruby-comment"># File models/account.rb, line 184</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">transfer_codes=</span>(<span class="ruby-identifier">uuids</span>)
 <span class="ruby-keyword">end</span></pre>
               </div>
@@ -1994,7 +2045,7 @@ self.save!
                 
               </p>
               <div id="method-i-update_account_type_source" class="dyn-source">
-                <pre><span class="ruby-comment"># File models/account.rb, line 345</span>
+                <pre><span class="ruby-comment"># File models/account.rb, line 346</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">update_account_type</span>
   <span class="ruby-identifier">update_account_users</span>
 <span class="ruby-keyword">end</span></pre>
@@ -2031,7 +2082,7 @@ self.save!
                 
               </p>
               <div id="method-i-update_account_users_source" class="dyn-source">
-                <pre><span class="ruby-comment"># File models/account.rb, line 349</span>
+                <pre><span class="ruby-comment"># File models/account.rb, line 350</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">update_account_users</span>
 
   <span class="ruby-keyword">self</span>.<span class="ruby-identifier">account_users</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">account_user</span><span class="ruby-operator">|</span>
@@ -2077,7 +2128,7 @@ self.save!
                 
               </p>
               <div id="method-i-update_assets_count_source" class="dyn-source">
-                <pre><span class="ruby-comment"># File models/account.rb, line 415</span>
+                <pre><span class="ruby-comment"># File models/account.rb, line 416</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">update_assets_count</span>
   <span class="ruby-keyword">self</span>.<span class="ruby-identifier">catalogs</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">catalog</span><span class="ruby-operator">|</span>
     <span class="ruby-identifier">catalog</span>.<span class="ruby-identifier">update_assets_count</span>
@@ -2116,7 +2167,7 @@ self.save!
                 
               </p>
               <div id="method-i-update_expiration_date_source" class="dyn-source">
-                <pre><span class="ruby-comment"># File models/account.rb, line 165</span>
+                <pre><span class="ruby-comment"># File models/account.rb, line 166</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">update_expiration_date</span>
   <span class="ruby-keyword">if</span> <span class="ruby-identifier">last_registration</span> = <span class="ruby-keyword">self</span>.<span class="ruby-identifier">registrations</span>.<span class="ruby-identifier">last</span>
     <span class="ruby-keyword">self</span>.<span class="ruby-identifier">expiration_date</span> = <span class="ruby-identifier">last_registration</span>.<span class="ruby-identifier">expiration_date</span>
@@ -2156,7 +2207,7 @@ self.save!
                 
               </p>
               <div id="method-i-update_permissions_on_source" class="dyn-source">
-                <pre><span class="ruby-comment"># File models/account.rb, line 362</span>
+                <pre><span class="ruby-comment"># File models/account.rb, line 363</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">update_permissions_on</span> <span class="ruby-identifier">account_user</span>
   <span class="ruby-keyword">if</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">account_type</span> <span class="ruby-operator">==</span> <span class="ruby-string">&#39;Social&#39;</span>
     <span class="ruby-identifier">account_user</span>.<span class="ruby-identifier">remove_pro_permissions</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">account_user</span>.<span class="ruby-identifier">user</span>.<span class="ruby-identifier">super?</span>

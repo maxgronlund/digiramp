@@ -23,7 +23,7 @@
         </h1>
         <ul class="files">
             <li>views/cms_pages/_cms_profile.slim</li>
-            <li>Last modified: 2015-09-29 14:36:09 +0200</li>
+            <li>Last modified: 2015-10-21 19:14:23 +0200</li>
         </ul>
     </div>
 
@@ -106,11 +106,15 @@
 
       /- if @user.settings.has_a_subscription
       /= debug @user.account_type
-      - if @user.account_type == &#39;Pro&#39;
-        = link_to pro_account_info_index_path, id: &quot;get_pro_account_info&quot;, class: &#39;bestPlanButton&#39; do
+      - if @user.account_type == &#39;Pro&#39; &amp;&amp; current_user &amp;&amp; current_user.account_type == &#39;Social&#39;
+        = link_to user_user_subscriptions_path(current_user), id: &quot;get_pro_account_info&quot;, class: &#39;bestPlanButton&#39; do
           h4
             span class=&#39;label label-warning&#39;
              &#39;Pro user
+      - elsif @user.account_type == &#39;Pro&#39;
+        h4
+          span class=&#39;label label-warning&#39;
+           &#39;Pro user
       /=  image_tag @user.image_url(:avatar_184x184) 
       .pull-down-10
 

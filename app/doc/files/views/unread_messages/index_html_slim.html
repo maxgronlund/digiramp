@@ -23,7 +23,7 @@
         </h1>
         <ul class="files">
             <li>views/unread_messages/index.html.slim</li>
-            <li>Last modified: 2015-09-30 21:01:46 +0200</li>
+            <li>Last modified: 2015-10-19 15:41:24 +0200</li>
         </ul>
     </div>
 
@@ -54,12 +54,11 @@
         .pull-right.pull-down-10
           = link_to &#39;Mark all as read&#39;, new_user_unread_message_path(@user), class: &#39;btn btn-default&#39;
     .pull-down-10
-    table
-      .table-responsive
-        table class=&quot;table table-hover&quot;
-          tbody
-            - @new_messages.each do |message|
-              == render &#39;messages/message&#39;, message: message
+    .table-responsive
+      table class=&quot;table table-hover&quot;
+        tbody
+          - @new_messages.each do |message|
+            == render &#39;messages/message&#39;, message: message
 
     .row.pull-down-10
       .col-sm-12

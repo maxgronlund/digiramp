@@ -73,31 +73,36 @@
             
               
               <li>
-                <a href="#method-c-cached_find">cached_find</a>
+                <a href="#method-c-cached_find">cached_find</a>,
+              </li>
+            
+              
+              <li>
+                <a href="#method-i-confirmed_publishing-3F">confirmed_publishing?</a>
               </li>
             
           </ul>
         </dd>
       
-        <dt>P</dt>
+        <dt>S</dt>
         <dd>
           <ul>
             
               
               <li>
-                <a href="#method-i-personal_publishing_document">personal_publishing_document</a>
+                <a href="#method-i-sanitize_relations">sanitize_relations</a>
               </li>
             
           </ul>
         </dd>
       
-        <dt>R</dt>
+        <dt>U</dt>
         <dd>
           <ul>
             
               
               <li>
-                <a href="#method-i-reset_common_work_ipis">reset_common_work_ipis</a>
+                <a href="#method-i-user_publishing_agreement">user_publishing_agreement</a>
               </li>
             
           </ul>
@@ -130,24 +135,6 @@
 
     
 
-    
-      <!-- Section constants -->
-      <div class="sectiontitle">Constants</div>
-      <table border='0' cellpadding='5'>
-        
-          <tr valign='top'>
-            <td class="attr-name">PUBLISHING_TYPE</td>
-            <td>=</td>
-            <td class="attr-value">[&#39;I own and control my own publishing&#39;, &#39;I have an exclusive publisher&#39;, &#39;I have many publishers&#39;, &#39;I have an administrator&#39; ]</td>
-          </tr>
-          
-            <tr valign='top'>
-              <td>&nbsp;</td>
-              <td colspan="2" class="attr-desc"></td>
-            </tr>
-          
-        
-      </table>
     
 
 
@@ -186,7 +173,7 @@
                 
               </p>
               <div id="method-c-cached_find_source" class="dyn-source">
-                <pre><span class="ruby-comment"># File models/publisher.rb, line 51</span>
+                <pre><span class="ruby-comment"># File models/publisher.rb, line 64</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">self</span>.<span class="ruby-identifier">cached_find</span>(<span class="ruby-identifier">id</span>)
   <span class="ruby-constant">Rails</span>.<span class="ruby-identifier">cache</span>.<span class="ruby-identifier">fetch</span>([<span class="ruby-identifier">name</span>, <span class="ruby-identifier">id</span>]) { <span class="ruby-identifier">find</span>(<span class="ruby-identifier">id</span>) }
 <span class="ruby-keyword">end</span></pre>
@@ -225,7 +212,7 @@
                 
               </p>
               <div id="method-i-add_user_email-21_source" class="dyn-source">
-                <pre><span class="ruby-comment"># File models/publisher.rb, line 55</span>
+                <pre><span class="ruby-comment"># File models/publisher.rb, line 68</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">add_user_email!</span>
   <span class="ruby-keyword">if</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">personal_publisher</span>
     <span class="ruby-identifier">user_email</span> = <span class="ruby-constant">UserEmail</span>.<span class="ruby-identifier">where</span>(<span class="ruby-identifier">email</span><span class="ruby-operator">:</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">email</span>, <span class="ruby-identifier">user_id</span><span class="ruby-operator">:</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">user_id</span>)
@@ -238,11 +225,11 @@
           </div>
         
         <div class="method">
-          <div class="title method-title" id="method-i-personal_publishing_document">
+          <div class="title method-title" id="method-i-confirmed_publishing-3F">
             
-              <b>personal_publishing_document</b>()
+              <b>confirmed_publishing?</b>(published_user_id)
             
-            <a href="../classes/Publisher.html#method-i-personal_publishing_document" name="method-i-personal_publishing_document" class="permalink">Link</a>
+            <a href="../classes/Publisher.html#method-i-confirmed_publishing-3F" name="method-i-confirmed_publishing-3F" class="permalink">Link</a>
           </div>
           
           
@@ -261,13 +248,18 @@
               
               <p class="source-link">
                 Source: 
-                <a href="javascript:toggleSource('method-i-personal_publishing_document_source')" id="l_method-i-personal_publishing_document_source">show</a>
+                <a href="javascript:toggleSource('method-i-confirmed_publishing-3F_source')" id="l_method-i-confirmed_publishing-3F_source">show</a>
                 
               </p>
-              <div id="method-i-personal_publishing_document_source" class="dyn-source">
-                <pre><span class="ruby-comment"># File models/publisher.rb, line 47</span>
-<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">personal_publishing_document</span>
-  
+              <div id="method-i-confirmed_publishing-3F_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/publisher.rb, line 75</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">confirmed_publishing?</span>(<span class="ruby-identifier">published_user_id</span>)
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">ipis</span>.<span class="ruby-identifier">find_by</span>(<span class="ruby-identifier">user_id</span><span class="ruby-operator">:</span> <span class="ruby-identifier">published_user_id</span>)
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">_publishing_agreement</span> = <span class="ruby-identifier">user_publishing_agreement</span>( <span class="ruby-identifier">published_user_id</span> )
+      <span class="ruby-keyword">return</span> <span class="ruby-identifier">_publishing_agreement</span>.<span class="ruby-identifier">ok</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">false</span>
 <span class="ruby-keyword">end</span></pre>
               </div>
             </div>
@@ -275,11 +267,11 @@
           </div>
         
         <div class="method">
-          <div class="title method-title" id="method-i-reset_common_work_ipis">
+          <div class="title method-title" id="method-i-sanitize_relations">
             
-              <b>reset_common_work_ipis</b>()
+              <b>sanitize_relations</b>()
             
-            <a href="../classes/Publisher.html#method-i-reset_common_work_ipis" name="method-i-reset_common_work_ipis" class="permalink">Link</a>
+            <a href="../classes/Publisher.html#method-i-sanitize_relations" name="method-i-sanitize_relations" class="permalink">Link</a>
           </div>
           
           
@@ -298,13 +290,60 @@
               
               <p class="source-link">
                 Source: 
-                <a href="javascript:toggleSource('method-i-reset_common_work_ipis_source')" id="l_method-i-reset_common_work_ipis_source">show</a>
+                <a href="javascript:toggleSource('method-i-sanitize_relations_source')" id="l_method-i-sanitize_relations_source">show</a>
                 
               </p>
-              <div id="method-i-reset_common_work_ipis_source" class="dyn-source">
-                <pre><span class="ruby-comment"># File models/publisher.rb, line 43</span>
-<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">reset_common_work_ipis</span>
+              <div id="method-i-sanitize_relations_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/publisher.rb, line 46</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">sanitize_relations</span>
+  
+  <span class="ruby-keyword">if</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">user_publishers</span>
+    <span class="ruby-identifier">user_publishers</span>.<span class="ruby-identifier">destroy_all</span>
+  <span class="ruby-keyword">end</span>
+  
+  
   <span class="ruby-identifier">common_work_ipis</span>.<span class="ruby-identifier">update_all</span>(<span class="ruby-identifier">publisher_id</span><span class="ruby-operator">:</span> <span class="ruby-keyword">nil</span>)
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
+        
+        <div class="method">
+          <div class="title method-title" id="method-i-user_publishing_agreement">
+            
+              <b>user_publishing_agreement</b>(user_id)
+            
+            <a href="../classes/Publisher.html#method-i-user_publishing_agreement" name="method-i-user_publishing_agreement" class="permalink">Link</a>
+          </div>
+          
+          
+            <div class="description">
+              
+            </div>
+          
+          
+          
+
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-user_publishing_agreement_source')" id="l_method-i-user_publishing_agreement_source">show</a>
+                
+              </p>
+              <div id="method-i-user_publishing_agreement_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File models/publisher.rb, line 56</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">user_publishing_agreement</span> <span class="ruby-identifier">user_id</span>
+  
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">publishing_agreemet</span> = <span class="ruby-identifier">publishing_agreements</span>.<span class="ruby-identifier">find_by</span>(<span class="ruby-identifier">user_id</span><span class="ruby-operator">:</span> <span class="ruby-identifier">user_id</span>, )
+    <span class="ruby-keyword">return</span> <span class="ruby-identifier">publishing_agreemet</span>
+  <span class="ruby-keyword">end</span>
+  
 <span class="ruby-keyword">end</span></pre>
               </div>
             </div>

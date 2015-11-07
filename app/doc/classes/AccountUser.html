@@ -372,7 +372,7 @@ auto generated when an invitation to a catalog is send</p>
                 
               </p>
               <div id="method-c-account_search_source" class="dyn-source">
-                <pre><span class="ruby-comment"># File models/account_user.rb, line 338</span>
+                <pre><span class="ruby-comment"># File models/account_user.rb, line 337</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">self</span>.<span class="ruby-identifier">account_search</span>(<span class="ruby-identifier">account</span>, <span class="ruby-identifier">query</span>)
   <span class="ruby-identifier">account_users</span> = <span class="ruby-identifier">account</span>.<span class="ruby-identifier">account_users</span>
   <span class="ruby-keyword">if</span> <span class="ruby-identifier">query</span>.<span class="ruby-identifier">present?</span>
@@ -414,7 +414,7 @@ auto generated when an invitation to a catalog is send</p>
                 
               </p>
               <div id="method-c-cached_find_source" class="dyn-source">
-                <pre><span class="ruby-comment"># File models/account_user.rb, line 349</span>
+                <pre><span class="ruby-comment"># File models/account_user.rb, line 348</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">self</span>.<span class="ruby-identifier">cached_find</span>(<span class="ruby-identifier">id</span>)
   <span class="ruby-constant">Rails</span>.<span class="ruby-identifier">cache</span>.<span class="ruby-identifier">fetch</span>([<span class="ruby-identifier">name</span>, <span class="ruby-identifier">id</span>]) { <span class="ruby-identifier">find</span>(<span class="ruby-identifier">id</span>) }
 <span class="ruby-keyword">end</span></pre>
@@ -451,7 +451,7 @@ auto generated when an invitation to a catalog is send</p>
                 
               </p>
               <div id="method-c-cached_where_source" class="dyn-source">
-                <pre><span class="ruby-comment"># File models/account_user.rb, line 353</span>
+                <pre><span class="ruby-comment"># File models/account_user.rb, line 352</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">self</span>.<span class="ruby-identifier">cached_where</span>(<span class="ruby-identifier">account_id</span>, <span class="ruby-identifier">user_id</span>)
   <span class="ruby-constant">Rails</span>.<span class="ruby-identifier">cache</span>.<span class="ruby-identifier">fetch</span>([ <span class="ruby-identifier">name</span>, <span class="ruby-identifier">account_id</span>, <span class="ruby-identifier">user_id</span>]) { <span class="ruby-identifier">find_by</span>( <span class="ruby-identifier">account_id</span><span class="ruby-operator">:</span> <span class="ruby-identifier">account_id</span>, <span class="ruby-identifier">user_id</span><span class="ruby-operator">:</span> <span class="ruby-identifier">user_id</span> ) }
 <span class="ruby-keyword">end</span></pre>
@@ -490,7 +490,7 @@ auto generated when an invitation to a catalog is send</p>
                 
               </p>
               <div id="method-i-add_music-3F_source" class="dyn-source">
-                <pre><span class="ruby-comment"># File models/account_user.rb, line 331</span>
+                <pre><span class="ruby-comment"># File models/account_user.rb, line 330</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">add_music?</span>
   <span class="ruby-keyword">return</span> <span class="ruby-keyword">true</span> <span class="ruby-keyword">if</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">create_common_work?</span>
   <span class="ruby-keyword">return</span> <span class="ruby-keyword">true</span> <span class="ruby-keyword">if</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">create_recording?</span>
@@ -566,7 +566,7 @@ auto generated when an invitation to a catalog is send</p>
                 
               </p>
               <div id="method-i-can_add_content-3F_source" class="dyn-source">
-                <pre><span class="ruby-comment"># File models/account_user.rb, line 357</span>
+                <pre><span class="ruby-comment"># File models/account_user.rb, line 356</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">can_add_content?</span>
   <span class="ruby-keyword">return</span> <span class="ruby-keyword">true</span> <span class="ruby-keyword">if</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">create_common_work</span>
   <span class="ruby-keyword">return</span> <span class="ruby-keyword">true</span> <span class="ruby-keyword">if</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">create_recording</span>
@@ -654,7 +654,7 @@ return false
                 
               </p>
               <div id="method-i-can_manage_assets-3F_source" class="dyn-source">
-                <pre><span class="ruby-comment"># File models/account_user.rb, line 320</span>
+                <pre><span class="ruby-comment"># File models/account_user.rb, line 319</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">can_manage_assets?</span>   
   <span class="ruby-comment">#return true if self.read_recording? </span>
   <span class="ruby-comment">#return true if self.read_common_work? </span>
@@ -821,8 +821,7 @@ return false
 <span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">get_name</span>
   <span class="ruby-keyword">return</span> <span class="ruby-identifier">name</span>       <span class="ruby-keyword">unless</span> <span class="ruby-identifier">name</span>.<span class="ruby-identifier">to_s</span> <span class="ruby-operator">==</span> <span class="ruby-string">&#39;&#39;</span>
   <span class="ruby-keyword">if</span> <span class="ruby-identifier">user</span>
-    <span class="ruby-keyword">return</span> <span class="ruby-identifier">user</span>.<span class="ruby-identifier">full_name</span>  <span class="ruby-keyword">unless</span> <span class="ruby-identifier">user</span>.<span class="ruby-identifier">name</span>.<span class="ruby-identifier">to_s</span> <span class="ruby-operator">==</span> <span class="ruby-string">&#39;&#39;</span>
-    <span class="ruby-keyword">return</span> <span class="ruby-identifier">user</span>.<span class="ruby-identifier">email</span>
+    <span class="ruby-keyword">return</span> <span class="ruby-identifier">user</span>.<span class="ruby-identifier">get_full_name</span>
   <span class="ruby-keyword">end</span>
   <span class="ruby-keyword">return</span> <span class="ruby-identifier">email</span>
 <span class="ruby-keyword">end</span></pre>
@@ -1106,7 +1105,7 @@ return false
                 
               </p>
               <div id="method-i-has_access_to_opertunities_source" class="dyn-source">
-                <pre><span class="ruby-comment"># File models/account_user.rb, line 398</span>
+                <pre><span class="ruby-comment"># File models/account_user.rb, line 397</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">has_access_to_opertunities</span>
   <span class="ruby-keyword">return</span> <span class="ruby-keyword">true</span> <span class="ruby-keyword">if</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">read_opportunity</span>
   <span class="ruby-keyword">return</span> <span class="ruby-keyword">true</span> <span class="ruby-keyword">if</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">role</span> <span class="ruby-operator">==</span> <span class="ruby-string">&#39;Super&#39;</span>
@@ -1145,7 +1144,7 @@ return false
                 
               </p>
               <div id="method-i-mount_to_catalog_source" class="dyn-source">
-                <pre><span class="ruby-comment"># File models/account_user.rb, line 372</span>
+                <pre><span class="ruby-comment"># File models/account_user.rb, line 371</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">mount_to_catalog</span> <span class="ruby-identifier">catalog</span>
   
   <span class="ruby-identifier">catalog_user</span> = <span class="ruby-constant">CatalogUser</span>.<span class="ruby-identifier">where</span>(<span class="ruby-identifier">user_id</span><span class="ruby-operator">:</span>    <span class="ruby-keyword">self</span>.<span class="ruby-identifier">user_id</span>, 
@@ -1191,7 +1190,7 @@ this for account users</p>
                 
               </p>
               <div id="method-i-mount_to_catalogs_source" class="dyn-source">
-                <pre><span class="ruby-comment"># File models/account_user.rb, line 365</span>
+                <pre><span class="ruby-comment"># File models/account_user.rb, line 364</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">mount_to_catalogs</span>
   <span class="ruby-keyword">self</span>.<span class="ruby-identifier">account</span>.<span class="ruby-identifier">catalogs</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">catalog</span><span class="ruby-operator">|</span>
     <span class="ruby-identifier">mount_to_catalog</span> <span class="ruby-identifier">catalog</span>                        
@@ -1589,7 +1588,7 @@ this for account users</p>
                 
               </p>
               <div id="method-i-update_catalog_users_source" class="dyn-source">
-                <pre><span class="ruby-comment"># File models/account_user.rb, line 384</span>
+                <pre><span class="ruby-comment"># File models/account_user.rb, line 383</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">update_catalog_users</span>
 
   <span class="ruby-comment"># make sure there is access to all catalogs</span>

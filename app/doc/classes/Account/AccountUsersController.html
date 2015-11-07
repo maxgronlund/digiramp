@@ -515,7 +515,7 @@
   <span class="ruby-identifier">forbidden</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">current_account_user</span>.<span class="ruby-identifier">createx_user</span>
   
   <span class="ruby-ivar">@account_user</span> = <span class="ruby-ivar">@account</span>.<span class="ruby-identifier">account_users</span>.<span class="ruby-identifier">new</span>( <span class="ruby-identifier">role</span><span class="ruby-operator">:</span> <span class="ruby-string">&quot;Associate&quot;</span>, 
-                                              <span class="ruby-identifier">invitation_title</span><span class="ruby-operator">:</span> <span class="ruby-node">&quot;You have been invited to a DigiRAMP Account by #{current_user.name}&quot;</span>,
+                                              <span class="ruby-identifier">invitation_title</span><span class="ruby-operator">:</span> <span class="ruby-node">&quot;You have been invited to a DigiRAMP Account by #{current_user.get_full_name}&quot;</span>,
                                               <span class="ruby-identifier">invitation_message</span><span class="ruby-operator">:</span> <span class="ruby-string">&quot;You are invited to an account on DigiRAMP, please sign in to your account and you will find a new account on your dashboard&quot;</span>)
   <span class="ruby-ivar">@roles</span> = <span class="ruby-constant">AccountUser</span><span class="ruby-operator">::</span><span class="ruby-constant">ROLES</span>
   <span class="ruby-ivar">@roles</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-string">&quot;Account Owner&quot;</span>)

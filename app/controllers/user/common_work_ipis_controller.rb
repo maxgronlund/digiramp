@@ -7,7 +7,6 @@ class User::CommonWorkIpisController < ApplicationController
 
   def edit
     @common_work              = CommonWork.cached_find(params[:common_work_id])
-    
     @common_work_ipi          = CommonWorkIpi.cached_find(params[:id])
     
     
@@ -24,6 +23,7 @@ class User::CommonWorkIpisController < ApplicationController
     @common_work_ipi          = CommonWorkIpi.find(params[:id])
     if @common_work_ipi.update(common_work_ipi_params)
       @common_work_ipi.attach_to_user current_user 
+      @common_work_ipi.update_validation
       redirect_to user_user_common_work_path(@user, @common_work)
     else
       render :edit
@@ -44,6 +44,7 @@ class User::CommonWorkIpisController < ApplicationController
     @common_work           = CommonWork.cached_find(params[:common_work_id])
     if @common_work_ipi    = CommonWorkIpi.create(common_work_ipi_params)
       @common_work_ipi.attach_to_user current_user
+      @common_work_ipi.update_validation
       redirect_to user_user_common_work_path( @user, @common_work)
     else
       render :new

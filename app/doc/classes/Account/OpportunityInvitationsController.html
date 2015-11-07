@@ -190,24 +190,26 @@
   <span class="ruby-identifier">params</span>[<span class="ruby-value">:opportunity_invitation</span>][<span class="ruby-value">:invitees</span>].<span class="ruby-identifier">split</span>(<span class="ruby-regexp">/, ?/</span>).<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">email</span><span class="ruby-operator">|</span>
     
     <span class="ruby-keyword">if</span> <span class="ruby-identifier">sanitized_email</span> =  <span class="ruby-constant">EmailSanitizer</span>.<span class="ruby-identifier">saintize</span>( <span class="ruby-identifier">email</span> )
-
       <span class="ruby-keyword">if</span> <span class="ruby-identifier">user</span>  = <span class="ruby-constant">User</span>.<span class="ruby-identifier">find_or_create_from_email</span>( <span class="ruby-identifier">sanitized_email</span> )
-      
-        <span class="ruby-keyword">if</span> <span class="ruby-ivar">@opportunity_user</span> = <span class="ruby-constant">OpportunityUser</span>.<span class="ruby-identifier">find_by</span>( <span class="ruby-identifier">opportunity_id</span><span class="ruby-operator">:</span>   <span class="ruby-ivar">@opportunity</span>.<span class="ruby-identifier">id</span>, 
-                                                        <span class="ruby-identifier">user_id</span><span class="ruby-operator">:</span>          <span class="ruby-identifier">user</span>.<span class="ruby-identifier">id</span>)
-           <span class="ruby-ivar">@opportunity_user</span>.<span class="ruby-identifier">update</span>(  <span class="ruby-identifier">provider</span><span class="ruby-operator">:</span>         <span class="ruby-ivar">@opportunity_invitation</span>.<span class="ruby-identifier">provider</span>,
-                                      <span class="ruby-identifier">reviewer</span><span class="ruby-operator">:</span>         <span class="ruby-ivar">@opportunity_invitation</span>.<span class="ruby-identifier">reviewer</span>,
-                                      <span class="ruby-identifier">can_download</span><span class="ruby-operator">:</span>     <span class="ruby-ivar">@opportunity_invitation</span>.<span class="ruby-identifier">can_download</span>,
-                                      <span class="ruby-identifier">uuid</span><span class="ruby-operator">:</span>             <span class="ruby-constant">UUIDTools</span><span class="ruby-operator">::</span><span class="ruby-constant">UUID</span>.<span class="ruby-identifier">timestamp_create</span>().<span class="ruby-identifier">to_s</span>
-                                    )
-           
-        <span class="ruby-keyword">else</span>   <span class="ruby-ivar">@opportunity_user</span> = <span class="ruby-constant">OpportunityUser</span>.<span class="ruby-identifier">create</span>(  <span class="ruby-identifier">opportunity_id</span><span class="ruby-operator">:</span>   <span class="ruby-ivar">@opportunity</span>.<span class="ruby-identifier">id</span>, 
-                                                            <span class="ruby-identifier">user_id</span><span class="ruby-operator">:</span>          <span class="ruby-identifier">user</span>.<span class="ruby-identifier">id</span>,
-                                                            <span class="ruby-identifier">provider</span><span class="ruby-operator">:</span>         <span class="ruby-ivar">@opportunity_invitation</span>.<span class="ruby-identifier">provider</span>,
-                                                            <span class="ruby-identifier">reviewer</span><span class="ruby-operator">:</span>         <span class="ruby-ivar">@opportunity_invitation</span>.<span class="ruby-identifier">reviewer</span>,
-                                                            <span class="ruby-identifier">can_download</span><span class="ruby-operator">:</span>     <span class="ruby-ivar">@opportunity_invitation</span>.<span class="ruby-identifier">can_download</span>,
-                                                            <span class="ruby-identifier">uuid</span><span class="ruby-operator">:</span>             <span class="ruby-constant">UUIDTools</span><span class="ruby-operator">::</span><span class="ruby-constant">UUID</span>.<span class="ruby-identifier">timestamp_create</span>().<span class="ruby-identifier">to_s</span>
-                                                          )
+
+        <span class="ruby-keyword">if</span> <span class="ruby-ivar">@opportunity_user</span> = <span class="ruby-constant">OpportunityUser</span>.<span class="ruby-identifier">find_by</span>( 
+          <span class="ruby-identifier">opportunity_id</span><span class="ruby-operator">:</span>   <span class="ruby-ivar">@opportunity</span>.<span class="ruby-identifier">id</span>, 
+          <span class="ruby-identifier">user_id</span><span class="ruby-operator">:</span>          <span class="ruby-identifier">user</span>.<span class="ruby-identifier">id</span>
+        )
+           <span class="ruby-ivar">@opportunity_user</span>.<span class="ruby-identifier">update</span>(  
+            <span class="ruby-identifier">provider</span><span class="ruby-operator">:</span>         <span class="ruby-ivar">@opportunity_invitation</span>.<span class="ruby-identifier">provider</span>,
+            <span class="ruby-identifier">reviewer</span><span class="ruby-operator">:</span>         <span class="ruby-ivar">@opportunity_invitation</span>.<span class="ruby-identifier">reviewer</span>,
+            <span class="ruby-identifier">can_download</span><span class="ruby-operator">:</span>     <span class="ruby-ivar">@opportunity_invitation</span>.<span class="ruby-identifier">can_download</span>,
+            <span class="ruby-identifier">uuid</span><span class="ruby-operator">:</span>             <span class="ruby-constant">UUIDTools</span><span class="ruby-operator">::</span><span class="ruby-constant">UUID</span>.<span class="ruby-identifier">timestamp_create</span>().<span class="ruby-identifier">to_s</span>
+           )
+        <span class="ruby-keyword">else</span>   <span class="ruby-ivar">@opportunity_user</span> = <span class="ruby-constant">OpportunityUser</span>.<span class="ruby-identifier">create</span>(  
+            <span class="ruby-identifier">opportunity_id</span><span class="ruby-operator">:</span>   <span class="ruby-ivar">@opportunity</span>.<span class="ruby-identifier">id</span>, 
+            <span class="ruby-identifier">user_id</span><span class="ruby-operator">:</span>          <span class="ruby-identifier">user</span>.<span class="ruby-identifier">id</span>,
+            <span class="ruby-identifier">provider</span><span class="ruby-operator">:</span>         <span class="ruby-ivar">@opportunity_invitation</span>.<span class="ruby-identifier">provider</span>,
+            <span class="ruby-identifier">reviewer</span><span class="ruby-operator">:</span>         <span class="ruby-ivar">@opportunity_invitation</span>.<span class="ruby-identifier">reviewer</span>,
+            <span class="ruby-identifier">can_download</span><span class="ruby-operator">:</span>     <span class="ruby-ivar">@opportunity_invitation</span>.<span class="ruby-identifier">can_download</span>,
+            <span class="ruby-identifier">uuid</span><span class="ruby-operator">:</span>             <span class="ruby-constant">UUIDTools</span><span class="ruby-operator">::</span><span class="ruby-constant">UUID</span>.<span class="ruby-identifier">timestamp_create</span>().<span class="ruby-identifier">to_s</span>
+          )
         <span class="ruby-keyword">end</span>
         <span class="ruby-comment"># send emailOpportunityFromPlaylistsController</span>
         <span class="ruby-keyword">if</span> <span class="ruby-identifier">user</span>.<span class="ruby-identifier">account_activated</span>
@@ -296,7 +298,7 @@
                 
               </p>
               <div id="method-i-destroy_source" class="dyn-source">
-                <pre><span class="ruby-comment"># File controllers/account/opportunity_invitations_controller.rb, line 173</span>
+                <pre><span class="ruby-comment"># File controllers/account/opportunity_invitations_controller.rb, line 175</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">destroy</span>
   <span class="ruby-ivar">@opportunity</span>            = <span class="ruby-constant">Opportunity</span>.<span class="ruby-identifier">cached_find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:opportunity_id</span>])
   
@@ -336,7 +338,7 @@
                 
               </p>
               <div id="method-i-send_provider_message_source" class="dyn-source">
-                <pre><span class="ruby-comment"># File controllers/account/opportunity_invitations_controller.rb, line 118</span>
+                <pre><span class="ruby-comment"># File controllers/account/opportunity_invitations_controller.rb, line 120</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">send_provider_message</span> <span class="ruby-identifier">sending_user</span>
   <span class="ruby-keyword">if</span> <span class="ruby-identifier">recipient</span> = <span class="ruby-ivar">@opportunity_user</span>.<span class="ruby-identifier">user</span>
     <span class="ruby-identifier">message</span> = <span class="ruby-constant">Message</span>.<span class="ruby-identifier">create</span>(<span class="ruby-identifier">recipient_id</span><span class="ruby-operator">:</span>      <span class="ruby-identifier">recipient</span>.<span class="ruby-identifier">id</span>, 
@@ -391,7 +393,7 @@
                 
               </p>
               <div id="method-i-send_reviewer_message_source" class="dyn-source">
-                <pre><span class="ruby-comment"># File controllers/account/opportunity_invitations_controller.rb, line 140</span>
+                <pre><span class="ruby-comment"># File controllers/account/opportunity_invitations_controller.rb, line 142</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">send_reviewer_message</span> <span class="ruby-identifier">sending_user</span>
   
   <span class="ruby-keyword">if</span> <span class="ruby-identifier">recipient</span> = <span class="ruby-ivar">@opportunity_user</span>.<span class="ruby-identifier">user</span>
@@ -448,7 +450,7 @@
                 
               </p>
               <div id="method-i-update_source" class="dyn-source">
-                <pre><span class="ruby-comment"># File controllers/account/opportunity_invitations_controller.rb, line 165</span>
+                <pre><span class="ruby-comment"># File controllers/account/opportunity_invitations_controller.rb, line 167</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">update</span>
   <span class="ruby-ivar">@opportunity</span>            = <span class="ruby-constant">Opportunity</span>.<span class="ruby-identifier">cached_find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:opportunity_id</span>])
   <span class="ruby-ivar">@opportunity_invitation</span>.<span class="ruby-identifier">update</span>(<span class="ruby-identifier">opportunity_invitation_params</span>)

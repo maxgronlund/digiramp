@@ -23,7 +23,7 @@
         </h1>
         <ul class="files">
             <li>views/catalog/common_works/edit_common_work_ipi_spread_sheet.slim</li>
-            <li>Last modified: 2015-09-24 20:35:34 +0200</li>
+            <li>Last modified: 2015-10-29 07:45:28 +0100</li>
         </ul>
     </div>
 
@@ -32,75 +32,67 @@
   
     <div class="description">
       
-<p>wrap</p>
+<p>/#wrap /  div class=“#{&#39;profile&#39; if account_owner?}” /   
+.full-width-top /      == render &#39;admin/shared/navbar&#39;, page:
+&#39;account&#39;  /  .container /    == render
+&#39;admin/shared/messages&#39; /    == render
+&#39;shared/breadcrumbs&#39;, breadcrumbs: { links: { @account.title.to_sym
+=&gt; account_path(@account), \ /                                          
+catalogs: catalog_account_catalogs_path(@account), \ /                     
+@catalog.title.to_sym =&gt; catalog_account_catalog_path(@account,
+@catalog), \ /                                                           
+}, current: &#39;edit ipis&#39;} /</p>
 
-<pre><code>div class=&quot;#{&#39;profile&#39; if account_owner?}&quot;
-  .full-width-top
-    == render &#39;admin/shared/navbar&#39;, page: &#39;account&#39; 
-.container
-  == render &#39;admin/shared/messages&#39;
-  == render &#39;shared/breadcrumbs&#39;, breadcrumbs: { links: { @account.title.to_sym =&gt; account_path(@account), \
-                                                          catalogs: catalog_account_catalogs_path(@account), \
-                                                          @catalog.title.to_sym =&gt; catalog_account_catalog_path(@account, @catalog), \
-                                                          }, current: &#39;edit ipis&#39;}
+<p>/</p>
 
-  == render &#39;shared/page_title&#39;, locals: {blog: Blog.cached_find(&#39;Common Work Ipi&#39;), blog_post: &#39;Edit IPIS&#39;}
+<p>/    == render &#39;shared/page_title&#39;, locals: {blog: <a
+href="../../../../classes/Blog.html#method-c-cached_find">Blog.cached_find</a>(&#39;Common
+Work Ipi&#39;), blog_post: &#39;Edit IPIS&#39;} /</p>
 
-  div class=&quot;account_id&quot;      id=&quot;#{@account.id}&quot;
-      div class=&quot;catalog_id&quot;      id=&quot;#{@catalog.id}&quot;
-  div class=&quot;common_work_id&quot;  id=&quot;#{@common_work.id}&quot;
-  .hide-alert
-    div class=&quot;alert alert-warning &quot;
-      b ALERT!
-      br
-      &#39;Total exceeds 200%
-  .edit-ipis
-    .table-responsive
-      table id=&quot;mainTable&quot; class=&quot;table table-striped&quot;
-        thead
-          tr
-            th Full Name
-            th Mech Owned
-            th mech collected
-            th perf owned
-            th perf collected
+<p>/</p>
 
-        tbody
-          - @common_work.ipis.each do |ipi|
-            tr
-              td id=&quot;#{ipi.id}&quot; class=&quot;full_name&quot;
-                = ipi.full_name
-              td id=&quot;#{ipi.id}&quot; class=&quot;mech_owned&quot;
-                = ipi.mech_owned
-              td id=&quot;#{ipi.id}&quot; class=&quot;mech_collected&quot;
-                = ipi.mech_collected
-              td id=&quot;#{ipi.id}&quot; class=&quot;perf_owned&quot;
-                = ipi.perf_owned
-              td id=&quot;#{ipi.id}&quot; class=&quot;perf_collected&quot;
-                = ipi.perf_collected
+<p>/    div class=“account_id”      id=“#{@account.id}” /       div
+class=“catalog_id”      id=“#{@catalog.id}” /    div class=“common_work_id”
+id=“#{@common_work.id}” /    .hide-alert /      div class=“alert
+alert-warning ” /        b ALERT! /        br /        &#39;Total exceeds
+200% /    .edit-ipis /      .table-responsive /        table id=“mainTable”
+class=“table table-striped” /          thead /            tr /             
+th Full Name /              th Mech Owned /              th mech collected
+/              th perf owned /              th perf collected /</p>
 
-            tfoot
-          tr
+<p>/</p>
 
-            th
-              strong TOTAL
-            th
-            th
-            th
-            th
+<p>/          tbody /            - @common_work.ipis.each do |ipi| /          
+tr /                td id=“#{ipi.id}” class=“full_name” /                 
+= ipi.full_name /                td id=“#{ipi.id}” class=“mech_owned” /    
+= ipi.mech_owned /                td id=“#{ipi.id}” class=“mech_collected”
+/                  = ipi.mech_collected /                td id=“#{ipi.id}”
+class=“perf_owned” /                  = ipi.perf_owned /                td
+id=“#{ipi.id}” class=“perf_collected” /                  =
+ipi.perf_collected /</p>
 
-  .pull-right
-    = link_to &#39;Cancel&#39;, &#39;#&#39;, class: &#39;btn btn-default btn-lg&#39;
-    &#39;&amp;nbsp;
-    = link_to &#39;Save&#39;, &#39;#&#39;, class: &#39;btn btn-info btn-lg&#39;
+<p>/</p>
 
-/= debug @common_work.ipis.first</code></pre>
+<p>/             tfoot /            tr /</p>
 
-<p>-cache ([&#39;footer&#39;, <a
+<p>/              th /                strong TOTAL /              th /        
+th /              th /              th /</p>
+
+<p>/</p>
+
+<p>/    .pull-right /      = link_to &#39;Cancel&#39;, &#39;#&#39;, class:
+&#39;btn btn-default btn-lg&#39; /      &#39;&amp;nbsp; /      = link_to
+&#39;Save&#39;, &#39;#&#39;, class: &#39;btn btn-info btn-lg&#39; / / /</p>
+
+<p>/ /</p>
+
+<p>/  /= debug @common_work.ipis.first /-cache ([&#39;footer&#39;, <a
 href="../../../../classes/Admin.html#method-c-cached_find">Admin.cached_find</a>.version])
 do</p>
 
-<pre><code>=render &#39;shared/footer&#39;</code></pre>
+<p>/  =render &#39;shared/footer&#39; /</p>
+
+<p>/</p>
 
     </div>
   
