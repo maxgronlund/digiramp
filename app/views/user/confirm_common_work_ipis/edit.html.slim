@@ -150,6 +150,9 @@
                   .pull-down-10
                     
                     - if @common_work_ipi.confirmed?
+                      /- common_work_user = CommonWorkUser.find_by(user_id: @user.id, common_work_id: @common_work.id)
+                      /= debug common_work_user
+                      => link_to 'Show', user_user_common_work_info_path(@user, @common_work), class: 'btn btn-default'
                       .btn.btn-info disabled="disabled"
                         'Confirmed
                     - else

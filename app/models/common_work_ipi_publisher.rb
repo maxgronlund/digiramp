@@ -25,8 +25,6 @@ class CommonWorkIpiPublisher < ActiveRecord::Base
     
     if publisher = self.publisher
       if publishing_agreement = self.publishing_agreement
-        em[:publishing_agreement] = message_hash(self, 'Publishing agreement is missing')
-      else
         if document = publishing_agreement.document
           unless document.signed?
             em[:publishing_agreement_document]  = message_hash(self, 'Publishing agreement is not signed')
@@ -34,6 +32,8 @@ class CommonWorkIpiPublisher < ActiveRecord::Base
         else
           em[:publishing_agreement_document]  = message_hash(self, 'Publishing has no documents')
         end
+      else
+        em[:publishing_agreement] = message_hash(self, 'Publishing agreement is missing')
       end
     else
       em[:publisher] = message_hash(self, 'Not connected to a publisher')

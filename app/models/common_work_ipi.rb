@@ -157,7 +157,10 @@ class CommonWorkIpi < ActiveRecord::Base
   end
   
   def can_manage_common_work=( b )
-    common_work_user.update(can_manage_common_work: b) if common_work_user
+    if common_work_user
+      b = true if( common_work_user.user_id == common_work.user_id )
+      common_work_user.update(can_manage_common_work: b) 
+    end
   end
 
   def common_work_user

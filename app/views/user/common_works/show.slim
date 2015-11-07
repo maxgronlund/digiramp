@@ -97,6 +97,7 @@
             tr
               th
               th Name/ email
+              th Can manage
               th Roles
               th Publishing
               th Creators split
@@ -122,7 +123,11 @@
                   /= debug common_work_ipi
                   = common_work_ipi.get_full_name
                   br = common_work_ipi.get_email
-              
+                td
+                  - if common_work_ipi.can_manage_common_work
+                    '√ Yes
+                  - else
+                    '- No
                 td 
                   - if common_work_ipi.music
                     'Music

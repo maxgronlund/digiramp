@@ -30,6 +30,8 @@
                   i.fa.fa-chevron-left
                   '&nbsp;
                   'Back
+              - if @common_work_user.can_manage_common_work
+                =< link_to 'Edit', user_user_common_work_path(@user, @common_work), class: 'btn btn-default'
 
       
       

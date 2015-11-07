@@ -18,9 +18,10 @@ class User::CommonWorkLyricsController < ApplicationController
   #end
 
   def edit
-    @recording    = Recording.cached_find(params[:recording_id])
+    #@recording    = Recording.cached_find(params[:recording_id])
     @common_work  = CommonWork.cached_find(params[:id])
-    
+    @common_work_user = CommonWorkUser.find_by(user_id: @user.id, common_work_id: @common_work.id)
+    forbidden unless (@common_work_user && @common_work_user.can_manage_common_work)
   end
 
   def update

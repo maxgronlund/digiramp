@@ -7,47 +7,39 @@ class User::CommonWorksController < ApplicationController
   end
 
   def show
-
-    @common_work  = CommonWork.cached_find(params[:id])
+    
+    @common_work      = CommonWork.cached_find(params[:id])
+    @common_work_user = CommonWorkUser.find_by(user_id: @user.id, common_work_id: @common_work.id)
+    forbidden unless (@common_work_user && @common_work_user.can_manage_common_work)
+    
     @notification_messages = NotificationMessage.where(
       asset_id:   @common_work.id,
       asset_type: @common_work.class.name,
     )
 
-    
-    #if params[:recording_id]
-    #  @recording  = Recording.cached_find(params[:recording_id])
-    #else
-    #  @recording  = @common_work.recordings.first
-    #end
-
-
-    #if @recording.nil?
-    #  redirect_to user_user_common_work_without_recording_path(@user, @common_work)
-    #elsif
-
-    #@no_ips     = @common_work.ipis.to_i.count + @recording.recording_ipis.to_i.count == 0
 
     blog                        = Blog.cached_find('Common Work Ipi')
     @no_ipis_text               = BlogPost.cached_find('No Ipis' , blog)
     @upload_existing_contracts  = BlogPost.cached_find('Upload existing documents' , blog)
     @add_ipis                   = BlogPost.cached_find("Add IPI's" , blog)
     @im_the_only_ip             = BlogPost.cached_find("I'm the only IP" , blog)
-
-    #end
-      
+ 
+  end
+  
+  def new
+    
+  end
+  
+  def create
+    
   end
 
-  #def new
-  #end
-  #
-  #def create
-  #  
-  #end
 
   def edit
-    #@recording    = Recording.cached_find(params[:recording_id])
+
     @common_work = CommonWork.cached_find(params[:id])
+    @common_work_user = CommonWorkUser.find_by(user_id: @user.id, common_work_id: @common_work.id)
+    forbidden unless (@common_work_user && @common_work_user.can_manage_common_work)
   end
 
   def update

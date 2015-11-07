@@ -7,13 +7,16 @@
           'Publishing on
           br
           i = common_work.title
-        td 
+         
           /= debug common_work_ipi_publisher
         td 
           - if error_message = notification_message.error_message
             - if publishing_agreement = error_message[:publishing_agreement]
-              = publishing_agreement[:message]
-        td
+              = "#{publishing_agreement[:message]} for"
+              .pull-down-4
+              i = "#{common_work_ipi.user.get_full_name} : #{common_work_ipi.user.email}" rescue ''
+              
+        
     
   
 /= notification_message[:error_message]

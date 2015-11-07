@@ -3,9 +3,10 @@
   tr
     td 
       = link_to 'Common work', user_user_common_work_path(@user, common_work), class: 'btn btn-default btn-xs'
-      /br = notification_message.id
-    td 
-      =  common_work.title
+      .pull-down-4
+      i =  common_work.title
+    
+    
     td
        
       /= debug user_notification
@@ -20,14 +21,18 @@
           - common_work_ipis.each do |common_work_ipi_message|
             - if status =  common_work_ipi_message[:status]
               - if common_work_ipi = CommonWorkIpi.cached_find(status[:id]) rescue false
-                div
-                = common_work_ipi.full_name if common_work_ipi.pending?
-                '&nbsp;has not confirmed
-                .pull-right
-                  - if user = common_work_ipi.user
-                    => link_to 'Resend confirmation request',  user_user_common_work_request_ipi_confirmation_path( user,  common_work_ipi.common_work, common_work_ipi), 
-                                                            class: 'btn btn-info btn-xs', method: 'put'
-                .sexy_line
+                .row
+                  .col-sm-12
+                    .pull-down-4
+                    i = common_work_ipi.full_name if common_work_ipi.pending?
+                    '&nbsp;has not confirmed
+                    .pull-right
+                      - if user = common_work_ipi.user
+                        => link_to 'Request confirmation',  user_user_common_work_request_ipi_confirmation_path( user,  common_work_ipi.common_work, common_work_ipi), 
+                                                                class: 'btn btn-default btn-xs', method: 'put'
+                .row
+                  .col-sm-12
+                    .sexy_line
             - if publishing = common_work_ipi_message[:publishing]
               = publishing[:message]
               
