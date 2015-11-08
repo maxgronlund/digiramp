@@ -24,7 +24,7 @@ class User::PersonalPublishersController < ApplicationController
     case @user.personal_publishing_status
       
     when 'I own and control my own publishing'
-      remove_all_uper_publishers
+      remove_all_user_publishers
       attach_personal_publisher_to_common_work_ipis
       personal_publisher = @user.personal_publisher
       @user.attach_common_work_ipis_to_personal_publisher
@@ -61,11 +61,11 @@ class User::PersonalPublishersController < ApplicationController
     params.require(:user).permit!#( UserParams::PUBLIC_PARAMS ) 
   end
   
-  def remove_all_uper_publishers
+  def remove_all_user_publishers
     begin
       @user.user_publishers.destroy_all
     rescue => e
-      ErrorNotification.post( "PersonalPublisherController#remove_all_uper_publishers#{e}" )
+      ErrorNotification.post( "PersonalPublisherController#remove_all_user_publishers#{e}" )
     end
   end
   

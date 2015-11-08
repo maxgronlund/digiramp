@@ -3,10 +3,10 @@
 module NotificationModule
   
   def update_notification_message parrent, user_id
-    ap 'NotificationModule#update_notification_message'
-    ap user_id
-    ap parrent.id
-    ap parrent.class.name
+    #ap 'NotificationModule#update_notification_message'
+    #ap user_id
+    #ap parrent.id
+    #ap parrent.class.name
     notification_message = NotificationMessage.where(
       user_id: user_id,
       asset_id: parrent.id,
@@ -22,10 +22,10 @@ module NotificationModule
 
   # remove the user notification
   def remove_notification_message parrent,  user_id
-    ap 'NotificationModule#remove_notification_message'
-    ap user_id
-    ap parrent.id
-    ap parrent.class.name
+    #ap 'NotificationModule#remove_notification_message'
+    #ap user_id
+    #ap parrent.id
+    #ap parrent.class.name
     if notification_message = NotificationMessage.find_by(
         user_id: user_id,
         asset_id: parrent.id,

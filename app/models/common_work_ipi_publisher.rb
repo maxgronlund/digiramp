@@ -7,20 +7,20 @@ class CommonWorkIpiPublisher < ActiveRecord::Base
   
   
   def do_validation
-    ap 'CommonWorkIpiPublisher#do_validation'
+    #ap 'CommonWorkIpiPublisher#do_validation'
     return true if self.ok
     update_validation
     self.ok
   end
   
   def update_validation
-    ap 'CommonWorkIpiPublisher#update_validation'
+    #ap 'CommonWorkIpiPublisher#update_validation'
     set_ok
   end
   
   
   def error_message
-    ap 'CommonWorkIpiPublisher#error_message'
+    #ap 'CommonWorkIpiPublisher#error_message'
     em = {}
     
     if publisher = self.publisher
@@ -51,7 +51,7 @@ class CommonWorkIpiPublisher < ActiveRecord::Base
   private 
 
     def set_ok
-      ap 'CommonWorkIpiPublisher#set_ok'
+      #ap 'CommonWorkIpiPublisher#set_ok'
       em = error_message
       
       if self.user
