@@ -149,14 +149,17 @@ class UsersController < ApplicationController
   end
 
   def create
-
+    ap '=================== create user =================================='
     session[:show_profile_completeness] = true
     params[:user][:show_introduction]   = true
     params[:user][:name]                = params[:user][:user_name]
     params[:user][:email].downcase! if params[:user][:email]
-
-    if @user = User.create(user_params)
-      
+    
+    @user = User.new(user_params)
+    
+    if @user.save
+      ap '=================== created user ++ =================================='
+      ap @user.nil?
       finished("landing_page")
       finished("invitation_from_user")
       
@@ -175,6 +178,7 @@ class UsersController < ApplicationController
 
       redirect_to user_user_user_configurations_path(@user)
     else
+      ap '=================== error creating user =================================='
       flash[:danger] = "Please check" 
       render :new
     end
