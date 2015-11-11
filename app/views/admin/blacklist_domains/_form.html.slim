@@ -1,8 +1,8 @@
-= simple_form_for(@blacklist_domain) do |f|
+= simple_form_for [:admin, @blacklist_domain], turboboost: true do |f|
   = f.error_notification
 
   .form-inputs
     = f.input :domain
 
   .form-actions
-    = f.button :submit
+    = f.submit 'Save', class: 'btn btn-info'

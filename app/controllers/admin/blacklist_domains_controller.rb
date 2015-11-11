@@ -14,9 +14,9 @@ class Admin::BlacklistDomainsController < ApplicationController
   #end
   #
   ## GET /blacklist_domains/new
-  #def new
-  #  @blacklist_domain = BlacklistDomain.new
-  #end
+  def new
+    @blacklist_domain = BlacklistDomain.new
+  end
   #
   ## GET /blacklist_domains/1/edit
   #def edit
@@ -24,19 +24,19 @@ class Admin::BlacklistDomainsController < ApplicationController
 
   # POST /blacklist_domains
   # POST /blacklist_domains.json
-  #def create
-  #  @blacklist_domain = BlacklistDomain.new(blacklist_domain_params)
-  #
-  #  respond_to do |format|
-  #    if @blacklist_domain.save
-  #      format.html { redirect_to @blacklist_domain, notice: 'Blacklist domain was successfully created.' }
-  #      format.json { render :show, status: :created, location: @blacklist_domain }
-  #    else
-  #      format.html { render :new }
-  #      format.json { render json: @blacklist_domain.errors, status: :unprocessable_entity }
-  #    end
-  #  end
-  #end
+  def create
+    @blacklist_domain = BlacklistDomain.new(blacklist_domain_params)
+  
+    respond_to do |format|
+      if @blacklist_domain.save
+        format.html { redirect_to @blacklist_domain, notice: 'Blacklist domain was successfully created.' }
+        format.json { render :show, status: :created, location: @blacklist_domain }
+      else
+        format.html { render :new }
+        format.json { render json: @blacklist_domain.errors, status: :unprocessable_entity }
+      end
+    end
+  end
   #
   ## PATCH/PUT /blacklist_domains/1
   ## PATCH/PUT /blacklist_domains/1.json

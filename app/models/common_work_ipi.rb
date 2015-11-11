@@ -243,7 +243,7 @@ class CommonWorkIpi < ActiveRecord::Base
 
 
     def flush_cache
-      ap 'CommonWorkIpi#flush_cache'
+      #ap 'CommonWorkIpi#flush_cache'
       #update_validation unless self.destroyed?
       Rails.cache.delete([self.class.name, id])
     end
