@@ -1,8 +1,12 @@
-= simple_form_for [:admin, @blacklist_domain], turboboost: true do |f|
-  = f.error_notification
-
-  .form-inputs
-    = f.input :domain
-
-  .form-actions
-    = f.submit 'Save', class: 'btn btn-info'
+.row
+  .col-sm-6
+    .digi-box
+      = simple_form_for [:admin, @blacklist_domain], turboboost: true do |f|
+        = f.error_notification
+      
+        .form-inputs
+          = f.input :domain
+      
+        .form-actions
+          = f.submit 'Save', class: 'btn btn-info'
+      

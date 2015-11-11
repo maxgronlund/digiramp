@@ -1,5 +1,42 @@
-h1 New blacklist_domain
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'home' 
+  
+  
+  .admin-account
+    #sidebar-wrapper
+      ul class="sidebar-nav"
+        == render 'admin/shared/sidebar', selected: 'user'
+  
+  #page-content-wrapper
+    .container-fluid
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { admin: admin_index_path }, current: ''}
+      row
+              .col-sm-8
 
-== render 'form'
+                h2 New Blacklisted domain
+      
+              .col-sm-4
+                .pull-right.pull-down-10
+                  = link_to  admin_blacklist_domains_path do
+                      .btn.btn-default
+                        i.fa.fa-chevron-left
+                        '&nbsp;Back
+                
+      
+         
+     
+            
+                 
 
-= link_to 'Back', admin_blacklist_domains_path
+      == render 'form'
+                     
+        
+
+        /= link_to 'New Blacklist domain', new_admin_blacklist_domain_path
+     
+  == render 'shared/site_footer'    
+
+
+
+/= link_to 'Back', admin_blacklist_domains_path

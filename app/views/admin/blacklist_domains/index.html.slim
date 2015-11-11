@@ -11,11 +11,23 @@
   #page-content-wrapper
     .container-fluid
       == render 'shared/breadcrumbs', breadcrumbs: { links: { admin: admin_index_path }, current: ''}
-      .row
-        .col-sm-12
+      row
+              .col-sm-8
 
-          h2 Blacklisted domains
-          'No users from the following domains can sign up
+                h2 Blacklisted domains
+                'No users from the following domains can sign up
+      
+              .col-sm-4
+                .pull-right.pull-down-10
+                  => link_to  admin_index_path do
+                      .btn.btn-default
+                        i.fa.fa-chevron-left
+                        '&nbsp;Back
+                  = link_to 'New', new_admin_blacklist_domain_path, class: 'btn btn-default'
+                  
+                        
+                        
+      
          
      
             

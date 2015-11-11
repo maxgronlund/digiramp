@@ -26,10 +26,12 @@ class Admin::BlacklistDomainsController < ApplicationController
   # POST /blacklist_domains.json
   def create
     @blacklist_domain = BlacklistDomain.new(blacklist_domain_params)
+    
+    
   
     respond_to do |format|
       if @blacklist_domain.save
-        format.html { redirect_to @blacklist_domain, notice: 'Blacklist domain was successfully created.' }
+        format.html { redirect_to admin_blacklist_domains_path, notice: 'Blacklist domain was successfully created.' }
         format.json { render :show, status: :created, location: @blacklist_domain }
       else
         format.html { render :new }
