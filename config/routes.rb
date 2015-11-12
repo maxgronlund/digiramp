@@ -5,6 +5,12 @@ Digiramp::Application.routes.draw do
 
   
 
+  get 'signup_confirmations/show'
+
+  get 'signup_confirmations/edit'
+
+  get 'signup_confirmations/update'
+
   #resources :document_users
   get 'landing_page/index'
   

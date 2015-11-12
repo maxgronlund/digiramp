@@ -90,6 +90,11 @@
                           = link_to edit_user_user_common_work_path(current_user, common_work)
                             .btn.btn-default.btn-xs
                               i.fa.fa-pencil
+                          = link_to user_user_common_work_path(current_user, common_work), data: { confirm: 'Are you sure?' } , 
+                                                                                      turboboost: true, 
+                                                                                      :method => :delete do
+                            .btn.btn-danger.btn-xs
+                              i.fa.fa-times
                         - else
                           .btn.btn-default.btn-xs disabled='disabled'
                             i.fa.fa-pencil

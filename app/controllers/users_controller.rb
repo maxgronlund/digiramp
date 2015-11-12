@@ -160,8 +160,6 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     
     if @user.save
-      
-      ap @user.nil?
       finished("landing_page")
       finished("invitation_from_user")
       
@@ -180,7 +178,6 @@ class UsersController < ApplicationController
 
       redirect_to user_user_user_configurations_path(@user)
     else
-      
       flash[:danger] = "Please check" 
       render :new
     end

@@ -123,7 +123,16 @@ class UserMailer < ApplicationMailer
                       )
   end
   
-  def confirm_signup
+  def confirm_signup user_id
+    user                        = User.cached_find(user_id)
+    user.update_columns(
+      confirmation_sent_at:  Time.now,
+      confirmation_token:   UUIDTools::UUID.timestamp_create().to_s
+    )
+    confirmation_link  = url_for( controller: 'catalog/catalogs', 
+                                     action: 'show', 
+                                 account_id: account_id, 
+                                         id: catalog_id)
     
     
   end

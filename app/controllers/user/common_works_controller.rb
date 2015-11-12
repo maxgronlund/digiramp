@@ -59,7 +59,7 @@ class User::CommonWorksController < ApplicationController
     
   end
 
-  def delete
+  def destroy
     @common_work      = CommonWork.cached_find(params[:id])
     @common_work_user = CommonWorkUser.find_by(user_id: @user.id, common_work_id: @common_work.id)
     if (@common_work_user && @common_work_user.can_manage_common_work) || super?
@@ -70,18 +70,18 @@ class User::CommonWorksController < ApplicationController
       @common_work.save(validate: false)
       # remove all common_work_users
       @common_work.common_work_users.destroy_all
+      @common_work.common_work_ipis.destroy_all
       # create one for the system
       CommonWorkUser.create(
-        common_work_id: common_work.id,
-        common_work_title: common_work.title,
+        common_work_id: @common_work.id,
+        common_work_title: @common_work.title,
         user_id: User.system_user.id,
         can_manage_common_work: true
       )
-      
-      
     end
     
-    
+    redirect_to user_user_creative_rights_path(@user)
+
   end
   
 private
