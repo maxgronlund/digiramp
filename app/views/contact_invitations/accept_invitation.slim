@@ -1,3 +1,4 @@
+
 .full-width-top
   .navbar.navbar-digiramp.navbar-fixed-top.navbar-collapse
     .navbar-header
@@ -5,6 +6,7 @@
 
 .container
   .contact-invitations
+    
     - if params[:message] && params[:message].include?('Error: ')
       .alert.alert-danger
         = params[:message].gsub('Error: #<ActiveRecord::RecordInvalid: ', '').gsub('>', '').gsub('Email', '') 

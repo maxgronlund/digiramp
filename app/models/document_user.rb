@@ -42,7 +42,7 @@ class DocumentUser < ActiveRecord::Base
   end
 
   def update_validation
-    ap 'document_user # update_validation'
+    #ap 'document_user # update_validation'
     set_ok
     document.update_validation
   end

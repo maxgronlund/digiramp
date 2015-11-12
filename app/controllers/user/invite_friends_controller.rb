@@ -22,20 +22,25 @@ class User::InviteFriendsController < ApplicationController
                                          user_id: @user.id, 
                                          account_id: @user.account.id)
           
-          if client.name.to_s == ''
+          if client.name.blank?
             client.name =  User.create_uniq_user_name_from_email( email )  
             client.save!
           end
           
-          unless @client_invitation = ClientInvitation.where( account_id: @user.account.id, client_id: client.id).first
-                 client_invitation = ClientInvitation.create( account_id: @user.account.id, 
-                                                              client_id:  client.id,
-                                                              user_id:    @user.id,
-                                                              uuid:       UUIDTools::UUID.timestamp_create().to_s,
-                                                              email:      client.email )
-             client_invitation.send_one_with_avatar
-             invitations_send_to[invitations_send_to_index] = email 
-             invitations_send_to_index                      += 1
+          unless @client_invitation = ClientInvitation.find_by( 
+              account_id: @user.account.id, 
+              client_id: client.id
+            )
+            client_invitation = ClientInvitation.create(
+              account_id: @user.account.id, 
+                client_id:  client.id,
+                user_id:    @user.id,
+                uuid:       UUIDTools::UUID.timestamp_create().to_s,
+                email:      client.email 
+            )
+            client_invitation.send_one_with_avatar
+            invitations_send_to[invitations_send_to_index] = email 
+            invitations_send_to_index                      += 1
           else
             already_invited[already_invited_index]  = email
             already_invited_index     += 1

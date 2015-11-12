@@ -13,7 +13,7 @@ class FixPublishingAgreementsOnPersonalPublishers2 < ActiveRecord::Migration
         personal_publisher.confirmed!
         user.personal_publisher_id =  personal_publisher.id
         user.save(validates: false)
-        ap '================ personal_publisher created ============================='
+        #ap '================ personal_publisher created ============================='
         ap user.personal_publisher
         ap user.personal_publisher_id
       end

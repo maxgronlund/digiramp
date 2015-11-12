@@ -122,4 +122,9 @@ class UserMailer < ApplicationMailer
                         "mailchimp" 
                       )
   end
+  
+  def confirm_signup
+    
+    
+  end
 end

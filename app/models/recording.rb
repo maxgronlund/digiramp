@@ -331,7 +331,16 @@ class Recording < ActiveRecord::Base
               
       self.common_work_id = common_work.id
       self.save(validate: false)
+      
+      CommonWorkUser.create(
+        common_work_id: common_work.id,
+        common_work_title: common_work.title,
+        user_id: common_work.user_id,
+        can_manage_common_work: true
+      )
+      
     end
+    
     common_work
   end
 

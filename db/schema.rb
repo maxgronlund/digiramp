@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151107065812) do
+ActiveRecord::Schema.define(version: 20151112062347) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -3571,6 +3571,9 @@ ActiveRecord::Schema.define(version: 20151107065812) do
     t.integer  "personal_publisher_id"
     t.string   "exclusive_publishers_email",             default: ""
     t.integer  "status"
+    t.datetime "confirmation_sent_at"
+    t.datetime "confirmed_at"
+    t.uuid     "confirmation_token"
   end
 
   add_index "users", ["default_cms_page_id"], name: "index_users_on_default_cms_page_id", using: :btree

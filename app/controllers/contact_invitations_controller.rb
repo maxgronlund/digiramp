@@ -3,7 +3,8 @@ class ContactInvitationsController < ApplicationController
   
   # linked to from email
   def accept_invitation 
-    if @client_invitation = ClientInvitation.where(uuid: params[:contact_invitation_id]).first
+    if @client_invitation = ClientInvitation.find_by(uuid: params[:contact_invitation_id])
+      ap @client_invitation
       @ab_test =  ab_test( "invitation_from_user", "form")
       @message = validate_invitation( @client_invitation ) 
     else
@@ -46,7 +47,7 @@ class ContactInvitationsController < ApplicationController
   def accept_connection
     
     if client_invitation = ClientInvitation.where(uuid: params[:contact_invitation_id]).first
-      
+      ap client_invitation
       if @inviter       = User.cached_find(client_invitation.user_id)
         if connect_with_user( current_user, @inviter )
         else
@@ -268,6 +269,8 @@ private
   end
   
   def connect_with_user user_a, user_b
+    ap user_a.user_name
+    ap user_b.user_name
     
     unless connection = Connection.connected( user_a, user_b)
       # create connection on behaf of the invitor

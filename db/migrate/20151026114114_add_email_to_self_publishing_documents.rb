@@ -16,21 +16,26 @@ class AddEmailToSelfPublishingDocuments < ActiveRecord::Migration
         if client_invitations = ClientInvitation.where(email: user.email)
           client_invitations.destroy_all
         end
-        user.account.destroy!  
-        user.destroy
+        #user.account.destroy!  
+        #user.destroy
         ap '============================'
+        ap user.id
       end
     end
     
     User.find_each do |user|
-      
-      secure_personal_publisher user
-      
-      digital_signature_id = nil
-      if user.digital_signature_uuid
-        if digital_signature = DigitalSignature.find_by(uuid: user.digital_signature_uuid)
-          digital_signature_id = digital_signature.id
+      begin
+        secure_personal_publisher user
+        
+        digital_signature_id = nil
+        if user.digital_signature_uuid
+          if digital_signature = DigitalSignature.find_by(uuid: user.digital_signature_uuid)
+            digital_signature_id = digital_signature.id
+          end
         end
+      rescue
+        ap '-----------------'
+        ap user.id
       end
       
       #if personal_publishing_agreement = user.personal_publishing_agreement

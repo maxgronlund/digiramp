@@ -15,10 +15,10 @@ class User < ActiveRecord::Base
   #friendly_id :user_name, use: :slugged
   
   scope :public_profiles,   ->  { where( private_profile: false)  }
-  scope :supers,            ->    { where( role: 'Super' ).order("email asc")  }
-  scope :administrators,    ->    { where( administrator: true ).order("email asc")  }
-  scope :customers,         ->    { where( role: 'Customer' ).order("email asc")  }
-  scope :with_a_collection, ->    { where( has_a_collection: true)}
+  scope :supers,            ->  { where( role: 'Super' ).order("email asc")  }
+  scope :administrators,    ->  { where( administrator: true ).order("email asc")  }
+  scope :customers,         ->  { where( role: 'Customer' ).order("email asc")  }
+  scope :with_a_collection, ->  { where( has_a_collection: true)}
   
   has_paper_trail 
   has_secure_password
@@ -819,12 +819,17 @@ class User < ActiveRecord::Base
   end
   
   def personal_publishing_agreement
-    if publishing_agreement = PublishingAgreement.find_by(personal_agreement: true, publisher_id: personal_publisher.id)
-      return publishing_agreement
-    else
-      ErrorNotification.post "#{self.user_name} has no personal_publishing_agreement"
-      return nil
+    begin
+      if publishing_agreement = PublishingAgreement.find_by(personal_agreement: true, publisher_id: personal_publisher.id)
+        return publishing_agreement
+      else
+        ErrorNotification.post "#{self.user_name} has no personal_publishing_agreement"
+        return nil
+      end
+    rescue => e
+      ap e.inspect
     end
+    nil
   end
   
   def personal_publishing_agreement_document

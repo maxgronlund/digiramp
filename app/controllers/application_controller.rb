@@ -14,6 +14,7 @@ class ApplicationController < ActionController::Base
   
 
   before_action :set_defaults
+  before_filter :set_paper_trail_whodunnit
   
   def set_defaults
     @body_color = "#FFFFFF"
