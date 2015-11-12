@@ -10,7 +10,7 @@ class User::CommonWorksController < ApplicationController
     
     @common_work      = CommonWork.cached_find(params[:id])
     @common_work_user = CommonWorkUser.find_by(user_id: @user.id, common_work_id: @common_work.id)
-    forbidden unless (@common_work_user && @common_work_user.can_manage_common_work)
+    forbidden unless (@common_work_user && @common_work_user.can_manage_common_work) || super?
     
     @notification_messages = NotificationMessage.where(
       asset_id:   @common_work.id,
@@ -39,13 +39,15 @@ class User::CommonWorksController < ApplicationController
 
     @common_work = CommonWork.cached_find(params[:id])
     @common_work_user = CommonWorkUser.find_by(user_id: @user.id, common_work_id: @common_work.id)
-    forbidden unless (@common_work_user && @common_work_user.can_manage_common_work)
+    forbidden unless (@common_work_user && @common_work_user.can_manage_common_work) || super?
   end
 
   def update
     #@recording    = Recording.cached_find(params[:common_work][:recording_id])
     #params[:common_work].delete :recording_id
-    @common_work  = CommonWork.cached_find(params[:id])
+    @common_work      = CommonWork.cached_find(params[:id])
+    @common_work_user = CommonWorkUser.find_by(user_id: @user.id, common_work_id: @common_work.id)
+    forbidden unless (@common_work_user && @common_work_user.can_manage_common_work) || super?
     if @common_work.update(common_work_params)
       
     else

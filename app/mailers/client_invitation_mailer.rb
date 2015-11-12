@@ -19,8 +19,8 @@ class ClientInvitationMailer < ApplicationMailer
   def get_merge_vars email, inviter, accept_url, decline_url, avatar_url, sender_url
     { rcpt: email,
       vars: [ {name: "USER_NAME",            content: inviter.user_name},
-              {name: "PROFESION",            content: (inviter.profession.blank? ? ' ' : inviter.profession) },
-              {name: "SHORT_DESCRIPTION",    content: (inviter.short_description.blank? ? ' ' : inviter.short_description)},
+              {name: "PROFESION",            content: (inviter.profession.blank? ? 'Member' : inviter.profession) },
+              {name: "SHORT_DESCRIPTION",    content: (inviter.short_description.blank? ? 'On DigiRAMP' : inviter.short_description)},
               {name: "WRITER",               content: inviter.writer},
               {name: "AUTHOR",               content: inviter.author},
               {name: "PRODUCER",             content: inviter.producer},
