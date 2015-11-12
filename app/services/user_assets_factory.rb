@@ -19,7 +19,7 @@ class UserAssetsFactory
 
   # create the account
   def create_account
-
+    return if @user.account
     @account = Account.new(   
       title: @user.user_name, 
       user_id: @user.id, 
