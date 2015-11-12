@@ -21,12 +21,15 @@ class User::CommonWorkLyricsController < ApplicationController
     #@recording    = Recording.cached_find(params[:recording_id])
     @common_work  = CommonWork.cached_find(params[:id])
     @common_work_user = CommonWorkUser.find_by(user_id: @user.id, common_work_id: @common_work.id)
-    forbidden unless (@common_work_user && @common_work_user.can_manage_common_work)
+    forbidden unless (@common_work_user && @common_work_user.can_manage_common_work) || super?
   end
 
   def update
     
     @common_work  = CommonWork.cached_find(params[:id])
+    @common_work_user = CommonWorkUser.find_by(user_id: @user.id, common_work_id: @common_work.id)
+    forbidden unless (@common_work_user && @common_work_user.can_manage_common_work) || super?
+    
     @common_work.update(common_work_params)
 
     redirect_to user_user_common_work_path( @user, @common_work)

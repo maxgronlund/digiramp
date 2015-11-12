@@ -64,11 +64,13 @@ class User::CommonWorksController < ApplicationController
     @common_work_user = CommonWorkUser.find_by(user_id: @user.id, common_work_id: @common_work.id)
     if (@common_work_user && @common_work_user.can_manage_common_work) || super?
       remove_recordings 
+      # move common work to system account
       @common_work.user_id    = User.system_user.id
       @common_work.account_id = User.system_user.account.id
       @common_work.save(validate: false)
+      # remove all common_work_users
       @common_work.common_work_users.destroy_all
-      
+      # create one for the system
       CommonWorkUser.create(
         common_work_id: common_work.id,
         common_work_title: common_work.title,
