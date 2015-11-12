@@ -149,13 +149,13 @@ class UsersController < ApplicationController
   end
 
   def create
-    # todo
-    # check AddConfirmationSentAtToUsers
+    ap 'USER#create'
     
     session[:show_profile_completeness] = true
     params[:user][:show_introduction]   = true
     params[:user][:name]                = params[:user][:user_name]
     params[:user][:email].downcase! if params[:user][:email]
+    params[:user][:private_profile]    = true
     
     @user = User.new(user_params)
     
@@ -167,7 +167,7 @@ class UsersController < ApplicationController
       UserAssetsFactory.new @user
       # signout if you was signed in as another user
       cookies.delete(:auth_token)
-      sign_in
+      
 
       @user.create_activity(  :created, 
                          owner: @user,
@@ -176,15 +176,20 @@ class UsersController < ApplicationController
                     account_id: @user.account.id) 
 
 
-      redirect_to user_user_user_configurations_path(@user)
+      #sign_in
+      UserMailer.delay.confirm_signup( @user.id )
+      redirect_to signup_confirmations_path
+      #redirect_to user_user_user_configurations_path(@user)
     else
-      flash[:danger] = "Please check" 
+      flash[:danger] = "Please check email and password" 
       render :new
     end
 
   end
 
   def sign_in
+    
+    
     if @user && @user.authenticate(@user.password)
       cookies[:auth_token] = @user.auth_token
       

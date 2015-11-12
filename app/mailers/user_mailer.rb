@@ -124,15 +124,34 @@ class UserMailer < ApplicationMailer
   end
   
   def confirm_signup user_id
+    
     user                        = User.cached_find(user_id)
+    confirmation_token          = UUIDTools::UUID.timestamp_create().to_s
     user.update_columns(
       confirmation_sent_at:  Time.now,
-      confirmation_token:   UUIDTools::UUID.timestamp_create().to_s
+      confirmation_token:    confirmation_token
     )
-    confirmation_link  = url_for( controller: 'catalog/catalogs', 
-                                     action: 'show', 
-                                 account_id: account_id, 
-                                         id: catalog_id)
+    confirmation_link  = url_for( controller: '/signup_confirmations', 
+                                     action: 'edit', 
+                                         id: confirmation_token)
+    
+    
+    merge_vars   = [ { rcpt: user.email,
+                        vars: [ {name: "LINK", content: confirmation_link} ]
+                      }
+                    ]
+    
+    send_with_mandrill( [{email: user.email }], 
+                        "account-confirmation", 
+                        'Welcome to DigiRAMP', 
+                        ["account_confirmation"], 
+                        merge_vars,
+                        true,
+                        true,
+                        '10-digiramp-account-confirmation',
+                        "mailchimp" 
+                      )
+    
     
     
   end

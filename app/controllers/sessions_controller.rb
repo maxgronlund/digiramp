@@ -68,28 +68,31 @@ class SessionsController < ApplicationController
   
   
   def log_in_with_email params
-    
-    # '-------------- SessionsController#log_in_with_email -----------'
-     
+
     params[:sessions][:email]  = params[:sessions][:email].downcase
     user = User.where(email: params[:sessions][:email]).first
     
-    if user && user.authenticate(params[:sessions][:password])
-    
-      if params[:remember_me]
-        # is this enough?
-        cookies.permanent[:user_id]      = user.id
-        cookies.permanent[:auth_token]   = user.auth_token
-      else
-        cookies[:auth_token]             = user.auth_token  
-      end
-      initialize_session_for user
+    if user && user.confirmed_at.nil?
+      redirect_to signup_confirmations_not_confirmed_path(user.confirmation_token)
     else
-
-      flash[:danger] =  "No user we can't authorize found.
-                         If you have signed up directly on DigiRAMP we can resend you password.
-                         Otherwise make sure you are signed in with you authorization provider" 
-      redirect_to login_new_path
+    
+      if user && user.authenticate(params[:sessions][:password])
+      
+        if params[:remember_me]
+          # is this enough?
+          cookies.permanent[:user_id]      = user.id
+          cookies.permanent[:auth_token]   = user.auth_token
+        else
+          cookies[:auth_token]             = user.auth_token  
+        end
+        initialize_session_for user
+      else
+      
+        flash[:danger] =  "No user we can't authorize found.
+                           If you have signed up directly on DigiRAMP we can resend you password.
+                           Otherwise make sure you are signed in with you authorization provider" 
+        redirect_to login_new_path
+      end
     end
     
   end

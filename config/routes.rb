@@ -1,16 +1,5 @@
 Digiramp::Application.routes.draw do
 
-
-
-
-  
-
-  get 'signup_confirmations/show'
-
-  get 'signup_confirmations/edit'
-
-  get 'signup_confirmations/update'
-
   #resources :document_users
   get 'landing_page/index'
   
@@ -91,7 +80,11 @@ Digiramp::Application.routes.draw do
   
   mount StripeEvent::Engine => '/stripe-events'
   resources :subscriptions, only: [:index, :new, :create]
-  
+  resources :signup_confirmations
+  get 'signup_confirmations/expired/:id', to: 'signup_confirmations#expired'
+  get 'signup_confirmations/resent/:id', to: 'signup_confirmations#resent'
+  get 'signup_confirmations/invalid', to: 'signup_confirmations#invalid'
+  get 'signup_confirmations/not_confirmed/:id', to: 'signup_confirmations#not_confirmed'
   
   resources :irons
   
