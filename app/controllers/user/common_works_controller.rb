@@ -37,7 +37,7 @@ class User::CommonWorksController < ApplicationController
 
   def edit
 
-    @common_work = CommonWork.cached_find(params[:id])
+    @common_work      = CommonWork.cached_find(params[:id])
     @common_work_user = CommonWorkUser.find_by(user_id: @user.id, common_work_id: @common_work.id)
     forbidden unless (@common_work_user && @common_work_user.can_manage_common_work) || super?
   end
@@ -60,9 +60,39 @@ class User::CommonWorksController < ApplicationController
   end
 
   def delete
+    @common_work      = CommonWork.cached_find(params[:id])
+    @common_work_user = CommonWorkUser.find_by(user_id: @user.id, common_work_id: @common_work.id)
+    if (@common_work_user && @common_work_user.can_manage_common_work) || super?
+      remove_recordings 
+      @common_work.user_id    = User.system_user.id
+      @common_work.account_id = User.system_user.account.id
+      @common_work.save(validate: false)
+      @common_work.common_work_users.destroy_all
+      
+      CommonWorkUser.create(
+        common_work_id: common_work.id,
+        common_work_title: common_work.title,
+        user_id: User.system_user.id,
+        can_manage_common_work: true
+      )
+      
+      
+    end
+    
+    
   end
   
 private
+
+  def remove_recordings 
+    @common_work.recordings.each do |recording|
+      recording.user_id    = User.system_user.id
+      recording.account_id = User.system_user.account.id
+      recording.privacy    = 'Only me'
+      recording.remove_from_collections
+      recording.save(validate: false)
+    end
+  end
   def common_work_params
     params.require(:common_work).permit!
   end
