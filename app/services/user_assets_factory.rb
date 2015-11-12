@@ -19,8 +19,11 @@ class UserAssetsFactory
 
   # create the account
   def create_account
-    return if @user.account
-    @account = Account.new(   
+
+    @account = Account.where(
+      user_id: @user.id
+    )
+    .first_or_create   
       title: @user.user_name, 
       user_id: @user.id, 
       expiration_date: Date.current()>>1,
