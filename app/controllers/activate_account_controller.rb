@@ -35,12 +35,7 @@ class ActivateAccountController < ApplicationController
   
   def update    
     @user = User.find_by_password_reset_token!(params[:id])
-    if @user.confirmation_token.nil?
-      @user.update_columns(
-        confirmed_at: Time.now,
-        confirmation_token: UUIDTools::UUID.timestamp_create().to_s
-      )
-    end
+    
 
     # get the right record
     if opportunity_id = params[:user][:opportunity_id] 
@@ -54,7 +49,9 @@ class ActivateAccountController < ApplicationController
     
     # set the activated flag
     params[:user][:account_activated] = true
-    
+    if @user.confirmed_at.nil?
+      params[:user][:confirmed_at]        = Time.now
+    end
     # check invitation age
     if @user.password_reset_sent_at < 7.days.ago
       redirect_to root_path, :alert => "Invitation &crarr; 

@@ -44,6 +44,7 @@ class UserParams
                     :phone_number,
                     :default_cms_page_id,
                     :page_style_id,
+                    :confirmed_at,
                     address_attributes: [  :first_name,
                                            :middle_name,
                                            :last_name,
