@@ -20,7 +20,10 @@ class UserAssetsFactory
   # create the account
   def create_account
 
-    @account = Account.new(   
+    @account = Account.where(
+      user_id: @user.id
+    )
+    .first_or_create(   
       title: @user.user_name, 
       user_id: @user.id, 
       expiration_date: Date.current()>>1,
@@ -43,14 +46,26 @@ class UserAssetsFactory
   
   # create a label
   def create_label
-    @label = Label.create( user_id: @user.id, account_id: @account.id, title: "#{@user.user_name}'s Label")
+    @label = Label.where(
+      user_id: @user.id, 
+      account_id: @account.id
+    )
+    .first_or_create( 
+      user_id: @user.id, 
+      account_id: @account.id, 
+      title: "#{@user.user_name}'s Label"
+    )
     @user.update(default_label_id: @label.id)
      
   end
   
   # create a distribution agreement
   def create_distribution_agreement
-    @distribution_agreement = DistributionAgreement.create(
+    @distribution_agreement = DistributionAgreement.where(
+      :label_id           => @label.id,
+      :account_id         => @account.id
+    )
+    .first_or_create(
       :label_id           => @label.id,
       :account_id         => @account.id,
       :distributor_id     => @label.id,
@@ -114,7 +129,11 @@ class UserAssetsFactory
   end
 
   def create_publisher
-    @publisher = Publisher.create(
+    @publisher = Publisher.where(
+      user_id: @user.id,
+      account_id: @account.id
+    )
+    .first_or_create(
       user_id: @user.id,
       account_id: @account.id,
       legal_name: "#{@user.user_name} Publishing",
@@ -128,7 +147,11 @@ class UserAssetsFactory
   
   def create_publishing_agreement
     
-    @publishing_agreement = PublishingAgreement.create(
+    @publishing_agreement = PublishingAgreement.where(
+      user_id:            @user.id,
+      account_id:         @account.id, 
+    )
+    .first_or_create(
       publisher_id:       @publisher.id,
       split:              0.0,
       title:              "Publishing agreement for #{@user.user_name}",
@@ -178,7 +201,11 @@ class UserAssetsFactory
   end
   
   def create_ipi_publisher
-    IpiPublisher.create(
+    IpiPublisher.where(
+      publisher_id: @publisher.id,
+      ipi_id:       @ipi.id,
+    )
+    .first_or_create(
       publisher_id: @publisher.id,
       ipi_id:       @ipi.id,
       publishing_agreement_id: @publishing_agreement.id
@@ -220,6 +247,7 @@ class UserAssetsFactory
       )
       @user.update(has_unsigned_documents: true)
     end
+    
   end
   
   def set_document_user document_users, role

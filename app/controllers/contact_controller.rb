@@ -10,10 +10,10 @@ class ContactController < ApplicationController
       flash[:info] = "Contact request send: We will come back to you asap." 
       @contact = Contact.create(contact_params)
       ContactMailer.delay.contace_received(@contact.id)   
-      redirect_to contact_index_path
+      redirect_to contact_path
     else
       flash[:danger] = "Please check the email." 
-      redirect_to contact_index_path(error_in_form: true, title: params[:contact][:title], body: params[:contact][:body], email: params[:contact][:email])
+      redirect_to contact_path(error_in_form: true, title: params[:contact][:title], body: params[:contact][:body], email: params[:contact][:email])
     end
     
     

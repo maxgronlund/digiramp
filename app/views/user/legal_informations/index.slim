@@ -28,7 +28,7 @@
 
       /= render 'user/shared/legal_navigation'
       .digi-box
-        = simple_form_for [:user, @user], turboboost: true do |f|
+        = simple_form_for [:user, @user] do |f|
           
           = f.error_notification
           -if @user.errors.any?
