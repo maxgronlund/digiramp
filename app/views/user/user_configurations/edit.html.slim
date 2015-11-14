@@ -1,6 +1,11 @@
 
 .container-fluid
-  span class="logo"
+  .row
+    .col-sm-6
+      span class="logo"
+    .col-sm-6
+      .pull-down-24
+      == render 'admin/shared/messages'
   .jumbotron.pull-down-12
     h1 I want to...
     'Fill in the form. Click continue and you will be guided true

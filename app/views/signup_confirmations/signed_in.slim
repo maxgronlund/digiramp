@@ -1,0 +1,25 @@
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'home' 
+  
+
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'users/shared/sidebar', selected: 'recordings'
+      
+  #page-content-wrapper
+    .container-fluid
+      .jumbotron.pull-down-12
+        h2 = "Hey #{@user.user_name}" 
+        'This confirmation was send so someone else
+      .row
+        .col-sm-12
+          .pull-right
+            = link_to logout_path do
+              .btn.btn-info
+                i class="fa fa-sign-out"
+                '&nbsp;Log out
+              
+              
+           
+      

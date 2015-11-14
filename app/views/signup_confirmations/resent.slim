@@ -1,0 +1,27 @@
+
+.container-fluid
+  .row
+    .col-sm-12
+      span class="logo"
+  - if @user
+    .jumbotron.pull-down-12
+      h2 Successx. 
+      'Your email confirmation email has been resend.
+      .row
+        .col-sm-12
+          .pull-right
+            = link_to 'Back to DigiRAMP', root_path, class: 'btn btn-info'
+  - else
+    .jumbotron.pull-down-12
+      h2 Success. 
+      'Your email confirmation email has been resend.
+    .row
+      .col-sm-12
+        .pull-right
+          = link_to 'Back to DigiRAMP', root_path, class: 'btn btn-info'
+    
+
+
+              
+  == render 'shared/site_footer'    
+ 

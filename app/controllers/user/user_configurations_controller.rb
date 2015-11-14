@@ -11,8 +11,6 @@ class User::UserConfigurationsController < ApplicationController
   # GET /user_configurations/1/edit
   def edit
     @body_color = "#FFFFFF"
-    ap 'user_configurations/1/edit'
-    ap @user.full_name
   end
 
   # PATCH/PUT /user_configurations/1
