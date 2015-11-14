@@ -14,7 +14,7 @@ class DefaultAvararJob < ActiveJob::Base
       user.remote_image_url = "https://s3-us-west-1.amazonaws.com/digiramp/uploads/default-avatars/5GA3Zk1C_avatar_#{random_id.to_s}.jpg"
       user.save!
     else
-      ErrorNotification.post "Unable to create avatar for user: #{user.id}"
+      ErrorNotification.post "Unable to find user with id: #{user_id}"
     end
       
   end
