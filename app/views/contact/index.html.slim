@@ -14,24 +14,24 @@
     .container-fluid
       
       .row
-        .col-sm-6
-          h2 = blog_post.title
-          .digi-box
-            
-            
-            = simple_format blog_post.body
-            - if editor?
-              .row
-                .col-sm-12
-                  .pull-right
-                    = link_to edit_admin_blog_blog_post_path(blog, blog_post) do
-                      .btn.btn-default.btn-xs
-                        i.fa.fa-pencil
-                    
-        
+        .col-sm-3
+          /h2 = blog_post.title
+          /.digi-box
+          /  
+          /  
+          /  = simple_format blog_post.body
+          /  - if editor?
+          /    .row
+          /      .col-sm-12
+          /        .pull-right
+          /          = link_to edit_admin_blog_blog_post_path(blog, blog_post) do
+          /            .btn.btn-default.btn-xs
+          /              i.fa.fa-pencil
+          /          
+          /
         .col-sm-6
           ==render 'admin/shared/messages'
-          h2 Contact
+          h2 Contact us
           .digi-box
             = simple_form_for [ @contact ], :url => url_for(:action => 'create', :controller => 'contact'), :method => 'post' do |f|
               - unless f.error_notification.blank?
