@@ -38,59 +38,76 @@
         table class="table table-hover"
           thead
             tr
-              th
+              th Work
               th Status
               /th IPI Code
-              th Work
               th Roles
               th Share
               /th PRO
-              th
+              /th
           tbody
-            - @user.ipis.each do |ipi|
-              tr
-                td 
-                  = link_to user_user_ipi_path(@user, ipi) do
-                      .btn.btn-default.btn-xs
-                        i.fa.fa-eye&nbsp;Show
-                /  = link_to edit_user_user_user_ipi_path(@user, ipi) do
-                /      .btn.btn-default.btn-xs
-                /        i.fa.fa-pencil
-                td
-                  /= ipi.status
-                  - case ipi.status
-                  - when 'pending'
-                    .label.label-warning
-                      'Please confirm
-                  - when 'accepted'
-                    .label.label-success
-                      'Confirmed
-                /td 
-                /  - if ipi.ipi_code
-                /    = ipi.ipi_code
-                /  - else
-                /    .label.label-default
-                /      'na
-                td = ipi.work_title
-                /td 
-                /  -if pro_affiliation = ipi.pro_affiliation
-                /    = pro_affiliation.title
-                td
-                  /'&nbsp;
-                  - if ipi.music
-                    'Music
-                    br
-                  - if ipi.lyric
-                    'Lyric
-                    br
-                  - if ipi.melody
-                    'Melody
-                    br
-                  - if ipi.arrangement
-                    'Arrangement
-                  
-                  
-                td = ipi.share
+            - @common_work_ipis.each do |common_work_ipi|
+              - if common_work = common_work_ipi.common_work
+                tr
+                  td = common_work.title
+                  td = common_work_ipi.status
+                  td
+                    - if common_work_ipi.music
+                      'Music
+                      br
+                    - if common_work_ipi.lyric
+                      'Lyric
+                      br
+                    - if common_work_ipi.melody
+                      'Melody
+                      br
+                    - if common_work_ipi.arrangement
+                      'Arrangement
+                  td = number_to_percentage(common_work_ipi.share, precision: 2)
+            /- @user.ipis.each do |ipi|
+            /  tr
+            /    td 
+            /      = link_to user_user_ipi_path(@user, ipi) do
+            /          .btn.btn-default.btn-xs
+            /            i.fa.fa-eye&nbsp;Show
+            /    /  = link_to edit_user_user_user_ipi_path(@user, ipi) do
+            /    /      .btn.btn-default.btn-xs
+            /    /        i.fa.fa-pencil
+            /    td
+            /      /= ipi.status
+            /      - case ipi.status
+            /      - when 'pending'
+            /        .label.label-warning
+            /          'Please confirm
+            /      - when 'accepted'
+            /        .label.label-success
+            /          'Confirmed
+            /    /td 
+            /    /  - if ipi.ipi_code
+            /    /    = ipi.ipi_code
+            /    /  - else
+            /    /    .label.label-default
+            /    /      'na
+            /    td = ipi.work_title
+            /    /td 
+            /    /  -if pro_affiliation = ipi.pro_affiliation
+            /    /    = pro_affiliation.title
+            /    td
+            /      /'&nbsp;
+            /      - if ipi.music
+            /        'Music
+            /        br
+            /      - if ipi.lyric
+            /        'Lyric
+            /        br
+            /      - if ipi.melody
+            /        'Melody
+            /        br
+            /      - if ipi.arrangement
+            /        'Arrangement
+            /      
+            /      
+            /    td = ipi.share
       /.digi-box
       /  h4 Masters
       /  .table-responsive

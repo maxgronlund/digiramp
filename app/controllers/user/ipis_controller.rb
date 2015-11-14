@@ -3,7 +3,7 @@ class User::IpisController < ApplicationController
   before_action :access_user
   
   def index
-    @ipis = @user.ipis
+    @common_work_ipis = @user.common_work_ipis
   end
   
   def show
