@@ -32,6 +32,8 @@ FactoryGirl.define do
     #f.social_avatar Faker::Avatar.image
     f.salesperson false
     f.slug slug
+    f.confirmed_at Time.now
+    f.confirmation_token UUIDTools::UUID.timestamp_create().to_s
   end
   
 

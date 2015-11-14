@@ -4,7 +4,7 @@ class ContactInvitationsController < ApplicationController
   # linked to from email
   def accept_invitation 
     if @client_invitation = ClientInvitation.find_by(uuid: params[:contact_invitation_id])
-      ap @client_invitation
+     
       @ab_test =  ab_test( "invitation_from_user", "form")
       @message = validate_invitation( @client_invitation ) 
     else
@@ -226,19 +226,22 @@ private
         #@account.account_type           = 'Social'
         @account.contact_first_name     = @user.first_name
         @account.contact_last_name      = @user.last_name
-        
         @user.address.city              = client.city_work
         @user.address.country           = client.country_work
         @user.address.first_name        = client.name
         @user.address.last_name         = client.last_name
         @user.address.save!
         
-
-        
         # update client
         #client.is_member = true
         client.member_id = @user.id
         client.save!
+        
+        @user.update_columns(
+          confirmed_at:              Time.now,
+          confirmation_token:        UUIDTools::UUID.timestamp_create().to_s
+
+        )
         
         @user.authenticate(@user.password)
         cookies[:auth_token]        = @user.auth_token
@@ -269,8 +272,7 @@ private
   end
   
   def connect_with_user user_a, user_b
-    ap user_a.user_name
-    ap user_b.user_name
+    return nil unless user_a && user_b
     
     unless connection = Connection.connected( user_a, user_b)
       # create connection on behaf of the invitor

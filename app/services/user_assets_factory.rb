@@ -4,6 +4,12 @@ class UserAssetsFactory
   # create all the classes required for a new user
   def initialize user
     @user = user
+    if @user.confirmation_token.nil?
+      @user.update_columns(
+        confirmation_token: UUIDTools::UUID.timestamp_create().to_s
+      )
+    end
+   
     create_account
     create_label
     create_distribution_agreement

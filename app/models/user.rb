@@ -556,6 +556,10 @@ class User < ActiveRecord::Base
       user_publishers.destroy_all
     end
     
+    if client_invitations = ClientInvitation.where(client_id: self.id)
+      client_invitations.destroy_all
+    end
+    
   end
   
   def self.system_user

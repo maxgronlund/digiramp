@@ -3,34 +3,6 @@ class Account::OpportunityInvitationsController < ApplicationController
   include AccountsHelper
   before_action :access_account
 
-  # GET /opportunity_invitations
-  # GET /opportunity_invitations.json
-  #def index
-  #  @opportunity            = Opportunity.cached_find(params[:opportunity_id])
-  #  @opportunity_invitations = @opportunity.opportunity_invitations
-  #  @user = current_user
-  #  @authorized = true
-  #end
-  #
-  ## GET /opportunity_invitations/1
-  ## GET /opportunity_invitations/1.json
-  #def show
-  #end
-
-  # GET /opportunity_invitations/new
-  #def new
-  #  @user                   = current_user
-  #  @authorized             = true
-  #  @opportunity            = Opportunity.cached_find(params[:opportunity_id])
-  #  @opportunity_invitation = OpportunityInvitation.new
-  #end
-
-  # GET /opportunity_invitations/1/edit
-  #def edit
-  #  @opportunity            = Opportunity.cached_find(params[:opportunity_id])
-  #end
-
-
 
   def create
     
