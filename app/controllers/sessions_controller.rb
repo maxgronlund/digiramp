@@ -73,7 +73,7 @@ class SessionsController < ApplicationController
     user = User.where(email: params[:sessions][:email]).first
     
     if user && user.confirmed_at.nil?
-      redirect_to signup_confirmations_not_confirmed_path(user.confirmation_token)
+      redirect_to not_confirmed_signup_confirmation_path(user.confirmation_token)
     else
     
       if user && user.authenticate(params[:sessions][:password])

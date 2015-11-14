@@ -72,20 +72,10 @@ class SignupConfirmationsController < ApplicationController
   end
   
   def not_confirmed
-    begin
-      @user = User.find_by(confirmation_token: params[:id])
-      if @user.confirmed_at.nil?
-        @user.update_columns(
-          private_profile: false, 
-          confirmed_at:    Time.now
-        )
-        sign_in
-        redirect_to user_user_user_configurations_path(@user)
-      else
-        redirect_to root_path
-      end
-    rescue
-      redirect_to root_path
+    if @user = User.find_by(confirmation_token: params[:id])
+     
+    else
+      redirect_to not_found
     end
   end
   
