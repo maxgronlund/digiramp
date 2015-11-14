@@ -69,7 +69,7 @@ class User::RecordingIpisController < ApplicationController
 
     if @recording_ipi.update(recording_ipi_params)
       
-      SalesService.new(@recording.id)
+      #SalesService.new(@recording.id)
       #sales_service.validate
       
       
