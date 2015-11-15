@@ -1,7 +1,7 @@
 class IpisController < ApplicationController
 
   def index
-    @user = User.cached_find(params[:user_id])
+    return not_found unless @user = User.cached_find(params[:user_id])
     #@ipis = @user.ipis.where(show_credit_on_recordings: true)
     
     

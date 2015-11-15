@@ -63,7 +63,7 @@ class User::PersonalPublishersController < ApplicationController
   
   def remove_all_user_publishers
     begin
-      @user.user_publishers.destroy_all
+      @user.user_publishers.destroy_all if @user
     rescue => e
       ErrorNotification.post( "PersonalPublisherController#remove_all_user_publishers#{e}" )
     end
