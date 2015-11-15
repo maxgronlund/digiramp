@@ -1,5 +1,7 @@
 Digiramp::Application.routes.draw do
 
+
+
   #resources :document_users
   get 'landing_page/index'
   
@@ -202,7 +204,7 @@ Digiramp::Application.routes.draw do
     resources :subscriptions, only: [:index, :show]
     resources :terms
     resources :tutorials
-    
+    resources :user_metrix, only: [:index]
     resources :user_genres, only: [:index]
     resources :user_instruments, only: [:index]
     resources :user_moods, only: [:index]

@@ -113,6 +113,9 @@ class Recording < ActiveRecord::Base
   after_commit :flush_cache
   #after_create :notify_followers
   before_destroy :remove_from_collections
+  after_create :set_user_recordings
+  
+  
   
   #before_create :check_default_image
   #before_save :check_default_image
@@ -668,6 +671,10 @@ class Recording < ActiveRecord::Base
     
   end 
   
+  def set_user_recordings
+    user.update_columns( has_recordings: user.recordings.count > 0 )
+  end
+  
   def remove_from_collections
     update_uuids
     remove_from_catalogs
@@ -677,6 +684,9 @@ class Recording < ActiveRecord::Base
     remove_from_playlists
     remove_share_on_facebooks
     remove_from_follower_events
+    unless user.destroyed? 
+      user.update_columns( has_recordings: user.recordings.count > 1 )
+    end
   end
 
 private
@@ -692,7 +702,7 @@ private
   end
   
   def flush_cache
-
+    
     Rails.cache.delete([self.class.name, id])
   end
   

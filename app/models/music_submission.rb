@@ -11,6 +11,27 @@ class MusicSubmission < ActiveRecord::Base
   validates :recording_id, :music_request_id, :user_id, :account_id, presence: true
   has_many :music_submission_selections
   
+  
+  #before_destroy :set_user_recordings_before_destroy
+  #after_create :set_user_recordings_after_create
+  #
+  #def set_user_recordings_before_destroy
+  #  unless self.user.destroyed? user.update_columns( 
+  #      provide_to_opportunity: user.music_submissions.count > 1 
+  #    )
+  #  end
+  #end
+  #
+  #def set_user_recordings_after_create
+  #  unless self.user.destroyed?  user.update_columns( 
+  #      provide_to_opportunity: user.music_submissions.count > 0
+  #    )
+  #  end
+  #end
+  
+  
+  
+  
   def self.cached_find(id)
     Rails.cache.fetch([name, id]) { find(id) }
   end

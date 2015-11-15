@@ -1,0 +1,83 @@
+
+
+
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'admin' 
+  
+  
+  .admin-account
+    #sidebar-wrapper
+      ul class="sidebar-nav"
+        == render 'admin/shared/sidebar', selected: 'account'
+  
+  #page-content-wrapper
+    .container-fluid
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { admin: admin_index_path }, current: ''}
+      .row
+        .col-sm-12
+          h2 User metrics
+      .row
+        .col-sm-6
+          .table-responsive
+            table class="table table-hover"
+              thead
+                tr
+                  th Users that want to 
+                  th Count
+              tbody
+                tr
+                  td Want to promote music
+                  td = @want_to_promote_my_music                
+                tr
+                  td Want to sell music
+                  td = @want_to_sell_music                      
+                tr
+                  td Want music in to music and film and tv
+                  td = @want_to_get_my_music_into_films_and_tv  
+                tr
+                  td Want to find and listen to music
+                  td = @want_to_find_and_listen_to_music        
+                tr
+                  td Want to sell goods
+                  td = @want_to_sell_goods                      
+                tr
+                  td Want to offer services
+                  td = @want_to_offer_services                  
+                tr
+                  td Want to collaborate
+                  td = @want_to_collaborate                  
+                tr
+                  td Want to manage catalogs
+                  td = @want_to_manage_users_and_catalogs       
+                tr
+                  td Want to build custom web pages
+                  td = @want_to_build_custom_web_pages          
+                tr
+                  td Don't want to be asked
+                  td = @dont_ask_me_again
+                  
+        .col-sm-6
+          .table-responsive
+            table class="table table-hover"
+              thead
+                tr
+                  th User that have 
+                  th Count
+              tbody
+                tr
+                  td Uploaded recordings
+                  td = @has_uploaded_recordings 
+                tr
+                  td Used an opportunity
+                  td = @provide_to_opportunity  
+                tr
+                  td Been invited to review an opportunity
+                  td = @review_opportunity   
+                  
+                tr
+                  td Followed users
+                  td = @follow_other_users      
+                tr
+                  td Liked recordings
+                  td = @has_liked_recordings

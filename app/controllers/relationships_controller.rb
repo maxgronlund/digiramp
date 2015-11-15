@@ -9,7 +9,6 @@ class RelationshipsController < ApplicationController
     @user.followers_count      = @user.followers.count
     @user.uniq_followers_count = @user.followers_count.to_uniq
     @user.save!
-    
 
     Activity.notify_followers( 'is following', current_user.id, 'User' , relationship.followed_id )            
 

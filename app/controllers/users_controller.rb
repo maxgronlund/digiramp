@@ -149,7 +149,6 @@ class UsersController < ApplicationController
   end
 
   def create
-    ap 'USER#create'
     
     session[:show_profile_completeness] = true
     params[:user][:show_introduction]   = true

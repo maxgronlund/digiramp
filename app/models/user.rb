@@ -644,6 +644,9 @@ class User < ActiveRecord::Base
     unless other_user.id == self.id
       begin
         self.relationships.create!(followed_id: other_user.id)
+        self.update_columns(
+          follow_other_users: self.relationships.count > 0
+        )
       rescue
         Opbeat.capture_message("User::Line 544 #{ { self_id: self.id , other_user_id: other_user.id} }")
       end
@@ -652,6 +655,9 @@ class User < ActiveRecord::Base
   
   def unfollow!(other_user)
     self.relationships.find_by(followed_id: other_user.id).destroy
+    self.update_columns(
+      follow_other_users: self.relationships.count > 0
+    )
   end
 
   def set_propperties

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151114093807) do
+ActiveRecord::Schema.define(version: 20151115094656) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -3574,6 +3574,11 @@ ActiveRecord::Schema.define(version: 20151114093807) do
     t.datetime "confirmation_sent_at"
     t.datetime "confirmed_at"
     t.uuid     "confirmation_token"
+    t.boolean  "has_recordings"
+    t.boolean  "provide_to_opportunity"
+    t.boolean  "review_opportunity"
+    t.boolean  "follow_other_users"
+    t.boolean  "has_liked_recordings"
   end
 
   add_index "users", ["default_cms_page_id"], name: "index_users_on_default_cms_page_id", using: :btree
