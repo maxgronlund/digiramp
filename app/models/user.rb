@@ -643,11 +643,13 @@ class User < ActiveRecord::Base
   def follow!(other_user)
     unless other_user.id == self.id
       begin
-        self.relationships.create!(followed_id: other_user.id)
+        _relation_ship = self.relationships.create!(followed_id: other_user.id)
         self.update_columns(
           follow_other_users: self.relationships.count > 0
         )
+        return _relation_ship
       rescue
+        ap 'bang'
         Opbeat.capture_message("User::Line 544 #{ { self_id: self.id , other_user_id: other_user.id} }")
       end
     end
