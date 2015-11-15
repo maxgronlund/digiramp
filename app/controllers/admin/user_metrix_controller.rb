@@ -21,6 +21,20 @@ class Admin::UserMetrixController < ApplicationController
     @follow_other_users                      = User.where(follow_other_users:    true).count
     @has_liked_recordings                    = User.where(has_liked_recordings: true).count
     
+    @liked_recordings                        = Like.count
+    @has_liked_a_user                       = User.where(has_liked_a_user: true).count
+    
+    @has_wrote_a_recording_comment          = User.where(has_wrote_a_recording_comment: true).count
+    @has_wrote_a_user_comment               = User.where(has_wrote_a_user_comment: true).count
+    @has_wrote_a_playlist_comment           = User.where(has_wrote_a_playlist_comment: true).count
+   
+    
+    
+    
+    
+    
+    
+    
     
   end
 end

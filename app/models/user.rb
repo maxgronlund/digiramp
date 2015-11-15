@@ -342,16 +342,21 @@ class User < ActiveRecord::Base
   def update_user_likes
     # how many has liked this user
      # how many has this user liked
-    self.update(user_likes: ItemLike.where(like_id: self.id, like_type: self.class.name).count)
+    self.update(
+      user_likes: ItemLike.where(like_id: self.id, like_type: self.class.name).count
+    )
   end
   
   def update_liked_users_count
     # how many has liked this user
      # how many has this user liked
     self.update(
-      liked_users_count: liked_users.count)
-    ap '=================================================='
-    ap self.liked_users_count
+      liked_users_count: liked_users.count,
+      has_liked_a_user:  liked_users.count > 0
+    )
+    
+    ap self.has_liked_a_user
+
   end
   
   #def user_likes 

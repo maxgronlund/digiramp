@@ -25,7 +25,7 @@ class CommentsController < ApplicationController
   # POST /comments
   # POST /comments.json
   def create
-
+    ap params
     if @comment = Comment.create!(comment_params)
       
       #@comment.user.create_activity(  :created, 
@@ -69,6 +69,9 @@ class CommentsController < ApplicationController
         
         Activity.notify_followers(  'Posted a comment on', current_user.id, 'Recording', @recording.id )
         CommentMailer.delay.notify_user( @comment.id )
+        current_user.update_columns(
+          has_wrote_a_recording_comment:    Comment.where(user_id: user.id, commentable_type: 'Recording').count > 0
+        )
       when 'User'
         @user = User.cached_find( @comment.commentable_id)
     
@@ -80,10 +83,16 @@ class CommentsController < ApplicationController
         
         Activity.notify_followers(  'Posted a comment on', current_user.id, 'User', @user.id )
         CommentMailer.delay.notify_user( @comment.id )
+        current_user.update_columns(
+          has_wrote_a_recording_comment:    Comment.where(user_id: user.id, commentable_type: 'User').count > 0
+        )
 
       when 'Playlist'
         #@playlist = Playlist.cached_find(@comment.commentable_id)
         CommentMailer.delay.notify_user( @comment.id )
+        current_user.update_columns(
+          has_wrote_a_recording_comment:    Comment.where(user_id: user.id, commentable_type: 'Playlist').count > 0
+        )
       else
         
       

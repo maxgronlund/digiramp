@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151115094656) do
+ActiveRecord::Schema.define(version: 20151115191202) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -3477,99 +3477,99 @@ ActiveRecord::Schema.define(version: 20151115094656) do
   add_index "user_publishers", ["user_id"], name: "index_user_publishers_on_user_id", using: :btree
 
   create_table "users", force: :cascade do |t|
-    t.string   "name",                       limit: 255
-    t.string   "email",                      limit: 255
-    t.string   "password_digest",            limit: 255
+    t.string   "name",                          limit: 255
+    t.string   "email",                         limit: 255
+    t.string   "password_digest",               limit: 255
     t.boolean  "admin"
-    t.string   "role",                                   default: "Customer"
-    t.datetime "created_at",                                                  null: false
-    t.datetime "updated_at",                                                  null: false
-    t.string   "image",                      limit: 255
+    t.string   "role",                                      default: "Customer"
+    t.datetime "created_at",                                                     null: false
+    t.datetime "updated_at",                                                     null: false
+    t.string   "image",                         limit: 255
     t.text     "crop_params"
     t.text     "profile"
-    t.string   "auth_token",                 limit: 255
-    t.string   "password_reset_token",       limit: 255
+    t.string   "auth_token",                    limit: 255
+    t.string   "password_reset_token",          limit: 255
     t.datetime "password_reset_sent_at"
     t.integer  "current_account_id"
-    t.string   "avatar_url",                 limit: 255
-    t.boolean  "show_welcome_message",                   default: true
-    t.boolean  "activated",                              default: true
-    t.string   "uuid",                       limit: 255, default: ""
+    t.string   "avatar_url",                    limit: 255
+    t.boolean  "show_welcome_message",                      default: true
+    t.boolean  "activated",                                 default: true
+    t.string   "uuid",                          limit: 255, default: ""
     t.integer  "curent_catalog_id"
-    t.boolean  "invited",                                default: false
-    t.boolean  "administrator",                          default: false
-    t.boolean  "has_a_collection",                       default: true
-    t.string   "old_role",                   limit: 255, default: ""
-    t.boolean  "account_activated",                      default: true
-    t.string   "provider",                   limit: 255, default: "DigiRAMP"
-    t.string   "uid",                        limit: 255, default: ""
-    t.boolean  "email_missing",                          default: false
-    t.string   "social_avatar",              limit: 255, default: ""
-    t.string   "slug",                       limit: 255
-    t.string   "default_widget_key",         limit: 255
+    t.boolean  "invited",                                   default: false
+    t.boolean  "administrator",                             default: false
+    t.boolean  "has_a_collection",                          default: true
+    t.string   "old_role",                      limit: 255, default: ""
+    t.boolean  "account_activated",                         default: true
+    t.string   "provider",                      limit: 255, default: "DigiRAMP"
+    t.string   "uid",                           limit: 255, default: ""
+    t.boolean  "email_missing",                             default: false
+    t.string   "social_avatar",                 limit: 255, default: ""
+    t.string   "slug",                          limit: 255
+    t.string   "default_widget_key",            limit: 255
     t.integer  "default_playlist_id"
-    t.boolean  "writer",                                 default: false
-    t.boolean  "author",                                 default: false
-    t.boolean  "producer",                               default: false
-    t.boolean  "composer",                               default: false
-    t.boolean  "remixer",                                default: false
-    t.boolean  "musician",                               default: false
-    t.boolean  "dj",                                     default: false
-    t.string   "user_name",                  limit: 255, default: ""
-    t.integer  "views",                                  default: 0
-    t.string   "profession",                 limit: 255
-    t.integer  "followers_count",                        default: 0
-    t.boolean  "private_profile",                        default: false
-    t.boolean  "artist",                                 default: false
-    t.integer  "completeness",                           default: 0
-    t.integer  "messages_not_read",                      default: 0
-    t.text     "search_field",                           default: ""
-    t.boolean  "featured",                               default: false
+    t.boolean  "writer",                                    default: false
+    t.boolean  "author",                                    default: false
+    t.boolean  "producer",                                  default: false
+    t.boolean  "composer",                                  default: false
+    t.boolean  "remixer",                                   default: false
+    t.boolean  "musician",                                  default: false
+    t.boolean  "dj",                                        default: false
+    t.string   "user_name",                     limit: 255, default: ""
+    t.integer  "views",                                     default: 0
+    t.string   "profession",                    limit: 255
+    t.integer  "followers_count",                           default: 0
+    t.boolean  "private_profile",                           default: false
+    t.boolean  "artist",                                    default: false
+    t.integer  "completeness",                              default: 0
+    t.integer  "messages_not_read",                         default: 0
+    t.text     "search_field",                              default: ""
+    t.boolean  "featured",                                  default: false
     t.datetime "featured_date"
-    t.string   "uniq_followers_count",       limit: 255, default: ""
-    t.string   "gender",                     limit: 255, default: ""
-    t.string   "uniq_completeness",          limit: 255, default: ""
-    t.string   "link_to_facebook",           limit: 255, default: ""
-    t.string   "link_to_twitter",            limit: 255, default: ""
-    t.string   "link_to_linkedin",           limit: 255, default: ""
-    t.string   "link_to_google_plus",        limit: 255, default: ""
-    t.boolean  "subscribe_to_opportunities",             default: true
-    t.string   "link_to_homepage",           limit: 255
-    t.boolean  "initialized",                            default: false
+    t.string   "uniq_followers_count",          limit: 255, default: ""
+    t.string   "gender",                        limit: 255, default: ""
+    t.string   "uniq_completeness",             limit: 255, default: ""
+    t.string   "link_to_facebook",              limit: 255, default: ""
+    t.string   "link_to_twitter",               limit: 255, default: ""
+    t.string   "link_to_linkedin",              limit: 255, default: ""
+    t.string   "link_to_google_plus",           limit: 255, default: ""
+    t.boolean  "subscribe_to_opportunities",                default: true
+    t.string   "link_to_homepage",              limit: 255
+    t.boolean  "initialized",                               default: false
     t.text     "short_description"
-    t.boolean  "show_introduction",                      default: false
+    t.boolean  "show_introduction",                         default: false
     t.integer  "default_cms_page_id"
-    t.integer  "news_count",                             default: 0
+    t.integer  "news_count",                                default: 0
     t.integer  "page_style_id"
-    t.string   "top_tag",                    limit: 255
-    t.string   "backdrop_image",             limit: 255
-    t.string   "link_to_tumblr",             limit: 255, default: ""
-    t.string   "link_to_instagram",          limit: 255, default: ""
-    t.string   "link_to_youtube",            limit: 255, default: ""
-    t.string   "phone_number",               limit: 255, default: ""
+    t.string   "top_tag",                       limit: 255
+    t.string   "backdrop_image",                limit: 255
+    t.string   "link_to_tumblr",                limit: 255, default: ""
+    t.string   "link_to_instagram",             limit: 255, default: ""
+    t.string   "link_to_youtube",               limit: 255, default: ""
+    t.string   "phone_number",                  limit: 255, default: ""
     t.string   "stripe_customer_id"
-    t.boolean  "salesperson",                            default: false
+    t.boolean  "salesperson",                               default: false
     t.string   "stripe_recipient_id"
-    t.boolean  "has_enabled_shop",                       default: false
-    t.boolean  "has_an_approved_shop",                   default: false
+    t.boolean  "has_enabled_shop",                          default: false
+    t.boolean  "has_an_approved_shop",                      default: false
     t.string   "stripe_id"
     t.string   "stripe_access_key"
     t.string   "stripe_publishable_key"
     t.string   "stripe_refresh_token"
-    t.string   "account_type",                           default: "Social"
+    t.string   "account_type",                              default: "Social"
     t.string   "mandrill_account_id"
     t.integer  "super_catalog_user_id"
     t.integer  "super_account_user_id"
-    t.integer  "user_likes",                             default: 0
-    t.integer  "likings",                                default: 0
+    t.integer  "user_likes",                                default: 0
+    t.integer  "likings",                                   default: 0
     t.text     "seller_info"
     t.string   "ipi_code"
     t.uuid     "digital_signature_uuid"
     t.integer  "default_label_id"
-    t.integer  "liked_users_count",                      default: 0
+    t.integer  "liked_users_count",                         default: 0
     t.boolean  "has_unsigned_documents"
     t.integer  "personal_publisher_id"
-    t.string   "exclusive_publishers_email",             default: ""
+    t.string   "exclusive_publishers_email",                default: ""
     t.integer  "status"
     t.datetime "confirmation_sent_at"
     t.datetime "confirmed_at"
@@ -3579,6 +3579,10 @@ ActiveRecord::Schema.define(version: 20151115094656) do
     t.boolean  "review_opportunity"
     t.boolean  "follow_other_users"
     t.boolean  "has_liked_recordings"
+    t.boolean  "has_wrote_a_recording_comment"
+    t.boolean  "has_wrote_a_user_comment"
+    t.boolean  "has_wrote_a_playlist_comment"
+    t.boolean  "has_liked_a_user"
   end
 
   add_index "users", ["default_cms_page_id"], name: "index_users_on_default_cms_page_id", using: :btree
