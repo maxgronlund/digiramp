@@ -42,10 +42,11 @@
             thead
               tr
                 th 
+                th Email
                 th Name
-                th Featured
+                th
                 th Plan
-                th Confirmed
+                 
                 /th Role
                 /th Admin
                 th Id
@@ -87,10 +88,15 @@
                         '&nbsp;
                         'Err
                         
-                    '&nbsp;
+                  td
                     = link_to user_path(user) do 
-                      .btn.btn-default.btn-xs style="width: 280px; text-align: left; text-overflow: ellipsis;"
+                      .btn.btn-default.btn-xs style="width: 250px; text-align: left; text-overflow: ellipsis;"
+                        - if user.confirmed_at
+                          '&nbsp;√&nbsp;
+                        - else user.confirmed_at
+                          '&nbsp;-&nbsp;
                         = user.email
+                    
                   td = user.user_name
                   td
                     - if user.featured
@@ -104,9 +110,8 @@
                   /td 
                   /  - if user.administrator
                   /    'Administrator
-                  td
-                    - if user.confirmed_at
-                      '√
+                  
+                    
                   td
                     = user.id
 
