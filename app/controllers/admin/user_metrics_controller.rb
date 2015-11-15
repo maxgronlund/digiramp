@@ -1,4 +1,4 @@
-class Admin::UserMetrixController < ApplicationController
+class Admin::UserMetricsController < ApplicationController
   before_action :admin_only
   def index
     
