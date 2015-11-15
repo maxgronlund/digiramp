@@ -18,6 +18,7 @@ class User::PersonalPublishersController < ApplicationController
   #end
   
   def update
+    ap params
     @user.update(user_params)
     
     

@@ -27,14 +27,10 @@ class Admin::UserMetricsController < ApplicationController
     @has_wrote_a_recording_comment          = User.where(has_wrote_a_recording_comment: true).count
     @has_wrote_a_user_comment               = User.where(has_wrote_a_user_comment: true).count
     @has_wrote_a_playlist_comment           = User.where(has_wrote_a_playlist_comment: true).count
+    
+    
+    @not_set_publishing                     = User.where("status = ?" , 0).count
+    @not_uploaded_digiral_signature         = User.where(digital_signature_uuid: nil).count
    
-    
-    
-    
-    
-    
-    
-    
-    
   end
 end

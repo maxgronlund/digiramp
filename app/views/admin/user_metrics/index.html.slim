@@ -92,7 +92,21 @@
                   td = @has_wrote_a_user_comment       
                 tr
                   td Wrote a comment on a playlist
-                  td = @has_wrote_a_playlist_comment                 
+                  td = @has_wrote_a_playlist_comment   
+          
+          .pull-down-10        
+          .table-responsive
+            table class="table table-hover"
+              thead
+                tr
+                  th User that have not
+                  th Count
+                tr
+                  td Set publishing status
+                  td = @not_set_publishing
+                tr
+                  td Uploaded a digital signature
+                  td = @not_uploaded_digiral_signature
                   
                   
                   
