@@ -45,7 +45,7 @@
                 th Name
                 th Featured
                 th Plan
-                /th Joined
+                th Confirmed
                 /th Role
                 /th Admin
                 th Id
@@ -104,6 +104,9 @@
                   /td 
                   /  - if user.administrator
                   /    'Administrator
+                  td
+                    - if user.confirmed_at
+                      '√
                   td
                     = user.id
 
