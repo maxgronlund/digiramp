@@ -1,12 +1,12 @@
 class User::CreativeProjectsController < ApplicationController
   before_action :set_creative_project, only: [:show, :edit, :update, :destroy]
-  before_action :access_user, only: [:new, :create, :edit, :update, :destroy]
+  before_action :access_user, only: [:new, :create, :edit, :update, :destroy, :index]
   
   #before_action  :permit_creative_project_user
   
   def index
-    @user = User.cached_find(params[:user_id])
-    
+    return not_found unless @user = User.cached_find(params[:user_id])
+    #ap @user
     if current_user && current_user.id == @user.id
       @creative_projects = @user.creative_projects
     else
