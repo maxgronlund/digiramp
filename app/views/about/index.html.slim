@@ -1,0 +1,71 @@
+- blog           = Blog.cached_find('About')
+- about_digiramp = BlogPost.cached_find('About DigiRAMP', blog)
+- about_peter    = BlogPost.cached_find('About Peter Rafelson', blog)
+- about_max      = BlogPost.cached_find('About Max Groenlund', blog)
+
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'home' 
+  
+  
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'users/shared/about_sidebar', selected: 'about'
+  
+  #page-content-wrapper
+    .container-fluid
+      .row
+        .col-sm-6
+          span class="logo"
+        .col-sm-6
+          == render 'admin/shared/messages'
+      .row
+        .col-sm-6
+          h2 = about_digiramp.title
+          .digi-box
+            
+            
+            = simple_format about_digiramp.body
+            - if editor?
+              .row
+                .col-sm-12
+                  .pull-right
+                    = link_to edit_admin_blog_blog_post_path(blog, about_digiramp) do
+                      .btn.btn-default.btn-xs
+                        i.fa.fa-pencil
+                    
+          
+        .col-sm-6
+          h2 Founders
+          .digi-box
+            h4 = about_peter.title
+            . style="float:left;margin-right:10px;"
+              = image_tag about_peter.image_url('size_184x184')
+
+            . style="float:left;"
+              = simple_format about_peter.body
+            - if editor?
+              .row
+                .col-sm-12
+                  .pull-right
+                    = link_to edit_admin_blog_blog_post_path(blog, about_peter) do
+                      .btn.btn-default.btn-xs
+                        i.fa.fa-pencil
+
+          .digi-box
+            h4 = about_max.title
+            . style="float:left;margin-right:10px;"
+              = image_tag about_max.image_url('size_184x184')
+
+            . style="float:left;"
+              = simple_format about_max.body
+            - if editor?
+              .row
+                .col-sm-12
+                  .pull-right
+                    = link_to edit_admin_blog_blog_post_path(blog, about_max) do
+                      .btn.btn-default.btn-xs
+                        i.fa.fa-pencil
+                   
+              
+  == render 'shared/site_footer'   

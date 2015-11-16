@@ -1,0 +1,56 @@
+- blog                          = Blog.cached_find('Public blog')
+- about_the_blog                = BlogPost.cached_find('About the blog', blog)
+
+
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'home' 
+  
+  
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'users/shared/about_sidebar', selected: 'blog'
+  
+  #page-content-wrapper
+    .container-fluid
+      .row
+        .col-sm-6
+          span class="logo"
+        .col-sm-6
+          - if editor?
+            .pull-right.pull-down-24
+              => link_to 'New post', new_admin_blog_blog_post_path(blog), class: 'btn btn-default'
+              = link_to 'Manage blog', admin_blog_path(blog), class: 'btn btn-info'
+          
+      .row
+        .col-sm-6
+          h2 = about_the_blog.title
+          = simple_format about_the_blog.body
+          - if editor?
+            .row
+              .col-sm-12
+                .pull-right
+                  = link_to edit_admin_blog_blog_post_path(blog, about_the_blog) do
+                    .btn.btn-default.btn-xs
+                      i.fa.fa-pencil
+      
+      - blog.blog_posts.each do |blog_post|
+        - unless blog_post == about_the_blog
+          .row
+            .col-sm-12
+              .sexy_line
+              h3 = blog_post.title
+              = simple_format blog_post.body
+              
+              - if editor?
+                .row
+                  .col-sm-12
+                    .pull-right
+                      = link_to edit_admin_blog_blog_post_path(blog, blog_post) do
+                        .btn.btn-default.btn-xs
+                          i.fa.fa-pencil
+              
+              .pull-down-10
+                        
+              
+  == render 'shared/site_footer'   

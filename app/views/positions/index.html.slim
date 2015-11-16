@@ -1,0 +1,143 @@
+- blog                          = Blog.cached_find('Positions')
+- positions                     = BlogPost.cached_find('Positions', blog)
+- infrastructure_chef           = BlogPost.cached_find('Server provisioning / Infrastructure Chef', blog)
+- documentation                 = BlogPost.cached_find('Code documentation. Automated test. Patents ', blog)
+- research_and_development      = BlogPost.cached_find('Research and Development ', blog)
+- ux_interaction_design         = BlogPost.cached_find('UX / Interaction Designer ', blog)
+- javascript_wizard             = BlogPost.cached_find('JavaScript wizards', blog)
+- ror_workhorse                 = BlogPost.cached_find('ROR Workhorse', blog)
+
+- database_captain              = BlogPost.cached_find('Database captain', blog)
+- minister_of_integation        = BlogPost.cached_find('Minister of integration', blog)
+- ror_workhorse                 = BlogPost.cached_find('ROR Workhorse', blog)
+- ror_workhorse                 = BlogPost.cached_find('ROR Workhorse', blog)
+
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'home' 
+  
+  
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'users/shared/about_sidebar', selected: 'positions'
+  
+  #page-content-wrapper
+    .container-fluid
+      .row
+        .col-sm-6
+          span class="logo"
+        .col-sm-6
+          
+      .row
+        .col-sm-6
+          h2 = positions.title
+          = simple_format positions.body
+          - if editor?
+            .row
+              .col-sm-12
+                .pull-right
+                  = link_to edit_admin_blog_blog_post_path(blog, positions) do
+                    .btn.btn-default.btn-xs
+                      i.fa.fa-pencil
+                  
+      .row    
+        .col-sm-6
+
+          h4 = infrastructure_chef.title
+          .pull-down-10
+          . style="float:left;margin-right:10px;"
+            = image_tag infrastructure_chef.image_url('size_184x184')
+            .pull-down-10
+          . style="display:inline;float:left;"
+            = simple_format infrastructure_chef.body
+          - if editor?
+            .row
+              .col-sm-12
+                .pull-right
+                  = link_to edit_admin_blog_blog_post_path(blog, infrastructure_chef) do
+                    .btn.btn-default.btn-xs
+                      i.fa.fa-pencil
+        .col-sm-6
+          h4 = documentation.title
+          .pull-down-10
+          . style="float:left;margin-right:10px;"
+            = image_tag documentation.image_url('size_184x184')
+
+          . style="display:inline;float:left;"
+            = simple_format documentation.body
+          - if editor?
+            .row
+              .col-sm-12
+                .pull-right
+                  = link_to edit_admin_blog_blog_post_path(blog, documentation) do
+                    .btn.btn-default.btn-xs
+                      i.fa.fa-pencil
+                  
+      .row    
+        .col-sm-6
+
+          h4 = research_and_development.title
+          .pull-down-10
+          . style="float:left;margin-right:10px;"
+            = image_tag research_and_development.image_url('size_184x184')
+            .pull-down-10
+          . style="display:inline;float:left;"
+            = simple_format research_and_development.body
+          - if editor?
+            .row
+              .col-sm-12
+                .pull-right
+                  = link_to edit_admin_blog_blog_post_path(blog, research_and_development) do
+                    .btn.btn-default.btn-xs
+                      i.fa.fa-pencil
+        .col-sm-6
+          h4 = ux_interaction_design.title
+          .pull-down-10
+          . style="float:left;margin-right:10px;"
+            = image_tag ux_interaction_design.image_url('size_184x184')
+
+          . style="display:inline;float:left;"
+            = simple_format ux_interaction_design.body
+          - if editor?
+            .row
+              .col-sm-12
+                .pull-right
+                  = link_to edit_admin_blog_blog_post_path(blog, ux_interaction_design) do
+                    .btn.btn-default.btn-xs
+                      i.fa.fa-pencil
+                  
+      .row    
+        .col-sm-6
+
+          h4 = database_captain.title
+          .pull-down-10
+          . style="float:left;margin-right:10px;"
+            = image_tag database_captain.image_url('size_184x184')
+            .pull-down-10
+          . style="display:inline;float:left;"
+            = simple_format database_captain.body
+          - if editor?
+            .row
+              .col-sm-12
+                .pull-right
+                  = link_to edit_admin_blog_blog_post_path(blog, database_captain) do
+                    .btn.btn-default.btn-xs
+                      i.fa.fa-pencil
+        .col-sm-6
+          h4 = ror_workhorse.title
+          .pull-down-10
+          . style="float:left;margin-right:10px;"
+            = image_tag ror_workhorse.image_url('size_184x184')
+
+          . style="display:inline;float:left;"
+            = simple_format ror_workhorse.body
+          - if editor?
+            .row
+              .col-sm-12
+                .pull-right
+                  = link_to edit_admin_blog_blog_post_path(blog, ror_workhorse) do
+                    .btn.btn-default.btn-xs
+                      i.fa.fa-pencil
+                 
+              
+  == render 'shared/site_footer'   

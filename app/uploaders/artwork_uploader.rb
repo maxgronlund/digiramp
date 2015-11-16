@@ -37,6 +37,7 @@ class ArtworkUploader < CarrierWave::Uploader::Base
   self.version_dimensions = {
     :size_48x48     => [48,48],
     :size_62x62     => [62,62],
+    :size_120x120   => [184,184],
     :size_184x184   => [184,184],
     #:size_302x174   => [302, 174],
     :size_360x360   => [360,360],

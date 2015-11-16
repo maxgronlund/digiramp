@@ -8,13 +8,18 @@
   
   #sidebar-wrapper
     ul class="sidebar-nav"
-      == render 'users/shared/sidebar', selected: 'contact'
+      == render 'users/shared/about_sidebar', selected: 'contact'
   
   #page-content-wrapper
     .container-fluid
+      .row
+        .col-sm-6
+          span class="logo"
+        .col-sm-6
+          == render 'admin/shared/messages'
       
       .row
-        .col-sm-3
+        /.col-sm-3
           /h2 = blog_post.title
           /.digi-box
           /  

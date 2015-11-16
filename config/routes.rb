@@ -2,6 +2,8 @@ Digiramp::Application.routes.draw do
 
 
 
+  
+
   #resources :document_users
   get 'landing_page/index'
   
@@ -34,8 +36,13 @@ Digiramp::Application.routes.draw do
   namespace :stripe do
     resources :success
   end
-  get "contact"         => "contact#index",     :as => :contact
-  post "contact"        => "contact#create"
+  get 'about'        => "about#index",       as: :about
+  get 'positions'    => "positions#index",   as: :positions
+  get 'investors'    => "investors#index",   as: :investors
+  get "contact"      => "contact#index",     as: :contact
+  get "developer"    => "developer#index",   as: :developer
+  get "blog"         => "blog#index",        as: :blog
+  post "contact"     => "contact#create"
   namespace :api do
     post 'sendgrid_hook/update'
     post 'mandrill_hook/update'

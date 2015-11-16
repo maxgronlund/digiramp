@@ -1,0 +1,44 @@
+- session[:return_url]         = request.url
+.sidebar 
+
+  li class="#{'sidebar-selected' if selected == 'about'}"
+    = link_to about_path do
+      i class="fa fa-user"
+      '&nbsp;
+      'About
+
+  li class="#{'sidebar-selected' if selected == 'contact'}"
+    = link_to contact_path do
+      i class="fa fa-user"
+      '&nbsp;
+      'Contact us
+
+  li class="#{'sidebar-selected' if selected == 'positions'}"
+    = link_to positions_path do
+      i class="fa fa-user"
+      '&nbsp;
+      'Positions
+
+  li class="#{'sidebar-selected' if selected == 'investors'}"
+    = link_to investors_path do
+      i class="fa fa-user"
+      '&nbsp;
+      'Investors
+
+  li class="#{'sidebar-selected' if selected == 'developer'}"
+    = link_to developer_path do
+      i class="fa fa-user"
+      '&nbsp;
+      'Developer
+
+  li class="#{'sidebar-selected' if selected == 'blog'}"
+    = link_to blog_path do
+      i class="fa fa-user"
+      '&nbsp;
+      'Blog
+        
+        
+    
+#terms
+  = link_to 'Terms And Conditions', terms_and_conditions_path
+.pull-down-34

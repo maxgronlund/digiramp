@@ -1,0 +1,35 @@
+- blog                          = Blog.cached_find('Developer')
+- developer                    = BlogPost.cached_find('Developer', blog)
+
+
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'home' 
+  
+  
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'users/shared/about_sidebar', selected: 'developer'
+  
+  #page-content-wrapper
+    .container-fluid
+      .row
+        .col-sm-6
+          span class="logo"
+        .col-sm-6
+          
+      .row
+        .col-sm-6
+          h2 = developer.title
+          = simple_format developer.body
+          - if editor?
+            .row
+              .col-sm-12
+                .pull-right
+                  = link_to edit_admin_blog_blog_post_path(blog, developer) do
+                    .btn.btn-default.btn-xs
+                      i.fa.fa-pencil
+                  
+     
+              
+  == render 'shared/site_footer'   

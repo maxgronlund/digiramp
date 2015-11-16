@@ -230,7 +230,8 @@
               / only the user and supers can edit and add pages
               
               - if can_edit_user
-                => link_to edit_user_path(@user) do
+                => link_to "What I want to do", user_user_user_configurations_path(@user), class: 'btn btn-info', style: "color:#FFF;"
+                = link_to edit_user_path(@user) do
                   .btn.btn-default
                     i class="fa fa-pencil"
                     '&nbsp;
@@ -306,10 +307,9 @@
     - if can_edit_user
       .row
         .col-sm-12
-          => link_to "Killer features!", user_user_user_configurations_path(@user), class: 'btn btn-info', style: "color:#FFF;"
           = link_to  edit_user_social_link_path(@user) do
             .btn.btn-default
-              'Add/Edit links to you socials media
+              'Manage socials media
               
        
     .row
