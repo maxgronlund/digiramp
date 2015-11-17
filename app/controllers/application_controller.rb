@@ -34,9 +34,9 @@ class ApplicationController < ActionController::Base
       @current_user ||= User.cached_find_by_auth_token( cookies[:auth_token] ) if cookies[:auth_token]
     end
     zaap_cokkies if @current_user.nil?
-    ap '=================================================================================='
-    ap @current_user.email unless @current_user.nil?
-    ap '=================================================================================='
+    #ap '=================================================================================='
+    #ap @current_user.email unless @current_user.nil?
+    #ap '=================================================================================='
     @current_user
   end
   helper_method :current_user
