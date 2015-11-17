@@ -27,10 +27,6 @@ class ApplicationController < ActionController::Base
     #User.where(email: 'test06@digiramp.com').first
     begin
       @current_user ||= User.find(cookies.permanent[:user_id]) if cookies.permanent[:user_id]
-      ap '=================================================================================='
-      ap @current_user.email
-      ap '=================================================================================='
-      @current_user
     rescue
       cookies.permanent[:user_id] = nil
     end
@@ -38,6 +34,9 @@ class ApplicationController < ActionController::Base
       @current_user ||= User.cached_find_by_auth_token( cookies[:auth_token] ) if cookies[:auth_token]
     end
     zaap_cokkies if @current_user.nil?
+    ap '=================================================================================='
+    ap @current_user.email
+    ap '=================================================================================='
     @current_user
   end
   helper_method :current_user
