@@ -127,9 +127,13 @@ private
                          
                          
       DefaultAvararJob.perform_later user.id
-    end 
-    finished("landing_page")
-    finished("invitation_from_user")                           
+    end
+    begin 
+      finished("landing_page")
+      finished("invitation_from_user")  
+    rescue => e
+      ErrorNotification.post_object 'Omniauth#create_user', e
+    end                         
     return {user: user, message: "#{env["provider"].upcase} has created a DigiRAMP account for you"}
   end
   
