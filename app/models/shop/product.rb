@@ -34,7 +34,12 @@ class Shop::Product < ActiveRecord::Base
   end
 
   def seller_info
-    account.user.seller_info
+    _seller_info = account.user.seller_info
+    if _seller_info[:id] == 'error'
+      post_error "Shop::Product id: #{self.id} error in seller info "
+    end
+    _seller_info
+
   end
   
   def product_image

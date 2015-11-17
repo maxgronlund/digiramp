@@ -42,11 +42,11 @@ class Shop::OrderItem < ActiveRecord::Base
 
   # Get info about the seller
   def seller_info
-    seller = self.shop_product.seller_info
-    if seller[:id] == 'error'
+    _seller_info = self.shop_product.seller_info
+    if _seller_info[:id] == 'error'
       post_error "Shop::OrderItem id: #{self.id} is not for sale "
     end
-    seller
+    _seller_info
   end
   
   # Get the sellers account_id
