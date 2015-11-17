@@ -125,9 +125,11 @@ private
                            confirmed_at:          Time.now)
                            
                          
-                           
+                         
       DefaultAvararJob.perform_later user.id
-    end                          
+    end 
+    finished("landing_page")
+    finished("invitation_from_user")                           
     return {user: user, message: "#{env["provider"].upcase} has created a DigiRAMP account for you"}
   end
   
