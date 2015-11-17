@@ -115,12 +115,16 @@ private
     
     unless user
 
-      user = User.create(  name:           env["info"]["nickname"], 
-                           password:       UUIDTools::UUID.timestamp_create().to_s, 
-                           social_avatar:  env[:info][:image],
-                           email:          email,
-                           email_missing:  email_missing,
-                           user_name:      env[:info][:name])
+      user = User.create(  name:                  env["info"]["nickname"], 
+                           password:              UUIDTools::UUID.timestamp_create().to_s, 
+                           social_avatar:         env[:info][:image],
+                           email:                 email,
+                           email_missing:         email_missing,
+                           user_name:             env[:info][:name],
+                           confirmation_sent_at:  Time.now - 1.hour,
+                           confirmed_at:          Time.now)
+                           
+                         
                            
       DefaultAvararJob.perform_later user.id
     end                          

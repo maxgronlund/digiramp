@@ -3,11 +3,10 @@ class SignupConfirmationsController < ApplicationController
   end
 
   def edit
-   
-      
+
     # the confirmation is valid  
     if @user = User.find_by(confirmation_token: params[:id])
-      ap 'user found in invitation'
+      
       # The user is signed in but as another person than the sonfirmation was send to
       if current_user && current_user != @user
         redirect_to signed_in_signup_confirmation_path(current_user)
@@ -21,10 +20,7 @@ class SignupConfirmationsController < ApplicationController
       elsif @user.confirmed_at.nil?
         # the confirmation is expired
         if @user.confirmation_sent_at < Time.now - 2.days
-          ap 'confirmation expired'
           redirect_to expired_signup_confirmation_path(params[:id])
-        
-        
         # the confirmation is perfect
         else
           @user.update_columns(

@@ -34,11 +34,15 @@
             
             .col-sm-4.stick-to-top.hidden-xs
               .digi-box
-                == render 'users/guest_book'
-                br
-                .rec-comments
-                  - @user.comments.order('created_at desc').each do |comment|
-                    == render 'comments/show', comment: comment
-                    
+                - if @user.confirmed_at
+                  == render 'users/guest_book'
+                  br
+                  .rec-comments
+                    - @user.comments.order('created_at desc').each do |comment|
+                      == render 'comments/show', comment: comment
+                - else
+                  .alert.alert-info
+                    'Email confirmation pending
+                      
      
     == render 'shared/site_footer'   
