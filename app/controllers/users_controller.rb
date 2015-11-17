@@ -70,7 +70,8 @@ class UsersController < ApplicationController
   end
 
   def show
-    not_found unless @user
+    return not_found unless @user
+    ap @user
     
     if request.format.to_s == 'text/html'
       

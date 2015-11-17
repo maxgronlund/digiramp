@@ -56,7 +56,7 @@
                             'Remove
                     .col-sm-6
                       = f.input :private_profile, label: 'Hide my profile',  :input_html => { class: 'icheck-me', 'data-skin'.to_sym => "square", 'data-color'.to_sym => "blue"     }  
-                      = f.input :page_style_id, collection: PageStyle.all, label: 'Profile page style', value_method: :id, include_blank: true
+                      = f.input :page_style_id, collection: PageStyle.all, label: 'Profile page style', value_method: :id, include_blank: false
                   /.sexy_line
                   
                   

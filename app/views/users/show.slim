@@ -1,7 +1,7 @@
 - session[:return_url]         = request.url
 .full-width-top
   
-  div class=" default-style #{@user.page_style.css_tag} "
+  div class=" default-style #{@user.page_style ? @user.page_style.css_tag : PageStyle.plain_style } "
     == render 'shared/navigationbar', page: 'user' 
     .container-fluid
       .cms-backdrop
