@@ -160,9 +160,7 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     
     if @user.save
-      ap '========================================================================================='
-      ap @user
-      ap '========================================================================================='
+      
       finished("landing_page")
       finished("invitation_from_user")
       
