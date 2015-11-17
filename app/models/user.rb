@@ -412,10 +412,7 @@ class User < ActiveRecord::Base
   end
   
   def seller_info
-    @seller_info ||= get_seller_info
-  end
-  
-  def get_seller_info
+
     if is_stripe_connected
       StripeAccount.info(self)
     else

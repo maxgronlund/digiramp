@@ -36,10 +36,9 @@ class Shop::Product < ActiveRecord::Base
   def seller_info
     _seller_info = account.user.seller_info
     if _seller_info[:id] == 'error'
-      post_error "Shop::Product id: #{self.id} error in seller info "
+      post_error "Shop::Product id: #{self.id} user in not stripe connected "
     end
     _seller_info
-
   end
   
   def product_image
