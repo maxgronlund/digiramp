@@ -54,6 +54,9 @@ class Api::MandrillHookController < ApplicationController
         if opens =  msg["opens"]
           message.opens   = opens.count
         end
+        if open =  msg["open"]
+          message.opens   = message.opens.to_i + 1
+        end
         if clicks = msg["clicks"]
           message.clicks = clicks.count
         end
