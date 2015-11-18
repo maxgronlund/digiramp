@@ -1,7 +1,10 @@
 Digiramp::Application.routes.draw do
 
 
+  get 'facebook_import/index'
+
 	get "/invites/:provider/contact_callback" => "invites#index"
+  get "/contacts/facebook/callback" => "facebook_import#index"
 	get "/contacts/failure" => "invites#failure"
 
   #resources :document_users

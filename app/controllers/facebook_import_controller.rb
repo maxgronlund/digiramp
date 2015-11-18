@@ -1,8 +1,8 @@
-class InvitesController < ApplicationController
-
-	def index
+class FacebookImportController < ApplicationController
+  def index
+    
     return forbidden unless current_user
-    ap params
+    
     contacts = request.env['omnicontacts.contacts']
     ap contacts
 
@@ -24,7 +24,7 @@ class InvitesController < ApplicationController
       opens:            0
     )
     contacts.each do |c|
-      ap c
+      
       address_work  = nil
       city_work     = nil
       email_address = nil
@@ -114,10 +114,7 @@ class InvitesController < ApplicationController
     @client_group.invite_clients
 
     redirect_to user_user_gmail_invitation_path(current_user, @client_import)
-  end
-
-  def failure
+    
     
   end
-
 end

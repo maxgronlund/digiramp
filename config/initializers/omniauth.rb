@@ -30,7 +30,7 @@ Rails.application.config.middleware.use OmniAuth::Builder do
   # facebook                            
   provider :facebook,         Rails.application.secrets.facebook_app_id,    
                               Rails.application.secrets.facebook_secret_key, 
-                              scope: "email, publish_actions, user_actions.music"
+                              scope: "email, publish_actions, user_actions.music, user_friends"
   # linkedin                            
   provider :linkedin,         Rails.application.secrets.linkedin_app_id,    
                               Rails.application.secrets.linkedin_secret_key, 
