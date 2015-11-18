@@ -3,9 +3,7 @@ class InvitesController < ApplicationController
 	def index
     return forbidden unless current_user
     provider =  params[:provider]
-    logger.info '==========================================='
-    logger.info provider
-    logger.info '==========================================='
+    
     contacts = request.env['omnicontacts.contacts']
     
 

@@ -6,6 +6,15 @@ class Api::MandrillHookController < ApplicationController
   
   ignore_unhandled_events!
   
+  def create
+    begin
+      Rails.logger.info '======================================================='
+      Rails.logger.info params
+    rescue
+      Rails.logger.info "Api::MandrillHookController / create"
+    end
+  end
+  
   def handle_inbound(event)
     # 'event_payload'
     # event
