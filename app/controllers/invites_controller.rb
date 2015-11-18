@@ -2,9 +2,9 @@ class InvitesController < ApplicationController
 
 	def index
     return forbidden unless current_user
-    ap params
+    logger.info params
     contacts = request.env['omnicontacts.contacts']
-    ap contacts
+    logger.info contacts
 
     @client_import = ClientImport.create(
       user_id:      current_user.id,
@@ -25,6 +25,7 @@ class InvitesController < ApplicationController
     )
     contacts.each do |c|
       ap c
+      logger.info c
       address_work  = nil
       city_work     = nil
       email_address = nil
