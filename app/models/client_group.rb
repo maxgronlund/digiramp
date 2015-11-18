@@ -20,7 +20,6 @@ class ClientGroup < ActiveRecord::Base
   
   def invite_clients
     ClientInvitationMailer.delay.invite_all_from_group( self.id )
-
   end
 
   def self.cached_find(id)

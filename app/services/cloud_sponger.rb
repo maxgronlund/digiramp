@@ -1,10 +1,9 @@
 class CloudSponger
   
 
-
-  def self.process
+  def self.linkedin
     #'fo'
-   contacts = nil
+   contacts = []
    importer = Cloudsponge::ContactImporter.new('G7S7LV43UV4TUV4PD7XS', 'Ls6aU1SjZngnSlL4')
    resp = importer.begin_import('linkedin')
    puts "Navigate to #{resp[:consent_url]} and complete the authentication process."
@@ -14,14 +13,46 @@ class CloudSponger
      unless events.select{ |e| e.is_complete? }.empty?
        contacts = importer.get_contacts
        #contacts
+       contacts[0].each do |contact|
+         ap '---------------------'
+         ap contact.emails
+       end
        break
      end
      # be nice and take a short break
-     
      sleep 1
+     
    end
     # contacts
     
+    
+  end
+  
+  # CloudSponger.gmail 
+  def self.gmail 
+    
+   #'fo'
+   contacts = []
+   importer = Cloudsponge::ContactImporter.new('G7S7LV43UV4TUV4PD7XS', 'Ls6aU1SjZngnSlL4')
+   resp = importer.begin_import('gmail')
+   puts "Navigate to #{resp[:consent_url]} and complete the authentication process."
+   user.go_to resp
+   loop do
+     events = importer.get_events
+     break unless events.select{ |e| e.is_error? }.empty?
+     unless events.select{ |e| e.is_complete? }.empty?
+       contacts = importer.get_contacts
+       #contacts
+       contacts[0].each do |contact|
+         ap '---------------------'
+         ap contact.emails
+       end
+       break
+     end
+     # be nice and take a short break
+     sleep 1
+   end
+    # contacts
     
   end
 

@@ -20,8 +20,7 @@
           
         .col-sm-7
           .pull-down-10
-            .pull-right
-              
+            
             
       .pull-down-10
       .confirmation
@@ -32,19 +31,32 @@
             .list_of_emails
               .add-contacts-content
               == render 'form', user: @user
-          .pull-down-10
-            .pull-right
-              = link_to '/contacts/gmail'
-                .btn.btn-success.btn-lg
-                  i.fa.fa-google&nbsp;Invite all gmail contacts
-          
               
         .col-sm-6
-          
           .summary
           
             
 
   == render 'shared/site_footer'    
- 
 
+
+
+
+
+/h2 Latest import
+/- @client_import.clients.each do |client|
+/
+/  = client.email
+/  .sexy_line
+  
+  
+/- @contacts.each do |c|
+/  = debug c
+/  /= c[:name]
+/  - if emails = c[:emails]
+/    - if email = emails.first
+/      = c[:name]
+/      br
+/      = email[:email]
+/  .sexy_line
+/

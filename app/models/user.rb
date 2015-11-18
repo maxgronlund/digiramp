@@ -1152,13 +1152,21 @@ class User < ActiveRecord::Base
     nil
   end
   
+  #def set_go_to go_to_url
+  #  ap @go_to_url = go_to_url
+  #end
+  #
+  #def get_google_url
+  #  @go_to_url
+  #end
   
-
   def facebook
-    if provider = authorization_providers.where(provider: 'facebook').first
+    ap 'facebook'
+    if provider = authorization_providers.find_by(provider: 'facebook')
       @facebook ||= Koala::Facebook::API.new(provider.oauth_token)
       block_given? ? yield(@facebook) : @facebook
     else #Koala::Facebook::APIError
+      ap 'ohh'
       return nil
     end
     @facebook

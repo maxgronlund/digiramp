@@ -2,7 +2,10 @@ Digiramp::Application.routes.draw do
 
 
 
-  
+
+
+	get "/invites/:provider/contact_callback" => "invites#index"
+	get "/contacts/failure" => "invites#failure"
 
   #resources :document_users
   get 'landing_page/index'
@@ -782,6 +785,7 @@ Digiramp::Application.routes.draw do
     resources :accept_creations, only: [:show]
     resources :shop, only: [:index, :show]
     resources :checking_accounts
+    
     resources :social_links, only: [:edit, :update]
     resources :personal_publishers#, only: [:edit, :update]
     
@@ -905,6 +909,8 @@ Digiramp::Application.routes.draw do
       end
       resources :control_panel, only: [:index]
       resources :from_linkedin
+      resources :from_gmail
+      resources :gmail_invitations, only: [:index, :show]
       resources :from_csv
       resources :import_contacts, only: [:index]
       resources :ipi_infos, only: [:show]

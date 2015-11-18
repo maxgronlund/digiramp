@@ -1,7 +1,7 @@
 class ClientImport < ActiveRecord::Base
   belongs_to :account
   belongs_to :user
-  has_many :clients
+  has_many :clients, dependent: :destroy
   
   mount_uploader :file , CsvUploader
   after_commit :flush_cache

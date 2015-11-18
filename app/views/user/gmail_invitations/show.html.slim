@@ -1,0 +1,56 @@
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: '' 
+  
+  
+  #sidebar-wrapper
+    ul class="sidebar-nav"
+      == render 'users/shared/sidebar', selected: 'invite_friends'
+
+  #page-content-wrapper
+    .container-fluid
+      .row
+        .col-sm-6
+          .help
+            .help-text
+              h2 Invitations send from gmail
+            .help-button
+              == render 'admin/helps/help', identifier: 'invited contacts'
+          
+        .col-sm-6
+          .pull-down-10
+            .pull-right
+              = link_to  new_user_user_invite_friend_path(@user) do
+                  .btn.btn-default
+                    i.fa.fa-chevron-left
+                    '&nbsp;Back
+            
+            
+      .pull-down-10
+      - if @client_import.clients.empty?
+        .alert.alert-info
+          h4 No invitations send, maybe
+          ul
+            li You might already have invited all your google contacts
+            li No valid email was found on your account
+      - else
+        .table-responsive
+          table class="table table-hover"
+            thead
+              tr
+                th Name
+                th Email
+                
+            tbody
+              - @client_import.clients.each do |client|
+                tr
+                  td = client.full_name
+                  td = client.email
+        
+            
+            
+     
+          
+            
+
+  == render 'shared/site_footer'   

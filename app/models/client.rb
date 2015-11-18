@@ -64,7 +64,18 @@ class Client < ActiveRecord::Base
   
   
   def set_full_name
-    self.full_name = self.name + ' ' + self.last_name
+    if self.full_name.blank?
+      self.full_name << self.name unless self.name.nil?
+      unless self.last_name.nil?  
+        unless self.name.include?(self.last_name)
+          ap "last name #{self.last_name}"
+          ap " name #{self.name}"
+          ap "#{self.last_name.include?(self.name)}"
+          self.full_name << ' ' << self.last_name 
+        end
+      end
+    end
+      
   end
   
   def conect_to_user
@@ -93,9 +104,9 @@ class Client < ActiveRecord::Base
     clients
   end
   
-  def full_name
-    self.name + ' ' + self.last_name
-  end
+  #def full_name
+  #  self.name + ' ' + self.last_name
+  #end
   
   def self.post_info user_email
 

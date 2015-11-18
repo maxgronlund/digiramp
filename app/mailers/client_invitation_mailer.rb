@@ -95,15 +95,21 @@ class ClientInvitationMailer < ApplicationMailer
                   #recipient_metadata: recipient_metadata,
                   merge_vars: merge_vars
                 }
-      resoults =  mandril_client.messages.send_template template_name, template_content, message
-      # stamp ids
-      resoults.each_with_index do |resoult, index|
-        begin
-          invitations[index].mandrill_id = resoult["_id"]
-          invitations[index].sent!
-          invitations[index].save
-        rescue
+                
+      
+      if Rails.env.production?
+        resoults =  mandril_client.messages.send_template template_name, template_content, message
+        # stamp ids
+        resoults.each_with_index do |resoult, index|
+          begin
+            invitations[index].mandrill_id = resoult["_id"]
+            invitations[index].sent!
+            invitations[index].save
+          rescue
+          end
         end
+      else
+        ap message
       end
 
     rescue Mandrill::Error => e

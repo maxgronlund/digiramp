@@ -36,6 +36,18 @@
             h4 Linkedin
           .body
             'Import your contacts from Linkedin
+      
+    .control-panel-badge
+      = link_to new_user_user_from_gmail_path(@user) do
+        .content
+          .icon-box
+            .icon.linkedin-color.social-icon
+              i.fa.fa-google
+            
+          .title.title-gmail
+            h4 GMail
+          .body
+            'Import your contacts from Gmail
             /- if super?
             /  br
             /  = link_to 'Imported (super only)', user_user_from_linkedin_index_path(@user)

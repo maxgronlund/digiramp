@@ -1,11 +1,4 @@
 GIT
-  remote: git://github.com/cloudsponge/cloudsponge-lib-ruby.git
-  revision: 3bf22547fffad16c45f5cd79300727d4b2adf172
-  specs:
-    cloudsponge (0.9.13)
-      json (>= 1.6.1)
-
-GIT
   remote: git://github.com/maxgronlund/icheck-rails.git
   revision: 675a1c351caf2a3a658c99e0f951f70cc31f96b2
   specs:
@@ -478,6 +471,9 @@ GEM
     omniauth-twitter (1.2.0)
       json (~> 1.3)
       omniauth-oauth (~> 1.1)
+    omnicontacts (0.3.7)
+      json
+      rack
     opbeat (2.0.0)
       faraday (>= 0.7.6, < 0.10)
       multi_json (~> 1.0)
@@ -759,7 +755,6 @@ DEPENDENCIES
   charlock_holmes
   chartkick
   chosen-rails
-  cloudsponge!
   cocoon
   coffee-rails (~> 4.1.0)
   compass (~> 1.0.3)
@@ -801,6 +796,7 @@ DEPENDENCIES
   omniauth-linkedin
   omniauth-stripe-connect (>= 2.4.0)
   omniauth-twitter
+  omnicontacts
   opbeat
   paper_trail (~> 4.0.0.rc1)
   pg
