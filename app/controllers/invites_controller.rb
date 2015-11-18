@@ -27,7 +27,8 @@ class InvitesController < ApplicationController
       opens:            0
     )
     contacts.each do |c|
-      
+      logger.info c
+      logger.info '--------------------------'
       address_work  = nil
       city_work     = nil
       email_address = nil
