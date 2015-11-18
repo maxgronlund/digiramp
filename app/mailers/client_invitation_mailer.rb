@@ -98,7 +98,8 @@ class ClientInvitationMailer < ApplicationMailer
                 
       
       if Rails.env.production?
-        resoults =  mandril_client.messages.send_template template_name, template_content, message
+        #resoults =  mandril_client.messages.send_template template_name, template_content, message
+        ap message
         # stamp ids
         resoults.each_with_index do |resoult, index|
           begin
@@ -109,7 +110,7 @@ class ClientInvitationMailer < ApplicationMailer
           end
         end
       else
-        ap message
+        #ap message
       end
 
     rescue Mandrill::Error => e

@@ -38,7 +38,7 @@ class InvitesController < ApplicationController
               end # end if work
             end # addresses.each
           end # end if addresses
-          #ap c
+
           client = Client.where(
             email:     email_address
           )
@@ -129,7 +129,7 @@ class InvitesController < ApplicationController
   end
 
   def failure
-    ap params
+    
   end
 
 end

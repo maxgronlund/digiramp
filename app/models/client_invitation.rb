@@ -16,8 +16,6 @@ class ClientInvitation < ActiveRecord::Base
   def send_one_with_avatar
     ClientInvitationMailer.delay.send_one_with_avatar( self.id )
   end
-  
-  
 
   def self.cached_find(id)
     Rails.cache.fetch([name, id]) { find(id) }

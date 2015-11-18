@@ -34,9 +34,15 @@
               == render 'form', user: @user
           .pull-down-10
             .pull-right
-              = link_to '/contacts/gmail'
+              => link_to '/contacts/gmail'
                 .btn.btn-success.btn-lg
                   i.fa.fa-google&nbsp;Invite all gmail contacts
+              = link_to '/contacts/yahoo'
+                .btn.btn-success.btn-lg
+                  i.fa.fa-google&nbsp;Invite all yahoo contacts
+                  
+                  
+
           
               
         .col-sm-6
