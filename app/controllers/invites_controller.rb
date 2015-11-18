@@ -85,7 +85,7 @@ class InvitesController < ApplicationController
           
           unless client_invitation = ClientInvitation.find_by( 
               account_id: current_user.account_id, 
-              client_id: client.id
+              email: client.email
             )
             #client_invitation = ClientInvitation.create(
             #  account_id:   current_user.account_id, 
@@ -95,7 +95,7 @@ class InvitesController < ApplicationController
             #    email:      client.email 
             #)
             
-            ClientGroupsClients.create(
+            client_group_client = ClientGroupsClients.create(
               client_group_id: @client_group.id,
               client_id:       client.id,
               user_uuid:       current_user.uuid

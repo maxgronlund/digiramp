@@ -126,12 +126,16 @@ class ClientInvitationMailer < ApplicationMailer
   end
 
   def get_client_invitation client, client_group_id
+    begin
     ClientInvitation.where( user_id:          client.user_id, email: client.email )
           .first_or_create( user_id:          client.user_id,
                             email:            client.email, 
                             client_id:        client.id,
                             account_id:       client.account_id, 
                             client_group_id:  client_group_id,
-                            uuid:             UUIDTools::UUID.timestamp_create().to_s)        
+                            uuid:             UUIDTools::UUID.timestamp_create().to_s)     
+    rescue
+      nil
+    end   
   end
 end
