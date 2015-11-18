@@ -4,6 +4,7 @@ class InvitesController < ApplicationController
     return forbidden unless current_user
     
     contacts = request.env['omnicontacts.contacts']
+    ap contacts
 
     @client_import = ClientImport.create(
       user_id:      current_user.id,
@@ -111,18 +112,7 @@ class InvitesController < ApplicationController
       end # end if emails
     end # end of contacts.each
     @client_group.invite_clients
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+
     redirect_to user_user_gmail_invitation_path(current_user, @client_import)
   end
 

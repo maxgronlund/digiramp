@@ -187,7 +187,7 @@ gem 'high_voltage', '~> 2.4.0'
 
 gem 'charlock_holmes'
 #gem 'cloudsponge', github: 'cloudsponge/cloudsponge-lib-ruby'
-gem "omnicontacts"
+#gem "omnicontacts"
 
 gem 'slack-notifier'
 
