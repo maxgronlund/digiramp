@@ -2,9 +2,12 @@ class InvitesController < ApplicationController
 
 	def index
     return forbidden unless current_user
-    logger.info params
+    provider =  params[:provider]
+    logger.info '==========================================='
+    logger.info provider
+    logger.info '==========================================='
     contacts = request.env['omnicontacts.contacts']
-    logger.info contacts
+    
 
     @client_import = ClientImport.create(
       user_id:      current_user.id,
@@ -13,9 +16,9 @@ class InvitesController < ApplicationController
       source:       'Google mail'
     )
     @client_group = ClientGroup.create(
-      title:            "Invitation from gmail #{@client_import.id}",
+      title:            "Invitation from #{provider} #{@client_import.id}",
       account_id:       current_user.account_id,
-      description:      "Invitation from gmail #{@client_import.id}",
+      description:      "Invitation from #{provider} #{@client_import.id}",
       user_uuid:        current_user.uuid,
       user_id:          current_user.id,
       invited:          false,
@@ -24,8 +27,7 @@ class InvitesController < ApplicationController
       opens:            0
     )
     contacts.each do |c|
-      ap c
-      logger.info c
+      
       address_work  = nil
       city_work     = nil
       email_address = nil
