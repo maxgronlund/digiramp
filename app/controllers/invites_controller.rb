@@ -108,11 +108,9 @@ class InvitesController < ApplicationController
           
          
         end # end if email
-         @client_group.invite_clients
       end # end if emails
-      
     end # end of contacts.each
-    
+    @client_group.invite_clients
     
     
     

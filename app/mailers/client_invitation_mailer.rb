@@ -46,7 +46,7 @@ class ClientInvitationMailer < ApplicationMailer
   end
   
   def invite_batch client_group, client_batch
-    
+
     # collect data
     inviter                 = client_group.user
     avatar_url              = ( URI.parse(root_url) + inviter.image_url(:avatar_92x92) ).to_s
@@ -59,11 +59,12 @@ class ClientInvitationMailer < ApplicationMailer
     
     # pack info
     client_batch.each do |client|
+      
       if client && email = client.email
         # Don't invite clients two times
-        if client_has_received_email( client )
+        unless client_has_received_email( client )
          
-        elsif invitation          = get_client_invitation( client, client_group.id )
+          invitation              = get_client_invitation( client, client_group.id )
           accept_url              = url_for( controller: '/contact_invitations', action: 'accept_invitation', contact_invitation_id:  invitation.uuid )
           decline_url             = url_for( controller: '/contact_invitations', action: 'decline_invitation', contact_invitation_id: invitation.uuid )
           receipients_with_names << {email: invitation.email, name: client.name}
@@ -98,8 +99,7 @@ class ClientInvitationMailer < ApplicationMailer
                 
       
       if Rails.env.production?
-        #resoults =  mandril_client.messages.send_template template_name, template_content, message
-        ap message
+        resoults =  mandril_client.messages.send_template template_name, template_content, message
         # stamp ids
         resoults.each_with_index do |resoult, index|
           begin
@@ -109,8 +109,6 @@ class ClientInvitationMailer < ApplicationMailer
           rescue
           end
         end
-      else
-        #ap message
       end
 
     rescue Mandrill::Error => e
@@ -121,21 +119,29 @@ class ClientInvitationMailer < ApplicationMailer
   end
   
   def client_has_received_email client
-    
-    client_invitation = ClientInvitation.where( user_id: client.user_id, email: client.email ).first
-    client_invitation && !client_invitation.pending?
+    if client_invitation = ClientInvitation.find_by( 
+        user_id: client.user_id, 
+        email: client.email 
+      )
+      return true
+    end
+    false
   end
 
   def get_client_invitation client, client_group_id
     begin
-    ClientInvitation.where( user_id:          client.user_id, email: client.email )
-          .first_or_create( user_id:          client.user_id,
-                            email:            client.email, 
-                            client_id:        client.id,
-                            account_id:       client.account_id, 
-                            client_group_id:  client_group_id,
-                            uuid:             UUIDTools::UUID.timestamp_create().to_s)     
-    rescue
+      ClientInvitation.where( user_id:          client.user_id, 
+        email: client.email 
+      )
+      .first_or_create( 
+        user_id:          client.user_id,
+        email:            client.email, 
+        client_id:        client.id,
+        account_id:       client.account_id, 
+        client_group_id:  client_group_id,
+        uuid:             UUIDTools::UUID.timestamp_create().to_s
+      ) 
+    rescue    
       nil
     end   
   end
