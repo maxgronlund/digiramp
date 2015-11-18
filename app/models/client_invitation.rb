@@ -14,8 +14,7 @@ class ClientInvitation < ActiveRecord::Base
   enum state: [ :pending, :sent, :delivered, :hard_bounce, :soft_bounce, :bounced, :unsubscribed, :spam, :unsub, :reject ]
   
   def send_one_with_avatar
-    ap self
-    #ClientInvitationMailer.delay.send_one_with_avatar( self.id )
+    ClientInvitationMailer.delay.send_one_with_avatar( self.id )
   end
   
   
