@@ -232,17 +232,36 @@ class UserConfiguration < ActiveRecord::Base
     self.activated!
   end
   
-  after_commit :flush_cache
+  
  
 
   def self.cached_find(id)
     Rails.cache.fetch([name, id]) { find(id) }
   end
   
+  # used to remind users to update their configuration
+  before_save :set_configured
+  def set_configured
+    return if configured
+    configured        = i_want_to_promote_my_music
+    configured        = i_want_to_sell_music                              unless configured
+    configured        = i_want_to_get_my_music_into_films_and_tv          unless configured
+    configured        = i_want_to_find_and_listen_to_music                unless configured
+    configured        = i_want_to_offer_services                          unless configured
+    configured        = i_want_to_collaborate                             unless configured
+    if configured
+      self.update_columns( configured: true)                                 
+      self.user.update(  user_configuration_configured: configured)
+    end
+
+  end
+  
 
   private 
 
+  after_commit :flush_cache
   def flush_cache
+    
     Rails.cache.delete([self.class.name, id])
   end
   

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151115191202) do
+ActiveRecord::Schema.define(version: 20151119144844) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -3583,6 +3583,7 @@ ActiveRecord::Schema.define(version: 20151115191202) do
     t.boolean  "has_wrote_a_user_comment"
     t.boolean  "has_wrote_a_playlist_comment"
     t.boolean  "has_liked_a_user"
+    t.boolean  "user_configuration_configured"
   end
 
   add_index "users", ["default_cms_page_id"], name: "index_users_on_default_cms_page_id", using: :btree
