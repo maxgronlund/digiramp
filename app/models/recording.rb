@@ -330,15 +330,16 @@ class Recording < ActiveRecord::Base
     unless self.common_work
       common_work = CommonWork.create( account_id: self.account_id, 
                                        title:      self.title, 
-                                       lyrics:     self.lyrics)
+                                       lyrics:     self.lyrics,
+                                       user_id:    self.user_id)
               
       self.common_work_id = common_work.id
       self.save(validate: false)
       
       CommonWorkUser.create(
-        common_work_id: common_work.id,
-        common_work_title: common_work.title,
-        user_id: common_work.user_id,
+        common_work_id:               common_work.id,
+        common_work_title:            common_work.title,
+        user_id:                      common_work.user_id,
         can_manage_common_work: true
       )
       
