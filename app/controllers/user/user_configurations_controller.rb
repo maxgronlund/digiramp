@@ -1,6 +1,6 @@
 class User::UserConfigurationsController < ApplicationController
   before_action :set_user_configuration, only: [:show, :edit, :update, :destroy]
-  before_action :access_user
+  before_action :access_user, except: [:edit]
   # GET /user_configurations
   # GET /user_configurations.json
   def index
@@ -10,7 +10,13 @@ class User::UserConfigurationsController < ApplicationController
 
   # GET /user_configurations/1/edit
   def edit
-    forbidden unless @user.user_configuration.id == @user_configuration.id
+    return not_found unless @user = User.cached_find(params[:user_id])
+    if current_user
+      forbidden unless @user.user_configuration.id == @user_configuration.id || super?
+    else
+      session[:current_page] = user_user_user_configurations_path(@user)
+      redirect_to login_new_path
+    end
     @body_color = "#FFFFFF"
   end
 
