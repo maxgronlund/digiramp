@@ -59,7 +59,7 @@ class RecordingsController < ApplicationController
           end
         end
         
-
+        recording.privacy = params[:recording][:privacy]
         recording.save(validate: false)
         recording.check_default_image
         recording.get_common_work.update_completeness
