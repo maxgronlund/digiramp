@@ -66,6 +66,4 @@ class Api::MandrillHookController < ApplicationController
     end
   end
   
-
-    
 end

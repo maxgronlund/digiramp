@@ -41,8 +41,6 @@ class Client < ActiveRecord::Base
   
   def set_user_uuid
     self.user_uuid = UUIDTools::UUID.timestamp_create().to_s
-    
-    
   end
   
   def user_name

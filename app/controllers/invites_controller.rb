@@ -2,23 +2,27 @@ class InvitesController < ApplicationController
 
 	def index
     return forbidden unless current_user
+    ap session
     provider =  params[:provider]
     
-    contacts = request.env['omnicontacts.contacts']
-    
+    contacts  = request.env['omnicontacts.contacts']
+    _user      = request.env['omnicontacts.user']
+    unless user = User.get_by_email(_user[:email])
+      user = current_user
+    end
 
     @client_import = ClientImport.create(
-      user_id:      current_user.id,
-      account_id:   current_user.account_id,
-      user_uuid:    current_user.uuid,
+      user_id:      user.id,
+      account_id:   user.account_id,
+      user_uuid:    user.uuid,
       source:       'Google mail'
     )
     @client_group = ClientGroup.create(
       title:            "Invitation from #{provider} #{@client_import.id}",
-      account_id:       current_user.account_id,
+      account_id:       user.account_id,
       description:      "Invitation from #{provider} #{@client_import.id}",
-      user_uuid:        current_user.uuid,
-      user_id:          current_user.id,
+      user_uuid:        user.uuid,
+      user_id:          user.id,
       invited:          false,
       invitation_count: 0,
       sents:            0,
@@ -46,12 +50,16 @@ class InvitesController < ApplicationController
       end
         
       if email_address
+        digiramp_user_id = nil
+        if digiramp_user = User.get_by_email(email_address)
+          digiramp_user_id = digiramp_user.id
+        end
         client = Client.where(
           email:     email_address
         )
         .first_or_create(
-          account_id:                 current_user.account_id,
-          user_uuid:                  current_user.uuid,
+          account_id:                 user.account_id,
+          #user_uuid:                  user.uuid,
           name:                       c[:name],
           last_name:                  c[:last_name],
           #title:
@@ -80,9 +88,9 @@ class InvitesController < ApplicationController
           #direct_fax:
           #business_email:
           #show_alert:
-          user_id:               current_user.id,
+          user_id:               user.id,
           #full_name:
-          #member_id:
+          member_id:             digiramp_user_id,
           client_import_id:      @client_import.id
 
         )
@@ -105,7 +113,7 @@ class InvitesController < ApplicationController
           client_group_client = ClientGroupsClients.create(
             client_group_id: @client_group.id,
             client_id:       client.id,
-            user_uuid:       current_user.uuid
+            user_uuid:       user.uuid
           )
           
           #client_invitation.send_one_with_avatar
@@ -119,7 +127,7 @@ class InvitesController < ApplicationController
     end # end of contacts.each
     @client_group.invite_clients
 
-    redirect_to user_user_gmail_invitation_path(current_user, @client_import)
+    redirect_to user_user_gmail_invitation_path(user, @client_import)
   end
 
   def failure
