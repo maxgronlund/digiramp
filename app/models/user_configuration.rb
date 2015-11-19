@@ -242,7 +242,7 @@ class UserConfiguration < ActiveRecord::Base
   # used to remind users to update their configuration
   before_save :set_configured
   def set_configured
-    return if configured
+    #return if configured
     configured        = i_want_to_promote_my_music
     configured        = i_want_to_sell_music                        ||  configured
     configured        = i_want_to_get_my_music_into_films_and_tv    ||  configured
@@ -252,6 +252,7 @@ class UserConfiguration < ActiveRecord::Base
     configured        = i_want_to_collaborate                       ||  configured
     configured        = i_want_to_manage_users_and_catalogs         ||  configured
     configured        = i_want_to_build_custom_web_pages            ||  configured
+    configured        = dont_ask_me_again                           ||  configured
     configured        = true if self.status == 'done'
     
     if configured
