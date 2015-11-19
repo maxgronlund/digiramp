@@ -10,6 +10,7 @@ class User::UserConfigurationsController < ApplicationController
 
   # GET /user_configurations/1/edit
   def edit
+    forbidden unless @user.user_configuration.id == @user_configuration.id
     @body_color = "#FFFFFF"
   end
 

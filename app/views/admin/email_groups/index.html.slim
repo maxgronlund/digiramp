@@ -20,50 +20,58 @@
             = link_to 'New Email group', new_admin_email_group_path, class: 'btn btn-info'
                  
       .pull-down-10
-      .users
-        .table-responsive
-          table class="table table-hover"
-            thead
+      .table-responsive
+        table class="table table-hover"
+          thead
+            tr
+              th Title
+              th Users can subscripe
+              th Receipients
+              th Edit Recipients
+              th Emails
+
+          tbody
+            - @email_groups.each do |email_group|
               tr
-                th Title
-                th Users can subscripe
-                th Receipients
-                th Edit Recipients
-                th Emails
-
-            tbody
-              - @email_groups.each do |email_group|
-                tr
-                  td
-                    - if email_group.identifier == 'opportunities'
-                      .btn.btn-danger.btn-xs disabled='disabled'
-                        i.fa.fa-times
-                      =>
-                    -else
-                      => link_to  admin_email_group_path(email_group), data: {:confirm => 'Are you sure?'},turboboost: true, :method => :delete do
-                          .btn.btn-danger.btn-xs
-                            i.fa.fa-times
-                     
-                    => link_to edit_admin_email_group_path(email_group) do
-                        .btn.btn-default.btn-xs
-                          i.fa.fa-pencil
+                td
+                  - if email_group.identifier == 'opportunities'
+                    .btn.btn-danger.btn-xs disabled='disabled'
+                      i.fa.fa-times
+                    =>
+                  -else
+                    => link_to  admin_email_group_path(email_group), data: {:confirm => 'Are you sure?'},turboboost: true, :method => :delete do
+                        .btn.btn-danger.btn-xs
+                          i.fa.fa-times
+                   
+                  => link_to edit_admin_email_group_path(email_group) do
+                      .btn.btn-default.btn-xs
+                        i.fa.fa-pencil
+              
+                  
+                  = link_to admin_email_group_path(email_group) do
+                      .btn.btn-default.btn-xs
+                        '&nbsp;
+                        = email_group.title
                 
-                    
-                    = link_to admin_email_group_path(email_group) do
-                        .btn.btn-default.btn-xs
-                          '&nbsp;
-                          = email_group.title
+                td 
+                  - if email_group.subscripeable
+                    i.fa.fa-check
+                td = email_group.mail_list_subscribers.count
+                td 
+                  = link_to 'Recipients', admin_email_group_email_recipients_path(email_group), class: 'btn btn-default btn-xs'
                   
-                  td 
-                    - if email_group.subscripeable
-                      i.fa.fa-check
-                  td = email_group.mail_list_subscribers.count
-                  td 
-                    = link_to 'Recipients', admin_email_group_email_recipients_path(email_group), class: 'btn btn-default btn-xs'
-                    
-                  td = email_group.digiramp_emails.count
-                  
-
+                td = email_group.digiramp_emails.count
+                
+      .pull-down-10
+      .digi-box
+        .row
+          .col-sm-6
+            'Send email with link ot users whoom has been signed up for more than 24 hours without filling in what they want 
+            .pull-down-8
+              .row
+                .col-sm-12
+                  .pull-right
+                    = link_to 'Nudge users to fill in what they want', new_admin_nudge_user_confirguration_path, class: 'btn btn-default'
       /.sexy_line
       /== paginate(@users)        
   == render 'shared/site_footer'    

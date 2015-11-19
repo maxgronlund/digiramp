@@ -1,6 +1,7 @@
 Digiramp::Application.routes.draw do
 
 
+
   get 'facebook_import/index'
 
 	get "/invites/:provider/contact_callback" => "invites#index"
@@ -145,7 +146,7 @@ Digiramp::Application.routes.draw do
     resources :issue_events
     resources :legal_templates
     resources :page_styles
-
+    resources :nudge_user_confirgurations, only: [:new]
     get 'paper_trails/index'
     get 'paper_trails/orders'
     get 'paper_trails/stakes'

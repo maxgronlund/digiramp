@@ -155,4 +155,32 @@ class UserMailer < ApplicationMailer
     
     
   end
+  
+  def say_what_you_want user_id
+    user                        = User.cached_find(user_id)
+
+    confirmation_link  = url_for( controller: "/user/user_configurations", action: 'edit', user_id: user.slug, id: user.user_configuration.id)
+    
+    
+    merge_vars   = [ { rcpt: user.email,
+                        vars: [ {name: "LINK", content: confirmation_link} ]
+                      }
+                    ]
+    
+    if Rails.env.production?
+      send_with_mandrill( [{email: user.email }], 
+                          "say-what-you-want", 
+                          'Opporunities on DigiRAMP', 
+                          ["nudging"], 
+                          merge_vars,
+                          true,
+                          true,
+                          '11-digiramp-nudging',
+                          "mailchimp" 
+                        )
+    else
+      ap confirmation_link
+    end
+      
+  end
 end
