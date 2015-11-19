@@ -70,6 +70,25 @@
                 => link_to 'Cancel', user_user_common_work_path( @user, @common_work), class: 'btn btn-default'
 
                 = f.submit 'Save', class: 'btn btn-info'
+      .pull-down-10
+      .row
+        .col-sm-12
+          .table-responsive
+            table class="table table-hover"
+              thead
+                tr
+                  th User
+                  th Permission
+              tbody
+                - @common_work.common_work_users.each do |common_work_user|
+                  - if user = common_work_user.user
+                    tr
+                      td = user.user_name
+                      td 
+                        - if common_work_user.can_manage_common_work
+                          'Manage
+                        - else
+                          'Read
       
 
                  
