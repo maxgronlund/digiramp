@@ -9,7 +9,7 @@
   .admin-account
     #sidebar-wrapper
       ul class="sidebar-nav"
-        == render 'admin/shared/sidebar', selected: 'account'
+        == render 'admin/shared/sidebar', selected: 'statistic'
   
   #page-content-wrapper
     .container-fluid
@@ -92,7 +92,10 @@
                   td = @has_wrote_a_user_comment       
                 tr
                   td Wrote a comment on a playlist
-                  td = @has_wrote_a_playlist_comment   
+                  td = @has_wrote_a_playlist_comment       
+                tr
+                  td Configured what they want
+                  td = @user_configuration_configured  
           
           .pull-down-10        
           .table-responsive

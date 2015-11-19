@@ -244,11 +244,16 @@ class UserConfiguration < ActiveRecord::Base
   def set_configured
     return if configured
     configured        = i_want_to_promote_my_music
-    configured        = i_want_to_sell_music                              unless configured
-    configured        = i_want_to_get_my_music_into_films_and_tv          unless configured
-    configured        = i_want_to_find_and_listen_to_music                unless configured
-    configured        = i_want_to_offer_services                          unless configured
-    configured        = i_want_to_collaborate                             unless configured
+    configured        = i_want_to_sell_music                        ||  configured
+    configured        = i_want_to_get_my_music_into_films_and_tv    ||  configured
+    configured        = i_want_to_find_and_listen_to_music          ||  configured
+    configured        = i_want_to_sell_goods                        ||  configured
+    configured        = i_want_to_offer_services                    ||  configured
+    configured        = i_want_to_collaborate                       ||  configured
+    configured        = i_want_to_manage_users_and_catalogs         ||  configured
+    configured        = i_want_to_build_custom_web_pages            ||  configured
+    configured        = true if self.status == 'done'
+    
     if configured
       self.update_columns( configured: true)                                 
       self.user.update(  user_configuration_configured: configured)
