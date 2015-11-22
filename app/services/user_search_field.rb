@@ -12,8 +12,8 @@ class UserSearchField
     search_field_content <<   user.profile              if user.profile
     search_field_content <<   user.get_full_name.strip  unless user.get_full_name.strip.blank?
     search_field_content <<   user.slug
-    search_field_content <<   user.email
-    search_field_content <<   user.user_name 
+    search_field_content <<   user.email << ' '
+    search_field_content <<   user.user_name << ' '
     search_field_content <<  'writer '                if user.writer
     search_field_content <<  'author '                if user.author
     search_field_content <<  'producer '              if user.producer
@@ -29,3 +29,5 @@ class UserSearchField
   end
   
 end
+
+# c.mac@whosthehottestrapper.com

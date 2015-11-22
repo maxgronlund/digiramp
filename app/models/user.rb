@@ -355,7 +355,7 @@ class User < ActiveRecord::Base
       has_liked_a_user:  liked_users.count > 0
     )
     
-    ap self.has_liked_a_user
+    
 
   end
   
@@ -651,7 +651,7 @@ class User < ActiveRecord::Base
         )
         return _relation_ship
       rescue
-        ap 'bang'
+        
         Opbeat.capture_message("User::Line 544 #{ { self_id: self.id , other_user_id: other_user.id} }")
       end
     end
@@ -841,7 +841,7 @@ class User < ActiveRecord::Base
         return nil
       end
     rescue => e
-      ap e.inspect
+      
     end
     nil
   end

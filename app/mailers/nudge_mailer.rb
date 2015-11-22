@@ -4,11 +4,11 @@ class NudgeMailer < ApplicationMailer
   
   def invite_friends
     
-    #if user_confirgurations = UserConfiguration.where(
-    #    i_want_to_promote_my_music: true, 
-    #    has_invited_friends: false
-    #  )
-    if user_confirgurations = UserConfiguration.all
+    #if user_confirgurations = UserConfiguration.all
+    if user_confirgurations = UserConfiguration.where(
+        i_want_to_promote_my_music: true, 
+        has_invited_friends: false
+      )
     
       user_confirgurations.find_each do |user_configuration|
         if user                        = user_configuration.user
