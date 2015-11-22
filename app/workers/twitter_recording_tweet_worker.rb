@@ -34,7 +34,7 @@ class TwitterRecordingTweetWorker
           client.update_with_media(share_on_twitter.message, media)
           media.close
         end
-       
+        user.set_has_shared_a_recording
       rescue => e #Twitter::Error => e
         #e.inspect
         Opbeat.capture_message(e.inspect)

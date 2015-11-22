@@ -63,15 +63,28 @@
                 td = email_group.digiramp_emails.count
                 
       .pull-down-10
-      .digi-box
-        .row
-          .col-sm-6
+      
+      .row
+        .col-sm-6
+          .digi-box
             'Send email with link ot users whoom has been signed up for more than 24 hours without filling in what they want 
-            .pull-down-8
-              .row
-                .col-sm-12
-                  .pull-right
-                    = link_to 'Nudge users to fill in what they want', new_admin_nudge_user_confirguration_path, class: 'btn btn-default'
+            .row
+              .col-sm-12.pull-down-10
+                .pull-right
+                  = link_to 'Nudge users to fill in what they want', new_admin_nudge_user_confirguration_path, class: 'btn btn-default'
+        .col-sm-6
+          .digi-box
+            'Send email with link ot users whoom want to promote music and has not invited friends 
+            .row
+              .col-sm-12.pull-down-10
+                .pull-right
+                  = link_to 'Nudge users to invite friends', admin_nudge_invite_friend_path, class: 'btn btn-default'
+                  
+                  
+                  
+                  
+                  
+                  
       /.sexy_line
       /== paginate(@users)        
   == render 'shared/site_footer'    

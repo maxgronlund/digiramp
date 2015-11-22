@@ -11,7 +11,7 @@ class ShareOnTwittersController < ApplicationController
     @recording_id     = params[:share_on_twitter][:recording_id]
     
     TwitterRecordingTweetWorker.perform_async( @share_on_twitter.id)
-
+    
   end
   
   def show

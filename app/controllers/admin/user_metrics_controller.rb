@@ -28,6 +28,7 @@ class Admin::UserMetricsController < ApplicationController
     @has_wrote_a_user_comment               = User.where(has_wrote_a_user_comment: true).count
     @has_wrote_a_playlist_comment           = User.where(has_wrote_a_playlist_comment: true).count
     @user_configuration_configured          = User.where(user_configuration_configured: true).count
+    @has_invited_friends                    = UserConfiguration.where(has_invited_friends: true).count
     
     @not_set_publishing                     = User.where("status = ?" , 0).count
     @not_uploaded_digiral_signature         = User.where(digital_signature_uuid: nil).count

@@ -58,6 +58,7 @@ class ShareOnFacebooksController < ApplicationController
     
     if @share_on_facebook.save
       FbRecordingCommentWorker.perform_async(@share_on_facebook.id)
+      @user.set_has_shared_a_recording
   
       # add a comment
       if @comment = Comment.create!(commentable_id: @recording.id, commentable_type: "Recording", user_id: @user.id, body: "I just shared #{@recording.title} on Facebook" )
@@ -114,7 +115,7 @@ class ShareOnFacebooksController < ApplicationController
     share_on_facebook = ShareOnFacebook.new(user_id: user.id, recording_id: recording.id, message: message)
     if share_on_facebook.save
       FbRecordingCommentWorker.perform_async(share_on_facebook.id)
-      
+      user.set_has_shared_a_recording
       # add a comment
       if @comment = Comment.create!(commentable_id: recording.id, commentable_type: "Recording", user_id: user.id, body:  "I just shared #{recording.title} on Facebook" )
   

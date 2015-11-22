@@ -1,6 +1,5 @@
 class Admin::NudgeUserConfirgurationsController < ApplicationController
   def new
-    
     UserConfiguration.where( configured: [nil, false]).each do |user_configuration|
       if user = user_configuration.user
         
@@ -15,6 +14,9 @@ class Admin::NudgeUserConfirgurationsController < ApplicationController
       end
     end
     redirect_to admin_email_groups_path
-    
   end
+  
+
+  
+  
 end

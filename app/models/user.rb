@@ -1161,12 +1161,12 @@ class User < ActiveRecord::Base
   #end
   
   def facebook
-    ap 'facebook'
+    
     if provider = authorization_providers.find_by(provider: 'facebook')
       @facebook ||= Koala::Facebook::API.new(provider.oauth_token)
       block_given? ? yield(@facebook) : @facebook
     else #Koala::Facebook::APIError
-      ap 'ohh'
+      
       return nil
     end
     @facebook
@@ -1188,6 +1188,25 @@ class User < ActiveRecord::Base
       end
     else
       return false
+    end
+  end
+  
+  def set_has_shared_a_recording
+    return if self.has_shared_a_recording
+    
+    if !self.share_on_facebooks.blank? || !self.share_on_twitters.blank?
+      self.update(has_shared_a_recording: true)
+    end
+    
+  end
+  
+  def set_has_invited_friends
+    begin
+      return if self.user_configuration.has_invited_friends
+      if !self.client_invitations.blank?
+        self.user_configuration.update(has_invited_friends: true)
+      end
+    rescue
     end
   end
   

@@ -130,8 +130,9 @@ class ClientInvitationMailer < ApplicationMailer
 
   def get_client_invitation client, client_group_id
     begin
-      ClientInvitation.where( user_id:          client.user_id, 
-        email: client.email 
+      ClientInvitation.where( 
+        user_id:  client.user_id, 
+        email:    client.email 
       )
       .first_or_create( 
         user_id:          client.user_id,

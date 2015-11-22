@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151119163018) do
+ActiveRecord::Schema.define(version: 20151122184419) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -3426,6 +3426,7 @@ ActiveRecord::Schema.define(version: 20151119163018) do
     t.boolean  "add_legal_informations_later"
     t.boolean  "add_digital_signature_later"
     t.integer  "say_what_you_want_email_count",            default: 0
+    t.boolean  "has_invited_friends",                      default: false
   end
 
   add_index "user_configurations", ["user_id"], name: "index_user_configurations_on_user_id", using: :btree
@@ -3585,6 +3586,7 @@ ActiveRecord::Schema.define(version: 20151119163018) do
     t.boolean  "has_wrote_a_playlist_comment"
     t.boolean  "has_liked_a_user"
     t.boolean  "user_configuration_configured"
+    t.boolean  "has_shared_a_recording",                    default: false
   end
 
   add_index "users", ["default_cms_page_id"], name: "index_users_on_default_cms_page_id", using: :btree

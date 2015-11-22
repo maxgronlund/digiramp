@@ -5,6 +5,7 @@ class ClientInvitation < ActiveRecord::Base
   belongs_to :client_group
 
   after_commit :flush_cache
+  after_create :update_user
   
   
   #after_create :send_one_with_avatar
@@ -21,8 +22,15 @@ class ClientInvitation < ActiveRecord::Base
     Rails.cache.fetch([name, id]) { find(id) }
   end
   
+  def update_user
+    begin
+      self.user.set_has_invited_friends
+    rescue
+    end
+  end
+  
   def update_parent
-    #self.client 
+   
   end
 
   private 

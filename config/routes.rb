@@ -2,6 +2,8 @@ Digiramp::Application.routes.draw do
 
 
 
+  
+
   get 'facebook_import/index'
 
 	get "/invites/:provider/contact_callback" => "invites#index"
@@ -118,6 +120,18 @@ Digiramp::Application.routes.draw do
   
   # Example resource route within a namespace:
   namespace :admin do
+    
+
+    get 'nudge/invite_friend'
+    get 'nudge/share_recordings'
+    get 'nudge/connect_to_users'
+    get 'nudge/write_comments'
+    get 'nudge/like_recordings'
+
+    
+    
+    
+    
     resources :legal_tags
     resources :account_features
       resources :activities

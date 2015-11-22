@@ -64,7 +64,10 @@
                 tr
                   th User that have 
                   th Count
-              tbody
+              tbody      
+                tr
+                  td Has invited friends
+                  td = @has_invited_friends 
                 tr
                   td Uploaded recordings
                   td = @has_uploaded_recordings 
@@ -96,6 +99,8 @@
                 tr
                   td Configured what they want
                   td = @user_configuration_configured  
+                  
+                   
           
           .pull-down-10        
           .table-responsive

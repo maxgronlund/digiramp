@@ -135,7 +135,7 @@ class UserMailer < ApplicationMailer
                                      action: 'edit', 
                                          id: confirmation_token)
     
-    ap confirmation_link
+    #ap confirmation_link
     merge_vars   = [ { rcpt: user.email,
                         vars: [ {name: "LINK", content: confirmation_link} ]
                       }
@@ -181,6 +181,6 @@ class UserMailer < ApplicationMailer
     else
       ap confirmation_link
     end
-      
   end
+  
 end
