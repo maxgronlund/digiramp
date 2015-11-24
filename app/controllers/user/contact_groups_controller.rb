@@ -61,9 +61,9 @@ class User::ContactGroupsController < ApplicationController
   end
   
   def add_all
-   
-    
-    @user.clients.each do |client|
+    ap 'User::ContactGroupsController#add_all'
+    ap @user.clients.count
+    @user.clients.find_each do |client|
       ClientGroupsClients.where(client_id: client.id, client_group_id: params[:contact_group_id])
                          .first_or_create(client_id: client.id, client_group_id: params[:contact_group_id])
       
