@@ -14,7 +14,7 @@ class User::ContactGroupsController < ApplicationController
 
   def show
      @contact_group  = ClientGroup.cached_find(params[:id])
-     @contacts       = @contact_group.clients.order('full_name asc')
+     @contacts       = @contact_group.clients.order('full_name asc').page(params[:page]).per(256)
   end
   
   def new
