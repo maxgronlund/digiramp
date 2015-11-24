@@ -144,6 +144,8 @@ class User::ProductsController < ApplicationController
           
         when "Recording"
           update_recording
+        when 'Shop::Product'
+          @shop_product.valid_for_sale! if @user.is_stripe_connected
         end
         #@shop_product.configure_stakeholder
         #@shop_product.valid_for_sale!

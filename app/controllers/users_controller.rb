@@ -91,8 +91,8 @@ class UsersController < ApplicationController
     session[:account_id] = @user.account.id 
     
     if current_user 
-      if current_user.current_account_id != current_user.account.id
-        current_user.current_account_id  = current_user.account.id
+      if current_user.current_account_id != current_user.account_id
+        current_user.current_account_id  = current_user.account_id
         current_user.save!
       end
       @playlists  = current_user.playlists

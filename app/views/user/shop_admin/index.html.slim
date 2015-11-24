@@ -72,7 +72,7 @@
                 th
                   - case product.category
                   - when 'physical-product'
-                    - units = product.units_on_stock
+                    - units = product.units_on_stock.to_i
                     - if units < 1
                       .label.label-danger
                         'Out of stock
