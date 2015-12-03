@@ -30,6 +30,12 @@ class Admin::UserMetricsController < ApplicationController
     @user_configuration_configured          = User.where(user_configuration_configured: true).count
     @has_invited_friends                    = UserConfiguration.where(has_invited_friends: true).count
     
+    @has_connected_facebook                 = AuthorizationProvider.where(provider: 'facebook').count
+    @has_connected_twitter                  = AuthorizationProvider.where(provider: 'twitter').count
+    @has_connected_gplus                    = AuthorizationProvider.where(provider: 'gplus').count
+    @has_connected_linkedin                 = AuthorizationProvider.where(provider: 'linkedin').count
+    @has_connected_stripe                   = AuthorizationProvider.where(provider: 'stripe_connect').count
+    
     @not_set_publishing                     = User.where("status = ?" , 0).count
     @not_uploaded_digiral_signature         = User.where(digital_signature_uuid: nil).count
     

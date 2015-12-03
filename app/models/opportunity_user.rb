@@ -26,7 +26,8 @@ class OpportunityUser < ActiveRecord::Base
   end
   
   def set_user_recordings_after_create
-    unless self.user.destroyed?  user.update_columns( 
+    unless self.user.destroyed?  
+      self.user.update_columns( 
         provide_to_opportunity: (user.opportunity_users.where(provider: true).count > 0) ,
         review_opportunity:     (user.opportunity_users.where(reviewer: true).count > 0)
       )
