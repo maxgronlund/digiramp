@@ -13,7 +13,7 @@
                                                               contacts: user_user_contacts_path( @user )}, current: ''}
       .row
         .col-sm-8
-          h2 = @contact.name + ' ' + @contact.last_name
+          h2 = @contact.name.to_s + ' ' + @contact.last_name.to_s
         .col-sm-4
           .pull-right.pull-down-10
 
