@@ -71,9 +71,13 @@ class User::RecordingIpisController < ApplicationController
       
       #SalesService.new(@recording.id)
       #sales_service.validate
+      @recording_ipi.send_confirmation_request
+      if  params[:commit] == 'Save and send message'
+        redirect_to user_user_recording_right_path(@user, @recording)
+      end
       
       
-      redirect_to user_user_recording_right_path(@user, @recording)
+      
       #if  params[:commit] == 'Save and send message' 
       #  @recording_ipi.send_confirmation_request 
       #  redirect_to user_user_recording_right_path(@user, @recording)
