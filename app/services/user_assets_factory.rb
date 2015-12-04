@@ -22,6 +22,8 @@ class UserAssetsFactory
     create_ipi_publisher
     create_mp3_term_of_usage
     attach_to_documents
+    @user.update_meta
+    @user.save
   end
 
   # create the account

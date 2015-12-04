@@ -13,8 +13,8 @@ class User::UsersController < ApplicationController
     @user = User.cached_find(params[:id])
     @user.update(user_params)
     @user.update_meta
-    
-    @user.ipi.update!(ipi_code: @user.ipi_code)
+    @user.save
+    @user.ipi.update(ipi_code: @user.ipi_code)
     
     if @user.personal_publisher.address.empty?
       @user.copy_address_to( @user.personal_publisher.address )
