@@ -161,8 +161,8 @@ class UsersController < ApplicationController
     
     if @user.save
       
-      finished("landing_page")
-      finished("invitation_from_user")
+      #finished("landing_page")
+      #finished("invitation_from_user")
       
       DefaultAvararJob.perform_later @user.id
       UserAssetsFactory.new @user

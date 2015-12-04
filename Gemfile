@@ -59,7 +59,7 @@ gem 'sidekiq', github: 'mperham/sidekiq'
 gem 'responders', '~> 2.0'
 gem 'whenever', require: false
 #gem 'vanity', :git => 'git@github.com:assaf/vanity', :branch => 'master'
-gem 'split', :require => 'split/dashboard'
+#gem 'split', :require => 'split/dashboard'
 
 # not in use
 #gem 'celluloid'

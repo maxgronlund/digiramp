@@ -6,21 +6,21 @@ class WelcomeController < ApplicationController
       redirect_to current_user
     else
     
-      @ab_test =  ab_test( "landing_page", "page_a", "page_b")
+      #@ab_test =  ab_test( "landing_page", "page_a", "page_b")
       
-      case @ab_test
-      when "page_b"
+      #case @ab_test
+      #when "page_b"
         
         
-        @body_color = "#16151D"
-        if Rails.env.test?
-          @recording  = Recording.first
-        else
-          @recording  = Recording.public_access.where(featured: true).order('featured_date desc').first 
-        end
-      when "page_a"
-        @body_color = "#FFF"
+      @body_color = "#16151D"
+      if Rails.env.test?
+        @recording  = Recording.first
+      else
+        @recording  = Recording.public_access.where(featured: true).order('featured_date desc').first 
       end
+      #when "page_a"
+      #  @body_color = "#FFF"
+      #end
       # lots of requests to the db here
       
       # this is required but could it be moved to redish or external service?
@@ -45,7 +45,7 @@ class WelcomeController < ApplicationController
         @playlists         = @user.playlists
       end
       
-      render( :index, page: '@ab_test')
+      #render( :index, page: '@ab_test')
     end
 
   end

@@ -1,7 +1,161 @@
-== render @ab_test
+/== render @ab_test
+#wrap
+  .full-width-top
+    /== render 'shared/navigationbar', page: '' 
+    == render 'shared/navigationbar', page: 'settings' 
 
-javascript:
-  window.history.pushState('page2', 'Title', "?landing_page=#{@ab_test}");
+  .welcome-carusel
+    - if current_user
+      .pull-down-68
+    /- ab_test :landing_page, "carusel", "users", "nothing" do |page|
+    /  - case page
+    /  - when 'carusel'
+    .carusel
+      .carousel.slide id="carousel-digiramp"  data-ride="carousel"
+        .carousel-inner role="listbox"
+          .item.active
+            = image_tag 'https://digiramp.com/uploads/raw_image/image/24/music-enthusiasts.jpg'
+            .carousel-caption
+              h1 Music enthusiasts
+              .carusel-text
+                'Find music 
+                br And connect with artists 
+
+    
+          .item
+            = image_tag 'https://digiramp.com/uploads/raw_image/image/13/composers.jpg'
+            .carousel-caption
+              h1 Composers
+              .carusel-text
+                'Get your music heard 
+                br Find your audience 
+    
+              .credits
+                = link_to 'Image by 2015 Brett Samuel™ ', 'https://www.flickr.com/photos/locutis/6370264013/in/photolist-6sHJDk-8SDscT-8SGmNw-8SGj9G-8SDtbv-8SLdiA-8SDuh6-8SGkuy-8SGvr7-8SGr4N-8SLdZ9-8SH8qi-8SDjP4-8SGnZw-8SDpF2-r5oaD-aGVgya-bnLqM1-cx1ohq-7mW29K-f76f7v-6orjvG-98eFc-7mZULf-852KFj-4J1q2j-eb2ZHP-5f1qzz-XzVH-8K8WP5-572hzM-dkYpsw-kjd96-7tEzEF-8FzM-bDcrCH-5qMHzR-8Cuy-vgcUo-7RdgT4-FBjiJ-7zLBcm-6f6ruf-5pxghs-79P1dj-CQBQx-asLStw-51ZdFs-H4odo-atifFr//'
+          
+          
+          
+          .item
+            = image_tag 'https://digiramp.com/uploads/raw_image/image/14/dj.jpg'
+            .carousel-caption
+              h1 Artists
+              .carusel-text
+                'Be heard and connect 
+                br with your audience  
+          
+              .credits
+                = link_to 'Image by Tonymadrid Photography™ CC', 'https://www.flickr.com/photos/tonymadrid/6003171359/in/set-72157623834990814'
+              
+          
+          .item
+            = image_tag 'https://digiramp.com/uploads/raw_image/image/15/crowd.jpg'
+            .carousel-caption
+              h1 Professionals
+              .carusel-text
+                'Find exactly what you need
+                br Secure and clear all rights
+          
+              .credits
+                = link_to 'Image © 2015 Tonymadrid Photography™', 'https://www.flickr.com/photos/polispol/15673605249/'
+            
+    
+        
+        a class="left carousel-control" href="#carousel-digiramp" role="button" data-slide="prev"
+          span class="glyphicon glyphicon-chevron-left" aria-hidden="true"
+          span class="sr-only"
+            'Previous
+    
+        a class="right carousel-control" href="#carousel-digiramp" role="button" data-slide="next"
+          span class="glyphicon glyphicon-chevron-right" aria-hidden="true"
+          span class="sr-only"
+            'Next
+    
+    javascript:
+      $('.carousel').carousel()
+    /.welcome-header
+    /  h1 Connect with music <funky>Beta</funky>
+    /  'Manage your creative rights • Connect with audience and professionals
+    /  /= link_to 'Learn more', home_index_path, class: 'btn btn-info btn-lg'
+    /- when 'users'
+    .row
+      .col-sm-12.pull-down-12
+        .person-badges
+          .all-users
+            .util-carousel.normal-imglist id="users-imglist"
+              - @users.each do |user|
+                == render 'users/show', user: user
+    javascript:
+
+    	$('#users-imglist').utilCarousel({
+    		pagination : false,
+    		navigationText : ['<i class="fa fa-chevron-left"></i>', '<i class="fa fa-chevron-right"></i>'],
+    		navigation : true,
+    		rewind : false,
+    		responsiveMode : 'itemWidthRange',
+    		itemWidthRange : [200, 315],
+        lazyLoad: true
+    	});
+    /- when 'nothing'
+        
+  .welcome
+    .container
+      .welcome-container
+        
+        
+        
+        .row
+          .col-sm-4
+            h4 Welcome to DigiRAMP
+            .digi-box
+              - unless current_user
+                == render 'welcome/login'
+                
+                br
+              #welcome-videos
+                iframe src="https://player.vimeo.com/video/109593195" width="1280" height="720" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen
+              /.row
+              /  .col-sm-12
+              /    .video-container
+              /      iframe src="http://player.vimeo.com/video/109593195" width="100%" height="auto" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen
+              br
+              = link_to 'Features', home_index_path, class: 'btn btn-info btn-lg'
+          
+          
+  
+            h4 Featured opportunities
+            .featured-opportunity-box
+              - @opportunities.each do |opportunity|
+                - if current_user
+                  = link_to user_user_opportunity_path(current_user, opportunity)
+                    .featured-opportunity
+                       = opportunity.title
+                - else
+                  = link_to public_opportunity_path( opportunity )
+                    .featured-opportunity
+                       = opportunity.title
+                  
+                      
+                
+                
+              .featured-opportunity
+                - if current_user
+                  = link_to 'More opportunities', user_user_opportunities_path(current_user)
+                - else
+                  = link_to public_opportunities_path
+                    'More opportunities
+          .col-sm-8
+            h4 Featured recordings
+            - unless @recordings.empty?
+              == render 'recordings/index', recordings: @recordings
+            
+          
+  == render 'shared/site_footer'
+
+
+  
+
+/javascript:
+/  window.history.pushState('page2', 'Title', "?landing_page=#{@ab_test}");
   
 
 

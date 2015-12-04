@@ -19,17 +19,17 @@ class OpportunityUser < ActiveRecord::Base
   def set_user_recordings_before_destroy
     unless self.user.destroyed? 
       user.update_columns( 
-        provide_to_opportunity: (user.opportunity_users.where(provider: true).count > 1 ),
-        review_opportunity:     (user.opportunity_users.where(reviewer: true).count > 1) 
+        provide_to_opportunity: (self.user.opportunity_users.where(provider: true).count > 1 ),
+        review_opportunity:     (self.user.opportunity_users.where(reviewer: true).count > 1) 
       )
     end
   end
   
   def set_user_recordings_after_create
-    unless self.user.destroyed?  
+    if self.user
       self.user.update_columns( 
-        provide_to_opportunity: (user.opportunity_users.where(provider: true).count > 0) ,
-        review_opportunity:     (user.opportunity_users.where(reviewer: true).count > 0)
+        provide_to_opportunity: (self.user.opportunity_users.where(provider: true).count > 0) ,
+        review_opportunity:     (self.user.opportunity_users.where(reviewer: true).count > 0)
       )
     end
   end

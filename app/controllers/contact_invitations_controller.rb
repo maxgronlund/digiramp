@@ -5,7 +5,7 @@ class ContactInvitationsController < ApplicationController
   def accept_invitation 
     if @client_invitation = ClientInvitation.find_by(uuid: params[:contact_invitation_id])
      
-      @ab_test =  ab_test( "invitation_from_user", "form")
+      #@ab_test =  ab_test( "invitation_from_user", "form")
       @message = validate_invitation( @client_invitation ) 
     else
       @message = 'Error: Invitation do not exists?'

@@ -15,7 +15,7 @@ Digiramp::Application.routes.draw do
   
   get "/pages/*id" => 'pages#show', as: :page, format: false
 
-  mount Split::Dashboard, :at => 'split'
+  #mount Split::Dashboard, :at => 'split'
 
   resources :accepting_signatures
 

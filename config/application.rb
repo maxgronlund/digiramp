@@ -47,11 +47,11 @@ module Digiramp
     config.active_job.queue_adapter = :sidekiq
     #ActiveJob::Base.queue_adapter = :sidekiq
     #config.active_job.queue_adapter = :sidekiq
-    Split.configure do |config|
-      config.persistence = Split::Persistence::RedisAdapter.with_config(lookup_by: -> (context) { context.current_user_id })
-      # Equivalent
-      # config.persistence = Split::Persistence::RedisAdapter.with_config(lookup_by: :current_user_id)
-    end
+    #Split.configure do |config|
+    #  config.persistence = Split::Persistence::RedisAdapter.with_config(lookup_by: -> (context) { context.current_user_id })
+    #  # Equivalent
+    #  # config.persistence = Split::Persistence::RedisAdapter.with_config(lookup_by: :current_user_id)
+    #end
 
   end
 end
