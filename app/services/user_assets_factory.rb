@@ -16,6 +16,7 @@ class UserAssetsFactory
     create_distribution_agreement_document
     create_ipi
     create_publisher
+    create_user_publisher
     create_publishing_agreement
     create_publishing_agreement_document
     create_ipi_publisher
@@ -52,6 +53,8 @@ class UserAssetsFactory
   
   # create a label
   def create_label
+    return if @label = Label.find_by(id: @user.default_label_id )
+    
     @label = Label.where(
       user_id: @user.id, 
       account_id: @account.id
@@ -67,6 +70,8 @@ class UserAssetsFactory
   
   # create a distribution agreement
   def create_distribution_agreement
+
+    
     @distribution_agreement = DistributionAgreement.where(
       :label_id           => @label.id,
       :account_id         => @account.id
@@ -86,6 +91,9 @@ class UserAssetsFactory
 
   # create the documents fot a distribution agreement
   def create_distribution_agreement_document
+    
+    return if @distribution_agreement.documents
+    
     template  = Document.where(uuid: "38e2814a-45ce-11e5-b8b5-d43d7eecec4d")
     .first_or_create(
       title: "Self Distribution",
@@ -107,26 +115,16 @@ class UserAssetsFactory
       expires: false
     )
     set_document_user( CopyMachine.create_document_users( template, doc ) , 'DISTRIBUTOR')
-    #document_users = CopyMachine.create_document_users( template, doc )
-    
-    #document_users.each do |document_user|
-    #  if document_user.role == 'DISTRIBUTOR'
-    #     document_user.update(
-    #      email:          @user.email,
-    #      user_id:        @user.id, 
-    #      legal_name:     @user.get_full_name
-    #    )
-    #    ap document_user
-    #  end
-    #end
-    
-   
-    
+
     
   end
   
   def create_ipi
-    @ipi = Ipi.create(
+    @ipi = Ipi.where(
+      user_id:    @user.id,
+      email:      @user.email
+    )
+    .first_or_create(
       user_id:    @user.id, 
       uuid:       UUIDTools::UUID.timestamp_create().to_s,
       email:      @user.email,
@@ -135,11 +133,9 @@ class UserAssetsFactory
   end
 
   def create_publisher
-    @publisher = Publisher.where(
-      user_id: @user.id,
-      account_id: @account.id
-    )
-    .first_or_create(
+    return if @publisher = @user.personal_publisher
+    
+    @publisher = Publisher.create(
       user_id: @user.id,
       account_id: @account.id,
       legal_name: "#{@user.user_name} Publishing",
@@ -151,13 +147,26 @@ class UserAssetsFactory
     @publisher.confirmed!
   end
   
+  def create_user_publisher
+    UserPublisher.where(
+      user_id:      @user.id,
+      publisher_id: @publisher.id
+    )
+    .first_or_create(
+      user_id:      @user.id,
+      publisher_id: @publisher.id,
+      email:        @user.email
+    )
+  end
+  
   def create_publishing_agreement
-    
-    @publishing_agreement = PublishingAgreement.where(
+
+    return if @publishing_agreement = PublishingAgreement.find_by(
       user_id:            @user.id,
       account_id:         @account.id, 
     )
-    .first_or_create(
+    
+    @publishing_agreement = PublishingAgreement.create(
       publisher_id:       @publisher.id,
       split:              0.0,
       title:              "Publishing agreement for #{@user.user_name}",
@@ -169,26 +178,39 @@ class UserAssetsFactory
   end
   
   def create_publishing_agreement_document
-    template  = Document.where(uuid: '5dcab336-5dd6-11e5-88f3-d43d7eecec4d')
-    .first_or_create(
-      title: "Self publishing",
-      document_type: "Template",
-      body: "Self publishing ( I validate i'm my own rightful publisher )",
-      text_content: "Self publishing ( I validate i'm my own rightful publisher )",
-      tag: "Publishing",
-      uuid: "5dcab336-5dd6-11e5-88f3-d43d7eecec4d",
-    )
-    doc       = CopyMachine.copy_document( template )
     
-    doc.update( 
-      :belongs_to_id    => @publishing_agreement.id,
-      :belongs_to_type  => @publishing_agreement.class.name,
-      :account_id       => @account.id,
-      :template_id      => template.id,
-      title:            template.title.gsub('COPY', ''),
-      expires: false
-    )
-    set_document_user( CopyMachine.create_document_users( template, doc ) , 'Publisher')
+    return if @publishing_agreement.document_uuid
+    
+    
+    if  template  = Document.where(uuid: '5dcab336-5dd6-11e5-88f3-d43d7eecec4d')
+      .first_or_create(
+        title: "Self publishing",
+        document_type: "Template",
+        body: "Self publishing ( I validate i'm my own rightful publisher )",
+        text_content: "Self publishing ( I validate i'm my own rightful publisher )",
+        tag: "Publishing",
+        uuid: "5dcab336-5dd6-11e5-88f3-d43d7eecec4d",
+      )
+   
+    
+      if doc = CopyMachine.copy_document( template )
+        
+        doc.update( 
+          :belongs_to_id    => @publishing_agreement.id,
+          :belongs_to_type  => @publishing_agreement.class.name,
+          :account_id       => @account.id,
+          :template_id      => template.id,
+          title:            template.title.gsub('COPY', ''),
+          expires:          false
+        )
+        set_document_user( CopyMachine.create_document_users( template, doc ) , 'Publisher')
+         
+      else
+        ap 'unable to copy template'
+      end
+    else
+      ap 'unable to get template'
+    end
     #if document_users = CopyMachine.create_document_users( template, doc )
     #  if document_user = document_users.first
     #    document_user.update(
@@ -207,6 +229,7 @@ class UserAssetsFactory
   end
   
   def create_ipi_publisher
+    
     IpiPublisher.where(
       publisher_id: @publisher.id,
       ipi_id:       @ipi.id,
@@ -219,9 +242,12 @@ class UserAssetsFactory
   end
   
   def create_mp3_term_of_usage
+    
+    return if @account.documents.find_by(title: "Sale of mp3 for personal usage")
+    
     template  = Document.where(uuid: "38e2fddc-45ce-11e5-b8b5-d43d7eecec4d")
     .first_or_create(
-      title: "Term of usage for a mp3 file bought in the shop",
+      title: "Sale of mp3 for personal usage",
       document_type: "Template",
       body: "You what you can use a mp3 for",
       text_content: "MP3 usage agreement",

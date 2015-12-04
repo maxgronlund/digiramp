@@ -73,11 +73,7 @@ class User < ActiveRecord::Base
   has_many :labels
   has_many :common_works
   has_many :common_work_users
-  
-  # A user can have many publishers that he uses for publishing other persons
-  #has_many :user_publishers
-  #has_many :publishers,       :through => :user_publishers 
-  #has_many :publishers
+
   has_many :distribution_agreements
   
   has_many :comments,        as: :commentable,          dependent: :destroy
@@ -553,11 +549,7 @@ class User < ActiveRecord::Base
         status: 0
       )
     end
-    
-    if self.user_publishers
-      user_publishers.destroy_all
-    end
-    
+
     if client_invitations = ClientInvitation.where(client_id: self.id)
       client_invitations.destroy_all
     end
@@ -907,7 +899,9 @@ class User < ActiveRecord::Base
   def label
     begin
       unless _label = Label.find_by(id: self.default_label_id )
-        _label = Label.create_label( self.account.id)
+        _label = Label.create_label( 
+          self.account.id
+        )
       end
       return _label
     rescue => e

@@ -19,7 +19,9 @@ class Label < ActiveRecord::Base
   
   
   def init_defaults
-    self.update(uuid: UUIDTools::UUID.timestamp_create().to_s)
+    self.update( 
+      uuid: UUIDTools::UUID.timestamp_create().to_s
+    )
   end
   
   def default_distribution_agreement
