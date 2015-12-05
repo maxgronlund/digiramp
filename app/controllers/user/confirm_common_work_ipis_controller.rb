@@ -8,9 +8,9 @@ class User::ConfirmCommonWorkIpisController < ApplicationController
   # If the user is not confirmed go the the Confirmation#edit 
   def edit
     
-    not_found unless @common_work_ipi = CommonWorkIpi.find_by(uuid: params[:id]) 
-    not_found unless @user            = User.cached_find(params[:user_id])
-    not_found unless @common_work     = @common_work_ipi.common_work
+    return not_found unless @common_work_ipi = CommonWorkIpi.find_by(uuid: params[:id]) 
+    return not_found unless @user            = User.cached_find(params[:user_id])
+    return not_found unless @common_work     = @common_work_ipi.common_work
 
     # the user is logged in all is ok
     # go to the real confirmation sreen for logged in users

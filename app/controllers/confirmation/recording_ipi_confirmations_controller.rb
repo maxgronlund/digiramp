@@ -31,16 +31,11 @@ class Confirmation::RecordingIpiConfirmationsController < ApplicationController
     elsif current_user.id != @user.id
       #there is a IPI and a user but the user 
       redirect_to confirmation_wrong_recording_user_path(uuid: params[:id])
+    else
+      return not_found( params )  unless ( @recording = @recording_ipi.recording ) && ( account = @recording.account ) && ( @requester = account.user )
+      redirect_to user_user_recording_ipi_path(@user, @recording_ipi ) if  @recording_ipi.confirmed?
     end
-    
-    redirect_to user_user_recording_ipi_path(@user, @recording_ipi ) if  @recording_ipi.confirmed?
-    
-    not_found( params )  unless ( @recording = @recording_ipi.recording ) && ( account = @recording.account ) && ( @requester = account.user )
-    
-    
-    
-    
-    
+
   end
 
   def edit
