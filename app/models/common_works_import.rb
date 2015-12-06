@@ -15,16 +15,16 @@ class CommonWorksImport < ActiveRecord::Base
   
   
   def parse_common_works
-    ap '--------------------------------------------------------------'
-    ap 'CommonWorksImport#parse_common_works'
-    ap self
+    #ap '--------------------------------------------------------------'
+    #ap 'CommonWorksImport#parse_common_works'
+    #ap self
     
     self.imported_works = 0
     
     self.params.each do |param|
-      ap '---------------------------------- PARAMS -------------------------------------------'
-      ap param
-      ap '-------------------------------------------------------------------------------------'
+      #ap '---------------------------------- PARAMS -------------------------------------------'
+      #ap param
+      #ap '-------------------------------------------------------------------------------------'
       begin
         if alternate_ids =  params[:alternate_ids]
           iswc_code = alternate_ids["ISWC"]
@@ -92,9 +92,9 @@ class CommonWorksImport < ActiveRecord::Base
         add_to_catalog common_work, self.catalog_id
 
       rescue => e
-        ap '==================================================================='
-        ap 'ERROR'
-        ap e.inspect
+        #ap '==================================================================='
+        #ap 'ERROR'
+        #ap e.inspect
         
         ErrorNotification.post_object "CommonWorksImport#parse_common_works", e
       end
