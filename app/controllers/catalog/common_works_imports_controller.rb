@@ -51,6 +51,8 @@ class Catalog::CommonWorksImportsController < ApplicationController
   end
   
   def ascap_import
+    ap 'CommonWorksImportsController#ascap_import'
+    
     @common_work_import = CommonWorksImport.cached_find(params[:common_works_import_id])
     @common_work_import.update_attributes!(common_work_import_params)
     

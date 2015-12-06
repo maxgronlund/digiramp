@@ -4,9 +4,9 @@ class Account::CommonWorksController < ApplicationController
   before_action :access_account
   
   def index
-    forbidden unless current_account_user && current_account_user 
+    #return forbidden unless current_account_user && current_account_user 
     
-    @user = @account.user
+    @user          = current_user
     @common_works  = CommonWork.account_search(@account, params[:query]).order('title asc').page(params[:page]).per(32)
     respond_to do |format|
       format.html
@@ -28,6 +28,7 @@ class Account::CommonWorksController < ApplicationController
   end
   
   def new
+    @user           = current_user
     @common_work    = CommonWork.new
   end
   

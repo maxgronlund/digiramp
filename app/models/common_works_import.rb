@@ -15,54 +15,71 @@ class CommonWorksImport < ActiveRecord::Base
   
   
   def parse_common_works
-
+    ap '--------------------------------------------------------------'
+    ap 'CommonWorksImport#parse_common_works'
+    ap self
+    
     self.imported_works = 0
     
     self.params.each do |param|
+      ap '---------------------------------- PARAMS -------------------------------------------'
+      ap param
+      ap '-------------------------------------------------------------------------------------'
+      begin
+        if alternate_ids =  params[:alternate_ids]
+          iswc_code = alternate_ids["ISWC"]
+        else
+          iswc_code = nil
+        end
+      rescue
+        iswc_code = nil
+      end
       
       begin
-        common_work = CommonWork.where( ascap_work_id:  param[:ascap_work_id].to_i,
-                                        account_id:     self.account_id
-                                      )
-                                .first_or_create( ascap_work_id:  param[:ascap_work_id].to_i,
-                                                  account_id:     self.account_id
-                                                )
-        
-        common_work.title                   = param[:title]
-        common_work.iswc_code               = param[:alternate_ids]["ISWC"]              if common_work[:alternate_ids] && common_work[:alternate_ids]["ISWC"]
-        common_work.submitter_work_id       = param[:alternate_ids]["Submitter Work ID"] if common_work[:alternate_ids] && common_work[:alternate_ids]["Submitter Work ID"]
-        common_work.common_works_import_id  = self.id
-        common_work.account_id              = self.account_id
+        if common_work = CommonWork.find_by( 
+          ascap_work_id:  param[:ascap_work_id].to_i,
+          account_id:     self.account_id
+        )
+        else common_work = CommonWork.create( 
+            ascap_work_id:          param[:ascap_work_id].to_i,
+            account_id:             self.account_id,
+            title:                  param[:title],
+            iswc_code:              iswc_code,
+            common_works_import_id: self.id
+          )
+          #iswc_code    = ( common_work[:alternate_ids] && common_work[:alternate_ids]["ISWC"]) ? common_work[:alternate_ids]["ISWC"] : nil
+          
+          #common_work.iswc_code               = param[:alternate_ids]["ISWC"]  if common_work[:alternate_ids] && common_work[:alternate_ids]["ISWC"]
+          #common_work.submitter_work_id       = param[:alternate_ids]["Submitter Work ID"] if common_work[:alternate_ids] && common_work[:alternate_ids]["Submitter Work ID"]
+          #common_work.common_works_import_id  = self.id
+          #common_work.account_id              = self.account_id
         
          
-        # parse details
-        if details    = param[:details]
-          common_work.surveyed_work                         = details["Surveyed Work"]
-          common_worklast_distribution                      = details["Last Distribution Yr/Qtr"]
-          common_work.work_status                           = details["Work Status"]
-          common_work.ascap_award_winner                    = details["ASCAP Award Winner"]
-          
-          # add to genre 
-          #if common_work.genre.to_s == ''
-          #  # there is no genre so add it
-          #  common_work.genre   = details["Genre"]
-          #elsif common_work.genre.include? details["Genre"]
-          #  # do nothing genre is alreaddy added
-          #else
-          #  # add as comma seperated list
-          #  common_work.genre   += ','
-          #  common_work.genre   += details["Genre"]
-          #end
-          common_work.work_type                             = details["Work Type"]
-          #common_work.composite_type                        = details["Composite Type"]
-          common_work.arrangement                           = (details["Arrangement of Public Domain Work"] != 'N')
+          # parse details
+          if details    = param[:details]
+            common_work.update_columns(
+              surveyed_work:      details["Surveyed Work"],
+              last_distribution:  details["Last Distribution Yr/Qtr"],
+              work_status:        details["Work Status"],
+              work_type:          details["Work Type"],
+              arrangement:        details["Arrangement of Public Domain Work"] != 'N'
+            )
+          end
         end
-          
-        # save
-        common_work.save!
         
+        # common_work_user
+        CommonWorkUser.where(
+          common_work_id:           common_work.id,
+          user_id:                  account.user_id
+        )
+        .first_or_create(
+          common_work_title:        param[:title],
+          common_work_id:           common_work.id,
+          user_id:                  account.user_id,
+          can_manage_common_work:   true
+        )
         # parse ipis
-        parse_ipis common_work.id, param[:ipis], common_work.ascap_work_id
+        parse_ipis common_work.id, param[:ipis]
         
         
         # set health
@@ -75,6 +92,10 @@ class CommonWorksImport < ActiveRecord::Base
         add_to_catalog common_work, self.catalog_id
 
       rescue => e
+        ap '==================================================================='
+        ap 'ERROR'
+        ap e.inspect
+        
         ErrorNotification.post_object "CommonWorksImport#parse_common_works", e
       end
     end
@@ -96,8 +117,14 @@ class CommonWorksImport < ActiveRecord::Base
 
     if catalog_id 
 
-      CatalogsCommonWorks.where(catalog_id: catalog_id, common_work_id: common_work.id)
-                         .first_or_create(catalog_id: catalog_id, common_work_id: common_work.id)
+      CatalogsCommonWorks.where(
+        catalog_id: catalog_id, 
+        common_work_id: common_work.id
+      )
+      .first_or_create(
+        catalog_id: catalog_id, 
+        common_work_id: common_work.id
+      )
                          
 
     else
@@ -108,29 +135,56 @@ class CommonWorksImport < ActiveRecord::Base
       
   end
   
-  def parse_ipis common_work_id, ipis, ascap_work_id
+  def parse_ipis common_work_id, ipis
 
     ipis.each do |ipi_scrape|
-      if ipi = Ipi.where(common_work_id: common_work_id, 
-                         ipi_code: ipi_scrape[:ipi_number] ).first
-      else  ipi = Ipi.new( common_work_id:  common_work_id, 
-                           ipi_code:        ipi_scrape[:ipi_number]
-                          )
+      if ipi = Ipi.find_by(
+          ipi_code: ipi_scrape[:ipi_number] 
+        )
+      else 
+        pro_affiliation = ProAffiliation.where(
+          title: ipi_scrape[:society]
+          )
+          .first_or_create(
+            title:  ipi_scrape[:society]
+          )
+        
+        ipi = Ipi.create( 
+            title:              ipi_scrape[:society],
+            ipi_code:           ipi_scrape[:ipi_number],
+            full_name:          ipi_scrape[:full_name],
+            uuid:               UUIDTools::UUID.timestamp_create().to_s, 
+            pro_affiliation_id: pro_affiliation.id  
+          )            
       end
+      
+      ap '---------- IPI --------------------'
       ap ipi
-      ipi.full_name                = ipi_scrape[:full_name]
-      ipi.role                      = ipi_scrape[:role]
       
-      pro_affiliation = ProAffiliation.where(title: ipi_scrape[:society]).first_or_create(title: ipi_scrape[:society])
+      if CommonWorkIpi.find_by(
+          common_work_id: common_work_id,
+          ipi_id:         ipi.id
+        )
+      else
+        common_work_ipi = CommonWorkIpi.new(
+          common_work_id: common_work_id,
+          ipi_id:         ipi.id,
+          share:          ipi_scrape[:own_percent],
+          full_name:      ipi_scrape[:full_name],
+          uuid:           UUIDTools::UUID.timestamp_create().to_s, 
+        )
+        common_work_ipi.save(validate: false)
+      end
+      #ipi.full_name                = ipi_scrape[:full_name]
+      #ipi.role                      = ipi_scrape[:role]
+      #ipi.pro_affiliation_id        = pro_affiliation.id
+      #ipi.perf_owned                = ipi_scrape[:own_percent]
+      #ipi.perf_collected            = ipi_scrape[:collect_percent]
+      #ipi.has_agreement             = ipi_scrape[:has_agreement]
+      #ipi.linked_to_ascap_member    = ipi_scrape[:linked_to_ascap_member]
+      #ipi.controlled_by_submitter   = ipi_scrape[:controlled_by_submitter]
+      #ipi.ascap_work_id             = ascap_work_id
       
-      ipi.pro_affiliation_id        = pro_affiliation.id
-      ipi.perf_owned                = ipi_scrape[:own_percent]
-      ipi.perf_collected            = ipi_scrape[:collect_percent]
-      ipi.has_agreement             = ipi_scrape[:has_agreement]
-      ipi.linked_to_ascap_member    = ipi_scrape[:linked_to_ascap_member]
-      ipi.controlled_by_submitter   = ipi_scrape[:controlled_by_submitter]
-      ipi.ascap_work_id             = ascap_work_id
-      ipi.save!(:validate => false)
 
     end
     
@@ -228,19 +282,20 @@ class CommonWorksImport < ActiveRecord::Base
   end
   
   def self.post_info user_email, info
-
     
+    channel = 'digiramp_radio_' + user_email
     if info[:error]
-      channel = 'digiramp_radio_' + user_email
+      ap "CommonWorksImport#post_info #{info}"
+      
       Pusher.trigger(channel, 'digiramp_event', {"title" => 'Error', 
                                             "message" => 'Unable to log in', 
                                             "time"    => '500', 
                                             "sticky"  => 'true', 
                                             "image"   => 'error'
                                             })
- 
-    elsif info[:stage_complete] == :goto_works_from_dashboard
-      channel = 'digiramp_radio_' + user_email
+      
+    elsif info[:stage_complete] == :login
+      
       Pusher.trigger(channel, 'digiramp_event', {"title" => 'Info', 
                                             "message" => 'Password Accepted', 
                                             "time"    => '4000', 
@@ -248,7 +303,7 @@ class CommonWorksImport < ActiveRecord::Base
                                             "image"   => 'progress'
                                             })
     elsif info[:start] == :ascap_import
-      channel = 'digiramp_radio_' + user_email
+      
       Pusher.trigger(channel, 'digiramp_event', {"title" => 'Info', 
                                             "message" => 'ASCAP Import Started', 
                                             "time"    => '1000', 
@@ -257,9 +312,16 @@ class CommonWorksImport < ActiveRecord::Base
                                             })
     elsif info[:start] == :bmi_import
 
-      channel = 'digiramp_radio_' + user_email
+      
       Pusher.trigger(channel, 'digiramp_event', {"title" => 'Info', 
                                             "message" => 'BMI Import Started', 
+                                            "time"    => '4000', 
+                                            "sticky"  => 'false', 
+                                            "image"   => 'notice'
+                                            })
+    elsif info[:html_work_detail_tbodies]
+      Pusher.trigger(channel, 'digiramp_event', {"title" => 'Info', 
+                                            "message" => 'Work imported', 
                                             "time"    => '4000', 
                                             "sticky"  => 'false', 
                                             "image"   => 'notice'

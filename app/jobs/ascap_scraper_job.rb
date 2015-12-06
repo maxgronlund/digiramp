@@ -4,18 +4,12 @@ class AscapScraperJob < ActiveJob::Base
   queue_as :default
 
   def perform( user_name, password, common_works_import_id )
-    
 
     common_works_import = CommonWorksImport.cached_find(common_works_import_id)
-
-   
-    scrape = Scraper::AscapMemberScrape.new user_name, password
+    scrape              = Scraper::AscapMemberScrape.new user_name, password
 
     scrape.start do |info|
-
-      if info[:error] 
-         CommonWorksImport.post_info common_works_import.user_email, {error: 'error'}
-      end
+      CommonWorksImport.post_info common_works_import.user_email, info
     end
 
     

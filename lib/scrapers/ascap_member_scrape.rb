@@ -13,6 +13,9 @@ class Scraper::AscapMemberScrape
   def self.exceptions; @@exceptions ||= [] end
   
   def initialize username, password
+    
+    ap "Scraper::AscapMemberScrape##{username} . #{password}}"
+    
     @url = "https://members.ascap.com/"
     @ascap_member_login = AscapMemberLogin.new(username, password)
   end
