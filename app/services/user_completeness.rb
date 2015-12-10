@@ -5,11 +5,10 @@ class UserCompleteness
   def self.process user
     nr_required_params      = 0.0
     completeness            = 0.0
-    
-    default_name            = User.create_uniq_user_name_from_email(user.email)
-                                                         
-    # user user_name is     still default name                                                                                            
-    #completeness            += 1 unless user.user_name            == default_name
+
+                                                
+    # user user_name is     still default name                                                              
+    #completeness            += 1 unless user.user_name    == User.create_uniq_user_name_from_email(user.email)
     #nr_required_params      += 1                                  
                                                                   
     completeness            += 1 unless user.profile.to_s         == ''
