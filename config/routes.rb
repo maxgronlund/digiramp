@@ -2,8 +2,6 @@ Digiramp::Application.routes.draw do
 
 
 
-  
-
   get 'facebook_import/index'
 
 	get "/invites/:provider/contact_callback" => "invites#index"
@@ -154,6 +152,7 @@ Digiramp::Application.routes.draw do
       resources :digiramp_emails
       resources :email_recipients
     end
+    resources :fake_users, only: [:index]
     get 'features_and_values/index'
     resources :front_end_contents, only: [:edit, :update]
     resources :helps

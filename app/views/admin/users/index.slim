@@ -12,28 +12,33 @@
     .container-fluid
       == render 'shared/breadcrumbs', breadcrumbs: { links: { admin: admin_index_path }, current: ''}
       .row
-        .col-sm-5
-
+        .col-sm-6
           h2 Users
+        .col-sm-6
+          .pull-right.pull-down-10
+            = link_to 'Suspicious users', admin_fake_users_path, class: 'btn btn-default'
       
+      .row
+        .col-sm-5
         .col-sm-7
-          .pull-down-10
-            = simple_form_for  [ @user ], :url => url_for(:action => 'index', \
-                                                          :controller => 'users'), \
-                                                          :method => 'get',
-                                                          turboboost: true do |f|
-            
-              .input-group
-                span class="input-group-addon"
-                  i class= 'fa fa-search'
-                = text_field_tag "query", "", :class => 'search-query form-control', \
-                                              :placeholder => 'Search for user', \
-                                              value: params[:query], autofocus: true
-                .input-group-btn
-                  = f.submit 'Search', class: "btn btn-info"
-                  '&nbsp;
-                  = link_to 'Clear', admin_users_path, class: 'btn btn-default'        
-            
+          .pull-right
+            .pull-down-10
+              = simple_form_for  [ @user ], :url => url_for(:action => 'index', \
+                                                            :controller => 'users'), \
+                                                            :method => 'get',
+                                                            turboboost: true do |f|
+              
+                .input-group
+                  span class="input-group-addon"
+                    i class= 'fa fa-search'
+                  = text_field_tag "query", "", :class => 'search-query form-control', \
+                                                :placeholder => 'Search for user', \
+                                                value: params[:query], autofocus: true
+                  .input-group-btn
+                    = f.submit 'Search', class: "btn btn-info"
+                    '&nbsp;
+                    = link_to 'Clear', admin_users_path, class: 'btn btn-default'        
+              
                  
       .pull-down-10
       .users

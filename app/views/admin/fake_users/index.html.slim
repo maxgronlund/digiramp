@@ -1,0 +1,112 @@
+#wrapper
+  .full-width-top
+    == render 'shared/navigationbar', page: 'home' 
+  
+  
+  .admin-account
+    #sidebar-wrapper
+      ul class="sidebar-nav"
+        == render 'admin/shared/sidebar', selected: 'user'
+  
+  #page-content-wrapper
+    .container-fluid
+      == render 'shared/breadcrumbs', breadcrumbs: { links: { admin: admin_index_path }, current: ''}
+      .row
+        .col-sm-7
+          h2 Suspicious users
+        .col-sm-5
+          .pull-right.pull-down-10
+            = link_to  admin_users_path do
+                .btn.btn-default
+                  i.fa.fa-chevron-left
+                  '&nbsp;Back
+            
+          
+            
+                 
+      .pull-down-10
+      .users
+        .table-responsive
+          table class="table table-hover"
+            thead
+              tr
+                th 
+                th Email
+                th Compleness
+                th Created
+                th Name
+                 
+                /th Role
+                /th Admin
+                th Id
+            tbody
+              - @users.each do |user|
+                tr id="delete_user_#{user.id.to_s}"
+                  /td = debug user
+                  td 
+                    - if user.role == 'Super'
+                      .btn.btn-danger.btn-xs disabled="disabled"
+                        i class="fa fa-times"
+                    - else
+                      => link_to admin_user_path( user), data: { confirm: 'Are you sure?.' } , :method => :delete, remote: true do 
+                        .btn.btn-danger.btn-xs
+                          i class="fa fa-times"
+                      
+                      => link_to admin_user_path( user, blacklist: true), data: { confirm: '!WARNING if you blacklist this user no other users from the users domain will be able to signup' } , :method => :delete, remote: true do 
+                        .btn.btn-default.btn-xs
+                          'Blacklist
+
+                    /=> link_to edit_admin_user_path( user) do 
+                    /  .btn.btn-default.btn-xs
+                    /    i class="fa fa-pencil edit-user-#{user.id.to_s}"
+                    /
+                    /- if account = user.account  
+                    /  => link_to edit_admin_account_path( account) do 
+                    /    .btn.btn-default.btn-xs
+                    /      i class="fa fa-gear"
+                    /  
+                    /  => link_to account_account_path(account) do 
+                    /     div class="btn btn-default btn-xs #{ disabled ='disabled' if account.account_type == 'Social'}"
+                    /      i.fa.fa-tachometer
+                    /      '&nbsp;
+                    /      'Pro
+                    /      
+                    /-else
+                    /  .btn.btn-warning.btn-xs
+                    /    i.fa.fa-frown-o 
+                    /    '&nbsp;
+                    /    'Err
+                        
+                  td
+                    = link_to user_path(user) do 
+                      .btn.btn-default.btn-xs style="width: 250px; text-align: left; text-overflow: ellipsis;"
+                        - if user.confirmed_at
+                          '&nbsp;√&nbsp;
+                        - else user.confirmed_at
+                          '&nbsp;-&nbsp;
+                        = user.email
+                  
+                  td = user.completeness  
+                  td = time_ago_in_words(user.created_at)
+                  td = user.user_name
+                  /td
+                  /  - if user.featured
+                  /    i.fa.fa-star&nbsp;Featured
+                  /
+                  /td 
+                  /  -if user.account
+                  /    = user.account_type
+                  /td = user.created_at.strftime("%Y-%m-%d")
+                  /td = user.role
+                  /td 
+                  /  - if user.administrator
+                  /    'Administrator
+                  
+                    
+                  td
+                    = user.id
+
+      .pull-down-10
+      == paginate(@users)        
+  == render 'shared/site_footer'    
+ 
