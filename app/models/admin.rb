@@ -15,6 +15,7 @@ class Admin < ActiveRecord::Base
   end
   
   def self.get_invoice_nr
+    #!!! thread safe no?
     admin = Admin.first_or_create
     admin.update(orders_count: admin.orders_count + 1)
     admin.orders_count

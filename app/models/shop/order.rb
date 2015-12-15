@@ -182,7 +182,7 @@ class Shop::Order < ActiveRecord::Base
   end
   
   def shipping_address
-    Address.find_by(addressable_id: self.id, addressable_type: self.class.name)
+    Address.find_by(uuid: self.id, addressable_type: self.class.name)
   end
 
   def payment_source

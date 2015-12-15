@@ -68,7 +68,7 @@ class InvoiceMailer < ApplicationMailer
     invoice = render_to_string('shop/invoices/notify_buyer_email', layout: 'invoices')
     
     invoice_url   = url_for( controller: 'shop/invoices', action: 'show', id:  @shop_order.id )
-    ap invoice_url
+    
     begin
       template_name = "invoice"
       template_content = []

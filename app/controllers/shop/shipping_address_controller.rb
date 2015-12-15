@@ -17,6 +17,8 @@ class Shop::ShippingAddressController < ApplicationController
     end
     @address                      = Address.new
     if current_user
+      @address.uuid                 = @shop_order.id
+      @address.address_type         = @shop_order.class.name
       @address.first_name           = current_user.first_name
       @address.last_name            = current_user.last_name
       @address.city                 = current_user.city
@@ -71,7 +73,8 @@ class Shop::ShippingAddressController < ApplicationController
                                       :state, 
                                       :country, 
                                       :addressable_id, 
-                                      :addressable_type)
+                                      :addressable_type,
+                                      :uuid)
     end
     
 end

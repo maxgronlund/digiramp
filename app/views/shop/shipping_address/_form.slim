@@ -25,6 +25,7 @@
       .col-sm-6
         = f.input :country
     = f.hidden_field :addressable_id    , value: @shop_order.id
+    = f.hidden_field :uuid              , value: @shop_order.id
     = f.hidden_field :addressable_type  , value: @shop_order.class.name
 
   
