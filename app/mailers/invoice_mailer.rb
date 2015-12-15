@@ -66,8 +66,9 @@ class InvoiceMailer < ApplicationMailer
   def send_to_buyer
     
     invoice = render_to_string('shop/invoices/notify_buyer_email', layout: 'invoices')
-
-
+    
+    invoice_url   = url_for( controller: 'shop/invoices', action: 'show', id:  @shop_order.id )
+    ap invoice_url
     begin
       template_name = "invoice"
       template_content = []
@@ -84,7 +85,9 @@ class InvoiceMailer < ApplicationMailer
         merge_vars: [
           {
            rcpt: @shop_order.email,
-           vars: [ {name: "INVOICE",     content: invoice} ]
+           vars: [ {name: "INVOICE",     content: invoice},
+                   {name: "INVOICE_URL", content: invoice_url } 
+                 ]
           }
         ]
       }
