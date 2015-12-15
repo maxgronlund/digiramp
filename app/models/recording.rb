@@ -639,7 +639,7 @@ class Recording < ActiveRecord::Base
   def download_url2
     s3 = Aws::S3::Resource.new
     secure_url = self.mp3
-
+    
     begin
       if self.mp3.include?("https://s3-us-west-1.amazonaws.com/digiramp/")
         secure_url = self.mp3.gsub('https://s3-us-west-1.amazonaws.com/digiramp/', '')
@@ -647,11 +647,11 @@ class Recording < ActiveRecord::Base
         secure_url = self.mp3.gsub('https://digiramp.s3.amazonaws.com/', '')
       end
       bucket      = s3.bucket(Rails.application.secrets.aws_s3_bucket)
-      s3_obj      =  bucket.object(secure_url)
+      s3_obj      = bucket.object(secure_url)
       filename    = self.title.downcase.gsub(' ', '-') + '.mp3'
+      filename    = URI.encode(filename)
       secure_url  = s3_obj.presigned_url(:get, expires_in: 600,response_content_disposition: "attachment; filename='#{filename}'")
     rescue => e
-      
       secure_url = self.mp3
     end
     secure_url

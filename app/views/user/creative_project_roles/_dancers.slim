@@ -1,4 +1,4 @@
-h3 Dancers
+h4 Dancers
 - @creative_project.creative_project_roles.where(role: 'dancer').each do |creative_project_role|
   == render 'user/creative_project_roles/role', creative_project_role: creative_project_role
 - if @user.manage? current_user
