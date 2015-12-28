@@ -8,7 +8,7 @@ class Shop::StripeTransfer < ActiveRecord::Base
   belongs_to :user
   belongs_to :account
   belongs_to :stake       
-  default_scope -> { order('created_at ASC') }
+  default_scope -> { order('created_at DESC') }
   
 
   include AASM
@@ -51,7 +51,11 @@ class Shop::StripeTransfer < ActiveRecord::Base
    end
  end
  
+ # send a payment to a users stripe account
  def pay
+   
+   Notifyer.print( 'Shop::StripeTransfer' , self ) if Rails.env.development?
+   
    set_description
    self.process!
    
@@ -63,11 +67,12 @@ class Shop::StripeTransfer < ActiveRecord::Base
       currency:               self.currency,
       description:            self.description,
       metadata:               {
-                                'description' => self.description,
+                                'description'   => self.description,
                                 'order_item_id' => self.order_item_id
                               },
-      statement_descriptor:   "#{self.description}",
+      statement_descriptor:   "#{self.description} test 001",
       application_fee:        self.application_fee
+      #recipient:              self.destination 
     )
     self.finis!
    rescue Stripe::StripeError => e
@@ -92,7 +97,7 @@ class Shop::StripeTransfer < ActiveRecord::Base
      end
      update(description: desc)
    rescue => e
-      errored('Shop::StripeTransfer#pay', e )
+      errored('Shop::StripeTransfer#set_description', e )
    end 
  end
 

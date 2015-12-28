@@ -36,11 +36,11 @@ class Admin < ActiveRecord::Base
   end
   
   def self.application_percentate_fees
-    (commers_fee.stripe_percentage_fee + commers_fee.digiramp_percentage_fee) * 0.01
+    commers_fee.digiramp_percentage_fee * 0.01
   end
   
   def self.application_flat_fees
-    commers_fee.stripe_flat_fee + commers_fee.digiramp_flat_fee
+    commers_fee.digiramp_flat_fee
   end
   
   def self.without_stripe_fees amount
@@ -54,6 +54,22 @@ class Admin < ActiveRecord::Base
     amount -= fee
     amount - commers_fee.digiramp_flat_fee
   end
+  
+  def self.amount_without_fees amount
+    digi_fee      = amount * commers_fee.digiramp_percentage_fee * 0.01
+    amount        -= digi_fee
+    stripe_fee    = amount * commers_fee.stripe_percentage_fee * 0.01
+    amount        -= stripe_fee
+  end
+  
+  # return the fees taken by DigiRAMP in a given input
+  # 
+  #  Admin.digiramp_fees 1000 # => 15.0
+  def self.digiramp_fees amount
+    fees =  amount * application_percentate_fees  
+    fees + application_flat_fees
+  end
+
   
 end
 

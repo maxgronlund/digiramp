@@ -141,9 +141,37 @@ class Recording < ActiveRecord::Base
   end
   
   def stakes
-    Stake.where(asset_type: self.class.name,asset_id: self.uuid )
+    Stake.where(asset_type: self.class.name, asset_id: self.uuid )
   end
   
+  def create_stakes shop_product, price_minus_labels_cut
+    Notifyer.print( 'Recording#create_stakes' , price_minus_labels_cut: price_minus_labels_cut ) if Rails.env.development?
+    
+    self.recording_ipis.each do |recording_ipi|
+      recording_ipi.create_stake( shop_product, price_minus_labels_cut )
+    end
+  end
+  
+  def update_stakes shop_product, price_minus_labels_cut
+    Notifyer.print( 'Recording#update_stakes' , price_minus_labels_cut: price_minus_labels_cut ) if Rails.env.development?
+    
+    self.recording_ipis.each do |recording_ipi|
+      recording_ipi.update_stake( shop_product, price_minus_labels_cut )
+    end
+  end
+  
+  def set_shop_product_id_on_stakes shop_product_id
+    self.recording_ipis.each do |recording_ipi|
+      recording_ipi.set_shop_product_id_on_stakes( shop_product_id )
+    end
+  end
+  
+  #def update_stakes shop_product
+  #  #Notifyer.print( 'Recording#update_stakes' , product ) if Rails.env.development?
+  #  self.recording_ipis.each do |recording_ipi|
+  #    recording_ipi.update_stake(  shop_product,  self )
+  #  end
+  #end
   
   
   

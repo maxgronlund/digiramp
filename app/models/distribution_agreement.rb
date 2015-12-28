@@ -30,32 +30,58 @@ class DistributionAgreement < ActiveRecord::Base
     end
   end
   
-  def configure_payment( price, recording_id )
-    distribution_rake    = configure_publishers_payment( price, recording_id )
-
+  def create_stakes shop_product, recording
+    Notifyer.print( 'DistributionAgreement#create_stakes' , original_label: self.original_label ) if Rails.env.development?
     
-    if self.original_label
-      self.label.configure_payment( 
-        price, 
-        distribution_rake, 
-        recording_id, 
-        self.id 
-      )
-    else
-      #!!!
-      self.distributor.configure_distribution_payment( 
-        price,   
-        distribution_rake,               
-        recording_id, 
-        self.uuid 
-      )
-      self.label.configure_payment(             
-        price,   
-        distribution_rake , 
-        recording_id, self.uuid 
-      )
+    begin
+      common_work     = recording.common_work
+      create_publishers_stakes( common_work, shop_product, recording )
+      label_cut       = ( shop_product.price - common_work.royalty) * self.split * 0.01
+      
+      if self.original_label
+        self.label.create_stake( 
+          label_cut, 
+          shop_product,
+          recording, 
+          self 
+        )
+      else
+      end
+      label_and_publishings_cut  = label_cut + common_work.royalty
+      
+      return label_and_publishings_cut
+    rescue => e
+      ErrorNotification.post_object 'DistributionAgreement#create_stake', e
+      return 0.0
     end
   end
+  
+  def update_stakes shop_product, recording
+    Notifyer.print( 'DistributionAgreement#update_stakes' , original_label: self.original_label ) if Rails.env.development?
+    
+    begin
+      common_work     = recording.common_work
+      update_publishers_stakes( common_work, shop_product, recording )
+      label_cut       = ( shop_product.price - common_work.royalty) * self.split * 0.01
+      
+      if self.original_label
+        self.label.update_stake( 
+          label_cut, 
+          shop_product,
+          recording, 
+          self 
+        )
+      else
+      end
+      label_and_publishings_cut  = label_cut + common_work.royalty
+      
+      return label_and_publishings_cut
+    rescue => e
+      ErrorNotification.post_object 'DistributionAgreement#create_stake', e
+      return 0.0
+    end
+  end
+
   
   def connect_to_label
 
@@ -77,18 +103,33 @@ class DistributionAgreement < ActiveRecord::Base
   end
 
   private 
-  
-    def configure_publishers_payment( price, recording_id )
-
+    
+    # send money to the publishers and return the remainding
+    def create_publishers_stakes( common_work, shop_product, recording )
+      Notifyer.print( 'DistributionAgreement#create_publishers_stakes' , shop_product: shop_product ) if Rails.env.development?
       begin 
-        recording       = Recording.cached_find(recording_id)
-        common_work     = recording.common_work
-        return common_work.configure_publishers_payment( price, recording.uuid )
+        common_work.create_publishers_stakes( shop_product, recording )
       rescue => e
-        return price
-        ErrorNotification.post_object 'DistributionAgreement#pay_publishers', e
+        ErrorNotification.post_object 'DistributionAgreement#create_publishers_stakes', e
       end
-
+    end
+    
+    def update_publishers_stakes( common_work, shop_product, recording )
+      Notifyer.print( 'DistributionAgreement#update_publishers_stakes' , shop_product: shop_product ) if Rails.env.development?
+      begin 
+        common_work.update_publishers_stakes( shop_product, recording )
+      rescue => e
+        ErrorNotification.post_object 'DistributionAgreement#update_publishers_stakes', e
+      end
+    end
+    
+    
+    
+    
+    
+    
+    # obsolete
+    def configure_publishers_payment( shop_product )
     end
   
 

@@ -103,95 +103,48 @@ class User::ProductsController < ApplicationController
 
     @shop_product = Shop::Product.new(shop_product_params)
 
-    respond_to do |format|
-      if @shop_product.save!
-        @shop_product.configure_stakeholder
-        @shop_product.valid_for_sale! if @user.is_stripe_connected
-        
-        # only aplies for recordings
-        if @shop_product.distribution_agreement
-          @shop_product.distribution_agreement.configure_payment( @shop_product.price, @shop_product.recording.id)
-        end
-        
-        format.html { redirect_to user_user_product_path(@user, @shop_product) }
-        format.json { render :show, status: :created, location: @shop_product }
-      else
-        # '=========================== do what you have to do here ============================='
-        @category = 'recording' 
-        format.html { render :new, category: 'recording' }
-        format.json { render json: @shop_product.errors, status: :unprocessable_entity }
-      end
+
+    if @shop_product.save!
+
+      Notifyer.print( 'Shop::Product#create' , shop_product: @shop_product ) if Rails.env.development?
+      
+      @shop_product.create_stakes
+      @shop_product.valid_for_sale! if @user.is_stripe_connected
+      
+
+      
+      redirect_to user_user_product_path(@user, @shop_product)
+
+    else
+      # '=========================== do what you have to do here ============================='
+      @category = 'recording' 
+      format.html { render :new, category: 'recording' }
     end
+
   end
 
   # PATCH/PUT /shop/products/1
   # PATCH/PUT /shop/products/1.json
   def update
-    if Rails.env.development?
-      ap @shop_product
-    end
-    @category     = @shop_product.category
+
 
     params[:shop_product][:connected_to_stripe] = @user.is_stripe_connected
     
-    respond_to do |format|
-      if @shop_product.update(shop_product_params)
-        
-        if Rails.env.development?
-          ap @shop_product
-        end
-        
-        case @shop_product.productable_type
-          
-        when "Recording"
-          update_recording
-        when 'Shop::Product'
-          @shop_product.valid_for_sale! if @user.is_stripe_connected
-        end
-        #@shop_product.configure_stakeholder
-        #@shop_product.valid_for_sale!
-        
-        #if distribution_agreement = @shop_product.distribution_agreement
-        #  distribution_agreement.configure_payment( @shop_product.price, @shop_product.recording.id)
-        #end
-        
-        
-        
-        
-        #if @shop_product.productable_type == 'Recording'
-        #  #@shop_product.recording.update_stakes( @shop_product.recording )
-        #  SalesService.new(@shop_product.recording.id)
-        #  
-        #end
-        #update_show_in_shop
-        format.html { redirect_to user_user_product_path(@user, @shop_product) }
 
-        #case @category
-        #when 'recording'
-        #  @recording = @shop_product.get_item
-        #  
-        #  if @recording.pre_cleared?
-        #    after_update_path
-        #    #session[:user_product_path] = nil
-        #    #redirect_to user_user_product_path(@user, @shop_product)
-        #  else
-        #    session[:user_product_path] = user_user_product_path(@user, @shop_product)
-        #    redirect_to user_user_common_work_path(@user, @recording.get_common_work) 
-        #  end
-        #else
-        #  after_update_path
-        #  #session[:user_product_path] = nil
-        #  #redirect_to user_user_product_path(@user, @shop_product) 
-        #end
-        #end
-        format.json { render :show, status: :ok, location: @shop_product }
-      else
-        format.html { render :edit }
-        format.json { render json: @shop_product.errors, status: :unprocessable_entity }
-      end
+    if @shop_product.update(shop_product_params)
+      
+      Notifyer.print( 'User::ProductsController#update' , shop_product: @shop_product ) if Rails.env.development?
+      
+      @shop_product.valid_for_sale! if @user.is_stripe_connected
+      @shop_product.update_stakes
+      
+      @category     = @shop_product.category
+      redirect_to user_user_product_path(@user, @shop_product) 
     end
-    
+      
   end
+    
+  
   
   def update_recording
     

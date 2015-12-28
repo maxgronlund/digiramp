@@ -51,8 +51,24 @@ class StripeChargeService
           digiramp_fees                     = ammount_without_stripe_fees - ammount_without_digiramp_fees
           # Percentage
           all_fees_in_percent               = ammount_without_digiramp_fees / amount
-
+          amount_without_fees               = Admin.amount_without_fees(amount)
+          
+          fees_in_percentage                = amount_without_fees / amount
+          
+          ap '########################################################'
+          ap "amount : #{amount}"
+          ap "ammount_without_stripe_fees   : #{ammount_without_stripe_fees}"
+          ap "ammount_without_digiramp_fees : #{ammount_without_digiramp_fees}"
+          ap "amount_without_fees           : #{amount_without_fees}"
+          ap "fees_in_percentage            : #{fees_in_percentage}"
+          ap '########################################################'
+          
+          
           order.charge_succeeded( 
+            order_amount:                     amount,
+            amount:                           amount,
+            amount_without_fees:              amount_without_fees,
+            fees_in_percentage:               fees_in_percentage,
             ammount_without_stripe_fees:      ammount_without_stripe_fees,
             stripe_fees:                      stripe_fees,
             ammount_without_digiramp_fees:    ammount_without_digiramp_fees,

@@ -46,6 +46,8 @@ class CopyMachine
   # CopyMachine.setup_publisher publisher_id
   def self.setup_publisher publisher_id
     
+    Notifyer.print( 'CopyMachine#setup_publisher' , publisher_id: publisher_id ) if Rails.env.development?
+    
     publisher = Publisher.find(publisher_id)
     publisher.confirmed!
     publishing_agreement = setup_publishing_agreement(
@@ -60,15 +62,16 @@ class CopyMachine
       publishing_agreement
     )
     
-    UserPublisher.where(
+    user_publisher = UserPublisher.where(
       publisher_id: publisher_id,
       user_id:      publisher.user_id
     )
     .first_or_create(
       publisher_id: publisher_id,
       user_id:      publisher.user_id,
-      email:       publisher.email
+      email:        publisher.email
     )
+    Notifyer.print( 'CopyMachine#setup_publisher' , user_publisher ) if Rails.env.development?
   end
   
   def self.setup_publishing_agreement(publisher_id, personal_agreement, title, user)

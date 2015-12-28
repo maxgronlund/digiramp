@@ -63,9 +63,7 @@ class Shop::Order < ActiveRecord::Base
   
   # charge the sustomers credit card
   def charge_card
-    if Rails.env.development?
-      ap 'order#charge_card'
-    end
+    
     save!
     begin
       charge = Stripe::Charge.create( amount: self.total_price.to_i.to_s,
@@ -199,12 +197,11 @@ class Shop::Order < ActiveRecord::Base
   def charge_succeeded params
 
 
-    split               = payment_fee_split
-    params[:stripe_fees]   *= split
-    params[:digiramp_fees] *= split
-
-    
+    #split                  = payment_fee_split
+    #params[:stripe_fees]   *= split
+    #params[:digiramp_fees] *= split
     params[:order_id]     = self.id
+    
     begin
       self.order_items.each do |order_item|
         order_item.charge_succeeded params
@@ -216,16 +213,16 @@ class Shop::Order < ActiveRecord::Base
 
   private 
   
-  def payment_fee_split 
-    # what it the fee pr item
-    begin
-      raise 'there has to be at least one item on an order' if order_items.count.to_i == 0
-      1.0 / order_items.count
-    rescue => e
-      post_error "Order#payment_fee_pr_order_item #{e.message}"
-    end
-    return 1
-  end
+  #def payment_fee_split 
+  #  # what it the fee pr item
+  #  begin
+  #    raise 'there has to be at least one item on an order' if order_items.count.to_i == 0
+  #    1.0 / order_items.count
+  #  rescue => e
+  #    post_error "Order#payment_fee_pr_order_item #{e.message}"
+  #  end
+  #  return 1
+  #end
 
   def flush_cache
     Rails.cache.delete([self.class.name, id])

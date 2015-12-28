@@ -1125,6 +1125,18 @@ class User < ActiveRecord::Base
     return  name == '' ? email : name
   end
   
+  def self.find_by_email test_email
+    User.find_by(email: test_email) || UserEmail.find_by(email: test_email)
+    #ap test_email
+    #user = nil
+    #if user = User.find_by(email: test_email)
+    #  return user
+    #elsif user_email = UserEmail.find_by(email: test_email)
+    #  user = user_email.user
+    #end
+    #return user
+  end
+  
   def has_access_to_cattalogs_on account
     CatalogUser.find_by(catalog_id: account.catalog_ids, user_id: self.id)
   end
@@ -1227,6 +1239,8 @@ class User < ActiveRecord::Base
     Rails.cache.delete([self.class.name, id])
     Rails.cache.delete([self.class.name, self.slug])
   end
+  
+  
 
 private
 

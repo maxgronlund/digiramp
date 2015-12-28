@@ -16,7 +16,7 @@ class Stake < ActiveRecord::Base
   belongs_to :account
   #belongs_to :asset, polymorphic: true
   
-  default_scope -> { order('created_at ASC') }
+  default_scope -> { order('created_at DESC') }
 
   has_paper_trail
   include ErrorNotification
@@ -30,6 +30,7 @@ class Stake < ActiveRecord::Base
   
   has_many :stripe_transfers, class_name: Shop::StripeTransfer
   has_many :incomes
+  belongs_to :user
 
   after_commit :flush_cache
   
@@ -68,37 +69,18 @@ class Stake < ActiveRecord::Base
     end
     
   end
-  
 
-  #def update_income
-  #  income = 0
-  #  fees   = 0
-  #  #psql exesizee
-  #  self.stripe_transfers.each do |stripe_transfer|
-  #    income += stripe_transfer.amount
-  #    fees   += stripe_transfer.payment_fee + stripe_transfer.application_fee
-  #  end
-  #  
-  #  self.update(
-  #    generated_income: income,
-  #    generated_fee: fees
-  #  )
-  #  ap self
-  #end
-  
-  
   
   def title
     self.asset ? self.asset.title : 'na'
   end
-  
-  def unit_price
-    @unit_price ||= calculate_unit_price
-  end
+
   
   def stakeholders
     Stake.where(asset_type: self.class.name, asset_id: self.id)
   end
+  
+
   
 
  
@@ -118,33 +100,7 @@ class Stake < ActiveRecord::Base
     'na'
   end
   
-  def description
-    if Rails.env.development?
-      ap "stake#description"
-      ap self.ip_type
-      ap self.asset_type
-    end
-    if self.ip_type
-      case self.ip_type
-      when 'RecordingIpi'
-        return "Marster royalty for #{title}"
-      when "Ipi"
-        return "Mechanical royalty for #{title}"
-      when 'PublishingAgreement'
-        return "Publishing of #{title}"
-      when 'DistributionAgreement'
-        return  "Distribution of #{title}"
-      end
-    end
-    
-    case self.asset_type
-    when 'Shop::Product'
-      return self.title
-    end
-    
-    'na'
-  end
-  
+
   def fees 
     total =  Income.where( stake_id: self.id ).sum :application_fee
     total += Income.where( stake_id: self.id ).sum :payment_fee
@@ -160,58 +116,61 @@ class Stake < ActiveRecord::Base
   end
   
   
+  # when a charge went true from stripe
   def charge_succeeded params
+
+    Notifyer.print( 'Stake#charge_succeeded' , params: params ) if Rails.env.development?
     
-    if Rails.env.development?
-      ap 'Stake#charge_succeeded'
-      ap params
-    end
-    
+
     begin
+      amount_after_fees     = (self.flat_rate_in_cent * params[:fees_in_percentage]).to_i
+      params[:amount]       = amount_after_fees - substreams_amount( self, params )
+      
       transfer_to_stakeholders_account params
       transfer_to_streams params
+      
     rescue => e
       post_error "Stake#charge_succeeded: #{e.inspect}"
     end
   end
   
-  def update_income params
-    if Rails.env.development?
-      ap 'Stake#update_income'
-      ap params
+  
+  
+  def update_user
+    attach_to_user
+  end
+  
+  private 
+  
+  # calculate how much is redistributed to child streams
+  def substreams_amount parent_stake, params
+    total_substreams_amount = 0
+    parent_stake.stakeholders.each do |child_stake|
+      # notice split is not used
+      total_substreams_amount  += (child_stake.flat_rate_in_cent * params[:fees_in_percentage]).to_i
     end
-    Income.create(
-      stake_id:             self.id,
-      user_id:              self.user_id,
-      account_id:           self.account_id,
-      amount:               params[:amount].round,
-      application_fee:      params[:application_fee].round,
-      source_transaction:   params[:stripe_charge_id]
-    )
+    total_substreams_amount
   end
   
   
-  private 
-
-  # create a stripe transfer 
+  # send  full ammount - streams to sellers account 
   def transfer_to_stakeholders_account params
-    if Rails.env.development?
-      ap 'Stake#transfer_to_stakeholders_account'
-      ap params
-    end
+    Notifyer.print( 'Stake#charge_succeeded' , params: params ) if Rails.env.development?
+   
+    
     begin
-      
-      params[:amount]           = self.flat_rate_in_cent * params[:all_fees_in_percent]
-      params[:application_fee]  = self.flat_rate_in_cent - params[:amount]
-      
       order_item                = Shop::OrderItem.cached_find( params[:order_item_id] )
+      params[:application_fee]  = Admin.digiramp_fees( params[:amount] )
+
       
       # sending transfers with same sender and recipient will fail
       unless order_item.seller_account_id == order_item.buyer_account_id
         send_micro_transaction params
+      else
+        ap 'do not send money to your self'
       end
       
-      update_income   params
+      update_income  params
 
     rescue => e
       errored('Stake#transfer_to_stakeholders_account', e )
@@ -221,14 +180,17 @@ class Stake < ActiveRecord::Base
   
   
   
-
+  #  send amount to streams
   def transfer_to_streams params
+    
+    Notifyer.print( 'Stake#transfer_to_streams' , params: params ) if Rails.env.development?
 
     begin
       self.stakeholders.each do |stake|
-        params[:amount]           = params[:amount]            * stake.split
-        params[:application_fee]   = params[:application_fee]  * stake.split
-        params[:source_transaction] = nil   
+
+        params[:amount]               = stake.flat_rate_in_cent   * params[:all_fees_in_percent]
+        params[:application_fee]      = stake.flat_rate_in_cent   - params[:amount]
+ 
         stake.charge_succeeded params
       end
     rescue => e
@@ -236,9 +198,12 @@ class Stake < ActiveRecord::Base
     end 
   end
   
+  
+
   def send_micro_transaction  params
-    ap 'stake#send_micro_transaction'
-    ap params
+    Notifyer.print( 'Stake#send_micro_transaction' , params: params ) if Rails.env.development?
+    
+    return if params[:amount].round == 0
     
     begin
       # prevent the same transfer to run two times
@@ -256,15 +221,21 @@ class Stake < ActiveRecord::Base
         account_id:           self.account_id,
         user_id:              self.user_id,  
         stake_id:             self.id,  
+        #source_transaction:   params[:source_transaction],
         source_transaction:   params[:stripe_charge_id],
         destination:          self.account.user.stripe_id, 
         #split:                self.split,
-        amount:               params[:amount].round,
-        currency:             'usd',
-        application_fee:      params[:application_fee].round
+        amount:               params[:amount].to_i,
+        currency:             'usd',#,
+        application_fee:      params[:application_fee]
       )
       #ap stripe_transfer
-      stripe_transfer.pay
+      if self.unassigned
+        Notifyer.print( 'Stake#send_micro_transaction' , mesage: 'TODO! make message' ) if Rails.env.development?
+        #StakeMailer.delay.notify_unknown_stakeholder( self.id )
+      else
+        stripe_transfer.pay
+      end
 
       #update_income gateway_payment if stripe_transfer.pay
     rescue => e
@@ -272,35 +243,10 @@ class Stake < ActiveRecord::Base
     end 
   end
 
-  
-  # optimize this . Cache in field
-  def calculate_unit_price
-    #ap 'calculate_unit_price'
-    #ap self.asset_type
-    #price = 0.0
-    #case self.asset_type
-    #when 'Shop::Product'
-    #  price = asset.price.to_f * 0.0001 * self.split if self.asset  
-    #when 'Stake'
-    #  stake = Stake.cached_find(self.asset_id)
-    #  price = stake.unit_price * stake.split * 0.0001
-    #when 'Recording'
-    #  if recording = Recording.find_by(uuid: self.asset_id)
-    #    if product = recording.product
-    #      price    = product.price * self.split * 0.0001
-    #    end
-    #  end
-    #  #price = asset
-    #end
-    #price
-    123
-  end
+
   
   def set_relations
-    #if new_record?
-    #  self.original_source = self.income_source
-    #  save
-    #end
+    self.channel_uuid = UUIDTools::UUID.timestamp_create().to_s
     attach_to_user
   end
   
@@ -316,19 +262,32 @@ class Stake < ActiveRecord::Base
   end
   
   def attach_to_user
-    self.channel_uuid = UUIDTools::UUID.timestamp_create().to_s
 
-    if user = User.find_by(email: self.email)
-    elsif user_email = UserEmail.find_by(email: self.email)
-      user = user_email.user
-    end
-
-    if user
+    if user = User.find_by_email(self.email)
       self.account_id   = user.account.id
+      self.user_id      = user.id
     else
-      self.unassigned   = false
+      self.unassigned   = true
+      #send_notification self.email
     end 
     self.save!
+  end
+  
+  def update_income params
+
+    Notifyer.print( 'Stake#update_income' , params: params ) if Rails.env.development?
+    begin
+      Income.create(
+        stake_id:             self.id,
+        user_id:              self.user_id,
+        account_id:           self.account_id,
+        amount:               params[:amount].round,
+        application_fee:      params[:application_fee],
+        source_transaction:   params[:stripe_charge_id]
+      )
+    rescue => e
+      errored('Stake#update_income', e )
+    end
   end
   
   

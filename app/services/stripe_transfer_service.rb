@@ -63,6 +63,7 @@ class StripeTransferService
       if Rails.env.development?
         ap '########################################################'
         ap 'transfer.created'
+        ap event
         ap '########################################################'
       end
       
@@ -71,7 +72,7 @@ class StripeTransferService
       errored("Destination payment", stripe_object)   unless destination_payment   = stripe_object.destination_payment
       errored("source_transaction", stripe_object)    unless source_transaction    = stripe_object.source_transaction
 
-      
+      ap stripe_data
       
       begin
         

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151215212506) do
+ActiveRecord::Schema.define(version: 20151221172731) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -3270,6 +3270,8 @@ ActiveRecord::Schema.define(version: 20151215212506) do
     t.integer  "generated_income",  default: 0
     t.integer  "user_id",           default: 0
     t.integer  "units_sold",        default: 0
+    t.uuid     "shop_product_id"
+    t.string   "description"
   end
 
   add_index "stakes", ["asset_type", "asset_id"], name: "index_stakes_on_asset_type_and_asset_id", using: :btree

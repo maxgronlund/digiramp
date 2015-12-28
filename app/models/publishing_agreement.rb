@@ -26,58 +26,85 @@ class PublishingAgreement < ActiveRecord::Base
   #has_one :document
   after_commit :flush_cache
   
-  
-  def configure_payment( royalty, price, recording_uuid )
-
-    begin
-      
-      amount_in_cent =  self.split * 0.01 * royalty
-      amount_in_pct  =  amount_in_cent /  price
-      
-      #ap "amount_in_cent: #{amount_in_cent}"
-      #ap "royalty; #{royalty}"
-      #ap "split: #{split}"
-      #
+  def create_stake( shop_product, recording, royalty )
+    Notifyer.print( 'PublishingAgreement#create_stake' , {shop_product_id: shop_product.id, recording_uuid: recording.uuid, publishing_agreement: self} ) if Rails.env.development?
     
-      if stake = Stake.find_by( 
-          account_id:  self.account_id,
-          asset_id:           recording_uuid,
-          asset_type:         'Recording',
-          ip_uuid:            self.uuid,
-          ip_type:            self.class.name
-        )
-        stake.update(
-          split:               amount_in_pct,
-          flat_rate_in_cent:   amount_in_cent.round,
-          currency:            'usd',
-          email:               self.publisher.email,
-          unassigned:          false,
-        )
-      else
-        stake = Stake.create(  
-          account_id:          self.account_id,
-          user_id:             self.user_id,
-          asset_id:            recording_uuid,
-          asset_type:          'Recording',
-          ip_uuid:             self.uuid,
-          ip_type:             self.class.name,
-          split:               amount_in_pct,
-          flat_rate_in_cent:   amount_in_cent.round,
-          currency:            'usd',
-          email:               self.publisher.email,
-          unassigned:          false
-        )
-      end
-      #ap stake
-      return royalty -  amount_in_cent
+    begin
+      royalty_in_cent =  self.split * 0.01 * royalty
+      royalty_in_pct  =  royalty_in_cent /  shop_product.price
+      
+      
+      stake = Stake.create(  
+        account_id:          self.account_id,
+        user_id:             self.user_id,
+        asset_id:            recording.uuid,
+        asset_type:          recording.class.name,
+        ip_uuid:             self.uuid,
+        ip_type:             self.class.name,
+        split:               royalty_in_pct,
+        flat_rate_in_cent:   royalty_in_cent.round,
+        currency:            'usd',
+        email:               self.publisher.email,
+        unassigned:          false,
+        shop_product_id:     shop_product.id,
+        description:         "Publishing: #{publisher.legal_name}"
+      )
+      
+      return royalty -  royalty_in_cent.round
     rescue => e
-      ErrorNotification.post_object 'PublishingAgreement#configure_payment', e
-      return 0
+      ErrorNotification.post_object 'PublishingAgreement#create_stake', e
+      return 0.0
     end
   end
   
+  def update_stake( shop_product, recording, royalty )
+    Notifyer.print( 'PublishingAgreement#update_stake' , {shop_product_id: shop_product.id, recording_uuid: recording.uuid} ) if Rails.env.development?
+    
+    
+    begin
+      royalty_in_cent =  self.split * 0.01 * royalty
+      royalty_in_pct  =  royalty_in_cent /  shop_product.price
+      
+      if stake = Stake.find_by(  
+          account_id:          self.account_id,
+          user_id:             self.user_id,
+          ip_uuid:             self.uuid,
+          ip_type:             self.class.name,
+          currency:            'usd',
+          #shop_product_id:     shop_product.id
+        )
+        stake.update_columns(
+          split:               royalty_in_pct,
+          flat_rate_in_cent:   royalty_in_cent.round,
+          email:               self.publisher.email,
+          shop_product_id:     shop_product.id,
+          description:         "Publishing: #{publisher.legal_name}"
+        )
+      else
+        Stake.create(  
+          account_id:          self.account_id,
+          user_id:             self.user_id,
+          asset_id:            recording.uuid,
+          asset_type:          recording.class.name,
+          ip_uuid:             self.uuid,
+          ip_type:             self.class.name,
+          unassigned:          false,
+          currency:            'usd',
+          shop_product_id:     shop_product.id,
+          split:               royalty_in_pct,
+          flat_rate_in_cent:   royalty_in_cent.round,
+          email:               self.publisher.email,
+          description:         "Publishing: #{publisher.legal_name}"
+        )
+      end
+      return royalty -  royalty_in_cent.round
+    rescue => e
+      ErrorNotification.post_object 'PublishingAgreement#update_stake', e
+      return 0.0
+    end
+    
+  end
 
-  
   def self.cached_find(id)
     Rails.cache.fetch([name, id]) { find(id) }
   end

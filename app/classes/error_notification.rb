@@ -1,24 +1,28 @@
 module ErrorNotification
   
   def errored(error, obj)
+    ap '--------------------------------------------'
     message = "#{error}: #{obj.inspect}"
-    ap 'error: ' + message if Rails.env.development?
+    ap 'ERROR: ' + message if Rails.env.development?
     Opbeat.capture_message( message )
   end
   
   def post_error(error)
-    ap 'error: ' + error if Rails.env.development?
+    ap '--------------------------------------------'
+    ap 'ERROR: ' + error if Rails.env.development?
     Opbeat.capture_message( error )
   end
   
   def self.post_object error, obj
+    ap '--------------------------------------------'
     message = "#{error}: #{obj.inspect}"
-    ap 'error: ' + message if Rails.env.development?
+    ap 'ERROR: ' + message if Rails.env.development?
     Opbeat.capture_message( message )
   end
   
   def self.post message
-    ap 'error: ' + message if Rails.env.development?
+    ap '--------------------------------------------'
+    ap 'ERROR: ' + message if Rails.env.development?
     Opbeat.capture_message( message )
   end
   

@@ -38,19 +38,22 @@
               
               th State
               th Application fee
-              th amount
+              th Amount
+              th User
+              th Date
           tbody
             - @stripe_transfers.each do |stripe_transfer|
               tr
                 td = stripe_transfer.description
-                td
+                td 
                    - unless stripe_transfer.destination_payment.blank?
                     = link_to 'Manage', "https://dashboard.stripe.com/test/payments/#{stripe_transfer.destination_payment}", class: 'btn btn-default btn-xs'
                 td = stripe_transfer.state
                 td = number_to_currency(stripe_transfer.application_fee * 0.01, locale: :en, precision: 2)    
                 td = number_to_currency(stripe_transfer.amount * 0.01, locale: :en, precision: 2)   
-                  
-            
+                td = stripe_transfer.user.user_name rescue 'na'
+                td = stripe_transfer.created_at.strftime("%m/%d/%Y - %H:%M") 
+                
       
 
          

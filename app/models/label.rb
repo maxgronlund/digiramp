@@ -46,66 +46,59 @@ class Label < ActiveRecord::Base
     end
   end
   
-  def configure_payment( price, rake, recording_id , distribution_agreement_id)
-   
-    
-    ipis_rake = configure_distribution_payment( 
-      price, 
-      rake, 
-      recording_id , 
-      distribution_agreement_id 
-    )
-    configure_ipi_fee( 
-      price, 
-      ipis_rake, 
-      recording_id 
-    )
-  end
-  
-  def configure_ipi_fee( price, ipis_rake, recording_id )
-    
-    begin
-      recording = Recording.cached_find(recording_id)
-      
-      recording.recording_ipis.each do |recording_ipi|
-        recording_ipi.configure_payment( price, ipis_rake, recording.uuid )
-      end
-    rescue => e
-      ErrorNotification.post_object 'Label#configure_payment', e
-    end
-    
-  end
-  
-  
-  def configure_distribution_payment( price, rake, recording_id , distribution_agreement_id )
-    
-    begin
-      distribution_agreement = DistributionAgreement.cached_find(distribution_agreement_id)
-      distribution_rake      = rake * distribution_agreement.split * 0.01
-      
-      
-      amount_in_cent =  distribution_rake
-      amount_in_pct  =  amount_in_cent /  price
-      
-      #ap "amount_in_cent: #{amount_in_cent}"
-      #ap "royalty; #{royalty}"
-      recording = Recording.cached_find(recording_id)
+  def create_stake amount_in_cent, shop_product, recording , distribution_agreement
 
-      if stake = Stake.find_by( 
-          account_id:         self.account.id,
-          asset_id:           recording.uuid,
-          asset_type:         'Recording',
-          ip_uuid:            distribution_agreement.uuid,
-          ip_type:            'DistributionAgreement'
+    Notifyer.print( 'Label#create_stake' , amount_in_cent: amount_in_cent ) if Rails.env.development?
+    
+    amount_in_pct = amount_in_cent / shop_product.price
+    begin
+      Stake.create(  
+        account_id:          self.account.id,
+        user_id:             self.user_id,
+        asset_id:            recording.uuid,
+        asset_type:          'Recording',
+        ip_uuid:             distribution_agreement.uuid,
+        ip_type:             'DistributionAgreement',
+        split:               amount_in_pct,
+        flat_rate_in_cent:   amount_in_cent.round,
+        currency:            'usd',
+        email:               self.user.email,
+        unassigned:          false,
+        shop_product_id:     shop_product.id,
+        description:         "Label: #{self.title}"
+      )
+    rescue => e
+      ErrorNotification.post_object 'Label#create_stake', e
+    end
+  end
+  
+  
+  def update_stake amount_in_cent, shop_product, recording , distribution_agreement
+
+    Notifyer.print( 'Label#update_stake' , amount_in_cent: amount_in_cent ) if Rails.env.development?
+    
+    amount_in_pct = amount_in_cent / shop_product.price
+    
+    begin
+      if stake = Stake.find_by(  
+          account_id:          self.account.id,
+          user_id:             self.user_id,
+          asset_id:            recording.uuid,
+          asset_type:          'Recording',
+          ip_uuid:             distribution_agreement.uuid,
+          ip_type:             'DistributionAgreement',
+          #shop_product_id:     shop_product.id,
         )
-        stake.update(
+        stake.update_columns(  
           split:               amount_in_pct,
-          flat_rate_in_cent:   amount_in_cent,
+          flat_rate_in_cent:   amount_in_cent.round,
           currency:            'usd',
           email:               self.user.email,
-          unassigned:          false
+          shop_product_id:     shop_product.id,
+          description:         "Label: #{self.title}"
         )
       else
+      
         stake = Stake.create(  
           account_id:          self.account.id,
           user_id:             self.user_id,
@@ -113,36 +106,29 @@ class Label < ActiveRecord::Base
           asset_type:          'Recording',
           ip_uuid:             distribution_agreement.uuid,
           ip_type:             'DistributionAgreement',
+          unassigned:          false,
+          shop_product_id:     shop_product.id,
           split:               amount_in_pct,
-          flat_rate_in_cent:   amount_in_cent,
+          flat_rate_in_cent:   amount_in_cent.round,
           currency:            'usd',
           email:               self.user.email,
-          unassigned:          false
+          shop_product_id:     shop_product.id,
+          description:         "Label: #{self.title}"
         )
       end
-      return rake - distribution_rake
+      
+      flush_cache
     rescue => e
-      ErrorNotification.post_object 'Label#configure_distribution_payment', e
-      return rake
+      ErrorNotification.post_object 'Label#update_stake', e
     end
   end
 
-  
   def remove_from_shop
     self.distribution_agreements.each do |distribution_agreement|
       distribution_agreement.remove_from_shop
     end
   end
 
-  #def self.create_label account_id
-  #  account = Account.cached_find(account_id)
-  #  #begin
-  #    label = Label.create( user_id: account.user_id, account_id: account_id, title: "#{account.user.get_full_name}'s Label")
-  #    account.user.update(default_label_id: label.id)
-  #  #rescue => e
-  #  #  ErrorNotification.post_object 'Label#create_label', e
-  #  #end
-  #end
 
   def self.cached_find(id)
     Rails.cache.fetch([name, id]) { find(id) }

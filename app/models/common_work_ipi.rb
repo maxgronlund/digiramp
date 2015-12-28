@@ -33,22 +33,40 @@ class CommonWorkIpi < ActiveRecord::Base
     common_work_user.destroy if common_work_user
   end
   
-
-  
-
-  # Configure the payment 
-  def configure_payment( royalty, price, recording_uuid, common_work_id )
-
+  def create_stake shop_product, recording , common_work
+    Notifyer.print( 'CommonWorkIpi#create_stake' , shop_product: shop_product ) if Rails.env.development?
+    
     begin
       # send money to the publisher
-      royalty_left = self.publishing_agreement.configure_payment( royalty, price, recording_uuid )
+      royalty_left = publishing_agreement.create_stake( 
+        shop_product,
+        recording,
+        common_work.royalty
+      )
       # pay the ip
-      self.ipi.configure_payment( royalty_left * share * 0.01 , price, recording_uuid )
+      self.ipi.create_stake( royalty_left * share * 0.01 , shop_product, recording )
     rescue => e
-      ErrorNotification.post_object 'CommonWorkIpi#configure_payment', e
+      ErrorNotification.post_object 'CommonWorkIpi#create_stake', e
     end
-   
   end
+  
+  def update_stake shop_product, recording , common_work
+    Notifyer.print( 'CommonWorkIpi#update_stake' , shop_product: shop_product ) if Rails.env.development?
+    return unless publishing_agreement
+    begin
+      # send money to the publisher
+      royalty_left = publishing_agreement.update_stake( 
+        shop_product,
+        recording,
+        common_work.royalty
+      )
+      # set the ipis stake
+      self.ipi.update_stake( royalty_left * share * 0.01 , shop_product, recording )
+    rescue => e
+      ErrorNotification.post_object 'CommonWorkIpi#update_stake', e
+    end
+  end
+
   
   # Get the publisher split based on the publishing agreement
   def publisher_split

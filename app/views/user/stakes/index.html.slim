@@ -21,7 +21,10 @@
         .col-sm-8
           .help
             .help-text
-              h2 = @shop_product.title
+              h2 
+                b Stakes for:&nbsp;
+                = @shop_product.title
+              = "Price: #{number_to_currency( @shop_product.price * 0.01, precision: 2, locale: 'en')}"
             .help-button
               == render 'admin/helps/help', identifier: 'user shop stakeholders'
         .col-sm-4
@@ -41,73 +44,106 @@
             /  'Recording
             
       .sexy_line
-      /.row
-      /  .col-sm-6
-      /    .digi-box 
-      /      h4 Create stakeholdes  
-      /      /= debug @shop_product.id
-      /      = simple_form_for [:user, @user, @shop_product, Stake.new(split: 10)], url: url_for( action: 'create', 
-      /                                                                                controller: 'user/stakes'), 
-      /                                                                  turboboost: true, 
-      /                                                                  :method => 'post' do |f|
-      /          
-      /          = f.hidden_field :asset_type, value: @shop_product.class.name
-      /          = f.hidden_field :flat_rate_in_cent, value: 0
-      /          = f.hidden_field :currency, value: 'usd'
-      /          = f.hidden_field :unassigned, value: true
-      /          = f.input :email
-      /          = f.input :split, input_html: {min: "1", max: "100"}
-      /          .row
-      /            .col-sm-12
-      /              .pull-right
-      /                = f.submit 'Save', class: 'btn btn-default'
-      /  .col-sm-6
-      /
+
       .row
-        .col-sm-12
-          .digi-box
-            /-  if @shop_product.total_stakes != 100
-            /  .alert.alert-danger
-            /    = "Total share is #{@shop_product.total_stakes}"
-            /h4 Stakeholders
-            
-            .table-responsive
-              table class="table table-hover"
-                thead
-                  tr
-                    th Name
-                    th Type
-                    th Email
-                    th Split
-                    /th Collected
-                    /th Channel
-                tbody
-                  - @stakes.to_a.each do |stake|
-                    tr
-                      td = stake.title
-                      td = stake.description
-                      /td = link_to user_user_product_stake_path(@user, @shop_product, stake), 
-                      /                              data: { confirm: 'Are you sure?' } , 
-                      /                              turboboost: true, 
-                      /                              :method => :delete do
-                      /        .btn.btn-danger.btn-xs
-                      /          i.fa.fa-times
-                      td = stake.email
-                      td
-                        = number_to_percentage(stake.split, precision: 2)
-                        /.small-input
-                        /  .width-150
-                        /    
-                        /    = simple_form_for [:user, @user, stake], turboboost: true, :method => 'put' do |f|
-                        /                                                                  
-                        /      .input-group
-                        /        = f.input :split, label: false, class: 'form-control'
-                        /        .input-group-btn
-                        /          = f.submit 'Update', class: 'btn btn-default'
-                        /
-                      /td = stake.account_id ? 'Yes': 'No'
-                      /td = stake.channel_uuid
-              
+      .table-responsive
+        table class="table table-hover"
+          thead
+            tr
+              /th
+              th Name
+              th Email
+              /th Type
+              th Units
+              th Amount
+              th Fees
+              th Shared
+              th Income
+              th
+          tbody
+            - @stakes.each do |stake|
+              - unless false #stake.income == 0.0 && stake.title == 'na' || stake.split == 0.0
+                tr
+                  td 
+                    b = stake.title
+                    br = stake.description
+                    /= stake.id
+                  td
+                    b 
+                      - if stake.user
+                        = stake.user.get_full_name
+                      - else
+                        'not assigned
+                    br = stake.email
+                  /td = stake.type_of_asset
+                  td = stake.units
+                  td 
+                    b = number_to_currency( stake.flat_rate_in_cent * 0.01, precision: 2, locale: 'en')
+                    br = number_to_percentage(stake.split * 100, precision: 2)
+                  /td = number_to_percentage(stake.split, precision: 4) 
+                  td = number_to_currency( stake.fees * 0.01, precision: 2, locale: 'en')
+                  td = stake.stakeholders.count
+                  td = number_to_currency( stake.income * 0.01, precision: 2, locale: 'en')
+                  
+                  td
+                    .pull-right
+                      = link_to 'Transfers', user_user_stake_stripe_transfers_path(@user, stake), class: 'btn btn-default btn-xs'
+                      = link_to user_user_revenue_stream_path(@user, stake) do
+                        .btn.btn-default.btn-xs
+                          i.fa.fa-share&nbsp;Revenue streams
+                      /- if super?
+                      /  = link_to user_user_stake_path(@user, stake), 
+                      /                             data: { confirm: 'Are you sure?' } , 
+                      /                             turboboost: true, 
+                      /                             :method => :delete do
+                      /       .btn.btn-danger.btn-xs
+                      /         i.fa.fa-times
+                      /
+      
+        /.col-sm-12
+        /  .digi-box
+        /    /-  if @shop_product.total_stakes != 100
+        /    /  .alert.alert-danger
+        /    /    = "Total share is #{@shop_product.total_stakes}"
+        /    /h4 Stakeholders
+        /    
+        /    .table-responsive
+        /      table class="table table-hover"
+        /        thead
+        /          tr
+        /            th Name
+        /            th Type
+        /            th Email
+        /            th Split
+        /            /th Collected
+        /            /th Channel
+        /        tbody
+        /          - @stakes.to_a.each do |stake|
+        /            tr
+        /              td = stake.title
+        /              td = stake.description
+        /              /td = link_to user_user_product_stake_path(@user, @shop_product, stake), 
+        /              /                              data: { confirm: 'Are you sure?' } , 
+        /              /                              turboboost: true, 
+        /              /                              :method => :delete do
+        /              /        .btn.btn-danger.btn-xs
+        /              /          i.fa.fa-times
+        /              td = stake.email
+        /              td
+        /                = number_to_percentage(stake.split, precision: 2)
+        /                /.small-input
+        /                /  .width-150
+        /                /    
+        /                /    = simple_form_for [:user, @user, stake], turboboost: true, :method => 'put' do |f|
+        /                /                                                                  
+        /                /      .input-group
+        /                /        = f.input :split, label: false, class: 'form-control'
+        /                /        .input-group-btn
+        /                /          = f.submit 'Update', class: 'btn btn-default'
+        /                /
+        /              /td = stake.account_id ? 'Yes': 'No'
+        /              /td = stake.channel_uuid
+        /      
 
 
   == render 'shared/site_footer' 

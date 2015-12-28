@@ -6,7 +6,7 @@ class PublisherMailer < ApplicationMailer
     ap '------------------ send_notification --------------------------'
     ap ipi_publisher_id
     ipi_publisher = IpiPublisher.cached_find(ipi_publisher_id)
-    link              = url_for( controller: "user/confirm_common_work_ipis", action: 'edit', user_id: common_work_ipi.user.slug, id: common_work_ipi.uuid )
+    #link              = url_for( controller: "user/confirm_common_work_ipis", action: 'edit', user_id: common_work_ipi.user.slug, id: common_work_ipi.uuid )
     
     
     #confirmation_url = url_for( controller: 'confirmation/publishers', action: 'show', id: publisher.transfer_uuid )

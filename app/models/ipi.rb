@@ -29,53 +29,78 @@ class Ipi < ActiveRecord::Base
   
   after_commit :flush_cache
   
-
-
-  # Configure the payment. whould be moved to CommonWorkIpi
-  def configure_payment( royalty, price, recording_uuid )
-    
+  def create_stake amount_in_cent, shop_product, recording
+    Notifyer.print( 'Ipi#create_stake' , shop_product: shop_product ) if Rails.env.development?
     begin
-      amount_in_cent =  royalty
-      amount_in_pct  =  amount_in_cent /  price
-      
-      #ap "amount_in_cent: #{amount_in_cent}"
-      #ap "royalty; #{royalty}"
-
-
-      if stake = Stake.find_by( 
-          account_id:         self.user.account.id,
-          asset_id:           recording_uuid,
-          asset_type:         'Recording',
-          ip_uuid:            self.uuid,
-          ip_type:            self.class.name
+      stake = Stake.create(  
+        account_id:          self.user.account.id,
+        user_id:             self.user_id,
+        asset_id:            recording.uuid,
+        asset_type:          recording.class.name,
+        ip_uuid:             self.uuid,
+        ip_type:             self.class.name,
+        split:               amount_in_cent /  shop_product.price,
+        flat_rate_in_cent:   amount_in_cent,
+        currency:            'usd',
+        email:               self.user.email,
+        unassigned:          false,
+        shop_product_id:     shop_product.id,
+        description:         "Creators Split for #{user.get_full_name}",
+        shop_product_id:     shop_product.id
+      )
+    rescue => e
+      ErrorNotification.post_object 'Ipi#create_stake', e
+    end
+    
+  end
+  
+  def update_stake amount_in_cent, shop_product, recording
+    Notifyer.print( 'Ipi#update_stake' , shop_product: shop_product ) if Rails.env.development?
+    begin
+      if stake = Stake.find_by(  
+          account_id:          self.user.account.id,
+          user_id:             self.user_id,
+          asset_id:            recording.uuid,
+          asset_type:          recording.class.name,
+          ip_uuid:             self.uuid,
+          ip_type:             self.class.name,
+          #shop_product_id:     shop_product.id,
         )
-        stake.update(
-          split:               amount_in_pct,
+        stake.update_columns(  
+          split:               amount_in_cent /  shop_product.price,
           flat_rate_in_cent:   amount_in_cent,
           currency:            'usd',
           email:               self.user.email,
-          unassigned:          false
+          shop_product_id:     shop_product.id,
+          description:         "Creators Split for #{user.get_full_name}",
+          shop_product_id:     shop_product.id
         )
       else
         stake = Stake.create(  
           account_id:          self.user.account.id,
           user_id:             self.user_id,
-          asset_id:            recording_uuid,
-          asset_type:          'Recording',
+          asset_id:            recording.uuid,
+          asset_type:          recording.class.name,
           ip_uuid:             self.uuid,
           ip_type:             self.class.name,
-          split:               amount_in_pct,
+          email:               self.user.email,
+          unassigned:          false,
+          shop_product_id:     shop_product.id,
+          split:               amount_in_cent /  shop_product.price,
           flat_rate_in_cent:   amount_in_cent,
           currency:            'usd',
           email:               self.user.email,
-          unassigned:          false
+          shop_product_id:     shop_product.id,
+          description:         "Creators Split for #{user.get_full_name}"
         )
       end
-      ap stake
+      
     rescue => e
-      ErrorNotification.post_object 'Ipi#configure_payment', e
+      ErrorNotification.post_object 'Ipi#create_stake', e
     end
+    
   end
+
   
   def is_published?
     return true if self.user && self.user.publishers
@@ -117,15 +142,6 @@ class Ipi < ActiveRecord::Base
     send_confirmation_email
     send_confirmation_notification
   end
-
-  #def roles_as_string
-  #  roles = ''
-  #  roles += 'Writer. '           if self.lyric
-  #  roles += 'Composer. '         if self.music
-  #  roles += 'Arrengement. '      if self.arrangement
-  #  roles += 'Melody. '           if self.melody
-  #  roles                        
-  #end
 
   def attach_to_user
     self.update(uuid: UUIDTools::UUID.timestamp_create().to_s) if self.uuid.nil?

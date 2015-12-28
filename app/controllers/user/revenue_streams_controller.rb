@@ -13,8 +13,12 @@ class User::RevenueStreamsController < ApplicationController
 
   
   def create
+
+    Notifyer.print( 'User::RevenueStreamsController#create' , params: params ) if Rails.env.development?
     
-    stake = Stake.new(stake_params)
+    stake       = Stake.new(stake_params)
+    stake.flat_rate_in_cent   *= stake.split * 0.01
+    
     if stake.save
       redirect_to user_user_revenue_stream_path(@user, stake.asset_id)
     else
@@ -26,7 +30,6 @@ class User::RevenueStreamsController < ApplicationController
   end
   
   def destroy
-
     @stake.destroy!
     redirect_to user_user_revenue_stream_path(@user, params[:stake_id])
   end

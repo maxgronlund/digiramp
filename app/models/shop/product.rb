@@ -50,7 +50,8 @@ class Shop::Product < ActiveRecord::Base
   end
   
   def charge_succeeded params
-
+    Notifyer.print( 'Shop::Product#charge_succeeded' , params: params ) if Rails.env.development?
+    
     begin
       stakeholders.each  do |stake|
         stake.charge_succeeded params
@@ -151,7 +152,7 @@ class Shop::Product < ActiveRecord::Base
     return nil unless self.productable_type == 'Recording'
     Recording.cached_find(self.productable_id)
   end
-  
+
   def stakeholders
     case self.productable_type
     when 'Recording'
@@ -217,22 +218,49 @@ class Shop::Product < ActiveRecord::Base
     end
      
   end
-
-  def recording
-    if self.productable_type == 'Recording'
-      return Recording.cached_find(self.productable_id)
+  
+  def create_stakes
+    Notifyer.print( 'Shop::Product#create_stakes' , productable_type: self.productable_type ) if Rails.env.development?
+    
+    if self.recording
+      price_minus_label_and_publishers_cut = self.price
+      if distribution_agreement
+        price_minus_label_and_publishers_cut -= distribution_agreement.create_stakes( self, recording )
+      end
+      recording.create_stakes self, price_minus_label_and_publishers_cut
+    else
     end
-    nil
   end
   
-  def configure_stakeholder
-    if Rails.env.development?
-      ap '--------------------------------------'
-      ap 'configure_stakeholder'
-      ap '--------------------------------------'
+  def update_stakes
+    Notifyer.print( 'Shop::Product#update_stakes' , self ) if Rails.env.development?
+    
+    if self.recording
+      price_minus_label_and_publishers_cut = self.price
+      if distribution_agreement
+        price_minus_label_and_publishers_cut -= distribution_agreement.update_stakes( self, recording )
+      end
+      recording.update_stakes self, price_minus_label_and_publishers_cut
+    else
     end
-    if self.productable_type == 'Recording'
-      #recording.update_stakes self
+  end
+  
+  
+  
+  #def update_stakes
+  #  if self.recording
+  #    recording.update_stakes self
+  #  else
+  #  end
+  #end
+
+  def configure_stakeholder
+    
+    Notifyer.print( 'Shop::Product#configure_stakeholder' , productable_type: self.productable_type ) if Rails.env.development?
+    
+    
+    if self.recording
+      recording.create_stakes self
     else
       if stake = Stake.find_by(
         asset_id:            self.id,
@@ -255,7 +283,8 @@ class Shop::Product < ActiveRecord::Base
         asset_type:          self.class.name
       )
     end
-    ap stake
+    Notifyer.print( 'Shop::Product#configure_stakeholder' , stake ) if Rails.env.development?  
+
   end
 
   private 

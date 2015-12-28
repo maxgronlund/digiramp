@@ -170,7 +170,7 @@ class UserAssetsFactory
     
     @publishing_agreement = PublishingAgreement.create(
       publisher_id:       @publisher.id,
-      split:              0.0,
+      split:              50.0,
       title:              "Publishing agreement for #{@user.user_name}",
       personal_agreement: true,
       user_id:            @user.id,

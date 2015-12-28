@@ -82,53 +82,47 @@ class CommonWork < ActiveRecord::Base
   #  self.work_registrations.first
   #end
   
-  def update_publishers_payment
-    begin
-      self.recordings.each do |recording|
-        LabelRecording.configure_payment( recording.id )
-      end
-    rescue => e
-      ErrorNotification.post_object 'CommonWork#update_publishers_payment', e
-    end
-  end
+
   
-  
-  def configure_publishers_payment( price, recording_uuid )
-    #ap '=========================================='
-    #ap 'configure_publishers_payment'
-    #ap self
+  def create_publishers_stakes( shop_product, recording )
+    Notifyer.print( 'CommonWork#create_publishers_stakes' , shop_product: shop_product ) if Rails.env.development?
+
     begin
-      raise 'Royalty greater than price' if price < self.royalty
-      
+      raise 'Royalty greater than price' if shop_product.price < self.royalty
       self.common_work_ipis.each do |common_work_ipi|
-        common_work_ipi.configure_payment( self.royalty , price , recording_uuid,  self.id )
+        common_work_ipi.create_stake( shop_product, recording, self )
       end
     rescue => e
       ErrorNotification.post_object 'CommonWork#configure_publishers_payment', e
-      
-      self.common_work_ipis.each do |common_work_ipi|
-        common_work_ipi.configure_payment( self.royalty , self.royalty , recording_uuid, self.id )
-      end
-      return 0.0
     end
-    price - royalty
   end
+  
+  
+  def update_publishers_stakes( shop_product, recording )
+    Notifyer.print( 'CommonWork#update_publishers_stakes' , shop_product: shop_product ) if Rails.env.development?
+
+    begin
+      raise 'Royalty greater than price' if shop_product.price < self.royalty
+      self.common_work_ipis.each do |common_work_ipi|
+        common_work_ipi.update_stake( shop_product, recording, self )
+      end
+    rescue => e
+      ErrorNotification.post_object 'CommonWork#configure_publishers_payment', e
+    end
+  end
+
   
   def is_registered?
     return true if common_work_ipis.count > 0
   end
   
   def royalty
-    10.0
+    12.0
   end
   
   def is_cleared?
     total_share == 100.0
-    #return false if common_work_ipis.count == 0
-    #self.common_work_ipis.each do |common_work_ipi|
-    #  return false unless (common_work_ipi.ipi.nil?)
-    #end
-    #true
+
   end
   
   def user_id

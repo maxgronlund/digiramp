@@ -22,13 +22,15 @@ class Shop::OrderItem < ActiveRecord::Base
   # then it's time pass the payment on to
   # all stakeholders
   def charge_succeeded params
+    ap params
+    Notifyer.print( 'Shop::OrderItem#charge_succeeded' , params: params ) if Rails.env.development?
+    
 
     begin
       self.update(sold: true)
-      
       params[:order_item_id] = self.id
       self.shop_product.charge_succeeded( params )
-
+    
     rescue => e
       post_error "OrderItem#charge_succeeded: #{e.inspect}"
     end

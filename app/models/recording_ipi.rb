@@ -47,63 +47,90 @@ class RecordingIpi < ActiveRecord::Base
   #  
   #end
   
-  def configure_payment( price, rake, recording_uuid )
-    #ap "recording_ipi / configure_payment "
-    #ap "price: #{price}"
-    #ap "rake: #{rake}"
-    #ap "recording_uuid: #{recording_uuid}"
+  def create_stake shop_product, price_minus_labels_cut
     
-    if stakes = Stake.where(ip_uuid: self.uuid, ip_type: self.class.name)
-      stakes.update_all(expired: true)
-    end
+    Notifyer.print( 'RecordingIpi#create_stake' , {price_minus_labels_cut: price_minus_labels_cut, recording_uuid: recording.uuid} ) if Rails.env.development?
     
+    return unless self.user # !!! make gracefull error handling here 
     
-    amount_in_cent =  rake * self.share * 0.01
-    amount_in_pct  =  amount_in_cent /  price
-    
-
     begin
+      amount_in_cent =  price_minus_labels_cut  * self.share * 0.01
+      amount_in_pct  = amount_in_cent / shop_product.price
       
-      if stake = Stake.find_by( account_id:         self.account_id,
-                                asset_id:           recording_uuid,
-                                asset_type:         'Recording',
-                                ip_uuid:            self.uuid,
-                                ip_type:            self.class.name
-                               )
-                               
-        stake.update(
-                     split:               amount_in_pct,
-                     flat_rate_in_cent:   amount_in_cent,
-                     currency:            'usd',
-                     email:               self.user.email,
-                     unassigned:          false,
-                     expired:             false
-                     
-                     )
-      else
-        stake = Stake.create(  account_id:          self.account_id,
-                               user_id:             self.user_id,
-                               asset_id:            recording_uuid,
-                               asset_type:          'Recording',
-                               ip_uuid:             self.uuid,
-                               ip_type:             self.class.name,
-                               split:               amount_in_pct,
-                               flat_rate_in_cent:   amount_in_cent,
-                               currency:            'usd',
-                               email:               self.user.email,
-                               unassigned:          false,
-                               expired:             false
-                            )
-      end
-      
-      #ap stake
+      stake = Stake.create(  
+        account_id:          self.account_id,
+           user_id:             self.user_id,
+           asset_id:            recording.uuid,
+           asset_type:          'Recording',
+           ip_uuid:             self.uuid,
+           ip_type:             self.class.name,
+           split:               amount_in_pct,
+           flat_rate_in_cent:   amount_in_cent.round,
+           currency:            'usd',
+           email:               self.user.email,
+           unassigned:          false,
+           expired:             false,
+           shop_product_id:     shop_product.id,
+           description:         "Contributor: #{self.role}",
+           shop_product_id:     shop_product.id
+        )
     rescue => e
-      ErrorNotification.post_object 'RecordingIpi#configure_payment', e
-      
+      ErrorNotification.post_object 'RecordingIpi#create_stake', e
     end
-    
-    
   end
+  
+  def update_stake shop_product, price_minus_labels_cut
+     Notifyer.print( 'RecordingIpi#create_stake' , {price_minus_labels_cut: price_minus_labels_cut, recording_uuid: recording.uuid} ) if Rails.env.development?
+    
+     return unless self.user # !!! make gracefull error handling here 
+    
+     begin
+       amount_in_cent =  price_minus_labels_cut  * self.share * 0.01
+       amount_in_pct  = amount_in_cent / shop_product.price
+      
+       if stake = Stake.find_by(  
+           account_id:          self.account_id,
+           user_id:             self.user_id,
+           asset_id:            recording.uuid,
+           asset_type:          'Recording',
+           ip_uuid:             self.uuid,
+           ip_type:             self.class.name,
+           #shop_product_id:     shop_product.id,
+        
+        )
+        stake.update_columns(  
+           split:               amount_in_pct,
+           flat_rate_in_cent:   amount_in_cent.round,
+           currency:            'usd',
+           email:               self.user.email,
+           shop_product_id:     shop_product.id,
+           description:         "Contributor: #{self.role}"
+        )
+       else
+         stake = Stake.create(  
+            account_id:          self.account_id,
+            user_id:             self.user_id,
+            asset_id:            recording.uuid,
+            asset_type:          'Recording',
+            ip_uuid:             self.uuid,
+            ip_type:             self.class.name,
+            unassigned:          false,
+            expired:             false,
+            shop_product_id:     shop_product.id, 
+            split:               amount_in_pct,
+            flat_rate_in_cent:   amount_in_cent.round,
+            currency:            'usd',
+            email:               self.user.email,
+            description:         "Contributor: #{self.role}",
+            shop_product_id:     shop_product.id
+         )
+       end
+     rescue => e
+       ErrorNotification.post_object 'RecordingIpi#update_stake', e
+     end
+  end
+
+
   
   #def remove_user_credits
   #  begin

@@ -3,7 +3,6 @@
 class StakeValidator < ActiveModel::Validator
   def validate(record)
     total_split = record.split
-    ap total_split
     
     if record.asset_type == "Stake"
       stake = Stake.cached_find(record.asset_id)
@@ -11,12 +10,9 @@ class StakeValidator < ActiveModel::Validator
         unless record == stake
           total_split += stake.split
         end
-        ap total_split
       end
     end
-    
-    ap total_split
-    
+
     if total_split > 100.0
       record.errors[:split] << "Total split can't be greater than 100%"
     end
