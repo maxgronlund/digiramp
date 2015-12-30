@@ -45,8 +45,7 @@ class Ipi < ActiveRecord::Base
         email:               self.user.email,
         unassigned:          false,
         shop_product_id:     shop_product.id,
-        description:         "Creators Split for #{user.get_full_name}",
-        shop_product_id:     shop_product.id
+        description:         "Creators Split for #{user.get_full_name}"
       )
     rescue => e
       ErrorNotification.post_object 'Ipi#create_stake', e
@@ -72,8 +71,7 @@ class Ipi < ActiveRecord::Base
           currency:            'usd',
           email:               self.user.email,
           shop_product_id:     shop_product.id,
-          description:         "Creators Split for #{user.get_full_name}",
-          shop_product_id:     shop_product.id
+          description:         "Creators Split for #{user.get_full_name}"
         )
       else
         stake = Stake.create(  
@@ -89,8 +87,6 @@ class Ipi < ActiveRecord::Base
           split:               amount_in_cent /  shop_product.price,
           flat_rate_in_cent:   amount_in_cent,
           currency:            'usd',
-          email:               self.user.email,
-          shop_product_id:     shop_product.id,
           description:         "Creators Split for #{user.get_full_name}"
         )
       end
