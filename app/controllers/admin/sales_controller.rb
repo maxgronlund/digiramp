@@ -1,11 +1,12 @@
 class Admin::SalesController < ApplicationController
-  before_action :sales_only
+  before_action :admin_only
+
   #before_action :set_sale, only: [:show, :edit, :update, :destroy]
 
   # GET /sales
   # GET /sales.json
   def index
-    @shop_orders = Shop::Order.all
+    @shop_orders = Shop::Order.order_last.page(params[:page]).per(48)
     #@sales = Sale.order('created_at desc')
   end
 

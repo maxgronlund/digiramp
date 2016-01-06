@@ -11,7 +11,10 @@ class Shop::Order < ActiveRecord::Base
   include AASM
   include ErrorNotification
   
-  default_scope -> { order('created_at ASC') }
+  #default_scope -> { order('created_at ASC') }
+  
+  scope :order_first,  -> { order('created_at ASC') }
+  scope :order_last,   -> { order('created_at DESC') }
   
   belongs_to :user
   #belongs_to :stripe_customer

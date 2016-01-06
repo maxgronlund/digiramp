@@ -27,7 +27,7 @@
               th Email
               /th Guid
               th Id
-              /th Stripe
+              th Versions
               th Date
               th 
             
@@ -37,12 +37,13 @@
                 td = shop_order.email 
                 /td = sale.guid 
                 td = shop_order.id 
+                td = shop_order.versions.count
                 /td = sale.stripe_id 
                 td = shop_order.updated_at.to_formatted_s(:short) 
                 td 
                   .pull-right
                     => link_to 'Show', admin_sale_path( shop_order ), class: 'btn btn-default btn-xs'
-                    - if Rails.env == 'development'
+                    - if false # Rails.env == 'development'
                       = link_to 'Stripe', "https://manage.stripe.com/test/payments/#{shop_order.charge_id}" , :target => "_blank", class: 'btn btn-info btn-xs'
                     - else
                       = link_to 'Stripe', "https://manage.stripe.com/payments/#{shop_order.charge_id}" , :target => "_blank", class: 'btn btn-info btn-xs'
@@ -63,7 +64,8 @@
             /          = link_to 'Stripe', "https://manage.stripe.com/payments/#{sale.stripe_id}" , :target => "_blank", class: 'btn btn-info btn-xs'
             /
 
-
+      .pull-down-10
+      == paginate(@shop_orders)  
   == render 'shared/site_footer'    
   
 
