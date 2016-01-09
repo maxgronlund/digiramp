@@ -1,5 +1,5 @@
 # RecordingStakeholdersService.assign_recording_stakes(recording_id: self.id,  account_id: self.account.id )
-
+# !!! obsolete
 
 class RecordingStakeholdersService
   

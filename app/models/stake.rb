@@ -145,6 +145,10 @@ class Stake < ActiveRecord::Base
     attach_to_user
   end
   
+  def unassigned
+    return self.user ? false : true
+  end
+  
   private 
   
   # calculate how much is redistributed to child streams
@@ -241,7 +245,7 @@ class Stake < ActiveRecord::Base
       )
       #ap stripe_transfer
       if self.unassigned
-        errored('Stake#micro_transaction', "stake: #{stripe_transfer.id} is unassigned" )
+        errored('Stake#micro_transaction', "stake: #{self.id} is unassigned" )
         #StakeMailer.delay.notify_unknown_stakeholder( self.id )
       elsif stripe_transfer.state == "finished"
         errored('Stake#micro_transaction', "stripe_transfer: #{stripe_transfer.id} is payed" )
@@ -276,18 +280,14 @@ class Stake < ActiveRecord::Base
   def attach_to_user
 
     if user = User.find_by_email(self.email)
-      ap '==========================================='
-      ap user.email
       self.account_id   = user.account.id
       self.user_id      = user.id
-      self.unassigned   = false
-    else
-      self.unassigned   = true
-      #send_notification self.email
     end 
     self.save!
-    ap self
+  
   end
+  
+  
   
   def update_income params
 

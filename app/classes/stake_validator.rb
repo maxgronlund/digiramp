@@ -15,6 +15,7 @@ class StakeValidator < ActiveModel::Validator
 
     if total_split > 100.0
       record.errors[:split] << "Total split can't be greater than 100%"
+      Notifyer.print( 'StakeValidator#validate' , "Total split can't be greater than 100%" ) if Rails.env.development?
     end
     #ap record
   end
