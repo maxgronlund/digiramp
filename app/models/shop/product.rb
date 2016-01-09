@@ -51,7 +51,7 @@ class Shop::Product < ActiveRecord::Base
   
   def charge_succeeded params
     Notifyer.print( 'Shop::Product#charge_succeeded' , params: params ) if Rails.env.development?
-    
+    params[:description] = self.title 
     begin
       stakeholders.each  do |stake|
         stake.charge_succeeded params

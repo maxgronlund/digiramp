@@ -314,11 +314,13 @@ private
     if current_user 
       @order = current_user.get_order
     else
-      if session[:order_id] && (@order = Shop::Order.cached_find(session[:order_id]) )
-      else 
+      begin
+         @order = Shop::Order.cached_find(session[:order_id]) 
+      rescue 
         @order = Shop::Order.new( invoice_nr: Admin.get_invoice_nr)
         @order.save(validate: false)
         session[:order_id] = @order.id
+        Notifyer.print( 'ApplicationController#current_order' , "CurrentOrder Created" ) if Rails.env.development?
       end
     end
     @order

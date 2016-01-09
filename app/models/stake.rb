@@ -102,17 +102,22 @@ class Stake < ActiveRecord::Base
   
 
   def fees 
-    total =  Income.where( stake_id: self.id ).sum :application_fee
-    total += Income.where( stake_id: self.id ).sum :payment_fee
+    total =  self.stripe_transfers.where(state: 'finished').sum :application_fee
+    total += self.stripe_transfers.where(state: 'finished').sum :payment_fee
     - total
+    #total =  Income.where( stake_id: self.id ).sum :application_fee
+    #total += Income.where( stake_id: self.id ).sum :payment_fee
+    #- total
   end
   
   def income
-    Income.where( stake_id: self.id ).sum :amount
+    #Income.where( stake_id: self.id ).sum :amount
+    self.stripe_transfers.where(state: 'finished').sum( :amount )
   end
+
   
   def units
-    self.incomes.count
+    self.stripe_transfers.where(state: 'finished').count
   end
   
   
@@ -155,7 +160,7 @@ class Stake < ActiveRecord::Base
   
   # send  full ammount - streams to sellers account 
   def transfer_to_stakeholders_account params
-    Notifyer.print( 'Stake#charge_succeeded' , params: params ) if Rails.env.development?
+    Notifyer.print( 'Stake#transfer_to_stakeholders_account' , params: params ) if Rails.env.development?
    
     
     begin
@@ -167,7 +172,7 @@ class Stake < ActiveRecord::Base
       unless order_item.seller_account_id == order_item.buyer_account_id
         send_micro_transaction params
       else
-        ap 'do not send money to your self'
+        Notifyer.print( 'Stake#transfer_to_stakeholders_account' , "Not sending money to origin account" ) if Rails.env.development?
       end
       
       update_income  params
@@ -201,10 +206,14 @@ class Stake < ActiveRecord::Base
   
 
   def send_micro_transaction  params
+   
+    
+    if params[:amount].round == 0
+      Notifyer.print( 'Stake#send_micro_transaction' , "Amount is: 0" ) if Rails.env.development?
+      return
+    end
+    
     Notifyer.print( 'Stake#send_micro_transaction' , params: params ) if Rails.env.development?
-    
-    return if params[:amount].round == 0
-    
     begin
       # prevent the same transfer to run two times
       stripe_transfer = Shop::StripeTransfer
@@ -227,12 +236,15 @@ class Stake < ActiveRecord::Base
         #split:                self.split,
         amount:               params[:amount].to_i,
         currency:             'usd',#,
-        application_fee:      params[:application_fee]
+        application_fee:      params[:application_fee],
+        description:          params[:description]
       )
       #ap stripe_transfer
       if self.unassigned
-        Notifyer.print( 'Stake#send_micro_transaction' , mesage: 'TODO! make message' ) if Rails.env.development?
+        errored('Stake#micro_transaction', "stake: #{stripe_transfer.id} is unassigned" )
         #StakeMailer.delay.notify_unknown_stakeholder( self.id )
+      elsif stripe_transfer.state == "finished"
+        errored('Stake#micro_transaction', "stripe_transfer: #{stripe_transfer.id} is payed" )
       else
         stripe_transfer.pay
       end
@@ -264,13 +276,17 @@ class Stake < ActiveRecord::Base
   def attach_to_user
 
     if user = User.find_by_email(self.email)
+      ap '==========================================='
+      ap user.email
       self.account_id   = user.account.id
       self.user_id      = user.id
+      self.unassigned   = false
     else
       self.unassigned   = true
       #send_notification self.email
     end 
     self.save!
+    ap self
   end
   
   def update_income params

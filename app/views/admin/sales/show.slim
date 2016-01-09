@@ -14,13 +14,10 @@
                                                               sales: admin_sales_path }, current: ''}
       .row
         .col-sm-6
-          .help
-            .help-text
-              h2  Order
-            .help-button
-             '&nbsp;
-             = @shop_order.id
-         
+          h2 Order
+          b 
+            '&nbsp;
+            = @shop_order.id
         .col-sm-6
           .pull-right.pull-down-10
             => link_to  admin_sales_path do
@@ -37,48 +34,47 @@
       .sexy_line
       /p id="notice" 
       /  = notice 
+      .digi-box  
+        .table-responsive
+          table class="table table-hover"
+            thead
+              tr
+                th Key
+                th Value
+            tbody
+              - @shop_order.attributes.sort.each do |key, value| 
+                tr
+                  td = key 
+                  td = value 
+            
+            
+      
+      
       /.digi-box  
       /  .table-responsive
       /    table class="table table-hover"
       /      thead
       /        tr
-      /          th Key
-      /          th Value
+      /          th Timestamp
+      /          th Event
+      /          th Changes
+      /      
       /      tbody
-      /        - @shop_order.attributes.sort.each do |key, value| 
-      /          tr
-      /            td = key 
-      /            td = value 
+      /        - if versions = @shop_order.versions
+      /          - versions.each do |version| 
+      /            tr
+      /              td  = version.created_at.to_formatted_s(:short)
+      /              td  = version.event
+      /              td 
+      /                - if changeset = version.changeset
+      /                  - changeset.sort.each do |key, value| 
+      /                    b = key 
+      /                    ':
+      /                    = value[0] 
+      /                    '&nbsp;to&nbsp;
+      /                    = value[1] 
+      /                    .sexy_line
       /      
-      /      
-      /
-      /
-      .digi-box  
-        =  @shop_order.versions.count
-        .table-responsive
-          table class="table table-hover"
-            thead
-              tr
-                th Timestamp
-                th Event
-                th Changes
-            
-            tbody
-              - if versions = @shop_order.versions
-                - versions.each do |version| 
-                  tr
-                    td  = version.created_at.to_formatted_s(:short)
-                    td  = version.event
-                    td 
-                      - if changeset = version.changeset
-                        - changeset.sort.each do |key, value| 
-                          b = key 
-                          ':
-                          = value[0] 
-                          '&nbsp;to&nbsp;
-                          = value[1] 
-                          .sexy_line
-            
         
   == render 'shared/site_footer'          
  

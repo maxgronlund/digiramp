@@ -22,7 +22,6 @@ class Shop::OrderItem < ActiveRecord::Base
   # then it's time pass the payment on to
   # all stakeholders
   def charge_succeeded params
-    ap params
     Notifyer.print( 'Shop::OrderItem#charge_succeeded' , params: params ) if Rails.env.development?
     
 
@@ -58,6 +57,14 @@ class Shop::OrderItem < ActiveRecord::Base
     rescue
       post_error "Shop::OrderItem id: #{self.id} seller_account_id not found "
       User.system_user.account.id
+    end
+  end
+  
+  def self.fix_payments
+    Shop::OrderItem.where("created_at > ?", Time.now - 12.days).each do |order_item|
+      
+      #order_item.shop_product.charge_succeeded(  )
+      
     end
   end
   

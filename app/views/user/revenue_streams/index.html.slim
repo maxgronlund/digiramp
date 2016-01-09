@@ -53,7 +53,7 @@
                   td = stake.units
                   td 
                     b = number_to_currency( stake.flat_rate_in_cent * 0.01, precision: 2, locale: 'en')
-                    br = number_to_percentage(stake.split * 100, precision: 2)
+                    br = number_to_percentage(stake.split, precision: 2)
                   /td = number_to_percentage(stake.split, precision: 4) 
                   td = number_to_currency( stake.fees * 0.01, precision: 2, locale: 'en')
                   td = stake.stakeholders.count

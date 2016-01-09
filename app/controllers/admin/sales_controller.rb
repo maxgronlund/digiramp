@@ -58,6 +58,8 @@ class Admin::SalesController < ApplicationController
   # DELETE /sales/1
   # DELETE /sales/1.json
   def destroy
+     @shop_order = Shop::Order.cached_find(params[:id])
+     @shop_order.versions.delete_all 
     #@sale.destroy
     #respond_to do |format|
     #  format.html { redirect_to sales_url, notice: 'Sale was successfully destroyed.' }

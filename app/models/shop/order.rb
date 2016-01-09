@@ -7,7 +7,7 @@
 
 class Shop::Order < ActiveRecord::Base
   
-  has_paper_trail
+  #has_paper_trail
   include AASM
   include ErrorNotification
   
@@ -198,7 +198,7 @@ class Shop::Order < ActiveRecord::Base
   # then it's time pass the payment on to
   # each individual order item
   def charge_succeeded params
-
+    Notifyer.print( 'Shop::Order#charge_succeeded' , params: params ) if Rails.env.development?
 
     #split                  = payment_fee_split
     #params[:stripe_fees]   *= split

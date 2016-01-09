@@ -27,7 +27,7 @@
               th Email
               /th Guid
               th Id
-              th Versions
+              /th Versions
               th Date
               th 
             
@@ -37,7 +37,8 @@
                 td = shop_order.email 
                 /td = sale.guid 
                 td = shop_order.id 
-                td = shop_order.versions.count
+                /td 
+                /  = shop_order.versions.count
                 /td = sale.stripe_id 
                 td = shop_order.updated_at.to_formatted_s(:short) 
                 td 

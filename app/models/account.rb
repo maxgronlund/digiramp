@@ -91,6 +91,7 @@ class Account < ActiveRecord::Base
   has_many :subscriptions,  dependent: :destroy
   has_many :products,         class_name: 'Shop::Product'
   has_many :stripe_transfers, class_name: 'Shop::StripeTransfer'
+  has_many :order_items, class_name: 'Shop::OrderItem'
   has_many :document_users
   
   belongs_to :account_feature

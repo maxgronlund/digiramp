@@ -54,7 +54,7 @@ class Shop::StripeTransfer < ActiveRecord::Base
  # send a payment to a users stripe account
  def pay
    
-   Notifyer.print( 'Shop::StripeTransfer' , self ) if Rails.env.development?
+   Notifyer.print( 'Shop::StripeTransfer#pay' , self ) if Rails.env.development?
    
    set_description
    self.process!
@@ -71,7 +71,7 @@ class Shop::StripeTransfer < ActiveRecord::Base
                                 'order_item_id' => self.order_item_id
                               },
       statement_descriptor:   "#{self.description} test 001",
-      application_fee:        self.application_fee
+      application_fee:        self.application_fee,
       #recipient:              self.destination 
     )
     self.finis!
