@@ -612,7 +612,7 @@ class User < ActiveRecord::Base
     Client.where(email: self.email).update_all(member_id: self.id)
     #set_default_avatar
     CreateUserMandrillAccountJob.perform_later(self.id) if Rails.env.production?
-    Stake.where(  email: self.email ).update_all( unassigned: false)
+    Stake.where(  email: self.email ).update_all( user_id: self.id)
     
     UserConfiguration.create(user_id: self.id)
 

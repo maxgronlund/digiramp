@@ -23,7 +23,6 @@ class Shop::OrderItem < ActiveRecord::Base
   # all stakeholders
   def charge_succeeded params
     Notifyer.print( 'Shop::OrderItem#charge_succeeded' , params: params ) if Rails.env.development?
-    
 
     begin
       self.update(sold: true)
