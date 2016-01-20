@@ -145,7 +145,7 @@ class Stake < ActiveRecord::Base
     attach_to_user
   end
   
-  def unassigned
+  def unassigned?
     return self.user ? false : true
   end
   
@@ -173,9 +173,10 @@ class Stake < ActiveRecord::Base
 
       
       # sending transfers with same sender and recipient will fail
-      unless order_item.seller_account_id == order_item.buyer_account_id
+      begin
         send_micro_transaction params
-      else
+      rescue => e
+        errored('Stake#transfer_to_stakeholders_account', e ) unless Rails.env.development?
         Notifyer.print( 'Stake#transfer_to_stakeholders_account' , "Not sending money to origin account" ) if Rails.env.development?
       end
       
@@ -226,7 +227,9 @@ class Stake < ActiveRecord::Base
         order_item_id:        params[:order_item_id], 
         account_id:           self.account_id,
         user_id:              self.user_id,  
-        stake_id:             self.id
+        stake_id:             self.id,
+        source_transaction:   params[:stripe_charge_id],
+        destination:          self.account.user.stripe_id, 
       )
       .first_or_create( 
         shop_order_id:        params[:order_id],
@@ -244,7 +247,7 @@ class Stake < ActiveRecord::Base
         description:          params[:description]
       )
       #ap stripe_transfer
-      if self.unassigned
+      if self.unassigned?
         errored('Stake#micro_transaction', "stake: #{self.id} is unassigned" )
         #StakeMailer.delay.notify_unknown_stakeholder( self.id )
       elsif stripe_transfer.state == "finished"

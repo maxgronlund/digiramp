@@ -45,7 +45,6 @@ class PublishingAgreement < ActiveRecord::Base
         flat_rate_in_cent:   royalty_in_cent.round,
         currency:            'usd',
         email:               self.publisher.email,
-        unassigned:          false,
         shop_product_id:     shop_product.id,
         description:         "Publishing: #{publisher.legal_name}"
       )
@@ -88,7 +87,6 @@ class PublishingAgreement < ActiveRecord::Base
           asset_type:          recording.class.name,
           ip_uuid:             self.uuid,
           ip_type:             self.class.name,
-          unassigned:          false,
           currency:            'usd',
           shop_product_id:     shop_product.id,
           split:               royalty_in_pct,

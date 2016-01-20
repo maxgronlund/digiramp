@@ -99,17 +99,17 @@ class User::ProductsController < ApplicationController
   def create
 
     params[:shop_product][:connected_to_stripe] = @user.is_stripe_connected
-
+    params[:shop_product][:valid_for_sale]      = @user.is_stripe_connected
 
     @shop_product = Shop::Product.new(shop_product_params)
-
+    
 
     if @shop_product.save!
 
       Notifyer.print( 'Shop::Product#create' , shop_product: @shop_product ) if Rails.env.development?
       
       @shop_product.create_stakes
-      @shop_product.valid_for_sale! if @user.is_stripe_connected
+      
       
 
       
@@ -129,13 +129,12 @@ class User::ProductsController < ApplicationController
 
 
     params[:shop_product][:connected_to_stripe] = @user.is_stripe_connected
+    params[:shop_product][:valid_for_sale]      = @user.is_stripe_connected
     
 
     if @shop_product.update(shop_product_params)
       
       Notifyer.print( 'User::ProductsController#update' , shop_product: @shop_product ) if Rails.env.development?
-      
-      @shop_product.valid_for_sale! if @user.is_stripe_connected
       @shop_product.update_stakes
       
       @category     = @shop_product.category

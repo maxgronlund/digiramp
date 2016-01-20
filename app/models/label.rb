@@ -63,7 +63,6 @@ class Label < ActiveRecord::Base
         flat_rate_in_cent:   amount_in_cent.round,
         currency:            'usd',
         email:               self.user.email,
-        unassigned:          false,
         shop_product_id:     shop_product.id,
         description:         "Label: #{self.title}"
       )
@@ -106,7 +105,6 @@ class Label < ActiveRecord::Base
           asset_type:          'Recording',
           ip_uuid:             distribution_agreement.uuid,
           ip_type:             'DistributionAgreement',
-          unassigned:          false,
           shop_product_id:     shop_product.id,
           split:               amount_in_pct,
           flat_rate_in_cent:   amount_in_cent.round,

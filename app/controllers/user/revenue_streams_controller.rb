@@ -48,7 +48,6 @@ class User::RevenueStreamsController < ApplicationController
       #                              :flat_rate_in_cent,
       #                              :currency,
       #                              :email,
-      #                              :unassigned,
       #                              :ipiable_id,
       #                              #:ipiable_type,
       #                              #:channel_uuid,

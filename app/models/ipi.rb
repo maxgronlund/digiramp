@@ -43,7 +43,6 @@ class Ipi < ActiveRecord::Base
         flat_rate_in_cent:   amount_in_cent,
         currency:            'usd',
         email:               self.user.email,
-        unassigned:          false,
         shop_product_id:     shop_product.id,
         description:         "Creators Split for #{user.get_full_name}"
       )
@@ -82,7 +81,6 @@ class Ipi < ActiveRecord::Base
           ip_uuid:             self.uuid,
           ip_type:             self.class.name,
           email:               self.user.email,
-          unassigned:          false,
           shop_product_id:     shop_product.id,
           split:               amount_in_cent /  shop_product.price,
           flat_rate_in_cent:   amount_in_cent,

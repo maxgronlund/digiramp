@@ -278,7 +278,6 @@ class Shop::Product < ActiveRecord::Base
         flat_rate_in_cent:   self.price,
         currency:            'usd',
         email:               self.account.user.email,
-        unassigned:          false,
         asset_id:            self.id,
         asset_type:          self.class.name
       )
