@@ -49,7 +49,6 @@ class User::StakesController < ApplicationController
                                   #:flat_rate_in_cent,
                                   #:currency,
                                   #:email,
-                                  #:unassigned,
                                   #:channel_uuid,
                                   #:asset_id,
                                   #:asset_type

@@ -2957,7 +2957,6 @@ class AddAllTables < ActiveRecord::Migration
 #      t.datetime "created_at",                        null: false
 #      t.datetime "updated_at",                        null: false
 #      t.string   "email"
-#      t.boolean  "unassigned",        default: false
 #      t.integer  "ipiable_id"
 #      t.string   "ipiable_type"
 #    end
