@@ -1,4 +1,4 @@
-################################# 
+#################################
 # a user can be created by someone else than the user
 # E:G: an other user can add the user as a client to his account.
 # In that case there is send no notification to the user
@@ -7,39 +7,39 @@
 
 
 class User < ActiveRecord::Base
-  
 
-  
+
+
   extend FriendlyId
   friendly_id :user_name, :use => :history
   #friendly_id :user_name, use: :slugged
-  
+
   scope :public_profiles,   ->  { where( private_profile: false)  }
   scope :supers,            ->  { where( role: 'Super' ).order("email asc")  }
   scope :administrators,    ->  { where( administrator: true ).order("email asc")  }
   scope :customers,         ->  { where( role: 'Customer' ).order("email asc")  }
   scope :with_a_collection, ->  { where( has_a_collection: true)}
-  
-  has_paper_trail 
+
+  has_paper_trail
   has_secure_password
   include PublicActivity::Common
-  
-  
+
+
   include PgSearch
   #pg_search_scope :search_user, against: [:search_field], :using => [:tsearch]
   pg_search_scope :search_user,  against: [ :search_field
-                                    ], 
-                                using: {  
-                                          tsearch: { prefix: true, 
-                                                     any_word: true, 
+                                    ],
+                                using: {
+                                          tsearch: { prefix: true,
+                                                     any_word: true,
                                                      dictionary: "english"
                                                     },
                                           dmetaphone: {:any_word => true, :sort_only => true}
                                         }
                                         #,
                                 #ignoring: :accents
-                                    
-                                    
+
+
   ROLES           = ["Super", "Customer", "Backend Editor"]
   SECRET_NAME     = "RGeiHK8yUB6a"
   PUBLISHING_TYPE = ['Publishing is not configured','I own and control my own publishing', 'I have an exclusive publisher', 'I have many publishers' ]
@@ -65,30 +65,30 @@ class User < ActiveRecord::Base
   accepts_nested_attributes_for :address
   #accepts_nested_attributes_for :publisher
   include AddressMix
-  
+
   has_one  :account
   has_one  :user_configuration
   has_many :account_users
-  has_many :accounts,         :through => :account_users  
+  has_many :accounts,         :through => :account_users
   has_many :labels
   has_many :common_works
   has_many :common_work_users
 
   has_many :distribution_agreements
-  
+
   has_many :comments,        as: :commentable,          dependent: :destroy
-  has_many :digital_signatures 
+  has_many :digital_signatures
   has_many :recording_downloads, dependent: :destroy
   has_many :selected_opportunities
   has_many :client_invitations
   has_many :subscriptions
   has_many :recording_ipis
   has_many :client_invitation
-  
+
   has_many :common_work_ipis
   has_many :common_work_ipi_publishers
- 
-  
+
+
 
   serialize :crop_params, Hash
   serialize :seller_info,  JSON
@@ -98,10 +98,10 @@ class User < ActiveRecord::Base
   belongs_to :page_style
   has_many :recordings
   has_many :client_imports
-  
+
   # used to display the users recordings
   has_many :widgets, dependent: :destroy
-  
+
   # omniauth
   has_many :authorization_providers,    dependent: :destroy
   has_many :catalog_users,              dependent: :destroy
@@ -109,13 +109,13 @@ class User < ActiveRecord::Base
   has_many :opportunity_users,          dependent: :destroy
   has_many :opportunities, through: :opportunity_users
   has_many :music_submission_selections
-  
+
 
   has_one :dashboard
   #has_many :work_users,               dependent: :destroy
   #has_many :works,                    through: :work_users
   has_many :invites
-  
+
   # account_catalog a user administrates
   has_many :administrations
   has_many :account_catalogs, through: :administrations
@@ -123,54 +123,54 @@ class User < ActiveRecord::Base
   # for the crm
   has_many :project_tasks
   has_many :projects
-  
+
   #has_many :ipis
   has_many :user_credits, dependent: :destroy
   has_many :issues,       dependent: :destroy
   has_many :user_notifications
   has_many :notification_messages
-  
+
 
   # Activities
   has_many :activity_events, as: :activity_eventable
 
   has_many :share_on_facebooks, dependent: :destroy
   has_many :share_on_twitters,  dependent: :destroy
-  
+
 
   after_commit    :set_propperties
 
   before_create   :setup_basics
   after_create    :set_default_relations
   before_destroy  :sanitize_relations
-  
-  
+
+
   #has_many :emails, dependent: :destroy
-  
+
   # statistic on playbacks
   has_many :playbacks
   has_many :recording_views
-  
+
   # statistic on likes
   has_many :likes
-  
+
   # stuff a user like used for users
   has_many :item_likes
-  
+
   has_many :playlists
-  
+
   # -----------------------------------------------------------------
   # followers
   has_many :followed_users, through: :relationships, source: :followed
-  
+
   has_many :relationships, foreign_key: "follower_id"
-  
+
   has_many :reverse_relationships, foreign_key: "followed_id",
                                      class_name:  "Relationship",
                                      dependent:   :destroy
-  
+
   has_many :followers, through: :reverse_relationships, source: :follower
-  
+
   #------------------------------------------------------------------
   # the creator of the event
   has_many :follower_events, dependent: :destroy
@@ -186,69 +186,69 @@ class User < ActiveRecord::Base
   # posts on the wall
   has_many :wall_posts, :through => :follower_event_users, :source => :follower_event
   has_many :follower_event_users
-  
+
   has_many :mail_list_subscribers, dependent: :destroy
   has_many :email_groups, through: :mail_list_subscribers
-  
+
   has_many :music_submission, dependent: :destroy
-  
+
   has_many :opportunitiy_views
-  
+
   has_many :clients
   has_many :client_groups
-  
+
   has_many :forums, dependent: :destroy
   has_many :campaigns
   has_many :cms_pages
   has_many :contracts
   has_many :user_emails, dependent: :destroy
-  
+
   has_many :creative_projects, dependent: :destroy
   has_many :payment_sources, dependent: :destroy
   has_many :playlist_emails, dependent: :destroy
-  
+
   #has_one :default_cms_page
-  
+
   has_many :orders, class_name:           'Shop::Order'
   has_many :products, class_name:         'Shop::Product'
   has_many :stripe_transfers, class_name: 'Shop::StripeTransfer'
   #has_many :entries, through: :entries_media, class_name: 'Cms::ContentEntry', source: :entry
-  
+
   has_many :document_users
   has_many :documents, through: :document_users
   has_many :distribution_agreements
   has_many :publishing_agreements
   has_many :user_publishers, dependent: :destroy
   has_many :publishers, through: :user_publishers
-  
-  
+
+
   #def account_id() @account_id ||= self.account.id end
   def account_id() self.account.id end
-  
+
   def digital_signature
     return nil if self.digital_signature_uuid.nil?
     signature = DigitalSignature.find_by(uuid: self.digital_signature_uuid)
     return nil if signature.hidden
     signature
   end
-  
+
   def emails
     mails = self.user_emails.map { |mail| mail.email  }
     mails << self.email
   end
-  
-  
-  
+
+
+
   def next_up?
     self.user_configuration.next_up?
   end
-  
+
   def administrated_by user
-    
+
   end
 
   def personal_publishing_status
-    case self.status 
+    case self.status
     when "has_to_set_publishing"
       return "Publishing is not configured"
     when "is_self_published"
@@ -259,9 +259,9 @@ class User < ActiveRecord::Base
       return "I have many publishers"
     end
   end
-  
+
   def publishing
-    case self.status 
+    case self.status
     when "has_to_set_publishing"
       return "Not configured"
     when "is_self_published"
@@ -274,67 +274,67 @@ class User < ActiveRecord::Base
   end
 
   def personal_publishing_status=(status)
-    case status 
+    case status
     when "I own and control my own publishing"
       self.is_self_published!
     when "I have an exclusive publisher"
       self.has_an_exclusive_publisher!
     when "I have many publishers"
-      self.have_many_publishers! 
+      self.have_many_publishers!
     else
       self.has_to_set_publishing!
     end
   end
-  
+
   # user by?
   def permits? current_user
     # users can access their own profile
     return false if current_user.nil?
     return true if current_user.id == self.id
     return true if self.account.administrator_id == current_user.id
-    # super user can access all profiles 
+    # super user can access all profiles
     return true if current_user.role == 'Super'
     # no access
     false
   end
-  
-  
+
+
   def has_no_recordings_on_playlist?
     self.playlists.each do |playlist|
       return false if playlist.recordings.count > 0
     end
   end
-  
+
   def has_no_cleared_recording?
     self.recordings.each do |recording|
       return false if recording.is_cleared?
     end
     return true
   end
-  
+
   def first_uncleared_recording
     self.recordings.each do |recording|
       return recording unless recording.is_cleared?
     end
     nil
   end
-  
+
   def get_documents
     self.documents
     #documents.publishing_agreements.where(status: [0, 1, 2])
     #  [ :draft, :execution_copy, :executed, :deleted ]
   end
-  
+
   def liked_users
     user_ids = self.item_likes.where(like_type: 'User').pluck(:id)
     User.order(:id).where(id: user_ids).public_profiles
   end
 
-  
+
   def liked_by user_id
     ItemLike.find_by(user_id: user_id, like_id: self.id, like_type: self.class.name)
   end
-  
+
   def update_user_likes
     # how many has liked this user
      # how many has this user liked
@@ -342,7 +342,7 @@ class User < ActiveRecord::Base
       user_likes: ItemLike.where(like_id: self.id, like_type: self.class.name).count
     )
   end
-  
+
   def update_liked_users_count
     # how many has liked this user
      # how many has this user liked
@@ -350,27 +350,27 @@ class User < ActiveRecord::Base
       liked_users_count: liked_users.count,
       has_liked_a_user:  liked_users.count > 0
     )
-    
-    
+
+
 
   end
-  
-  #def user_likes 
+
+  #def user_likes
   #  ItemLike.where(like_id: self.id, like_type: self.class.name).count
   #end
-  
+
   def update_shop
     conneted_to_stripe    = !authorization_providers.where(provider: 'stripe_connect').empty?
     self.update(has_enabled_shop: conneted_to_stripe)
     self.products.update_all(connected_to_stripe: conneted_to_stripe)
   end
-  
-  
+
+
 
   def self.say_hello
-    #TestMailer.delay.send_message() 
+    #TestMailer.delay.send_message()
     #if Rails.env == 'development'
-    #  TestMailer.delay.send_message() 
+    #  TestMailer.delay.send_message()
     #  #'========================================= say hello ========================================='
     #  #'========================================= say hello ========================================='
     #  #'========================================= say hello ========================================='
@@ -387,33 +387,33 @@ class User < ActiveRecord::Base
     #end
   end
   def get_order
-    
+
     # lock if there is a order in the process of being paid
 
-    
-    @shop_order  = Shop::Order.where( state: 'pending', 
+
+    @shop_order  = Shop::Order.where( state: 'pending',
                                       user_id: self.id,
                                       email: self.email )
-                              .first_or_create!( user_id: self.id, 
+                              .first_or_create!( user_id: self.id,
                                                  email: self.email,
                                                  invoice_nr: Admin.get_invoice_nr
                                                 )
     @shop_order.errors.clear
     @shop_order
   end
-  
+
   def is_stripe_connected
     return true if self.authorization_providers.find_by(provider: 'stripe_connect')
     false
   end
-  
+
   def seller_info
 
     if is_stripe_connected
       StripeAccount.info(self)
     else
       message = "User#seller_info: #{self.email} not connected to stripe"
-      
+
       Opbeat.capture_message( message )
       {
                             :id => "error",
@@ -430,18 +430,18 @@ class User < ActiveRecord::Base
       }
     end
   end
-  
+
   def remove_stripe_credentials
-    
+
     self.stripe_id              = nil
     self.stripe_access_key      = nil
     self.stripe_publishable_key = nil
     self.stripe_refresh_token   = nil
     self.stripe_customer_id     = nil
     self.save
-    
+
   end
-  
+
   def merge_order order_id
     begin
       if old_shop_order = Shop::Order.cached_find( order_id )
@@ -450,7 +450,7 @@ class User < ActiveRecord::Base
     rescue
     end
   end
-  
+
   # test if a user has an email
   def has_email test_this_email
     test_this_email.downcase!
@@ -458,7 +458,7 @@ class User < ActiveRecord::Base
     return true if self.user_emails.where(email: test_this_email).first
     false
   end
-  
+
   def self.get_by_email get_by_email
     return nil unless get_by_email
     get_by_email.downcase!
@@ -466,58 +466,58 @@ class User < ActiveRecord::Base
       return user
     elsif user_email = UserEmail.where(email: get_by_email).first
       return user_email.user if user_email.user
-    end 
+    end
     nil
   end
 
-  
+
   def styling
     #unless style = PageStyle.where(id: self.page_style_id).first
-    #  style = 
+    #  style =
   end
-  
+
   def user_activities
     self.wall_posts.where(user_id: self.id)
   end
-  
+
   # just before the user is destroyed the following models are updated
   def sanitize_relations
     # messages
     if send_messages       = Message.where(sender_id: self.id)
       send_messages.update_all(sender_removed: true)
     end
-    
+
     if received_messages   = Message.where(recipient_id: self.id)
       received_messages.update_all(recipient_removed: true)
     end
-    
+
     #client_ids          = Client.where(member_id: self.id).pluck(:id)
     #if client_invitations  = ClientInvitation.where(client_id: client_ids)
     #  client_invitations.destroy_all
     #end
-    
-    if clients             = Client.where(member_id: self.id)    
+
+    if clients             = Client.where(member_id: self.id)
       clients.update_all(member_id: nil)
     end
 
-    self.recordings.update_all( user_id: User.system_user.id, 
+    self.recordings.update_all( user_id: User.system_user.id,
                                 privacy: 'Only me'
                               )
-    
-   
-    
+
+
+
     if shop_orders = Shop::Order.where(user_id: self.id)
       shop_orders.update_all(user_id: nil)
     end
-    
+
     if shop_products = Shop::Product.where(user_id: self.id)
       shop_products.update_all(user_id: nil, account_id: nil, document_id: nil)
     end
-    
+
     if self.stripe_transfers
       self.stripe_transfers.update_all(user_id: nil, shop_order_id: nil )
     end
-    
+
     unless self.mandrill_account_id.blank?
       DeleteUserMandrillAccountJob.perform_later(self.mandrill_account_id)
     end
@@ -526,17 +526,17 @@ class User < ActiveRecord::Base
     if followed_events = FollowerEvent.where(postable_type: 'User', postable_id: self.id)
       followed_events.destroy_all
     end
-    
+
     self.account_users.destroy_all
-    
+
     if self.user_configuration
       self.user_configuration.destroy
     end
-    
+
     if self.address
       self.address.destroy
     end
-    
+
 
 
     self.common_work_ipis.find_each do |common_work_ipi|
@@ -553,41 +553,41 @@ class User < ActiveRecord::Base
     if client_invitations = ClientInvitation.where(client_id: self.id)
       client_invitations.destroy_all
     end
-    
+
   end
-  
+
   def self.system_user
     if user= User.where(email: 'digiramp_system_default_957@digiramp.com').first
-    
+
     else
-      user = User.create( email: 'digiramp_system_default_957@digiramp.com', 
-                          name:  'digiramp_system_default_957', 
-                          user_name: 'digiramp_system_default_957', 
-                          #current_account_id: @account.id, 
-                          password: '5GA3Zk1C', 
+      user = User.create( email: 'digiramp_system_default_957@digiramp.com',
+                          name:  'digiramp_system_default_957',
+                          user_name: 'digiramp_system_default_957',
+                          #current_account_id: @account.id,
+                          password: '5GA3Zk1C',
                           password_confirmation: '5GA3Zk1C',
                           activated: true,
                           private_profile: true)
-                                              
+
       create_account_for user
     end
     user
   end
- 
+
   def unread_messages
     self.received_massages.where(read: false, recipient_removed: false).count
   end
-  
-  
+
+
   def setup_basics
     set_token
     self.uuid                  = UUIDTools::UUID.timestamp_create().to_s
     self.uniq_followers_count  = "0".to_uniq
     self.page_style_id         = PageStyle.plain_style.id
-    
+
   end
-  
-  
+
+
   def update_meta
     UserSearchField.process self
     UserCompleteness.process self
@@ -599,7 +599,7 @@ class User < ActiveRecord::Base
   end
 
   def set_default_relations
-    
+
     EmailGroup.find_each do |email_group|
 
       if email_group.subscription_by_default?
@@ -607,29 +607,29 @@ class User < ActiveRecord::Base
                                    email_group_id: email_group.id )
 
       end
-        
+
     end
     Client.where(email: self.email).update_all(member_id: self.id)
     #set_default_avatar
     CreateUserMandrillAccountJob.perform_later(self.id) if Rails.env.production?
     Stake.where(  email: self.email ).update_all( user_id: self.id)
-    
+
     UserConfiguration.create(user_id: self.id)
 
-    
+
     SlackService.user_signed_up(self) if Rails.env.production?
-    
+
     update_meta
-    
+
     #ProfessionalInfo.create(user_id: self.id)
   end
 
   def stripe_customers
     StripeCustomer.where(stripe_id: self.stripe_customer_id )
   end
-  
 
-  
+
+
   def following?(other_user)
     self.relationships.find_by(followed_id: other_user.id)
   end
@@ -643,12 +643,12 @@ class User < ActiveRecord::Base
         )
         return _relation_ship
       rescue
-        
+
         Opbeat.capture_message("User::Line 544 #{ { self_id: self.id , other_user_id: other_user.id} }")
       end
     end
   end
-  
+
   def unfollow!(other_user)
     self.relationships.find_by(followed_id: other_user.id).destroy
     self.update_columns(
@@ -659,21 +659,21 @@ class User < ActiveRecord::Base
   def set_propperties
     flush_cache
   end
-  
+
   # create module for this
   # same in catalog
-  
+
   # when is this ever used ?
   # where is it used from ?
-  # could be usefull for handling over all recordings for a user 
+  # could be usefull for handling over all recordings for a user
   def update_widget
     default_playlist.add_items self.recordings
   end
-  
-  def default_widget 
+
+  def default_widget
     default_playlist.default_widget
   end
-  
+
   # add parameters to this
   def default_playlist
     Playlist.where( uuid: self.uuid)
@@ -694,18 +694,18 @@ class User < ActiveRecord::Base
   def can? action, id_name_or_record, _account_id
     logger.info 'OBSOLETE: user / can?'
     return true
-  end 
+  end
 
   def send_password_reset
     self.add_token
     UserMailer.delay.password_reset(self.id)
-  end 
-  
+  end
 
-  
-  
+
+
+
   def current_account
-    
+
     begin
       return  Account.cached_find(self.current_account_id)
     rescue
@@ -717,7 +717,7 @@ class User < ActiveRecord::Base
       end
     end
   end
-  
+
   def default_account
 
     if self.account_users.size > 1
@@ -728,26 +728,26 @@ class User < ActiveRecord::Base
 
     account_users.first.account
   end
-  
+
   def super?
     self.role == 'Super'
   end
-  
+
   def editor?
     self.role == 'Backend Editor'
   end
-  
+
   def can_edit?
     self.role == 'Super'
   end
-  
+
   def manage? user
     return false unless user
     return true if user.super?
     return true if user.id == self.id
     false
   end
-  
+
   def get_full_name
     self.full_name ? self.full_name : self.user_name
   end
@@ -755,7 +755,7 @@ class User < ActiveRecord::Base
   def get_account_id
     self.account.id
   end
-  
+
   def permission_cache_for account
     begin
       return AccountUser( account.id, self.id).permission_key
@@ -763,67 +763,67 @@ class User < ActiveRecord::Base
       return UUIDTools::UUID.timestamp_create().to_s
     end
   end
-  
+
   def can_administrate acct
     return true if acct.administrator_id == self.id
     return true if self.super?
     return true if self.account.id == acct.id
     false
   end
-  
+
   def user_role_on account
     if account_user = AccountUser.cached_where( account.id, self.id)
       return account_user.role
     end
     'no access'
   end
-  
-  
+
+
   #def setup_personal_publishing
   #  CopyMachine.setup_personal_publishing self.id
   #end
-  
-  def pro_affiliation() 
-    
+
+  def pro_affiliation()
+
     if pub = Publisher.find_by(user_id: self.id, personal_publisher: true)
-      pub.pro_affiliation_id 
+      pub.pro_affiliation_id
     end
-  
+
   end
-    
+
   def pro_affiliation=( code)
     personal_publisher.update(pro_affiliation_id: code)
   end
-  
+
   def personal_publisher_ipi_code
     begin
-      return personal_publisher.ipi_code 
+      return personal_publisher.ipi_code
     rescue => e
       ErrorNotification.post_object 'User#personal_publisher_ipi_code', e
     end
     nil
   end
-  
+
   def personal_publisher_ipi_code=( code)
     personal_publisher.update(ipi_code: code)
   end
-  
+
   def personal_publisher
     Publisher.find_by( user_id: self.id, id: self.personal_publisher_id, personal_publisher: true )
   end
-  
+
   def exclusive_publisher
     if publisher = Publisher.find_by(email: self.exclusive_publishers_email)
       return publisher
     end
   end
-  
+
   def publishing_agreement
     if publisher = get_publisher
       publisher.publishing_agreement.where()
     end
   end
-  
+
   def personal_publishing_agreement
     begin
       if publishing_agreement = PublishingAgreement.find_by(personal_agreement: true, publisher_id: personal_publisher.id)
@@ -833,11 +833,11 @@ class User < ActiveRecord::Base
         return nil
       end
     rescue => e
-      
+
     end
     nil
   end
-  
+
   def personal_publishing_agreement_document
     if personal_publishing_agreement
       if document = personal_publishing_agreement.document
@@ -845,7 +845,7 @@ class User < ActiveRecord::Base
       end
     end
   end
-  
+
   def personal_publishing_agreement_document_user
     if document = personal_publishing_agreement_document
       if document_user = personal_publishing_agreement_document.document_users.where(user_id: self.id).first
@@ -853,9 +853,9 @@ class User < ActiveRecord::Base
       end
     end
   end
-  
-  
-  
+
+
+
   # return the publisher based on publihing type
   def get_publisher
     #case self.personal_publishing_status
@@ -867,7 +867,7 @@ class User < ActiveRecord::Base
     #  nil
     #end
   end
-  
+
   # Return the publisher id or nil
   def get_publisher_id
     #if pub = get_publisher
@@ -875,31 +875,31 @@ class User < ActiveRecord::Base
     #end
     nil
   end
-  
+
   #def publishing_administrator_email()  personal_publisher.administrator_email end
   #def publishing_administrator_email=(administrator_email)
-  #  administrator = User.get_by_email(administrator_email) 
+  #  administrator = User.get_by_email(administrator_email)
   #  personal_publisher.update(
   #    publishing_administrator_email: administrator_email,
   #    publishing_administrator_user_id: administrator.id
   #  )
   #end
-  
+
   def publishing_administrator() User.cached_find( personal_publisher.publishing_administrator_user_id ) end
 
-  
-  
-  
+
+
+
   def publishing_agreement_document() end
   def publishing_agreements() PublishingAgreement.where(account_id: self.account.id) end
   def get_publishing_agreements() account.get_publishing_agreements end
   #def ipi() Ipi.find_by( user_id: self.id,  master_ipi: true) end
-  
- 
+
+
   def label
     begin
       unless _label = Label.find_by(id: self.default_label_id )
-        _label = Label.create_label( 
+        _label = Label.create_label(
           self.account.id
         )
       end
@@ -909,13 +909,13 @@ class User < ActiveRecord::Base
       return nil
     end
   end
-  
+
   def personal_distribution_agreement
      label.default_distribution_agreement if label
   end
-  
-  
-  
+
+
+
   def legal_informations_completed?
     return false if self.address.first_name.blank?
     return false if self.address.last_name.blank?
@@ -925,43 +925,43 @@ class User < ActiveRecord::Base
     return false if self.address.zip_code.blank?
     true
   end
-  
-  
-  
-  
-  
-  
-  
-  
-  def self.search query 
+
+
+
+
+
+
+
+
+  def self.search query
     if query.present?
       return User.search_user(query)
     else
       return all
     end
   end
-  
-  
-  
+
+
+
   def self.cached_find_by_auth_token( auth_token)
     Rails.cache.fetch([name, auth_token]) { User.find_by_auth_token( auth_token)  }
-    
+
   end
-  
+
   def flush_auth_token_cache auth_token
     Rails.cache.delete([self.class.name, auth_token])
   end
-  
-  
+
+
   def self.to_csv
     CSV.generate do |csv|
 
       #csv << column_names
       csv << ['Id','Name', 'Email', 'Role', 'Account Id', 'Activated' ]
-      
+
       all.each do |user|
-        csv << [  user.id.to_s, 
-                  user.name, 
+        csv << [  user.id.to_s,
+                  user.name,
                   user.email,
                   user.role,
                   user.account.id.to_s,
@@ -971,30 +971,30 @@ class User < ActiveRecord::Base
 
     end
   end
-  
-  
+
+
   def self.create_account_for user
-    
+
     Account.where(
                     contact_email: user.email,
                     title: user.email,
                     user_id: user.id
                   )
-            .first_or_create(  title: user.email, 
-                               account_type: 'Social', 
-                               contact_email: user.email, 
+            .first_or_create(  title: user.email,
+                               account_type: 'Social',
+                               contact_email: user.email,
                                user_id: user.id,
                                expiration_date: Date.current()>>1
                             )
 
   end
-  
-  
-  
+
+
+
   def self.invite_to_catalog_by_email email, title, body, catalog_id
     ap 'User.invite_to_catalog_by_email not implemented'
   end
-  
+
 
   # Check if there is a user with the email if not create a niw one
   def self.find_or_create_from_email email
@@ -1002,33 +1002,33 @@ class User < ActiveRecord::Base
     if user = User.get_by_email( email )
       return user
     end
-    create_from_email email 
+    create_from_email email
   end
-  
+
   def self.create_user_with_account email
     create_from_email email
   end
-  
-  # invite a create a new user based on an email 
+
+  # invite a create a new user based on an email
   def self.create_from_email email
-    
+
     if email = EmailSanitizer.saintize( email )
       user_name = create_uniq_user_name_from_email email
-      
+
       secret_temp_password  = UUIDTools::UUID.timestamp_create().to_s
-      user                  = User.create(    
+      user                  = User.create(
                                           user_name:      user_name,
-                                              email:      email, 
-                                            invited:      true, 
-                                           password:      secret_temp_password, 
+                                              email:      email,
+                                            invited:      true,
+                                           password:      secret_temp_password,
                               password_confirmation:      secret_temp_password,
                                   account_activated:      false,
                                     private_profile:      true
                                           )
-      DefaultAvararJob.perform_later user.id                   
+      DefaultAvararJob.perform_later user.id
       # apply a password reset token
       user.add_token
-      
+
       # create an account
       UserAssetsFactory.new user
 
@@ -1037,17 +1037,17 @@ class User < ActiveRecord::Base
     end
     false
   end
-  
+
   def self.create_uniq_user_name_from_email email
-    
+
     begin
       user_name = email.split('@').first
     rescue
       user_name = 'no_name'
     end
-    
+
     user_name.capitalize!
-    
+
     if usr = User.where(user_name: user_name).first
       if last_user = User.last
         user_name = [ user_name, last_user.id.to_s].compact.join('_')
@@ -1055,36 +1055,36 @@ class User < ActiveRecord::Base
     end
     user_name
   end
-  
+
   def connections_count
     Connection.where("user_id = ?  OR connection_id = ?" , self.id, self.id).count
   end
-  
+
   # Send notification to an existing user
   def send_notification options={}
     ap '-- send_notification --'
     ap options
   end
-  
+
   # send an infvitation to a new user
   def self.send_invitation options={}
     ap '-- send_invitation --'
     ap options
   end
-  
 
-  
-  # find or create a user 
+
+
+  # find or create a user
   # and send an email invitation
-  
+
   def self.invite_to_account_by_email email, title, body, account_id, current_user_id
-    
-    
+
+
     sanitized_email = EmailSanitizer.saintize email
 
     # the user is already signed up
     if found_user       = User.where(email: sanitized_email).first
-      
+
       # invite found user to account
       UserMailer.delay.invite_existing_user_to_account found_user.id, title, body
 
@@ -1092,19 +1092,19 @@ class User < ActiveRecord::Base
       # create user
       #user_name = User.create_uniq_user_name_from_email(email)
       secret_temp_password = UUIDTools::UUID.timestamp_create().to_s
-      new_user = User.create( email:                  sanitized_email, 
+      new_user = User.create( email:                  sanitized_email,
                               name:                   create_uniq_user_name_from_email(sanitized_email),
                               user_name:              create_uniq_user_name_from_email(sanitized_email),
-                              invited:                true, 
-                              password:               secret_temp_password, 
+                              invited:                true,
+                              password:               secret_temp_password,
                               password_confirmation:  secret_temp_password,
                               role:                   'Customer'
-                                
+
                             )
-      
+
       # apply a password reset token
       new_user.add_token
-      
+
       # create account
       UserAssetsFactory.new new_user
 
@@ -1120,11 +1120,12 @@ class User < ActiveRecord::Base
     self.password_reset_sent_at = Time.zone.now
     save!
   end
-  
+
   def name_or_email
     return  name == '' ? email : name
   end
-  
+
+  # TODO: can return UserEmail instead of user
   def self.find_by_email test_email
     User.find_by(email: test_email) || UserEmail.find_by(email: test_email)
     #ap test_email
@@ -1136,11 +1137,11 @@ class User < ActiveRecord::Base
     #end
     #return user
   end
-  
+
   def has_access_to_cattalogs_on account
     CatalogUser.find_by(catalog_id: account.catalog_ids, user_id: self.id)
   end
-  
+
   def self.cached_find(id)
     begin
       case id.class.name
@@ -1157,7 +1158,7 @@ class User < ActiveRecord::Base
     end
     nil
   end
-  
+
   #def set_go_to go_to_url
   #  ap @go_to_url = go_to_url
   #end
@@ -1165,23 +1166,23 @@ class User < ActiveRecord::Base
   #def get_google_url
   #  @go_to_url
   #end
-  
+
   def facebook
-    
+
     if provider = authorization_providers.find_by(provider: 'facebook')
       @facebook ||= Koala::Facebook::API.new(provider.oauth_token)
       block_given? ? yield(@facebook) : @facebook
     else #Koala::Facebook::APIError
-      
+
       return nil
     end
     @facebook
   end
-  
+
   def friends_count
     facebook { |fb| fb.get_connection("me", "friends").size }
   end
-  
+
   def facebook_publish_actions
     if facebook
       begin
@@ -1196,16 +1197,16 @@ class User < ActiveRecord::Base
       return false
     end
   end
-  
+
   def set_has_shared_a_recording
     return if self.has_shared_a_recording
-    
+
     if !self.share_on_facebooks.blank? || !self.share_on_twitters.blank?
       self.update(has_shared_a_recording: true)
     end
-    
+
   end
-  
+
   def set_has_invited_friends
     begin
       return if self.user_configuration.has_invited_friends
@@ -1215,14 +1216,14 @@ class User < ActiveRecord::Base
     rescue
     end
   end
-  
-  
+
+
   def attach_common_work_ipis_to_personal_publisher
 
     self.common_work_ipis.each do |common_work_ipi|
       common_work_ipi.common_work_ipi_publishers.destroy_all
     end
-    
+
     self.common_work_ipis.each do |common_work_ipi|
       CommonWorkIpiPublisher.create(
         common_work_ipi_id:             common_work_ipi.id,
@@ -1234,13 +1235,13 @@ class User < ActiveRecord::Base
 
     end
   end
-  
+
   def flush_cache
     Rails.cache.delete([self.class.name, id])
     Rails.cache.delete([self.class.name, self.slug])
   end
-  
-  
+
+
 
 private
 
@@ -1250,7 +1251,7 @@ private
     when "Playlist", "MusicOpportunity" then class_name
     end
   end
-  
+
 
   def generate_token(column)
     begin

@@ -1,76 +1,76 @@
-create a polymopphic association
-rails g scaffold issue_events title data:text subject:references{polymorphic}
-rails g model document_user document:belongs_to user:references{polymorphic}
-
--------------
-Associations
-rails g migration AddUserRefToSalesCouponBatches user:references
-rails g migration AddDocumentableRefToDocuments documentable:references{polymorphic}
-
-rails g migration AddSignatureRefToDocumentUsers digital_signature:references
-
-rails g migration AddDistributionAgreementRefToRecordingIpis distribution_agreement:references
-
-rails g migration AddPublisherRefToCommonWorkIpis publisher:references
-
-add_reference :shop_products, :productable, index: true, polymorphic: true
-
-add_foreign_key "account_features", "plans", on_delete: :cascade
-
-rails g migration AddLabelRecordingRefToShopProducts label_recording:references
-              
-
--------------
-reset the db !DONT
-rake db:reset
-
--------------
-Remove a field
-rails g migration RemoveNameFromUsers name
-
--------------
-Without test
-rails generate model Coupon code role mailing_list_id list_group price:integer --no-test-framework
 
 
--------------
-Access a namespace
-has_many :orders, class_name: 'Shop::Order'
-
--------------
-rename_column :table_name, :old_column_name, :new_column_name
-
-
-
-
-
-rails g controller -no-helper --no-assets --no-controller-specs --no-view-specs
-
-
-#has_many :entries_media, class_name: 'Join::EntryMedia', foreign_key: :media_item_id
 #  
-#has_many :entries, through: :entries_media, class_name: 'Cms::ContentEntry', source: :entry
-
-
-
-rails g model MusicSubmissionSelection account:belongs_to  music_submission:belongs_to
-
-
-rails g model CollectionUser user:belongs_to collection:belongs_to
-
 rails g model ItemSelection item_collection:belongs_to item:references{polymorphic} 
 
 
 
-rails g model RecordingCollectionUser recording_collection:belongs_to user:belongs_to remove_selections:boolean share_collection:boolean show_shared_with:boolean
-rails g model RecordingSellection message:text recording_collection:belongs_to recording_collection_user:belongs_to recording:belongs_to
+-------------
 
 
-rails g scaffold publishing_deals publisher:belongs_to title document:belongs_to
+rename_column :table_name, :old_column_name, :new_column_name
+
  
 
 
+-------------
+
+Remove a field
+reset the db !DONT
+rails g controller -no-helper --no-assets --no-controller-specs --no-view-specs
+rails g migration AddUserRefToSalesCouponBatches user:references
+rails g migration AddSignatureRefToDocumentUsers digital_signature:references
+
+rails g migration AddLabelRecordingRefToShopProducts label_recording:references
 
 
 
+
+
+rails g migration AddDocumentableRefToDocuments documentable:references{polymorphic}
+
+Associations
+rails g model document_user document:belongs_to user:references{polymorphic}
+rails g scaffold publishing_deals publisher:belongs_to title document:belongs_to
+
+
+
+rails g model MusicSubmissionSelection account:belongs_to  music_submission:belongs_to
+rails g migration RemoveNameFromUsers name
+rails g model CollectionUser user:belongs_to collection:belongs_to
+#has_many :entries_media, class_name: 'Join::EntryMedia', foreign_key: :media_item_id
+Access a namespace
+#has_many :entries, through: :entries_media, class_name: 'Cms::ContentEntry', source: :entry
+Without test
+rails g model RecordingSellection message:text recording_collection:belongs_to recording_collection_user:belongs_to recording:belongs_to
+
+
+
+
+rails g migration AddPublisherRefToCommonWorkIpis publisher:references
+
+
+
+rails g model RecordingCollectionUser recording_collection:belongs_to user:belongs_to remove_selections:boolean share_collection:boolean show_shared_with:boolean
+add_foreign_key "account_features", "plans", on_delete: :cascade
+
+rails generate model Coupon code role mailing_list_id list_group price:integer --no-test-framework
+-------------
+rails g scaffold issue_events title data:text subject:references{polymorphic}
+              
+
+
+-------------
+-------------
+create a polymopphic association
+add_reference :shop_products, :productable, index: true, polymorphic: true
+rake db:reset
+has_many :orders, class_name: 'Shop::Order'
+
+
+
+rails g migration AddDistributionAgreementRefToRecordingIpis distribution_agreement:references
+
+
+-------------
 

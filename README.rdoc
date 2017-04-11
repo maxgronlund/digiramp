@@ -29,6 +29,10 @@ $ redis-server /usr/local/etc/redis.conf
 * Redis
 redis-server
 
+*
+memcached
+brew install memcached
+
 * Deployment instructions
 $ git push origin master
 $ cap production deploy
@@ -68,7 +72,7 @@ $ thin -e production start
 # SIDEKIQ
 
 # find the pid
-ps -ef 
+ps -ef
 
 # Check if sidekiq is running and for how long, It shoule restart after each deploy
 ssh deploy@78.46.19.136
@@ -89,10 +93,10 @@ $ RAILS_ENV=production bundle exec sidekiq
 ssh deploy@78.46.19.136
       sudo "../../etc/init.d/sidekiq_digiramp_production stop"
       sudo "../../etc/init.d/sidekiq_digiramp_production start"
-      
-# not sure it's working      
-bundle exec sidekiqctl quiet SIDEKIQ_PID      
-      
+
+# not sure it's working
+bundle exec sidekiqctl quiet SIDEKIQ_PID
+
 
 #############################
 Checking routes / find dead routes
