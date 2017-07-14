@@ -248,7 +248,7 @@ gem 'uuid_stamper', git: 'git://github.com/maxgronlund/uuid_stamper.git'
 gem 'aws-sdk', '~> 1'
 gem 'aws-sdk-resources', '~> 2'
 
-#require 'json'
+require 'json'
 #require 'httparty'
 
 
