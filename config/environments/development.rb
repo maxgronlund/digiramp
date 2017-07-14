@@ -1,17 +1,17 @@
 Digiramp::Application.configure do
-  
+
   # working with stripe
   # config.action_dispatch.perform_deep_munge = false !dont use
   # config.cache_classes = true
-  
-  
+
+
   # Settings specified here will take precedence over those in config/application.rb.
 
   # In the development environment your application's code is reloaded on
   # every request. This slows down response time but is perfect for development
   # since you don't have to restart the web server when you make code changes.
   config.cache_classes = false
-  
+
 
   # Do not eager load code on boot.
   config.eager_load = false
@@ -19,8 +19,9 @@ Digiramp::Application.configure do
   # Show full error reports and disable caching.
   config.consider_all_requests_local          = true
   config.action_controller.perform_caching    = true
+  # 14/07/2017
   config.cache_store                          = :dalli_store
-  
+
 
   # Don't care if the mailer can't send.
   config.action_mailer.raise_delivery_errors  = false
@@ -35,10 +36,10 @@ Digiramp::Application.configure do
   # This option may cause significant delays in view rendering with a large
   # number of complex assets.
   # config.assets.debug = true
-  
+
   Rails.application.routes.default_url_options[:host] = 'localhost:3000'
-  
-  
+
+
   #OmniAuth.config.logger = Rails.logger
   config.action_mailer.smtp_settings = {
     address: Rails.application.secrets.email_provider_address,
@@ -48,13 +49,13 @@ Digiramp::Application.configure do
     enable_starttls_auto: true,
     user_name: Rails.application.secrets.email_provider_username,
     password: Rails.application.secrets.email_provider_password,
-    
+
   }
-  
+
   #config.action_controller.page_cache_directory = "#{Rails.root.to_s}/public/deploy"
-  
- 
-  
+
+
+
   # ActionMailer Config
   config.action_mailer.default_url_options = { :host => 'localhost:3000' }
   config.action_mailer.delivery_method = :smtp
@@ -63,7 +64,7 @@ Digiramp::Application.configure do
   config.action_mailer.perform_deliveries = true
 
 
-  
+
 end
 
 

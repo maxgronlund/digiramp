@@ -1,4 +1,4 @@
-require "opbeat/capistrano"
+# require "opbeat/capistrano"
 require "whenever/capistrano"
 
 set :pty,  false
@@ -7,16 +7,21 @@ set :deploy_user, 'deploy'
 
 #
 # setup repo details
-set :scm, :git
+#set :scm, :git
 set :repo_url, 'git@github.com:maxgronlund/digiramp.git'
 #set :sidekiq_pid, "#{current_path}/tmp/pids/sidekiq.pid"
 
 
 # setup rvm.
-set :rbenv_type, :system
-set :rbenv_ruby, '2.1.1'
-set :rbenv_prefix, "RBENV_ROOT=#{fetch(:rbenv_path)} RBENV_VERSION=#{fetch(:rbenv_ruby)} #{fetch(:rbenv_path)}/bin/rbenv exec"
-set :rbenv_map_bins, %w{rake gem bundle ruby rails}
+
+############### OUTCOMMENTED >>>> ####################
+# set :rbenv_type, :system
+# set :rbenv_ruby, '2.3.1'
+# set :rbenv_prefix, "RBENV_ROOT=#{fetch(:rbenv_path)} RBENV_VERSION=#{fetch(:rbenv_ruby)} #{fetch(:rbenv_path)}/bin/rbenv exec"
+# set :rbenv_map_bins, %w{rake gem bundle ruby rails}
+############### <<<< OUTCOMMENTED ####################
+
+
 
 # how many old releases do we want to keep, not much
 set :keep_releases, 5
@@ -38,6 +43,7 @@ set :whenever_identifier, ->{ "#{fetch(:application)}_#{fetch(:stage)}" }
 # which config files should be copied by deploy:setup_config
 # see documentation in lib/capistrano/tasks/setup_config.cap
 # for details of operations
+############### OUTCOMMENTED >>>> ####################
 set(:config_files, %w(
   nginx.conf
   log_rotation
@@ -46,6 +52,7 @@ set(:config_files, %w(
   unicorn_init.sh
   sidekiq_init.sh
 ))
+############### <<<< OUTCOMMENTED ####################
 
 #set(:config_files, %w(
 #  nginx.conf
@@ -81,11 +88,12 @@ set(:symlinks, [
   {
     source: "log_rotation",
    link: "/etc/logrotate.d/{{full_app_name}}"
-  },
-  {
-    source: "monit",
-    link: "/etc/monit/conf.d/{{full_app_name}}.conf"
   }
+  #,
+  #{
+  #  source: "monit",
+  #  link: "/etc/monit/conf.d/{{full_app_name}}.conf"
+  #}
   #,
   #{
   #  source: "sidekiq_init.sh",
@@ -106,8 +114,8 @@ namespace :deploy do
   # compile assets locally then rsync
   after 'deploy:symlink:shared', 'deploy:compile_assets_locally'
   after :finishing, 'deploy:cleanup'
-  
-  
+
+
 
   # remove the default nginx configuration as it will tend
   # to conflict with our configs.
@@ -119,12 +127,12 @@ namespace :deploy do
 
   # Restart monit so it will pick up any monit configurations
   # we've added
-  after 'deploy:setup_config', 'monit:restart'
+  # after 'deploy:setup_config', 'monit:restart'
 
   # As of Capistrano 3.1, the `deploy:restart` task is not called
   # automatically.
   after 'deploy:publishing', 'deploy:restart'
-  
+
   # copy images without uuid stamp
   after 'deploy:publishing', 'deploy:copy_images'
 end

@@ -46,7 +46,7 @@ cap production "logs:tail[unicorn]"  <<< IMPORTANT if there is problems
 cap production "logs:tail[sidekiq]"
 
 * ...
-ssh deploy@78.46.19.136
+ssh deploy@213.239.210.240
 cd apps/digiramp_production/current
 bundle exec rails c -e production
 
@@ -75,7 +75,7 @@ $ thin -e production start
 ps -ef
 
 # Check if sidekiq is running and for how long, It shoule restart after each deploy
-ssh deploy@78.46.19.136
+ssh deploy@213.239.210.240
 ps aux | grep sidekiq
 
 to kill a process
@@ -83,14 +83,14 @@ $ kill -9 PID
 
 
 # restart DONT DO THIS
-$ ssh deploy@78.46.19.136
+$ ssh deploy@213.239.210.240
 $ cd apps/digiramp_production/current
 $ RAILS_ENV=production bundle exec sidekiq
 
 
 
 # not sure working
-ssh deploy@78.46.19.136
+ssh deploy@213.239.210.240
       sudo "../../etc/init.d/sidekiq_digiramp_production stop"
       sudo "../../etc/init.d/sidekiq_digiramp_production start"
 
@@ -104,7 +104,7 @@ $ rake traceroute
 
 
 ssh-add
-78.46.19.136:2812
+213.239.210.240:2812
 
 
 

@@ -140,8 +140,8 @@ gem "rails-erd"
 gem 'gravatarify', '~> 3.0.0'
 gem 'pusher'
 gem "gritter", "1.1.0"
-#gem "airbrake"
-gem "opbeat"
+# gem "airbrake"
+# gem "opbeat"
 gem "cocoon"
 gem 'rubyzip'
 #gem 'bootstrap-validator-rails', '~> 0.5.3'
@@ -185,8 +185,8 @@ gem 'mandrill-rails'
 
 gem 'high_voltage', '~> 2.4.0'
 
-gem 'charlock_holmes'
-#gem 'cloudsponge', github: 'cloudsponge/cloudsponge-lib-ruby'
+# gem 'charlock_holmes' 14/07/2017
+
 gem "omnicontacts"
 
 gem 'slack-notifier'
@@ -272,6 +272,7 @@ gem 'docverter'
 
 #gem 'httparty'
 
+# 14/07/2017
 gem "recaptcha", :require => "recaptcha/rails"
 
 #gem 'actionpack-action_caching'
@@ -309,9 +310,9 @@ group :development do
 
   gem 'better_errors'
   gem 'binding_of_caller'
-  
+
   gem 'deadweight'
   gem 'mechanize'
-  
-  
+
+
 end

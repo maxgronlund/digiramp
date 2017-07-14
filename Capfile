@@ -4,6 +4,9 @@ require 'capistrano/setup'
 # Includes default deployment tasks
 require 'capistrano/deploy'
 
+require "capistrano/scm/git"
+install_plugin Capistrano::SCM::Git
+
 # whenever
 require "whenever/capistrano"
 
@@ -29,9 +32,9 @@ require "whenever/capistrano"
  require 'capistrano/sidekiq'
  require 'capistrano/sidekiq/monit'
 
- 
+
  #require './config/boot'
- #require 'airbrake/capistrano' 
+ #require 'airbrake/capistrano'
 
 # Loads custom tasks from `lib/capistrano/tasks' if you have any defined.
 Dir.glob('lib/capistrano/tasks/*.cap').each { |r| import r }

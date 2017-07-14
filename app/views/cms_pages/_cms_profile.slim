@@ -8,47 +8,47 @@
         p = @user.profession
     .row
       .col-sm-12
-        h5  
+        h5
           - if @user.composer
             span class="label label-default"
-              'Composer  
+              'Composer
             '&nbsp;
-        
+
           - if @user.writer
             span class="label label-default"
               'Writer
             '&nbsp;
-        
+
           - if @user.artist
             span class="label label-default"
               'Artist
             '&nbsp;
-        
+
           - if @user.author
             span class="label label-default"
               'Author
             '&nbsp;
-        
+
           - if @user.producer
             span class="label label-default"
               'Producer
             '&nbsp;
-        
+
           - if @user.musician
             span class="label label-default"
               'Musician
             '&nbsp;
-        
+
           - if @user.remixer
             span class="label label-default"
               'Remixer
             '&nbsp;
-        
+
           - if @user.dj
             span class="label label-default"
               'DJ
             '&nbsp;
-        
+
         /= link_to user_followers_path(@user, clear: 'clear') do
         /  i class="fa fa-users"
         /  '&nbsp;
@@ -57,18 +57,18 @@
       .col-sm-4
         /.user-avatar
         = render 'shared/lightbox', locals: { \
-                                    image_url: @user.image_url , 
-                                    thumb_url: @user.image_url(:avatar_184x184) , 
-                                    id: @user.id, 
+                                    image_url: @user.image_url ,
+                                    thumb_url: @user.image_url(:avatar_184x184) ,
+                                    id: @user.id,
                                     caption: @user.user_name}
-        
+
         - if current_user
           .row
             .col-sm-12.pull-down-8
               .new_like_btn
                 == render 'users/shared/like'
-              
-              
+
+
 
         /- if @user.settings.has_a_subscription
         /= debug @user.account_type
@@ -81,20 +81,20 @@
           h4
             span class='label label-warning'
              'Pro user
-        /=  image_tag @user.image_url(:avatar_184x184) 
+        /=  image_tag @user.image_url(:avatar_184x184)
         .pull-down-10
-      
-       
+
+
 
       .col-sm-8
 
         - if @user.country.to_s != '' || @user.city.to_s != ''
           .location
             = @user.city
-            - if c = Country.find_country_by_alpha2(@user.country)
-              '&nbsp;,
-              = c.name
-        
+            / - if c = Country.find_country_by_alpha2(@user.country)
+            /   '&nbsp;,
+            /   = c.name
+
         i
           'Member since:
           = @user.created_at.strftime("%Y-%m-%d")
@@ -103,132 +103,132 @@
         .user-stat
           .user-stat-row
             .user-stat-title
-              h4 
+              h4
                 i.fa.fa-eye
                 '&nbsp;Views
-              
+
             .user-stat-data
               h4 = @user.views
-              
-          
+
+
           = link_to user_recordings_path(@user, clear: 'clear') do
             .user-stat-row
               .user-stat-title
-                h4 
+                h4
                   i.fa.fa-headphones
                   '&nbsp;Recordings
-                
+
               .user-stat-data
                 h4 = @user.recordings.count
-          
+
           = link_to user_likes_path(@user) do
             .user-stat-row
               .user-stat-title
-                h4 
+                h4
                   i.fa.fa-headphones
                   '&nbsp;Liked recordings
               .user-stat-data
                 h4 = @user.likes.count
-            
+
           = link_to user_followers_path(@user, clear: 'clear') do
             .user-stat-row
               .user-stat-title
-                h4 
+                h4
                   i.fa.fa-user
                   '&nbsp;
                   i.fa.fa-arrow-left
                   '&nbsp;Followers
-                
+
               .user-stat-data
                 h4 = @user.followers.count
-                
-                
-                  
+
+
+
           = link_to user_following_index_path(@user, clear: 'clear') do
             .user-stat-row
               .user-stat-title
-                h4 
+                h4
                   i.fa.fa-user
                   '&nbsp;
                   i.fa.fa-arrow-right
                   '&nbsp;Following
-                
+
               .user-stat-data
                 h4 = @user.followed_users.count
-                  
+
           = link_to user_user_likes_path(@user, clear: 'clear') do
             .user-stat-row
               .user-stat-title
-                h4 
+                h4
                   i.fa.fa-heart.red-heart
                   '&nbsp;Liked users
-                
+
               .user-stat-data
                 h4 = @user.liked_users_count
-          
+
           = link_to user_playlists_path(@user) do
             .user-stat-row
               .user-stat-title
-                h4 
+                h4
                   i.fa.fa-list
                   '&nbsp;Playlists
-                
+
               .user-stat-data
                 h4 = @user.playlists.count
-          
-          
+
+
           - if can_edit_user
             = link_to user_user_creative_projects_path(@user) do
               .user-stat-row
                 .user-stat-title
-                  h4 
+                  h4
                     i.fa.fa-wrench
                     '&nbsp;Projects
-                  
+
                 .user-stat-data
                   h4 = @user.creative_projects.count
           - else
             = link_to user_user_creative_projects_path(@user) do
               .user-stat-row
                 .user-stat-title
-                  h4 
+                  h4
                     i.fa.fa-wrench
                     '&nbsp;Projects
-                  
+
                 .user-stat-data
                   h4 = @user.creative_projects.where(public_project: true).count
-          
-          
+
+
           /= link_to user_ipis_path(@user) do
           /  .user-stat-row
           /    .user-stat-title
-          /      h4 
+          /      h4
           /        i.fa.fa-tags
           /        '&nbsp;Credits
-          /      
+          /
           /    .user-stat-data
           /      h4 = @user.user_credits.count
-          /      
+          /
           = link_to user_user_shop_index_path(@user) do
             .user-stat-row
               .user-stat-title
-                h4 
+                h4
                   i.fa.fa-shopping-cart
                   '&nbsp;Shop
-                
+
               .user-stat-data
                 h4 = @user.products.where(for_sale: true).count
-                
 
-        
+
+
     .pull-down-12
     .row
       .col-sm-12
-        .user-buttons 
-          - if current_user 
+        .user-buttons
+          - if current_user
             .inline-button
               / only the user and supers can edit and add pages
-              
+
               - if can_edit_user
                 => link_to "What I want to do", user_user_user_configurations_path(@user), class: 'btn btn-info', style: "color:#FFF;"
                 = link_to edit_user_path(@user) do
@@ -236,29 +236,29 @@
                     i class="fa fa-pencil"
                     '&nbsp;
                     'Profile settings
-                    
+
                 /= link_to user_user_cms_pages_path(@user) do
                 /  .btn.btn-default
                 /    i class="fa fa-plus"
                 /    '&nbsp;
                 /    'Add page
-                /    
-                    
+                /
+
                 /cms_pages
-              - if current_user.id != @user.id 
+              - if current_user.id != @user.id
                 /  Others can Follow / unfollow / connect and so can the super
                 .inline-button
                   div id="follow_user_#{@user.id.to_s}"
                     -if current_user.following?(@user)
                       == render 'users/unfollow', user: @user, size: ''
-                    - else 
+                    - else
                       == render 'users/follow',   user: @user, size: ''
-                  
+
                 .inline-button
                   .connect-container
                     .connect-buttons
                     == render 'users/connect',    user: @user, size: ''
-                    
+
 
           - else
             / connect when not logged in
@@ -266,12 +266,12 @@
                   .btn.btn-info
                     i.fa.fa-refresh
                     '&nbsp;Connect
-        
-        
+
+
     .row
       .col-sm-12.pull-down-8
         ul.social-icons2.icon-flat.list-unstyled.list-inline
-          
+
           - if @user.link_to_facebook != ''
             li
               => link_to @user.link_to_facebook , target: "_blank" do
@@ -310,11 +310,10 @@
           = link_to  edit_user_social_link_path(@user) do
             .btn.btn-default
               'Manage socials media
-              
-       
+
+
     .row
       .col-sm-12.pull-down-8
         .sexy_line
         = simple_format @user.profile
 
-     
