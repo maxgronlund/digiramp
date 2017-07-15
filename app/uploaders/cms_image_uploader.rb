@@ -9,9 +9,9 @@ class CmsImageUploader < CarrierWave::Uploader::Base
   # Choose what kind of storage to use for this uploader:
   #storage :file
   storage :fog
-  
-  include CarrierWave::MimeTypes
-  process :set_content_type
+
+  # include CarrierWave::MimeTypes
+  # process :set_content_type
 
   # Override the directory where uploaded files will be stored.
   # This is a sensible default for uploaders that are meant to be mounted:
@@ -37,7 +37,7 @@ class CmsImageUploader < CarrierWave::Uploader::Base
   #version :size240x240       do process :resize_to_fill => [240, 240, 'Center']      end
   #version :size480x480       do process :resize_to_fill => [480 ,480, 'Center']      end
   #version :size600x600       do process :resize_to_fit  => [600 ,600]      end
-  
+
   # version :thumb do
   #   process :resize_to_fit => [50, 50]
   # end
