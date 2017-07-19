@@ -81,10 +81,10 @@ set(:symlinks, [
     source: "nginx.conf",
     link: "/etc/nginx/sites-enabled/{{full_app_name}}"
   },
-  {
-    source: "unicorn_init.sh",
-    link: "/etc/init.d/unicorn_{{full_app_name}}"
-  },
+  # {
+  #   source: "unicorn_init.sh",
+  #   link: "/etc/init.d/unicorn_{{full_app_name}}"
+  # },
   {
     source: "log_rotation",
    link: "/etc/logrotate.d/{{full_app_name}}"
