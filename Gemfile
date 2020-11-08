@@ -153,58 +153,22 @@ gem 'wkhtmltopdf-binary'
 # maintaince
 gem 'traceroute'
 
-# avoid ActionController::InvalidCrossOriginRequest
-# gem 'rack-cors', :require => 'rack/cors'
-
-
 gem 'friendly_id', '~> 5.0.0'
-#gem 'bootstrap-datepicker-rails'
-
-
-# for extraction of text content
 gem 'yomu'
-
 # for nice logging
 gem "awesome_print"
-
-#gem 'signature-pad-rails'
-
-#gem 'jquery_file_download-rails'
-
-#gem "sendgrid-ruby"
-## sendgrid webhooks
-#gem 'gridhook'
-
-#gem 'mandrill-api', '~> 1.0.53'
 gem 'mandrill-api', require: 'mandrill'
 gem 'mandrill-rails'
 
-#gem 'activemerchant'
-
-#gem 'iron_mq'
-
 gem 'high_voltage', '~> 2.4.0'
 
-# gem 'charlock_holmes' 14/07/2017
-
 gem "omnicontacts"
-
 gem 'slack-notifier'
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
   gem 'sdoc', '~> 0.4.0'
-
 end
-
-# For cucumber
-#group :test do
-#  gem 'cucumber-rails', :require => false
-#  gem 'rspec-rails'
-#  gem 'database_cleaner'
-#  gem 'factory_girl'
-#  gem 'selenium-webdriver'
-#end
 
 
 group :test, :development do
@@ -223,69 +187,27 @@ group :test, :development do
   gem 'faker'
 end
 
-
 gem 'bcrypt-ruby'
-
-
-# Use unicorn as the app server
 gem 'unicorn'
-
 gem 'thin'
 
 # uniqify names to work with caminari
 gem 'uuid_stamper', git: 'git://github.com/maxgronlund/uuid_stamper.git'
-
-#gem 'capistrano-sidekiq' , github: 'seuros/capistrano-sidekiq'
-#gem 'capistrano-sidekiq'
-
-#gem 'aws-sdk', '~> 1.48.1'
-#gem 'aws-sdk', '~> 2'
-#gem 'aws-sdk-core'
-#gem 'aws-sdk-resources'
-
-#gem 'aws-sdk-v1'
-#gem 'aws-sdk', '~> 2'
 gem 'aws-sdk', '~> 1'
 gem 'aws-sdk-resources', '~> 2'
-
-# require 'json'
-# require 'httparty'
-
-
 gem 'uuid', '~> 2.3.7'
-
-# payment
-#gem 'stripe', '~> 1.20.4'
 gem 'stripe', '~> 1.21.0'
-# handling webhooks
 gem 'stripe_event'
-# handling user/ stripe accounts
-
-
-# state maching
 gem 'aasm'
-# history
 gem 'paper_trail', '~> 4.0.0.rc1'
-
-#pdf converter
 gem 'docverter'
-
-#gem 'httparty'
-
-# 14/07/2017
 gem "recaptcha", :require => "recaptcha/rails"
-
-#gem 'actionpack-action_caching'
-
-# gem  'blockchain'
 
 group :development do
   gem 'rb-readline'
   # Use Capistrano for deployment
   gem 'capistrano'
-
   gem 'capistrano-rbenv'
-
   # rails specific capistrano functions
   gem 'capistrano-rails'
 
@@ -293,27 +215,11 @@ group :development do
   gem 'capistrano-bundler'
 
   gem 'capistrano-sidekiq'
-  # gem "capistrano-sidekiq", '0.3.6'
-  #gem 'capistrano-sidekiq', github: 'seuros/capistrano-sidekiq'
-
-
-  # if you are using RVM
-  #gem 'capistrano-rvm'
-
-  #gem "sshkit", '~> 1.2'
-
-  # Use debugger
-  # gem 'debugger', group: [:development, :test]
-  # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
   gem 'byebug'
   gem 'quiet_assets'
-
   gem 'better_errors'
   gem 'binding_of_caller'
-
   gem 'deadweight'
   gem 'mechanize'
-
-
 end

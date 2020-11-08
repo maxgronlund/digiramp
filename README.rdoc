@@ -1,18 +1,5 @@
 == README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
-
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
 * Database initialization
 get backup from s3
 $ psql digiramp_development < /Users/synthmax/Documents/rails-projects/digiramp/digiramp-rails/PostgreSQL.sql
@@ -51,10 +38,6 @@ cd apps/digiramp_production/current
 bundle exec rails c -e production
 
 
-
-
-
-
 Please feel free to use a different markup language if you do not plan to run
 <tt>rake doc:app</tt>.
 
@@ -64,8 +47,6 @@ Test on localhost
 $ rake RAILS_ENV=production  assets:clean
 $ rake RAILS_ENV=production  assets:precompile
 $ thin -e production start
-
-
 
 
 ############################
@@ -105,12 +86,6 @@ $ rake traceroute
 
 ssh-add
 213.239.210.240:2812
-
-
-
-
-
-
 74
 
 #############################

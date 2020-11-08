@@ -19,7 +19,7 @@ end
 
 
 When(/^I scroll page to position "(.*?)"$/) do |position|
-  
+
   page.execute_script("window.scrollTo(0, document.body.scrollHeight/#{position});")
 end
 
@@ -30,7 +30,6 @@ end
 Then(/^Does it look right$/) do
   ask('does that look right?')
 end
-
 
 #When(/^I scroll page$/) do
 #  page.execute_script('window.scrollTo(0,200000)')
